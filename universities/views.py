@@ -1,7 +1,7 @@
 from django.http import Http404
 
 from mako.exceptions import TopLevelLookupException
-from mitxmako.shortcuts import render_to_response
+from edxmako.shortcuts import render_to_response
 from django.views.generic import ListView, DetailView
 
 from universities.models import University
