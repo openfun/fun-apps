@@ -17,7 +17,7 @@ class MakoTemplateMixin(object):
         try:
             response = render_to_response(template_name, context, **response_kwargs)
         except TopLevelLookupException:
-            raise Http404
+            raise Http404("Template " + template_name + " not found")
         else:
             return response
 
