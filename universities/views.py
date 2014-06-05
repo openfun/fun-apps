@@ -1,7 +1,4 @@
-from django.http import Http404
-
-from mako.exceptions import TopLevelLookupException
-from edxmako.shortcuts import render_to_response
+from django.shortcuts import render_to_response
 from django.views.generic import ListView, DetailView
 
 from universities.models import University
@@ -14,12 +11,8 @@ class MakoTemplateMixin(object):
     """
     def render_to_response(self, context, template_name=None, **response_kwargs):
         template_name = template_name or self.template_name
-        try:
-            response = render_to_response(template_name, context, **response_kwargs)
-        except TopLevelLookupException:
-            raise Http404("Template " + template_name + " not found")
-        else:
-            return response
+        response = render_to_response(template_name, context, **response_kwargs)
+        return response
 
 
 class UniversityMixin(object):

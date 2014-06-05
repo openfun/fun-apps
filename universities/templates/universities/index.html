@@ -1,3 +1,4 @@
+## mako
 <%! 
 from django.utils.translation import ugettext as _
 %>
@@ -10,9 +11,7 @@ from django.utils.translation import ugettext as _
 
 <section class="university-list">
   <section class="introduction container">
-    % if self.fun_theme_enabled():
     <img class="illustration" src="${static.url('themes/fun/images/illustrations/university.jpg')}" />
-    % endif
     <header>
       <h1>${_("The universities and schools")}</h1>
       <h2>${_("Offer courses and trainings on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h2>
