@@ -1,0 +1,44 @@
+<%! 
+from django.utils.translation import ugettext as _
+%>
+
+<%namespace name='static' file='../static_content.html'/>
+
+<%inherit file="../main.html" />
+
+<%block name="title"><title>${ university.name }</title></%block>
+
+<%block name="body">
+  <section class="university-courses">
+    <section class="introduction container">
+      % if university.banner:
+      <img class="illustration" src="${ university.banner.url }" />
+      % endif
+      <header>
+      % if university.logo:
+        <img class="logo" src="${ university.logo.url }" />
+      % endif
+      </header>
+    </section>
+
+    <section class="courses-list container">
+      <%block name="university_description">
+      ${ university.description }
+      </%block>
+    </section>
+
+    <section class="find-courses container">
+      <section class="courses">
+        <ul class="courses-listing">
+          % for course in courses:
+          <li class="courses-listing-item">
+            <%include file="../course.html" args="course=course" />
+          </li>
+          % endfor
+        </ul>
+      </section>
+
+    </section>
+  </section>
+</%block>
+
