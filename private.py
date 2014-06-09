@@ -20,3 +20,8 @@ INSTALLED_APPS += ('universities', )
 
 # Use a FUN-specific root urlconf module
 ROOT_URLCONF = 'fun.lms.urls'
+
+# Locale path
+LOCALE_PATHS = (
+  '/edx/app/edxapp/fun-apps/locale'
+)
