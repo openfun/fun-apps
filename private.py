@@ -23,7 +23,8 @@ ROOT_URLCONF = 'fun.lms.urls'
 
 # Locale path
 LOCALE_PATHS = (
-  '/edx/app/edxapp/fun-apps/locale'
+  '/edx/app/edxapp/fun-apps/locale',
+  '/edx/app/edxapp/edx-platform/conf/locale',
 )
 
 # Enable admin site for university app
