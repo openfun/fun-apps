@@ -25,3 +25,7 @@ ROOT_URLCONF = 'fun.lms.urls'
 LOCALE_PATHS = (
   '/edx/app/edxapp/fun-apps/locale'
 )
+
+# Enable admin site for university app
+from devstack import FEATURES
+FEATURES['ENABLE_DJANGO_ADMIN_SITE'] = True
