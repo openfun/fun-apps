@@ -30,3 +30,7 @@ LOCALE_PATHS = (
 # Enable admin site for university app
 from devstack import FEATURES
 FEATURES['ENABLE_DJANGO_ADMIN_SITE'] = True
+
+# Enable help page
+from aws import MKTG_URL_LINK_MAP
+MKTG_URL_LINK_MAP['HELP'] = 'help'
