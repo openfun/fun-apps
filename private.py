@@ -31,6 +31,7 @@ LOCALE_PATHS = (
 from devstack import FEATURES
 FEATURES['ENABLE_DJANGO_ADMIN_SITE'] = True
 
-# Enable help page
+# Enable help and legal pages
 from aws import MKTG_URL_LINK_MAP
 MKTG_URL_LINK_MAP['HELP'] = 'help'
+MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
