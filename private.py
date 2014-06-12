@@ -38,3 +38,6 @@ MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
 # Contact form
 INSTALLED_APPS += ('contact', )
+
+# Address to which contact emails should be sent
+CONTACT_EMAIL = 'contact@france-universite-numerique-mooc.fr'
