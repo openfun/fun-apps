@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import FormView
 
-from mitxmako.shortcuts import render_to_response
+from edxmako.shortcuts import render_to_response
 
 from contact.forms import ContactForm
 
