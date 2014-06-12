@@ -35,3 +35,6 @@ FEATURES['ENABLE_DJANGO_ADMIN_SITE'] = True
 from aws import MKTG_URL_LINK_MAP
 MKTG_URL_LINK_MAP['HELP'] = 'help'
 MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
+
+# Contact form
+INSTALLED_APPS += ('contact', )
