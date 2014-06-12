@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = patterns( '', 
   (r'^university/', include('universities.urls')),
+  (r'^contact/', include('contact.urls')),
   (r'^', include('lms.urls'))
 )
 
