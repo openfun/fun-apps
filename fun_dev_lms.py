@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 
-
 from .devstack import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 # Add the fun-apps repo to sys.path:
 import sys
 sys.path.append('/edx/app/edxapp/fun-apps')
 
-#XITI_ENABLED = False
-
 FEATURES['USE_CUSTOM_THEME'] = True
+
+# Use a FUN-specific root urlconf module
+ROOT_URLCONF = 'fun.lms.urls'
 
 INSTALLED_APPS += (
     'django_extensions',
     'universities',
     'ckeditor',
     'adminsortable',
+    'contact',
     )
 
 
@@ -24,7 +25,6 @@ MEDIA_ROOT = "/edx/var/edxapp/uploads"
 STATIC_ROOT = '/edx/var/edxapp/staticfiles'
 
 CKEDITOR_UPLOAD_PATH = '../uploads/'   # ?
-PLATEFORM_NAME = u"FUN"
 
 # Xiti
 XITI_ENABLED = True
@@ -34,16 +34,6 @@ XITI_XTN2 = "101"
 XITI_JS_URL = "/static/themes/fun/js/vendor/xtcore.js"
 XITI_XTSITE = "530632"
 XITI_XTSD = "https://logs1279"
-
-# Medias
-#MEDIA_URL = "/uploads/"
-
-# Add the universities app to the list of installed apps
-#from devstack import INSTALLED_APPS
-#INSTALLED_APPS += ('universities', )
-
-# Use a FUN-specific root urlconf module
-ROOT_URLCONF = 'fun.lms.urls'
 
 # Locale path
 LOCALE_PATHS = (
@@ -59,9 +49,6 @@ FEATURES['ENABLE_DJANGO_ADMIN_SITE'] = True
 from aws import MKTG_URL_LINK_MAP
 MKTG_URL_LINK_MAP['HELP'] = 'help'
 MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
-
-# Contact form
-#INSTALLED_APPS += ('contact', )
 
 # Address to which contact emails should be sent
 CONTACT_EMAIL = 'contact@france-universite-numerique-mooc.fr'
