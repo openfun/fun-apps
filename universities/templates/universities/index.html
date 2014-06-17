@@ -1,5 +1,5 @@
 ## mako
-<%! 
+<%!
 from django.utils.translation import ugettext as _
 %>
 
@@ -10,13 +10,12 @@ from django.utils.translation import ugettext as _
 <%block name="title"><title>${_("Institutions")}</title></%block>
 
 <section class="university-list">
-  <section class="introduction container">
+  <header>
     <img class="illustration" src="${static.url('themes/fun/images/illustrations/university.jpg')}" />
-    <header>
-      <h1>${_("The universities and schools")}</h1>
-      <h2>${_("Offer courses and trainings on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h2>
-    </header>
-  </section>
+    <h1>${_("The universities and schools")}</h1>
+    <h2>${_("Offer courses and trainings on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h2>
+  </header>
+</section>
 
   <section class="university-list container">
   <p>${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}</p>
