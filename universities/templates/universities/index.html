@@ -5,9 +5,11 @@ from django.utils.translation import ugettext as _
 
 <%namespace name='static' file='../static_content.html'/>
 
+<%block name="bodyclass">view-university-list</%block>
+<%block name="title"><title>${_("Institutions")}</title></%block>
+
 <%inherit file="../main.html" />
 
-<%block name="title"><title>${_("Institutions")}</title></%block>
 
 <section class="university-list">
   <header>
