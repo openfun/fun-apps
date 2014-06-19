@@ -42,6 +42,10 @@ INSTALLED_APPS += ('contact', )
 # Address to which contact emails should be sent
 CONTACT_EMAIL = 'contact@france-universite-numerique-mooc.fr'
 
-# Removes the lang_pref middleware which is buggy
+# Blacklist a few middlewares that do not work properly
 from devstack import MIDDLEWARE_CLASSES
-MIDDLEWARE_CLASSES = tuple(m for m in MIDDLEWARE_CLASSES if m != 'lang_pref.middleware.LanguagePreferenceMiddleware')
+BLACKLIST_MIDDLEWARE_CLASSES = (
+  'lang_pref.middleware.LanguagePreferenceMiddleware',
+  'dark_lang.middleware.DarkLangMiddleware',
+)
+MIDDLEWARE_CLASSES = tuple(m for m in MIDDLEWARE_CLASSES if not m in BLACKLIST_MIDDLEWARE_CLASSES)
