@@ -53,3 +53,10 @@ MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 # Address to which contact emails should be sent
 CONTACT_EMAIL = 'contact@france-universite-numerique-mooc.fr'
 
+# Blacklist a few middlewares that do not work properly
+from devstack import MIDDLEWARE_CLASSES
+BLACKLISTED_MIDDLEWARE_CLASSES = (
+  'lang_pref.middleware.LanguagePreferenceMiddleware',
+  'dark_lang.middleware.DarkLangMiddleware',
+)
+MIDDLEWARE_CLASSES = tuple(m for m in MIDDLEWARE_CLASSES if not m in BLACKLISTED_MIDDLEWARE_CLASSES)
