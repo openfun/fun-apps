@@ -28,8 +28,7 @@ from django.utils.translation import ugettext as _
       ${ university.description }
       </%block>
     </section>
-
-    <section class="find-courses container">
+    <section id="courses-list" class="find-courses container">
       <section class="courses">
         <ul class="courses-listing">
           % for course in courses:
