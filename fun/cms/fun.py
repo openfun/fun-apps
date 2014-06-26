@@ -47,3 +47,6 @@ MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
 # Address to which contact emails should be sent
 CONTACT_EMAIL = 'contact@france-universite-numerique-mooc.fr'
+
+# Allow all courses to use advanced components
+FEATURES['ALLOW_ALL_ADVANCED_COMPONENTS'] = True
