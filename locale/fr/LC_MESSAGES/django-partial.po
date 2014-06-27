@@ -1,0 +1,1049 @@
+# edX translation file
+# This English source file is machine-generated. Do not check it into github.
+# Copyright (C) 2013 EdX
+# This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+# 
+# Translators:
+# Encolpe Degoute <encolpe.degoute@free.fr>, 2013
+# jsicsic <jsicsic@gmail.com>, 2013
+# JRolland <julien.rolland33@gmail.com>, 2013
+# Nikolaos Maris, 2013
+# Olivier Marquez <oliviermarquez@gmail.com>, 2013
+# Olivier Marquez <oliviermarquez@gmail.com>, 2013
+# Yannick1 <yannick.petit@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: edx-platform\n"
+"Report-Msgid-Bugs-To: translation_team@edx.org\n"
+"POT-Creation-Date: 2013-08-16 13:50-0400\n"
+"PO-Revision-Date: 2013-08-20 21:06+0000\n"
+"Last-Translator: Nikolaos Maris\n"
+"Language-Team: French (http://www.transifex.com/projects/p/edx-platform/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Contents"
+msgstr "Contenu"
+
+msgid "Course page automatically created."
+msgstr "Page de cours créée automatiquement."
+
+msgid "When this article is edited"
+msgstr "Quand cet article est modifié"
+
+msgid "Lock article"
+msgstr "Verouiller l'article"
+
+msgid "Deny all users access to edit this article."
+msgstr "Interdire à tous les utilisateurs de modifier l'article."
+
+msgid "Owner"
+msgstr "Propriétaire"
+
+msgid "Enter the username of the owner."
+msgstr "Rentrez le nom d'utilisateur du propriétaire."
+
+msgid "Group"
+msgstr "Groupe"
+
+msgid "Also receive emails about article edits"
+msgstr "Recevoir aussi des emails concernant la modification des articles"
+
+msgid "Group read access"
+msgstr "Accès en lecture pour le groupe"
+
+msgid "Group write access"
+msgstr "Accès en écriture pour le groupe"
+
+msgid "Others read access"
+msgstr "Accès en lecture pour les autres"
+
+msgid "Others write access"
+msgstr "Accès en écriture pour les autres"
+
+msgid "Inherit permissions"
+msgstr "Héritage des autorisations"
+
+msgid "Check here to apply the above permissions recursively to articles under this one."
+msgstr "Cochez ici pour appliquer les permissions récursivement à tous les articles enfants."
+
+msgid "Give a short reason for your edit, which will be stated in the revision log."
+msgstr "Donnez une courte explication qui sera mentionnée sur le log de suivi des modifications"
+
+msgid "Write a brief message for the article's history log."
+msgstr "Ecrivez un court message qui apparaîtra sur le log de suivi des modifications"
+
+msgid ""
+"This will be the address where your article can be found. "
+"Use only alphanumeric characters and - or _. "
+"Note that you cannot change the slug after creating the article."
+msgstr ""
+"Ce sera l'adresse où l'article pourra être trouvé. "
+"Utilisez uniquement des caractères alphanumériques et - ou _. "
+"L'adresse ne pourra pas être modifiée après la création de l'article."
+
+msgid "Slug"
+msgstr "Adresse" 
+
+msgid "Last modified"
+msgstr "Dernière modification"
+
+msgid "Permission Denied"
+msgstr "Autorisation refusée"
+
+msgid "Sorry, you don't have permission to view this page."
+msgstr "Désolé, vous n'avez pas l'autorisation d'afficher cette page."
+
+
+msgid "New title"
+msgstr "Nouveau titre"
+
+msgid "Up one level"
+msgstr "Monter d'un niveau"
+
+msgid "Add Article"
+msgstr "Ajouter un article"
+
+msgid "Add article"
+msgstr "Ajouter un article"
+
+msgid "There are no articles in this level"
+msgstr "Il n'y a pas d'article à ce niveau"
+
+msgid "Filter..."
+msgstr "Filtrer..."
+
+msgid "Browsing <strong><a href=\"{{ self_url }}\">/{{ path }}</a></strong>. There {{ articles_plur_verb }} <strong>{{ cnt }} {{ articles_plur }}</strong> in this level."
+msgstr "Navigation de <strong><a href=\"{{ self_url }}\">/{{ path }}</a></strong>. Il y a <strong>{{ cnt }} {{ articles_plur }}</strong> à ce niveau."
+
+msgid "(this post is about <a href=\"${'<%- courseware_url%>'}\">${'<%- courseware_title %>'}</a>)"
+msgstr "(Ce post concerne <a href=\"${'<%- courseware_url%>'}\">${'<%- courseware_title %>'}</a>)"
+
+msgid "Insert Hyperlink"
+msgstr "Insérer un hyperlien"
+
+msgid "Course Statistics At A Glance"
+msgstr "Statistiques du cours en un clin d’œil"
+
+#: cms/djangoapps/contentstore/utils.py:17
+msgid "Open Ended Panel"
+msgstr "Tableau Questions Ouvertes"
+
+#: cms/djangoapps/contentstore/utils.py:18
+msgid "My Notes"
+msgstr "Mes Notes"
+
+#: cms/djangoapps/contentstore/views/course.py:115
+msgid ""
+"Unable to create course '{name}'.\n"
+"\n"
+"{err}"
+msgstr "Impossible de créer le Cours '{name}'.\n\n{err}"
+
+#: cms/djangoapps/contentstore/views/course.py:126
+msgid ""
+"There is already a course defined with the same organization, course number,"
+" and course run. Please change either organization or course number to be "
+"unique."
+msgstr "Il existe déjà un Cours avec les mêmes numéros d'organisme et de cours. Changez en un des deux pour le rendre unique."
+
+#: cms/djangoapps/contentstore/views/course.py:130
+#: cms/djangoapps/contentstore/views/course.py:132
+#: cms/djangoapps/contentstore/views/course.py:145
+#: cms/djangoapps/contentstore/views/course.py:147
+msgid ""
+"Please change either the organization or course number so that it is unique."
+msgstr "Merci de changer l'organisme ou le numéro du Cours pour qu'il soit unique."
+
+#: cms/djangoapps/contentstore/views/course.py:142
+msgid ""
+"There is already a course defined with the same organization and course "
+"number. Please change at least one field to be unique."
+msgstr "Il existe déjà un Cours avec le même organisme et le même numéro de cours. Changez en un des deux pour le rendre unique."
+
+#: cms/djangoapps/contentstore/views/user.py:123
+msgid "Insufficient permissions"
+msgstr "Permissions insuffisantes"
+
+#: cms/djangoapps/contentstore/views/user.py:131
+msgid "Could not find user by email address '{email}'."
+msgstr "Impossible de trouver l'utilisateur à l'adresse email '{email}'."
+
+#: cms/djangoapps/contentstore/views/user.py:157
+msgid "User {email} has registered but has not yet activated his/her account."
+msgstr "L'utilisateur {email} s'est enregistré mais n'a pas encore activé son compte."
+
+#: cms/djangoapps/contentstore/views/user.py:175
+#: cms/djangoapps/contentstore/views/user.py:218
+msgid "You may not remove the last instructor from a course"
+msgstr "Vous ne devriez pas retirer le dernier enseignant du Cours"
+
+#: cms/djangoapps/contentstore/views/user.py:191
+msgid "malformed JSON"
+msgstr "Document JSON impossible à interpréter"
+
+#: cms/djangoapps/contentstore/views/user.py:195
+#: cms/djangoapps/contentstore/views/user.py:198
+msgid "`role` is required"
+msgstr "Le rôle est requis"
+
+#: cms/djangoapps/contentstore/views/user.py:204
+msgid "Only instructors may create other instructors"
+msgstr "Seul un enseignant peut créer d'autres enseignants"
+
+#: cms/djangoapps/course_creators/models.py:33
+msgid "unrequested"
+msgstr "Non demandé"
+
+#: cms/djangoapps/course_creators/models.py:34
+msgid "pending"
+msgstr "En attente"
+
+#: cms/djangoapps/course_creators/models.py:35
+msgid "granted"
+msgstr "autorisé"
+
+#: cms/djangoapps/course_creators/models.py:36
+msgid "denied"
+msgstr "refusé"
+
+#: cms/djangoapps/course_creators/models.py:39
+msgid "Studio user"
+msgstr "L'utilisateur de Studio"
+
+#: cms/djangoapps/course_creators/models.py:41
+msgid "The date when state was last updated"
+msgstr "La dernière date de modification du statut"
+
+#: cms/djangoapps/course_creators/models.py:43
+msgid "Current course creator state"
+msgstr "État actuel du créateur de cours"
+
+#: cms/djangoapps/course_creators/models.py:44
+msgid ""
+"Optional notes about this user (for example, why course creation access was "
+"denied)"
+msgstr "Commentaires optionnels pour cet utilisateur (par exemple, pourquoi l'accès à la création de cours a été refusé)"
+
+#: common/djangoapps/student/views.py:358
+msgid "Course id not specified"
+msgstr "Id de Cours non spécifié"
+
+#: common/djangoapps/student/views.py:368
+msgid "Course id is invalid"
+msgstr "Id de Cours invalide"
+
+#: common/djangoapps/student/views.py:371
+msgid "Enrollment is closed"
+msgstr "Inscriptions closes"
+
+#: common/djangoapps/student/views.py:395
+msgid "You are not enrolled in this course"
+msgstr "Vous n'êtes pas inscrit à ce Cours"
+
+#: common/djangoapps/student/views.py:397
+msgid "Enrollment action is invalid"
+msgstr "Action d'inscription invalide"
+
+#: common/djangoapps/student/views.py:409
+msgid "There was an error receiving your login information. Please email us."
+msgstr "Il y a une erreur avec vos informations de connexion. Merci de nous envoyer un mail."
+
+#: common/djangoapps/student/views.py:428
+msgid "Too many failed login attempts. Try again later."
+msgstr "Trop de tentatives de connexion échouées. Ressayez plus tard."
+
+#: common/djangoapps/student/views.py:435
+msgid "Email or password is incorrect."
+msgstr "Adresse mail ou mot de passe incorrect"
+
+#: common/djangoapps/student/views.py:482
+msgid ""
+"This account has not been activated. We have sent another activation "
+"message. Please check your e-mail for the activation instructions."
+msgstr "Ce compte n'a pas encore été activé. Nous vous avons envoyé un nouveau message pour l'activer. Merci de vérifier votre boîte mail pour suivre les instructions d'activation."
+
+#: common/djangoapps/student/views.py:541
+msgid "An account with the Public Username '{username}' already exists."
+msgstr "Un compte avec le même nom d'utilisateur '{username} existe déjà."
+
+#: common/djangoapps/student/views.py:546
+msgid "An account with the Email '{email}' already exists."
+msgstr "Un compte avec la même adresse de messagerie '{email}' existe déjà."
+
+#: common/djangoapps/student/views.py:607
+msgid "Error (401 {field}). E-mail us."
+msgstr "Erreur (401 {field}). Contactez-nous par mail."
+
+#: common/djangoapps/student/views.py:612
+msgid "To enroll, you must follow the honor code."
+msgstr "Pour vous inscrire, vous devez accepter la charte d'utilisation."
+
+#: common/djangoapps/student/views.py:623
+msgid "You must accept the terms of service."
+msgstr "Vous devez accepter les conditions d'utilisation."
+
+#: common/djangoapps/student/views.py:652
+msgid "Valid e-mail is required."
+msgstr "Une adresse email valide est requise."
+
+#: common/djangoapps/student/views.py:659
+msgid "Username should only consist of A-Z and 0-9, with no spaces."
+msgstr "Le nom d'utilisateur doit être composé de lettres (A – Z) et de chiffres (0 – 9), sans espace."
+
+#: common/djangoapps/student/views.py:666
+msgid "Password should be at least 8 characters long and contain at least an upper case letter, a lower case letter and a digit."
+msgstr "Le mot de passe doit être composé d'au moins 8 caractères, dont au moins une majuscule, une minuscule et un chiffre."
+
+#: common/djangoapps/student/views.py:691
+msgid "Could not send activation e-mail."
+msgstr "le mail d'activation n'a pas pu être envoyé."
+
+#: common/djangoapps/student/views.py:1000
+msgid "Unknown error. Please e-mail us to let us know how it happened."
+msgstr "Erreur inconnue. Merci de nous envoyer un mail pour que nous puissions savoir comment cela s'est produit."
+
+#: common/djangoapps/student/views.py:1019
+msgid "Invalid e-mail or user"
+msgstr "Utilisateur ou adresse email invalide"
+
+#: common/djangoapps/student/views.py:1051
+msgid "No inactive user with this e-mail exists"
+msgstr "Pas d'utilisateur inactif avec cette adresse email"
+
+#: common/djangoapps/student/views.py:1064
+msgid "Unable to send reactivation email"
+msgstr "Impossible d'envoyer le mail de réactivation"
+
+#: common/djangoapps/student/views.py:1081
+msgid "Invalid password"
+msgstr "Mot de passe invalide"
+
+#: common/djangoapps/student/views.py:1088
+msgid "Valid e-mail address required."
+msgstr "Une adresse email valide est requise."
+
+#: common/djangoapps/student/views.py:1093
+msgid "An account with this e-mail already exists."
+msgstr "Un compte avec cette adresse email existe déjà."
+
+#: common/djangoapps/student/views.py:1109
+msgid "Old email is the same as the new email."
+msgstr "Le nouvel email est identique à l'ancien."
+
+#: common/djangoapps/student/views.py:1198
+msgid "Name required"
+msgstr "Nom requis"
+
+#: common/djangoapps/student/views.py:1233
+#: common/djangoapps/student/views.py:1243
+msgid "Invalid ID"
+msgstr "ID invalide"
+
+#: common/lib/xmodule/xmodule/util/date_utils.py:30
+msgid "at"
+msgstr "à"
+
+#: common/static/js/vendor/mathjax-MathJax-c9db6ac/docs/source/mjtheme/layout.html:23
+msgid "Navigation"
+msgstr "Navigation"
+
+#: common/static/js/vendor/mathjax-MathJax-c9db6ac/docs/source/mjtheme/layout.html:123
+msgid "About these documents"
+msgstr "A propos de ces documents"
+
+#: common/static/js/vendor/mathjax-MathJax-c9db6ac/docs/source/mjtheme/layout.html:126
+msgid "Index"
+msgstr "Index"
+
+#: common/static/js/vendor/mathjax-MathJax-c9db6ac/docs/source/mjtheme/layout.html:129
+#: lms/templates/wiki/plugins/attachments/index.html:40
+msgid "Search"
+msgstr "Recherche"
+
+#: common/static/js/vendor/mathjax-MathJax-c9db6ac/docs/source/mjtheme/layout.html:132
+msgid "Copyright"
+msgstr "Copyright"
+
+#: lms/djangoapps/course_modes/models.py:32
+msgid "Honor Code Certificate"
+msgstr "déclaration sur l'honneur"
+
+#: lms/djangoapps/django_comment_client/base/views.py:603
+#, python-format
+msgid "allowed file types are '%(file_types)s'"
+msgstr "Les types de fichiers autorisés sont '%(file_types)s'"
+
+#: lms/djangoapps/django_comment_client/base/views.py:618
+#, python-format
+msgid "maximum upload file size is %(file_size)sK"
+msgstr "La taille maximum de fichier à uploader est %(file_size)sK"
+
+#: lms/djangoapps/django_comment_client/base/views.py:627
+msgid ""
+"Error uploading file. Please contact the site administrator. Thank you."
+msgstr "Erreur dans l'upload du fichier. Merci de contacter l'administrateur du site."
+
+#: lms/djangoapps/instructor/views/api.py:55
+msgid "User does not exist."
+msgstr "L'Utilisateur n'existe pas."
+
+#: lms/djangoapps/instructor/views/api.py:61
+msgid "Task is already running."
+msgstr "La tâche est déjà lancée."
+
+#: lms/djangoapps/instructor/views/instructor_dashboard.py:102
+msgid "Membership"
+msgstr "Inscriptions"
+
+#: lms/djangoapps/instructor/views/instructor_dashboard.py:118
+msgid "Student Admin"
+msgstr "Suivi Étudiant"
+
+#: lms/djangoapps/instructor/views/instructor_dashboard.py:133
+msgid "Data Download"
+msgstr "Téléchargement Données"
+
+#: lms/djangoapps/instructor/views/instructor_dashboard.py:144
+msgid "Analytics"
+msgstr "Analyses"
+
+#: lms/templates/registration/change_password.html:12
+#: lms/templates/registration/logged_out.html:4
+#: lms/templates/registration/password_change_done.html:5
+#: lms/templates/registration/password_change_form.html:6
+msgid "Home"
+msgstr "Accueil"
+
+#: lms/templates/registration/change_password.html:16
+#: lms/templates/registration/change_password.html:49
+#: lms/templates/registration/password_change_done.html:4
+#: lms/templates/registration/password_change_form.html:5
+msgid "Change password"
+msgstr "Changez le mot de passe"
+
+#: lms/templates/registration/change_password.html:25
+#: lms/templates/registration/password_change_form.html:16
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Merci de corriger l'erreur ci-dessous."
+msgstr[1] "Merci de corriger les erreurs ci-dessous."
+
+#: lms/templates/registration/change_password.html:29
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr "Entrez un nouveau mot de passe pour l'utilisateur <strong>%(username)s</strong>."
+
+#: lms/templates/registration/change_password.html:36
+msgid "Password"
+msgstr "Mot de passe"
+
+#: lms/templates/registration/change_password.html:42
+#: lms/templates/registration/password_change_form.html:38
+msgid "Password (again)"
+msgstr "Mot de passe (encore)"
+
+#: lms/templates/registration/change_password.html:43
+msgid "Enter the same password as above, for verification."
+msgstr "Entrez le même mot de passe, pour vérification."
+
+#: lms/templates/registration/logged_out.html:8
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr "Merci d'avoir passé de précieux moments sur notre site Web aujourd'hui."
+
+#: lms/templates/registration/logged_out.html:10
+msgid "Log in again"
+msgstr "Reconnectez-vous"
+
+#: lms/templates/registration/password_change_done.html:4
+#: lms/templates/registration/password_change_form.html:5
+msgid "Documentation"
+msgstr "Documentation"
+
+#: lms/templates/registration/password_change_done.html:4
+#: lms/templates/registration/password_change_form.html:5
+msgid "Log out"
+msgstr "Déconnexion"
+
+#: lms/templates/registration/password_change_done.html:5
+#: lms/templates/registration/password_change_form.html:6
+#: lms/templates/registration/password_change_form.html:8
+#: lms/templates/registration/password_change_form.html:20
+msgid "Password change"
+msgstr "Changement du mot de passe"
+
+#: lms/templates/registration/password_change_done.html:7
+#: lms/templates/registration/password_change_done.html:11
+msgid "Password change successful"
+msgstr "Mot de passe modifié"
+
+#: lms/templates/registration/password_change_done.html:13
+msgid "Your password was changed."
+msgstr "Votre mot de passe a été modifié"
+
+#: lms/templates/registration/password_change_form.html:22
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
+msgstr "Merci d'entrer votre ancien mot de passe, pour des raisons de sécurité, et ensuite entrer votre nouveau mot de passe, deux fois pour que nous puissions vérifier que vous l'avez tapé correctement."
+
+#: lms/templates/registration/password_change_form.html:28
+msgid "Old password"
+msgstr "Ancien mot de passe"
+
+#: lms/templates/registration/password_change_form.html:33
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: lms/templates/registration/password_change_form.html:44
+msgid "Change my password"
+msgstr "Changer mon mot de passe"
+
+#: lms/templates/registration/password_reset_complete.html:8
+#: lms/templates/registration/password_reset_complete.html:56
+msgid "Your Password Reset is Complete"
+msgstr "Votre mot de passe a été réinitialisé"
+
+#: lms/templates/registration/password_reset_complete.html:62
+#, python-format
+msgid ""
+"\n"
+"      Your password has been set.  You may go ahead and %(link_start)slog in%(link_end)s now.\n"
+"      "
+msgstr "\n      Votre mot de passe est enregistré. Vous pouvez continuer et vous %(link_start)sconnecter%(link_end)s maintenant.\n      "
+
+#: lms/templates/registration/password_reset_confirm.html:9
+#, python-format
+msgid ""
+"\n"
+"      Reset Your %(platform_name)s Password\n"
+"  "
+msgstr "\n      Réinitialiser votre Mot de Passe %(platform_name)s\n  "
+
+#: lms/templates/registration/password_reset_confirm.html:61
+#, python-format
+msgid ""
+"\n"
+"          Reset Your %(platform_name)s Password\n"
+"          "
+msgstr "\n      Réinitialiser votre Mot de Passe %(platform_name)s\n  "
+
+#: lms/templates/registration/password_reset_confirm.html:71
+msgid "Password Reset Form"
+msgstr "Formulaire de réinitialisation de mot de passe"
+
+#: lms/templates/registration/password_reset_confirm.html:78
+#, python-format
+msgid ""
+"\n"
+"                We're sorry, %(platform_name)s enrollment is not available in your region\n"
+"            "
+msgstr "\n                Nous sommes désolé, les inscription pour %(platform_name)s n'est pas disponible pour votre région\n            "
+
+#: lms/templates/registration/password_reset_confirm.html:85
+msgid "The following errors occured while processing your registration: "
+msgstr "Les erreurs suivantes se sont produites pendant le traitement de votre  inscription :"
+
+#: lms/templates/registration/password_reset_confirm.html:87
+msgid "You must complete all fields."
+msgstr "Vous devez compléter tous les champs."
+
+#: lms/templates/registration/password_reset_confirm.html:88
+msgid "The two password fields didn't match."
+msgstr "Les deux mots de passe ne correspondent pas."
+
+#: lms/templates/registration/password_reset_confirm.html:93
+msgid ""
+"We're sorry, our systems seem to be having trouble processing your password "
+"reset"
+msgstr "Nous sommes désolés, nos systèmes ne peuvent réinitialiser votre mot de passe "
+
+#: lms/templates/registration/password_reset_confirm.html:95
+#, python-format
+msgid ""
+"\n"
+"                Someone has been made aware of this issue. Please try again shortly. Please %(start_link)scontact us%(end_link)s about any concerns you have.\n"
+"            "
+msgstr "\n                Quelqu'un a été mis au courant de ce problème. Veuillez ré-essayer dans un moment. Veuillez %(start_link)snous contacter%(end_link)s si vous avez des questions.\n            "
+
+#: lms/templates/registration/password_reset_confirm.html:102
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly. <br /> Required fields are noted by <strong "
+"class=\"indicator\">bold text and an asterisk (*)</strong>."
+msgstr "Merci d'entrer et de confirmer votre mot de passe afin que nous puissions vérifier sa saisie correcte. <br /> Les champs requis sont indiqués en <strong class=\"indicator\">gras et avec une astérisque (*)</strong>."
+
+#: lms/templates/registration/password_reset_confirm.html:106
+msgid "Required Information"
+msgstr "Information requise"
+
+#: lms/templates/registration/password_reset_confirm.html:110
+msgid "Your New Password"
+msgstr "Votre nouveau mot de passe"
+
+#: lms/templates/registration/password_reset_confirm.html:114
+msgid "Your New Password Again"
+msgstr "Votre nouveau mot de passe (encore)"
+
+#: lms/templates/registration/password_reset_confirm.html:121
+msgid "Change My Password"
+msgstr "Changer mon mot de passe"
+
+#: lms/templates/registration/password_reset_confirm.html:128
+msgid "Your Password Reset Was Unsuccessful"
+msgstr "Echec de chagnement de votre mot de passe"
+
+#: lms/templates/registration/password_reset_confirm.html:131
+#, python-format
+msgid ""
+"\n"
+"            The password reset link was invalid, possibly because the link has already been used.  Please return to the %(start_link)slogin page%(end_link)s and start the password reset process again.\n"
+"        "
+msgstr "\n            Lien de ré-initialisation du mot de passe était incorrect, sans doute parce qu'il a déjà été utilisé. Veuillez retourner à la %(start_link)spage de connexion%(end_link)s et recommencez la procédure de ré-initialisation du mot de passe.\n        "
+
+#: lms/templates/registration/password_reset_confirm.html:141
+msgid "Password Reset Help"
+msgstr "Aide à la réinitialisation du mot de passe"
+
+#: lms/templates/registration/password_reset_confirm.html:145
+msgid "Need Help?"
+msgstr "Besoin d'aide ?"
+
+#: lms/templates/registration/password_reset_confirm.html:147
+#, python-format
+msgid ""
+"\n"
+"              View our %(start_link)shelp section for contact information and answers to commonly asked questions%(end_link)s\n"
+"          "
+msgstr "\n              Rendez-vous dans notre %(start_link)ssection d'aide pour les informations de contact et les réponses aux questions couramment posées%(end_link)s\n          "
+
+#: lms/templates/registration/password_reset_email.html:2
+msgid ""
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at edx.org."
+msgstr "Vous recevez ce mail parce que vous avez demandé une réinitialisation du mot de passe de votre compte."
+
+#: lms/templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Visitez la page suivante et choisissez un nouveau mot de passe :"
+
+#: lms/templates/registration/password_reset_email.html:11
+msgid "Thanks for using our site!"
+msgstr "Merci d'utiliser notre site !"
+
+#: lms/templates/registration/password_reset_email.html:13
+msgid "The edX Team"
+msgstr "L'équipe FUN"
+
+#: lms/templates/registration/registration_complete.html:4
+msgid "Registration complete"
+msgstr "Enregistrement terminé"
+
+#: lms/templates/registration/registration_complete.html:8
+msgid ""
+"An activation link has been sent to the email address you supplied, along "
+"with instructions for activating your account."
+msgstr "Un lien d'activation a été envoyé à l'adresse email fournie, contenant des instructions pour activer votre compte."
+
+#: lms/templates/wiki/article.html:31
+msgid "Last modified:"
+msgstr "Dernière modification :"
+
+#: lms/templates/wiki/article.html:37
+msgid "See all children"
+msgstr "Voir tous les articles enfants"
+
+#: lms/templates/wiki/article.html:48
+msgid "This article was last modified:"
+msgstr "Cet article a été modifié :"
+
+#: lms/templates/wiki/create.html:5 lms/templates/wiki/create.html.py:30
+msgid "Add new article"
+msgstr "Ajouter un nouvel article"
+
+#: lms/templates/wiki/create.html:37
+msgid "Create article"
+msgstr "Créer un article"
+
+#: lms/templates/wiki/create.html:42 lms/templates/wiki/delete.html:13
+#: lms/templates/wiki/delete.html.py:54
+msgid "Go back"
+msgstr "Retour"
+
+#: lms/templates/wiki/delete.html:5 lms/templates/wiki/delete.html.py:50
+#: lms/templates/wiki/edit.html:23
+msgid "Delete article"
+msgstr "Supprimer un article"
+
+#: lms/templates/wiki/delete.html:9
+#: lms/templates/wiki/plugins/attachments/index.html:92
+msgid "Delete"
+msgstr "Supprimer"
+
+#: lms/templates/wiki/delete.html:12
+msgid "You cannot delete a root article."
+msgstr "Vous ne pouvez pas supprimer l'article racine."
+
+#: lms/templates/wiki/delete.html:18
+msgid ""
+"You cannot delete this article because you do not have permission to delete "
+"articles with children. Try to remove the children manually one-by-one."
+msgstr "Vous ne pouvez pas supprimer cet article car vous n'avez pas la permission de détruire des articles ayant des articles enfants. Essayez d'abord de supprimer les articles enfants manuellement, un par un."
+
+#: lms/templates/wiki/delete.html:24
+msgid ""
+"You are deleting an article. This means that its children will be deleted as"
+" well. If you choose to purge, children will also be purged!"
+msgstr "Vous allez supprimer un article. Ses articles enfants seront aussi supprimés. Si vous choisissez de purger, les articles enfants seront également purgés !"
+
+#: lms/templates/wiki/delete.html:26
+msgid "Articles that will be deleted"
+msgstr "Articles qui seront supprimés"
+
+#: lms/templates/wiki/delete.html:32
+msgid "...and more!"
+msgstr "...et plus !"
+
+#: lms/templates/wiki/delete.html:40
+msgid "You are deleting an article. Please confirm."
+msgstr "Vous allez supprimer un article. Confirmez."
+
+#: lms/templates/wiki/delete.html:40
+msgid "Yes, I am sure"
+msgstr "Oui, je confirme"
+
+#: lms/templates/wiki/edit.html:5
+msgid "Edit"
+msgstr "Éditer"
+
+#: lms/templates/wiki/edit.html:14 lms/templates/wiki/edit.html.py:34
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
+
+msgid "Preview"
+msgstr "Aperçu"
+
+#: lms/templates/wiki/edit.html:39
+msgid "Back to editor"
+msgstr "Retour à l'éditeur"
+
+#: lms/templates/wiki/history.html:5
+msgid "History"
+msgstr "Historique"
+
+#: lms/templates/wiki/history.html:56
+msgid ""
+"Click each revision to see a list of edited lines. Click the Preview button "
+"to see how the article looked at this stage. At the bottom of this page, you"
+" can change to a particular revision or merge an old revision with the "
+"current one."
+msgstr "Cliquer sur chaque révision pour voir une liste des lignes modifiées. Cliquez sur le bouton \"Aperçu\" pour obtenir le rendu en l'état d'un article. En bas de la page, vous pouvez changer pour une révision particulière ou fusionner une ancienne révision avec la révision courante."
+
+#: lms/templates/wiki/history.html:75
+msgid "no log message"
+msgstr "Pas de message de log"
+
+#: lms/templates/wiki/history.html:87
+msgid "Preview this revision"
+msgstr "Aperçu de cette révision"
+
+#: lms/templates/wiki/history.html:101
+msgid "Auto log:"
+msgstr "Log automatique :"
+
+#: lms/templates/wiki/history.html:109
+msgid "Change"
+msgstr "Modification"
+
+#: lms/templates/wiki/history.html:127 lms/templates/wiki/history.html:132
+msgid "Merge selected with current..."
+msgstr "Fusionner la sélection avec la version en cours"
+
+#: lms/templates/wiki/history.html:137
+msgid "Switch to selected version"
+msgstr "Changer pour la version sélectionnée"
+
+#: lms/templates/wiki/history.html:153 lms/templates/wiki/history.html:180
+msgid "Back to history view"
+msgstr "Retour à l'historique"
+
+#: lms/templates/wiki/history.html:158 lms/templates/wiki/history.html:163
+msgid "Switch to this version"
+msgstr "Changer pour cette version"
+
+#: lms/templates/wiki/history.html:171
+msgid "Merge with current"
+msgstr "Fusionner avec version en cours"
+
+#: lms/templates/wiki/history.html:172
+msgid ""
+"When you merge a revision with the current, all data will be retained from "
+"both versions and merged at its approximate location from each revision."
+msgstr "Quand vous fusionnez une révision avec celle en cours, toutes les données des deux versions seront conservées et fusionnées à la date approximative de chaque révision."
+
+#: lms/templates/wiki/history.html:172
+msgid "After this, it's important to do a manual review."
+msgstr "Après ceci, il est important de procéder à une relecture."
+
+#: lms/templates/wiki/history.html:185 lms/templates/wiki/history.html:190
+msgid "Create new merged version"
+msgstr "Créer une nouvelle version fusionnée"
+
+#: lms/templates/wiki/preview_inline.html:13
+msgid "Previewing revision"
+msgstr "Aperçu de la révision"
+
+#: lms/templates/wiki/preview_inline.html:20
+msgid "Previewing merge between"
+msgstr "Aperçu de la fusion avec"
+
+#: lms/templates/wiki/preview_inline.html:22
+msgid "and"
+msgstr "et"
+
+#: lms/templates/wiki/preview_inline.html:31
+msgid "This revision has been deleted."
+msgstr "Cette révision a été détruite"
+
+#: lms/templates/wiki/preview_inline.html:32
+msgid "Restoring to this revision will mark the article as deleted."
+msgstr "Restaurer cette révision marquera cet article comme supprimé"
+
+#: lms/templates/wiki/includes/anonymous_blocked.html:7
+#, python-format
+msgid ""
+"\n"
+"  You need to <a href=\"%(login_url)s\">log in</a> or <a href=\"%(signup_url)s\">sign up</a> to use this function.\n"
+"  "
+msgstr "\nVous devez vous <a href=\"%(login_url)s\">connecter</a> ou vous <a href=\"%(signup_url)s\">inscrire</a> pour utiliser cette fonction."
+
+#: lms/templates/wiki/includes/anonymous_blocked.html:11
+msgid "You need to log in or sign up to use this function."
+msgstr "Vous devez vous connecter ou vous inscrire pour utiliser cette fonction."
+
+#: lms/templates/wiki/includes/cheatsheet.html:7
+msgid "Wiki Syntax Help"
+msgstr "Aide syntaxique du Wiki"
+
+#: lms/templates/wiki/includes/cheatsheet.html:8
+msgid ""
+"This wiki uses <strong>Markdown</strong> for styling. There are several "
+"useful guides online. See any of the links below for in-depth details:"
+msgstr "Ce wiki utilise <strong>Markdown</strong> pour le formatage. Il existe plusieurs guides pratiques en ligne. Regardez n'importe lequel des liens ci-dessous pour des détails précis :"
+
+#: lms/templates/wiki/includes/cheatsheet.html:10
+msgid "Markdown: Basics"
+msgstr "Markdown: Les bases"
+
+#: lms/templates/wiki/includes/cheatsheet.html:11
+msgid "Quick Markdown Syntax Guide"
+msgstr "Guide rapide de syntaxe Markdown"
+
+#: lms/templates/wiki/includes/cheatsheet.html:12
+msgid "Miniature Markdown Guide"
+msgstr "Guide miniature Marcdown"
+
+#: lms/templates/wiki/includes/cheatsheet.html:14
+msgid ""
+"To create a new wiki article, create a link to it. Clicking the link gives "
+"you the creation page."
+msgstr "Pour créer un nouvel article dans le wiki, créez un lien vers celui-ci. Cliquer sur le lien vous mènera vers la création de la page."
+
+#: lms/templates/wiki/includes/cheatsheet.html:15
+msgid "[Article Name](wiki:ArticleName)"
+msgstr "[Article Name](wiki:ArticleName)"
+
+#. Translators: Do not translate "edX"
+#: lms/templates/wiki/includes/cheatsheet.html:21
+msgid "edX Additions:"
+msgstr "edX Suppléments :"
+
+#: lms/templates/wiki/includes/cheatsheet.html:31
+msgid "Useful examples:"
+msgstr "Exemples utiles :"
+
+#. Translators: Do not translate "edX" or "Wikipedia"
+#: lms/templates/wiki/includes/cheatsheet.html:36
+msgid "http://wikipedia.org"
+msgstr "http://wikipedia.org"
+
+#: lms/templates/wiki/includes/cheatsheet.html:37
+msgid "[Wikipedia](http://wikipedia.org)"
+msgstr "[Wikipedia](http://wikipedia.org)"
+
+#: lms/templates/wiki/includes/cheatsheet.html:38
+msgid "[edX Wiki](wiki:/edx/)"
+msgstr "[edX Wiki](wiki:/edx/)"
+
+#: lms/templates/wiki/includes/cheatsheet.html:41
+msgid "Huge Header"
+msgstr "Grand Titre"
+
+#: lms/templates/wiki/includes/cheatsheet.html:44
+msgid "Smaller Header"
+msgstr "En-tête plus petit"
+
+#: lms/templates/wiki/includes/cheatsheet.html:47
+msgid "*emphasis* or _emphasis_"
+msgstr "*emphase* or _emphase_"
+
+#: lms/templates/wiki/includes/cheatsheet.html:49
+msgid "**strong** or __strong__"
+msgstr "**épais** or __épais__"
+
+#: lms/templates/wiki/includes/cheatsheet.html:51
+msgid "Unordered List"
+msgstr "Liste non Triée"
+
+#: lms/templates/wiki/includes/cheatsheet.html:52
+msgid "Sub Item 1"
+msgstr "Sous Item 1"
+
+#: lms/templates/wiki/includes/cheatsheet.html:53
+msgid "Sub Item 2"
+msgstr "Sous Item 2"
+
+#: lms/templates/wiki/includes/cheatsheet.html:55
+msgid "Ordered"
+msgstr "Trié"
+
+#: lms/templates/wiki/includes/cheatsheet.html:56
+msgid "List"
+msgstr "Liste"
+
+#: lms/templates/wiki/includes/cheatsheet.html:58
+msgid "Quotes"
+msgstr "Citations"
+
+#. Translators: Do not translate 'cheatsheetLink'
+#: lms/templates/wiki/includes/editor_widget.html:7
+#, python-format
+msgid ""
+"\n"
+"\t    Markdown syntax is allowed. See the %(start_link)scheatsheet%(end_link)s for help.\n"
+"\t"
+msgstr "\n\t    La syntaxe Markdown est autorisée. Lisez l' %(start_link)santiséche%(end_link)s pour avoir de l'aide.\n\t"
+
+#: lms/templates/wiki/plugins/attachments/index.html:5
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#: lms/templates/wiki/plugins/attachments/index.html:14
+msgid "Upload new file"
+msgstr "Uploader un nouveau fichier"
+
+#: lms/templates/wiki/plugins/attachments/index.html:17
+msgid "Search and add file"
+msgstr "Chercher et ajouter un fichier"
+
+#: lms/templates/wiki/plugins/attachments/index.html:23
+msgid "Upload File"
+msgstr "Uploader un fichier"
+
+#: lms/templates/wiki/plugins/attachments/index.html:27
+msgid "Upload file"
+msgstr "Uploader un fichier"
+
+#: lms/templates/wiki/plugins/attachments/index.html:35
+msgid "Search files and articles"
+msgstr "Chercher des fichiers et des articles"
+
+#: lms/templates/wiki/plugins/attachments/index.html:36
+msgid ""
+"You can reuse files from other articles. These files are subject to updates "
+"on other articles which may or may not be a good thing."
+msgstr "Vous pouvez réutiliser les fichiers depuis d'autres articles. Attention, ces fichiers pourront être mis à jour depuis ces articles."
+
+#: lms/templates/wiki/plugins/attachments/index.html:65
+msgid ""
+"The following files are available for this article. Copy the markdown tag to"
+" directly refer to a file from the article text."
+msgstr "Les fichiers suivants sont disponibles pour cet article. Copiez le tag de surlignement pour directement référer à un fichier depuis le texte de l'article"
+
+#: lms/templates/wiki/plugins/attachments/index.html:74
+msgid "deleted"
+msgstr "supprimé"
+
+#: lms/templates/wiki/plugins/attachments/index.html:84
+msgid "Markdown tag"
+msgstr "Élément surligné"
+
+#: lms/templates/wiki/plugins/attachments/index.html:85
+msgid "Uploaded by"
+msgstr "Uploadé par"
+
+#: lms/templates/wiki/plugins/attachments/index.html:86
+msgid "Size"
+msgstr "Taille"
+
+#: lms/templates/wiki/plugins/attachments/index.html:87
+msgid "File History"
+msgstr "Historique fichier"
+
+#: lms/templates/wiki/plugins/attachments/index.html:94
+msgid "Detach"
+msgstr "Détacher"
+
+#: lms/templates/wiki/plugins/attachments/index.html:97
+msgid "Replace"
+msgstr "Remplacer"
+
+#: lms/templates/wiki/plugins/attachments/index.html:104
+msgid "Restore"
+msgstr "Restaurer"
+
+#: lms/templates/wiki/plugins/attachments/index.html:115
+msgid "anonymous (IP logged)"
+msgstr "anonyme (IP loggée)"
+
+#: lms/templates/wiki/plugins/attachments/index.html:122
+msgid "File history"
+msgstr "Historique fichier"
+
+#: lms/templates/wiki/plugins/attachments/index.html:122
+msgid "revisions"
+msgstr "révisions"
+
+#: lms/templates/wiki/plugins/attachments/index.html:130
+msgid "There are no attachments for this article."
+msgstr "Pas de pièce jointe à cet article."
+
+#: Added by MoocLab
+msgid "If you didn't request this change, you can disregard this email - we have not yet reset your password."
+msgstr "Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet email - nous n'avons pas encore réinitialisé votre mot de passe."
+
+#: Added by MoocLab
+#: lms/template/courseware/instructor_dashboard.html:370
+
+msgid "List forum official contributors"
+msgstr "Lister les contributeurs officiels"
+
+msgid "List forum recommended contributors"
+msgstr "Lister les contributeurs recommandés"
+
+msgid "List forum active contributors"
+msgstr "Lister les contributeurs actifs"
+
+msgid "Remove forum official contributor"
+msgstr "Supprimer un contributeur officiels"
+
+msgid "Add forum official contributor"
+msgstr "Ajouter un contributeur officiel"
+
+msgid "Remove forum recommended contributor"
+msgstr "Supprimer un contributeur recommandés"
+
+msgid "Add forum recommended contributor"
+msgstr "Ajouter un contributeur recommandé"
+
+msgid "Remove forum active contributor"
+msgstr "Supprimer un contributeur actifs"
+
+msgid "Add forum active contributor"
+msgstr "Ajouter un contributeur actif"
