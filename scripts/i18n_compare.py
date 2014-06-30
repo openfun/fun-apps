@@ -8,7 +8,7 @@ import os
 from path import path
 
 LANG = 'fr'
-# this work in my dev environement (it may differs in yours)
+# this works in my dev. environement (it may differs in yours)
 BASE_DIR = path(os.path.abspath(__file__)).dirname().parent.parent
 EDX_LOCALE = BASE_DIR / 'edx-platform/conf/locale'
 FUN_LOCALE = BASE_DIR / 'fun-apps/locale'
@@ -66,12 +66,10 @@ def fun_edx_diff():
     return diff
 
 
-
-
 if __name__ == '__main__':
 
-    write_csv('untranslated_edx_strings.csv', untranslated_edx_strings())
-    #write_csv('obsolete_fun_strings.csv', obsolete_fun_strings().items())
-    #write_csv('unnecessary_fun_strings.csv', unnecessary_fun_strings().items())
-    #data = [(key, value[0], value[1]) for key, value in fun_edx_diff().items()]
-    #write_csv('fun_edx_diff.csv', data)
+    #write_csv('untranslated_edx_strings.csv', untranslated_edx_strings())
+    write_csv('obsolete_fun_strings.csv', obsolete_fun_strings().items())
+    write_csv('unnecessary_fun_strings.csv', unnecessary_fun_strings().items())
+    data = [(key, value[0], value[1]) for key, value in fun_edx_diff().items()]
+    write_csv('fun_edx_diff.csv', data)

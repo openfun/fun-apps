@@ -2283,10 +2283,6 @@ msgstr "Seite nicht gefunden"
 msgid "close"
 msgstr "schließen"
 
-#: cms/templates/base.html:36 lms/templates/main.html:105
-msgid "Skip to this view's content"
-msgstr ""
-
 #: cms/templates/component.html:13 cms/templates/manage_users.html:15
 #: cms/templates/settings.html:51 cms/templates/settings_advanced.html:45
 #: cms/templates/settings_graders.html:46 cms/templates/widgets/header.html:70
@@ -2315,20 +2311,6 @@ msgstr "Speichern"
 #: lms/templates/verify_student/face_upload.html:315
 msgid "Cancel"
 msgstr "Abbrechen"
-
-#: cms/templates/component.html:37
-#: lms/templates/discussion/_underscore_templates.html:88
-#: lms/templates/discussion/_underscore_templates.html:146
-#: lms/templates/discussion/mustache/_inline_thread_show.mustache:32
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: cms/templates/component.html:47
-#: lms/templates/discussion/_underscore_templates.html:89
-#: lms/templates/discussion/_underscore_templates.html:147
-#: lms/templates/discussion/mustache/_inline_thread_show.mustache:33
-msgid "Delete"
-msgstr "Löschen"
 
 #: cms/templates/html_error.html:18 lms/templates/module-error.html:10
 msgid "Error:"
@@ -2369,11 +2351,6 @@ msgstr "Passwort vergessen?"
 msgid "Password"
 msgstr "Passwort"
 
-#: cms/templates/login.html:51 lms/templates/login-sidebar.html:24
-#: lms/templates/register-sidebar.html:46
-msgid "Need Help?"
-msgstr "Hilfe?"
-
 #: cms/templates/manage_users.html:74
 #: lms/templates/courseware/instructor_dashboard.html:134
 msgid "Admin"
@@ -2388,14 +2365,6 @@ msgstr "Registrieren"
 #: lms/templates/register.html:133
 msgid "Public Username"
 msgstr "Öffentlicher Benutzername"
-
-#: cms/templates/signup.html:45 lms/templates/dashboard.html:185
-#: lms/templates/register-shib.html:141 lms/templates/register.html:138
-#: lms/templates/register.html:171 lms/templates/sysadmin_dashboard.html:75
-#: lms/templates/verify_student/_modal_editname.html:19
-#: lms/templates/verify_student/face_upload.html:309
-msgid "Full Name"
-msgstr "Vollständiger Name"
 
 #: cms/templates/registration/activation_complete.html:18
 #: lms/templates/registration/activation_complete.html:19
@@ -2423,11 +2392,6 @@ msgstr ""
 #: lms/templates/static_templates/privacy.html:8
 msgid "Privacy Policy"
 msgstr "Datenschutzbestimmungen"
-
-#: cms/templates/widgets/header.html:44 cms/templates/widgets/header.html:70
-#: lms/templates/shoppingcart/verified_cert_receipt.html:101
-msgid "Course"
-msgstr "Kurs"
 
 #: cms/templates/widgets/header.html:123 lms/templates/help_modal.html:13
 #: lms/templates/navigation.html:80 lms/templates/static_templates/help.html:4
@@ -2719,12 +2683,6 @@ msgstr ""
 msgid "edit"
 msgstr "bearbeiten"
 
-#: lms/templates/dashboard.html:188
-#: lms/templates/courseware/instructor_dashboard.html:140
-#: lms/templates/university_profile/edge.html:18
-msgid "Email"
-msgstr "Email"
-
 #: lms/templates/dashboard.html:197 lms/templates/dashboard.html:200
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
@@ -2749,24 +2707,9 @@ msgstr ""
 msgid "Course-loading errors"
 msgstr ""
 
-#: lms/templates/dashboard.html:264 lms/templates/dashboard.html:285
-#: lms/templates/dashboard.html:303 lms/templates/dashboard.html:333
-#: lms/templates/dashboard.html:362 lms/templates/forgot_password_modal.html:7
-#: lms/templates/help_modal.html:19 lms/templates/help_modal.html:57
-#: lms/templates/help_modal.html:85 lms/templates/login_modal.html:8
-#: lms/templates/signup_modal.html:13
-msgid "Close Modal"
-msgstr "Fenster schließen"
-
 #: lms/templates/dashboard.html:267
 msgid "Email Settings for {course_number}"
 msgstr "Email Einstellungen für {course_number}"
-
-#: lms/templates/dashboard.html:267 lms/templates/dashboard.html:288
-#: lms/templates/dashboard.html:306 lms/templates/dashboard.html:336
-#: lms/templates/dashboard.html:364
-msgid "modal open"
-msgstr ""
 
 #: lms/templates/dashboard.html:273
 msgid "Receive course emails"
@@ -2996,11 +2939,6 @@ msgid ""
 "Please enter your e-mail address below, and we will e-mail instructions for "
 "setting a new password."
 msgstr ""
-
-#: lms/templates/forgot_password_modal.html:20 lms/templates/login.html:128
-#: lms/templates/register-shib.html:114 lms/templates/register.html:119
-msgid "Required Information"
-msgstr "Erforderliche Informationen"
 
 #: lms/templates/forgot_password_modal.html:24
 msgid "Your E-mail Address"
@@ -3483,10 +3421,6 @@ msgstr ""
 #: lms/templates/problem.html:31
 msgid "You have used {num_used} of {num_total} submissions"
 msgstr "Sie haben {num_used} von {num_total} Versuche benötigt"
-
-#: lms/templates/provider_login.html:42
-msgid "Email or password is incorrect."
-msgstr "Email oder Password ist falsch."
 
 #: lms/templates/provider_login.html:44
 msgid ""
@@ -4031,10 +3965,6 @@ msgid "datetime"
 msgstr ""
 
 #: lms/templates/tracking_log.html:5
-msgid "username"
-msgstr "benutzername"
-
-#: lms/templates/tracking_log.html:5
 msgid "ipaddr"
 msgstr "ipaddr"
 
@@ -4093,10 +4023,6 @@ msgstr ""
 #: lms/templates/video.html:54
 msgid "Play video"
 msgstr ""
-
-#: lms/templates/video.html:58
-msgid "ERROR: No playable video sources found!"
-msgstr "FEHLER: Keine abspielbare Videoquelle gefunden!"
 
 #: lms/templates/video.html:62
 msgid "Video position"
@@ -4589,10 +4515,6 @@ msgstr ""
 #: lms/templates/courseware/instructor_dashboard.html:138
 msgid "Manage Groups"
 msgstr "Gruppen verwalten"
-
-#: lms/templates/courseware/instructor_dashboard.html:143
-msgid "Analytics"
-msgstr "Analytics"
 
 #: lms/templates/courseware/instructor_dashboard.html:158
 msgid "yes"
@@ -5330,11 +5252,6 @@ msgstr "Anonym an Klassenkameraden posten"
 msgid "Make visible to:"
 msgstr "Anzeigen lassen für:"
 
-#: lms/templates/discussion/_inline_new_post.html:21
-#: lms/templates/discussion/_new_post.html:54
-msgid "All Groups"
-msgstr "Alle Gruppen"
-
 #: lms/templates/discussion/_inline_new_post.html:28
 msgid "My Cohort"
 msgstr ""
@@ -5401,10 +5318,6 @@ msgstr ""
 #: lms/templates/discussion/_thread_list_template.html:16
 msgid "Discussion topics; current selection is: "
 msgstr ""
-
-#: lms/templates/discussion/_thread_list_template.html:24
-msgid "Search"
-msgstr "Suchen"
 
 #: lms/templates/discussion/_thread_list_template.html:25
 msgid "Search all discussions"
@@ -5812,10 +5725,6 @@ msgstr ""
 msgid "Course Warnings"
 msgstr "Kurswarnungen"
 
-#: lms/templates/instructor/instructor_dashboard_2/data_download.html:6
-msgid "Data Download"
-msgstr "Daten-Download"
-
 #: lms/templates/instructor/instructor_dashboard_2/data_download.html:9
 msgid ""
 "The following button displays a list of all students enrolled in this "
@@ -6114,10 +6023,6 @@ msgid ""
 "cohorts. Their posts are marked 'Community TA'."
 msgstr ""
 
-#: lms/templates/instructor/instructor_dashboard_2/membership.html:151
-msgid "Community TA"
-msgstr ""
-
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:5
 #: lms/templates/instructor/instructor_dashboard_2/send_email.html:55
 msgid "Send Email"
@@ -6308,11 +6213,6 @@ msgstr ""
 msgid "Problem Name"
 msgstr ""
 
-#: lms/templates/open_ended_problems/open_ended_problems.html:31
-#: lms/templates/shoppingcart/verified_cert_receipt.html:102
-msgid "Status"
-msgstr "Status"
-
 #: lms/templates/open_ended_problems/open_ended_problems.html:32
 msgid "Grader Type"
 msgstr ""
@@ -6356,10 +6256,6 @@ msgstr "Vorhanden"
 #: lms/templates/peer_grading/peer_grading.html:35
 msgid "Required"
 msgstr "Benötigt"
-
-#: lms/templates/peer_grading/peer_grading.html:36
-msgid "Progress"
-msgstr "Fortschritt"
 
 #: lms/templates/peer_grading/peer_grading.html:51
 msgid "No due date"
@@ -6506,17 +6402,8 @@ msgid ""
 "address you submitted. You should be receiving it shortly."
 msgstr ""
 
-#: lms/templates/shoppingcart/download_report.html:6
-msgid "Download CSV Reports"
-msgstr ""
-
 #: lms/templates/shoppingcart/download_report.html:10
 msgid "Download CSV Data"
-msgstr ""
-
-#: lms/templates/shoppingcart/download_report.html:13
-msgid ""
-"There was an error in your date input.  It should be formatted as YYYY-MM-DD"
 msgstr ""
 
 #: lms/templates/shoppingcart/download_report.html:18
@@ -6562,17 +6449,6 @@ msgstr "Ihr Einkaufswagen"
 msgid "Your selected items:"
 msgstr "Ihre ausgewählten Artikel:"
 
-#: lms/templates/shoppingcart/list.html:15
-msgid "Quantity"
-msgstr "Anzahl"
-
-#: lms/templates/shoppingcart/list.html:16
-#: lms/templates/shoppingcart/receipt.html:39
-#: lms/templates/shoppingcart/verified_cert_receipt.html:156
-#: lms/templates/shoppingcart/verified_cert_receipt.html:158
-msgid "Description"
-msgstr "Beschreibung"
-
 #: lms/templates/shoppingcart/list.html:17
 #: lms/templates/shoppingcart/receipt.html:40
 msgid "Unit Price"
@@ -6582,11 +6458,6 @@ msgstr "Einzelpreis"
 #: lms/templates/shoppingcart/receipt.html:41
 msgid "Price"
 msgstr "Preis"
-
-#: lms/templates/shoppingcart/list.html:19
-#: lms/templates/shoppingcart/receipt.html:42
-msgid "Currency"
-msgstr "Währung"
 
 #: lms/templates/shoppingcart/list.html:35
 #: lms/templates/shoppingcart/receipt.html:62
@@ -6813,11 +6684,6 @@ msgid ""
 "This page left intentionally blank. It is not used by edx.org but is left "
 "here for possible use by installations of Open edX."
 msgstr ""
-
-#: lms/templates/static_templates/copyright.html:4
-#: lms/templates/static_templates/copyright.html:7
-msgid "Copyright"
-msgstr "Copyright"
 
 #: lms/templates/static_templates/honor.html:4
 #: lms/templates/static_templates/honor.html:7
@@ -7256,10 +7122,6 @@ msgstr ""
 
 #: lms/templates/verify_student/midcourse_reverify_dash.html:63
 msgid "The status of your submitted re-verifications:"
-msgstr ""
-
-#: lms/templates/verify_student/midcourse_reverify_dash.html:82
-msgid "Complete"
 msgstr ""
 
 #: lms/templates/verify_student/midcourse_reverify_dash.html:92
