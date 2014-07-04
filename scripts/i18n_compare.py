@@ -7,6 +7,9 @@ import os
 
 from path import path
 
+# compile .po to .mo
+# msgfmt django.po -o django.mo
+
 LANG = 'fr'
 # this works in my dev. environement (it may differs in yours)
 BASE_DIR = path(os.path.abspath(__file__)).dirname().parent.parent
@@ -19,22 +22,11 @@ fun_translations = gettext.translation('django', FUN_LOCALE, [LANG])
 
 
 def write_csv(filename, rows):
+    filename = "%s_%s.csv" % (filename, LANG)
     with open(filename, 'wb') as f:
         writer = unicodecsv.writer(f, encoding='utf-8', delimiter=';', quotechar='"', quoting=unicodecsv.QUOTE_NONNUMERIC)
         for row in rows:
             writer.writerow(row)
-
-
-def untranslated_edx_strings():
-    # get edx's strings not translated in french:
-    # (this do not work as empty strings are not compiled, we'll have to find an other way)
-    keys = []
-    for key, trans in edx_translations._catalog.items():
-        print "%s  --   %s" % (key, trans)
-        if trans == "":
-            print key
-            keys.append(key)
-    return keys
 
 
 def obsolete_fun_strings():
@@ -68,8 +60,7 @@ def fun_edx_diff():
 
 if __name__ == '__main__':
 
-    #write_csv('untranslated_edx_strings.csv', untranslated_edx_strings())
-    write_csv('obsolete_fun_strings.csv', obsolete_fun_strings().items())
-    write_csv('unnecessary_fun_strings.csv', unnecessary_fun_strings().items())
+    write_csv('obsolete_fun_strings', obsolete_fun_strings().items())
+    write_csv('unnecessary_fun_strings', unnecessary_fun_strings().items())
     data = [(key, value[0], value[1]) for key, value in fun_edx_diff().items()]
-    write_csv('fun_edx_diff.csv', data)
+    write_csv('fun_edx_diff', data)
