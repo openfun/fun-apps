@@ -270,3 +270,63 @@ msgstr "Plus haut niveau de formation atteint"
 
 msgid "Course Updates &amp; News"
 msgstr "Infos du Cours &amp"
+
+msgid "Mandatory fields"
+msgstr "Champs obligatoires"
+
+msgid "Must be at least 8 characters long and contain at least an upper case letter, a lower case letter and a digit."
+msgstr "Doit être composé d'au moins 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
+
+msgid ""
+"Needed for any certificates you may earn <strong>(cannot be changed "
+"later)</strong>"
+msgstr "Requis pour tout certificat que vous pourriez obtenir"
+
+
+msgid "PLEASE LOG IN to access your account and courses"
+msgstr "Merci de vous CONNECTER pour accéder à votre compte et vos cours"
+
+#: Added by MoocLab
+msgid "Male"
+msgstr "Masculin"
+
+#: Added by MoocLab
+msgid "Female"
+msgstr "Féminin"
+
+#: Added by MoocLab
+msgid "Doctorate"
+msgstr "Doctorat"
+
+#: Added by MoocLab
+msgid "Master's or professional degree"
+msgstr "Master / Diplôme d'ingénieur"
+
+#: Added by MoocLab
+msgid "Bachelor's degree"
+msgstr "Licence"
+
+#: Added by MoocLab
+msgid "Associate's degree"
+msgstr "Licence professionnelle"
+
+#: Added by MoocLab
+msgid "Secondary/high school"
+msgstr "DUT / BTS"
+
+#: Added by MoocLab
+msgid "Junior secondary/junior high/middle school"
+msgstr "Baccalauréat"
+
+#: Added by MoocLab
+msgid "Elementary/primary school"
+msgstr "Brevet des collèges"
+
+msgid "The following errors occured while logging you in:"
+msgstr "Les erreurs suivantes se sont produites pendant votre connexion :"
+
+msgid "Email or password is incorrect."
+msgstr "Adresse mail ou mot de passe incorrect"
+
+msgid "example: JaneDoe@domain.com"
+msgstr "exemple : MarieDupont@domaine.com"
