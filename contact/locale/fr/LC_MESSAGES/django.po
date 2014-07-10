@@ -123,7 +123,7 @@ msgstr ""
 "si vous voulez nous faire part de vos impressions sur FUN (ce que nous "
 "vous encourageons à faire), contactez-nous via le formulaire ci-dessous."
 
-msgid "Contact Us"
+msgid "Contact us"
 msgstr "Nous contacter"
 
 msgid "My name"
