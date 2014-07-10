@@ -1,0 +1,17 @@
+## mako
+<%! from django.utils.translation import ugettext as _ %>
+
+<%namespace name='static' file='../static_content.html'/>
+
+<%inherit file="../main.html" />
+
+<%block name="title"><title>${_("Contact")}</title></%block>
+
+<section class="container contact-sent">
+  <section class="message">
+  <h1 class="valid">${_("Message sent!")}</h1>
+    <hr class="horizontal-divider">
+
+    <p>${_("Thank you for your message. It has been successfully recorded, we will answer you as soon as possible.")}</p>
+  </section>
+</section>

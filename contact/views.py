@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import FormView
 
-from edxmako.shortcuts import render_to_response
+from django.shortcuts import render_to_response
 
 from contact.forms import ContactForm
 
@@ -17,7 +17,7 @@ from contact.forms import ContactForm
 
 class ContactFormView(FormView):
     form_class = ContactForm
-    template_name = 'contact_form/contact_form.html'
+    template_name = 'contact/contact_form.html'
 
     def form_valid(self, form):
         form.save()
