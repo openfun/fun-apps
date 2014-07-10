@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: FUN contact form\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-10 14:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:14 templates/contact/contact_form.txt:3
+msgid "Phone"
+msgstr "Mon numéro de téléphone"
+
+#: forms.py:15
+msgid "Function"
+msgstr "Fonction"
+
+#: forms.py:17
+msgid "Student"
+msgstr "Étudiant"
+
+#: forms.py:18
+msgid "Teacher"
+msgstr "Enseignant"
+
+#: forms.py:19
+msgid "Teaching Engineer"
+msgstr "Ingénieur pédagogique"
+
+#: forms.py:20
+msgid "Researcher"
+msgstr "Chercheur"
+
+#: forms.py:21
+msgid "Journalist"
+msgstr "Journaliste"
+
+#: forms.py:22 forms.py:32
+msgid "Other"
+msgstr "Autre"
+
+#: forms.py:24
+msgid "Inquiry type"
+msgstr "Ma demande concerne"
+
+#: forms.py:26
+msgid "Registration and activation"
+msgstr "L'inscription et l'activation de mon compte"
+
+#: forms.py:27
+msgid "Technology problem"
+msgstr "Un problème technique rencontré sur FUN"
+
+#: forms.py:28
+msgid "Accessibility for students with disabilities"
+msgstr ""
+"Une question sur l'accessibilité du site FUN pour les étudiants handicapés"
+
+#: forms.py:29
+msgid "Certification and exams"
+msgstr "Les examens et les certifications"
+
+#: forms.py:30
+msgid "My account"
+msgstr "Mon compte"
+
+#: forms.py:31
+msgid "Business developement or institutional inquiry"
+msgstr "Une demande institutionnelle"
+
+#: forms.py:36
+msgid "Contact request - {}"
+msgstr "Contact - {}"
+
+#: views.py:36
+msgid "Name"
+msgstr "De :"
+
+#: views.py:37
+msgid "Email"
+msgstr "Email"
+
+#: views.py:38
+msgid "Message"
+msgstr "Message"
+
+#: views.py:39 templates/contact/contact_form.txt:1
+msgid "Inquiry"
+msgstr "Demande"
+
+#: templates/contact/contact_form.txt:2
+msgid "From:"
+msgstr ""
+
+msgid ""
+"Do you already follow one or several courses on {platform_name}? If you "
+"have questions, suggestions or difficulties about a course in particular? "
+"Post a comment on the related forum."
+msgstr ""
+"Vous suivez déjà un ou plusieurs cours sur {platform_name} ? Vous avez "
+"des questions, des suggestions ou des difficultés à propos d'un cours en "
+"particulier ? Postez un commentaire sur le forum relatif au cours en "
+"question."
+
+msgid ""
+"Do you have a general question about {platform_name}? Visit our <a "
+"href='{faq_link}'>FAQ</a>. If you still need help, or if you would like "
+"to provide feedback about {platform_name} (which we encourage you to do), "
+"contact us using the form below."
+msgstr ""
+"Vous avez une question d'ordre général à propos de FUN ? Visitez notre <a "
+"href='{faq_link}'>rubrique FAQ</a>. Si vous avez encore besoin d'aide, ou "
+"si vous voulez nous faire part de vos impressions sur FUN (ce que nous "
+"vous encourageons à faire), contactez-nous via le formulaire ci-dessous."
+
+msgid "Contact Us"
+msgstr "Nous contacter"
+
+msgid "My name"
+msgstr "Mon nom"
+
+msgid "Example: John Doe"
+msgstr "Exemple: Pierre Maumont"
+
+msgid "My email"
+msgstr "Mon email"
+
+msgid "Example: john@example.com"
+msgstr "Exemple: pierre@exemple.fr"
+
+msgid "I am a"
+msgstr "Je suis un"
+
+msgid "Send your message"
+msgstr "Envoyer votre message"
+
+msgid "* Required field"
+msgstr "* Champ obligatoire"
+
+msgid "The following errors are preventing the message from being sent:"
+msgstr "Les erreurs suivantes se sont produites pendant l'envoi :"
+
+msgid "Thank you for your message. It has been successfully recorded, we will answer you as soon as possible."
+msgstr "Merci pour votre message. Nous l'avons bien reçu, et nous vous répondrons dès que possible."
+
+msgid "Message sent!"
+msgstr "Message envoyé !"
+

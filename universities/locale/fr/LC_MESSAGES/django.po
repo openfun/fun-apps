@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-10 11:40+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.py:21
+msgid "Daily Motion"
+msgstr ""
+
+#: admin.py:27
+msgid "Displayed On Site | Banner | Description"
+msgstr "Affiché sur le site | Bannière | Description"
+
+#: admin.py:41
+msgid "preview"
+msgstr "Aperçu"
+
+#: models.py:11
+msgid "name"
+msgstr "nom"
+
+#: models.py:12
+msgid "code"
+msgstr "code"
+
+#: models.py:13
+msgid "certificate logo"
+msgstr "Logo du certificat"
+
+#: models.py:15
+msgid "Logo to be displayed on the certificate document."
+msgstr "Logo à afficher sur le certificat"
+
+#: models.py:16
+msgid "logo"
+msgstr "logo"
+
+#: models.py:17
+msgid "featured on site"
+msgstr "Mis en avant sur le site"
+
+#: models.py:18
+msgid ""
+"Shows the logo on various sections of the site and enables the university "
+"page."
+msgstr "Affiche le logo de l'université sur le site"
+
+#: models.py:20
+msgid "slug"
+msgstr "slug"
+
+#: models.py:21
+msgid "Only used is set as featured"
+msgstr "Seulement utilisé si mis en avant"
+
+#: models.py:22
+msgid "banner"
+msgstr "bannière"
+
+#: models.py:24
+msgid "description"
+msgstr ""
+
+#: models.py:25
+msgid "DM User ID"
+msgstr "Dailymotion User ID"
+
+#: models.py:26
+msgid "DM API Key"
+msgstr "Dailymotion API key"
+
+#: models.py:31
+msgid "University"
+msgstr "Université"
+
+#: models.py:32
+msgid "Universities"
+msgstr "Universities"
+
+#: templates/universities/index.html:9
+msgid "Institutions"
+msgstr "Établissements"
+
+#: templates/universities/index.html:17
+msgid "The universities and schools"
+msgstr "Les universités et écoles françaises"
+
+#: templates/universities/index.html:18
+msgid "Offer courses and trainings on {platform_name}"
+msgstr "Proposent des cours variés sur {platform_name}"
+
+#: templates/universities/index.html:23
+msgid ""
+"{platform_name}'s goal is to allow universities and schools to publish their "
+"courses online. The list of institutions proposing courses on "
+"{platform_name} is continuously getting larger:"
+msgstr "{platform_name} a pour vocation de permettre aux universités et écoles françaises qui le souhaitent de dispenser leurs cours en ligne sur la plateforme {platform_name}. Ces universités et écoles sont de plus en plus nombreuses à proposer une ou plusieurs formations sur {platform_name}. Les voici ci-dessous :"
