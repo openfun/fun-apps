@@ -333,3 +333,9 @@ msgstr "exemple : MarieDupont@domaine.com"
 
 msgid "Register below to create your {platform_name} account"
 msgstr "Inscrivez-vous maintenant pour créer votre compte {platform_name}"
+
+msgid "The servers encountered an error"
+msgstr "Une erreur a eu lieu"
+
+msgid "An error occurred and the page could not be loaded. Please try again in a few moments."
+msgstr "Une erreur a eu lieu pendant le chargement de la page, veuillez réessayer plus tard."
