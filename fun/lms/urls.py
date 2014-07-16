@@ -12,7 +12,11 @@ urlpatterns = patterns( '',
     (r'^university/', include('universities.urls')),
     (r'^contact/', include('contact.urls')),
     (r'^', include('lms.urls')),
+)
 
+# Ckeditor - Used by Univerity app
+urlpatterns += (
+    url(r'^ckeditor/', include('ckeditor.urls')),
 )
 
 if settings.DEBUG:
