@@ -339,3 +339,11 @@ msgstr "Une erreur a eu lieu"
 
 msgid "An error occurred and the page could not be loaded. Please try again in a few moments."
 msgstr "Une erreur a eu lieu pendant le chargement de la page, veuillez réessayer plus tard."
+
+msgid "There has been a 500 error on the <em>{platform_name}</em> servers"
+msgstr "Il y a eu une erreur 500 sur le serveur de <em>{platform_name}</em>"
+
+msgid ""
+"Please wait a few seconds and then reload the page. If the problem persists,"
+" please email us at <a href=\"{email}\">{email}</a>."
+msgstr "Attendez quelques secondes et rechargez la page. Si le problème persiste, envoyez nous un mail à l'adresse <a href=\"{email}\">{email}</a>."
