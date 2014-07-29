@@ -29,7 +29,7 @@ SCRIPT
 edx_platform_mount_dir = "edx-platform"
 themes_mount_dir = "themes"
 funapps_mount_dir = "fun-apps"
-funscripts_mount_dir = "fun-scrips"
+funscripts_mount_dir = "fun-scripts"
 configuration_mount_dir = "configuration"
 forum_mount_dir = "cs_comments_service"
 ora_mount_dir = "ora"
