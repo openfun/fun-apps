@@ -1,0 +1,110 @@
+<%! from django.utils.translation import ugettext as _ %>
+<%! import django_comment_client.helpers as helpers %>
+<%! from django.template.defaultfilters import escapejs %>
+<%! from django.core.urlresolvers import reverse %>
+
+<%inherit file="../main.html" />
+<%namespace name='static' file='../static_content.html'/>
+<%block name="bodyclass">discussion</%block>
+<%block name="pagetitle">${_("Discussion - {course_number}").format(course_number=course.display_number_with_default) | h}</%block>
+<%block name="nav_skip">#discussion-container</%block>
+
+<%block name="headextra">
+<%static:css group='style-course-vendor'/>
+<%static:css group='style-course'/>
+
+<%include file="_js_head_dependencies.html" />
+</%block>
+
+<%block name="js_extra">
+<%include file="_js_body_dependencies.html" />
+<%static:js group='discussion'/>
+
+<script>
+/*  Override and extend backbone classes to add handling of our custom forum roles
+*/
+    DiscussionUtil.isActive = function(user_id) {
+      var ta, _ref;
+      if (user_id == null) {
+        user_id = (_ref = this.user) != null ? _ref.id : void 0;
+      }
+      actif = _.union(this.roleIds['Active']);
+      return _.include(actif, parseInt(user_id));
+    };
+    DiscussionUtil.isRecommended = function(user_id) {
+      var ta, _ref;
+      if (user_id == null) {
+        user_id = (_ref = this.user) != null ? _ref.id : void 0;
+      }
+      recommended = _.union(this.roleIds['Recommended']);
+      return _.include(recommended, parseInt(user_id));
+    };
+    DiscussionUtil.isOfficial = function(user_id) {
+      var ta, _ref;
+      if (user_id == null) {
+        user_id = (_ref = this.user) != null ? _ref.id : void 0;
+      }
+      official = _.union(this.roleIds['Official Contributor']);
+      return _.include(official, parseInt(user_id));
+    };
+
+    ResponseCommentShowView.prototype.markAsStaff = function() {
+        if (DiscussionUtil.isStaff(this.model.get("user_id"))) {
+          return this.$el.find("a.profile-link").after('<span class="staff-label">' + gettext("Staff") + '</span>');
+        } else if (DiscussionUtil.isTA(this.model.get("user_id"))) {
+          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Community TA") + '</span>');
+        } else if (DiscussionUtil.isOfficial(this.model.get("user_id"))) {
+          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Official Contributor") + '</span>');
+        } else if (DiscussionUtil.isRecommended(this.model.get("user_id"))) {
+          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Recommended") + '</span>');
+        } else if (DiscussionUtil.isActive(this.model.get("user_id"))) {
+          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Active") + '</span>');
+        }
+    };
+
+    ThreadResponseShowView.prototype.markAsStaff = function() {
+        if (DiscussionUtil.isStaff(this.model.get("user_id"))) {
+            this.$el.addClass("staff");
+            return this.$el.prepend('<div class="staff-banner">' + gettext("Staff") + '</div>');
+        } else if (DiscussionUtil.isTA(this.model.get("user_id"))) {
+            this.$el.addClass("community-ta");
+            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Community TA") + '</div>');
+        } else if (DiscussionUtil.isOfficial(this.model.get("user_id"))) {
+            this.$el.addClass("community-ta");
+            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Official Contributor") + '</div>');
+        } else if (DiscussionUtil.isRecommended(this.model.get("user_id"))) {
+            this.$el.addClass("community-ta");
+            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Recommended") + '</div>');
+        } else if (DiscussionUtil.isActive(this.model.get("user_id"))) {
+            this.$el.addClass("community-ta");
+            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Active") + '</div>');
+        }
+    };
+</script>
+
+</%block>
+
+<%include file="_discussion_course_navigation.html" args="active_page='discussion'" />
+
+
+<article class="new-post-article"></article>
+<section class="discussion container" id="discussion-container"
+         data-roles="${roles}"
+         data-course-id="${course_id}"
+         data-user-info="${user_info}"
+         data-threads="${threads}"
+         data-thread-pages="${thread_pages}"
+         data-content-info="${annotated_content_info}"
+         data-sort-preference="${sort_preference}"
+         data-flag-moderator="${flag_moderator}"
+         data-user-cohort-id="${user_cohort}"
+         data-course-settings="${course_settings}">
+    <div class="discussion-body">
+        <div class="forum-nav"></div>
+        <div class="discussion-column">
+        </div>
+    </div>
+</section>
+
+<%include file="_underscore_templates.html" />
+<%include file="_thread_list_template.html" />
