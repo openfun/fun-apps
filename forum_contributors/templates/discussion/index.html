@@ -23,6 +23,8 @@
 <script>
 /*  Override and extend backbone classes to add handling of our custom forum roles
 */
+
+    // Extends edx-platform/common/static/coffee/src/discussion/utils.js
     DiscussionUtil.isActive = function(user_id) {
       var ta, _ref;
       if (user_id == null) {
@@ -48,6 +50,7 @@
       return _.include(official, parseInt(user_id));
     };
 
+    // Overrides methods from edx-platform/common/static/coffee/src/discussion/response_comment_show_view.js
     ResponseCommentShowView.prototype.markAsStaff = function() {
         if (DiscussionUtil.isStaff(this.model.get("user_id"))) {
           return this.$el.find("a.profile-link").after('<span class="staff-label">' + gettext("Staff") + '</span>');
@@ -62,6 +65,7 @@
         }
     };
 
+    // Overrides methods edx-platform/common/static/coffee/src/discussion/thread_response_show_view.js
     ThreadResponseShowView.prototype.markAsStaff = function() {
         if (DiscussionUtil.isStaff(this.model.get("user_id"))) {
             this.$el.addClass("staff");
