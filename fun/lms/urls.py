@@ -9,7 +9,7 @@ from lms.urls import handler404, handler500
 # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = patterns( '',
-    (r'^university/', include('universities.urls')),
+    (r'^universities/', include('universities.urls')),
     (r'^contact/', include('contact.urls')),
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),
