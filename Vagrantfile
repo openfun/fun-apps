@@ -29,6 +29,7 @@ SCRIPT
 edx_platform_mount_dir = "edx-platform"
 themes_mount_dir = "themes"
 funapps_mount_dir = "fun-apps"
+funconfig_mount_dir = "fun-config"
 funscripts_mount_dir = "fun-scripts"
 configuration_mount_dir = "configuration"
 forum_mount_dir = "cs_comments_service"
@@ -39,6 +40,7 @@ if ENV['VAGRANT_MOUNT_BASE']
   edx_platform_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + edx_platform_mount_dir
   themes_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + themes_mount_dir
   funapps_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + funapps_mount_dir
+  funconfig_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + funconfig_mount_dir
   funscripts_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + funscripts_mount_dir
   configuration_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + configuration_mount_dir
   forum_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + forum_mount_dir
@@ -69,6 +71,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "#{edx_platform_mount_dir}", "/edx/app/edxapp/edx-platform", :create => true, nfs: true
   config.vm.synced_folder "#{themes_mount_dir}", "/edx/app/edxapp/themes", :create => true, nfs: true
   config.vm.synced_folder "#{funapps_mount_dir}", "/edx/app/edxapp/fun-apps", :create => true, nfs: true
+  config.vm.synced_folder "#{funconfig_mount_dir}", "/edx/app/edxapp/fun-config", :create => true, nfs: true
   config.vm.synced_folder "#{funscripts_mount_dir}", "/edx/app/edxapp/fun-scripts", :create => true, nfs: true
   config.vm.synced_folder "#{configuration_mount_dir}", "/edx/app/edxapp/configuration", :create => true, nfs: true
   config.vm.synced_folder "#{forum_mount_dir}", "/edx/app/forum/cs_comments_service", :create => true, nfs: true
