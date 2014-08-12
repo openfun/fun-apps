@@ -1,0 +1,181 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from courseware.courses import course_image_url, get_course_about_section
+%>
+
+<%namespace name='static' file='../static_content.html'/>
+
+<%block name="bodyclass">view-course-list</%block>
+<%block name="title"><title>${_("Courses")}</title></%block>
+
+<%inherit file="../main.html" />
+
+<style>
+.fun-content {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.courses-list-filter {
+    text-align: right;
+}
+.courses-list-filter ul {
+    float: right;
+    list-style: none;
+}
+.courses-list-filter li {
+    margin-left: 20px;
+    float: left;
+}
+
+.courses-list {
+    clear: both;
+
+}
+
+.course-block{
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+}
+
+div.course-infos {
+    margin-left: 280px;
+    height: 160px;
+
+}
+    div.course-description {
+        height: 160px;
+        overflow-y: auto;
+
+    }
+    div.course-description h1 {
+        padding-top: 6px;
+        margin-bottom: -10px;
+        color: #2e2d29;
+        font-family: "Arial","Helvetica",sans-serif;
+        font-size: 1.1em;
+        font-weight: 700;
+        height: 48px;
+        letter-spacing: 0px;
+        text-shadow: 0 1px rgba(255,255,255,0.6);
+        text-overflow: ellipsis;
+        text-transform: none;
+        vertical-align: middle;
+    }
+    div.course-description p {
+        font-size: 0.9em;
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-bottom: 30px;
+    }
+    div.course-dates {
+        font-size: 0.9em;
+        position: relative;
+        width: 100%;
+        height: 30px;
+        opacity: 0.9;
+        background-color: #ccc;
+        bottom: 0;
+        top: -30px;
+    }
+    div.course-dates .course-dates-description {
+        margin-left: 20px;
+        display: inline-table;
+        margin-top: 5px;
+    }
+    div.course-dates .course-dates-description .date {
+        font-weight: bold;
+    }
+
+div.course-image {
+    width: 280px;
+    position: absolute;
+    top: 0; left: 0;
+}
+.label {
+    position: absolute;
+    padding: 4px 6px 4px 6px;
+    font-size: 1em;
+}
+.label-new {
+    background-color: black;
+    opacity: 0.7;
+    color: white;
+    -webkit-box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
+}
+.label-university {
+    background-color: black;
+    opacity: 0.7;
+    color: white;
+    -webkit-box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
+    bottom: 0;
+}
+.label-right {
+    color: blue;
+    right: 0
+}
+
+
+
+
+
+</style>
+
+<div class="fun-content">
+
+    <div class="courses-list-filter">
+        <form action="." method="GET">
+            <ul>
+                <li>Filter les cours disponible: </li>
+                ${form.as_ul()}
+                <li><input type="submit" value="Filter"></li>
+            </ul>
+        </form>
+    </div>
+
+
+    <div class="courses-list">
+        % for course in courses:
+            <div class="course-block">
+                <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+                    <div class="course-image">
+                        <span class="label label-new">
+                            Nouveau
+                        </span>
+                        <span class="label label-university">
+                            ${ course.org }/${get_course_about_section(course, 'university')}
+                        </span>
+                        <img width=280 height=160 src="${course_image_url(course)}" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image">
+
+                    </div>
+                </a>
+                <div class="course-infos">
+                    <div class="course-description">
+                        <span class="label label-right"></span>
+                        <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}"><h1>${ course.display_name }</h1></a>
+                        <p>
+                            ${ get_course_about_section(course, 'short_description') }
+                        </p>
+                    </div>
+                    <div class="course-dates"><a href="/">
+                        <span class="course-dates-description">
+                            ${course.inscription_inverval} - ${course.course_interval}
+                        </span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+    % endfor
+    </div>
+
+
+</div>
