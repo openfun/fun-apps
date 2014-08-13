@@ -127,13 +127,12 @@ div.course-image {
 
 
 </style>
-
 <div class="fun-content">
 
     <div class="courses-list-filter">
         <form action="." method="GET">
             <ul>
-                <li>Filter les cours disponible: </li>
+                <li>Filter les cours disponibles: </li>
                 ${form.as_ul()}
                 <li><input type="submit" value="Filter"></li>
             </ul>
@@ -146,9 +145,12 @@ div.course-image {
             <div class="course-block">
                 <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
                     <div class="course-image">
-                        <span class="label label-new">
-                            Nouveau
-                        </span>
+                        %if course.is_newish:
+                            <span class="label label-new">
+                                Nouveau
+                            </span>
+                        %endif
+
                         <span class="label label-university">
                             ${ course.org }/${get_course_about_section(course, 'university')}
                         </span>

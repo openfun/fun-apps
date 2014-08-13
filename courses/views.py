@@ -5,6 +5,7 @@ import datetime
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.utils import timezone
+from django.utils import translation
 
 from courseware.courses import get_courses, sort_by_announcement
 
@@ -14,7 +15,7 @@ from .forms import CourseFileteringForm
 def _dates_description(course):
     #import ipdb; ipdb.set_trace()
     # As we do not know user timezone, assume he is in the same as instructor :-/
-    FORMAT = '%A %d %B'
+    FORMAT = '%A %d %B %Y'
     now = timezone.make_aware(datetime.datetime.utcnow(), course.start.tzinfo)
     inscription_inverval = ''
     course_interval = ''
@@ -37,14 +38,57 @@ def _dates_description(course):
     return course
 
 
+def _sort_courses(courses):
+    """Sort courses in a usefull order for user:
+        - courses with enrollement date started should be first
+        - then course to start to enroll should be ordered by enrollement start date (asc)
+        - then course which started should be sorted by days to go (desc) or by start date asc
+        - then courses ended by end data (asc)
+    """
+
+    def _sort_by_novelty(a, b):
+        # quick and dirty implementation wich probably works in most easy cases
+        if a.enrollment_start and b.enrollment_start:
+            return a.enrollment_start < b.enrollment_start
+        elif a.enrollment_start and not b.enrollment_start:
+            return True
+        else:
+            return a.start < b.start
+    return sorted(courses, _sort_by_novelty)
+
 def course_index(request):
     #courses = get_courses(request.user)
     courses = [_dates_description(course) for course in get_courses(request.user)]
     form = CourseFileteringForm(request.GET or None)
+    courses = _sort_courses(courses)
+
+    #request.LANGUAGE_CODE = translation.get_language()
 
     return render(request, 'courses/index.html', {
         'form': form,
         'courses': courses,
-
+        'current_language': translation.get_language(),
     })
 
+
+
+#CourseKey.from_string('rm/003/now')
+# course_module = modulestore().get_course(key, depth=0)
+
+#from opaque_keys.edx.keys import CourseKey
+#from xmodule.modulestore.django import modulestore
+#from course_metadata import CourseMetadata  # from cms.models.settings
+#
+#def _get_course_module(course_key, user, depth=0):
+#    """
+#    Internal method used to calculate and return the locator and course module
+#    for the view functions in this file.
+#    """
+#    if not has_course_access(user, course_key):
+#        raise PermissionDenied()
+#    course_module = modulestore().get_course(course_key, depth=depth)
+#    return course_module
+#
+#
+#course_key = CourseKey.from_string(course_key_string)
+#course_module = _get_course_module(course_key, request.user)
