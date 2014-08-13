@@ -7,9 +7,14 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.utils import translation
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from courseware.courses import get_courses, sort_by_announcement
 
 from .forms import CourseFileteringForm
+
+
+COURSES_BY_PAGE = 2
 
 
 def _dates_description(course):
@@ -59,8 +64,20 @@ def _sort_courses(courses):
 def course_index(request):
     #courses = get_courses(request.user)
     courses = [_dates_description(course) for course in get_courses(request.user)]
-    form = CourseFileteringForm(request.GET or None)
     courses = _sort_courses(courses)
+
+    form = CourseFileteringForm(request.GET or None)
+
+    # paginate courses
+    paginator = Paginator(courses, COURSES_BY_PAGE, orphans=0)
+    page = request.GET.get('page')
+
+    try:
+        courses = paginator.page(page)
+    except PageNotAnInteger:
+        courses = paginator.page(1)
+    except EmptyPage:
+        courses = paginator.page(paginator.num_pages)
 
     #request.LANGUAGE_CODE = translation.get_language()
 

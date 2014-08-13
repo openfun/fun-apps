@@ -179,5 +179,20 @@ div.course-image {
     % endfor
     </div>
 
+    <div class="pagination">
+        <span class="step-links">
+            % if courses.has_previous:
+                <a href="?page=${ courses.previous_page_number() }">Page précendente</a>
+            % endif
+
+            <span class="current">
+                ${ courses.paginator.count } cours - Page ${ courses.number } sur ${ courses.paginator.num_pages }
+            </span>
+
+            % if courses.has_next:
+                <a href="?page=${ courses.next_page_number() }">Page suivante</a>
+            % endif
+        </span>
+    </div>
 
 </div>
