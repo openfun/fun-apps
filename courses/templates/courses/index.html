@@ -122,19 +122,54 @@ div.course-image {
     right: 0
 }
 
+/* form */
+.fun-courses-filter-button {
+    text-transform: none !important;
+    padding: 8px !important;
+    font: none !important;
+    font-size: 0.8em !important;
+    line-height: 1em !important;
+}
 
+/* Pagination bar */
+div.pagination {
+    width: 100%;
+    border: 1px solid #aaa;
+    text-align: center;
+}
+div.pagination span.step {
+}
+div.pagination span.previous {
+    float: left;
+    width: 200px;
+    min-height: 5px;
+}
+div.pagination span.next {
+    float: right;
+    width: 200px;
+    min-height: 5px;
 
-
+}
+div.pagination span.previous a, span.next a {
+    color: #555;
+}
+div.pagination span.current {
+    margin: 0 auto;
+    width: 200px;
+    display: inline-block;
+    color: #777;
+}
 
 </style>
+
 <div class="fun-content">
 
     <div class="courses-list-filter">
         <form action="." method="GET">
             <ul>
-                <li>Filter les cours disponibles: </li>
+                <!-- <li>Filter les cours disponibles: </li> -->
                 ${form.as_ul()}
-                <li><input type="submit" value="Filter"></li>
+                <li><input type="submit" value="Filtrer" class="fun-courses-filter-button"></li>
             </ul>
         </form>
     </div>
@@ -179,19 +214,20 @@ div.course-image {
     % endfor
     </div>
 
+
     <div class="pagination">
-        <span class="step-links">
-            % if courses.has_previous:
+        <span class="step previous">
+            % if courses.has_previous():
                 <a href="?page=${ courses.previous_page_number() }">Page précendente</a>
             % endif
-
-            <span class="current">
-                ${ courses.paginator.count } cours - Page ${ courses.number } sur ${ courses.paginator.num_pages }
-            </span>
-
-            % if courses.has_next:
+        </span>
+        <span class="step next">
+            % if courses.has_next():
                 <a href="?page=${ courses.next_page_number() }">Page suivante</a>
             % endif
+        </span>
+        <span class="step current">
+            ${ courses.paginator.count } cours - Page ${ courses.number } sur ${ courses.paginator.num_pages }
         </span>
     </div>
 

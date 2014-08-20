@@ -3,6 +3,7 @@
 from django import forms
 from django.utils.translation import ugettext as _
 
+from universities.models import University
 
 class CourseFileteringForm(forms.Form):
     STATE_CHOICES = (
@@ -12,9 +13,10 @@ class CourseFileteringForm(forms.Form):
         ('PAST', _(u"Past")),
         )
 
-    state = forms.ChoiceField(choices=STATE_CHOICES, label=_(u"State"))
-    theme = forms.ChoiceField(choices=[], required=False, label=_(u"Theme"))
+    #state = forms.ChoiceField(choices=STATE_CHOICES, label=_(u"State"))
+    #theme = forms.ChoiceField(choices=[], required=False, label=_(u"Theme"))
     university = forms.ChoiceField(choices=[], required=False, label=_(u"University"))
 
     def __init__(self, *args, **kwargs):
         super(CourseFileteringForm, self).__init__(*args, **kwargs)
+        self.fields['university'].choices = [((''), "Toutes")] + [(u.code, u.name) for u in University.objects.all()]
