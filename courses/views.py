@@ -14,7 +14,7 @@ from courseware.courses import get_courses, sort_by_announcement
 from .forms import CourseFileteringForm
 
 
-COURSES_BY_PAGE = 2
+COURSES_BY_PAGE = 20
 
 
 def _dates_description(course):
@@ -26,7 +26,7 @@ def _dates_description(course):
     course_interval = ''
     if course.enrollment_start and course.enrollment_start > now:
         inscription_inverval = u"Inscription à partir du %s" % (course.enrollment_start.strftime(FORMAT))
-    elif course.enrollment_start and course.enrollment_start < now and course.enrollment_end > now:
+    elif course.enrollment_start and course.enrollment_end and course.enrollment_start < now and course.enrollment_end > now:
         inscription_inverval = u"Inscription jusqu'au du %s" % (course.enrollment_end.strftime(FORMAT))
     else:
         inscription_inverval = u"Les inscriptions sont terminées"
@@ -35,8 +35,10 @@ def _dates_description(course):
             course_interval = u"Le cours dure du %s au %s" % (course.start.strftime(FORMAT), course.end.strftime(FORMAT))
         else:
             course_interval = u"Le cours démarre le %s" % (course.start.strftime(FORMAT))
-    elif course.end and course.end < now:
+    elif course.end and course.end > now:
         course_interval = u"Le cours dure jusqu'au %s" %(course.end.strftime(FORMAT))
+    else:
+        course_interval = u"Le cours est terminé"
 
     course.inscription_inverval = inscription_inverval
     course.course_interval = course_interval
@@ -60,7 +62,7 @@ def _sort_courses(courses):
             return True
         else:
             return a.start < b.start
-    return sorted(courses, _sort_by_novelty)
+    return sort_by_announcement(courses)  # sorted(courses, _sort_by_novelty)
 
 
 def course_index(request):
