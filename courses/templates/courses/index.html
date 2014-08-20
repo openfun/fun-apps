@@ -190,7 +190,7 @@ div.pagination span.current {
                         <span class="label label-university">
                             ${get_course_about_section(course, 'university')}
                         </span>
-                        <img width=280 height=160 src="${course_image_url(course)}" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image">
+                        <img src="${course_image_url(course)}?width=280" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image">
 
                     </div>
                 </a>
