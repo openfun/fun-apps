@@ -111,6 +111,7 @@ div.course-image {
 .label-university {
     background-color: black;
     opacity: 0.7;
+    font-size: 0.8em;
     color: white;
     -webkit-box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 19px -12px rgba(0,0,0,0.75);
@@ -187,7 +188,7 @@ div.pagination span.current {
                         %endif
 
                         <span class="label label-university">
-                            ${ course.org }/${get_course_about_section(course, 'university')}
+                            ${get_course_about_section(course, 'university')}
                         </span>
                         <img width=280 height=160 src="${course_image_url(course)}" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image">
 
