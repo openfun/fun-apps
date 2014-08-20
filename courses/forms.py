@@ -14,7 +14,7 @@ class CourseFileteringForm(forms.Form):
         ('past', _(u"Past")),
         )
 
-    state = forms.ChoiceField(choices=STATE_CHOICES, label=_(u"State"))
+    state = forms.ChoiceField(choices=STATE_CHOICES, required=False, label=_(u"State"))
     #theme = forms.ChoiceField(choices=[], required=False, label=_(u"Theme"))
     university = forms.ChoiceField(choices=[], required=False, label=_(u"University"))
 
