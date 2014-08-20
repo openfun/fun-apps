@@ -37,8 +37,10 @@ class ThumbnailStaticContentServer(StaticContentServer):
 
                     # get original asset
                     asset_location = StaticContent.get_location_from_path(request.path)
-                    content = contentstore().find(asset_location, as_stream=True)
-
+                    try:
+                        content = contentstore().find(asset_location, as_stream=True)
+                    except NotFoundError:
+                        return  # if original asset do not exists, let the request pass by 
                     # generate thumbnail
                     im = Image.open(StringIO.StringIO(content.copy_to_in_mem().data))
                     im = im.convert('RGB')
