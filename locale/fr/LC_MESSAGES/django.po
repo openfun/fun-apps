@@ -347,3 +347,15 @@ msgid ""
 "Please wait a few seconds and then reload the page. If the problem persists,"
 " please email us at <a href=\"{email}\">{email}</a>."
 msgstr "Attendez quelques secondes et rechargez la page. Si le problème persiste, envoyez nous un mail à l'adresse <a href=\"{email}\">{email}</a>."
+
+msgid "State"
+msgstr "Etat"
+
+msgid "Incoming"
+msgstr "A venir"
+
+msgid "Current"
+msgstr "En cours"
+
+msgid "Past"
+msgstr "Terminé"

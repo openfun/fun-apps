@@ -67,12 +67,21 @@ def _sort_courses(courses):
 
 def course_index(request):
     courses = [_dates_description(course) for course in get_courses(request.user)]
-    courses = _sort_courses(courses)
     form = CourseFileteringForm(request.GET or None)
 
     if form.is_valid():
         if form.cleaned_data['university']:
             courses = [c for c in courses if c.org == form.cleaned_data['university']]
+        if form.cleaned_data['state']:
+            now = timezone.make_aware(datetime.datetime.utcnow(), timezone.get_current_timezone())
+            if form.cleaned_data['state'] == 'future':
+                courses = [c for c in courses if c.start and c.start > now]
+            elif form.cleaned_data['state'] == 'current':
+                courses = [c for c in courses if c.start and c.start < now and c.end and c.end > now]
+            elif form.cleaned_data['state'] == 'past':
+                courses = [c for c in courses if c.end and c.end < now]
+
+    courses = _sort_courses(courses)
 
     # paginate courses
     paginator = Paginator(courses, COURSES_BY_PAGE, orphans=0)

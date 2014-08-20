@@ -5,15 +5,16 @@ from django.utils.translation import ugettext as _
 
 from universities.models import University
 
+
 class CourseFileteringForm(forms.Form):
     STATE_CHOICES = (
-        ('ALL', _(u"All")),
-        ('FUTURE', _(u"Incoming")),
-        ('CURRENT', _(u"Current")),
-        ('PAST', _(u"Past")),
+        ('', _(u"All")),
+        ('future', _(u"Incoming")),
+        ('current', _(u"Current")),
+        ('past', _(u"Past")),
         )
 
-    #state = forms.ChoiceField(choices=STATE_CHOICES, label=_(u"State"))
+    state = forms.ChoiceField(choices=STATE_CHOICES, label=_(u"State"))
     #theme = forms.ChoiceField(choices=[], required=False, label=_(u"Theme"))
     university = forms.ChoiceField(choices=[], required=False, label=_(u"University"))
 
