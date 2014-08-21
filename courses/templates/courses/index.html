@@ -46,6 +46,15 @@ div.course-infos {
     height: 160px;
 
 }
+    div.course-image-container {
+        width: 280px;
+        height: 162px;
+        overflow: hidden;
+    }
+    div.course-image-container img {
+        width: 300px;
+    }
+
     div.course-description {
         height: 160px;
         overflow-y: auto;
@@ -190,8 +199,9 @@ div.pagination span.current {
                         <span class="label label-university">
                             ${get_course_about_section(course, 'university')}
                         </span>
-                        <img src="${course_image_url(course)}?width=280" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image">
-
+                        <div class="course-image-container">
+                            <img src="${course_image_url(course)}?width=300" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image">
+                        </div>
                     </div>
                 </a>
                 <div class="course-infos">
