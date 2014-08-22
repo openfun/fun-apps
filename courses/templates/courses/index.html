@@ -1,0 +1,164 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from courseware.courses import course_image_url, get_course_about_section
+%>
+
+<%namespace name='static' file='../static_content.html'/>
+
+<%block name="bodyclass">view-course-list</%block>
+<%block name="title"><title>${_("Courses")}</title></%block>
+
+<%inherit file="../main.html" />
+
+<style>
+.courses-list-filter {
+    width: 980px;
+    text-align: right;
+    margin: 0 auto 0 auto;
+
+}
+
+.courses-list-filter ul {
+    display: block;
+    float: right;
+    list-style: none;
+}
+.courses-list-filter li {
+    margin-left: 20px;
+    float: left;
+}
+
+
+.courses {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+
+
+/* form */
+.fun-courses-filter-button {
+    text-transform: none !important;
+    padding: 8px !important;
+    font: none !important;
+    font-size: 0.8em !important;
+    line-height: 1em !important;
+    margin-top: -4px;
+}
+
+/* Pagination bar */
+div.pagination {
+    width: 100%;
+    border: 1px solid #aaa;
+    text-align: center;
+}
+div.pagination span.step {
+}
+div.pagination span.previous {
+    float: left;
+    width: 200px;
+    min-height: 5px;
+}
+div.pagination span.next {
+    float: right;
+    width: 200px;
+    min-height: 5px;
+
+}
+div.pagination span.previous a, span.next a {
+    color: #555;
+}
+div.pagination span.current {
+    margin: 0 auto;
+    width: 200px;
+    display: inline-block;
+    color: #777;
+}
+
+</style>
+
+
+
+<section class="find-courses">
+    <section class="container">
+
+        <section class="courses">
+            <section class="courses-list-filter">
+                <form action="." method="GET">
+                    <ul>
+                        ${form.as_ul()}
+                        <li><input type="submit" value="Filtrer" class="fun-courses-filter-button"></li>
+                    </ul>
+                </form>
+            </section>
+
+            <div style="clear: both"></div>
+
+
+            <ul class="courses-listing">
+              %for course in courses:
+                <li class="courses-listing-item">
+
+                    <article id="${course.id.to_deprecated_string()}" class="course">
+                      %if course.is_newish:
+                        <span class="status">${_("New")}</span>
+                      %endif
+                      <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+                      <div class="inner-wrapper">
+                          <header class="course-preview">
+                            <hgroup>
+                              <h2><span class="course-number">${course.display_number_with_default | h}</span> ${get_course_about_section(course, 'title')}</h2>
+                            </hgroup>
+                            <div class="info-link">&#x2794;</div>
+                          </header>
+                          <section class="info">
+                            <div class="cover-image">
+                              <img src="${course_image_url(course)}?width=300" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image" />
+                            </div>
+                            <div class="desc">
+                              <p>${get_course_about_section(course, 'short_description')}</p>
+                            </div>
+                            <div class="bottom">
+                              <span class="university">${get_course_about_section(course, 'university')}</span>
+                              % if not course.start_date_is_still_default:
+                              <span class="start-date">${course.start_date_text}</span>
+                              % endif
+                            </div>
+                          </section>
+                        </div>
+                        <div class="meta-info">
+                          <p class="university">${get_course_about_section(course, 'university')}</p>
+                        </div>
+                      </a>
+                    </article>
+
+
+
+
+                </li>
+              %endfor
+            </ul>
+        </section>
+
+        <div class="pagination">
+            <span class="step previous">
+                % if courses.has_previous():
+                    <a href="?page=${ courses.previous_page_number() }">Page précédente</a>
+                % endif
+            </span>
+            <span class="step next">
+                % if courses.has_next():
+                    <a href="?page=${ courses.next_page_number() }">Page suivante</a>
+                % endif
+            </span>
+            <span class="step current">
+                ${ courses.paginator.count } cours - Page ${ courses.number } sur ${ courses.paginator.num_pages }
+            </span>
+        </div>
+
+    </section>
+
+
+</section>

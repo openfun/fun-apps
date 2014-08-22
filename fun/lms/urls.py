@@ -11,6 +11,7 @@ from lms.urls import handler404, handler500
 urlpatterns = patterns( '',
     (r'^universities/', include('universities.urls')),
     (r'^contact/', include('contact.urls')),
+    (r'^cours/', include('courses.urls')),
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),
     (r'^', include('lms.urls')),
