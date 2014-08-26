@@ -21,6 +21,8 @@ urlpatterns = patterns( '',
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),
 
+    (r'^selftest/', include('selftest.urls')),
+
     (r'^', include('lms.urls')),
 )
 
