@@ -40,7 +40,7 @@ class Command(BaseCommand):
 
              Command to dump the result of a quizz
 
-             Usage : <--organisation ORGANISATION --course_number COURSE_NUMBER --quizz_id QUIZZ_ID --quizz_size QUIZZ_SIZE [--output_file_name FILENAME] [--demography] >
+             Usage : <--organisation ORGANISATION --course-number COURSE_NUMBER --quizz-id QUIZZ_ID --quizz-size QUIZZ_SIZE [--output-file-name FILENAME] [--demography] >
 
              To use it 4 arguments are mandatory
                 1 - the organisation name
@@ -51,6 +51,9 @@ class Command(BaseCommand):
                 1 - output_file_name :  you can name the output file (by defaut the file name is the quizz id)
                 2 - demography : to get demographic information about the student (gender, age, level of education)
 
+                Example:
+                ./manage.py lms --settings=fun.lms_dev get_quizz_result --organisation ENSCachan --course-number 20002 --quizz-id 4b899db9d2254bd78dc2d2a60b291e06 --quizz-size 39 --demography --output-file-name 20002
+
            """
 
     option_list = BaseCommand.option_list + (
@@ -59,17 +62,17 @@ class Command(BaseCommand):
                     dest = 'organisation',
                     type = 'string'
                     ),
-        make_option('--course_number',
+        make_option('--course-number',
                     action = 'store',
                     dest='course_number',
                     type = 'string'
                     ),
-        make_option('--quizz_id',
+        make_option('--quizz-id',
                     action = 'store',
                     dest = 'quizz_id',
                     type = 'string'
                     ),
-        make_option('--quizz_size',
+        make_option('--quizz-size',
                     action = 'store',
                     dest = 'quizz_size',
                     type = 'int'
@@ -79,7 +82,7 @@ class Command(BaseCommand):
                     dest = 'demography',
                     default = False,
                    ),
-        make_option('--output_file_name',
+        make_option('--output-file-name',
                     action = 'store',
                     dest = 'output_file_name',
                     default = False,
