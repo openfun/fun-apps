@@ -14,7 +14,7 @@ from courseware.courses import get_courses, sort_by_announcement
 from .forms import CourseFileteringForm
 
 
-COURSES_BY_PAGE = 20
+COURSES_BY_PAGE = 12
 
 
 def _dates_description(course):
@@ -84,7 +84,7 @@ def course_index(request):
     courses = _sort_courses(courses)
 
     # paginate courses
-    paginator = Paginator(courses, COURSES_BY_PAGE, orphans=0)
+    paginator = Paginator(courses, COURSES_BY_PAGE, orphans=3)
     page = request.GET.get('page')
 
     try:

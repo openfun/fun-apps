@@ -346,6 +346,7 @@ msgstr "Il y a eu une erreur 500 sur le serveur de <em>{platform_name}</em>"
 msgid ""
 "Please wait a few seconds and then reload the page. If the problem persists,"
 " please email us at <a href=\"{email}\">{email}</a>."
+
 msgstr "Attendez quelques secondes et rechargez la page. Si le problème persiste, envoyez nous un mail à l'adresse <a href=\"{email}\">{email}</a>."
 
 msgid "State"
@@ -359,3 +360,15 @@ msgstr "En cours"
 
 msgid "Past"
 msgstr "Terminé"
+
+msgid "You are about to logout from your session. Do you want to proceed?"
+msgstr "Vous êtes sur le point de vous déconnecter. Souhaitez-vous poursuivre cette action ?"
+
+msgid "I hereby accept the following <a href=\"/licenses\">terms and conditions</a>"
+msgstr "En m’inscrivant à ce cours, j’accepte les <a href=\"/licenses\">conditions d'utilisation relatives à ce cours</a> mentionnées dans la page de présentation"
+
+msgid "You're receiving this e-mail because you requested a password reset for your user account at FUN."
+msgstr "Vous recevez ce mail parce que vous avez demandé une réinitialisation du mot de passe de votre compte FUN."
+
+msgid "End of Registration"
+msgstr "Fin des inscriptions"

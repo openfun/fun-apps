@@ -6,6 +6,15 @@ from django.utils.translation import ugettext as _
 from universities.models import University
 
 
+
+# themes: Environnement
+#        Juridique
+#       Management
+#       Numérique, technologie
+#       Relations internationales
+#       Santé Sciences
+#       Sciences humaines et sociales
+
 class CourseFileteringForm(forms.Form):
     STATE_CHOICES = (
         ('', _(u"All")),

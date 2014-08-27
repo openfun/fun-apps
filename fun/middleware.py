@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import StringIO
 
 from PIL import Image
@@ -25,8 +26,8 @@ class ThumbnailStaticContentServer(StaticContentServer):
                 width = int(request.GET['width'])
                 path = request.path.split('/')
                 category = 'thumbnail'
-                name = path[5].split('.')
-                path[5] = "%s-w%d.%s" % (name[0], width, name[1])
+                name = os.path.splitext(path[5])
+                path[5] = "%s-w%d%s" % (name[0], width, name[1])
                 path[4] = category
 
                 path = '/'.join(path)
@@ -40,7 +41,7 @@ class ThumbnailStaticContentServer(StaticContentServer):
                     try:
                         content = contentstore().find(asset_location, as_stream=True)
                     except NotFoundError:
-                        return  # if original asset do not exists, let the request pass by 
+                        return  # if original asset do not exists, let the request pass by
                     # generate thumbnail
                     im = Image.open(StringIO.StringIO(content.copy_to_in_mem().data))
                     im = im.convert('RGB')
