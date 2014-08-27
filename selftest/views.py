@@ -20,6 +20,7 @@ from .forms import EmailForm
 
 repositories = ['edx-platform', 'fun-config', 'fun-apps', 'themes/fun']
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def selftest_index(request):
     if not request.user.is_superuser:
@@ -29,7 +30,7 @@ def selftest_index(request):
 
     if request.method == 'POST':
         if emailform.is_valid():
-            subj = "Test email from FUN %s" % settings.SITE_NAME
+            subj = "Test email from FUN %s-%s" % (os.environ['SERVICE_VARIANT'], settings.SITE_NAME)
             msg = emailform.cleaned_data['text']
             to = emailform.cleaned_data['to']
             send_mail(subj, msg, settings.SERVER_EMAIL, [to])
@@ -51,6 +52,7 @@ def selftest_index(request):
         'emailform': emailform,
         'misc': misc,
         'settings': settings,
+        'environ': os.environ,
         'revisions': revisions,
 
     })

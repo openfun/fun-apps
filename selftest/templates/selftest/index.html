@@ -22,6 +22,10 @@
     <tr><td>{{ repo }}</td><td>{{ revision }}</td></tr>
 {% endfor %}
 
+<tr><th colspan="2">Environement</th></tr>
+<tr><td>environ.DJANGO_SETTINGS_MODULE</td><td>{{ environ.DJANGO_SETTINGS_MODULE }}</td></tr>
+<tr><td>environ.SERVICE_VARIANT</td><td>{{ environ.SERVICE_VARIANT }}</td></tr>
+
 <tr><th colspan="2">Django</th></tr>
 <tr><td>translation.get_language()</td><td>{{ misc.get_language }}</td></tr>
 <tr><td>settings.STATICFILES_STORAGE</td><td>{{ settings.STATICFILES_STORAGE }}</td></tr>
@@ -39,6 +43,7 @@
 <tr><td>settings.CMS_BASE</td><td>{{ settings.CMS_BASE }}</td></tr>
 <tr><td>settings.BROKER_URL</td><td>{{ settings.BROKER_URL }}</td></tr>
 <tr><td>settings.COMMENTS_SERVICE_URL</td><td>{{ settings.COMMENTS_SERVICE_URL }}</td></tr>
+<tr><td>settings.FEATURES['ENABLE_MKTG_SITE']</td><td>{{ settings.FEATURES.ENABLE_MKTG_SITE }}</td></tr>
 
 <tr><th colspan="2">Liens</th></tr>
 <tr><td>404</td><td><a href="{% url 'self-test-404' %}">404</a></td></tr>
