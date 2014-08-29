@@ -372,3 +372,6 @@ msgstr "Vous recevez ce mail parce que vous avez demandé une réinitialisation 
 
 msgid "End of Registration"
 msgstr "Fin des inscriptions"
+
+msgid "The FUN Team"
+msgstr "L'equipe FUN"
