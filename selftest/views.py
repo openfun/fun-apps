@@ -30,7 +30,7 @@ def selftest_index(request):
 
     if request.method == 'POST':
         if emailform.is_valid():
-            subj = "Test email from FUN %s-%s" % (os.environ['SERVICE_VARIANT'], settings.SITE_NAME)
+            subj = "Test email from FUN server %s %s" % (settings.SERVICE_VARIANT, settings.SITE_NAME)
             msg = emailform.cleaned_data['text']
             to = emailform.cleaned_data['to']
             send_mail(subj, msg, settings.SERVER_EMAIL, [to])
