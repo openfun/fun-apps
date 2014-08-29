@@ -13,7 +13,6 @@ from courseware.courses import get_courses, sort_by_announcement
 
 from .forms import CourseFileteringForm
 
-
 COURSES_BY_PAGE = 12
 
 
@@ -100,3 +99,10 @@ def course_index(request):
         'courses': courses,
         'current_language': translation.get_language(),
     })
+
+def get_dmcloud_url(course, video_id):
+    '''Build the dmcloud url from the video_id and return the html snippet'''
+
+    html = video_id
+    html='<iframe width="560" height="315" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + html + '"></iframe>'
+    return html
