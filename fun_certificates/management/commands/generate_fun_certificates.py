@@ -26,8 +26,7 @@ from student.models import UserProfile
 from capa.xqueue_interface import make_hashkey
 from universities.models import University
 
-from opaque_keys.edx.keys import CourseKey 
-from opaque_keys.edx.locations import SlashSeparatedCourseKey
+from opaque_keys.edx.keys import CourseKey
 from opaque_keys import InvalidKeyError
 
 factory = RequestFactory()
@@ -46,7 +45,6 @@ def generate_fun_certificate(student, course_id, course_display_name, course, te
         user=student, course_id=course_id)
 
     request.user = student
-
     grade = grades.grade(student, request, course)
     cert.grade = grade['percent']
     cert.user = student
@@ -136,13 +134,12 @@ class Command(BaseCommand):
 
         if options['course']:
             try:
-                course = CourseKey.from_string(options['course'])
+                ended_courses = [CourseKey.from_string(options['course'])]
             except InvalidKeyError:
                 print("Course id {} could not be parsed as a CourseKey;".format(options['course']))
-                course = SlashSeparatedCourseKey.from_deprecated_string(options['course'])
-            ended_courses = [course]
+                return
         else:
-            # Find all courses that have ended
+            # Find all courses that have ended use the setting COURSE_LISTINGS wiche we don't use
             ended_courses = []
             for course_id in [course  # all courses in COURSE_LISTINGS
                               for sub in settings.COURSE_LISTINGS
@@ -154,9 +151,8 @@ class Command(BaseCommand):
 
         for course_id in ended_courses:
             # prefetch all chapters/sequentials by saying depth=2
-            course = modulestore().get_course(course_id, depth=2)
-            course_display_name = unicode(course.display_name).encode('utf-8')     
-
+            course = modulestore().get_course(course_id, depth=2) # why depth 2 ?
+            course_display_name = unicode(course.display_name).encode('utf-8')
             university = University.objects.get(code=course.location.org)
             certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/','_')) + '_';
             print "Fetching enrolled students for {0} ()".format(course_id, course_display_name)
@@ -170,7 +166,6 @@ class Command(BaseCommand):
                     enrolled_students = User.objects.filter(email=user, courseenrollment__course_id=course_id)
                 else:
                     enrolled_students = User.objects.filter(username=user, courseenrollment__course_id=course_id)
-
             total = enrolled_students.count()
             print "Course has {0} enrolled students".format(total)
             count = 0
