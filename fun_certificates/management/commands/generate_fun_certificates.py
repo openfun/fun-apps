@@ -40,7 +40,6 @@ def generate_fun_certificate(student, course_id, course_display_name, course, te
     profile = UserProfile.objects.get(user=student)
     student_name = unicode(profile.name).encode('utf-8')
     # grade the student
-
     cert, created = GeneratedCertificate.objects.get_or_create(
         user=student, course_id=course_id)
 
@@ -138,20 +137,10 @@ class Command(BaseCommand):
             except InvalidKeyError:
                 print("Course id {} could not be parsed as a CourseKey;".format(options['course']))
                 return
-        else:
-            # Find all courses that have ended use the setting COURSE_LISTINGS wiche we don't use
-            ended_courses = []
-            for course_id in [course  # all courses in COURSE_LISTINGS
-                              for sub in settings.COURSE_LISTINGS
-                              for course in settings.COURSE_LISTINGS[sub]]:
-                course_loc = CourseDescriptor.id_to_location(course_id)
-                course = modulestore().get_instance(course_id, course_loc)
-                if course.has_ended():
-                    ended_courses.append(course_id)
 
         for course_id in ended_courses:
             # prefetch all chapters/sequentials by saying depth=2
-            course = modulestore().get_course(course_id, depth=2) # why depth 2 ?
+            course = modulestore().get_course(course_id, depth=2)
             course_display_name = unicode(course.display_name).encode('utf-8')
             university = University.objects.get(code=course.location.org)
             certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/','_')) + '_';
@@ -190,7 +179,7 @@ class Command(BaseCommand):
                         count, total, hours, minutes)
                     start = datetime.datetime.now(UTC)
                 if options['force'] or (certificate_status_for_student(student, course_id)['status'] != status.downloadable):
-                    if student.is_superuser is not True:
+                    if not student.is_superuser:
                         if university.certificate_logo:
                             logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
                         else:
@@ -199,4 +188,4 @@ class Command(BaseCommand):
                                                               course, options['teachers'], university.name,
                                                               logo_path, certificate_base_filename, options['ignore_grades'])
                         stats[new_status] += 1
-                        pprint(stats)
+                    pprint(stats)
