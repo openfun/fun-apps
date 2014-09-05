@@ -24,14 +24,17 @@
 
 <tr><th colspan="2">Environement</th></tr>
 <tr><td>environ.DJANGO_SETTINGS_MODULE</td><td>{{ environ.DJANGO_SETTINGS_MODULE }}</td></tr>
+<tr><td>environ.DJANGO_SETTINGS_MODULE</td><td>{{ environ.DJANGO_SETTINGS_MODULE }}</td></tr>
 <tr><td>environ.SERVICE_VARIANT</td><td>{{ environ.SERVICE_VARIANT }}</td></tr>
-
+<tr><th colspan="2">Request</th></tr>
+<tr><td>request.user</td><td>{{ request.user.username }}/{{ request.user.email }}</td></tr>
 <tr><th colspan="2">Django</th></tr>
 <tr><td>translation.get_language()</td><td>{{ misc.get_language }}</td></tr>
 <tr><td>settings.STATICFILES_STORAGE</td><td>{{ settings.STATICFILES_STORAGE }}</td></tr>
 <tr><td>settings.DEFAULT_FILE_STORAGE</td><td>{{ settings.DEFAULT_FILE_STORAGE }}</td></tr>
 
 <tr><th colspan="2">Settings</th></tr>
+<tr><td>settings module</td><td>{{ settings.SETTINGS_MODULE }}</td></tr>
 <tr><td>settings.DEBUG</td><td>{{ settings.DEBUG }}</td></tr>
 <tr><td>settings.LANGUAGE_CODE</td><td>{{ settings.LANGUAGE_CODE }}</td></tr>
 <tr><td>settings.STATIC_URL</td><td>{{ settings.STATIC_URL }}</td></tr>
@@ -62,5 +65,50 @@
 </td></tr>
 
 
+
 </table>
+<!-- From django.views.debug.TECHNICAL_500_TEMPLATE -->
+<table class="req">
+    <thead>
+        <tr><th colspan="2">COOKIES</th></tr>
+    </thead>
+    <tbody>
+        {% for var in request.COOKIES.items %}
+        <tr>
+            <td>{{ var.0 }}</td>
+            <td class="code"><pre>{{ var.1|pprint }}</pre></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<table class="req">
+    <thead>
+        <tr><th colspan="2">META</th></tr>
+    </thead>
+    <tbody>
+        {% for var in request.META.items|dictsort:"0" %}
+        <tr>
+            <td>{{ var.0 }}</td>
+            <td class="code"><pre>{{ var.1|pprint }}</pre></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table class="req">
+    <thead>
+        <tr><th colspan="2">All settings</th></tr>
+    </thead>
+    <tbody>
+        {% for var in settings.items %}
+        <tr>
+            <td>{{ var.0 }}</td>
+            <td class="code"><pre>{{ var.1|pprint }}</pre></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}

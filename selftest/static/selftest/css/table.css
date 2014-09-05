@@ -3,6 +3,7 @@ table a {
     font-weight: bold;
 }
 table {
+    width: 90%;
     font-family: monospace;
     color:#666;
     font-size:12px;
@@ -36,6 +37,8 @@ table td:first-child {
     border-left: 0;
 }
 table td {
+    overflow: auto;
+    max-width: 500px;
     padding:4px;
     border-top: 1px solid #ffffff;
     border-bottom:1px solid #e0e0e0;

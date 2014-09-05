@@ -12,6 +12,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
 from django.utils.translation import get_language
+from django.views.debug import get_safe_settings
 
 from dealer.git import git
 
@@ -51,7 +52,7 @@ def selftest_index(request):
     return render(request, 'selftest/index.html', {
         'emailform': emailform,
         'misc': misc,
-        'settings': settings,
+        'settings': get_safe_settings(),
         'environ': os.environ,
         'revisions': revisions,
 
