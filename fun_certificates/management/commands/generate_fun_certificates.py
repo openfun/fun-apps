@@ -7,7 +7,7 @@ from optparse import make_option
 import random
 
 # Django modules
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.test.client import RequestFactory
@@ -34,7 +34,7 @@ request = factory.get('/')
 request.session = {}
 
 
-def generate_fun_certificate(student, course_id, course_display_name, course, teachers, organization_display_name, organization_logo, certificate_base_filename,ignore_grades):
+def generate_fun_certificate(student, course_id, course_display_name, course, teachers, organization_display_name, organization_logo, certificate_base_filename,ignore_grades, new_grade):
     """Generates a certificate for one student and one course."""
 
     profile = UserProfile.objects.get(user=student)
@@ -53,6 +53,10 @@ def generate_fun_certificate(student, course_id, course_display_name, course, te
     if ignore_grades:
       grade['grade'] = 'A'
       grade['percent'] = 100.0
+
+    if new_grade:
+        cert.grade = new_grade
+        cert.save()
 
     if grade['grade'] is None:
         cert.status = status.notpassing
@@ -106,6 +110,11 @@ class Command(BaseCommand):
                     dest='ignore_grades',
                     default=False,
                     help='Ignore grades.'),
+        make_option('-s', '--set-grade',
+                    metavar='GRADE',
+                    dest='grade',
+                    default=None,
+                    help='set a new grade.'),
         make_option('-f', '--force',
                     action='store_true',
                     dest='force',
@@ -137,6 +146,9 @@ class Command(BaseCommand):
             except InvalidKeyError:
                 print("Course id {} could not be parsed as a CourseKey;".format(options['course']))
                 return
+
+        if float(options['grade']) > 1:
+            raise CommandError('grades range from 0 to 1')
 
         for course_id in ended_courses:
             # prefetch all chapters/sequentials by saying depth=2
@@ -186,6 +198,7 @@ class Command(BaseCommand):
                             logo_path = None
                         new_status = generate_fun_certificate(student, course_id, course_display_name,
                                                               course, options['teachers'], university.name,
-                                                              logo_path, certificate_base_filename, options['ignore_grades'])
+                                                              logo_path, certificate_base_filename, options['ignore_grades'],
+                                                              options['grade'])
                         stats[new_status] += 1
                     pprint(stats)
