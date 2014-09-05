@@ -64,51 +64,52 @@
     </form>
 </td></tr>
 
-
-
-</table>
-<!-- From django.views.debug.TECHNICAL_500_TEMPLATE -->
-<table class="req">
-    <thead>
-        <tr><th colspan="2">COOKIES</th></tr>
-    </thead>
-    <tbody>
-        {% for var in request.COOKIES.items %}
-        <tr>
-            <td>{{ var.0 }}</td>
-            <td class="code"><pre>{{ var.1|pprint }}</pre></td>
-        </tr>
-        {% endfor %}
-    </tbody>
 </table>
 
+        <!-- From django.views.debug.TECHNICAL_500_TEMPLATE -->
+    {% if settings.SELFTEST_ALL_SETTINGS %}
+        <table class="req">
+            <thead>
+                <tr><th colspan="2">COOKIES</th></tr>
+            </thead>
+            <tbody>
+                {% for var in request.COOKIES.items %}
+                <tr>
+                    <td>{{ var.0 }}</td>
+                    <td class="code"><pre>{{ var.1|pprint }}</pre></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-<table class="req">
-    <thead>
-        <tr><th colspan="2">META</th></tr>
-    </thead>
-    <tbody>
-        {% for var in request.META.items|dictsort:"0" %}
-        <tr>
-            <td>{{ var.0 }}</td>
-            <td class="code"><pre>{{ var.1|pprint }}</pre></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 
-<table class="req">
-    <thead>
-        <tr><th colspan="2">All settings</th></tr>
-    </thead>
-    <tbody>
-        {% for var in settings.items %}
-        <tr>
-            <td>{{ var.0 }}</td>
-            <td class="code"><pre>{{ var.1|pprint }}</pre></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <table class="req">
+            <thead>
+                <tr><th colspan="2">META</th></tr>
+            </thead>
+            <tbody>
+                {% for var in request.META.items|dictsort:"0" %}
+                <tr>
+                    <td>{{ var.0 }}</td>
+                    <td class="code"><pre>{{ var.1|pprint }}</pre></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="req">
+            <thead>
+                <tr><th colspan="2">All settings</th></tr>
+            </thead>
+            <tbody>
+                {% for var in settings.items %}
+                <tr>
+                    <td>{{ var.0 }}</td>
+                    <td class="code"><pre>{{ var.1|pprint }}</pre></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %)
 
 {% endblock %}

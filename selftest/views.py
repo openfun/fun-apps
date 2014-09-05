@@ -22,7 +22,7 @@ from .forms import EmailForm
 repositories = ['edx-platform', 'fun-config', 'fun-apps', 'themes/fun']
 
 
-@user_passes_test(lambda u: u.is_superuser)
+#@user_passes_test(lambda u: u.is_superuser)
 def selftest_index(request):
     if not request.user.is_superuser:
         raise Http404
