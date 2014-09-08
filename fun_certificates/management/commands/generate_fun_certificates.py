@@ -55,6 +55,7 @@ def generate_fun_certificate(student, course_id, course_display_name, course, te
       grade['percent'] = 100.0
 
     if new_grade:
+        grade['grade'] = 'A'
         cert.grade = new_grade
         cert.save()
 
