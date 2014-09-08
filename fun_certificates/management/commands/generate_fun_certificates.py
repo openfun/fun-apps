@@ -147,7 +147,7 @@ class Command(BaseCommand):
                 print("Course id {} could not be parsed as a CourseKey;".format(options['course']))
                 return
 
-        if float(options['grade']) > 1:
+        if options['grade'] and float(options['grade']) > 1:
             raise CommandError('grades range from 0 to 1')
 
         for course_id in ended_courses:
