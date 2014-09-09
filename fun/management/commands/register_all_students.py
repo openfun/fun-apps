@@ -27,7 +27,7 @@ class Command(BaseCommand):
              To use it :
 
                 One argument is mandatory :
-                  1 - the course id (example mycourse/2002/trim_2 )
+                  1 - the course id (e.g. = mycourse/2002/trim_2)
 
                 Two arguments are optional :
                   1 - exclude-non-active-users : you can exclude in the subsciptions
@@ -73,7 +73,6 @@ class Command(BaseCommand):
         else:
             STATUS_INTERVAL = 100
 
-
         print "\nEnroll all active students to '%s'" % COURSE_ID
 
         try:
@@ -88,7 +87,10 @@ class Command(BaseCommand):
             start = datetime.datetime.now(UTC)
 
             # Fetch all users that are not superuser, exclude non active students if necessary
-            users = User.objects.exclude(Q(is_active=options['exclude']) | Q(profile__isnull=True))
+            if (options['exclude']):
+                users = User.objects.exclude(Q(is_active=False) | Q(profile__isnull=True))
+            else:
+                users = User.objects.exclude(profile__isnull=True)
 
             total_students = users.count()
 
