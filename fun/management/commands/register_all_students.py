@@ -22,7 +22,7 @@ class Command(BaseCommand):
                 Command to enroll all students to a course
                 ------------------------------------------
 
-             Usage : <--course COURSE_ID [--exclude-non-active-users] [-info-interval INTERVAL]>
+             Usage : <--course COURSE_ID [--exclude-non-active-users] [--info-interval INTERVAL]>
 
              To use it :
 
