@@ -3,3 +3,4 @@ django-ckeditor-updated==4.2.8
 django-contact-form==1.0
 unicodecsv==0.9.4
 raven
+reportlab
