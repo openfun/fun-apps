@@ -160,14 +160,14 @@ class Command(BaseCommand):
             print "Fetching enrolled students for {0} ()".format(course_id, course_display_name)
             if options['user'] is None:
                 enrolled_students = User.objects.filter(
-                    courseenrollment__course_id=course_id).prefetch_related(
+                    courseenrollment__course_id=course_id, profile__isnull=False).prefetch_related(
                     "groups").order_by('username')
             else:
                 user = options['user']
                 if '@' in user:
-                    enrolled_students = User.objects.filter(email=user, courseenrollment__course_id=course_id)
+                    enrolled_students = User.objects.filter(email=user, courseenrollment__course_id=course_id, profile__isnull=False)
                 else:
-                    enrolled_students = User.objects.filter(username=user, courseenrollment__course_id=course_id)
+                    enrolled_students = User.objects.filter(username=user, courseenrollment__course_id=course_id, profile__isnull=False)
             total = enrolled_students.count()
             print "Course has {0} enrolled students".format(total)
             count = 0
@@ -192,14 +192,13 @@ class Command(BaseCommand):
                         count, total, hours, minutes)
                     start = datetime.datetime.now(UTC)
                 if options['force'] or (certificate_status_for_student(student, course_id)['status'] != status.downloadable):
-                    if not student.is_superuser:
-                        if university.certificate_logo:
-                            logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
-                        else:
-                            logo_path = None
-                        new_status = generate_fun_certificate(student, course_id, course_display_name,
+                    if university.certificate_logo:
+                        logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
+                    else:
+                        logo_path = None
+                    new_status = generate_fun_certificate(student, course_id, course_display_name,
                                                               course, options['teachers'], university.name,
                                                               logo_path, certificate_base_filename, options['ignore_grades'],
                                                               options['grade'])
-                        stats[new_status] += 1
+                    stats[new_status] += 1
                     pprint(stats)
