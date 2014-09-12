@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.utils.translation import get_language
 from django.views.debug import get_safe_settings
 
@@ -19,7 +20,7 @@ from dealer.git import git
 from .forms import EmailForm
 
 
-repositories = ['edx-platform', 'fun-config', 'fun-apps', 'themes/fun']
+repositories = ['edx-platform', 'fun-config', 'fun-apps', 'themes/fun', '../forum/cs_comments_service']
 
 
 #@user_passes_test(lambda u: u.is_superuser)
@@ -47,8 +48,7 @@ def selftest_index(request):
         os.chdir(settings.BASE_ROOT / repo)
         git.path = settings.BASE_ROOT / repo
         git.init_repo()
-        revisions[repo] = git.revision
-
+        revisions[repo] = mark_safe(git.repo.git('log -1 --format=<strong>%h</strong>&nbsp;%aD<br><strong>%s</strong>&nbsp;%ae'))
     return render(request, 'selftest/index.html', {
         'emailform': emailform,
         'misc': misc,
