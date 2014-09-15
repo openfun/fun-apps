@@ -1,0 +1,53 @@
+{% extends 'fun/emails/base_email.html' %}
+
+{% block content %}
+
+
+<tr>
+    <td class="title" style="font-size: 18px; text-align: center; padding:6px; border: 0;">
+        {{ subject }}
+    </td>
+</tr>
+
+<tr>
+    <td class="table" style="text-align: right; padding:8px; font-size: 16px;">
+        <table>
+            <tr><td>Total inscrits</td><td>{{ all_register }}</td></tr>
+        </table>
+
+    </td>
+</tr>
+<tr>
+    <td class="table" style="text-align: right; padding:8px; font-size: 16px;">
+        <table>
+            <tr><td>Inscrits sur la période</td><td>{{ new_register }}</td></tr>
+        </table>
+</tr>
+<tr>
+    <td class="table" style="text-align: right; padding:8px; font-size: 16px;">
+        <table>
+           <tr><td collspan="2">Répartition totale</td></tr>
+            <tr><td>Cours</td><td>Nombre</td></tr>
+            {% for course in all_course_distribution %}
+            <tr><td>{{ course.course_id }}</td><td>{{ course.count }}</td></tr>
+            {% endfor %}
+        </table>
+
+    </td>
+</tr>
+
+<tr>
+    <td class="table" style="text-align: right; padding:8px; font-size: 16px;">
+        <table>
+            <tr><td collspan="2">Répartition sur la période</td></tr>
+            <tr><td>Cours</td><td>Nombre</td></tr>
+            {% for course in new_course_distribution %}
+            <tr><td>{{ course.course_id }}</td><td>{{ course.count }}</td></tr>
+            {% endfor %}
+        </table>
+
+    </td>
+</tr>
+
+
+{% endblock %}

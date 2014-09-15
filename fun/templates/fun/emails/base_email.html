@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none; margin:0; padding:0;
+            color:#black;
+            font-family: Arial,Verdana,sans-serif;
+            font-size:12px;
+        }
+        table tr {}
+
+        p {margin:0; padding:0; margin-bottom:0;}
+        h1, h2, h3, h4, h5, h6 {color: black; line-height: 100%;}
+        a, a:link {text-decoration: underline;}
+</style>
+</head>
+<body>
+<table style="width: 90%; margin: auto; border: 8px solid white; border-collapse:collapse;">
+
+<tr>
+    <td width="100%" class="logo" style="text-align: center; background-color: #EFECDD; padding: 12px;">
+        <img src="{{ STATIC_URL }}selftest/images/logo_fun.png" alt="France Université Numérique">
+    </td>
+</tr>
+
+{% block content %}{% endblock %}
+
+</table>
+
+</body></html>
