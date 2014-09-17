@@ -381,3 +381,6 @@ msgstr "Enregistrement de vos informations"
 
 msgid "Processing your account information"
 msgstr "Identification en cours"
+
+msgid "Add contributor"
+msgstr "Ajouter"
