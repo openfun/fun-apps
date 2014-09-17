@@ -13,6 +13,21 @@ from courseware.courses import course_image_url, get_course_about_section
 <%inherit file="../main.html" />
 
 <style>
+
+.funstatus{
+    background: none repeat scroll 0 0 #0E4586;
+    border-radius: 2px;
+    color: #FFFFFF;
+    font-size: 10px;
+    left: 10px;
+    padding: 2px 10px;
+    position: absolute;
+    text-transform: uppercase;
+    top: -18px;
+    z-index: 100;
+}
+
+}
 .courses-list-filter {
     width: 980px;
     text-align: right;
@@ -79,8 +94,6 @@ div.pagination span.current {
 
 </style>
 
-
-
 <section class="find-courses">
     <section class="container">
 
@@ -95,15 +108,12 @@ div.pagination span.current {
             </section>
 
             <div style="clear: both"></div>
-
-
             <ul class="courses-listing">
               %for course in courses:
                 <li class="courses-listing-item">
-
                     <article id="${course.id.to_deprecated_string()}" class="course">
                       %if course.is_newish:
-                        <span class="status">${_("New")}</span>
+                        <span class="funstatus">${_("New")}</span>
                       %endif
                       <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
                       <div class="inner-wrapper">
@@ -134,9 +144,6 @@ div.pagination span.current {
                       </a>
                     </article>
 
-
-
-
                 </li>
               %endfor
             </ul>
@@ -157,7 +164,6 @@ div.pagination span.current {
                 ${ courses.paginator.count } cours - Page ${ courses.number } sur ${ courses.paginator.num_pages }
             </span>
         </div>
-
     </section>
 
 
