@@ -375,3 +375,9 @@ msgstr "Fin des inscriptions"
 
 msgid "The FUN Team"
 msgstr "L'equipe FUN"
+
+msgid "Processing your account information..."
+msgstr "Enregistrement de vos informations"
+
+msgid "Processing your account information"
+msgstr "Identification en cours"
