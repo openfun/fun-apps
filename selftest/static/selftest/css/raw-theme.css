@@ -23,8 +23,8 @@ body {
     top: 132px;
     left: 0px;
     height: 100px;
-    background: url("/static/selftest/images/blue_banner.png")
-                no-repeat scroll center 0px #0e4586;
+/*    background: url("/static/selftest/images/blue_banner.png")
+                no-repeat scroll center 0px #0e4586;*/
 }
 .banner-block div {
     width: 960px;
