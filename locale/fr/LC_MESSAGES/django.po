@@ -384,3 +384,12 @@ msgstr "Identification en cours"
 
 msgid "Add contributor"
 msgstr "Ajouter"
+
+msgid "Official Contributor"
+msgstr "Contributeur officiel"
+
+msgid "Recommended"
+msgstr "Contributeur recommandé"
+
+msgid "Active"
+msgstr "Contributeur actif"
