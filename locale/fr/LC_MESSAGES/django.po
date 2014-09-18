@@ -393,3 +393,24 @@ msgstr "Contributeur recommandé"
 
 msgid "Active"
 msgstr "Contributeur actif"
+
+#: lms/templates/emails/activation_email.txt
+msgid ""
+"Thank you for signing up for {platform_name}! To activate your account, "
+"please copy and paste this address into your web browser's address bar:"
+msgstr ""
+"Merci pour votre inscription sur {platform_name}! Pour activer votre compte, "
+"merci de copier-coller cette adresse dans la barre d'adresse de votre "
+"navigateur :"
+
+#: lms/templates/emails/activation_email.txt
+#: lms/templates/emails/email_change.txt
+msgid ""
+"If you didn't request this, you don't need to do anything; you won't receive"
+" any more email from us. Please do not reply to this e-mail; if you require "
+"assistance, check the help section of the {platform_name} web site."
+msgstr ""
+"Si vous n'êtes pas à l'origine de cette demande, aucune action n'est requise "
+"de votre part ; vous ne recevrez pas d'autre email de notre part. Merci de ne "
+"pas répondre à cet email ; si vous avez besoin d'aide, veuillez consulter la "
+"section aide du site {platform_name}."
