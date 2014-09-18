@@ -3,7 +3,7 @@
 import datetime
 
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils import translation
 
@@ -79,7 +79,8 @@ def course_index(request):
                 courses = [c for c in courses if c.start and c.start < now and c.end and c.end > now]
             elif form.cleaned_data['state'] == 'past':
                 courses = [c for c in courses if c.end and c.end < now]
-
+    elif form.errors:
+        return redirect(course_index)
     courses = _sort_courses(courses)
 
     # paginate courses
