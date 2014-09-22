@@ -68,7 +68,7 @@ msgstr ""
 
 #: forms.py:29
 msgid "Certification and exams"
-msgstr "Les examens et les certifications"
+msgstr "Les examens et les attestations"
 
 #: forms.py:30
 msgid "My account"
