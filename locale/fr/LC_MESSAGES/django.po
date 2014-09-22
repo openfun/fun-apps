@@ -414,3 +414,6 @@ msgstr ""
 "de votre part ; vous ne recevrez pas d'autre email de notre part. Merci de ne "
 "pas répondre à cet email ; si vous avez besoin d'aide, veuillez consulter la "
 "section aide du site {platform_name}."
+
+msgid "Explanation"
+msgstr "Explication"
