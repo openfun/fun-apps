@@ -44,12 +44,22 @@ from courseware.courses import course_image_url, get_course_about_section
     float: left;
 }
 
-
 .courses {
     padding-top: 0 !important;
     margin-top: 0 !important;
 }
-
+.courses .no-result {
+    width: 100%;
+    text-align: center;
+    margin: 80px auto 80px auto;
+    font-size: 18px;
+}
+.courses .no-result a {
+    line-height: 30px;
+    font-size: 13px;
+    color: #3a76bb;
+    font-weight: bold;
+}
 
 
 /* form */
@@ -107,45 +117,52 @@ div.pagination span.current {
             </section>
 
             <div style="clear: both"></div>
-            <ul class="courses-listing">
-              %for course in courses:
-                <li class="courses-listing-item">
-                    <article id="${course.id.to_deprecated_string()}" class="course">
-                      %if course.is_newish:
-                        <span class="funstatus">${_("New")}</span>
-                      %endif
-                      <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
-                      <div class="inner-wrapper">
-                          <header class="course-preview">
-                            <hgroup>
-                              <h2><span class="course-number">${course.display_number_with_default | h}</span> ${get_course_about_section(course, 'title')}</h2>
-                            </hgroup>
-                            <div class="info-link">&#x2794;</div>
-                          </header>
-                          <section class="info">
-                            <div class="cover-image">
-                              <img src="${course_image_url(course)}?width=300" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image" />
+            % if courses:
+                <ul class="courses-listing">
+                  %for course in courses:
+                    <li class="courses-listing-item">
+                        <article id="${course.id.to_deprecated_string()}" class="course">
+                          %if course.is_newish:
+                            <span class="funstatus">${_("New")}</span>
+                          %endif
+                          <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+                          <div class="inner-wrapper">
+                              <header class="course-preview">
+                                <hgroup>
+                                  <h2><span class="course-number">${course.display_number_with_default | h}</span> ${get_course_about_section(course, 'title')}</h2>
+                                </hgroup>
+                                <div class="info-link">&#x2794;</div>
+                              </header>
+                              <section class="info">
+                                <div class="cover-image">
+                                  <img src="${course_image_url(course)}?width=300" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Cover Image" />
+                                </div>
+                                <div class="desc">
+                                  <p>${get_course_about_section(course, 'short_description')}</p>
+                                </div>
+                                <div class="bottom">
+                                  <span class="university">${get_course_about_section(course, 'university')}</span>
+                                  % if not course.start_date_is_still_default:
+                                  <span class="start-date">${course.start_date_text}</span>
+                                  % endif
+                                </div>
+                              </section>
                             </div>
-                            <div class="desc">
-                              <p>${get_course_about_section(course, 'short_description')}</p>
+                            <div class="meta-info">
+                              <p class="university">${get_course_about_section(course, 'university')}</p>
                             </div>
-                            <div class="bottom">
-                              <span class="university">${get_course_about_section(course, 'university')}</span>
-                              % if not course.start_date_is_still_default:
-                              <span class="start-date">${course.start_date_text}</span>
-                              % endif
-                            </div>
-                          </section>
-                        </div>
-                        <div class="meta-info">
-                          <p class="university">${get_course_about_section(course, 'university')}</p>
-                        </div>
-                      </a>
-                    </article>
+                          </a>
+                        </article>
 
-                </li>
-              %endfor
-            </ul>
+                    </li>
+                  %endfor
+                </ul>
+            % else:
+                <div class="no-result">
+                Il n'y a pas de résultat pour votre recherche.<br>
+                <a href="${reverse('fun-courses-index')}">Voir tous les cours.</a>
+                </div>
+            % endif
         </section>
 
         <div class="pagination">
