@@ -31,6 +31,11 @@ from courseware.courses import course_image_url, get_course_about_section
     margin : 1.5em 0;
 }
 
+#course-title
+{
+    font-size : 14px;
+}
+
 .courses-list-filter {
     width: 980px;
     text-align: right;
@@ -134,7 +139,7 @@ div.pagination span.current {
                           <div class="inner-wrapper">
                               <header class="course-preview">
                                 <hgroup>
-                                  <h2><span class="course-number">${course.display_number_with_default | h}</span> ${get_course_about_section(course, 'title')}</h2>
+                                  <h2 id="course-title"><span class="course-number">${course.display_number_with_default | h}</span> ${get_course_about_section(course, 'title')}</h2>
                                 </hgroup>
                                 <div class="info-link">&#x2794;</div>
                               </header>
@@ -158,7 +163,6 @@ div.pagination span.current {
                             </div>
                           </a>
                         </article>
-
                     </li>
                   %endfor
                 </ul>
@@ -186,6 +190,4 @@ div.pagination span.current {
             </span>
         </div>
     </section>
-
-
 </section>
