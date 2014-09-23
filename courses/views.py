@@ -11,7 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from courseware.courses import get_courses, sort_by_announcement
 
-from .forms import CourseFileteringForm
+from .forms import CourseFilteringForm
 
 COURSES_BY_PAGE = 12
 
@@ -66,7 +66,7 @@ def _sort_courses(courses):
 
 def course_index(request):
     courses = [_dates_description(course) for course in get_courses(request.user)]
-    form = CourseFileteringForm(request.GET or None)
+    form = CourseFilteringForm(request.GET or None)
 
     if form.is_valid():
         if form.cleaned_data['university']:
@@ -94,12 +94,12 @@ def course_index(request):
     except EmptyPage:
         courses = paginator.page(paginator.num_pages)
 
-
     return render(request, 'courses/index.html', {
         'form': form,
         'courses': courses,
         'current_language': translation.get_language(),
     })
+
 
 def get_dmcloud_url(course, video_id):
     '''Build the dmcloud url from the video_id and return the html snippet'''

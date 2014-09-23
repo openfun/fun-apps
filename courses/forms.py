@@ -15,7 +15,7 @@ from universities.models import University
 #       Santé Sciences
 #       Sciences humaines et sociales
 
-class CourseFileteringForm(forms.Form):
+class CourseFilteringForm(forms.Form):
     STATE_CHOICES = (
         ('', _(u"All")),
         ('future', _(u"Incoming")),
@@ -28,5 +28,5 @@ class CourseFileteringForm(forms.Form):
     university = forms.ChoiceField(choices=[], required=False, label=_(u"University"))
 
     def __init__(self, *args, **kwargs):
-        super(CourseFileteringForm, self).__init__(*args, **kwargs)
-        self.fields['university'].choices = [((''), "Toutes")] + [(u.code, u.name) for u in University.objects.all()]
+        super(CourseFilteringForm, self).__init__(*args, **kwargs)
+        self.fields['university'].choices = [((''), "Toutes")] + [(u.code, u.name) for u in University.objects.all().order_by('name')]
