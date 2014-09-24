@@ -23,6 +23,10 @@ urlpatterns = patterns( '',
 
     (r'^selftest/', include('selftest.urls')),
 
+    # Grade downloads
+    url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN),
+            include('fun_instructor.urls')),
+
     (r'^', include('lms.urls')),
 )
 
