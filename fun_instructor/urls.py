@@ -1,5 +1,6 @@
-from django.conf.urls import url, patterns
+# -*- coding: utf-8 -*-
 
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns( '',
 url(r'^list_report_downloads$',
