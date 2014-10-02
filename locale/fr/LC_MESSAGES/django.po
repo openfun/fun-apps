@@ -417,3 +417,11 @@ msgstr ""
 
 msgid "Explanation"
 msgstr "Explication"
+
+msgid ""
+"Enter your video ID (Note : DailyMotion Cloud, DailyMotion Classic and Youtube"
+" are supported. Still, the administrator may restrict the use to only one or two"
+" of these video web hosting services)"
+msgstr ""
+"Saisissez l'ID de votre video de teaser. (Notez que DailyMotion Cloud, DailyMotion Classic"
+" et Youtube sont supportés"
