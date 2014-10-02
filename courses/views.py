@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import re
 
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
@@ -104,7 +105,14 @@ def course_index(request):
 
 def get_dmcloud_url(course, video_id):
     '''Build the dmcloud url from the video_id and return the html snippet'''
-
-    html = video_id
-    html='<iframe width="560" height="315" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + html + '"></iframe>'
+    if len(video_id) > 20:
+        # Studio saves in mongo youtube urls with dmcloud id, we have to extract dmclouid to build correct url
+        try:
+            dmcloud = re.compile('/([\d\w]+)\?').search(video_id).groups()[0]
+        except AttributeError:
+            dmcloud = ''
+    else:
+        # FUN v1 did the stuff write
+        dmcloud = video_id
+    html='<iframe width="560" height="315" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + dmcloud + '"></iframe>'
     return html
