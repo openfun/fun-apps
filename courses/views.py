@@ -11,6 +11,8 @@ from django.utils import translation
 
 from courseware.courses import get_courses, sort_by_announcement
 from xmodule.contentstore.content import StaticContent
+from xmodule.contentstore.django import contentstore
+from xmodule.exceptions import NotFoundError
 
 from .forms import CourseFilteringForm
 
@@ -120,8 +122,15 @@ def get_dmcloud_url(course, video_id):
 
 def course_image_url(course, image_name=None):
     """Return url for image_name or default course image in given course assets.
+    It allows us to override default course image in templates when this function is
+    used whith image_name parameter, if the image is available. (see course_about.html)
     """
     image = image_name or course.course_image
-    loc = StaticContent.compute_location(course.location.course_key, image)
-    path = loc.to_deprecated_string()
-    return path
+    try:
+        loc = StaticContent.compute_location(course.location.course_key, image)
+        _ = contentstore().find(loc)
+    except NotFoundError:
+        loc = StaticContent.compute_location(course.location.course_key, course.course_image)
+
+    return loc.to_deprecated_string()
+
