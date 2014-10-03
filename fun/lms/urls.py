@@ -16,7 +16,8 @@ urlpatterns = patterns( '',
 
     # override edX's courses page to replace by FUN's one (we need to use a other route)
     (r'^cours/', include('courses.urls')),
-    url(r'^courses/$', RedirectView.as_view(url=reverse_lazy('fun-courses-index'))),  # intercept old route, and redirect
+    url(r'^courses/$', RedirectView.as_view(url=reverse_lazy('fun-courses-index'))),  # intercept old routes, and redirect
+    url(r'^courses$', RedirectView.as_view(url=reverse_lazy('fun-courses-index'))),
 
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),
