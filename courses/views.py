@@ -3,14 +3,14 @@
 import datetime
 import re
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils import translation
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from courseware.courses import get_courses, sort_by_announcement
+from xmodule.contentstore.content import StaticContent
 
 from .forms import CourseFilteringForm
 
@@ -69,7 +69,7 @@ def course_index(request):
     courses = [_dates_description(course) for course in get_courses(request.user)]
     form = CourseFilteringForm(request.GET or None)
     by = request.GET.get('by', False)  # override default page size
-    
+
     if form.is_valid():
         if form.cleaned_data['university']:
             courses = [c for c in courses if c.org == form.cleaned_data['university']]
@@ -116,3 +116,12 @@ def get_dmcloud_url(course, video_id):
         dmcloud = video_id
     html='<iframe width="560" height="315" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + dmcloud + '"></iframe>'
     return html
+
+
+def course_image_url(course, image_name=None):
+    """Return url for image_name or default course image in given course assets.
+    """
+    image = image_name or course.course_image
+    loc = StaticContent.compute_location(course.location.course_key, image)
+    path = loc.to_deprecated_string()
+    return path
