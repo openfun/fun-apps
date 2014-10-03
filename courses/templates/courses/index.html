@@ -180,14 +180,23 @@ div.pagination span.current {
         </section>
 
         <div class="pagination">
+            <%
+                params = ''
+                if request.GET.get('by'):
+                    params += '&by=' + request.GET['by']
+                if request.GET.get('university'):
+                    params += '&university=' + request.GET['university']
+                if request.GET.get('state'):
+                    params += '&state=' + request.GET['state']
+            %>
             <span class="step previous">
                 % if courses.has_previous():
-                    <a href="?page=${ courses.previous_page_number() }">Page précédente</a>
+                    <a href="?page=${ courses.previous_page_number() }${ params }">Page précédente</a>
                 % endif
             </span>
             <span class="step next">
                 % if courses.has_next():
-                    <a href="?page=${ courses.next_page_number() }">Page suivante</a>
+                    <a href="?page=${ courses.next_page_number() }${ params }">Page suivante</a>
                 % endif
             </span>
             <span class="step current">

@@ -68,7 +68,7 @@ def _sort_courses(courses):
 def course_index(request):
     courses = [_dates_description(course) for course in get_courses(request.user)]
     form = CourseFilteringForm(request.GET or None)
-    by = request.GET.get('by', False)  # override default page size
+    by = request.GET.get('by', COURSES_BY_PAGE)  # override default page size
 
     if form.is_valid():
         if form.cleaned_data['university']:
@@ -86,7 +86,7 @@ def course_index(request):
     courses = _sort_courses(courses)
 
     # paginate courses
-    paginator = Paginator(courses, by or COURSES_BY_PAGE, orphans=3)
+    paginator = Paginator(courses, by, orphans=3)
     page = request.GET.get('page')
 
     try:
