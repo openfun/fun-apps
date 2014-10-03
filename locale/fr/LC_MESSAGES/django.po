@@ -425,3 +425,6 @@ msgid ""
 msgstr ""
 "Saisissez l'ID de votre video de teaser. (Notez que DailyMotion Cloud, DailyMotion Classic"
 " et Youtube sont supportés"
+
+msgid "your video ID"
+msgstr "ID de votre video de teaser"
