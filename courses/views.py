@@ -16,7 +16,7 @@ from xmodule.exceptions import NotFoundError
 
 from .forms import CourseFilteringForm
 
-COURSES_BY_PAGE = 12
+COURSES_BY_PAGE = 24
 
 
 def _dates_description(course):
