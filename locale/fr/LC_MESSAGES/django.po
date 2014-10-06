@@ -350,7 +350,7 @@ msgid ""
 msgstr "Attendez quelques secondes et rechargez la page. Si le problème persiste, envoyez nous un mail à l'adresse <a href=\"{email}\">{email}</a>."
 
 msgid "State"
-msgstr "Etat"
+msgstr "État"
 
 msgid "Incoming"
 msgstr "A venir"
@@ -428,3 +428,6 @@ msgstr ""
 
 msgid "your video ID"
 msgstr "ID de votre video de teaser"
+
+msgid "University"
+msgstr "Établissement"
