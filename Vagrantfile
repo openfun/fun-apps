@@ -34,6 +34,9 @@ funscripts_mount_dir = "fun-scripts"
 configuration_mount_dir = "configuration"
 forum_mount_dir = "cs_comments_service"
 ora_mount_dir = "ora"
+edxwork_mount_dir = "edxwork"
+xblock_mount_dir = "XBlock"
+
 
 if ENV['VAGRANT_MOUNT_BASE']
 
@@ -45,6 +48,8 @@ if ENV['VAGRANT_MOUNT_BASE']
   configuration_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + configuration_mount_dir
   forum_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + forum_mount_dir
   ora_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + ora_mount_dir
+  edxwork_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + edxwork_mount_dir
+  xblock_mount_dir = ENV['VAGRANT_MOUNT_BASE'] + "/" + xblock_mount_dir
 
 end
 
@@ -76,6 +81,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "#{configuration_mount_dir}", "/edx/app/edxapp/configuration", :create => true, nfs: true
   config.vm.synced_folder "#{forum_mount_dir}", "/edx/app/forum/cs_comments_service", :create => true, nfs: true
   config.vm.synced_folder "#{ora_mount_dir}", "/edx/app/ora/ora", :create => true, nfs: true
+  config.vm.synced_folder "#{edxwork_mount_dir}", "/edx/app/edxapp/edxwork", :create => true, nfs: true
+  config.vm.synced_folder "#{xblock_mount_dir}", "/edx/app/edxapp/XBlock", :create => true, nfs: true
+
 
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", MEMORY.to_s]
