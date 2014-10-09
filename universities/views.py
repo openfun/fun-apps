@@ -16,9 +16,8 @@ class MakoTemplateMixin(object):
 
 
 class UniversityMixin(object):
-
     def get_queryset(self):
-        return University.objects.filter(featured=True)
+        return University.featured_objects.all()
 
 
 class UniversityLandingView(MakoTemplateMixin, UniversityMixin, ListView):

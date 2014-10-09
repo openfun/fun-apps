@@ -4,6 +4,11 @@ from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
 
 
+class FeaturedUniversityManager(models.Manager):
+    def get_query_set(self):
+        return super(FeaturedUniversityManager, self
+                ).get_query_set().filter(featured=True)
+
 class University(models.Model):
     """
     A university or a school that provides online courses.
@@ -25,6 +30,9 @@ class University(models.Model):
     dm_user_id = models.CharField(_('DM User ID'), max_length=255, blank=True)
     dm_api_key = models.CharField(_('DM API Key'), max_length=255, blank=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    objects = models.Manager()
+    featured_objects = FeaturedUniversityManager()
 
     class Meta:
         ordering = ('order', 'id',)
