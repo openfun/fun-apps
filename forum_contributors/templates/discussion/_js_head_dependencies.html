@@ -30,7 +30,6 @@ $(document).ready(function(){
         user_id = (_ref = this.user) != null ? _ref.id : void 0;
       }
       active = _.union(this.roleIds['Active']);
-      console.log(this.roleIds)
       return _.include(active, parseInt(user_id));
     };
     DiscussionUtil.isRecommended = function(user_id) {
