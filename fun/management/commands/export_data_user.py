@@ -11,7 +11,7 @@ from pprint import PrettyPrinter
 from django.core.files import File
 
 
-#to run it just do $>./manage.py lms export_data_user --settings=fun.lms_sloop
+#to run it just do ~/edx-platform$ ./manage.py lms export_data_user --settings=fun.lms_sloop --username=the_username
 
 class Command(BaseCommand):
     help = """
@@ -21,6 +21,8 @@ class Command(BaseCommand):
         The output file will be store on /tmp
         
         ./manage.py lms export_data_user --settings=fun.lms_sloop --username=anonymized1 [--file=toto.txt]
+        http://edx.readthedocs.org/en/latest/internal_data_formats/sql_schema.html
+        http://edx.readthedocs.org/en/latest/internal_data_formats/discussion_data.html
         
     """
     option_list = BaseCommand.option_list + (
@@ -58,7 +60,13 @@ class Command(BaseCommand):
         
         with open('/tmp/%s'%filename, 'wt') as f:
             myfile = File(f)
-            printer = PrettyPrinter(stream=myfile, indent=2, width=180, depth=None)
+            printer = PrettyPrinter(stream=myfile, indent=2, width=1024, depth=None)
+            #SQL DATA
+            #TABLE USER:
+            printer.pprint("Table User :")
+            printer.pprint(to_dict(finduser, exclude=('id', 'User.password')))
+            printer.pprint("--")
+            #OTHER TABLE
             for model in all_models: #parse all models to find which one has a foreign key with User
                 for field in model._meta.fields:
                     if field.get_internal_type()=="ForeignKey" and field.rel.to==User: 
@@ -75,7 +83,12 @@ class Command(BaseCommand):
                         else:
                             printer.pprint("No data found for this user")
                         printer.pprint("--")   
-        
+            #MONGO DATA
+            #author_username
+            #use cs_comments_service
+            #switched to db cs_comments_service
+            #var myCursor =  db.contents.find({"author_username":"elro"})
+            #while (myCursor.hasNext()) {    printjson(myCursor.next()); }
 
 
 def to_dict(obj, exclude=[]):
