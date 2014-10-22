@@ -16,11 +16,6 @@ from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from pymongo import MongoClient
 
 #to run it just do ~/edx-platform$ ./manage.py lms export_data_user --settings=fun.lms_sloop --username=the_username
-#./manage.py lms export_data_user --settings=fun.lms_sloop --username=anonymized50933
-#test effectué sur sloop avec le username anonymized50933
-#en frontal web sloop.openfun.fr pour les discussions :
-#4 discussions commencées
-#145 commentaires
 
 class Command(BaseCommand):
     help = """
@@ -30,6 +25,7 @@ class Command(BaseCommand):
         The output file will be store on /tmp
         
         ./manage.py lms export_data_user --settings=fun.lms_sloop --username=anonymized1 [--file=toto.txt]
+        [--host=127.0.0.1][--user_mongo=user_for_mongo][--pwd_mongo=password_for_mongo]
         http://edx.readthedocs.org/en/latest/internal_data_formats/sql_schema.html
         http://edx.readthedocs.org/en/latest/internal_data_formats/discussion_data.html
         
