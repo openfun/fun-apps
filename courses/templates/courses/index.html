@@ -3,6 +3,7 @@
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
+from django.utils.dateformat import format
 %>
 
 <%namespace name='static' file='../static_content.html'/>
@@ -86,6 +87,12 @@ from courseware.courses import course_image_url, get_course_about_section
     border-radius: 3px !important;
 }
 
+.courses-listing-item .start-date-label {
+}
+.courses-listing-item .start-date-date {
+    font-weight: bold;
+}
+
 /* Pagination bar */
 div.pagination {
     width: 100%;
@@ -156,9 +163,9 @@ div.pagination span.current {
                                   <p>${get_course_about_section(course, 'short_description')}</p>
                                 </div>
                                 <div class="bottom">
-                                  <span class="university">${get_course_about_section(course, 'university')}</span>
+                                  <span class="start-date-label">Date de début:</span>
                                   % if not course.start_date_is_still_default:
-                                  <span class="start-date">${course.start_date_text}</span>
+                                  <span class="start-date-date">${format(course.start, 'l d F Y')}</span>
                                   % endif
                                 </div>
                               </section>
