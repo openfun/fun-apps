@@ -14,6 +14,7 @@ from bson import json_util
 import lms.lib.comment_client as cc
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from pymongo import MongoClient
+from student.models import UserProfile
 
 #to run it just do ~/edx-platform$ ./manage.py lms export_data_user --settings=fun.lms_sloop --username=the_username
 
@@ -69,9 +70,10 @@ class Command(BaseCommand):
             filename = "export_%s.log" %options['username']
         else:
             filename = options['file']
-            #raise CommandError("Option `--file=...` must be specified.")
+
         try:
-            finduser = User.objects.get(username=options['username'])
+            user = User.objects.get(username=options['username'])
+            profile = UserProfile.objects.get(user=user)
         except:
             raise CommandError("User with username `%s` not found." %options['username'])
         
@@ -96,7 +98,12 @@ class Command(BaseCommand):
             #SQL DATA
             #TABLE USER:
             printer.pprint("Table User :")
-            printer.pprint(to_dict(finduser, exclude=('id', 'User.password')))
+            printer.pprint(to_dict(user, exclude=('id', 'User.password')))
+            #TABLE USER PROFILE:
+            printer.pprint("Table User profile :")
+            printer.pprint(to_dict(profile))
+            printer.pprint("--")
+            #printer.pprint(to_dict(user, exclude=('id', 'User.password')))
             printer.pprint("--")
             #OTHER TABLE
             for model in all_models: #parse all models to find which one has a foreign key with User
@@ -104,7 +111,7 @@ class Command(BaseCommand):
                     if field.get_internal_type()=="ForeignKey" and field.rel.to==User: 
                         printer.pprint("Table %s :" %model.__name__)
                         #OR if isinstance(field, models.ForeignKey)
-                        kwargs = {field.name:finduser}
+                        kwargs = {field.name: user}
                         qs = model.objects.select_related().filter(**kwargs) #.values()
                         if qs:
                             for q in qs:
@@ -122,13 +129,12 @@ class Command(BaseCommand):
             db = client.cs_comments_service
             if user_mongo:
                 db.authenticate(user_mongo, password_mongo)
-            listpost = db.contents.find({"author_id":"%s" %finduser.id})
+            listpost = db.contents.find({"author_id":"%s" % user.id})
             printer.pprint("Discussions :")
             printer.pprint("Nombre d'entree : %s" %listpost.count())
             for post in listpost:
-                printer.pprint("%s" %json.dumps(post, indent=4, default=json_util.default))
-                #printer.pprint(post)
-                printer.pprint("--")
+                printer.pprint(post)
+            
             printer.pprint(20*"*")
 
 
