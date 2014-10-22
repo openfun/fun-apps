@@ -434,3 +434,6 @@ msgstr "Établissement"
 
 msgid "Following"
 msgstr "Suivi"
+
+msgid "h/week"
+msgstr "h/semaine"
