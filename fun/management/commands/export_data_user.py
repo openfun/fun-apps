@@ -22,6 +22,7 @@ class Command(BaseCommand):
         Return all data concerning a user
         specify a user using --username=...
         Optionnaly you can specify a file to output with --file
+        if not the filename will be export_theusername.log
         The output file will be store on /tmp
         
         ./manage.py lms export_data_user --settings=fun.lms_sloop --username=anonymized1 [--file=toto.txt]
