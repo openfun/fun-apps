@@ -2,6 +2,8 @@
 
 from datetime import datetime
 import logging
+from optparse import make_option
+from pprint import PrettyPrinter
 from smtplib import SMTPRecipientsRefused
 
 from django.db import models
@@ -11,17 +13,12 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 from django.conf import settings
-from optparse import make_option
 from django.db.models.query import QuerySet
-from pprint import PrettyPrinter
 from django.core.files import File
 from django.template.loader import render_to_string
-import json
-from bson import json_util
 
-import lms.lib.comment_client as cc
-from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from pymongo import MongoClient
+
 from student.models import UserProfile
 
 logger = logging.getLogger(__name__)
@@ -64,13 +61,13 @@ class Command(BaseCommand):
             "--user_mongo",
             dest="user_mongo",
             help="the username for mongo connexion",
-            default=""
+            default=None
         ),
         make_option(
             "--pwd_mongo",
             dest="pwd_mongo",
             help="the password for mongo connexion",
-            default=""
+            default=None
         ),
         make_option(
             "--email",
@@ -100,12 +97,8 @@ class Command(BaseCommand):
             host = options['host']
             print u"Using %s as host address" % host
 
-        user_mongo = None
-        password_mongo = None
-        if options['user_mongo'] and options['user_mongo'] != "":
-            user_mongo = options['user_mongo']
-            password_mongo = options['pwd_mongo']
-            print u"With user %s" % user_mongo
+        if options['user_mongo'] and options['pwd_mongo']:
+            print u"With user %s" % options['user_mongo']
 
         #return all models found
         all_models = models.get_models(include_auto_created=True)
@@ -130,14 +123,10 @@ class Command(BaseCommand):
                         printer.pprint("Table %s :" % model.__name__)
                         #OR if isinstance(field, models.ForeignKey)
                         kwargs = {field.name: user}
-                        qs = model.objects.select_related().filter(**kwargs)
-                        if qs:
-                            for q in qs:
-                                #print to_dict(q, exclude=('id', 'User.password'))
-                                printer.pprint(to_dict(q, exclude=('id', 'User.password')))
-                                #http://palewi.re/posts/2009/09/04/django-recipe-pretty-print-objects-and-querysets/
-                                #printer.pprint(qs)
-                                #dprint(qs, stream=my_file, indent=1, width=80, depth=None)
+                        query = model.objects.select_related().filter(**kwargs)
+                        if query:
+                            for instance in query:
+                                printer.pprint(to_dict(instance, exclude=('id', 'User.password')))
                         else:
                             printer.pprint("No data found for this user")
                         printer.pprint("--")
@@ -145,11 +134,11 @@ class Command(BaseCommand):
             #MONGO DATA
             client = MongoClient(host=host)
             db = client.cs_comments_service
-            if user_mongo:
-                db.authenticate(user_mongo, password_mongo)
+            if options['user_mongo']:
+                db.authenticate(options['user_mongo'], options['pwd_mongo'])
             list_post = db.contents.find({"author_id": "%s" % user.id})
             printer.pprint("Discussions :")
-            printer.pprint("Nombre d'entree : %s" % list_post.count())
+            printer.pprint("Nombre d'entrees : %s" % list_post.count())
             for post in list_post:
                 printer.pprint(post)
 
@@ -172,14 +161,12 @@ class Command(BaseCommand):
             email.attach_file(filename)
             try:
                 email.send()
-            except SMTPRecipientsRefused:
-                logger.error(u"Stat email could not be sent(%s)." % subject)
+            except:
+                logger.error(u"User data export fir %s count not be sent." % options['username'])
                 print u"Unexpected error append while sending %s" % filename
 
 
 def to_dict(obj, exclude=[]):
-    """
-    """
     tree = {}
     for field in obj._meta.fields + obj._meta.many_to_many:
         if field.name in exclude or \
