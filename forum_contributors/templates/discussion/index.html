@@ -19,82 +19,13 @@
 <%block name="js_extra">
 <%include file="_js_body_dependencies.html" />
 <%static:js group='discussion'/>
-
-<script>
-/*  Override and extend backbone classes to add handling of our custom forum roles
-*/
-
-    // Extends edx-platform/common/static/coffee/src/discussion/utils.js
-    DiscussionUtil.isActive = function(user_id) {
-      var ta, _ref;
-      if (user_id == null) {
-        user_id = (_ref = this.user) != null ? _ref.id : void 0;
-      }
-      actif = _.union(this.roleIds['Active']);
-      return _.include(actif, parseInt(user_id));
-    };
-    DiscussionUtil.isRecommended = function(user_id) {
-      var ta, _ref;
-      if (user_id == null) {
-        user_id = (_ref = this.user) != null ? _ref.id : void 0;
-      }
-      recommended = _.union(this.roleIds['Recommended']);
-      return _.include(recommended, parseInt(user_id));
-    };
-    DiscussionUtil.isOfficial = function(user_id) {
-      var ta, _ref;
-      if (user_id == null) {
-        user_id = (_ref = this.user) != null ? _ref.id : void 0;
-      }
-      official = _.union(this.roleIds['Official Contributor']);
-      return _.include(official, parseInt(user_id));
-    };
-
-    // Overrides methods from edx-platform/common/static/coffee/src/discussion/response_comment_show_view.js
-    ResponseCommentShowView.prototype.markAsStaff = function() {
-        if (DiscussionUtil.isStaff(this.model.get("user_id"))) {
-          return this.$el.find("a.profile-link").after('<span class="staff-label">' + gettext("Staff") + '</span>');
-        } else if (DiscussionUtil.isTA(this.model.get("user_id"))) {
-          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Community TA") + '</span>');
-        } else if (DiscussionUtil.isOfficial(this.model.get("user_id"))) {
-          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Official Contributor") + '</span>');
-        } else if (DiscussionUtil.isRecommended(this.model.get("user_id"))) {
-          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Recommended") + '</span>');
-        } else if (DiscussionUtil.isActive(this.model.get("user_id"))) {
-          return this.$el.find("a.profile-link").after('<span class="community-ta-label">' + gettext("Active") + '</span>');
-        }
-    };
-
-    // Overrides methods edx-platform/common/static/coffee/src/discussion/thread_response_show_view.js
-    ThreadResponseShowView.prototype.markAsStaff = function() {
-        if (DiscussionUtil.isStaff(this.model.get("user_id"))) {
-            this.$el.addClass("staff");
-            return this.$el.prepend('<div class="staff-banner">' + gettext("Staff") + '</div>');
-        } else if (DiscussionUtil.isTA(this.model.get("user_id"))) {
-            this.$el.addClass("community-ta");
-            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Community TA") + '</div>');
-        } else if (DiscussionUtil.isOfficial(this.model.get("user_id"))) {
-            this.$el.addClass("community-ta");
-            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Official Contributor") + '</div>');
-        } else if (DiscussionUtil.isRecommended(this.model.get("user_id"))) {
-            this.$el.addClass("community-ta");
-            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Recommended") + '</div>');
-        } else if (DiscussionUtil.isActive(this.model.get("user_id"))) {
-            this.$el.addClass("community-ta");
-            return this.$el.prepend('<div class="community-ta-banner">' + gettext("Active") + '</div>');
-        }
-    };
-</script>
-
 </%block>
 
 <%include file="_discussion_course_navigation.html" args="active_page='discussion'" />
 
-
-<article class="new-post-article"></article>
 <section class="discussion container" id="discussion-container"
          data-roles="${roles}"
-         data-course-id="${course_id}"
+         data-course-id="${course_id | h}"
          data-user-info="${user_info}"
          data-threads="${threads}"
          data-thread-pages="${thread_pages}"
@@ -106,6 +37,8 @@
     <div class="discussion-body">
         <div class="forum-nav"></div>
         <div class="discussion-column">
+          <article class="new-post-article" style="display: none"></article>
+          <div class="forum-content"></div>
         </div>
     </div>
 </section>
