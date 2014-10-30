@@ -27,11 +27,9 @@ urlpatterns = patterns( '',
     # Grade downloads
     url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN),
             include('fun_instructor.urls')),
-
+                        url(r'^get-grades/{}/(?P<filename>.+.csv)'.format(settings.COURSE_ID_PATTERN), 'fun_instructor.views.get_grades'),
     (r'^', include('lms.urls')),
 )
-
-
 
 
 # Ckeditor - Used by Univerity app

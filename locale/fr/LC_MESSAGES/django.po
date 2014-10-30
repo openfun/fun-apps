@@ -432,5 +432,10 @@ msgstr "ID de votre video de teaser"
 msgid "University"
 msgstr "Établissement"
 
+
 msgid "h/week"
 msgstr "h/semaine"
+
+msgid "Following"
+msgstr "Suivi"
+
