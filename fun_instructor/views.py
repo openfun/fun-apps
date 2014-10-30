@@ -5,6 +5,7 @@ import urllib
 import os
 
 from django_future.csrf import ensure_csrf_cookie
+from django.http import Http404
 from django.views.decorators.cache import cache_control
 from django.http import HttpResponse
 from django.conf import settings
@@ -59,8 +60,11 @@ def get_grades(_request, course_id, filename):
     # open the file and write its content into the http response
     # edx path to file are stored using urlib.quote() function on course_id
     # see store method in class LocalFSReportStore
-    with open(path_to(course_id, filename), 'r') as gradefile:
-        response.write(gradefile.read())
+    try:
+        with open(path_to(course_id, filename), 'r') as gradefile:
+            response.write(gradefile.read())
+    except IOError:
+        raise Http404("Report grades file was not found")
     return response
 
 
