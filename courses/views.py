@@ -14,6 +14,8 @@ from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
 
+from universities.models import University
+
 from .forms import CourseFilteringForm
 
 COURSES_BY_PAGE = 24
@@ -74,7 +76,9 @@ def course_index(request):
 
     if form.is_valid():
         if form.cleaned_data['university']:
-            courses = [c for c in courses if c.org == form.cleaned_data['university']]
+            university = University.objects.get(code=form.cleaned_data['university'])
+            children = [child.code for child in university.children.all()]
+            courses = [c for c in courses if c.org == form.cleaned_data['university'] or c.org in children]
         if form.cleaned_data['state']:
             now = timezone.make_aware(datetime.datetime.utcnow(), timezone.get_current_timezone())
             if form.cleaned_data['state'] == 'future':

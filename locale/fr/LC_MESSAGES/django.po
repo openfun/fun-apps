@@ -437,3 +437,9 @@ msgstr "h/semaine"
 
 msgid "Following"
 msgstr "Suivi"
+
+msgid "An university with parent will be grouped with it in university filtering"
+msgstr "Un établissement ayant un parent, sera regroupé avec celui-ci"
+
+msgid "Parent university"
+msgstr "Etablissement parent"
