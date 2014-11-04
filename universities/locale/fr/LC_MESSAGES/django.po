@@ -26,6 +26,10 @@ msgid "Displayed On Site | Banner | Description"
 msgstr "Affiché sur le site | Bannière | Description"
 
 #: admin.py:41
+msgid "children"
+msgstr "Etablissements administrés"
+
+#: admin.py:48
 msgid "preview"
 msgstr "Aperçu"
 
