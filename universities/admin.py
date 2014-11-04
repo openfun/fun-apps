@@ -7,7 +7,7 @@ from universities.models import University
 
 
 class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'preview', 'code', 'slug', 'featured')
+    list_display = ('name', 'preview', 'code', 'slug', 'children', 'featured')
     list_filter = ('featured',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
@@ -34,6 +34,12 @@ class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
             )
         }),
     )
+
+    def children(self, obj):
+        '''get all children attached to a university'''
+        return ", ".join([uni.name for uni in University.objects.filter(parent=obj)])
+    children.short_description=_('children')
+
 
     def preview(self, obj):
         template = u"""<img src="{url}" style="max-height: 48px;" />"""
