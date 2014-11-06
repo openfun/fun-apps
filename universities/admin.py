@@ -7,7 +7,7 @@ from universities.models import University
 
 
 class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'previews', 'code', 'slug', 'children_attached', 'featured',)
+    list_display = ('name', 'preview', 'code', 'slug', 'children_attached', 'featured',)
     list_filter = ('featured',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
@@ -41,12 +41,12 @@ class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
     children_attached.short_description=_('Managed universities')
 
 
-    def previews(self, obj):
+    def preview(self, obj):
         template = u"""<img src="{url}" style="max-height: 48px;" />"""
         url = obj.logo.url if obj.logo else ''
         return template.format(url=url)
-    previews.short_description=_('preview')
-    previews.allow_tags = True
+    preview.short_description=_('preview')
+    preview.allow_tags = True
 
 
 admin.site.register(University, UniversityAdmin)
