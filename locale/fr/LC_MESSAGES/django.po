@@ -385,6 +385,9 @@ msgstr "Identification en cours"
 msgid "Add contributor"
 msgstr "Ajouter"
 
+msgid "Official"
+msgstr "Officiel"
+
 msgid "Official Contributor"
 msgstr "Contributeur officiel"
 
