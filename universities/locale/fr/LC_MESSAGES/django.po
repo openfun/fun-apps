@@ -4,106 +4,127 @@
 # France Université Numerique <team@openfun.fr>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: edx-platform\n"
+"Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2014-07-04 13:50-0400\n"
+"POT-Creation-Date: 2014-11-13 19:12+0100\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
-"Language-Team: French (http://www.transifex.com/projects/p/edx-platform/language/fr/)\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/edx-"
+"platform/language/fr/)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Generated-By: Babel 1.3\n"
 
-#: admin.py:21
-msgid "Daily Motion"
+#: /edx/app/edxapp/fun-apps/universities/models.py:21
+msgid "An university with parent will be grouped with it in university filtering"
 msgstr ""
 
-#: admin.py:27
-msgid "Displayed On Site | Banner | Description"
-msgstr "Affiché sur le site | Bannière | Description"
-
-#: admin.py:41
-msgid "preview"
-msgstr "aperçu"
-
-#: models.py:11
-msgid "name"
-msgstr "nom"
-
-#: models.py:12
-msgid "code"
-msgstr "code"
-
-#: models.py:13
-msgid "certificate logo"
-msgstr "Logo du certificat"
-
-#: models.py:15
-msgid "Logo to be displayed on the certificate document."
-msgstr "Logo à afficher sur le certificat"
-
-#: models.py:16
-msgid "logo"
-msgstr "logo"
-
-#: models.py:17
-msgid "featured on site"
-msgstr "mis en avant sur le site"
-
-#: models.py:18
-msgid ""
-"Shows the logo on various sections of the site and enables the university "
-"page."
-msgstr "Affiche le logo de l'université sur le site"
-
-#: models.py:20
-msgid "slug"
-msgstr "slug"
-
-#: models.py:21
-msgid "Only used is set as featured"
-msgstr "Seulement utilisé si mis en avant"
-
-#: models.py:22
-msgid "banner"
-msgstr "bannière"
-
-#: models.py:24
-msgid "description"
-msgstr ""
-
-#: models.py:25
-msgid "DM User ID"
-msgstr "Dailymotion User ID"
-
-#: models.py:26
+#: /edx/app/edxapp/fun-apps/universities/models.py:37
 msgid "DM API Key"
 msgstr "Dailymotion API key"
 
-#: models.py:31
-msgid "University"
-msgstr "Université"
+#: /edx/app/edxapp/fun-apps/universities/models.py:36
+msgid "DM User ID"
+msgstr "Dailymotion User ID"
 
-#: models.py:32
-msgid "Universities"
-msgstr "Universities"
+#: /edx/app/edxapp/fun-apps/universities/admin.py:22
+msgid "Daily Motion"
+msgstr ""
 
-#: templates/universities/index.html:9
+#: /edx/app/edxapp/fun-apps/universities/admin.py:28
+msgid "Displayed On Site | Banner | Description"
+msgstr "Affiché sur le site | Bannière | Description"
+
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:9
 msgid "Institutions"
 msgstr "Établissements"
 
-#: templates/universities/index.html:17
-msgid "The universities and schools"
-msgstr "Les universités et écoles françaises"
+#: /edx/app/edxapp/fun-apps/universities/models.py:26
+msgid "Logo to be displayed on the certificate document."
+msgstr "Logo à afficher sur le certificat"
 
-#: templates/universities/index.html:18
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:18
 msgid "Offer courses and trainings on {platform_name}"
 msgstr "Proposent des cours variés sur {platform_name}"
 
-#: templates/universities/index.html:23
+#: /edx/app/edxapp/fun-apps/universities/models.py:32
+msgid "Only used is set as featured"
+msgstr "Seulement utilisé si mis en avant"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:20
+#, fuzzy
+msgid "Parent university"
+msgstr "Université"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:29
 msgid ""
-"{platform_name}'s goal is to allow universities and schools to publish their "
-"courses online. The list of institutions proposing courses on "
+"Shows the logo on various sections of the site and enables the university"
+" page."
+msgstr "Affiche le logo de l'université sur le site"
+
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:17
+msgid "The universities and schools"
+msgstr "Les universités et écoles françaises"
+
+# Translated in edx by 'Universités'
+#: /edx/app/edxapp/fun-apps/universities/models.py:46
+msgid "Universities"
+msgstr "Universities"
+
+# Translated in edx by 'Université'
+#: /edx/app/edxapp/fun-apps/universities/models.py:45
+msgid "University"
+msgstr "Université"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:33
+msgid "banner"
+msgstr "bannière"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:24
+msgid "certificate logo"
+msgstr "Logo du certificat"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:23
+msgid "code"
+msgstr "code"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:35
+msgid "description"
+msgstr ""
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:28
+msgid "featured on site"
+msgstr "mis en avant sur le site"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:27
+msgid "logo"
+msgstr "logo"
+
+# Translated in edx by 'nom'
+#: /edx/app/edxapp/fun-apps/universities/models.py:22
+msgid "name"
+msgstr "nom"
+
+#: /edx/app/edxapp/fun-apps/universities/admin.py:42
+msgid "preview"
+msgstr "aperçu"
+
+# Translated in edx by 'slug'
+#: /edx/app/edxapp/fun-apps/universities/models.py:31
+msgid "slug"
+msgstr "slug"
+
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:23
+msgid ""
+"{platform_name}'s goal is to allow universities and schools to publish "
+"their courses online. The list of institutions proposing courses on "
 "{platform_name} is continuously getting larger:"
-msgstr "{platform_name} a pour vocation de permettre aux universités et écoles françaises qui le souhaitent de dispenser leurs cours en ligne sur la plateforme {platform_name}. Ces universités et écoles sont de plus en plus nombreuses à proposer une ou plusieurs formations sur {platform_name}. Les voici ci-dessous :"
+msgstr ""
+"{platform_name} a pour vocation de permettre aux universités et écoles "
+"françaises qui le souhaitent de dispenser leurs cours en ligne sur la "
+"plateforme {platform_name}. Ces universités et écoles sont de plus en "
+"plus nombreuses à proposer une ou plusieurs formations sur "
+"{platform_name}. Les voici ci-dessous :"
+

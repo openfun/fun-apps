@@ -4,445 +4,720 @@
 # France Université Numerique <team@openfun.fr>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: edx-platform\n"
+"Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2014-07-04 13:50-0400\n"
+"POT-Creation-Date: 2014-11-13 19:12+0100\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
-"Language-Team: French (http://www.transifex.com/projects/p/edx-platform/language/fr/)\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/edx-"
+"platform/language/fr/)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-
-msgid "Current Courses"
-msgstr "Cours actuels :"
-
-msgid "pending"
-msgstr "En attente"
-
-msgid "Current course creator state"
-msgstr "État actuel du créateur de cours"
-
-msgid "Check here to apply the above permissions recursively to articles under this one."
-msgstr "Cochez ici pour appliquer les permissions récursivement à tous les articles enfants."
-
-msgid "Please go to the following page and choose a new password:"
-msgstr "Visitez la page suivante et choisissez un nouveau mot de passe :"
-
-msgid "Search all discussions"
-msgstr "Rechercher"
-
-msgid "Jobs"
-msgstr "Nous recrutons"
-
-msgid "Show All Discussions"
-msgstr "Toutes les discussions"
-
-msgid "Schedule"
-msgstr "Emploi du temps"
-
-msgid "Forum Admin"
-msgstr "Administrateurs des forums"
-
-msgid "Log In"
-msgstr "Se Connecter"
-
-msgid "Course Handouts"
-msgstr "Documents pédagogiques"
-
-msgid "Staff and instructors"
-msgstr "Equipe pédagogique"
-
-msgid "Enter the username of the owner."
-msgstr "Rentrez le nom d'utilisateur du propriétaire."
-
-msgid "The edX Team"
-msgstr "L'équipe FUN"
-
-msgid "Also receive emails about article edits"
-msgstr "Recevoir aussi des emails concernant la modification des articles"
-
-msgid "Register"
-msgstr "S'inscrire"
-
-msgid "Deny all users access to edit this article."
-msgstr "Interdire à tous les utilisateurs de modifier l'article."
-
-msgid "Public Username"
-msgstr "Nom d'utilisateur FUN"
-
-msgid "Error uploading file. Please contact the site administrator. Thank you."
-msgstr "Erreur dans l'upload du fichier. Merci de contacter l'administrateur du site."
-
-msgid "Course Info"
-msgstr "Info Cours"
-
-msgid "Honor Code"
-msgstr "Charte utilisateur"
-
-msgid "Learning is More than Just Lectures"
-msgstr "L'apprentissage réclame plus que des cours magistraux"
-
-msgid "post anonymously to classmates"
-msgstr "Ecrire anonymement aux camarades de classe"
-
-msgid "Don't have a Studio Account? Sign up!"
-msgstr "Pas de compte Studio ? Inscrivez-vous !"
-
-msgid "HOW TO USE EDX DISCUSSIONS"
-msgstr "COMMENT UTILISER LE FORUM FUN"
-
-msgid "Follow posts for updates"
-msgstr "Suivre les mises à jour des posts"
-
-msgid "Studio user"
-msgstr "L'utilisateur de Studio"
-
-msgid "Valid e-mail address required."
-msgstr "Une adresse email valide est requise."
-
-msgid "E-mail change failed"
-msgstr "changement d'adresse email échoué"
-
-msgid "Username should only consist of A-Z and 0-9, with no spaces."
-msgstr "Le nom d'utilisateur doit être composé de lettres (A – Z) et de chiffres (0 – 9), sans espace."
-
-msgid "To uphold the credibility of {platform} certificates, all name changes will be logged and recorded."
-msgstr "Pour maintenir la crédibilité des certificats {platform}, tous les changements de nom seront mémorisés ou archivés."
-
-msgid "Course-loading errors"
-msgstr "erreurs de chargement des cours"
-
-msgid "Check"
-msgstr "Vérifier"
-
-msgid "Inherit permissions"
-msgstr "Héritage des autorisations"
-
-msgid "Write a brief message for the article's history log."
-msgstr "Ecrivez un court message qui apparaîtra sur le log de suivi des modifications"
-
-msgid "{platform_name} is a non-profit created by founding partners {Harvard} and {MIT} whose mission is to bring the best of higher education to students of all ages anywhere in the world, wherever there is Internet access. {platform_name}'s free online MOOCs are interactive and subjects include computer science, public health, and artificial intelligence."
-msgstr "{platform_name} est une plateforme à but non lucratif, fondée par les partenaires {Harvard} et {MIT}, dont la mission est de proposer le meilleur de l'enseignement supérieur aux étudiants de tout âge, partout dans le monde, dès qu'il y a accès à Internet. Les MOOCs gratuits en ligne de {platform_name} sont interactifs et ont pour thème l'informatique, la santé, l'intelligence artificielle..."
-
-msgid "Please enter your new email address:"
-msgstr "Merci d'entrer votre nouvelle adresse email :"
-
-msgid "Unanswered"
-msgstr "Sans réponse"
-
-msgid "For <strong>questions on course lectures, homework, tools, or materials for this course</strong>, post in the {link_start}course discussion forum{link_end}."
-msgstr "Pour des <strong>questions sur les lectures, travaux, outils, composants de ce cours</strong>, écrivez dans le {link_start}forum de discussion autour du cours{link_end}"
-
-msgid "Course Updates"
-msgstr "Infos du Cours"
-
-msgid "<strong>Warning</strong>: Do not modify these policies unless you are familiar with their purpose."
-msgstr "<strong>Attention</strong>: Ne modifiez pas ces règles si vous n'êtes pas familier de leur usage."
-
-msgid "Your password has been set. You may go ahead and %(link_start)slog in%(link_end)s now. "
-msgstr "Votre mot de passe est enregistré. Vous pouvez continuer et vous %(link_start)sconnecter%(link_end)s maintenant. "
-
-msgid "Instructor"
-msgstr "Enseignant"
-
-msgid "Log in"
-msgstr "Se connecter"
-
-msgid "Rescore ALL students' problem submissions"
-msgstr "Renoter TOUTES les soumissions d'exercice des étudiants"
-
-msgid "View Archived Course"
-msgstr "Voir les Cours archivés"
-
-msgid "Receive course emails"
-msgstr "Recevoir les emails du cours"
-
-msgid "When this article is edited"
-msgstr "Quand cet article est modifié"
-
-msgid "You were most recently in {section_link}. If you're done with that, choose another section on the left."
-msgstr "Vous étiez récemment dans {section_link}. Si vous avez fini, choisissez une autre section à gauche."
-
-msgid "If you didn't request this change, you can disregard this email - we have not yet reset your password."
-msgstr "Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet email - nous n'avons pas encore réinitialisé votre mot de passe."
-
-msgid "We've e-mailed you instructions for setting your password to the e-mail address you submitted. You should be receiving it shortly."
-msgstr "Nous vous avons envoyé par email des instructions pour initialiser votre mot de passe à l'adresse email que vous avez fournie. Vous devriez bientôt les recevoir."
-
-msgid "Report Forum Misuse"
-msgstr "Signaler les abus sur le forum"
-
-msgid "DISCUSSION HOME:"
-msgstr "ACCUEIL DISCUSSION:"
-
-msgid "Upload New File"
-msgstr "Upload Nouveau Fichier"
-
-msgid "<strong>Warning:</strong> Your browser is not fully supported. We strongly recommend using {chrome_link_start}Chrome{chrome_link_end} or {ff_link_start}Firefox{ff_link_end}."
-msgstr "Les applications de la plateforme FUN nécessitent une version récente de votre navigateur pour un fonctionnement optimal. Pour profiter pleinement de l'expérience FUN, nous vous invitons à télécharger et utiliser les dernières version de {ff_link_start}Firefox{ff_link_end}, {chrome_link_start}Chrome{chrome_link_end} ou Internet Explorer 10."
-
-msgid "Class Feedback"
-msgstr "Réactions de la classe"
-
-msgid "Give a short reason for your edit, which will be stated in the revision log."
-msgstr "Donnez une courte explication qui sera mentionnée sur le log de suivi des modifications"
-
-msgid "Useful examples:"
-msgstr "Exemples utiles :"
-
-msgid "This will be the address where your article can be found. Use only alphanumeric characters and - or _. Note that you cannot change the slug after creating the article."
-msgstr "Ce sera l'adresse où l'article pourra être trouvé. Utilisez uniquement des caractères alphanumériques et - ou _. L'adresse ne pourra pas être modifiée après la création de l'article."
-
-msgid "Final Check"
-msgstr "Vérification finale"
-
-msgid "All (students, staff and instructors)"
-msgstr "Tous (Apprenants et équipe pédagogique)"
-
-msgid "See all children"
-msgstr "Voir tous les articles enfants"
+"Generated-By: Babel 1.3\n"
+
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:194
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:208
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:224
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:238
+msgid "(UTC)"
+msgstr ""
+
+#: /edx/app/edxapp/themes/fun/templates/navigation.html:130
+msgid ""
+"<strong>Warning:</strong> Your browser is not fully supported. We "
+"strongly recommend using {chrome_link_start}Chrome{chrome_link_end} or "
+"{ff_link_start}Firefox{ff_link_end}."
+msgstr ""
+
+msgid ""
+"<strong>Warning</strong>: Do not modify these policies unless you are "
+"familiar with their purpose."
+msgstr ""
+"<strong>Attention</strong>: Ne modifiez pas ces règles si vous n'êtes pas"
+" familier de leur usage."
+
+#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:75
+msgid "About {course_name}"
+msgstr ""
+
+#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:22
+msgid "About..."
+msgstr "À propos de..."
+
+# Translated in edx by 'Accès aux cours'
+#: /edx/app/edxapp/themes/fun/templates/login.html:79
+msgid "Access My Courses"
+msgstr "Accéder à mes Cours"
 
 msgid "Activation Invalid"
 msgstr "Activation non valide"
 
-msgid "View Courseware"
-msgstr "Voir le contenu du Cours"
-
-msgid "Have you read over the email to make sure it says everything you want to say?"
-msgstr "L'avez-vous relu pour vous assurer qu'il est complet ?"
-
-msgid "Access My Courses"
-msgstr "Accéder à mes Cours"
-
-msgid "Engage with posts"
-msgstr "S'investir dans les discussions"
-
-msgid "Honor Code Certificate"
-msgstr "déclaration sur l'honneur"
-
-msgid "Report a problem"
-msgstr "Soumettre un problème"
-
-msgid "Yes, I am sure"
-msgstr "Oui, je confirme"
-
-msgid "This article was last modified:"
-msgstr "Cet article a été modifié :"
-
-msgid "{platform_name}-wide Summary"
-msgstr "{platform_name}-Sommaire général"
-
-msgid "Upvote posts and good responses"
-msgstr "Voter pour des posts et des bonnes réponses"
-
-msgid "Sort by date, vote, or comments"
-msgstr "Trier par date, votes ou commentaires"
-
-msgid "You're receiving this e-mail because you requested a password reset for your user account at edx.org."
-msgstr "Vous recevez ce mail parce que vous avez demandé une réinitialisation du mot de passe de votre compte."
-
-msgid "edX Additions:"
-msgstr "edX Suppléments :"
-
-msgid "`role` is required"
-msgstr "Le rôle est requis"
-
-msgid "Looks like you haven't registered for any courses yet."
-msgstr "Apparemment, vous ne vous êtes pas encore inscrit à un cours."
-
-msgid "The page that you were looking for was not found."
-msgstr "La page que vous recherchez n'a pas été trouvée."
-
-msgid "Myself"
-msgstr "Moi-même"
-
-msgid "example: Jane Doe"
-msgstr "exemple : Marie Dupont"
-
 msgid "Admin"
 msgstr "Administrateurs"
 
-msgid "Highest Level of Education Completed"
-msgstr "Plus haut niveau de formation atteint"
+msgid "All (students, staff and instructors)"
+msgstr "Tous (Apprenants et équipe pédagogique)"
 
-msgid "Course Updates &amp; News"
-msgstr "Infos du Cours &amp"
+msgid "Also receive emails about article edits"
+msgstr "Recevoir aussi des emails concernant la modification des articles"
 
-msgid "Mandatory fields"
-msgstr "Champs obligatoires"
-
-msgid "Must be at least 8 characters long and contain at least an upper case letter, a lower case letter and a digit."
-msgstr "Doit être composé d'au moins 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
-
+#: /edx/app/edxapp/themes/fun/templates/500.html:15
+#: /edx/app/edxapp/themes/fun/templates/_500.html:15
 msgid ""
-"Needed for any certificates you may earn <strong>(cannot be changed "
-"later)</strong>"
-msgstr "Requis pour tout certificat que vous pourriez obtenir"
+"An error occurred and the page could not be loaded. Please try again in a"
+" few moments."
+msgstr ""
 
-
-msgid "PLEASE LOG IN to access your account and courses"
-msgstr "Merci de vous CONNECTER pour accéder à votre compte et vos cours"
-
-#: Added by MoocLab
-msgid "Male"
-msgstr "Masculin"
-
-#: Added by MoocLab
-msgid "Female"
-msgstr "Féminin"
-
-#: Added by MoocLab
-msgid "Doctorate"
-msgstr "Doctorat"
-
-#: Added by MoocLab
-msgid "Master's or professional degree"
-msgstr "Master / Diplôme d'ingénieur"
-
-#: Added by MoocLab
-msgid "Bachelor's degree"
-msgstr "Licence"
-
-#: Added by MoocLab
 msgid "Associate's degree"
 msgstr "Licence professionnelle"
 
-#: Added by MoocLab
-msgid "Secondary/high school"
-msgstr "DUT / BTS"
+msgid "Bachelor's degree"
+msgstr "Licence"
 
-#: Added by MoocLab
-msgid "Junior secondary/junior high/middle school"
-msgstr "Baccalauréat"
+msgid "Check"
+msgstr "Vérifier"
 
-#: Added by MoocLab
+msgid ""
+"Check here to apply the above permissions recursively to articles under "
+"this one."
+msgstr ""
+"Cochez ici pour appliquer les permissions récursivement à tous les "
+"articles enfants."
+
+msgid "Class Feedback"
+msgstr "Réactions de la classe"
+
+# Translated in edx by 'Documents de cours'
+#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:45
+msgid "Course Handouts"
+msgstr "Documents pédagogiques"
+
+msgid "Course Info"
+msgstr "Info Cours"
+
+msgid "Course Updates"
+msgstr "Infos du Cours"
+
+# Translated in edx by 'Infos et actualités'
+#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:32
+#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:41
+msgid "Course Updates &amp; News"
+msgstr "Infos du Cours &amp"
+
+msgid "Course-loading errors"
+msgstr "erreurs de chargement des cours"
+
+# Translated in edx by 'Cours'
+#: /edx/app/edxapp/themes/fun/templates/nav-common-items.html:7
+#: /edx/app/edxapp/themes/fun/templates/navigation.html:95
+msgid "Courses"
+msgstr "Les cours"
+
+msgid "Current Courses"
+msgstr "Cours actuels :"
+
+msgid "Current course creator state"
+msgstr "État actuel du créateur de cours"
+
+# Translated in edx by 'DISCUSSIONS:'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:314
+msgid "DISCUSSION HOME:"
+msgstr "ACCUEIL DISCUSSION:"
+
+msgid "Deny all users access to edit this article."
+msgstr "Interdire à tous les utilisateurs de modifier l'article."
+
+#: /edx/app/edxapp/themes/fun/templates/dashboard/_dashboard_course_listing.html:96
+msgid "Document your accomplishment!"
+msgstr ""
+
+msgid "Don't have a Studio Account? Sign up!"
+msgstr "Pas de compte Studio ? Inscrivez-vous !"
+
+msgid "E-mail change failed"
+msgstr "changement d'adresse email échoué"
+
 msgid "Elementary/primary school"
 msgstr "Brevet des collèges"
-
-msgid "The following errors occured while logging you in:"
-msgstr "Les erreurs suivantes se sont produites pendant votre connexion :"
 
 msgid "Email or password is incorrect."
 msgstr "Adresse mail ou mot de passe incorrect"
 
-msgid "example: JaneDoe@domain.com"
-msgstr "exemple : MarieDupont@domaine.com"
-
-msgid "Register below to create your {platform_name} account"
-msgstr "Inscrivez-vous maintenant pour créer votre compte {platform_name}"
-
-msgid "The servers encountered an error"
-msgstr "Une erreur a eu lieu"
-
-msgid "An error occurred and the page could not be loaded. Please try again in a few moments."
-msgstr "Une erreur a eu lieu pendant le chargement de la page, veuillez réessayer plus tard."
-
-msgid "There has been a 500 error on the <em>{platform_name}</em> servers"
-msgstr "Il y a eu une erreur 500 sur le serveur de <em>{platform_name}</em>"
-
-msgid ""
-"Please wait a few seconds and then reload the page. If the problem persists,"
-" please email us at <a href=\"{email}\">{email}</a>."
-
-msgstr "Attendez quelques secondes et rechargez la page. Si le problème persiste, envoyez nous un mail à l'adresse <a href=\"{email}\">{email}</a>."
-
-msgid "State"
-msgstr "État"
-
-msgid "Incoming"
-msgstr "A venir"
-
-msgid "Current"
-msgstr "En cours"
-
-msgid "Past"
-msgstr "Terminé"
-
-msgid "You are about to logout from your session. Do you want to proceed?"
-msgstr "Vous êtes sur le point de vous déconnecter. Souhaitez-vous poursuivre cette action ?"
-
-msgid "I hereby accept the following <a href=\"/licenses\">terms and conditions</a>"
-msgstr "En m’inscrivant à ce cours, j’accepte les <a href=\"/licenses\">conditions d'utilisation relatives à ce cours</a> mentionnées dans la page de présentation"
-
-msgid "You're receiving this e-mail because you requested a password reset for your user account at FUN."
-msgstr "Vous recevez ce mail parce que vous avez demandé une réinitialisation du mot de passe de votre compte FUN."
-
+#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:191
+#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:193
 msgid "End of Registration"
-msgstr "Fin des inscriptions"
-
-msgid "The FUN Team"
-msgstr "L'equipe FUN"
-
-msgid "Processing your account information..."
-msgstr "Enregistrement de vos informations"
-
-msgid "Processing your account information"
-msgstr "Identification en cours"
-
-msgid "Add contributor"
-msgstr "Ajouter"
-
-msgid "Official"
-msgstr "Officiel"
-
-msgid "Official Contributor"
-msgstr "Contributeur officiel"
-
-msgid "Recommended"
-msgstr "Contributeur recommandé"
-
-msgid "Active"
-msgstr "Contributeur actif"
-
-#: lms/templates/emails/activation_email.txt
-msgid ""
-"Thank you for signing up for {platform_name}! To activate your account, "
-"please copy and paste this address into your web browser's address bar:"
 msgstr ""
-"Merci pour votre inscription sur {platform_name}! Pour activer votre compte, "
-"merci de copier-coller cette adresse dans la barre d'adresse de votre "
-"navigateur :"
 
-#: lms/templates/emails/activation_email.txt
-#: lms/templates/emails/email_change.txt
+# Translated in edx by 'Participer avec des messages'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:339
+msgid "Engage with posts"
+msgstr "S'investir dans les discussions"
+
+msgid "Enter the username of the owner."
+msgstr "Rentrez le nom d'utilisateur du propriétaire."
+
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:324
 msgid ""
-"If you didn't request this, you don't need to do anything; you won't receive"
-" any more email from us. Please do not reply to this e-mail; if you require "
-"assistance, check the help section of the {platform_name} web site."
+"Enter your video ID (Note : DailyMotion Cloud, DailyMotion Classic and "
+"Youtube are supported. Still, the administrator may restrict the use to "
+"only one or two of these video web hosting services)"
 msgstr ""
-"Si vous n'êtes pas à l'origine de cette demande, aucune action n'est requise "
-"de votre part ; vous ne recevrez pas d'autre email de notre part. Merci de ne "
-"pas répondre à cet email ; si vous avez besoin d'aide, veuillez consulter la "
-"section aide du site {platform_name}."
+"Saisissez l'ID de votre video de teaser. (Notez que DailyMotion Cloud, "
+"DailyMotion Classic et Youtube sont supportés"
 
-msgid "Explanation"
-msgstr "Explication"
+msgid "Error uploading file. Please contact the site administrator. Thank you."
+msgstr ""
+"Erreur dans l'upload du fichier. Merci de contacter l'administrateur du "
+"site."
 
+#: /edx/app/edxapp/themes/fun/templates/index.html:70
 msgid ""
-"Enter your video ID (Note : DailyMotion Cloud, DailyMotion Classic and Youtube"
-" are supported. Still, the administrator may restrict the use to only one or two"
-" of these video web hosting services)"
+"Explore free courses from {span_start}{platform_name}{span_end} "
+"universities"
 msgstr ""
-"Saisissez l'ID de votre video de teaser. (Notez que DailyMotion Cloud, DailyMotion Classic"
-" et Youtube sont supportés"
 
-msgid "your video ID"
-msgstr "ID de votre video de teaser"
+#: /edx/app/edxapp/themes/fun/templates/register.html:245
+#: /edx/app/edxapp/themes/fun/templates/register.html:315
+msgid "Extra Personal Information"
+msgstr ""
 
-msgid "University"
-msgstr "Établissement"
+msgid "Female"
+msgstr "Féminin"
 
-msgid "h/week"
-msgstr "h/semaine"
+msgid "Final Check"
+msgstr "Vérification finale"
 
+#: /edx/app/edxapp/themes/fun/templates/index.html:61
+msgid "Find the French university and school courses, where and when you want"
+msgstr ""
+"Retrouvez les cours des universités et écoles françaises, où vous voulez "
+"et quand vous voulez"
+
+#: /edx/app/edxapp/themes/fun/templates/register.html:152
+msgid "Finish your account registration below to start learning."
+msgstr ""
+
+# Translated in edx by 'Suivre les nouveautés dans les fils de discussion'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:350
+msgid "Follow posts for updates"
+msgstr "Suivre les mises à jour des posts"
+
+# Translated in edx by 'Suivant'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:258
 msgid "Following"
 msgstr "Suivi"
 
-msgid "An university with parent will be grouped with it in university filtering"
-msgstr "Un établissement ayant un parent, sera regroupé avec celui-ci"
+msgid ""
+"For <strong>questions on course lectures, homework, tools, or materials "
+"for this course</strong>, post in the {link_start}course discussion "
+"forum{link_end}."
+msgstr ""
+"Pour des <strong>questions sur les lectures, travaux, outils, composants "
+"de ce cours</strong>, écrivez dans le {link_start}forum de discussion "
+"autour du cours{link_end}"
 
-msgid "Parent university"
-msgstr "Etablissement parent"
+msgid "Forum Admin"
+msgstr "Administrateurs des forums"
+
+msgid ""
+"Give a short reason for your edit, which will be stated in the revision "
+"log."
+msgstr ""
+"Donnez une courte explication qui sera mentionnée sur le log de suivi des"
+" modifications"
+
+# Translated in edx by 'COMMENT UTILISER LES DISCUSSIONS EDX'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:321
+msgid "HOW TO USE EDX DISCUSSIONS"
+msgstr "COMMENT UTILISER LE FORUM FUN"
+
+msgid ""
+"Have you read over the email to make sure it says everything you want to "
+"say?"
+msgstr "L'avez-vous relu pour vous assurer qu'il est complet ?"
+
+# Translated in edx by 'Aide'
+#: /edx/app/edxapp/themes/fun/templates/navigation.html:80
+#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:24
+msgid "Help"
+msgstr "Aide"
+
+# Translated in edx by 'Plus haut niveau de formation obtenu'
+#: /edx/app/edxapp/themes/fun/templates/register.html:275
+msgid "Highest Level of Education Completed"
+msgstr "Plus haut niveau de formation atteint"
+
+# Translated in edx by 'Code d'honneur'
+#: /edx/app/edxapp/themes/fun/templates/dashboard/_dashboard_course_listing.html:52
+msgid "Honor Code"
+msgstr "Charte utilisateur"
+
+msgid "Honor Code Certificate"
+msgstr "déclaration sur l'honneur"
+
+#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:107
+msgid ""
+"I hereby accept the following <a href=\"/licenses\">terms and "
+"conditions</a>"
+msgstr ""
+
+msgid ""
+"If you didn't request this change, you can disregard this email - we have"
+" not yet reset your password."
+msgstr ""
+"Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet "
+"email - nous n'avons pas encore réinitialisé votre mot de passe."
+
+msgid ""
+"If you didn't request this, you don't need to do anything; you won't "
+"receive any more email from us. Please do not reply to this e-mail; if "
+"you require assistance, check the help section of the {platform_name} web"
+" site."
+msgstr ""
+"Si vous n'êtes pas à l'origine de cette demande, aucune action n'est "
+"requise de votre part ; vous ne recevrez pas d'autre email de notre part."
+" Merci de ne pas répondre à cet email ; si vous avez besoin d'aide, "
+"veuillez consulter la section aide du site {platform_name}."
+
+msgid "Inherit permissions"
+msgstr "Héritage des autorisations"
+
+msgid "Instructor"
+msgstr "Enseignant"
+
+msgid "Jobs"
+msgstr "Nous recrutons"
+
+msgid "Junior secondary/junior high/middle school"
+msgstr "Baccalauréat"
+
+msgid "Learning is More than Just Lectures"
+msgstr "L'apprentissage réclame plus que des cours magistraux"
+
+#: /edx/app/edxapp/themes/fun/templates/index.html:59
+msgid "Live the FUN experience"
+msgstr "Vivez l'expérience FUN"
+
+msgid "Log In"
+msgstr "Se Connecter"
+
+# Translated in edx by 'Connexion'
+#: /edx/app/edxapp/themes/fun/templates/navigation.html:119
+#: /edx/app/edxapp/themes/fun/templates/navigation.html:121
+msgid "Log in"
+msgstr "Se connecter"
+
+msgid "Looks like you haven't registered for any courses yet."
+msgstr "Apparemment, vous ne vous êtes pas encore inscrit à un cours."
+
+msgid "Male"
+msgstr "Masculin"
+
+msgid "Master's or professional degree"
+msgstr "Master / Diplôme d'ingénieur"
+
+#: /edx/app/edxapp/themes/fun/templates/contact_form/contact_form_sent.html:11
+msgid "Message sent!"
+msgstr ""
+
+msgid "Myself"
+msgstr "Moi-même"
+
+#: /edx/app/edxapp/themes/fun/templates/login.html:94
+msgid "PLEASE LOG IN to access your account and courses"
+msgstr ""
+
+msgid "Please enter your new email address:"
+msgstr "Merci d'entrer votre nouvelle adresse email :"
+
+msgid "Please go to the following page and choose a new password:"
+msgstr "Visitez la page suivante et choisissez un nouveau mot de passe :"
+
+#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:35
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: /edx/app/edxapp/themes/fun/templates/login.html:85
+msgid "Processing your account information"
+msgstr ""
+
+#: /edx/app/edxapp/themes/fun/templates/register.html:96
+msgid "Processing your account information..."
+msgstr ""
+
+# Translated in edx by 'Nom d'utilisateur public'
+#: /edx/app/edxapp/themes/fun/templates/register.html:183
+msgid "Public Username"
+msgstr "Nom d'utilisateur FUN"
+
+msgid "Receive course emails"
+msgstr "Recevoir les emails du cours"
+
+# Translated in edx by 'Inscription'
+#: /edx/app/edxapp/themes/fun/templates/register.html:374
+msgid "Register"
+msgstr "S'inscrire"
+
+# Translated in edx by 'Inscrivez-vous ci-dessous pour créer votre compte sur
+# {platform_name}'
+#: /edx/app/edxapp/themes/fun/templates/register.html:106
+msgid "Register below to create your {platform_name} account"
+msgstr "Inscrivez-vous maintenant pour créer votre compte {platform_name}"
+
+#: /edx/app/edxapp/themes/fun/templates/register.html:131
+msgid "Register to start learning today!"
+msgstr ""
+
+# Translated in edx by 'Signaler un abus d'utilisation du forum'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:346
+msgid "Report Forum Misuse"
+msgstr "Signaler les abus sur le forum"
+
+msgid "Report a problem"
+msgstr "Soumettre un problème"
+
+msgid "Rescore ALL students' problem submissions"
+msgstr "Renoter TOUTES les soumissions d'exercice des étudiants"
+
+#: /edx/app/edxapp/themes/fun/templates/static_templates/theme-copyrights.html:19
+msgid "Rubrique"
+msgstr ""
+
+#: /edx/app/edxapp/themes/fun/templates/theme-header.html:64
+msgid "Log out"
+msgstr "Se déconnecter"
+
+msgid "Secondary/high school"
+msgstr "DUT / BTS"
+
+msgid "See all children"
+msgstr "Voir tous les articles enfants"
+
+# Translated in edx by 'Trier par date, vote, ou commentaires'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:335
+msgid "Sort by date, vote, or comments"
+msgstr "Trier par date, votes ou commentaires"
+
+msgid "Staff and instructors"
+msgstr "Equipe pédagogique"
+
+msgid "Studio user"
+msgstr "L'utilisateur de Studio"
+
+#: /edx/app/edxapp/themes/fun/templates/theme-header.html:54
+msgid "Subscribe now"
+msgstr "S'inscrire maintenant"
+
+#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:37
+msgid "Terms and conditions"
+msgstr "Mentions Légales"
+
+#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:31
+msgid "Terms of use"
+msgstr "Conditions Générales d'Utilisation"
+
+#: /edx/app/edxapp/themes/fun/templates/contact_form/contact_form_sent.html:14
+msgid ""
+"Thank you for your message. It has been successfully recorded, we will "
+"answer you as soon as possible."
+msgstr ""
+
+msgid "The edX Team"
+msgstr "L'équipe FUN"
+
+#: /edx/app/edxapp/themes/fun/templates/login.html:109
+msgid "The following errors occured while logging you in:"
+msgstr ""
+
+# Translated in edx by 'La page que vous recherchiez n'a pas été trouvée.'
+#: /edx/app/edxapp/themes/fun/templates/_404.html:16
+msgid "The page that you were looking for was not found."
+msgstr "La page que vous recherchez n'a pas été trouvée."
+
+#: /edx/app/edxapp/themes/fun/templates/500.html:11
+#: /edx/app/edxapp/themes/fun/templates/_500.html:11
+msgid "The servers encountered an error"
+msgstr ""
+
+msgid "This article was last modified:"
+msgstr "Cet article a été modifié :"
+
+msgid ""
+"This will be the address where your article can be found. Use only "
+"alphanumeric characters and - or _. Note that you cannot change the slug "
+"after creating the article."
+msgstr ""
+"Ce sera l'adresse où l'article pourra être trouvé. Utilisez uniquement "
+"des caractères alphanumériques et - ou _. L'adresse ne pourra pas être "
+"modifiée après la création de l'article."
+
+msgid ""
+"To uphold the credibility of {platform} certificates, all name changes "
+"will be logged and recorded."
+msgstr ""
+"Pour maintenir la crédibilité des certificats {platform}, tous les "
+"changements de nom seront mémorisés ou archivés."
+
+msgid "Unanswered"
+msgstr "Sans réponse"
+
+# Translated in edx by 'Universités'
+#: /edx/app/edxapp/themes/fun/templates/nav-common-items.html:9
+msgid "Universities"
+msgstr "Les établissements"
+
+# Translated in edx by 'Université'
+#: /edx/app/edxapp/fun-apps/courses/forms.py:27
+#: /edx/app/edxapp/fun-apps/universities/models.py:45
+msgid "University"
+msgstr "Établissement"
+
+msgid "Upload New File"
+msgstr "Upload Nouveau Fichier"
+
+# Translated in edx by 'Promouvoir des messages et des bonnes réponses'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:342
+msgid "Upvote posts and good responses"
+msgstr "Voter pour des posts et des bonnes réponses"
+
+#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:33
+msgid "Usage policy"
+msgstr "Charte utilisateurs"
+
+msgid "Useful examples:"
+msgstr "Exemples utiles :"
+
+msgid "Username should only consist of A-Z and 0-9, with no spaces."
+msgstr ""
+"Le nom d'utilisateur doit être composé de lettres (A – Z) et de chiffres "
+"(0 – 9), sans espace."
+
+msgid "Valid e-mail address required."
+msgstr "Une adresse email valide est requise."
+
+# Translated in edx by 'Voir le cours'
+#: /edx/app/edxapp/themes/fun/templates/dashboard/_dashboard_course_listing.html:123
+msgid "View Archived Course"
+msgstr "Voir les Cours archivés"
+
+# Translated in edx by 'Voir le Cours'
+#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:97
+msgid "View Courseware"
+msgstr "Voir le contenu du Cours"
+
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr ""
+"Nous vous avons envoyé par email des instructions pour initialiser votre "
+"mot de passe à l'adresse email que vous avez fournie. Vous devriez "
+"bientôt les recevoir."
+
+#: /edx/app/edxapp/themes/fun/templates/static_templates/theme-copyrights.html:25
+msgid "What is FUN"
+msgstr "Qu'est-ce que FUN"
+
+#: /edx/app/edxapp/themes/fun/templates/nav-common-items.html:5
+msgid "What is FUN?"
+msgstr "Qu'est-ce que FUN&nbsp;?"
+
+msgid "When this article is edited"
+msgstr "Quand cet article est modifié"
+
+msgid "Write a brief message for the article's history log."
+msgstr ""
+"Ecrivez un court message qui apparaîtra sur le log de suivi des "
+"modifications"
+
+msgid "Yes, I am sure"
+msgstr "Oui, je confirme"
+
+#: /edx/app/edxapp/themes/fun/templates/navigation.html:141
+msgid "You are about to logout from your session. Do you want to proceed?"
+msgstr ""
+
+#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:95
+msgid "You are registered"
+msgstr ""
+
+msgid ""
+"You're receiving this e-mail because you requested a password reset for "
+"your user account at edx.org."
+msgstr ""
+"Vous recevez ce mail parce que vous avez demandé une réinitialisation du "
+"mot de passe de votre compte."
+
+msgid "`role` is required"
+msgstr "Le rôle est requis"
+
+msgid "edX Additions:"
+msgstr "edX Suppléments :"
+
+# Translated in edx by 'exemple : Jean Dupont'
+#: /edx/app/edxapp/themes/fun/templates/register.html:179
+msgid "example: Jane Doe"
+msgstr "exemple : Marie Dupont"
+
+#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:219
+msgid "h/week"
+msgstr ""
+
+#: /edx/app/edxapp/themes/fun/templates/register.html:144
+msgid ""
+"or create your own {platform_name} account by completing all "
+"<strong>required*</strong> fields below."
+msgstr ""
+
+msgid "pending"
+msgstr "En attente"
+
+# Translated in edx by 'Écrire anonymement aux camarades de classe'
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:427
+msgid "post anonymously to classmates"
+msgstr "Ecrire anonymement aux camarades de classe"
+
+#: /edx/app/edxapp/themes/fun/templates/navigation.html:48
+msgid "{0} home"
+msgstr ""
+
+#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:12
+msgid "{course.display_name_with_default} Course Info"
+msgstr ""
+
+msgid "{platform_name}-wide Summary"
+msgstr "{platform_name}-Sommaire général"
+
+#~ msgid "Active"
+#~ msgstr "Contributeur actif"
+
+#~ msgid "Active contributors"
+#~ msgstr "Ajouter"
+
+#~ msgid "Add contributor"
+#~ msgstr "Ajouter"
+
+#~ msgid "All"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "An university with parent will be "
+#~ "grouped with it in university filtering"
+#~ msgstr "Un établissement ayant un parent, sera regroupé avec celui-ci"
+
+#~ msgid "Current"
+#~ msgstr "En cours"
+
+#~ msgid "DM API Key"
+#~ msgstr ""
+
+#~ msgid "DM User ID"
+#~ msgstr ""
+
+#~ msgid "Daily Motion"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Discussion admins, moderators, and TAs "
+#~ "can make their posts visible to "
+#~ "all students or specify a single "
+#~ "cohort group."
+#~ msgstr ""
+
+#~ msgid "Displayed On Site | Banner | Description"
+#~ msgstr ""
+
+#~ msgid "Incoming"
+#~ msgstr "A venir"
+
+#~ msgid "Institutions"
+#~ msgstr ""
+
+#~ msgid "Logo to be displayed on the certificate document."
+#~ msgstr ""
+
+#~ msgid "Offer courses and trainings on {platform_name}"
+#~ msgstr ""
+
+#~ msgid "Official"
+#~ msgstr "Officiel"
+
+#~ msgid "Official contributors"
+#~ msgstr "Contributeur officiel"
+
+#~ msgid "Official forum contributors."
+#~ msgstr "Contributeur officiel"
+
+#~ msgid "Only used is set as featured"
+#~ msgstr ""
+
+#~ msgid "Parent university"
+#~ msgstr "Etablissement parent"
+
+#~ msgid "Past"
+#~ msgstr "Terminé"
+
+#~ msgid "Recommended"
+#~ msgstr "Contributeur recommandé"
+
+#~ msgid "Recommended contributors"
+#~ msgstr "Ajouter"
+
+#~ msgid ""
+#~ "Shows the logo on various sections "
+#~ "of the site and enables the "
+#~ "university page."
+#~ msgstr ""
+
+#~ msgid "State"
+#~ msgstr "État"
+
+#~ msgid "The universities and schools"
+#~ msgstr ""
+
+#~ msgid "These forum contributors are recommended by instructor."
+#~ msgstr ""
+
+#~ msgid "These forum contributors are very active."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We've changed the look and feel of"
+#~ " the Instructor Dashboard. During this "
+#~ "transition time, you can still access"
+#~ " the old Instructor Dashboard by "
+#~ "clicking the 'Revert to Legacy "
+#~ "Dashboard' button above."
+#~ msgstr ""
+
+#~ msgid "banner"
+#~ msgstr ""
+
+#~ msgid "certificate logo"
+#~ msgstr ""
+
+#~ msgid "code"
+#~ msgstr ""
+
+#~ msgid "description"
+#~ msgstr ""
+
+#~ msgid "featured on site"
+#~ msgstr ""
+
+#~ msgid "logo"
+#~ msgstr ""
+
+#~ msgid "preview"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "{platform_name}'s goal is to allow "
+#~ "universities and schools to publish "
+#~ "their courses online. The list of "
+#~ "institutions proposing courses on "
+#~ "{platform_name} is continuously getting "
+#~ "larger:"
+#~ msgstr ""
+
