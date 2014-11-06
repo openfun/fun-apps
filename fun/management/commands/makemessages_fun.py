@@ -1,0 +1,136 @@
+import os
+import optparse
+import tempfile
+
+from babel.messages.pofile import read_po, write_po
+from babel.messages.frontend import CommandLineInterface as BabelCommandLineInterface
+
+from django.core.management.base import BaseCommand
+from django.conf import settings
+
+CURRENT_DIR = os.path.dirname(__file__)
+FUN_APPS_ROOT_DIR = os.path.abspath(os.path.join(CURRENT_DIR, "../../../"))
+FUN_APPS_TO_TRANSLATE = [
+    "contact",
+    "courses",
+    "forum_contributors",
+    "fun",
+    "universities"
+]
+FUN_THEME_PATH = os.path.expanduser("~/themes/fun")
+PATH_FUN_DJANGOPO = "%(root_path)s/locale/%(locale)s/LC_MESSAGES/django.po"
+PATH_EDX_DJANGOPO = os.path.join(settings.PROJECT_ROOT, "../conf/locale/%(locale)s/LC_MESSAGES/django.po")
+
+
+class Command(BaseCommand):
+
+    help = """Usage: makemessages_fun [-l fr|de] path1 [path2 [...]]
+    
+Update the %s file to make sure all fun-apps translations are
+up-to-date.
+
+You may also pass the 'all' app name to compile messages for all applications.
+
+After you have collected the messages for an app, don't forget to run the
+following command in the app folder to make sure the new translations are
+properly compiled:
+
+    django-admin.py compilemessages -l <locale>
+""" % (
+    PATH_FUN_DJANGOPO
+)
+    option_list = BaseCommand.option_list + (
+        optparse.make_option('-l', '--locale',
+            action="store",
+            choices=("fr", "de"),
+            default="fr",
+            help="Select locale to process."),
+        )
+
+    def handle(self, *args, **options):
+        locale = options["locale"]
+        for root_path in args:
+            if root_path == "all":
+                self.make_all_messages(locale)
+            else:
+                self.make_messages(os.path.abspath(root_path), locale)
+
+    def make_all_messages(self, locale):
+        for app_name in FUN_APPS_TO_TRANSLATE:
+            self.make_messages(app_root_path(app_name), locale)
+        # Translate theme
+        self.make_messages(FUN_THEME_PATH, locale)
+
+    def make_messages(self, root_path, locale):
+        pot_catalog = make_pot_catalog(root_path)
+        path_fun_djangopo = PATH_FUN_DJANGOPO % {"locale": locale, "root_path": root_path}
+        path_edx_djangopo = PATH_EDX_DJANGOPO % {"locale": locale}
+        fun_catalog = read_po_catalog(path_fun_djangopo, locale)
+        # TODO load edx_catalog once for all apps
+        edx_catalog = read_po_catalog(path_edx_djangopo, locale)
+
+        update_catalog(fun_catalog, edx_catalog, pot_catalog)
+
+        self.stdout.write("Updating %s...\n" % path_fun_djangopo)
+        write_po_catalog(fun_catalog, path_fun_djangopo)
+
+def app_root_path(app_name):
+    return os.path.join(FUN_APPS_ROOT_DIR, app_name)
+
+def make_pot_catalog(root_path):
+    pot_path = os.path.join(tempfile.gettempdir(), "fun-django.pot")
+    cfg_path = os.path.join(FUN_APPS_ROOT_DIR, "babel.cfg")
+    extract_command_args = [
+            "pybabel", "--quiet", "extract",
+            "-o", pot_path, "-F", cfg_path,
+            root_path
+    ]
+    BabelCommandLineInterface().run(extract_command_args)
+    pot_catalog = read_po_catalog(pot_path, None)
+    return pot_catalog
+
+def read_po_catalog(path, locale):
+    with open(path) as po_file:
+        return read_po(po_file, locale=locale)
+
+def write_po_catalog(catalog, path):
+    with open(path, "w") as catalog_file:
+        write_po(catalog_file, catalog, sort_output=True)
+
+def update_catalog(fun_catalog, edx_catalog, pot_catalog):
+    """
+    Update fun_catalog with the following strategy:
+        - get rid of messages from pot_catalog that are already translated in edx_catalog (but not in fun_catalog).
+        - add a comment to fun_catalog messages that override existing edx messages
+        - update the existing fun_catalog with the messages from pot_catalog (the new catalog)
+        - make sure that translations from fun_catalog that override edx_catalog messages are kept
+    """
+    remove_messages_that_should_not_be_translated(pot_catalog, fun_catalog, edx_catalog)
+    comment_messages(pot_catalog, fun_catalog, edx_catalog)
+    fun_catalog.update(pot_catalog)
+    keep_overriden_messages(fun_catalog, edx_catalog)
+
+def remove_messages_that_should_not_be_translated(pot_catalog, fun_catalog, edx_catalog):
+    # Filter out messages that are translated in edx_catalog but not in fun_catalog
+    message_ids_to_delete = []
+    for message in pot_catalog:
+        if message.id not in fun_catalog and message.id in edx_catalog:
+            message_ids_to_delete.append(message.id)
+    for message_id in message_ids_to_delete:
+        pot_catalog.delete(message_id)
+
+def comment_messages(pot_catalog, fun_catalog, edx_catalog):
+    for message in pot_catalog:
+        if message.id in fun_catalog and message.id in edx_catalog:
+            message.user_comments.append("Translated in edx by '%s'" % edx_catalog[message.id].string)
+
+def keep_overriden_messages(fun_catalog, edx_catalog):
+    # Keep obsolete messages that actually override edx messages
+    overriden_message_ids = set()
+    for message_id, message in fun_catalog.obsolete.iteritems():
+        if message_id in edx_catalog and message.string != edx_catalog[message_id].string:
+            overriden_message_ids.add(message_id)
+
+    for message_id in overriden_message_ids:
+        fun_catalog[message_id] = fun_catalog.obsolete.pop(message_id, default=None)
+
