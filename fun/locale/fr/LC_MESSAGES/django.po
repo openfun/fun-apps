@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2014-11-13 19:12+0100\n"
+"POT-Creation-Date: 2014-11-13 20:14+0100\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -24,30 +24,12 @@ msgstr ""
 msgid "(UTC)"
 msgstr ""
 
-#: /edx/app/edxapp/themes/fun/templates/navigation.html:130
-msgid ""
-"<strong>Warning:</strong> Your browser is not fully supported. We "
-"strongly recommend using {chrome_link_start}Chrome{chrome_link_end} or "
-"{ff_link_start}Firefox{ff_link_end}."
+# Translated in edx by '(pour l'inscription des étudiants et l'accès)'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:134
+msgid "(for student enrollment and access)"
 msgstr ""
-
-msgid ""
-"<strong>Warning</strong>: Do not modify these policies unless you are "
-"familiar with their purpose."
-msgstr ""
-"<strong>Attention</strong>: Ne modifiez pas ces règles si vous n'êtes pas"
-" familier de leur usage."
-
-#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:75
-msgid "About {course_name}"
-msgstr ""
-
-#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:22
-msgid "About..."
-msgstr "À propos de..."
 
 # Translated in edx by 'Accès aux cours'
-#: /edx/app/edxapp/themes/fun/templates/login.html:79
 msgid "Access My Courses"
 msgstr "Accéder à mes Cours"
 
@@ -57,17 +39,23 @@ msgstr "Activation non valide"
 msgid "Admin"
 msgstr "Administrateurs"
 
+# Translated in edx by 'Paramètres avancés'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:371
+msgid "Advanced Settings"
+msgstr ""
+
 msgid "All (students, staff and instructors)"
 msgstr "Tous (Apprenants et équipe pédagogique)"
 
 msgid "Also receive emails about article edits"
 msgstr "Recevoir aussi des emails concernant la modification des articles"
 
-#: /edx/app/edxapp/themes/fun/templates/500.html:15
-#: /edx/app/edxapp/themes/fun/templates/_500.html:15
+# Translated in edx by 'Apparait dans la page de catalogue des cours, quand
+# l'étudiant survole le nom du cours. Limité à ~150 caractères. '
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:263
 msgid ""
-"An error occurred and the page could not be loaded. Please try again in a"
-" few moments."
+"Appears on the course catalog page when students roll over the course "
+"name. Limit to ~150 characters"
 msgstr ""
 
 msgid "Associate's degree"
@@ -76,33 +64,95 @@ msgstr "Licence professionnelle"
 msgid "Bachelor's degree"
 msgstr "Licence"
 
+# Translated in edx by 'Information de base'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:108
+msgid "Basic Information"
+msgstr ""
+
 msgid "Check"
 msgstr "Vérifier"
-
-msgid ""
-"Check here to apply the above permissions recursively to articles under "
-"this one."
-msgstr ""
-"Cochez ici pour appliquer les permissions récursivement à tous les "
-"articles enfants."
 
 msgid "Class Feedback"
 msgstr "Réactions de la classe"
 
+# Translated in edx by 'Date de fin de Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:200
+#, fuzzy
+msgid "Course End Date"
+msgstr "Infos du Cours"
+
+# Translated in edx by 'Heure de fin du Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:206
+#, fuzzy
+msgid "Course End Time"
+msgstr "Infos du Cours"
+
 # Translated in edx by 'Documents de cours'
-#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:45
 msgid "Course Handouts"
 msgstr "Documents pédagogiques"
 
-msgid "Course Info"
+# Translated in edx by 'Image du cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:282
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:286
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:295
+#, fuzzy
+msgid "Course Image"
+msgstr "Infos du Cours"
+
+# Translated in edx by 'Vidéo de présentation du Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:312
+msgid "Course Introduction Video"
+msgstr ""
+
+# Translated in edx by 'Numéro du cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:120
+msgid "Course Number"
+msgstr ""
+
+# Translated in edx by 'Présentation du Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:269
+msgid "Course Overview"
+msgstr ""
+
+# Translated in edx by 'Session'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:126
+#, fuzzy
+msgid "Course Run"
 msgstr "Info Cours"
 
-msgid "Course Updates"
+# Translated in edx by 'Dates du Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:179
+msgid "Course Schedule"
+msgstr ""
+
+# Translated in edx by 'Description courte du cours :'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:261
+msgid "Course Short Description"
+msgstr ""
+
+# Translated in edx by 'Date de début du Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:186
+#, fuzzy
+msgid "Course Start Date"
+msgstr "Infos du Cours"
+
+# Translated in edx by 'Heure de début du Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:192
+msgid "Course Start Time"
+msgstr ""
+
+# Translated in edx by 'Page de Sommaire du Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:134
+msgid "Course Summary Page"
+msgstr ""
+
+# Translated in edx by 'Équipe pédagogique'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:370
+#, fuzzy
+msgid "Course Team"
 msgstr "Infos du Cours"
 
 # Translated in edx by 'Infos et actualités'
-#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:32
-#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:41
 msgid "Course Updates &amp; News"
 msgstr "Infos du Cours &amp"
 
@@ -110,8 +160,6 @@ msgid "Course-loading errors"
 msgstr "erreurs de chargement des cours"
 
 # Translated in edx by 'Cours'
-#: /edx/app/edxapp/themes/fun/templates/nav-common-items.html:7
-#: /edx/app/edxapp/themes/fun/templates/navigation.html:95
 msgid "Courses"
 msgstr "Les cours"
 
@@ -122,16 +170,22 @@ msgid "Current course creator state"
 msgstr "État actuel du créateur de cours"
 
 # Translated in edx by 'DISCUSSIONS:'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:314
 msgid "DISCUSSION HOME:"
 msgstr "ACCUEIL DISCUSSION:"
 
+# Translated in edx by 'Les dates qui déterminent quand votre cours peut être
+# visualisé.'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:180
+msgid "Dates that control when your course can be viewed"
+msgstr ""
+
+# Translated in edx by 'Supprimer la vidéo en cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:318
+msgid "Delete Current Video"
+msgstr ""
+
 msgid "Deny all users access to edit this article."
 msgstr "Interdire à tous les utilisateurs de modifier l'article."
-
-#: /edx/app/edxapp/themes/fun/templates/dashboard/_dashboard_course_listing.html:96
-msgid "Document your accomplishment!"
-msgstr ""
 
 msgid "Don't have a Studio Account? Sign up!"
 msgstr "Pas de compte Studio ? Inscrivez-vous !"
@@ -145,15 +199,34 @@ msgstr "Brevet des collèges"
 msgid "Email or password is incorrect."
 msgstr "Adresse mail ou mot de passe incorrect"
 
-#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:191
-#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:193
-msgid "End of Registration"
-msgstr ""
-
 # Translated in edx by 'Participer avec des messages'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:339
 msgid "Engage with posts"
 msgstr "S'investir dans les discussions"
+
+# Translated in edx by 'S'inscrire à {course_display_name}'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:145
+msgid "Enroll in {course_display_name}"
+msgstr ""
+
+# Translated in edx by 'Date de fin d'inscription'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:230
+msgid "Enrollment End Date"
+msgstr ""
+
+# Translated in edx by 'Heure de fin d’inscription'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:236
+msgid "Enrollment End Time"
+msgstr ""
+
+# Translated in edx by 'Date de début des inscriptions'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:216
+msgid "Enrollment Start Date"
+msgstr ""
+
+# Translated in edx by 'Heure de début des inscriptions'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:222
+msgid "Enrollment Start Time"
+msgstr ""
 
 msgid "Enter the username of the owner."
 msgstr "Rentrez le nom d'utilisateur du propriétaire."
@@ -169,18 +242,10 @@ msgstr ""
 
 msgid "Error uploading file. Please contact the site administrator. Thank you."
 msgstr ""
-"Erreur dans l'upload du fichier. Merci de contacter l'administrateur du "
-"site."
 
-#: /edx/app/edxapp/themes/fun/templates/index.html:70
-msgid ""
-"Explore free courses from {span_start}{platform_name}{span_end} "
-"universities"
-msgstr ""
-
-#: /edx/app/edxapp/themes/fun/templates/register.html:245
-#: /edx/app/edxapp/themes/fun/templates/register.html:315
-msgid "Extra Personal Information"
+# Translated in edx by 'Attentes envers les étudiants suivant ce cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:337
+msgid "Expectations of the students taking this course"
 msgstr ""
 
 msgid "Female"
@@ -189,97 +254,66 @@ msgstr "Féminin"
 msgid "Final Check"
 msgstr "Vérification finale"
 
-#: /edx/app/edxapp/themes/fun/templates/index.html:61
-msgid "Find the French university and school courses, where and when you want"
+# Translated in edx by 'Premier jour d'inscription des étudiants'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:218
+msgid "First day students can enroll"
 msgstr ""
-"Retrouvez les cours des universités et écoles françaises, où vous voulez "
-"et quand vous voulez"
 
-#: /edx/app/edxapp/themes/fun/templates/register.html:152
-msgid "Finish your account registration below to start learning."
+# Translated in edx by 'Premier jour de Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:188
+msgid "First day the course begins"
 msgstr ""
 
 # Translated in edx by 'Suivre les nouveautés dans les fils de discussion'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:350
 msgid "Follow posts for updates"
 msgstr "Suivre les mises à jour des posts"
 
 # Translated in edx by 'Suivant'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:258
 msgid "Following"
 msgstr "Suivi"
-
-msgid ""
-"For <strong>questions on course lectures, homework, tools, or materials "
-"for this course</strong>, post in the {link_start}course discussion "
-"forum{link_end}."
-msgstr ""
-"Pour des <strong>questions sur les lectures, travaux, outils, composants "
-"de ce cours</strong>, écrivez dans le {link_start}forum de discussion "
-"autour du cours{link_end}"
 
 msgid "Forum Admin"
 msgstr "Administrateurs des forums"
 
-msgid ""
-"Give a short reason for your edit, which will be stated in the revision "
-"log."
+# Translated in edx by 'Évaluation'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:369
+msgid "Grading"
 msgstr ""
-"Donnez une courte explication qui sera mentionnée sur le log de suivi des"
-" modifications"
+
+# Translated in edx by 'Configuration des groupes.'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:373
+msgid "Group Configurations"
+msgstr ""
 
 # Translated in edx by 'COMMENT UTILISER LES DISCUSSIONS EDX'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:321
 msgid "HOW TO USE EDX DISCUSSIONS"
 msgstr "COMMENT UTILISER LE FORUM FUN"
 
-msgid ""
-"Have you read over the email to make sure it says everything you want to "
-"say?"
-msgstr "L'avez-vous relu pour vous assurer qu'il est complet ?"
-
-# Translated in edx by 'Aide'
-#: /edx/app/edxapp/themes/fun/templates/navigation.html:80
-#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:24
-msgid "Help"
-msgstr "Aide"
-
 # Translated in edx by 'Plus haut niveau de formation obtenu'
-#: /edx/app/edxapp/themes/fun/templates/register.html:275
 msgid "Highest Level of Education Completed"
 msgstr "Plus haut niveau de formation atteint"
 
 # Translated in edx by 'Code d'honneur'
-#: /edx/app/edxapp/themes/fun/templates/dashboard/_dashboard_course_listing.html:52
 msgid "Honor Code"
 msgstr "Charte utilisateur"
 
 msgid "Honor Code Certificate"
 msgstr "déclaration sur l'honneur"
 
-#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:107
-msgid ""
-"I hereby accept the following <a href=\"/licenses\">terms and "
-"conditions</a>"
+# Translated in edx by 'Heure(s) de travail par semaine'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:342
+msgid "Hours of Effort per Week"
 msgstr ""
 
-msgid ""
-"If you didn't request this change, you can disregard this email - we have"
-" not yet reset your password."
+# Translated in edx by 'Comment ces paramètres sont-ils utilisés ?'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:353
+msgid "How are these settings used?"
 msgstr ""
-"Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet "
-"email - nous n'avons pas encore réinitialisé votre mot de passe."
 
-msgid ""
-"If you didn't request this, you don't need to do anything; you won't "
-"receive any more email from us. Please do not reply to this e-mail; if "
-"you require assistance, check the help section of the {platform_name} web"
-" site."
+# Translated in edx by 'Information pour les futurs étudiants'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:256
+msgid "Information for prospective students"
 msgstr ""
-"Si vous n'êtes pas à l'origine de cette demande, aucune action n'est "
-"requise de votre part ; vous ne recevrez pas d'autre email de notre part."
-" Merci de ne pas répondre à cet email ; si vous avez besoin d'aide, "
-"veuillez consulter la section aide du site {platform_name}."
 
 msgid "Inherit permissions"
 msgstr "Héritage des autorisations"
@@ -287,25 +321,46 @@ msgstr "Héritage des autorisations"
 msgid "Instructor"
 msgstr "Enseignant"
 
+# Translated in edx by 'Présentation de votre Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:255
+msgid "Introducing Your Course"
+msgstr ""
+
+# Translated in edx by 'Présentations, pré-requis, FAQs qui sont utilisés sur
+# la %s (formatés en HTML)'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:275
+#, python-format
+msgid "Introductions, prerequisites, FAQs that are used on %s (formatted in HTML)"
+msgstr ""
+
+# Translated in edx by 'Inviter vos étudiants'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:156
+msgid "Invite your students"
+msgstr ""
+
 msgid "Jobs"
 msgstr "Nous recrutons"
 
 msgid "Junior secondary/junior high/middle school"
 msgstr "Baccalauréat"
 
+# Translated in edx by 'Dernier jour d'inscription des étudiants'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:232
+msgid "Last day students can enroll"
+msgstr ""
+
+# Translated in edx by 'Dernier jour d'activité de votre Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:202
+msgid "Last day your course is active"
+msgstr ""
+
 msgid "Learning is More than Just Lectures"
 msgstr "L'apprentissage réclame plus que des cours magistraux"
-
-#: /edx/app/edxapp/themes/fun/templates/index.html:59
-msgid "Live the FUN experience"
-msgstr "Vivez l'expérience FUN"
 
 msgid "Log In"
 msgstr "Se Connecter"
 
 # Translated in edx by 'Connexion'
-#: /edx/app/edxapp/themes/fun/templates/navigation.html:119
-#: /edx/app/edxapp/themes/fun/templates/navigation.html:121
 msgid "Log in"
 msgstr "Se connecter"
 
@@ -318,15 +373,31 @@ msgstr "Masculin"
 msgid "Master's or professional degree"
 msgstr "Master / Diplôme d'ingénieur"
 
-#: /edx/app/edxapp/themes/fun/templates/contact_form/contact_form_sent.html:11
-msgid "Message sent!"
-msgstr ""
-
 msgid "Myself"
 msgstr "Moi-même"
 
-#: /edx/app/edxapp/themes/fun/templates/login.html:94
-msgid "PLEASE LOG IN to access your account and courses"
+# Translated in edx by 'Organisation'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:114
+msgid "Organization"
+msgstr ""
+
+# Translated in edx by 'Autres paramètres de cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:366
+msgid "Other Course Settings"
+msgstr ""
+
+# Translated in edx by 'D'autres informations provenant de cette page
+# apparaissent sur la page "A propos" de votre cours. Ces informations
+# comprennent un aperçu de votre cours, l'image du cours, la vidéo
+# d'introduction, le temps de travail estimé ainsi que les pré-requis. Les
+# étudiants utilisent les pages "A propos" pour choisir de nouveaux cours à
+# suivre.'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:356
+msgid ""
+"Other information from this page appears on the About page for your "
+"course. This information includes the course overview, course image, "
+"introduction video, and estimated time requirements. Students use About "
+"pages to choose new courses to take."
 msgstr ""
 
 msgid "Please enter your new email address:"
@@ -335,20 +406,21 @@ msgstr "Merci d'entrer votre nouvelle adresse email :"
 msgid "Please go to the following page and choose a new password:"
 msgstr "Visitez la page suivante et choisissez un nouveau mot de passe :"
 
-#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:35
-msgid "Privacy policy"
-msgstr "Politique de confidentialité"
-
-#: /edx/app/edxapp/themes/fun/templates/login.html:85
-msgid "Processing your account information"
+# Translated in edx by 'Veuillez fournir un chemin et un nom valides à
+# l'illustration de votre cours (attention : seuls les formats JPEG et PNG
+# sont supportés)'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:304
+msgid ""
+"Please provide a valid path and name to your course image (Note: only "
+"JPEG or PNG format supported)"
 msgstr ""
 
-#: /edx/app/edxapp/themes/fun/templates/register.html:96
-msgid "Processing your account information..."
+# Translated in edx by 'Faites décoller votre Cours avec edX'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:164
+msgid "Promoting Your Course with edX"
 msgstr ""
 
 # Translated in edx by 'Nom d'utilisateur public'
-#: /edx/app/edxapp/themes/fun/templates/register.html:183
 msgid "Public Username"
 msgstr "Nom d'utilisateur FUN"
 
@@ -356,38 +428,38 @@ msgid "Receive course emails"
 msgstr "Recevoir les emails du cours"
 
 # Translated in edx by 'Inscription'
-#: /edx/app/edxapp/themes/fun/templates/register.html:374
 msgid "Register"
 msgstr "S'inscrire"
 
 # Translated in edx by 'Inscrivez-vous ci-dessous pour créer votre compte sur
 # {platform_name}'
-#: /edx/app/edxapp/themes/fun/templates/register.html:106
 msgid "Register below to create your {platform_name} account"
 msgstr "Inscrivez-vous maintenant pour créer votre compte {platform_name}"
 
-#: /edx/app/edxapp/themes/fun/templates/register.html:131
-msgid "Register to start learning today!"
-msgstr ""
-
 # Translated in edx by 'Signaler un abus d'utilisation du forum'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:346
 msgid "Report Forum Misuse"
 msgstr "Signaler les abus sur le forum"
 
 msgid "Report a problem"
 msgstr "Soumettre un problème"
 
+# Translated in edx by 'Pré-requis'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:336
+msgid "Requirements"
+msgstr ""
+
 msgid "Rescore ALL students' problem submissions"
 msgstr "Renoter TOUTES les soumissions d'exercice des étudiants"
 
-#: /edx/app/edxapp/themes/fun/templates/static_templates/theme-copyrights.html:19
-msgid "Rubrique"
+# Translated in edx by 'Dates & Détails'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:97
+msgid "Schedule & Details"
 msgstr ""
 
-#: /edx/app/edxapp/themes/fun/templates/theme-header.html:64
-msgid "Log out"
-msgstr "Se déconnecter"
+# Translated in edx by 'Paramètres Dates et Détails'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:3
+msgid "Schedule &amp; Details Settings"
+msgstr ""
 
 msgid "Secondary/high school"
 msgstr "DUT / BTS"
@@ -395,8 +467,17 @@ msgstr "DUT / BTS"
 msgid "See all children"
 msgstr "Voir tous les articles enfants"
 
+# Translated in edx by 'Envoyer une note aux étudiants par email'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:154
+msgid "Send a note to students via email"
+msgstr ""
+
+# Translated in edx by 'Paramètres'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:96
+msgid "Settings"
+msgstr ""
+
 # Translated in edx by 'Trier par date, vote, ou commentaires'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:335
 msgid "Sort by date, vote, or comments"
 msgstr "Trier par date, votes ou commentaires"
 
@@ -406,148 +487,154 @@ msgstr "Equipe pédagogique"
 msgid "Studio user"
 msgstr "L'utilisateur de Studio"
 
-#: /edx/app/edxapp/themes/fun/templates/theme-header.html:54
-msgid "Subscribe now"
-msgstr "S'inscrire maintenant"
-
-#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:37
-msgid "Terms and conditions"
-msgstr "Mentions Légales"
-
-#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:31
-msgid "Terms of use"
-msgstr "Conditions Générales d'Utilisation"
-
-#: /edx/app/edxapp/themes/fun/templates/contact_form/contact_form_sent.html:14
+# Translated in edx by 'Le cours  "{course_display_name}", fourni par
+# {platform_name}, est ouvert pour l'inscription. S'il vous plaît naviguer sur
+# ce cours à la page  {link_for_about_page}  pour vous inscrire.'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:148
 msgid ""
-"Thank you for your message. It has been successfully recorded, we will "
-"answer you as soon as possible."
+"The course \"{course_display_name}\", provided by {platform_name}, is "
+"open for enrollment. Please navigate to this course at "
+"{link_for_about_page} to enroll."
 msgstr ""
 
 msgid "The edX Team"
 msgstr "L'équipe FUN"
 
-#: /edx/app/edxapp/themes/fun/templates/login.html:109
-msgid "The following errors occured while logging you in:"
+# Translated in edx by 'Les références de votre Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:109
+msgid "The nuts and bolts of your course"
 msgstr ""
 
 # Translated in edx by 'La page que vous recherchiez n'a pas été trouvée.'
-#: /edx/app/edxapp/themes/fun/templates/_404.html:16
 msgid "The page that you were looking for was not found."
 msgstr "La page que vous recherchez n'a pas été trouvée."
 
-#: /edx/app/edxapp/themes/fun/templates/500.html:11
-#: /edx/app/edxapp/themes/fun/templates/_500.html:11
-msgid "The servers encountered an error"
+# Translated in edx by 'Ces dates ne sont pas utilisées pour la promotion de
+# votre formation'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:245
+msgid "These Dates Are Not Used When Promoting Your Course"
+msgstr ""
+
+# Translated in edx by 'Ces dates agissent <strong>lorsque votre contenu de
+# cours est visible</strong>, mais elle ne  <strong>sont pas les dates
+# affichées sur la page de résumé de votre cours</strong>.Pour fournir les
+# dates de départ et d'inscription affichées sur la page de résumé du cours,
+# suivez les instructions fournies par votre  <abbr title="Program
+# Manager">PM</abbr>.'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:247
+msgid ""
+"These dates impact <strong>when your courseware can be viewed</strong>, "
+"but they are <strong>not the dates shown on your course summary "
+"page</strong>.  To provide the course start and registration dates as "
+"shown on your course summary page, follow the instructions provided by "
+"your <abbr title=\"Program Manager\">PM</abbr>."
 msgstr ""
 
 msgid "This article was last modified:"
 msgstr "Cet article a été modifié :"
 
-msgid ""
-"This will be the address where your article can be found. Use only "
-"alphanumeric characters and - or _. Note that you cannot change the slug "
-"after creating the article."
+# Translated in edx by 'Ce champ est désactivé : Cette information ne peut pas
+# être changée'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:115
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:121
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:127
+msgid "This field is disabled: this information cannot be changed."
 msgstr ""
-"Ce sera l'adresse où l'article pourra être trouvé. Utilisez uniquement "
-"des caractères alphanumériques et - ou _. L'adresse ne pourra pas être "
-"modifiée après la création de l'article."
 
-msgid ""
-"To uphold the credibility of {platform} certificates, all name changes "
-"will be logged and recorded."
+# Translated in edx by 'Temps consacré à l'ensemble du cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:344
+msgid "Time spent on all course work"
 msgstr ""
-"Pour maintenir la crédibilité des certificats {platform}, tous les "
-"changements de nom seront mémorisés ou archivés."
 
 msgid "Unanswered"
 msgstr "Sans réponse"
 
 # Translated in edx by 'Universités'
-#: /edx/app/edxapp/themes/fun/templates/nav-common-items.html:9
 msgid "Universities"
 msgstr "Les établissements"
 
 # Translated in edx by 'Université'
-#: /edx/app/edxapp/fun-apps/courses/forms.py:27
-#: /edx/app/edxapp/fun-apps/universities/models.py:45
 msgid "University"
 msgstr "Établissement"
+
+# Translated in edx by 'Télécharger l'image du cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:306
+msgid "Upload Course Image"
+msgstr ""
 
 msgid "Upload New File"
 msgstr "Upload Nouveau Fichier"
 
 # Translated in edx by 'Promouvoir des messages et des bonnes réponses'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:342
 msgid "Upvote posts and good responses"
 msgstr "Voter pour des posts et des bonnes réponses"
-
-#: /edx/app/edxapp/themes/fun/templates/theme-footer.html:33
-msgid "Usage policy"
-msgstr "Charte utilisateurs"
 
 msgid "Useful examples:"
 msgstr "Exemples utiles :"
 
 msgid "Username should only consist of A-Z and 0-9, with no spaces."
 msgstr ""
-"Le nom d'utilisateur doit être composé de lettres (A – Z) et de chiffres "
-"(0 – 9), sans espace."
 
 msgid "Valid e-mail address required."
 msgstr "Une adresse email valide est requise."
 
+# Translated in edx by 'Vidéo'
+#: /edx/app/edxapp/fun-apps/fun/__init__.py:25
+msgid "Video"
+msgstr ""
+
 # Translated in edx by 'Voir le cours'
-#: /edx/app/edxapp/themes/fun/templates/dashboard/_dashboard_course_listing.html:123
 msgid "View Archived Course"
 msgstr "Voir les Cours archivés"
 
 # Translated in edx by 'Voir le Cours'
-#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:97
 msgid "View Courseware"
 msgstr "Voir le contenu du Cours"
-
-msgid ""
-"We've e-mailed you instructions for setting your password to the e-mail "
-"address you submitted. You should be receiving it shortly."
-msgstr ""
-"Nous vous avons envoyé par email des instructions pour initialiser votre "
-"mot de passe à l'adresse email que vous avez fournie. Vous devriez "
-"bientôt les recevoir."
-
-#: /edx/app/edxapp/themes/fun/templates/static_templates/theme-copyrights.html:25
-msgid "What is FUN"
-msgstr "Qu'est-ce que FUN"
-
-#: /edx/app/edxapp/themes/fun/templates/nav-common-items.html:5
-msgid "What is FUN?"
-msgstr "Qu'est-ce que FUN&nbsp;?"
 
 msgid "When this article is edited"
 msgstr "Quand cet article est modifié"
 
 msgid "Write a brief message for the article's history log."
 msgstr ""
-"Ecrivez un court message qui apparaîtra sur le log de suivi des "
-"modifications"
 
 msgid "Yes, I am sure"
 msgstr "Oui, je confirme"
 
-#: /edx/app/edxapp/themes/fun/templates/navigation.html:141
-msgid "You are about to logout from your session. Do you want to proceed?"
-msgstr ""
-
-#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:95
-msgid "You are registered"
-msgstr ""
-
+# Translated in edx by ''
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:290
 msgid ""
-"You're receiving this e-mail because you requested a password reset for "
-"your user account at edx.org."
+"You can manage this image along with all of your other <a href='{}'>files"
+" &amp; uploads</a>"
 msgstr ""
-"Vous recevez ce mail parce que vous avez demandé une réinitialisation du "
-"mot de passe de votre compte."
+
+# Translated in edx by 'Votre cours n'a pas encore d'image. Veuillez en
+# télécharger une (format PNG ou JPEG, dimensions minimales suggérées 375px de
+# large par 200 pixels de haut)'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:297
+msgid ""
+"Your course currently does not have an image. Please upload one (JPEG or "
+"PNG format, and minimum suggested dimensions are 375px wide by 200px "
+"tall)"
+msgstr ""
+
+# Translated in edx by 'La page de sommaire de votre cours ne sera pas visible
+# tant que le cours n'aura pas été annoncé. Pour ajouter du contenu à cette
+# page et la prévisualiser, suivez les instructions données par votre <abbr
+# title="Program Manager">PM</abbr>.'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:166
+msgid ""
+"Your course summary page will not be viewable until your course has been "
+"announced. To provide content for the page and preview it, follow the "
+"instructions provided by your <abbr title=\"Program Manager\">PM</abbr>."
+msgstr ""
+
+# Translated in edx by 'La planification de votre cours détermine quand les
+# étudiants peuvent s’inscrire et débuter le cours.'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:354
+msgid ""
+"Your course's schedule determines when students can enroll in and begin a"
+" course."
+msgstr ""
 
 msgid "`role` is required"
 msgstr "Le rôle est requis"
@@ -556,168 +643,21 @@ msgid "edX Additions:"
 msgstr "edX Suppléments :"
 
 # Translated in edx by 'exemple : Jean Dupont'
-#: /edx/app/edxapp/themes/fun/templates/register.html:179
 msgid "example: Jane Doe"
 msgstr "exemple : Marie Dupont"
-
-#: /edx/app/edxapp/themes/fun/templates/courseware/course_about.html:219
-msgid "h/week"
-msgstr ""
-
-#: /edx/app/edxapp/themes/fun/templates/register.html:144
-msgid ""
-"or create your own {platform_name} account by completing all "
-"<strong>required*</strong> fields below."
-msgstr ""
 
 msgid "pending"
 msgstr "En attente"
 
 # Translated in edx by 'Écrire anonymement aux camarades de classe'
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:427
 msgid "post anonymously to classmates"
 msgstr "Ecrire anonymement aux camarades de classe"
 
-#: /edx/app/edxapp/themes/fun/templates/navigation.html:48
-msgid "{0} home"
-msgstr ""
-
-#: /edx/app/edxapp/themes/fun/templates/courseware/info.html:12
-msgid "{course.display_name_with_default} Course Info"
+# Translated in edx by 'Page de sommaire de votre Cours'
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:273
+msgid "your course summary page"
 msgstr ""
 
 msgid "{platform_name}-wide Summary"
 msgstr "{platform_name}-Sommaire général"
-
-#~ msgid "Active"
-#~ msgstr "Contributeur actif"
-
-#~ msgid "Active contributors"
-#~ msgstr "Ajouter"
-
-#~ msgid "Add contributor"
-#~ msgstr "Ajouter"
-
-#~ msgid "All"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "An university with parent will be "
-#~ "grouped with it in university filtering"
-#~ msgstr "Un établissement ayant un parent, sera regroupé avec celui-ci"
-
-#~ msgid "Current"
-#~ msgstr "En cours"
-
-#~ msgid "DM API Key"
-#~ msgstr ""
-
-#~ msgid "DM User ID"
-#~ msgstr ""
-
-#~ msgid "Daily Motion"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Discussion admins, moderators, and TAs "
-#~ "can make their posts visible to "
-#~ "all students or specify a single "
-#~ "cohort group."
-#~ msgstr ""
-
-#~ msgid "Displayed On Site | Banner | Description"
-#~ msgstr ""
-
-#~ msgid "Incoming"
-#~ msgstr "A venir"
-
-#~ msgid "Institutions"
-#~ msgstr ""
-
-#~ msgid "Logo to be displayed on the certificate document."
-#~ msgstr ""
-
-#~ msgid "Offer courses and trainings on {platform_name}"
-#~ msgstr ""
-
-#~ msgid "Official"
-#~ msgstr "Officiel"
-
-#~ msgid "Official contributors"
-#~ msgstr "Contributeur officiel"
-
-#~ msgid "Official forum contributors."
-#~ msgstr "Contributeur officiel"
-
-#~ msgid "Only used is set as featured"
-#~ msgstr ""
-
-#~ msgid "Parent university"
-#~ msgstr "Etablissement parent"
-
-#~ msgid "Past"
-#~ msgstr "Terminé"
-
-#~ msgid "Recommended"
-#~ msgstr "Contributeur recommandé"
-
-#~ msgid "Recommended contributors"
-#~ msgstr "Ajouter"
-
-#~ msgid ""
-#~ "Shows the logo on various sections "
-#~ "of the site and enables the "
-#~ "university page."
-#~ msgstr ""
-
-#~ msgid "State"
-#~ msgstr "État"
-
-#~ msgid "The universities and schools"
-#~ msgstr ""
-
-#~ msgid "These forum contributors are recommended by instructor."
-#~ msgstr ""
-
-#~ msgid "These forum contributors are very active."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We've changed the look and feel of"
-#~ " the Instructor Dashboard. During this "
-#~ "transition time, you can still access"
-#~ " the old Instructor Dashboard by "
-#~ "clicking the 'Revert to Legacy "
-#~ "Dashboard' button above."
-#~ msgstr ""
-
-#~ msgid "banner"
-#~ msgstr ""
-
-#~ msgid "certificate logo"
-#~ msgstr ""
-
-#~ msgid "code"
-#~ msgstr ""
-
-#~ msgid "description"
-#~ msgstr ""
-
-#~ msgid "featured on site"
-#~ msgstr ""
-
-#~ msgid "logo"
-#~ msgstr ""
-
-#~ msgid "preview"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "{platform_name}'s goal is to allow "
-#~ "universities and schools to publish "
-#~ "their courses online. The list of "
-#~ "institutions proposing courses on "
-#~ "{platform_name} is continuously getting "
-#~ "larger:"
-#~ msgstr ""
 
