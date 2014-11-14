@@ -46,10 +46,13 @@ def selftest_index(request):
 
     revisions = {}
     for repo in repositories:
-        os.chdir(settings.BASE_ROOT / repo)
-        git.path = settings.BASE_ROOT / repo
-        git.init_repo()
-        revisions[repo] = mark_safe(git.repo.git('log -1 --format=<strong>%h</strong>&nbsp;%aD<br><strong>%s</strong>&nbsp;%ae'))
+        try:
+            os.chdir(settings.BASE_ROOT / repo)
+            git.path = settings.BASE_ROOT / repo
+            git.init_repo()
+            revisions[repo] = mark_safe(git.repo.git('log -1 --decorate --format=<strong>%h</strong>&nbsp;%aD&nbsp;%d<br><strong>%s</strong>&nbsp;%ae'))
+        except Exception, e:
+            revisions[repo] = mark_safe("<strong>Unknown</strong> %r" % e)
     return render(request, 'selftest/index.html', {
         'emailform': emailform,
         'misc': misc,
