@@ -20,7 +20,8 @@ from dealer.git import git
 from .forms import EmailForm
 
 
-repositories = ['edx-platform', 'fun-config', 'fun-apps', 'themes/fun', '../forum/cs_comments_service']
+repositories = ['edx-platform', 'fun-config', 'fun-apps', 'themes/fun',
+        '../forum/cs_comments_service', 'venvs/edxapp/src/dmcloud-xblock', 'venvs/edxapp/src/edx-ora2']
 
 
 #@user_passes_test(lambda u: u.is_superuser)
