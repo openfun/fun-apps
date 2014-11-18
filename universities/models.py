@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
 
@@ -9,10 +11,14 @@ class FeaturedUniversityManager(models.Manager):
         return super(FeaturedUniversityManager, self
                 ).get_query_set().filter(featured=True)
 
+
 class University(models.Model):
     """
     A university or a school that provides online courses.
     """
+    parent = models.ForeignKey('University', blank=True, null=True,
+            related_name='children', verbose_name=_(u"Parent university"),
+            help_text=_(u"An university with parent will be grouped with it in university filtering"))
     name = models.CharField(_('name'), max_length=255)
     code = models.CharField(_('code'), max_length=255, unique=True)
     certificate_logo = models.ImageField(_('certificate logo'),

@@ -385,6 +385,9 @@ msgstr "Identification en cours"
 msgid "Add contributor"
 msgstr "Ajouter"
 
+msgid "Official"
+msgstr "Officiel"
+
 msgid "Official Contributor"
 msgstr "Contributeur officiel"
 
@@ -434,3 +437,12 @@ msgstr "Établissement"
 
 msgid "h/week"
 msgstr "h/semaine"
+
+msgid "Following"
+msgstr "Suivi"
+
+msgid "An university with parent will be grouped with it in university filtering"
+msgstr "Un établissement ayant un parent, sera regroupé avec celui-ci"
+
+msgid "Parent university"
+msgstr "Etablissement parent"

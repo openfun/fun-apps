@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from universities.models import University
 
@@ -29,4 +29,4 @@ class CourseFilteringForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(CourseFilteringForm, self).__init__(*args, **kwargs)
         self.fields['university'].choices = [((''), "Toutes")] + [
-            (u.code, u.name) for u in University.featured_objects.all().order_by('name')]
+            (u.code, u.name) for u in University.objects.filter(parent__isnull=True).order_by('name')]

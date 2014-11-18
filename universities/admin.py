@@ -16,6 +16,7 @@ class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
                 ('name', 'code'),
                 ('logo',),
                 ('certificate_logo',),
+                ('parent',),
             )
         }),
         (_('Daily Motion'), {
