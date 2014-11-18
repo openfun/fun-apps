@@ -1,18 +1,10 @@
-from django.shortcuts import render_to_response
 from django.views.generic import ListView, DetailView
+
+from fun.utils import mako
 
 from universities.models import University
 from universities.courses import get_university_courses
 
-
-class MakoTemplateMixin(object):
-    """
-    A mixin used to render templates with mako
-    """
-    def render_to_response(self, context, template_name=None, **response_kwargs):
-        template_name = template_name or self.template_name
-        response = render_to_response(template_name, context, **response_kwargs)
-        return response
 
 
 class UniversityMixin(object):
@@ -20,12 +12,12 @@ class UniversityMixin(object):
         return University.featured_objects.all()
 
 
-class UniversityLandingView(MakoTemplateMixin, UniversityMixin, ListView):
+class UniversityLandingView(mako.MakoTemplateMixin, UniversityMixin, ListView):
     template_name = 'universities/index.html'
     context_object_name = 'universities'
 
 
-class UniversityDetailView(MakoTemplateMixin, UniversityMixin, DetailView):
+class UniversityDetailView(mako.MakoTemplateMixin, UniversityMixin, DetailView):
     template_name = 'universities/detail.html'
     context_object_name = 'university'
 

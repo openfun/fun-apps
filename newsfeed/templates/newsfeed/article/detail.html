@@ -1,0 +1,14 @@
+## mako
+<%inherit file="../../main.html" />
+<%! from django.core.urlresolvers import reverse %>
+<%! from django.utils.translation import ugettext_lazy as _ %>
+<%! from django.utils.formats import date_format %>
+
+<section class="container news-article">
+    <a href="${reverse('newsfeed-article', kwargs={'slug': article.slug})}"><h2>${article.title}</h2></a>
+    <section class="subtitle">
+        ${_("Posted on")} ${date_format(article.created_at)}
+    </section>
+
+    <p>${article.text}</p>
+</section>

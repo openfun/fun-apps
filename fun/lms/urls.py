@@ -10,9 +10,10 @@ from lms.urls import handler404, handler500
 
 # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns = patterns( '',
+urlpatterns = patterns('',
     (r'^universities/', include('universities.urls')),
     (r'^contact/', include('contact.urls')),
+    (r'^news/', include('newsfeed.urls')),
 
     # override edX's courses page to replace by FUN's one (we need to use a other route)
     (r'^cours/', include('courses.urls')),

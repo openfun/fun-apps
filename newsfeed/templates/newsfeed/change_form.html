@@ -1,0 +1,10 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+{% block after_field_sets %}
+{% with slug=adminform.form.slug.value %}
+{% if slug %}
+<p><a href="{% url newsfeed-article-preview slug=slug %}">{% trans "Preview" %}</a></p>
+<p><a href="{% url newsfeed-landing-preview slug=slug %}">{% trans "Preview news page" %}</a></p>
+{% endif %}
+{% endwith %}
+{% endblock %}

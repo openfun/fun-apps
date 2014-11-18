@@ -1,0 +1,66 @@
+## mako
+<%inherit file="../../main.html" />
+<%! from django.core.urlresolvers import reverse %>
+<%! from django.utils.formats import date_format %>
+<%! from django.utils.translation import ugettext_lazy as _ %>
+<%! from fun.utils.html import first_image_src %>
+<%! from fun.utils.html import first_paragraph_text %>
+
+<section class="container">
+    <section class="featured-articles">
+        % if articles:
+            <a href="${article_url(articles[0])}">
+                <section class="top-article" style="${background_style(articles[0])}">
+                    <section class="article-title">
+                        <h2>${articles[0].title}</h2>
+                        ${subtitle(articles[0])}
+                    </section>
+                </section>
+            </a>
+
+            % for article in articles[1:4]:
+            <section class="featured-article">
+                <a href="${article_url(article)}">
+                    <section class="featured-article-image" style="${background_style(article)}"></section>
+                </a>
+                ${article_title(article)}
+            </section>
+            % endfor
+            
+        % endif
+    </section>
+    <section class="recent-articles">
+        % for article in articles[4:]:
+        <section class="recent-article">
+            ${article_title(article)}
+            <section class="article-content">
+                <section class="article-preview">
+                    <p>${first_paragraph_text(article.text, 380)}... <a href="${article_url(article)}" class="read-more">${_("Read More")}</a></p>
+                </section>
+                <section class="article-image">
+                    <% image_src = first_image_src(article.text) %>
+                    % if image_src:
+                    <img src="${image_src}" alt="${article.title}">
+                    % endif
+                </section>
+            </section>
+        </section>
+        % endfor
+    </section>
+</section>
+
+<%def name="article_title(article)">
+    <section class="article-title">
+        <a href="${article_url(article)}"><h2>${article.title}</h2></a>
+        ${subtitle(article)}
+    </section>
+</%def>
+
+<%def name="subtitle(article)">
+    <p class="subtitle">${_("Posted on")} ${date_format(article.created_at)}</p>
+</%def>
+
+<%def name="article_url(article)">${reverse('newsfeed-article', kwargs={'slug': article.slug})}</%def>
+
+<%def name="background_style(article)">background: url('${first_image_src(article.text)}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;</%def>
+
