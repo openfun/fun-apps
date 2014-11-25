@@ -83,6 +83,7 @@ def make_pot_catalog(root_path):
     extract_command_args = [
             "pybabel", "--quiet", "extract",
             "-o", pot_path, "-F", cfg_path,
+            "--keyword=pgettext_lazy:1c,2",
             root_path
     ]
     BabelCommandLineInterface().run(extract_command_args)
