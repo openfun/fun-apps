@@ -2,6 +2,7 @@
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext_lazy
 
 from universities.models import University
 
@@ -14,9 +15,10 @@ from universities.models import University
 #         Santé Sciences
 #         Sciences humaines et sociales
 
+
 class CourseFilteringForm(forms.Form):
     STATE_CHOICES = (
-        ('', _(u"All")),
+        ('', pgettext_lazy("Course search form: All states", u"All")),
         ('future', _(u"Incoming")),
         ('current', _(u"Current")),
         ('past', _(u"Past")),
@@ -28,5 +30,6 @@ class CourseFilteringForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(CourseFilteringForm, self).__init__(*args, **kwargs)
-        self.fields['university'].choices = [((''), "Toutes")] + [
-            (u.code, u.name) for u in University.objects.filter(parent__isnull=True).order_by('name')]
+        self.fields['university'].choices = [
+                ((''), pgettext_lazy("Course search form: All universities", u"All"))
+            ] + [(u.code, u.name) for u in University.objects.filter(parent__isnull=True).order_by('name')]
