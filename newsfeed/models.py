@@ -31,7 +31,8 @@ class Article(models.Model):
             max_length=256, blank=False)
     slug = models.SlugField(verbose_name=_("slug"),
             max_length=50, unique=True, blank=False, validators=[validate_slug])
-    text = ckeditor.fields.RichTextField(verbose_name=_("text"), blank=True)
+    text = ckeditor.fields.RichTextField(verbose_name=_("text"),
+            config_name='news', blank=True)
     language = models.CharField(verbose_name=_("language"),
             max_length=8, choices=settings.LANGUAGES, default='fr')
     created_at = models.DateTimeField(verbose_name=_("created at"),

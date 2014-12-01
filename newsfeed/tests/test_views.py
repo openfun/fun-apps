@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.test import TestCase
 
 from django.core.urlresolvers import reverse
 
 from student.tests.factories import UserFactory
+
+from newsfeed.models import Article
 
 from .factories import ArticleFactory
 
@@ -51,4 +54,12 @@ class ViewArticlesTest(TestCase):
         article = ArticleFactory.create(published=False)
         url = reverse('newsfeed-landing-preview', kwargs={'slug': article.slug})
         response = self.client.get(url)
-        #self.assertIn(str(article.title), response.content)# TODO
+        self.assertTrue(article.slug in response.content)
+
+    def test_admin_upload_url(self):
+        upload_url = reverse('news-ckeditor-upload')
+        browse_url = reverse('news-ckeditor-browse')
+
+        news_config = settings.CKEDITOR_CONFIGS['news']
+        self.assertEqual(upload_url, news_config['filebrowserUploadUrl'])
+        self.assertEqual(browse_url, news_config['filebrowserBrowseUrl'])
