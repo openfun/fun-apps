@@ -33,9 +33,9 @@
     <section class="recent-articles">
         % for article in articles[4:]:
         <section class="recent-article">
-            ${article_title(article)}
             <section class="article-content">
                 <section class="article-preview">
+                    ${article_title(article)}
                     <p>${first_paragraph_text(article.text, 380)}... <a href="${article_url(article)}" class="read-more">${_("Read More")}</a></p>
                 </section>
                 <section class="article-image">
