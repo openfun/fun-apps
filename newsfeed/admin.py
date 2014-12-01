@@ -9,6 +9,9 @@ class ArticleAdminForm(forms.ModelForm):
 
     class Meta:
         model = models.Article
+        widgets = {
+            "title": forms.TextInput(attrs={"size": 100})
+        }
 
     def __init__(self, *args, **kwargs):
         super(ArticleAdminForm, self).__init__(*args, **kwargs)
