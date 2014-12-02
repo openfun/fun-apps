@@ -18,11 +18,14 @@ class ArticleManager(models.Manager):
     def published_or(self, **kwargs):
         return self.filter(models.Q(published=True) | models.Q(**kwargs))
 
-    def viewable(self):
-        return self.published().filter(language=get_language())
+    def viewable(self, language=None):
+        results = self.published()
+        if language is not None:
+            results = results.filter(language=language)
+        return results
 
     def featured(self):
-        return self.viewable()[:14]
+        return self.viewable(get_language())[:14]
 
 
 class Article(models.Model):

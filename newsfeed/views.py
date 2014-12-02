@@ -18,7 +18,10 @@ class ArticleListView(mako.MakoTemplateMixin, ListView):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        return models.Article.objects.featured()
+        # Display all published articles. We might want to filter on language
+        # and limit the queryset to the first n results in the future (see the
+        # .featured() method).
+        return models.Article.objects.viewable()
 article_list = ArticleListView.as_view()
 
 

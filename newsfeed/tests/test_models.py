@@ -54,13 +54,13 @@ class ArticleTest(TestCase):
         english_article = ArticleFactory.create(title=u"An article in English",
                 language="en", published=True)
 
-        django.utils.translation.activate("en")
-        articles = models.Article.objects.viewable()
+        #django.utils.translation.activate("en")
+        articles = models.Article.objects.viewable('en')
         self.assertEqual(1, len(articles))
         self.assertEqual(english_article.pk, articles[0].pk)
 
-        django.utils.translation.activate("fr")
-        articles = models.Article.objects.viewable()
+        #django.utils.translation.activate("fr")
+        articles = models.Article.objects.viewable('fr')
         self.assertEqual(1, len(articles))
         self.assertEqual(french_article.pk, articles[0].pk)
 
