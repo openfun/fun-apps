@@ -5,7 +5,7 @@
 <%! from django.utils.translation import ugettext_lazy as _ %>
 <%! from django.template.defaultfilters import truncatechars %>
 <%! from fun.utils.html import first_image_src %>
-<%! from fun.utils.html import first_paragraph_text %>
+<%! from fun.utils.html import truncate_first_paragraph %>
 
 <section class="container">
     <section class="featured-articles">
@@ -36,7 +36,7 @@
             <section class="article-content">
                 <section class="article-preview">
                     ${article_title(article)}
-                    <p>${first_paragraph_text(article.text, 380)}... <a href="${article_url(article)}" class="read-more">${_("Read More")}</a></p>
+                    <p>${truncate_first_paragraph(article.text, 380)} <a href="${article_url(article)}" class="read-more">${_("Read More")}</a></p>
                 </section>
                 <section class="article-image">
                     <% image_src = first_image_src(article.text) %>
