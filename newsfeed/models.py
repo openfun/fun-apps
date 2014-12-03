@@ -12,20 +12,36 @@ from django.utils.translation import get_language
 
 class ArticleManager(models.Manager):
 
+    FEATURED_ARTICLES_COUNT = 14
+
     def published(self):
+        """
+        Return the queryset that corresponds to all published articles.
+        """
         return self.filter(published=True)
 
     def published_or(self, **kwargs):
+        """
+        Return a queryset that corresponds to all published articles or a set
+        of constraints.
+        """
         return self.filter(models.Q(published=True) | models.Q(**kwargs))
 
     def viewable(self, language=None):
+        """
+        Return a queryset of all published articles in the specified language.
+        """
         results = self.published()
         if language is not None:
             results = results.filter(language=language)
         return results
 
     def featured(self):
-        return self.viewable(get_language())[:14]
+        """
+        Return the first FEATURED_ARTICLES_COUNT articles in the current user's
+        language.
+        """
+        return self.viewable(get_language())[:ArticleManager.FEATURED_ARTICLES_COUNT]
 
 
 class Article(models.Model):
