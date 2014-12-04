@@ -12,9 +12,11 @@
         % if articles:
             <a href="${article_url(articles[0])}">
                 <section class="top-article" style="${background_style(articles[0])}">
-                    <section class="article-title">
-                        <h2>${articles[0].title}</h2>
-                        ${subtitle(articles[0])}
+                    <section class="article-preview">
+                        <section class="article-title">
+                            <h2>${articles[0].title}</h2>
+                            ${subtitle(articles[0])}
+                        </section>
                     </section>
                 </section>
             </a>
