@@ -4,3 +4,4 @@ django-contact-form==1.0
 unicodecsv==0.9.4
 raven
 reportlab
+django_bower

@@ -1,0 +1,60 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n course %}
+
+{% block content %}
+
+<div class="column-group gutters">
+    <div class="all-100">
+        <h2>{% trans "Courses" %}</h2>
+
+        <form class="ink-form" mathod="GET" action=".">
+            <div class="column-group horizontal-gutters">
+                <div class="control-group all-50 small-100 tiny-100">
+                    <div class="control prepend-button" role="search">
+                        <input type="submit" value="{% trans 'Search' %}" class="ink-button">
+                        <span><input type="text" name="search" value="{{ pattern|default:'' }}"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <table class="ink-table hover">
+            <thead>
+                <tr>
+                    <th class="align-left">{% trans 'Ident' %}</th>
+                    <th class="align-left">{% trans 'University' %}</th>
+                    <th class="align-left">{% trans 'Title' %}</th>
+                    <th colspan="2" class="align-left">{% trans 'Running dates' %}</th>
+                    <th colspan="2" class="align-left">{% trans 'Enrollment dates' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td><a href="{% url 'backoffice-course-detail' course.ident %}">{{ course.ident }}</a></td>
+                    <td>{{ course.university }}</td>
+                    <td>{{ course.title }}</td>
+                    <td>{{ course.start|date:'d/m/y' }}</td>
+                    <td>{{ course.end|date:'d/m/y' }}</td>
+                    <td>{{ course.enrollment_start|date:'d/m/y' }}</td>
+                    <td>{{ course.enrollment_end|date:'d/m/y' }}</td>
+
+                </tr>
+                {% empty %}
+                <tr><td colspan="20">
+                {% if pattern %}
+                    {% trans 'No result for this search pattern' %}
+                {% endif %}
+                {% endfor %}
+                </td></tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

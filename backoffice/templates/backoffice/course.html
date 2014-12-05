@@ -1,0 +1,17 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n course %}
+
+{% block content %}
+
+<div class="column-group gutters">
+    <div class="all-100">
+        <h2>{{ course.display_name_with_default }}</h2>
+
+        <a class="ink-button blue" href="#">{% trans 'Generate test certificate' %}</a>
+
+    </div>
+</div>
+
+
+{% endblock %}

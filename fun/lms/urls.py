@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^universities/', include('universities.urls')),
     (r'^contact/', include('contact.urls')),
     (r'^news/', include('newsfeed.urls')),
+    (r'^backoffice/', include('backoffice.urls')),
 
     # override edX's courses page to replace by FUN's one (we need to use a other route)
     (r'^cours/', include('courses.urls')),
@@ -22,6 +23,9 @@ urlpatterns = patterns('',
 
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),
+
+
+
 
     (r'^selftest/', include('selftest.urls')),
 
