@@ -1,14 +1,23 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import random
+import os
 
 from django.shortcuts import render, redirect
+from django.conf import settings
+from django.http import HttpResponse
+from django.http import Http404
 
 from courseware.courses import get_courses, sort_by_announcement
 from courseware.courses import course_image_url, get_course_about_section
 from opaque_keys.edx.keys import CourseKey
 from xmodule.modulestore.django import modulestore
+from capa.xqueue_interface import make_hashkey
 
+from backoffice.forms import TestCertificateForm
+from fun_certificates.generator import CertificateInfo
+from universities.models import University
 
 ABOUT_SECTION_FIELDS = ['title', 'university']
 
@@ -40,8 +49,73 @@ def courses_list(request):
 def course_detail(request, course_key_string):
     ck = CourseKey.from_string(course_key_string)
     course = modulestore().get_course(ck, depth=0)
+    setattr(course, 'ident', course.id.to_deprecated_string())
 
-
+    if request.method == 'POST':
+        form = TestCertificateForm(request.POST)
+        if (form.is_valid()):
+            return generate_test_certificate(course, form)
+    else:
+        form = TestCertificateForm()
     return render(request, 'backoffice/course.html', {
         'course': course,
+        'form' : form,
     })
+
+def make_teachers_list(form):
+    '''Return a list of teacher/title, format required by the module generator.py'''
+    teachers = []
+
+    try:
+        teachers.append("{}/{}".format(form.cleaned_data['teacher1'],
+                                      form.cleaned_data['title1']))
+        teachers.append("{}/{}".format(form.cleaned_data['teacher2'],
+                                      form.cleaned_data['title2']))
+        teachers.append("{}/{}".format(form.cleaned_data['teacher3'],
+                                      form.cleaned_data['title3']))
+    except KeyError:
+        pass
+    return (teachers)
+
+def generate_test_certificate(course, form):
+    """Generate the pdf certicate, save it on disk and then return the certificate as http response"""
+
+    try:
+        university = University.objects.get(code=course.org)
+    except:
+        raise Http404("Course certificate must be atttached to a University")
+
+    if university.certificate_logo:
+        logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
+    else:
+        logo_path = None
+
+    certificate = CertificateInfo()
+
+    certificate.full_name = form.cleaned_data['full_name']
+    certificate.course_name = course.display_name
+    certificate.organization = course.org
+    certificate.teachers = make_teachers_list(form)
+    certificate.organization_logo = logo_path
+
+    key = make_hashkey(random.random())
+    certificate_base_filename = "attestation_suivi_" + (course.id.to_deprecated_string().replace('/','_')) + '_';
+    certificate_filename = certificate_base_filename + key + ".pdf";
+    certificate.pdf_file_name = os.path.join(
+        settings.CERTIFICATES_DIRECTORY, certificate_filename)
+
+    if certificate.generate():
+        response = HttpResponse("", content_type='text/pdf')
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate_filename)
+        try:
+            with open(certificate.pdf_file_name, 'r') as gradefile:
+                response.write(gradefile.read())
+        except IOError:
+            raise Http404("error IO")
+        return (response)
+    raise Http404("Error while generating the certificate")
+
+
+
+
+
