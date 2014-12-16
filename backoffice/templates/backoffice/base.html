@@ -91,6 +91,20 @@
                 </nav>
             </header>
 
+            <div class="column-group gutters">
+                <div class="all-100">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="ink-alert basic {{ message.tags }}" role="alert">
+                            <button class="ink-dismiss">&times;</button>
+                             <p>{{ message }}</p>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
+
             {% block content %}
             {% endblock content %}
 
