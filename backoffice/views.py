@@ -5,9 +5,12 @@ import random
 import os
 
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse
 from django.http import Http404
+from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 from courseware.courses import get_courses, sort_by_announcement
 from courseware.courses import course_image_url, get_course_about_section
@@ -68,7 +71,7 @@ def course_detail(request, course_key_string):
     if request.method == 'POST':
         form = TestCertificateForm(request.POST)
         if (form.is_valid()):
-            return generate_test_certificate(course, form)
+            return generate_test_certificate(request, course, form)
     else:
         form = TestCertificateForm()
     return render(request, 'backoffice/course.html', {
@@ -76,7 +79,7 @@ def course_detail(request, course_key_string):
         'form' : form,
     })
 
-def generate_test_certificate(course, form):
+def generate_test_certificate(request, course, form):
     """Generate the pdf certicate, save it on disk and then return the certificate as http response"""
 
     try:
@@ -105,10 +108,10 @@ def generate_test_certificate(course, form):
     if certificate.generate():
         response = HttpResponse("", content_type='text/pdf')
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate_filename)
-        try:
-            with open(certificate.pdf_file_name, 'r') as gradefile:
-                response.write(gradefile.read())
-        except IOError:
-            raise Http404("error IO")
+        with open(certificate.pdf_file_name, 'r') as gradefile:
+            response.write(gradefile.read())
         return (response)
-    raise Http404("Error while generating the certificate")
+    else:
+        messages.error(request, _('Certificated generation failed'))
+        return redirect(reverse("backoffice-course-detail", args=[course.id.to_deprecated_string()]))
+

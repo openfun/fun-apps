@@ -18,7 +18,7 @@ class TestCertificateForm(forms.Form):
         '''Return a list of teacher/title, format required by the module generator.py'''
         teachers = []
 
-        for key in range(1, 3):
+        for key in range(1, 4):
             if "teacher{}".format(key) in self.cleaned_data and "title{}".format(key) in self.cleaned_data:
                 teachers.append("{}/{}".format(self.cleaned_data['teacher{}'.format(key)],
                                                self.cleaned_data['title{}'.format(key)]))

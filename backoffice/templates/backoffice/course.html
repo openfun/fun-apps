@@ -5,7 +5,9 @@
 
 <div class="column-group gutters">
     <div class="all-100">
-        <h2>{{ course.display_name_with_default }}</h2>
+        <h1>{{ course.display_name_with_default }}</h1>
+
+        <h2> {% trans 'Certificate generation' %} </h2>
 	<form action="{% url 'backoffice-course-detail' course.ident %}" method="post">
 
 	  <label for="full_name">Full name: </label>
