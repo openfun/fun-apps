@@ -76,7 +76,6 @@ def course_detail(request, course_key_string):
         'form' : form,
     })
 
-@group_required('fun_backoffice')
 def generate_test_certificate(course, form):
     """Generate the pdf certicate, save it on disk and then return the certificate as http response"""
 
@@ -103,7 +102,6 @@ def generate_test_certificate(course, form):
             course.id.to_deprecated_string().replace('/','_'), key)
     certificate.pdf_file_name = os.path.join(
         settings.CERTIFICATES_DIRECTORY, certificate_filename)
-
     if certificate.generate():
         response = HttpResponse("", content_type='text/pdf')
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate_filename)
