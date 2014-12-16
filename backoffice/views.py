@@ -76,6 +76,7 @@ def course_detail(request, course_key_string):
         'form' : form,
     })
 
+
 def make_teachers_list(form):
     '''Return a list of teacher/title, format required by the module generator.py'''
     teachers = []
@@ -115,8 +116,8 @@ def generate_test_certificate(course, form):
     certificate.organization_logo = logo_path
 
     key = make_hashkey(random.random())
-    certificate_base_filename = "TEST_attestation_suivi_" + (course.id.to_deprecated_string().replace('/','_')) + '_';
-    certificate_filename = certificate_base_filename + key + ".pdf";
+    certificate_filename = "TEST_attestation_suivi_%s_%s.pdf" % (
+            course.id.to_deprecated_string().replace('/','_'), key)
     certificate.pdf_file_name = os.path.join(
         settings.CERTIFICATES_DIRECTORY, certificate_filename)
 
@@ -130,8 +131,3 @@ def generate_test_certificate(course, form):
             raise Http404("error IO")
         return (response)
     raise Http404("Error while generating the certificate")
-
-
-
-
-
