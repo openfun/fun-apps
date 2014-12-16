@@ -21,6 +21,18 @@ from universities.models import University
 
 ABOUT_SECTION_FIELDS = ['title', 'university']
 
+from django.contrib.auth.decorators import user_passes_test
+
+
+def group_required(*group_names):
+    """Requires user membership in at least one of the groups passed in."""
+    def in_groups(u):
+        if u.is_authenticated():
+            if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
+                return True
+        return False
+    return user_passes_test(in_groups)
+
 
 def course_infos(course):
     for section in ABOUT_SECTION_FIELDS:
@@ -31,6 +43,7 @@ def course_infos(course):
     return course
 
 
+@group_required('fun_backoffice')
 def courses_list(request):
     courses = get_courses(request.user)
 
@@ -46,6 +59,7 @@ def courses_list(request):
     })
 
 
+@group_required('fun_backoffice')
 def course_detail(request, course_key_string):
     ck = CourseKey.from_string(course_key_string)
     course = modulestore().get_course(ck, depth=0)
@@ -77,6 +91,8 @@ def make_teachers_list(form):
         pass
     return (teachers)
 
+
+@group_required('fun_backoffice')
 def generate_test_certificate(course, form):
     """Generate the pdf certicate, save it on disk and then return the certificate as http response"""
 
