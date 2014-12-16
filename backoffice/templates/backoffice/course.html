@@ -1,0 +1,56 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n course %}
+{% block content %}
+
+<div class="column-group gutters">
+    <div class="all-100">
+        <h1>{{ course.display_name_with_default }}</h1>
+
+        <h2> {% trans 'Certificate generation' %} </h2>
+	<form action="{% url 'backoffice-course-detail' course.ident %}" method="post">
+
+	  <label for="full_name">Full name: </label>
+	  {{ form.full_name}}
+	  {% if form.full_name.errors %}
+	    {% for error in form.full_name.errors %}
+	      <span class="ink-label red"> {{ error|escape }} </span>
+	    {% endfor %}
+	  {% endif %}
+	 <ol>
+	   <li>
+	     <label for="teacher1"> {% trans 'Teacher name'%} </label>
+	     {{ form.teacher1}}
+	     {% if form.teacher1.errors %}
+	       {% for error in form.teacher1.errors %}
+	         <span class="ink-label red"> {{ error|escape }} </span>
+	       {% endfor %}
+             {% endif %}
+	     <label for="title1"> {% trans 'Title'%} </label>
+	     {{ form.title1}}
+	     {% if form.title1.errors %}
+	       {% for error in form.title1.errors %}
+	        <span class="ink-label red"> {{ error|escape }} </span>
+	       {% endfor %}
+	     {% endif %}
+	   </li>
+	   <li>
+	     <label for="teacher2"> {% trans 'Teacher name'%} </label>
+	     {{ form.teacher2}}
+	     <label for="title2"> {% trans 'Title'%} </label>
+	     {{ form.title2}}
+	   </li>
+	   <li>
+	     <label for="teacher3"> {% trans 'Teacher name'%} </label>
+	     {{ form.teacher3}}
+	     <label for="title3"> {% trans 'Title'%} </label>
+	     {{ form.title3}}
+	   </li>
+	 </ol>
+	 {% csrf_token %}
+        <input type="submit" value="{% trans 'Generate test certificate' %}"class="ink-button blue" ></a>
+	</form>
+    </div>
+</div>
+
+{% endblock %}
