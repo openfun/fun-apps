@@ -76,23 +76,6 @@ def course_detail(request, course_key_string):
         'form' : form,
     })
 
-
-def make_teachers_list(form):
-    '''Return a list of teacher/title, format required by the module generator.py'''
-    teachers = []
-
-    try:
-        teachers.append("{}/{}".format(form.cleaned_data['teacher1'],
-                                      form.cleaned_data['title1']))
-        teachers.append("{}/{}".format(form.cleaned_data['teacher2'],
-                                      form.cleaned_data['title2']))
-        teachers.append("{}/{}".format(form.cleaned_data['teacher3'],
-                                      form.cleaned_data['title3']))
-    except KeyError:
-        pass
-    return (teachers)
-
-
 @group_required('fun_backoffice')
 def generate_test_certificate(course, form):
     """Generate the pdf certicate, save it on disk and then return the certificate as http response"""
@@ -112,7 +95,7 @@ def generate_test_certificate(course, form):
     certificate.full_name = form.cleaned_data['full_name']
     certificate.course_name = course.display_name
     certificate.organization = course.org
-    certificate.teachers = make_teachers_list(form)
+    certificate.teachers = form.make_teachers_list()
     certificate.organization_logo = logo_path
 
     key = make_hashkey(random.random())
