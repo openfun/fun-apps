@@ -99,7 +99,7 @@ def generate_test_certificate(course, form):
     certificate.organization_logo = logo_path
 
     key = make_hashkey(random.random())
-    certificate_base_filename = "attestation_suivi_" + (course.id.to_deprecated_string().replace('/','_')) + '_';
+    certificate_base_filename = "TEST_attestation_suivi_" + (course.id.to_deprecated_string().replace('/','_')) + '_';
     certificate_filename = certificate_base_filename + key + ".pdf";
     certificate.pdf_file_name = os.path.join(
         settings.CERTIFICATES_DIRECTORY, certificate_filename)
