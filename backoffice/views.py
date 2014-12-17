@@ -86,7 +86,7 @@ def generate_test_certificate(request, course, form):
         university = University.objects.get(code=course.org)
     except:
         messages.warning(request, _("University doesn't exist"))
-        return redirect(reverse("backoffice-course-detail", args=[course.id.to_deprecated_string()]))
+        return redirect(reverse('backoffice-course-detail', args=[course.id.to_deprecated_string()]))
 
     if university.certificate_logo:
         logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
