@@ -661,3 +661,17 @@ msgstr ""
 msgid "{platform_name}-wide Summary"
 msgstr "{platform_name}-Sommaire général"
 
+#: lms/templates/registration/activate_account_notice.html
+msgid ""
+"You've successfully created an account on {platform_name}. We've sent an "
+"account activation message to {email}. To activate your account and start "
+"enrolling in courses, click the link in the message."
+msgstr "Votre compte sur {platform_name} a bien été créé. Nous vous avons envoyé "
+"un mail de confirmation à {email}. Pour activer votre compte, cliquez sur le lien "
+"contenu dans le mail."
+
+msgid "Unregister"
+msgstr "Se désinscrire"
+
+msgid "Are you sure you want to unregister from"
+msgstr "Etes vous sûr de vouloir vous désinscrire: "
