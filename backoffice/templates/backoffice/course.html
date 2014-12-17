@@ -10,7 +10,7 @@
         <h2> {% trans 'Certificate generation' %} </h2>
 	<form action="{% url 'backoffice-course-detail' course.ident %}" method="post">
 
-	  <label for="full_name">Full name: </label>
+	  <label for="full_name">{% trans 'Full name' %}: </label>
 	  {{ form.full_name}}
 	  {% if form.full_name.errors %}
 	    {% for error in form.full_name.errors %}
