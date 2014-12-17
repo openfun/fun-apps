@@ -19,8 +19,7 @@ class TestCertificateForm(forms.Form):
         teachers = []
 
         for key in range(1, 4):
-            if "teacher{}".format(key) in self.cleaned_data and "title{}".format(key) in self.cleaned_data:
-                teachers.append("{}/{}".format(self.cleaned_data['teacher{}'.format(key)],
-                                               self.cleaned_data['title{}'.format(key)]))
+            if u"teacher{}".format(key) in self.cleaned_data and u"title{}".format(key) in self.cleaned_data:
+                teachers.append(u"{}/{}".format(self.cleaned_data[u"teacher{}".format(key)],
+                                               self.cleaned_data[u"title{}".format(key)]))
         return teachers
-
