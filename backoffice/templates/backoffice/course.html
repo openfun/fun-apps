@@ -46,6 +46,22 @@
 	     <label for="title3"> {% trans 'Title'%} </label>
 	     {{ form.title3}}
 	   </li>
+	   <li>
+	     <label for="teacher4"> {% trans 'Teacher name'%} </label>
+	     {{ form.teacher4}}
+	     {% if form.teacher4.errors %}
+	       {% for error in form.teacher4.errors %}
+	         <span class="ink-label red"> {{ error|escape }} </span>
+	       {% endfor %}
+             {% endif %}
+	     <label for="title4"> {% trans 'Title'%} </label>
+	     {{ form.title4}}
+	     {% if form.title4.errors %}
+	       {% for error in form.title4.errors %}
+	        <span class="ink-label red"> {{ error|escape }} </span>
+	       {% endfor %}
+	     {% endif %}
+	   </li>
 	 </ol>
 	 {% csrf_token %}
         <input type="submit" value="{% trans 'Generate test certificate' %}"class="ink-button blue" ></a>
