@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import datetime
 import random
 import os
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
-from django.conf import settings
 from django.http import HttpResponse
-from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
 
-from courseware.courses import get_courses, sort_by_announcement
+from courseware.courses import get_courses
 from courseware.courses import course_image_url, get_course_about_section
 from opaque_keys.edx.keys import CourseKey
 from xmodule.modulestore.django import modulestore
@@ -80,7 +76,7 @@ def course_detail(request, course_key_string):
         if (student_form.is_valid() and teachers_form_set.is_valid()):
             try:
                 university = University.objects.get(code=course.org)
-            except:
+            except University.DoesNotExist:
                 messages.warning(request, _("University doesn't exist"))
             certificate = generate_test_certificate(course, university, student_form, teachers_form_set)
             if certificate:
@@ -101,32 +97,27 @@ def course_detail(request, course_key_string):
 def generate_test_certificate(course, university, student_form, teachers_form_set):
     """Generate the pdf certicate, save it on disk"""
 
-    certificate = CertificateInfo()
-
-    certificate.full_name = student_form.cleaned_data['full_name']
-    certificate.course_name = course.display_name
-    certificate.organization = university.name
-
-    # make a teachers/title list from the teachers_form_set
-    certificate.teachers =  [u"{}/{}".format(teacher.cleaned_data['full_name'],
-                                            teacher.cleaned_data['title'],)  for teacher in teachers_form_set
-                             if 'full_name'  in teacher.cleaned_data and 'title' in teacher.cleaned_data]
-
     if university.certificate_logo:
         logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
     else:
         logo_path = None
-    certificate.organization_logo = logo_path
+
+    # make a teachers/title list from the teachers_form_set
+    teachers = [u"{}/{}".format(
+        teacher.cleaned_data['full_name'],
+        teacher.cleaned_data['title']
+    )  for teacher in teachers_form_set if 'full_name' in teacher.cleaned_data and 'title' in teacher.cleaned_data]
 
     key = make_hashkey(random.random())
-    certificate.filename = "TEST_attestation_suivi_%s_%s.pdf" % (
-            course.id.to_deprecated_string().replace('/','_'), key)
-    certificate.pdf_file_name = os.path.join(
-        settings.CERTIFICATES_DIRECTORY, certificate.filename)
+    filename = "TEST_attestation_suivi_%s_%s.pdf" % (
+        course.id.to_deprecated_string().replace('/', '_'), key
+    )
 
-    if certificate.generate():
-        return certificate
-    else:
-        return False
+    certificate = CertificateInfo(
+        student_form.cleaned_data['full_name'],
+        course.display_name, university.name, logo_path,
+        filename, teachers
+    )
+    certificate.generate()
 
-
+    return certificate
