@@ -105,7 +105,7 @@ def generate_test_certificate(course, university, student_form, teachers_form_se
 
     certificate.full_name = student_form.cleaned_data['full_name']
     certificate.course_name = course.display_name
-    certificate.organization = course.org
+    certificate.organization = university.name
 
     # make a teachers/title list from the teachers_form_set
     certificate.teachers =  [u"{}/{}".format(teacher.cleaned_data['full_name'],
@@ -114,6 +114,8 @@ def generate_test_certificate(course, university, student_form, teachers_form_se
 
     if university.certificate_logo:
         logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
+    else:
+        logo_path = None
     certificate.organization_logo = logo_path
 
     key = make_hashkey(random.random())
