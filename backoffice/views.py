@@ -105,7 +105,7 @@ def certificate_file_response(certificate):
     """
     Return the HttpResponse for downloading the certificate pdf file.
     """
-    response = HttpResponse("", content_type='text/pdf')
+    response = HttpResponse("", content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate.filename)
     with open(certificate.pdf_file_name, 'r') as gradefile:
         response.write(gradefile.read())
