@@ -61,38 +61,55 @@ def courses_list(request):
 
 @group_required('fun_backoffice')
 def course_detail(request, course_key_string):
-    ck = CourseKey.from_string(course_key_string)
-    course = modulestore().get_course(ck, depth=0)
-    setattr(course, 'ident', course.id.to_deprecated_string())
+    course = get_course(course_key_string)
 
-    teachers_form_set = formset_factory(TeachersCertificateForm,
-                                      extra=TeachersCertificateForm.MAX_TEACHERS,
-                                      formset=RequiredFormSet)
-    student_form = StudentCertificateForm()
+    teachers_form_set_factory = formset_factory(
+        TeachersCertificateForm,
+        extra=TeachersCertificateForm.MAX_TEACHERS,
+        formset=RequiredFormSet
+    )
 
     if request.method == 'POST':
         student_form = StudentCertificateForm(request.POST)
-        teachers_form_set = teachers_form_set(request.POST)
-        if (student_form.is_valid() and teachers_form_set.is_valid()):
+        teachers_form_set = teachers_form_set_factory(request.POST)
+        if student_form.is_valid() and teachers_form_set.is_valid():
             try:
                 university = University.objects.get(code=course.org)
             except University.DoesNotExist:
                 messages.warning(request, _("University doesn't exist"))
-            certificate = generate_test_certificate(course, university, student_form, teachers_form_set)
-            if certificate:
-                response = HttpResponse("", content_type='text/pdf')
-                response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate.filename)
-                with open(certificate.pdf_file_name, 'r') as gradefile:
-                    response.write(gradefile.read())
-                return response
-            else:
-                messages.error(request, _('Certificated generation failed'))
+                university = None
+            if university is not None:
+                certificate = generate_test_certificate(course, university, student_form, teachers_form_set)
+                return certificate_file_response(certificate)
+    else:
+        teachers_form_set = teachers_form_set_factory()
+        student_form = StudentCertificateForm()
 
     return render(request, 'backoffice/course.html', {
             'course': course,
             'student_form_certificate' : student_form,
             'teachers_form_certificate' : teachers_form_set,
         })
+
+def get_course(course_key_string):
+    """
+    Return the corresponding course. For some unknown reason, an 'ident'
+    attribute is added to the course object.
+    """
+    ck = CourseKey.from_string(course_key_string)
+    course = modulestore().get_course(ck, depth=0)
+    setattr(course, 'ident', course.id.to_deprecated_string())
+    return course
+
+def certificate_file_response(certificate):
+    """
+    Return the HttpResponse for downloading the certificate pdf file.
+    """
+    response = HttpResponse("", content_type='text/pdf')
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate.filename)
+    with open(certificate.pdf_file_name, 'r') as gradefile:
+        response.write(gradefile.read())
+    return response
 
 def generate_test_certificate(course, university, student_form, teachers_form_set):
     """Generate the pdf certicate, save it on disk"""
