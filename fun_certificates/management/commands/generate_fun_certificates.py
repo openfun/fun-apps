@@ -95,7 +95,6 @@ class Command(BaseCommand):
         make_option('-c', '--course',
                     metavar='COURSE_ID',
                     dest='course',
-                    default=False,
                     help='Grade and generate certificates '
                     'for a specific course'),
         make_option('-t', '--teacher',
@@ -133,22 +132,16 @@ class Command(BaseCommand):
         # to something else with the force flag
 
         if len(options['teachers']) > 4:
-            print "Too many teachers. Certificate can not include more than four names."
-            return
-
-        # Print update after this many students
-
-        STATUS_INTERVAL = 100
-
-        if options['course']:
-            try:
-                ended_courses = [CourseKey.from_string(options['course'])]
-            except InvalidKeyError:
-                print("Course id {} could not be parsed as a CourseKey;".format(options['course']))
-                return
-
+            raise CommandError("Too many teachers. Certificate can not include more than four names.")
+        if not options['course']:
+            raise CommandError("--course argument is mandatory")
         if options['grade'] and float(options['grade']) > 1:
             raise CommandError('grades range from 0 to 1')
+
+        try:
+            ended_courses = [CourseKey.from_string(options['course'])]
+        except InvalidKeyError:
+            raise CommandError("Course id {} could not be parsed as a CourseKey;".format(options['course']))
 
         for course_id in ended_courses:
             # prefetch all chapters/sequentials by saying depth=2
@@ -157,44 +150,18 @@ class Command(BaseCommand):
             university = University.objects.get(code=course.location.org)
             certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
             print "Fetching enrolled students for {0} ()".format(course_id)
-            if options['user'] is None:
-                enrolled_students = User.objects.filter(
-                    courseenrollment__course_id=course_id, profile__isnull=False).prefetch_related(
-                    "groups").order_by('username')
-            else:
-                user = options['user']
-                query_args = {
-                    "courseenrollment__course_id": course_id,
-                    "profile__isnull": False
-                }
-                if '@' in user:
-                    query_args["email"] = user
-                else:
-                    query_args["username"] = user
-                enrolled_students = User.objects.filter(**query_args)
+            enrolled_students = get_enrolled_students(course_id, options['user'])
             total = enrolled_students.count()
             print "Course has {0} enrolled students".format(total)
-            count = 0
             stats = {
-                status.notpassing : 0,
-                status.error : 0,
-                status.downloadable : 0
+                status.notpassing: 0,
+                status.error: 0,
+                status.downloadable: 0
             }
             start = datetime.datetime.now(UTC)
 
-            for student in enrolled_students:
-                count += 1
-                if count % STATUS_INTERVAL == 0:
-                    # Print a status update with an approximation of
-                    # how much time is left based on how long the last
-                    # interval took
-                    diff = datetime.datetime.now(UTC) - start
-                    timeleft = diff * (total - count) / STATUS_INTERVAL
-                    hours, remainder = divmod(timeleft.seconds, 3600)
-                    minutes, _seconds = divmod(remainder, 60)
-                    print "{0}/{1} completed ~{2:02}:{3:02}m remaining".format(
-                        count, total, hours, minutes)
-                    start = datetime.datetime.now(UTC)
+            for count, student in enumerate(enrolled_students):
+                start = print_progress(count, total, start)
                 if options['force'] or (certificate_status_for_student(student, course_id)['status'] != status.downloadable):
                     if university.certificate_logo:
                         logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
@@ -207,3 +174,32 @@ class Command(BaseCommand):
                     )
                     stats[new_status] += 1
                     pprint(stats)
+
+def get_enrolled_students(course_id, user_identification=None):
+    query_args = {
+        "courseenrollment__course_id": course_id,
+        "profile__isnull": False
+    }
+    if user_identification is not None:
+        if '@' in user_identification:
+            query_args["email"] = user_identification
+        else:
+            query_args["username"] = user_identification
+    return User.objects.filter(**query_args).prefetch_related("groups").order_by('username')
+
+def print_progress(count, total, start):
+    # Print update after this many students
+    STATUS_INTERVAL = 100
+
+    if count % STATUS_INTERVAL == 0:
+        # Print a status update with an approximation of
+        # how much time is left based on how long the last
+        # interval took
+        diff = datetime.datetime.now(UTC) - start
+        timeleft = diff * (total - count) / STATUS_INTERVAL
+        hours, remainder = divmod(timeleft.seconds, 3600)
+        minutes, _seconds = divmod(remainder, 60)
+        print "{0}/{1} completed ~{2:02}:{3:02}m remaining".format(
+            count, total, hours, minutes)
+        start = datetime.datetime.now(UTC)
+    return start
