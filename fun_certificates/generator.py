@@ -49,13 +49,13 @@ class CertificateInfo(object):
     def __init__(
         self, full_name, course_name,
         organization, organization_logo,
-        file_name, teachers
+        filename, teachers
     ):
         self.full_name = full_name
         self.course_name = course_name
         self.organization = organization
         self.organization_logo = organization_logo
-        self.file_name = file_name
+        self.filename = filename
         self.teachers = teachers
 
     @property
@@ -78,7 +78,7 @@ class CertificateInfo(object):
         self.write_legal_mentions(c)
         self.write_fun_logo(c)
         self.write_organization_logo(c)
-        self.write_professsor_list(c)
+        self.write_professor_list(c)
         self.write_fun_url(c)
         self.write_mooc(c)
 
