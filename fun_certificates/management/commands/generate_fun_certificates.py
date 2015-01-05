@@ -31,14 +31,12 @@ factory = RequestFactory()
 request = factory.get('/')
 request.session = {}
 
-
-def generate_fun_certificate(
-    student, course_id,
-    course_display_name, course,
-    teachers,
-    organization_display_name, organization_logo,
-    certificate_base_filename, ignore_grades, new_grade
-):
+def generate_fun_certificate(student,
+ course_id,
+ course_display_name, course,
+ teachers,
+ organization_display_name, organization_logo,
+                             certificate_base_filename, ignore_grades, new_grade, fail_flag):
     """Generates a certificate for one student and one course."""
 
     profile = UserProfile.objects.get(user=student)
@@ -47,24 +45,24 @@ def generate_fun_certificate(
     cert, _created = GeneratedCertificate.objects.get_or_create(
         user=student, course_id=course_id
     )
-
     request.user = student
     grade = grades.grade(student, request, course)
     cert.grade = grade['percent']
     cert.user = student
     cert.course_id = course_id
     cert.name = profile.name
+    fail = False
 
     if ignore_grades:
-        grade['grade'] = 'A'
-        grade['percent'] = 100.0
-
-    if new_grade:
-        grade['grade'] = 'A'
+        cert.grade = 1
+    elif new_grade:
+        fail = fail_flag
         cert.grade = new_grade
-        cert.save()
+    elif grade['grade'] is None:
+        ## edx grading
+        fail = True
 
-    if grade['grade'] is None:
+    if fail:
         cert.status = status.notpassing
     else:
         key = make_hashkey(random.random())
@@ -109,6 +107,11 @@ class Command(BaseCommand):
                     dest='ignore_grades',
                     default=False,
                     help='Ignore grades.'),
+        make_option('--fail',
+                    action='store_true',
+                    dest='fail',
+                    default=False,
+                    help='arbitrary set the certificate status to notpassing'),
         make_option('-s', '--set-grade',
                     metavar='GRADE',
                     dest='grade',
@@ -170,8 +173,7 @@ class Command(BaseCommand):
                     new_status = generate_fun_certificate(
                         student, course_id, course_display_name, course,
                         options['teachers'], university.name, logo_path,
-                        certificate_base_filename, options['ignore_grades'], options['grade']
-                    )
+                        certificate_base_filename, options['ignore_grades'], options['grade'], options['fail'])
                     stats[new_status] += 1
                     pprint(stats)
 
