@@ -1,24 +1,21 @@
 # -*- coding: utf-8 -*-
 
-import datetime
 import random
 import os
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
-from django.conf import settings
 from django.http import HttpResponse
-from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
+from django.forms.formsets import formset_factory
 
-from courseware.courses import get_courses, sort_by_announcement
+from courseware.courses import get_courses
 from courseware.courses import course_image_url, get_course_about_section
 from opaque_keys.edx.keys import CourseKey
 from xmodule.modulestore.django import modulestore
 from capa.xqueue_interface import make_hashkey
 
-from backoffice.forms import TestCertificateForm
+from backoffice.forms import StudentCertificateForm, TeachersCertificateForm, RequiredFormSet
 from fun_certificates.generator import CertificateInfo
 from universities.models import University
 
@@ -64,55 +61,80 @@ def courses_list(request):
 
 @group_required('fun_backoffice')
 def course_detail(request, course_key_string):
+    course = get_course(course_key_string)
+
+    teachers_form_set_factory = formset_factory(
+        TeachersCertificateForm,
+        extra=TeachersCertificateForm.MAX_TEACHERS,
+        formset=RequiredFormSet
+    )
+
+    if request.method == 'POST':
+        student_form = StudentCertificateForm(request.POST)
+        teachers_form_set = teachers_form_set_factory(request.POST)
+        if student_form.is_valid() and teachers_form_set.is_valid():
+            try:
+                university = University.objects.get(code=course.org)
+            except University.DoesNotExist:
+                messages.warning(request, _("University doesn't exist"))
+                university = None
+            if university is not None:
+                certificate = generate_test_certificate(course, university, student_form, teachers_form_set)
+                return certificate_file_response(certificate)
+    else:
+        teachers_form_set = teachers_form_set_factory()
+        student_form = StudentCertificateForm()
+
+    return render(request, 'backoffice/course.html', {
+            'course': course,
+            'student_form_certificate' : student_form,
+            'teachers_form_certificate' : teachers_form_set,
+        })
+
+def get_course(course_key_string):
+    """
+    Return the corresponding course. For some unknown reason, an 'ident'
+    attribute is added to the course object.
+    """
     ck = CourseKey.from_string(course_key_string)
     course = modulestore().get_course(ck, depth=0)
     setattr(course, 'ident', course.id.to_deprecated_string())
+    return course
 
-    if request.method == 'POST':
-        form = TestCertificateForm(request.POST)
-        if (form.is_valid()):
-            return generate_test_certificate(request, course, form)
-    else:
-        form = TestCertificateForm()
-    return render(request, 'backoffice/course.html', {
-        'course': course,
-        'form' : form,
-    })
+def certificate_file_response(certificate):
+    """
+    Return the HttpResponse for downloading the certificate pdf file.
+    """
+    response = HttpResponse("", content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate.filename)
+    with open(certificate.pdf_file_name, 'r') as gradefile:
+        response.write(gradefile.read())
+    return response
 
-def generate_test_certificate(request, course, form):
-    """Generate the pdf certicate, save it on disk and then return the certificate as http response"""
-
-    try:
-        university = University.objects.get(code=course.org)
-    except:
-        messages.warning(request, _("University doesn't exist"))
-        return redirect(reverse('backoffice-course-detail', args=[course.id.to_deprecated_string()]))
+def generate_test_certificate(course, university, student_form, teachers_form_set):
+    """Generate the pdf certicate, save it on disk"""
 
     if university.certificate_logo:
         logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
     else:
         logo_path = None
 
-    certificate = CertificateInfo()
-
-    certificate.full_name = form.cleaned_data['full_name']
-    certificate.course_name = course.display_name
-    certificate.organization = course.org
-    certificate.teachers = form.make_teachers_list()
-    certificate.organization_logo = logo_path
+    # make a teachers/title list from the teachers_form_set
+    teachers = [u"{}/{}".format(
+        teacher.cleaned_data['full_name'],
+        teacher.cleaned_data['title']
+    )  for teacher in teachers_form_set if 'full_name' in teacher.cleaned_data and 'title' in teacher.cleaned_data]
 
     key = make_hashkey(random.random())
-    certificate_filename = "TEST_attestation_suivi_%s_%s.pdf" % (
-            course.id.to_deprecated_string().replace('/','_'), key)
-    certificate.pdf_file_name = os.path.join(
-        settings.CERTIFICATES_DIRECTORY, certificate_filename)
-    if certificate.generate():
-        response = HttpResponse("", content_type='text/pdf')
-        response['Content-Disposition'] = 'attachment; filename="{}"'.format(certificate_filename)
-        with open(certificate.pdf_file_name, 'r') as gradefile:
-            response.write(gradefile.read())
-        return (response)
-    else:
-        messages.error(request, _('Certificated generation failed'))
-        return redirect(reverse("backoffice-course-detail", args=[course.id.to_deprecated_string()]))
+    filename = "TEST_attestation_suivi_%s_%s.pdf" % (
+        course.id.to_deprecated_string().replace('/', '_'), key
+    )
 
+    certificate = CertificateInfo(
+        student_form.cleaned_data['full_name'],
+        course.display_name, university.name, logo_path,
+        filename, teachers
+    )
+    certificate.generate()
+
+    return certificate
