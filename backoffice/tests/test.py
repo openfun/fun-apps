@@ -22,19 +22,24 @@ class BaseBackoffice(ModuleStoreTestCase):
 
 
 class TestAuthetification(BaseBackoffice):
-    def test_auth(self):
+    def test_auth_not_belonging_to_group(self):
         # Users not belonging to `fun_backoffice` should not log in.
         self.client.login(username=self.user.username, password='test')
         response = self.client.get(self.list_url)
         self.assertEqual(302, response.status_code)
 
+    def test_auth_not_staff(self):
         self.user.groups.add(self.backoffice_group)
         self.client.login(username=self.user.username, password='test')
         response = self.client.get(self.list_url)
         self.assertEqual(200, response.status_code)
         self.assertEqual(0, len(response.context['courses']))  # use is not staff he can not see not published course
+
+    def test_auth_staff(self):
+        self.user.groups.add(self.backoffice_group)
         self.user.is_staff = True
         self.user.save()
+        self.client.login(username=self.user.username, password='test')
         response = self.client.get(self.list_url)
         self.assertEqual(1, len(response.context['courses']))  # OK
 
