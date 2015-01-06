@@ -4,66 +4,70 @@
 <%! from django.utils.formats import date_format %>
 <%! from django.utils.translation import ugettext_lazy as _ %>
 <%! from django.template.defaultfilters import truncatechars %>
-<%! from fun.utils.html import first_image_src %>
 <%! from fun.utils.html import truncate_first_paragraph %>
 
 <section class="container">
     <section class="featured-articles">
         % if articles:
-            <a href="${article_url(articles[0])}">
-                <section class="top-article" style="${background_style(articles[0])}">
+            % if featured_section and featured_section.image:
+            % if featured_section.article:
+            <a href="${article_url(featured_section.article)}">
+            % endif
+                <section class="top-article" style="${background_style(featured_section.image.url)}">
                     <section class="article-preview">
                         <section class="article-title">
-                            <h2>${articles[0].title}</h2>
-                            ${subtitle(articles[0])}
+                            % if featured_section.title:
+                            <h2>${featured_section.title}</h2>
+                            % elif featured_section.article:
+                            <h2>${featured_section.article.title}</h2>
+                            % else:
+                            <h2>${_("News Section")}</h2>
+                            % endif
+
                         </section>
                     </section>
                 </section>
+            % if featured_section.article:
             </a>
+            % endif
+            % endif
 
-            % for article in articles[1:4]:
+            % for article in articles[:3]:
             <section class="featured-article">
                 <a href="${article_url(article)}">
-                    <section class="featured-article-image" style="${background_style(article)}"></section>
+                    % if article.thumbnail:
+                    <section class="featured-article-image" style="${background_style(article.thumbnail.url)}"></section>
+                    % endif
                 </a>
-                ${article_title(article)}
+                <section class="article-title">
+                    <a href="${article_url(article)}"><h2>${truncatechars(article.title, 75)}</h2></a>
+                </section>
             </section>
             % endfor
             
         % endif
     </section>
     <section class="recent-articles">
-        % for article in articles[4:]:
+        % for article in articles[3:]:
         <section class="recent-article">
             <section class="article-content">
                 <section class="article-preview">
-                    ${article_title(article)}
+                    <section class="article-title">
+                        <a href="${article_url(article)}"><h2>${truncatechars(article.title, 75)}</h2></a>
+                        <p class="subtitle">${_("Posted on")} ${date_format(article.created_at)}</p>
+                    </section>
                     <p>${truncate_first_paragraph(article.text, 380)} <a href="${article_url(article)}" class="read-more">${_("Read More")}</a></p>
                 </section>
-                <section class="article-image">
-                    <% image_src = first_image_src(article.text) %>
-                    % if image_src:
-                    <img src="${image_src}" alt="${article.title}">
-                    % endif
-                </section>
+                % if article.thumbnail:
+                <section class="recent-article-image" style="${background_style(article.thumbnail.url)}"></section>
+                % endif
             </section>
         </section>
         % endfor
     </section>
 </section>
 
-<%def name="article_title(article)">
-    <section class="article-title">
-        <a href="${article_url(article)}"><h2>${truncatechars(article.title, 75)}</h2></a>
-        ${subtitle(article)}
-    </section>
-</%def>
 
-<%def name="subtitle(article)">
-    <p class="subtitle">${_("Posted on")} ${date_format(article.created_at)}</p>
-</%def>
+<%def name="background_style(image_url)">background: url('${image_url}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;</%def>
 
 <%def name="article_url(article)">${reverse('newsfeed-article', kwargs={'slug': article.slug})}</%def>
-
-<%def name="background_style(article)">background: url('${first_image_src(article.text)}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;</%def>
-

@@ -8,6 +8,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 
+from solo.models import SingletonModel
 
 
 class ArticleManager(models.Manager):
@@ -44,12 +45,35 @@ class ArticleManager(models.Manager):
         return self.viewable(get_language())[:ArticleManager.FEATURED_ARTICLES_COUNT]
 
 
+
+class FeaturedSection(SingletonModel):
+
+    article = models.ForeignKey("Article", verbose_name=_("article"),
+        blank=True, null=True, related_name="a_+")
+    title = models.CharField(verbose_name=_("title"), max_length=256,
+        blank=True, help_text=_("If no title is given here, we will use "
+        "the related article's title."))
+    image = models.ImageField(_("image"),
+        upload_to="newsfeed", help_text=_("Featured on the top section of "
+        "the page."))
+
+    def __unicode__(self):
+        return u"FeaturedSection"
+
+    class Meta:
+        verbose_name = _("Featured Section")
+        verbose_name_plural = _("Featured Section")
+
+
 class Article(models.Model):
 
     title = models.CharField(verbose_name=_("title"),
             max_length=256, blank=False)
     slug = models.SlugField(verbose_name=_("slug"),
             max_length=50, unique=True, blank=False, validators=[validate_slug])
+    thumbnail = models.ImageField(_('thumnail'),
+        upload_to='newsfeed', null=True, blank=True,
+        help_text=_('Displayed on the news list page.'))
     text = ckeditor.fields.RichTextField(verbose_name=_("text"),
             config_name='news', blank=True)
     language = models.CharField(verbose_name=_("language"),
@@ -60,8 +84,12 @@ class Article(models.Model):
             auto_now=True)
     published = models.BooleanField(verbose_name=_("published"),
             default=False)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     objects = ArticleManager()
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["order", "-created_at"]
+
+    def __unicode__(self):
+        return self.title

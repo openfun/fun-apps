@@ -17,11 +17,21 @@ class ArticleListView(mako.MakoTemplateMixin, ListView):
     template_name = 'newsfeed/article/list.html'
     context_object_name = 'articles'
 
+    def get_context_data(self, **kwargs):
+        context = super(ArticleListView, self).get_context_data(**kwargs)
+        context['featured_section'] = models.FeaturedSection.get_solo()
+        return context
+
     def get_queryset(self):
         # Display all published articles. We might want to filter on language
         # and limit the queryset to the first n results in the future (see the
         # .featured() method).
-        return models.Article.objects.viewable()
+        queryset = models.Article.objects.viewable()
+        # We exclude the article that's selected in the featured section.
+        featured_section = models.FeaturedSection.get_solo()
+        if featured_section and featured_section.article:
+            queryset = queryset.exclude(id=featured_section.article.id)
+        return queryset
 article_list = ArticleListView.as_view()
 
 

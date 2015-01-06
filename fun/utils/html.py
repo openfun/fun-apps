@@ -1,15 +1,5 @@
 import bs4
 
-def first_image_src(html):
-    img = first_image(html)
-    if img is None:
-        return ""
-    return img['src']
-
-def first_image(html):
-    soup = bs4.BeautifulSoup(html)
-    return soup.find('img')
-
 def first_paragraph_text(html):
     soup = bs4.BeautifulSoup(html)
     for paragraph in soup.find_all('p'):
