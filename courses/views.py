@@ -138,3 +138,7 @@ def course_image_url(course, image_name=None):
 
     return loc.to_deprecated_string()
 
+def registration_datetime_text(course, date):
+    strftime = course.runtime.service(course, "i18n").strftime
+    date_time = strftime(date, "SHORT_DATE")
+    return date_time 
