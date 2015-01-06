@@ -3,10 +3,11 @@
 
 from django.conf import settings
 from django.core.mail.backends.base import BaseEmailBackend
-from django.core.mail.backends.smtp import EmailBackend
+from django.core.mail.backends.smtp import EmailBackend as SMTPEmailBackend
 from django.core.mail.message import sanitize_address
 
-"""SMTP backend which will route emails to differents SMTP backers (and SMTP servers)
+
+"""SMTP backend which will route emails to differents SMTP backends (and SMTP servers)
 regarding from_email field.
 If BULK_EMAIL_DEFAULT_FROM_EMAIL is contained in from_email, the email will
 be routed to bulk server.
@@ -28,10 +29,10 @@ class MultipleSMTPEmailBackend(BaseEmailBackend):
     def __init__(self, host=None, fail_silently=False, **kwargs):
         super(MultipleSMTPEmailBackend, self).__init__(fail_silently=fail_silently)
 
-        self.bulk = EmailBackend(host=settings.EMAIL_HOST['bulk']['host'],
+        self.bulk = SMTPEmailBackend(host=settings.EMAIL_HOST['bulk']['host'],
                 port=settings.EMAIL_HOST['bulk']['port'],
                 fail_silently=fail_silently, **kwargs)
-        self.transactional = EmailBackend(host=settings.EMAIL_HOST['transactional']['host'],
+        self.transactional = SMTPEmailBackend(host=settings.EMAIL_HOST['transactional']['host'],
                 port=settings.EMAIL_HOST['transactional']['port'],
                 fail_silently=fail_silently, **kwargs)
 
