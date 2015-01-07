@@ -20,32 +20,32 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:27
 msgid "Certificate generation"
-msgstr ""
+msgstr "Génération de certificat"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:30
 msgid "Enrollment dates"
-msgstr ""
+msgstr "Dates d'inscription"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:70
 msgid "Generate test certificate"
-msgstr ""
+msgstr "Générer un certificat de test"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:26
 msgid "Ident"
-msgstr ""
+msgstr "Identifiant"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:48
 msgid "No result for this search pattern"
-msgstr ""
+msgstr "Pas de résultat pour cette recherche"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:29
 msgid "Running dates"
-msgstr ""
+msgstr "Dates de déroulement"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:9
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:86
 msgid "Support team"
-msgstr ""
+msgstr "Backoffice cellule d'appui"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:46
 msgid "Teachers"
@@ -53,5 +53,5 @@ msgstr "Professeurs"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:79
 msgid "University doesn't exist"
-msgstr ""
+msgstr "Cette université n'existe pas"
 
