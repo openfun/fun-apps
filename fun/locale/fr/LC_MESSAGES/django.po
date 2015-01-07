@@ -678,7 +678,7 @@ msgstr "Etes vous sûr de vouloir vous désinscrire: "
 
 #: lms/templates/registration/activate_account_notice.html
 msgid "Thanks for Registering!"
-msgstr "Merci pour votre inscription"
+msgstr "Merci pour votre inscription !"
 
 #: themes/fun/templates/registration/password_reset_email.html
 msgid ""
