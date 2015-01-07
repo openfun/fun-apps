@@ -14,7 +14,7 @@ be routed to bulk server.
 
 It can be easily tested by running fake Python SMTP servers
 
-EMAIL_BACKEND = 'fun.smtp.backend.CINESMultipleSMTPEmailBackend'
+EMAIL_BACKEND = 'fun.smtp.backend.MultipleSMTPEmailBackend'
 EMAIL_HOST = {
     'bulk': {'host': 'localhost', 'port': 1025},
     'transactional': {'host': 'localhost', 'port': 1026}
