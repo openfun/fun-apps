@@ -1,0 +1,33 @@
+/* CMS */
+#view-top h1.branding img { /* Shift original image to hide it and set background */
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: url(/static/fun/images/edx-studio-logo-sandbox.png) no-repeat;
+  background-size: 190px 42px;
+  width: 190px;
+  height: 42px;
+  padding-left: 190px;
+}
+
+span.account-username {
+  color: #a06123;
+}
+
+/* LMS */
+ol.nav-global {
+  background-image: url('/static/fun/images/blue_banner-sandbox.png') !important;
+  background-color: #a06123 !important;
+}
+ol.user li.primary a.user-link {
+  color: #a06123;
+}
+h1.logo a img {
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: url(/static/fun/images/logo-sandbox.png) no-repeat;
+  width: 113px;
+  height: 107px;
+  padding-left: 131px;
+}
