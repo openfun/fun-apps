@@ -152,10 +152,9 @@ msgstr ""
 msgid "Course Team"
 msgstr "Infos du Cours"
 
-#: lms/templates/courseware/info.html lms/templates/courseware/info.html
+#: lms/templates/courseware/info.html
 msgid "Course Updates &amp; News"
 msgstr "Infos et actualités"
-
 
 msgid "Course-loading errors"
 msgstr "erreurs de chargement des cours"
