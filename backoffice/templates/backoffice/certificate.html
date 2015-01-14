@@ -1,0 +1,73 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n course %}
+
+{% block content %}
+
+<style>
+.vertical-space, .xlarge-vertical-space {
+    margin-bottom: 2px;
+    margin-top: 0em;
+}
+
+input.ink-button.blue{
+    margin-top: 1em;
+}
+
+.removemargin {
+    margin: 0 !important;
+}
+
+legend {
+   margin-bottom: 5px;
+}
+</style>
+
+<h1>{{ course.display_name_with_default }}</h1>
+<h2>{% trans 'Certificate generation' %}</h2>
+<form class="ink-form"action="{% url 'backoffice-course-detail' course.ident %}" method="post">
+  <fieldset>
+    <legend>  {% trans 'Students' %}  </legend>
+    <span></span>
+    <div class="control-group required
+        {% if student_form_certificate.full_name.errors %} validation warning {% endif %}">
+      <div class="control all-30">
+        {{ student_form_certificate.full_name.label_tag }}
+        {{ student_form_certificate.full_name }}
+        {% if student_form_certificate.full_name.errors %}
+          {% for error in student_form_certificate.full_name.errors %}
+            <p class="tip">{{ error|escape }}</p>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend >{% trans 'Teachers' %}</legend>
+    <span> </span>
+    {{ teachers_form_certificate.management_form }}
+    {% for teacher_form in teachers_form_certificate %}
+      <div class="column-group gutters vertical-space " > <!--first container-->
+      {% for field in teacher_form %}
+        <div class="control-group all-33 removemargin
+            {% if forloop.parentloop.counter == 1 %} required{% endif %}
+            {% if field.errors %} validation warning {% endif %}"> <!--second container-->
+          <div class="control"> <!--third container-->
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <p class="tip">{{ error|escape }}</p>
+              {% endfor %}
+            {% endif %}
+          </div> <!--end of third container-->
+        </div> <!--end of second container-->
+      {% endfor %}
+      </div> <!--end of first container-->
+    {% endfor %}
+  </fieldset>
+  {% csrf_token %}
+  <input type="submit" value="{% trans 'Generate test certificate' %}" class="ink-button blue" >
+</form>
+
+{% endblock %}

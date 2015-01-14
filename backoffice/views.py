@@ -63,6 +63,16 @@ def courses_list(request):
 def course_detail(request, course_key_string):
     course = get_course(course_key_string)
 
+    return render(request, 'backoffice/course.html', {
+            'course': course,
+        })
+
+
+
+@group_required('fun_backoffice')
+def course_certificate(request, course_key_string):
+    course = get_course(course_key_string)
+
     teachers_form_set_factory = formset_factory(
         TeachersCertificateForm,
         extra=TeachersCertificateForm.MAX_TEACHERS,
@@ -85,7 +95,7 @@ def course_detail(request, course_key_string):
         teachers_form_set = teachers_form_set_factory()
         student_form = StudentCertificateForm()
 
-    return render(request, 'backoffice/course.html', {
+    return render(request, 'backoffice/certificate.html', {
             'course': course,
             'student_form_certificate' : student_form,
             'teachers_form_certificate' : teachers_form_set,
