@@ -10,7 +10,9 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DAT
 
 from universities.factories import UniversityFactory
 
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
+@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class BaseBackoffice(ModuleStoreTestCase):
     def setUp(self):
         super(BaseBackoffice, self).setUp()
@@ -43,7 +45,7 @@ class TestAuthetification(BaseBackoffice):
         response = self.client.get(self.list_url)
         self.assertEqual(1, len(response.context['courses']))  # OK
 
-
+@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestGenerateCertificate(BaseBackoffice):
     def setUp(self):
         super(TestGenerateCertificate, self).setUp()
@@ -55,14 +57,22 @@ class TestGenerateCertificate(BaseBackoffice):
     def test_certificate(self):
         url = reverse('backoffice-course-detail', args=[self.course.id.to_deprecated_string()])
         response = self.client.get(url)
-
         self.assertEqual(200, response.status_code)
         data = {
-            'full_name': u"super student",
-            'teacher1': u'teacher',
-            'title1': u"title",
+            'full_name' : u'superéléve',
+            'form-0-full_name': u'pierre',
+            'form-0-title' : u'prof',
+            'form-1-full_name' : '',
+            'form-1-title' : '',
+            'form-2-full_name' : '',
+            'form-2-title' : '',
+            'form-3-full_name' : '',
+            'form-3-title' : '',
+            'form-INITIAL_FORMS' : 0,
+            'form-MAX_NUM_FORMS' : 1000,
+            'form-TOTAL_FORMS' : 4,
         }
         response = self.client.post(url, data)
-        self.assertEqual('text/pdf', response._headers['content-type'][1])
+        self.assertEqual('application/pdf', response._headers['content-type'][1])
 
 
