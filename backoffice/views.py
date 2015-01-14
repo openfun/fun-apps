@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 
-import random
+import logging
 import os
+import random
 
-from django.shortcuts import render
 from django.contrib import messages
-from django.http import HttpResponse
-from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Count
 from django.forms.formsets import formset_factory
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.utils.translation import ugettext_lazy as _
 
-from courseware.courses import get_courses
-from courseware.courses import course_image_url, get_course_about_section
-from opaque_keys.edx.keys import CourseKey
-from xmodule.modulestore.django import modulestore
 from capa.xqueue_interface import make_hashkey
+from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
+from opaque_keys.edx.keys import CourseKey
+from student.models import CourseEnrollment, CourseAccessRole
+from xmodule.modulestore.django import modulestore
 
 from backoffice.forms import StudentCertificateForm, TeachersCertificateForm, RequiredFormSet
 from fun_certificates.generator import CertificateInfo
@@ -21,7 +24,8 @@ from universities.models import University
 
 ABOUT_SECTION_FIELDS = ['title', 'university']
 
-from django.contrib.auth.decorators import user_passes_test
+
+log = logging.getLogger(__name__)
 
 
 def group_required(*group_names):
@@ -38,7 +42,6 @@ def course_infos(course):
     for section in ABOUT_SECTION_FIELDS:
         setattr(course, section, get_course_about_section(course, section))
     setattr(course, 'course_image_url', course_image_url(course))
-    setattr(course, 'ident', course.id.to_deprecated_string())
 
     return course
 
@@ -51,7 +54,9 @@ def courses_list(request):
     pattern = request.GET.get('search')
 
     if pattern:
-        courses = [course for course in courses if pattern in course.title or pattern in course.ident]
+        courses = [course for course in courses
+                if pattern in course.title
+                or pattern in course.id.to_deprecated_string()]
 
     return render(request, 'backoffice/courses.html', {
         'courses': courses,
@@ -61,6 +66,44 @@ def courses_list(request):
 
 @group_required('fun_backoffice')
 def course_detail(request, course_key_string):
+    """Course is deleted from Mongo and staff and students enrollments from mySQL.
+    States and responses from students are not yet deleted from mySQL
+    (StudentModule, StudentModuleHistory are very big tables)."""
+    course = get_course(course_key_string)
+    ck = CourseKey.from_string(course_key_string)
+    if request.method == 'POST':
+        if request.POST['action'] == 'delete-course':
+            # from xmodule.contentstore.utils.delete_course_and_groups function
+            module_store = modulestore()
+            with module_store.bulk_operations(ck):
+                module_store.delete_course(ck, request.user.id)
+
+            CourseAccessRole.objects.filter(course_id=ck).delete()  # shall we also delete student's enrollments ?
+            messages.warning(request, _(u"Course <strong>%s</strong> has been deleted.") % course.id)
+            log.warning('Course %s deleted by user %s' % (course.id, request.user.username))
+            return redirect(courses_list)
+
+    try:
+        university = University.objects.get(code=course.org)
+    except University.DoesNotExist:
+        university = None
+
+    studio_url = get_cms_course_link(course)
+    students_count = CourseEnrollment.objects.filter(course_id=ck).count()
+    roles = CourseAccessRole.objects.filter(course_id=ck)
+
+    return render(request, 'backoffice/course.html', {
+            'course': course,
+            'studio_url': studio_url,
+            'university': university,
+            'students_count': students_count,
+            'roles': roles,
+        })
+
+
+
+@group_required('fun_backoffice')
+def course_certificate(request, course_key_string):
     course = get_course(course_key_string)
 
     teachers_form_set_factory = formset_factory(
@@ -85,21 +128,21 @@ def course_detail(request, course_key_string):
         teachers_form_set = teachers_form_set_factory()
         student_form = StudentCertificateForm()
 
-    return render(request, 'backoffice/course.html', {
+    return render(request, 'backoffice/certificate.html', {
             'course': course,
             'student_form_certificate' : student_form,
             'teachers_form_certificate' : teachers_form_set,
         })
 
+
 def get_course(course_key_string):
     """
-    Return the corresponding course. For some unknown reason, an 'ident'
-    attribute is added to the course object.
+    Return the course for a given course_key.
     """
     ck = CourseKey.from_string(course_key_string)
     course = modulestore().get_course(ck, depth=0)
-    setattr(course, 'ident', course.id.to_deprecated_string())
     return course
+
 
 def certificate_file_response(certificate):
     """
@@ -110,6 +153,7 @@ def certificate_file_response(certificate):
     with open(certificate.pdf_file_name, 'r') as gradefile:
         response.write(gradefile.read())
     return response
+
 
 def generate_test_certificate(course, university, student_form, teachers_form_set):
     """Generate the pdf certicate, save it on disk"""

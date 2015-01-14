@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-01-07 16:22+0100\n"
+"POT-Creation-Date: 2015-01-20 15:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -18,40 +18,95 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:27
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:15
 msgid "Certificate generation"
 msgstr "Génération de certificat"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:30
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:82
+#, python-format
+msgid "Course <strong>%s</strong> has been deleted."
+msgstr "Le cours <strong>%s</strong> a été supprimé"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:30
+msgid "Course informations"
+msgstr "Informations sur le cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:81
+msgid "Delete course"
+msgstr "Supprimer un cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:68
+msgid "Delete this course"
+msgstr "Supprimer ce cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:25
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:38
+msgid "Draft"
+msgstr "Brouillon"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:29
 msgid "Enrollment dates"
 msgstr "Dates d'inscription"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:70
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:53
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:66
 msgid "Generate test certificate"
 msgstr "Générer un certificat de test"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:26
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:25
 msgid "Ident"
 msgstr "Identifiant"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:48
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:51
 msgid "No result for this search pattern"
 msgstr "Pas de résultat pour cette recherche"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:29
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:85
+msgid "Please confirm you really want to delete this course:"
+msgstr "Veuillez confirmer la suppression de ce cours :"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:24
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:37
+msgid "Published"
+msgstr "Publié"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:28
 msgid "Running dates"
 msgstr "Dates de déroulement"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:9
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:86
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:87
+msgid "Students enrolled"
+msgstr "Utilisateurs inscrits"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:33
+msgid "Students enrolled in this course: "
+msgstr "Utilisateurs inscrits à ce cours : "
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:13
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:44
 msgid "Support team"
 msgstr "Backoffice cellule d'appui"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:46
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:30
 msgid "Teachers"
 msgstr "Professeurs"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:79
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:57
+msgid "This course do not belongs to any university"
+msgstr "Ce cours n'est lié à aucun établissement"
+
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:125
 msgid "University doesn't exist"
-msgstr "Cette université n'existe pas"
+msgstr "Cette établissement n'éxiste pas"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:19
+#, fuzzy
+msgid "course"
+msgid_plural "courses"
+msgstr[0] "cours"
+msgstr[1] ""
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:19
+msgid "for your search pattern"
+msgstr "pour votre critère de recherche"
 
