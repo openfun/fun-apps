@@ -3,17 +3,19 @@
 import random
 import os
 
-from django.shortcuts import render
 from django.contrib import messages
-from django.http import HttpResponse
-from django.utils.translation import ugettext_lazy as _
+from django.db.models import Count
 from django.forms.formsets import formset_factory
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
 
+from capa.xqueue_interface import make_hashkey
 from courseware.courses import get_courses
 from courseware.courses import course_image_url, get_course_about_section
 from opaque_keys.edx.keys import CourseKey
+from student.models import CourseEnrollment, CourseAccessRole
 from xmodule.modulestore.django import modulestore
-from capa.xqueue_interface import make_hashkey
 
 from backoffice.forms import StudentCertificateForm, TeachersCertificateForm, RequiredFormSet
 from fun_certificates.generator import CertificateInfo
@@ -62,9 +64,16 @@ def courses_list(request):
 @group_required('fun_backoffice')
 def course_detail(request, course_key_string):
     course = get_course(course_key_string)
+    ck = CourseKey.from_string(course_key_string)
+    students_count = CourseEnrollment.objects.filter(course_id=ck).count()
+
+    roles_counts = CourseAccessRole.objects.filter(course_id=ck
+            ).values('role').annotate(users_count=Count('user'))
 
     return render(request, 'backoffice/course.html', {
             'course': course,
+            'students_count': students_count,
+            'roles_counts': roles_counts,
         })
 
 
