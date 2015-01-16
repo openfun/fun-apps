@@ -55,7 +55,7 @@ class TestGenerateCertificate(BaseBackoffice):
         self.client.login(username=self.user.username, password='test')
 
     def test_certificate(self):
-        url = reverse('backoffice-course-detail', args=[self.course.id.to_deprecated_string()])
+        url = reverse('backoffice-course-certificate', args=[self.course.id.to_deprecated_string()])
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
         data = {
