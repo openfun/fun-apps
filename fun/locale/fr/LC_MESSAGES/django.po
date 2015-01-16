@@ -688,3 +688,34 @@ msgstr ""
 "Vous recevez ce courriel parce que vous avez demandé une réinitialisation du"
 " mot de passe de votre compte sur FUN."
 
+#: lms/templates/dashboard.html
+msgid ""
+"We will send a confirmation to both {email} and your new email address as "
+"part of the process."
+msgstr ""
+"Un email de confirmation sera envoyé à votre ancienne adresse ({email}) ainsi qu'à la nouvelle."
+""
+
+#: lms/templates/verify_student/_modal_editname.html
+msgid ""
+"To uphold the credibility of your {platform} {cert_name_short}, all name "
+"changes will be recorded."
+msgstr ""
+"Pour maintenir la crédibilité de votre attestation {platform}, tout changement de nom "
+"sera enregistré."
+
+#: lms/templates/dashboard/_dashboard_certificate_information.html
+msgid "Download Your {cert_name_short} (PDF)"
+msgstr "Télécharger votre attestation (PDF)"
+
+#: lms/templates/dashboard.html
+msgid "Password Reset Email Sent"
+msgstr "Email de réinitialisation de mot de passe envoyé"
+
+#: lms/templates/dashboard.html
+msgid ""
+"An email has been sent to {email}. Follow the link in the email to change "
+"your password."
+msgstr ""
+"Un email a été envoyé à {email}. Suivez le lien dans l'email pour changer "
+"votre mot de passe."
