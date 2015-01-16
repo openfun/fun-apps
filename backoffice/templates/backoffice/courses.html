@@ -15,6 +15,9 @@
                 </div>
             </div>
         </form>
+        <p>
+            {{ courses|length }} {% trans "courses" %}{% if pattern %} {% trans "for you search pattern" %}{% endif %}
+        </p>
 
         <table class="table table-striped table-hover">
             <thead>
