@@ -13,7 +13,7 @@
 
 <h1>{{ course.display_name_with_default }}</h1>
 <h2>{% trans 'Certificate generation' %}</h2>
-<form class="" action="." method="post">
+<form class="" action="{% url 'backoffice-course-certificate' course.id %}" method="post">
   <fieldset>
     <legend>{% trans 'Student' %}</legend>
     <div class="form-group {% if student_form_certificate.full_name.errors %}has-error{% endif %}">

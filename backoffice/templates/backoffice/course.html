@@ -2,15 +2,106 @@
 {% load url from future %}
 {% load i18n course %}
 
+{% block extra_head %}
+<style>
+.button-bar {
+  margin-top: 30px;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+
+</script>
+{% endblock %}
+
 {% block content %}
 
 
 <h1>{{ course.display_name_with_default }}</h1>
-<h2> {% trans 'Informations about course' %} </h2>
+{% if course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
+{% if course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
+<div class="row">
+  <div class="col-md-9">
 
-{{ students_count }}
-<br>
-{{ roles_counts }}
+    <div class="course-info">
+      <h2> {% trans 'Informations about course' %} </h2>
 
+      <p>
+        <strong>{% trans "Students enrolled to this course: " %}</strong>{{ students_count }}
+      </p>
+      <p>
+        {% regroup roles by role as roles_list %}
+        <ul>
+        {% for role in roles_list %}
+            <li><strong>{{ role.grouper }}:</strong>
+            <ul>
+                {% for item in role.list %}
+                  <li>{{ item.user.get_full_name }}</li>
+                {% endfor %}
+            </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      </p>
+    </div>
+
+  </div>
+  <div class="col-md-3 text-center">
+    {% if university %}
+      <img src="{{ university.logo.url }}" alt="{{ university.name }}" title="{{ university.name }}" />
+      <h4>{{ university.name }}</h4>
+    {% else %}
+      {% trans "This course do not belongs to any university" %}
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+
+
+<div class="row button-bar">
+  <div class="col-md-6">
+    <a class="btn btn-primary" href="{{ studio_url }}">{% trans "View Course in Studio" %}</a>
+    <a class="btn btn-primary" href="{% url 'backoffice-course-certificate' course.id %}">{% trans "Generate test certificate" %}</a>
+  </div>
+  <div class="col-md-6 text-right"><a id="delete-course" class="btn btn-danger" data-toggle="modal" data-target="#delete-course-modal">{% trans "Delete this course" %}</a></div>
+</div>
+
+
+<!-- Modal -->
+<form action="{% url 'backoffice-course-detail' course.id %}" method="POST">
+<input type="hidden" name="action" value="delete-course">
+{% csrf_token %}
+<div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="">{% trans "Delete course" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+        {% trans "Please confirm you realy wan to delete this course:" %}<br>
+        <h4>{{ course.display_name_with_default }}</h4>
+          <strong>{{ students_count }} {% trans "Students enrolled" %}</strong>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Delete" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 
 {% endblock %}
+
+
+
+
