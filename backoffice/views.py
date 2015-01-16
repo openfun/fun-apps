@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import random
+import logging
 import os
+import random
 
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Count
 from django.forms.formsets import formset_factory
 from django.http import HttpResponse
@@ -22,7 +24,8 @@ from universities.models import University
 
 ABOUT_SECTION_FIELDS = ['title', 'university']
 
-from django.contrib.auth.decorators import user_passes_test
+
+log = logging.getLogger(__name__)
 
 
 def group_required(*group_names):
@@ -77,6 +80,7 @@ def course_detail(request, course_key_string):
 
             CourseAccessRole.objects.filter(course_id=ck).delete()  # shall we also delete student's enrollments ?
             messages.warning(request, _(u"Course <strong>%s</strong> has been deleted.") % course.id)
+            log.warning('Course %s deleted by user %s' % (course.id, request.user.username))
             return redirect(courses_list)
 
     try:
