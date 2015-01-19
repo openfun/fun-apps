@@ -670,12 +670,6 @@ msgstr "Votre compte sur {platform_name} a bien été créé. Nous vous avons en
 "un mail de confirmation à {email}. Pour activer votre compte, cliquez sur le lien "
 "contenu dans le mail."
 
-msgid "Unregister"
-msgstr "Se désinscrire"
-
-msgid "Are you sure you want to unregister from"
-msgstr "Etes vous sûr de vouloir vous désinscrire: "
-
 #: lms/templates/registration/activate_account_notice.html
 msgid "Thanks for Registering!"
 msgstr "Merci pour votre inscription !"
