@@ -4,23 +4,22 @@
 
 {% block content %}
 
-<div class="column-group gutters">
-    <div class="all-100">
-        <h2>{% trans "Courses" %}</h2>
+    <div>
+        <h1>{% trans "Courses" %}</h1>
 
-        <form class="ink-form" mathod="GET" action=".">
-            <div class="column-group horizontal-gutters">
-                <div class="control-group all-50 small-100 tiny-100">
-                    <div class="control prepend-button" role="search">
-                        <input type="submit" value="{% trans 'Search' %}" class="ink-button">
-                        <span><input type="text" name="search" value="{{ pattern|default:'' }}"></span>
-                    </div>
+        <form class="" mathod="GET" action=".">
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">{% trans 'Search' %}</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="{{ pattern|default:'' }}" name="search">
                 </div>
             </div>
         </form>
+        <p>
+            {{ courses|length }} {% trans "courses" %}{% if pattern %} {% trans "for you search pattern" %}{% endif %}
+        </p>
 
-
-        <table class="ink-table hover">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th class="align-left">{% trans 'Ident' %}</th>
@@ -33,7 +32,11 @@
             <tbody>
                 {% for course in courses %}
                 <tr>
-                    <td><a href="{% url 'backoffice-course-detail' course.ident %}">{{ course.ident }}</a></td>
+                    <td>
+                        <a href="{% url 'backoffice-course-detail' course.id %}">{{ course.id }}</a>
+                        {% if course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
+                        {% if course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
+                    </td>
                     <td>{{ course.university }}</td>
                     <td>{{ course.title }}</td>
                     <td>{{ course.start|date:'d/m/y' }}</td>
@@ -54,7 +57,6 @@
 
 
     </div>
-</div>
 
 
 {% endblock %}

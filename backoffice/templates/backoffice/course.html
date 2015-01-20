@@ -2,72 +2,106 @@
 {% load url from future %}
 {% load i18n course %}
 
-{% block content %}
-
+{% block extra_head %}
 <style>
-.vertical-space, .xlarge-vertical-space {
-    margin-bottom: 2px;
-    margin-top: 0em;
-}
-
-input.ink-button.blue{
-    margin-top: 1em;
-}
-
-.removemargin {
-    margin: 0 !important;
-}
-
-legend {
-   margin-bottom: 5px;
+.button-bar {
+  margin-top: 30px;
 }
 </style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+
+</script>
+{% endblock %}
+
+{% block content %}
+
 
 <h1>{{ course.display_name_with_default }}</h1>
-<h2> {% trans 'Certificate generation' %} </h2>
-<form class="ink-form"action="{% url 'backoffice-course-detail' course.ident %}" method="post">
-  <fieldset>
-    <legend>  {% trans 'Students' %}  </legend>
-    <span></span>
-    <div class="control-group required
-		{% if student_form_certificate.full_name.errors %} validation warning {% endif %}">
-      <div class="control all-30">
-	{{student_form_certificate.full_name.label_tag}}
-	{{student_form_certificate.full_name}}
-	{% if student_form_certificate.full_name.errors %}
-	  {% for error in student_form_certificate.full_name.errors %}
- 	    <p class="tip">{{ error|escape }}</p>
-	  {% endfor %}
-	{% endif %}
+{% if course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
+{% if course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
+<div class="row">
+  <div class="col-md-9">
+
+    <div class="course-info">
+      <h2> {% trans 'Informations about course' %} </h2>
+
+      <p>
+        <strong>{% trans "Students enrolled to this course: " %}</strong>{{ students_count }}
+      </p>
+      <p>
+        {% regroup roles by role as roles_list %}
+        <ul>
+        {% for role in roles_list %}
+            <li><strong>{{ role.grouper }}:</strong>
+            <ul>
+                {% for item in role.list %}
+                  <li>{% if item.user.get_full_name %}{{ item.user.get_full_name }}{% else %}{{ item.user.username }}{% endif %}</li>
+                {% endfor %}
+            </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      </p>
+    </div>
+
+  </div>
+  <div class="col-md-3 text-center">
+    {% if university %}
+      <img src="{{ university.logo.url }}" alt="{{ university.name }}" title="{{ university.name }}" />
+      <h4>{{ university.name }}</h4>
+    {% else %}
+      {% trans "This course do not belongs to any university" %}
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+
+
+<div class="row button-bar">
+  <div class="col-md-6">
+    <a class="btn btn-primary" href="{{ studio_url }}">{% trans "View Course in Studio" %}</a>
+    <a class="btn btn-primary" href="{% url 'backoffice-course-certificate' course.id %}">{% trans "Generate test certificate" %}</a>
+  </div>
+  <div class="col-md-6 text-right"><a id="delete-course" class="btn btn-danger" data-toggle="modal" data-target="#delete-course-modal">{% trans "Delete this course" %}</a></div>
+</div>
+
+
+<!-- Modal -->
+<form action="{% url 'backoffice-course-detail' course.id %}" method="POST">
+<input type="hidden" name="action" value="delete-course">
+{% csrf_token %}
+<div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="">{% trans "Delete course" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+        {% trans "Please confirm you really want to delete this course:" %}<br>
+        <h4>{{ course.display_name_with_default }}</h4>
+          <strong>{{ students_count }} {% trans "Students enrolled" %}</strong>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Delete" %}</button>
       </div>
     </div>
-  </fieldset>
-  <fieldset>
-    <legend >  {% trans 'Teachers' %}  </legend>
-    <span> </span>
-    {{ teachers_form_certificate.management_form }}
-    {% for teacher_form in teachers_form_certificate %}
-      <div class="column-group gutters vertical-space " > <!--first container-->
-	{% for field in teacher_form %}
-	  <div class="control-group all-33 removemargin
-    		      {% if forloop.parentloop.counter == 1 %} required{% endif %}
-		      {% if field.errors %} validation warning {% endif %}" > <!--second container-->
-	    <div class="control"> <!--third container-->
-              {{ field.label_tag }}
-	      {{ field }}
-	      {% if field.errors %}
-	        {% for error in field.errors %}
- 	          <p class="tip">{{ error|escape }}</p>
-		{% endfor %}
-	      {% endif %}
-	    </div> <!--end of third container-->
-	  </div> <!--end of second container-->
-	{% endfor %}
-      </div> <!--end of first container-->
-    {% endfor %}
-  </fieldset>
-  {% csrf_token %}
-  <input type="submit" value="{% trans 'Generate test certificate' %}" class="ink-button blue" >
+  </div>
+</div>
 </form>
 
 {% endblock %}
+
+
+
+
