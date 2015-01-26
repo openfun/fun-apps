@@ -1,0 +1,95 @@
+## mako
+<%inherit file="base.html" />
+<%! import json %>
+<%! from django.core.urlresolvers import reverse %>
+<%! from django.utils.translation import ugettext_lazy as _ %>
+
+<%block name="content">
+    <div class="row">
+        <figure>
+            <div id="students-world-map" style="width: 100%; height: 600px"></div>
+        </figure>
+    </div>
+
+    <%def name="country_stat(title, stat)">
+        <h2>${title}</h2>
+        <h1>${stat[2]}</h1>
+        <div class="flag-icon flag-icon-${stat[1].lower()}" style="width: 100%; height: 100px;"></div>
+        <h2>${_("%.2f%% of students") % (stat[0] * 100. / total_population)}</h2>
+    </%def>
+
+    <div class="row">
+        <div class="thumbnail col-md-3 key-stats">
+            <h1>${_("%d students") % total_population}</h1>
+            <h2>${_("from")}</h2>
+            <h1>${_("%d countries") % len(course_population)}</h1>
+        </div>
+        %if len(top_countries) > 0:
+        <div class="thumbnail col-md-3 key-stats">${country_stat(_("Top country by enrollment"), top_countries[0])}</div>
+        %endif
+        %if len(top_countries) > 1:
+        <div class="thumbnail col-md-3 key-stats">${country_stat(_("Second country by enrollment"), top_countries[1])}</div>
+        %endif
+        %if len(top_countries) > 2:
+        <div class="thumbnail col-md-3 key-stats">${country_stat(_("Third country by enrollment"), top_countries[2])}</div>
+        %endif
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="pull-right" href="${reverse('course-dashboard:student-map', kwargs={'course_id': course_id})}?format=csv">${_("Download raw CSV data")}</a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table col-md-12">
+            <tr>
+                <th>${_("Country")}</th>
+                <th>${_("Number of learners")}</th>
+                <th>${_("Proportion")}</th>
+            </tr>
+            % for population, code, country in top_countries:
+            <tr>
+                <td>${country}</td>
+                <td>${population}</td>
+                <td>${"%.2f" % (population * 100. / total_population)}%</td>
+            </tr>
+            % endfor
+        </table>
+    </div>
+</%block>
+
+<%block name="extra_footer">
+    <%namespace name='static' file='/static_content.html'/>
+    <link rel="stylesheet" href="${static.url('js/vendor/jquery-jvectormap-1.1.1/jquery-jvectormap-1.1.1.css')}" type="text/css"/>
+    <link rel="stylesheet" href="${static.url('flags/css/flag-icon.min.css')}" type="text/css"/>
+    <script type="text/javascript" src="${static.url('js/vendor/jquery-jvectormap-1.1.1/jquery-jvectormap-1.1.1.min.js')}"></script>
+    <script type="text/javascript" src="${static.url('js/vendor/jquery-jvectormap-1.1.1/jquery-jvectormap-world-mill-en.js')}"></script>
+    <style>
+        .jvectormap-zoomin, .jvectormap-zoomout {
+            /* Fix zoom in/out map buttons */
+            box-sizing: content-box;
+        }
+    </style>
+    <script>
+        (function(){
+            var coursePopulation = ${json.dumps(course_population)}
+            $(function(){
+                $('#students-world-map').vectorMap({
+                    map: 'world_mill_en',
+                    backgroundColor: '#eeeeee',
+                    series: {
+                        regions: [{
+                            values: coursePopulation,
+                            scale: ['#C8EEFF', '#004F73'],
+                            normalizeFunction: 'polynomial'
+                        }]
+                    },
+                    onRegionLabelShow: function(event, label, code){
+                        label.text(label.text() + ': ' + (coursePopulation[code] || 0));
+                    }
+                });
+            });
+        })();
+    </script>
+</%block>
+

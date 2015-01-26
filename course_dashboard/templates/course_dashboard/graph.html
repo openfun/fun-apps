@@ -1,0 +1,59 @@
+## Mako
+## Required arguments: stats_per_timestamp, figure_label, figure_id
+<%page args="stats_per_timestamp, figure_label, figure_id"/>
+
+<%namespace name='static' file='/static_content.html'/>
+<%! from django.utils.formats import get_format %>
+<%! from django.utils.translation import ugettext as _ %>
+
+<script type="text/javascript" src="${static.url('fun/js/jquery.flot.time.js')}"></script>
+<script>
+    (function(){
+        var data = ${stats_per_timestamp};
+        $.plot(
+            $("#${figure_id}"),
+            [{
+                label: "${figure_label}",
+                data: data,
+                color: "#4E46DB"
+            }],
+            {
+                series: {
+                    lines: {
+                        show: true,
+                    },
+                    points: {
+                        show: true,
+                        hoverable: true
+                    }
+                },
+                grid: {
+                    hoverable: true,
+                },
+                xaxis: {
+                    mode: "time",
+                    timeformat: "${_('%m/%d/%Y')}",
+                }
+            }
+        );
+        $("<div id='figure-tooltip'></div>").css({
+            position: "absolute",
+            display: "none",
+            border: "1px solid #fdd",
+            padding: "2px",
+            "background-color": "#C8EEFF",
+            opacity: 0.80
+        }).appendTo("body");
+        $("#${figure_id}").bind("plothover", function (event, pos, item) {
+            if (item) {
+                var count = item.datapoint[1];
+                $("#figure-tooltip").html(count)
+                    .css({top: item.pageY-30, left: item.pageX+5})
+                    .fadeIn(200);
+            } else {
+                $("#figure-tooltip").hide();
+            }
+        });
+    })();
+</script>
+
