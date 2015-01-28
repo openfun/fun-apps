@@ -1,4 +1,5 @@
 {% extends 'backoffice/base.html' %}
+{% load staticfiles %}
 {% load url from future %}
 {% load i18n course %}
 
@@ -7,51 +8,157 @@
 <style>
   label.required :after {
      content:" *";
-     color:red;
+  color:red;
   }
 </style>
+ <!-- JavaScript for interactivity. -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+ <!-- add instructor taskn not none -->
+<script src="{% static 'backoffice/js/pending_tasks.js' %}"></script>
+
+<script>
+ $(function() {
+        $('#generate_button').click(function() {
+          $.get('{% url 'backoffice-generate-certificate' course.id %}', function(data){alert(data);});
+        });
+      });
+</script>
 
 <h1>{{ course.display_name_with_default }}</h1>
 <h2>{% trans 'Certificate generation' %}</h2>
-<form class="" action="{% url 'backoffice-course-certificate' course.id %}" method="post">
+
+<form  action="{% url 'backoffice-course-certificate' course.id %}" method="post">
   <fieldset>
     <legend>{% trans 'Student' %}</legend>
     <div class="form-group {% if student_form_certificate.full_name.errors %}has-error{% endif %}">
       <label class="control-label required"><span>{{ student_form_certificate.full_name.label }}</span></label>
-      {{ student_form_certificate.full_name }}
-      {% if student_form_certificate.full_name.errors %}
-        {% for error in student_form_certificate.full_name.errors %}
-          <p class="control-label">{{ error|escape }}</p>
-        {% endfor %}
-      {% endif %}
+        {{ student_form_certificate.full_name }}
+        {% if student_form_certificate.full_name.errors %}
+          {% for error in student_form_certificate.full_name.errors %}
+            <p class="control-label">{{ error|escape }}</p>
+          {% endfor %}
+        {% endif %}
     </div>
   </fieldset>
   <fieldset>
     <legend >{% trans 'Teachers' %}</legend>
-
     {{ teachers_form_certificate.management_form }}
     {% csrf_token %}
     {% for teacher_form in teachers_form_certificate %}
       <div class="row">
         {% for field in teacher_form %}
-
-        <div class="col-xs-4">
-          <div class="form-group{% if field.errors %} has-error{% endif %}">
-            <label for="" class="control-label {% if forloop.parentloop.counter == 1 %} required{% endif %}"><span>{{ field.label }}</span></label>
-            {{ field }}
-            {% if field.errors %}
-              {% for error in field.errors %}
-                <p class="control-label">{{ error|escape }}</p>
-              {% endfor %}
-            {% endif %}
+          <div class="col-xs-4">
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+              <label for="" class="control-label {% if forloop.parentloop.counter == 1 %} required{% endif %}"><span>{{ field.label }}</span></label>
+              {{ field }}
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="control-label">{{ error|escape }}</p>
+                {% endfor %}
+              {% endif %}
+            </div>
           </div>
-        </div>
         {% endfor %}
       </div>
     {% endfor %}
-
+  </fieldset>
   <input class="btn btn-primary" type="submit" value="{% trans 'Generate test certificate' %}">
-
 </form>
+
+<button class="btn btn-primary" id="generate_button" >  {% trans 'Generate certificate' %}
+</button>
+  {% if instructor_tasks and instructor_tasks|length > 0 %}
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">  {% trans "Pending Instructor Tasks"%}</div>
+  <div class="panel-body">
+  </div>
+  <!-- Table -->
+
+
+  <div id="task-progress-wrapper">
+    <table class="table">
+      <tr>
+        <th>{% trans "Task Type"%}</th>
+        <th>{% trans "Task inputs"%}</th>
+        <th>{% trans "Task outputs"%}</th>
+        <th>{% trans "Task Id"%}</th>
+        <th>{% trans "Requester"%}</th>
+        <th>{% trans "Submitted"%}</th>
+        <th>{% trans "Task State"%}</th>
+        <th>{% trans "Duration (sec)"%}</th>
+        <th>{% trans "Task Progress"%}</th>
+      </tr>
+       {% for  instructor_task in instructor_tasks %}
+        <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
+            data-task-id="{{instructor_task.task_id}}"
+            data-in-progress="true">
+          <td>{{instructor_task.task_type}}</td>
+          <td>{{instructor_task.task_input}}</td>
+          <td>{{instructor_task.task_output}}</td>
+          <td class="task-id">{{instructor_task.task_id}}</td>
+          <td>{{instructor_task.requester}}</td>
+          <td>{{instructor_task.created}}</td>
+          <td class="task-state">{{instructor_task.task_state}}</td>
+          <td class="task-duration">{% trans "unknown" %}</td>
+          <td class="task-progress">{% trans "unknown" %}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+</div>
+ {% endif %}
+
+
+
+
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">  {% trans "Previous Instructor Tasks"%}</div>
+  <div class="panel-body">
+  </div>
+  <!-- Table -->
+  {% comment "Optional note" %}
+     {% if instructor_tasks and instructor_tasks|length > 0 %}
+  {% endcomment %}
+
+  <div id="task-progress-wrapper">
+    <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>{% trans "Task Type"%}</th>
+        <th>{% trans "Task inputs"%}</th>
+        <th>{% trans "Task outputs"%}</th>
+        <th>{% trans "Task Id"%}</th>
+        <th>{% trans "Requester"%}</th>
+        <th>{% trans "Submitted"%}</th>
+        <th>{% trans "Task State"%}</th>
+        <th>{% trans "Duration (sec)"%}</th>
+        <th>{% trans "Task Progress"%}</th>
+      </tr>
+       {% for  instructor_task in instructor_tasks_history %}
+        <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
+            data-task-id="{{instructor_task.task_id}}"
+            data-in-progress="true">
+          <td>{{instructor_task.task_type}}</td>
+          <td>{{instructor_task.task_input}}</td>
+          <td>{{instructor_task.task_output}}</td>
+          <td class="task-id">{{instructor_task.task_id}}</td>
+          <td>{{instructor_task.requester}}</td>
+          <td>{{instructor_task.created}}</td>
+          <td class="task-state">{{instructor_task.task_state}}</td>
+          <td class="task-duration">{% trans "unknown" %}</td>
+          <td class="task-progress">{% trans "unknown" %}</td>
+        </tr>
+        {% endfor %}
+      </table>
+</div>
+    </div>
+</div>
+
+
 
 {% endblock %}

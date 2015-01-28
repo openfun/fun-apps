@@ -14,12 +14,17 @@ from django.utils.translation import ugettext_lazy as _
 
 from capa.xqueue_interface import make_hashkey
 from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
+from instructor_task.api_helper import AlreadyRunningError
+from instructor_task.api import get_running_instructor_tasks, get_instructor_task_history
+from instructor.views.legacy import get_background_task_table
+from util.json_request import JsonResponse
 from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole
 from xmodule.modulestore.django import modulestore
 
 from backoffice.forms import StudentCertificateForm, TeachersCertificateForm, RequiredFormSet
 from fun_certificates.generator import CertificateInfo
+from fun_instructor.api import submit_generate_certificate
 from universities.models import University
 
 ABOUT_SECTION_FIELDS = ['title', 'university']
@@ -105,6 +110,12 @@ def course_detail(request, course_key_string):
 @group_required('fun_backoffice')
 def course_certificate(request, course_key_string):
     course = get_course(course_key_string)
+    ck = CourseKey.from_string(course_key_string)
+
+    # generate list of pending background tasks
+    instructor_tasks = get_running_instructor_tasks(ck)
+    # generate list of previous background tasks
+    instructor_tasks_history = get_instructor_task_history(ck, usage_key=None, student=None, task_type='certificate-generation')
 
     teachers_form_set_factory = formset_factory(
         TeachersCertificateForm,
@@ -132,6 +143,8 @@ def course_certificate(request, course_key_string):
             'course': course,
             'student_form_certificate' : student_form,
             'teachers_form_certificate' : teachers_form_set,
+            'instructor_tasks' : instructor_tasks,
+            'instructor_tasks_history' : instructor_tasks_history,
         })
 
 
@@ -182,3 +195,21 @@ def generate_test_certificate(course, university, student_form, teachers_form_se
     certificate.generate()
 
     return certificate
+
+@group_required('fun_backoffice')
+def generate_certificate(request, course_key_string):
+    """  """
+
+    course_key = CourseKey.from_string(course_key_string)
+    query_features = {'student' : '',
+                      'problem_url' : '',
+                      'email_id' : '',
+                      'teachers' : 'jean/profs'}
+    try:
+        submit_generate_certificate(request, course_key, query_features)
+        success_status = "OK"
+        return JsonResponse({"status": success_status})
+    except AlreadyRunningError:
+        already_running_status = "attention"
+        return JsonResponse({"status": already_running_status})
+
