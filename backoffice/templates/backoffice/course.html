@@ -69,7 +69,9 @@
                   <li><strong>{{ role.grouper }}:</strong>
                   <ul>
                       {% for item in role.list %}
-                        <li>{% if item.user.get_full_name %}{{ item.user.get_full_name }}{% else %}{{ item.user.username }}{% endif %}</li>
+                        <li>{% if item.user.get_full_name %}{{ item.user.get_full_name }}{% else %}{{ item.user.username }}{% endif %}
+                           - <a href="mailto:{{ item.user.email }}">{{ item.user.email }}</a>
+                        </li>
                       {% endfor %}
                   </ul>
                   </li>
