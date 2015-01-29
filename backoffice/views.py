@@ -51,7 +51,16 @@ def course_infos(course):
     for section in ABOUT_SECTION_FIELDS:
         setattr(course, section, get_course_about_section(course, section))
     setattr(course, 'course_image_url', course_image_url(course))
+    setattr(course, 'students_count', CourseEnrollment.objects.filter(course_id=course.id).count())
+    return course
 
+
+def get_course(course_key_string):
+    """
+    Return the edX course object  for a given course_key.
+    """
+    ck = CourseKey.from_string(course_key_string)
+    course = modulestore().get_course(ck, depth=0)
     return course
 
 
@@ -78,7 +87,7 @@ def course_detail(request, course_key_string):
     """Course is deleted from Mongo and staff and students enrollments from mySQL.
     States and responses from students are not yet deleted from mySQL
     (StudentModule, StudentModuleHistory are very big tables)."""
-    course = get_course(course_key_string)
+    course = course_infos(get_course(course_key_string))
     ck = CourseKey.from_string(course_key_string)
     funcourse, created = Course.objects.get_or_create(key=ck)
     if created:
@@ -114,7 +123,6 @@ def course_detail(request, course_key_string):
         university = None
 
     studio_url = get_cms_course_link(course)
-    students_count = CourseEnrollment.objects.filter(course_id=ck).count()
     roles = CourseAccessRole.objects.filter(course_id=ck)
 
     return render(request, 'backoffice/course.html', {
@@ -122,7 +130,6 @@ def course_detail(request, course_key_string):
             'studio_url': studio_url,
             'teacher_formset': teacher_formset,
             'university': university,
-            'students_count': students_count,
             'roles': roles,
         })
 
@@ -158,15 +165,6 @@ def course_certificate(request, course_key_string):
             'instructor_tasks' : instructor_tasks,
             'instructor_tasks_history' : instructor_tasks_history,
         })
-
-
-def get_course(course_key_string):
-    """
-    Return the course for a given course_key.
-    """
-    ck = CourseKey.from_string(course_key_string)
-    course = modulestore().get_course(ck, depth=0)
-    return course
 
 
 def certificate_file_response(certificate):
