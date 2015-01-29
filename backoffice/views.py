@@ -8,9 +8,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Count
 from django.forms.formsets import formset_factory
+from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
+
 
 from capa.xqueue_interface import make_hashkey
 from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
@@ -22,10 +24,12 @@ from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole
 from xmodule.modulestore.django import modulestore
 
-from backoffice.forms import StudentCertificateForm, TeachersCertificateForm, RequiredFormSet
+from backoffice.forms import StudentCertificateForm, FirstRequiredFormSet
 from fun_certificates.generator import CertificateInfo
 from fun_instructor.api import submit_generate_certificate
 from universities.models import University
+
+from .models import Course, Teacher
 
 ABOUT_SECTION_FIELDS = ['title', 'university']
 
@@ -76,6 +80,15 @@ def course_detail(request, course_key_string):
     (StudentModule, StudentModuleHistory are very big tables)."""
     course = get_course(course_key_string)
     ck = CourseKey.from_string(course_key_string)
+    funcourse, created = Course.objects.get_or_create(key=ck)
+    if created:
+        funcourse.university = University.objects.get(slug=ck.org)
+        funcourse.save()
+
+
+    TeacherFormSet = inlineformset_factory(Course, Teacher, formset=FirstRequiredFormSet, can_delete=True)
+    teacher_formset = TeacherFormSet(instance=funcourse, data=request.POST or None)
+
     if request.method == 'POST':
         if request.POST['action'] == 'delete-course':
             # from xmodule.contentstore.utils.delete_course_and_groups function
@@ -84,8 +97,15 @@ def course_detail(request, course_key_string):
                 module_store.delete_course(ck, request.user.id)
 
             CourseAccessRole.objects.filter(course_id=ck).delete()  # shall we also delete student's enrollments ?
+            funcourse.delete()
             messages.warning(request, _(u"Course <strong>%s</strong> has been deleted.") % course.id)
             log.warning('Course %s deleted by user %s' % (course.id, request.user.username))
+            return redirect(courses_list)
+
+        elif request.POST['action'] == 'update-teachers' and teacher_formset.is_valid():
+            teacher_formset.save()
+
+            messages.success(request, _(u"Teachers have been updated"))
             return redirect(courses_list)
 
     try:
@@ -100,11 +120,11 @@ def course_detail(request, course_key_string):
     return render(request, 'backoffice/course.html', {
             'course': course,
             'studio_url': studio_url,
+            'teacher_formset': teacher_formset,
             'university': university,
             'students_count': students_count,
             'roles': roles,
         })
-
 
 
 @group_required('fun_backoffice')
@@ -117,15 +137,9 @@ def course_certificate(request, course_key_string):
     # generate list of previous background tasks
     instructor_tasks_history = get_instructor_task_history(ck, usage_key=None, student=None, task_type='certificate-generation')
 
-    teachers_form_set_factory = formset_factory(
-        TeachersCertificateForm,
-        extra=TeachersCertificateForm.MAX_TEACHERS,
-        formset=RequiredFormSet
-    )
 
     if request.method == 'POST':
         student_form = StudentCertificateForm(request.POST)
-        teachers_form_set = teachers_form_set_factory(request.POST)
         if student_form.is_valid() and teachers_form_set.is_valid():
             try:
                 university = University.objects.get(code=course.org)
@@ -136,13 +150,11 @@ def course_certificate(request, course_key_string):
                 certificate = generate_test_certificate(course, university, student_form, teachers_form_set)
                 return certificate_file_response(certificate)
     else:
-        teachers_form_set = teachers_form_set_factory()
         student_form = StudentCertificateForm()
 
     return render(request, 'backoffice/certificate.html', {
             'course': course,
             'student_form_certificate' : student_form,
-            'teachers_form_certificate' : teachers_form_set,
             'instructor_tasks' : instructor_tasks,
             'instructor_tasks_history' : instructor_tasks_history,
         })

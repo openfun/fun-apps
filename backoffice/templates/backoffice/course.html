@@ -1,6 +1,6 @@
 {% extends 'backoffice/base.html' %}
 {% load url from future %}
-{% load i18n course %}
+{% load i18n course staticfiles %}
 
 {% block extra_head %}
 <style>
@@ -10,8 +10,23 @@
 </style>
 {% endblock %}
 
-{% block extra_js %}
+{% block extr_js %}
+    <script src="{% static 'fun/js/djangoExtendFormset.js' %}"></script>
 <script>
+
+    $('.teachers-form').extendFormset({
+        clone_selector: 'div.teacher-row',
+        add_button_class: 'btn btn-info',
+        add_button_value: $('.teachers-form').data('add-button-caption'),
+        add_button_container: '.teachers-form-button-group',
+        handle_order: false,
+        handle_delete: true,
+        delete_button: '<i class="glyphicon glyphicon-trash"></i>'
+    })
+
+    // open tab if form error
+    var tab = $('.text-danger').closest('.tab-pane').attr('id');
+    $('ul.nav.nav-tabs a[href="#'+ tab + '"]').tab('show')
 
 
 </script>
@@ -23,50 +38,121 @@
 <h1>{{ course.display_name_with_default }}</h1>
 {% if course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
 {% if course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
-<div class="row">
-  <div class="col-md-9">
 
-    <div class="course-info">
-      <h2> {% trans 'Course informations' %} </h2>
 
-      <p>
-        <strong>{% trans "Students enrolled in this course: " %}</strong>{{ students_count }}
-      </p>
-      <p>
-        {% regroup roles by role as roles_list %}
-        <ul>
-        {% for role in roles_list %}
-            <li><strong>{{ role.grouper }}:</strong>
-            <ul>
-                {% for item in role.list %}
-                  <li>{% if item.user.get_full_name %}{{ item.user.get_full_name }}{% else %}{{ item.user.username }}{% endif %}</li>
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Informations" %}</a></li>
+    <li role="presentation"><a href="#teachers" aria-controls="profile" role="tab" data-toggle="tab">{% trans "Teachers" %}</a></li>
+  </ul>
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+
+      <div class="row">
+        <div class="col-md-9">
+
+          <div class="course-info">
+            <h2> {% trans 'Course informations' %} </h2>
+
+            <p>
+              <strong>{% trans "Students enrolled in this course: " %}</strong>{{ students_count }}
+            </p>
+            <p>
+              {% regroup roles by role as roles_list %}
+              <ul>
+                {% for role in roles_list %}
+                  <li><strong>{{ role.grouper }}:</strong>
+                  <ul>
+                      {% for item in role.list %}
+                        <li>{% if item.user.get_full_name %}{{ item.user.get_full_name }}{% else %}{{ item.user.username }}{% endif %}</li>
+                      {% endfor %}
+                  </ul>
+                  </li>
                 {% endfor %}
-            </ul>
-            </li>
-          {% endfor %}
-        </ul>
-      </p>
+              </ul>
+            </p>
+          </div>
+
+        </div>
+        <div class="col-md-3 text-center">
+          {% if university %}
+            <img src="{{ university.logo.url }}" alt="{{ university.name }}" title="{{ university.name }}" />
+            <h4>{{ university.name }}</h4>
+          {% else %}
+            {% trans "This course do not belongs to any university" %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="row button-bar">
+        <div class="col-md-6">
+          <a class="btn btn-primary" href="{{ studio_url }}">{% trans "View Course in Studio" %}</a>
+          <a class="btn btn-primary" href="{% url 'backoffice-course-certificate' course.id %}">{% trans "Generate test certificate" %}</a>
+        </div>
+        <div class="col-md-6 text-right">
+          <a id="delete-course" class="btn btn-danger" data-toggle="modal" data-target="#delete-course-modal">{% trans "Delete this course" %}</a>
+        </div>
+      </div>
+
     </div>
 
+
+    <div role="tabpanel" class="tab-pane" id="teachers">
+
+      <h2>{% trans 'Teachers' %}</h2>
+
+      <p>
+      Vous pouvez saisir ici les noms et titres des enseignants tels qu'ils apparaitront sur les certificats
+      </p>
+
+      <form action="{% url 'backoffice-course-detail' course.id %}" method="POST">
+        <input type="hidden" name="action" value="update-teachers">
+        <fieldset>
+          {{ teacher_formset.management_form }}
+          {% csrf_token %}
+          <div class="teachers-form" data-add-button-caption="{%trans 'Add teacher' %}">
+
+            {% for teacher_form in teacher_formset %}
+              {% if teacher_form.non_field_errors %}
+              <div class="panel panel-default">
+                <div class="panel-body text-danger">
+                  {% for error in teacher_form.non_field_errors %}
+                    {{ error }}
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+
+              <div class="teacher-row form-group form-inline">
+                {{ teacher_form.id }}
+                <label>{% trans "Title:" %}</label>
+                {{ teacher_form.title }}
+                &nbsp;&nbsp;&nbsp;<label>{% trans "Full name:" %}</label>
+                {{ teacher_form.full_name }}
+                {% if teacher_form.full_name.errors %}<span class="text-danger">  {{ teacher_form.full_name.errors.0 }}</span>{% endif %}
+                {{ teacher_form.order }}
+                {{ teacher_form.DELETE }}
+              </div>
+            {% endfor %}
+          </div>
+          <div class=" btn-toolbar">
+          <span class="teachers-form-button-group"></span>
+            <input class="btn btn-primary" type="submit" value="{% trans 'Save' %}">
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
   </div>
-  <div class="col-md-3 text-center">
-    {% if university %}
-      <img src="{{ university.logo.url }}" alt="{{ university.name }}" title="{{ university.name }}" />
-      <h4>{{ university.name }}</h4>
-    {% else %}
-      {% trans "This course do not belongs to any university" %}
-    {% endif %}
-  </div>
+
 </div>
 
 
-<div class="row button-bar">
-  <div class="col-md-6">
-    <a class="btn btn-primary" href="{{ studio_url }}">{% trans "View Course in Studio" %}</a>
-    <a class="btn btn-primary" href="{% url 'backoffice-course-certificate' course.id %}">{% trans "Generate test certificate" %}</a>
-  </div>
-  <div class="col-md-6 text-right"><a id="delete-course" class="btn btn-danger" data-toggle="modal" data-target="#delete-course-modal">{% trans "Delete this course" %}</a></div>
-</div>
 
 
 <!-- Modal -->
