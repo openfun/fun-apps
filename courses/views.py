@@ -4,12 +4,16 @@ import datetime
 import re
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
+from django.contrib.syndication.views import Feed
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
-from django.utils import timezone
-from django.utils import translation
+from django.template.loader import render_to_string
+from django.utils import timezone, translation
+from django.utils.translation import ugettext_lazy as _
 
-from courseware.courses import get_courses, sort_by_announcement
+from courseware.courses import get_courses, sort_by_announcement, get_course_about_section
+#from edxmako.shortcuts import render_to_string
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
@@ -69,7 +73,7 @@ def _sort_courses(courses):
     return sort_by_announcement(courses)  # sorted(courses, _sort_by_novelty)
 
 
-def course_index(request):
+def courses_index(request):
     courses = [_dates_description(course) for course in get_courses(request.user)]
     form = CourseFilteringForm(request.GET or None)
     by = request.GET.get('by', COURSES_BY_PAGE)  # override default page size
@@ -145,3 +149,27 @@ def registration_datetime_text(course, date):
     strftime = course.runtime.service(course, "i18n").strftime
     date_time = strftime(date, "SHORT_DATE")
     return date_time
+
+
+class CoursesFeed(Feed):
+    title = _(u"Fun latest published courses")
+    link = "/cours/feed/"
+    description = _(u"Latests courses published on www.france-universite-numerique-mooc.fr")
+    __name__ = 'FUNRSS'
+
+    def items(self, request):
+        return get_courses(None)[:10]
+
+    def item_title(self, course):
+        return get_course_about_section(course, 'title')
+
+    def item_description(self, course):
+        course = _dates_description(course)
+        context = {}
+        context['image_url'] = course_image_url(course) + '?width=300'
+        context['short_description'] = get_course_about_section(course, 'short_description')
+        context['course'] = course
+        return render_to_string('courses/feed/feed.html', context)
+
+    def item_link(self, course):
+        return reverse('about_course', args=[course.id.to_deprecated_string()])
