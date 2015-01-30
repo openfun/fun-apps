@@ -5,7 +5,7 @@
 
 {% block extra_head %}
 <style>
-#generate_certificate_test_button, #generate_certificate_button, .panel {
+#generate_test_certificate_button, #generate_certificate_button, .panel {
   margin : 15px;} 
 </style>
 {% endblock %}
@@ -17,7 +17,7 @@
 {% block content %}
 <h2>{{ course.display_name_with_default }}</h2>
 
-<button class="btn btn-primary" id="generate_certificate_test_button"> {% trans 'Generate test certificate' %} </button>
+<a class="btn btn-primary"  id="generate_test_certificate_button" href="{% url 'generate-test-certificate' course.id %}"> {% trans 'Generate test certificate' %}</a>
 <button class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">  {% trans 'Generate certifiate'%} </button>
 
 
@@ -64,7 +64,7 @@
 {% if instructor_tasks_history and instructor_tasks_history|length > 0 %}
   <div class="panel panel-info">
     <!-- Default panel contents -->
-    <div class="panel-heading">  {% trans "Pending Certificate Tasks"%}</div>
+    <div class="panel-heading">  {% trans "Previous Certificate Tasks"%}</div>
       <!-- Table -->
       <div id="task-progress-wrapper-history">
         <table class="table">
@@ -97,7 +97,7 @@
 
 <!-- Modal call when #generate_certificate_button is pressed -->
 
-<form action="{% url 'backoffice-generate-certificate' course.id %}" method="GET">
+<form action="{% url 'generate-certificate' course.id %}" method="GET">
 <div class="modal fade" id="certificate-generation-modal" tabindex="-1" role="dialog"  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

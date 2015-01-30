@@ -1,6 +1,7 @@
 """
 This file contains tasks that are designed to perform background operations on the running state of a course.
 """
+
 from datetime import datetime
 from time import time
 from pytz import UTC
@@ -14,7 +15,7 @@ from certificates.models import (
   GeneratedCertificate)
 
 from fun_certificates.management.commands.generate_fun_certificates import get_enrolled_students, generate_fun_certificate
-
+from backoffice.certificate_management.utils import get_teachers_list_from_course
 from universities.models import University
 
 
@@ -31,6 +32,7 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
     start_date = datetime.now(UTC)
     status_interval = 1
     enrolled_students = get_enrolled_students(course_id)
+    teachers = get_teachers_list_from_course(course.to_deprecated_string())
     task_progress = TaskProgress(action_name, enrolled_students.count(), start_time)
 
     all_status = {status.notpassing: 0,
@@ -48,7 +50,7 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
                 logo_path = None
             student_status = generate_fun_certificate(student, course_id,
                                                   course_display_name, course,
-                                                  ["henri/prof"], university.name,
+                                                  teachers, university.name,
                                                   logo_path, certificate_base_filename,
                                                   False, False, False)
             if student_status:
