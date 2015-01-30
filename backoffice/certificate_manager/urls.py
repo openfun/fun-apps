@@ -2,7 +2,7 @@
 
 from django.conf.urls import url, patterns
 
-urlpatterns = patterns('backoffice.certificate_management.views',
+urlpatterns = patterns('backoffice.certificate_manager.views',
     url(r'^dashboard$', 'certificate_dashboard', name='certificate-dashboard'),
     url(r'^generate$', 'generate_certificate', name='generate-certificate'),
     url(r'^generate_test$', 'generate_test_certificate', name='generate-test-certificate'),

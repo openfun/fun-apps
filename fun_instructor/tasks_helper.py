@@ -15,7 +15,7 @@ from certificates.models import (
   GeneratedCertificate)
 
 from fun_certificates.management.commands.generate_fun_certificates import get_enrolled_students, generate_fun_certificate
-from backoffice.certificate_management.utils import get_teachers_list_from_course
+from backoffice.certificate_manager.utils import get_teachers_list_from_course
 from universities.models import University
 
 
