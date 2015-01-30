@@ -2,6 +2,7 @@
 
 import logging
 import os
+import json
 import random
 
 from django.contrib import messages
@@ -17,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 from capa.xqueue_interface import make_hashkey
 from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
 from instructor_task.api_helper import AlreadyRunningError
-from instructor_task.api import get_running_instructor_tasks, get_instructor_task_history
+from instructor_task.api import get_instructor_task_history
 from instructor.views.legacy import get_background_task_table
 from util.json_request import JsonResponse
 from opaque_keys.edx.keys import CourseKey
@@ -26,7 +27,7 @@ from xmodule.modulestore.django import modulestore
 
 from backoffice.forms import StudentCertificateForm, FirstRequiredFormSet
 from fun_certificates.generator import CertificateInfo
-from fun_instructor.api import submit_generate_certificate
+from fun_instructor.api import submit_generate_certificate, get_running_instructor_tasks
 from universities.models import University
 
 from .models import Course, Teacher
@@ -134,16 +135,40 @@ def course_detail(request, course_key_string):
         })
 
 
+
 @group_required('fun_backoffice')
 def course_certificate(request, course_key_string):
     course = get_course(course_key_string)
     ck = CourseKey.from_string(course_key_string)
 
     # generate list of pending background tasks
-    instructor_tasks = get_running_instructor_tasks(ck)
-    # generate list of previous background tasks
-    instructor_tasks_history = get_instructor_task_history(ck, usage_key=None, student=None, task_type='certificate-generation')
+    instructor_tasks = get_running_instructor_tasks(ck, task_type='certificate-generation')
 
+    for instructor_task in instructor_tasks:
+            if instructor_task.task_output:
+                instructor_task.task_output = json.loads(instructor_task.task_output)
+            else:
+                instructor_task.task_output = {'total' : 0,
+                                               'downloadable' : 0,
+                                               'notpassing': 0 }
+    # generate list of previous background tasks
+
+    instructor_tasks_history = get_instructor_task_history(ck, usage_key=None, student=None, )
+
+    for instructor_task in instructor_tasks_history:
+            if instructor_task.task_output:
+                instructor_task.task_output = json.loads(instructor_task.task_output)
+            else:
+                instructor_task.task_output = {'total' : 0,
+                                               'downloadable' : 0,
+                                               'notpassing': 0 }
+    # if instructor_tasks:
+    #     import ipdb; ipdb.set_trace()
+    teachers_form_set_factory = formset_factory(
+        TeachersCertificateForm,
+        extra=TeachersCertificateForm.MAX_TEACHERS,
+        formset=RequiredFormSet
+    )
 
     if request.method == 'POST':
         student_form = StudentCertificateForm(request.POST)

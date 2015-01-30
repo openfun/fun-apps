@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-
     <title>{% trans "Support team" %}</title>
 
     <!-- Bootstrap core CSS -->
@@ -21,29 +19,24 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <style>
-    .main {
-        margin-top: 60px;
-    }
-    </style>
-
     {% block extra_head %}{% endblock %}
   </head>
-
+  <style>
+    body {
+    padding-top: 70px;
+    }
+  </style>
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{% url 'backoffice-courses-list' %}"><strong>FUN</strong> | {% trans "Support team" %}<small> ({{ ENVIRONEMENT }})</small></a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <a class="navbar-brand" href="{% url 'backoffice-courses-list' %}"><strong>FUN</strong> | {% trans "Support team" %}<small> ({{ ENVIRONEMENT }})</small></a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#NavBar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div id="NavBar" class="collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'backoffice-courses-list' %}">{% trans "Courses" %}</a></li>
           </ul>
@@ -52,8 +45,6 @@
     </nav>
 
     <div class="container">
-
-      <div class="main">
       <!-- Django messages display -->
           {% if messages %}
               {% for message in messages %}
@@ -66,9 +57,6 @@
 
          {% block content %}
          {% endblock content %}
-
-      </div>
-
     </div>
 
     <script src="{% static 'fun/js/jquery-1.11.1.min.js' %}"></script>
