@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
+from celery.states import READY_STATES
 import json
 import os
 import random
+
 
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from capa.xqueue_interface import make_hashkey
+from instructor_task.models import InstructorTask
 
 from backoffice.models import Teacher
 from fun_certificates.generator import CertificateInfo
@@ -53,6 +56,16 @@ def filter_instructor_task(instructor_tasks):
                                            'notpassing': 0 }
     return instructor_tasks
 
+def get_running_instructor_tasks(course_id, task_type):
+    """
+    Returns a query of InstructorTask objects of running tasks for a given course and task type
+    """
+    instructor_tasks = InstructorTask.objects.filter(course_id=course_id, task_type=task_type)
+    # exclude states that are "ready" (i.e. not "running", e.g. failure, success, revoked):
+    for state in READY_STATES:
+        instructor_tasks = instructor_tasks.exclude(task_state=state)
+    return instructor_tasks.order_by('-id')
+
 
 def get_teachers_list_from_course(course_key):
     """
@@ -62,7 +75,6 @@ def get_teachers_list_from_course(course_key):
     teachers = Teacher.objects.filter(course__key=str(course_key))
     teachers_list = [u"{}/{}".format(teacher.full_name, teacher.title) for teacher in teachers]
     return teachers_list
-
 
 
 def get_university_attached_to_course(course):

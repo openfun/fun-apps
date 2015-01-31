@@ -1,5 +1,5 @@
 """
-This file contains tasks that are designed to perform background operations on the running state of a course.
+This file contains backoffice tasks that are designed to perform background operations on the running state of a course.
 """
 
 from datetime import datetime
@@ -32,7 +32,7 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
     start_date = datetime.now(UTC)
     status_interval = 1
     enrolled_students = get_enrolled_students(course_id)
-    teachers = get_teachers_list_from_course(course.to_deprecated_string())
+    teachers = get_teachers_list_from_course(course_id.to_deprecated_string())
     task_progress = TaskProgress(action_name, enrolled_students.count(), start_time)
 
     all_status = {status.notpassing: 0,

@@ -10,10 +10,11 @@ from instructor_task.api_helper import AlreadyRunningError
 
 from backoffice.utils import get_course_key, get_course
 from backoffice.views import group_required
-from fun_instructor.api import get_running_instructor_tasks, submit_generate_certificate
-
-
-from utils import filter_instructor_task, create_test_certificate, get_university_attached_to_course
+from fun_instructor.instructor_task_api import submit_generate_certificate
+from utils import (get_running_instructor_tasks,
+                  filter_instructor_task,
+                  create_test_certificate,
+                  get_university_attached_to_course)
 
 
 @group_required('fun_backoffice')
