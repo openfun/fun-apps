@@ -32,7 +32,8 @@ def certificate_dashboard(request, course_key_string):
 
     # generate list of pending background tasks and filter the output
     instructor_tasks = filter_instructor_task(get_running_instructor_tasks(course_key, task_type='certificate-generation'))
-    instructor_tasks_history = filter_instructor_task(get_instructor_task_history(course_key, usage_key=None, student=None))
+    instructor_tasks_history = filter_instructor_task(get_instructor_task_history(course_key, task_type='certificate-generation',
+                                                                                  usage_key=None, student=None))
 
     return render(request, 'backoffice/certificate.html', {
             'course': course,
