@@ -64,39 +64,43 @@
 <!-- Second Panel : Previous certificate generations tasks -->
 
 {% if instructor_tasks_history and instructor_tasks_history|length > 0 %}
-  <div class="panel panel-info">
-    <!-- Default panel contents -->
-    <div class="panel-heading">  {% trans "Previous Certificate Tasks"%}</div>
-      <!-- Table -->
-      <div id="task-progress-wrapper-history">
-        <table class="table">
-          <tr>
-            <th>{% trans "Certificate"%}</th>
-            <th>{% trans "Enrolled students"%}</th>
-            <th>{% trans "Students with certification"%}</th>
-            <th>{% trans "Students without certification"%}</th>
-            <th>{% trans "Task State"%}</th>
-            <th>{% trans "Task Start" %}</th>
-            <th>{% trans "Requester"%}</th>
-          </tr>
-          {% for instructor_task in instructor_tasks_history %}
-            <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
-              data-task-id="{{instructor_task.task_id}}"
-              data-in-progress="true">
-              <td class="task-certificate-pdf">
-                <a href="{{certificate_base_url}}{{instructor_task.task_output.test_certificate_filename}}">{% trans "Sample" %}</a>
-              </td>
-              <td class="task-enrolled-students">{{instructor_task.task_output.total}}</td>
-              <td class="task-certified-students">{{instructor_task.task_output.downloadable}}</td>
-              <td class="task-not-certified-students">{{instructor_task.task_output.notpassing}}</td>
-              <td class="task-state">{{instructor_task.task_state}}</td>
-              <td>{{instructor_task.created}}</td>
-              <td>{{instructor_task.requester}}</td>
-            </tr>
-          {% endfor %}
-        </table>
-      </div>
-  </div>
+  {% if instructor_tasks and instructor_tasks_history|length == 1 and instructor_tasks_history.0.task_id == instructor_tasks.0.task_id %}
+  {% else %}
+   <div class="panel panel-info">
+     <div class="panel-heading">  {% trans "Previous Certificate Tasks"%}</div>
+       <div id="task-progress-wrapper-history">
+         <table class="table">
+           <tr>
+             <th>{% trans "Certificate"%}</th>
+             <th>{% trans "Enrolled students"%}</th>
+             <th>{% trans "Students with certification"%}</th>
+             <th>{% trans "Students without certification"%}</th>
+             <th>{% trans "Task State"%}</th>
+             <th>{% trans "Task Start" %}</th>
+             <th>{% trans "Requester"%}</th>
+           </tr>
+           {% for instructor_task in instructor_tasks_history %}
+             {% if instructor_tasks and instructor_task.task_id == instructor_tasks.0.task_id %}
+             {% else %}
+               <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
+                  data-task-id="{{instructor_task.task_id}}"
+                  data-in-progress="true">
+                 <td class="task-certificate-pdf">
+                   <a href="{{certificate_base_url}}{{instructor_task.task_output.test_certificate_filename}}">{% trans "Sample" %}</a>
+                 </td>
+                 <td class="task-enrolled-students">{{instructor_task.task_output.total}}</td>
+                 <td class="task-certified-students">{{instructor_task.task_output.downloadable}}</td>
+                 <td class="task-not-certified-students">{{instructor_task.task_output.notpassing}}</td>
+                 <td class="task-state">{{instructor_task.task_state}}</td>
+                 <td>{{instructor_task.created}}</td>
+                 <td>{{instructor_task.requester}}</td>
+               </tr>
+             {% endif %}
+           {% endfor %}
+         </table>
+       </div>
+   </div>
+  {% endif %}
 {% endif %}
 
 <!-- Modal call when #generate_certificate_button is pressed -->
