@@ -32,7 +32,6 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
     university = University.objects.get(code=course.location.org)
     certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
 
-
     start_time = time()
     start_date = datetime.now(UTC)
     status_interval = 1
@@ -49,9 +48,9 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
                   'test_certificate_filename' : test_certificate.filename}
 
     for count, student in enumerate(enrolled_students):
+        task_progress.attempted += 1
         if task_progress.attempted % status_interval == 0:
             task_progress.update_task_state(extra_meta=all_status)
-        task_progress.attempted += 1
         if certificate_status_for_student(student, course_id)['status'] != status.downloadable:
             if university.certificate_logo:
                 logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
@@ -67,5 +66,8 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
                 task_progress.succeeded += 1
             else:
                 task_progress.failed += 1
+        else:
+            all_status[status.downloadable] += 1
+
     return task_progress.update_task_state(extra_meta=all_status)
 
