@@ -19,8 +19,7 @@
 <h2>{{ course.display_name_with_default }}</h2>
 
 <a class="btn btn-primary"  id="generate_test_certificate_button" href="{% url 'generate-test-certificate' course.id %}" data-certificate-base-url="{{certificate_base_url}}">{% trans 'Generate test certificate' %} </a>
-<button class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">  {% trans 'Generate a certificate'%} </button>
-
+<a class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">  {% trans 'Generate certificates' %} </a>
 
 <!-- First Panel : pending certificate generations tasks -->
 
@@ -110,7 +109,7 @@
         <h4 class="modal-title"> {% trans "Generate certificate" %} </h4>
       </div>
       <div class="modal-body">
-        {% trans "Please confirm you really want to generare a certificate for course:" %}<br>
+        {% trans "Please confirm do you really want to generate a certificate for course:" %}<br>
         <h4>{{ course.display_name_with_default }}</h4>
       </div>
       <div class="modal-footer">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-01-20 15:55+0100\n"
+"POT-Creation-Date: 2015-02-02 13:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -18,95 +18,226 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:15
-msgid "Certificate generation"
-msgstr "Génération de certificat"
+#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:100
+msgid "A certificate generation is already running"
+msgstr "Une génération d'attestation est déjà en cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:82
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:120
+msgid "Add teacher"
+msgstr "Ajouter un professeur"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:35
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:75
+msgid "Certificate"
+msgstr "Attestation"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:97
+msgid "Certificate Management"
+msgstr "Gestion des attestations"
+
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:94
 #, python-format
 msgid "Course <strong>%s</strong> has been deleted."
 msgstr "Le cours <strong>%s</strong> a été supprimé"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:30
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:60
 msgid "Course informations"
 msgstr "Informations sur le cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:81
+#: /edx/app/edxapp/fun-apps/backoffice/models.py:11
+msgid "Course key"
+msgstr "Clé du cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:169
 msgid "Delete course"
 msgstr "Supprimer un cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:68
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:100
 msgid "Delete this course"
 msgstr "Supprimer ce cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:25
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:38
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:40
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:54
 msgid "Draft"
 msgstr "Brouillon"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:29
-msgid "Enrollment dates"
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:42
+msgid "End"
+msgstr "Fin"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:36
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:76
+msgid "Enrolled students"
+msgstr "Etudiants inscrits"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:44
+#, fuzzy
+msgid "Enrollment end"
 msgstr "Dates d'inscription"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:53
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:66
-msgid "Generate test certificate"
-msgstr "Générer un certificat de test"
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:43
+#, fuzzy
+msgid "Enrollment start"
+msgstr "Dates d'inscription"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:25
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:45
+#, fuzzy
+msgid "Enrollments"
+msgstr "Dates d'inscription"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:137
+msgid "Full name:"
+msgstr "Nom complet:"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:118
+msgid "Generate"
+msgstr "Générer"
+
+msgid "Generate certificate"
+msgstr "Génération d'attestation"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:22
+msgid "Generate a certificate"
+msgstr "Générer une attestation"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:22
+msgid "Generate certificates"
+msgstr "Générer les attestations"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:21
+msgid "Generate test certificate"
+msgstr "Générer une attestation de test"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:38
 msgid "Ident"
 msgstr "Identifiant"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:51
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:47
+
+msgid "Informations"
+msgstr "Informations sur le cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:67
 msgid "No result for this search pattern"
 msgstr "Pas de résultat pour cette recherche"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:85
+#: /edx/app/edxapp/fun-apps/backoffice/models.py:24
+msgid "Nom complet"
+msgstr ""
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:30
+msgid "Pending Certificate Tasks"
+msgstr "Génération d'attestations en cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:173
 msgid "Please confirm you really want to delete this course:"
 msgstr "Veuillez confirmer la suppression de ce cours :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:24
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:37
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:113
+
+msgid "Please confirm do you really want to generate a certificate for course:"
+msgstr "Voulez-vous vraiment générer les attestations pour le cours:"
+
+#: /edx/app/edxapp/fun-apps/backoffice/forms.py:27
+msgid "Please enter at least one teacher"
+msgstr "Entrez au moins un professeur"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:70
+msgid "Previous Certificate Tasks"
+msgstr "Historique des générations d'attestations"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:39
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:53
 msgid "Published"
 msgstr "Publié"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:28
-msgid "Running dates"
-msgstr "Dates de déroulement"
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:49
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:88
+msgid "Sample"
+msgstr "Exemple"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:87
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:41
+msgid "Start"
+msgstr "Début"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:175
 msgid "Students enrolled"
 msgstr "Utilisateurs inscrits"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:33
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:63
 msgid "Students enrolled in this course: "
 msgstr "Utilisateurs inscrits à ce cours : "
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:13
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:44
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:37
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:77
+msgid "Students with certification"
+msgstr "Apprenants ayant obtenu l'attestation"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:38
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:78
+msgid "Students without certification"
+msgstr "Apprenants n'ayant pas obtenu l'attestation"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:11
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:32
 msgid "Support team"
 msgstr "Backoffice cellule d'appui"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:30
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:40
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:80
+msgid "Task Start"
+msgstr "Date de lancement"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:48
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:109
 msgid "Teachers"
 msgstr "Professeurs"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:57
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:101
+msgid "Teachers have been updated"
+msgstr "La liste de professeurs a été mise à jour"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:89
 msgid "This course do not belongs to any university"
 msgstr "Ce cours n'est lié à aucun établissement"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:125
-msgid "University doesn't exist"
-msgstr "Cette établissement n'éxiste pas"
+#: /edx/app/edxapp/fun-apps/backoffice/models.py:23
+msgid "Titre"
+msgstr ""
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:19
-#, fuzzy
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:41
+msgid "Total Duration (sec)"
+msgstr "Durée totale (sec)"
+
+#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:55
+#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:94
+msgid "University doesn't exist"
+msgstr "Cette établissement n'existe pas"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:32
+
 msgid "course"
 msgid_plural "courses"
 msgstr[0] "cours"
 msgstr[1] ""
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:19
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:32
 msgid "for your search pattern"
 msgstr "pour votre critère de recherche"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:27
+msgid "university or course name"
+msgstr "Etablissement ou nom de cours"
+
+msgid "SUCCESS"
+msgstr "Succès"
+
+msgid "FAILURE"
+msgstr "Echec"
+
+msgid "PENDING"
+msgstr "En attente"
+
+#~ msgid "Running dates"
+#~ msgstr "Dates de déroulement"
 
