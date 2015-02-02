@@ -1,5 +1,6 @@
 {% extends 'backoffice/base.html' %}
 {% load staticfiles %}
+{% load  %}
 {% load url from future %}
 {% load i18n course %}
 
@@ -17,8 +18,8 @@
 {% block content %}
 <h2>{{ course.display_name_with_default }}</h2>
 
-<a class="btn btn-primary"  id="generate_test_certificate_button" href="{% url 'generate-test-certificate' course.id %}"> {% trans 'Generate test certificate' %}</a>
-<button class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">  {% trans 'Generate certifiate'%} </button>
+<a class="btn btn-primary"  id="generate_test_certificate_button" href="{% url 'generate-test-certificate' course.id %}" data-certificate-base-url="{{certificate_base_url}}">{% trans 'Generate test certificate' %} </a>
+<button class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">  {% trans 'Generate a certificate'%} </button>
 
 
 <!-- First Panel : pending certificate generations tasks -->
@@ -44,7 +45,9 @@
             <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
               data-task-id="{{instructor_task.task_id}}"
               data-in-progress="true">
-              <td class="task-certificate-sample">LINK</td>
+              <td>
+                <a class="task-certificate-pdf"  href=""> {% trans "Sample" %} </a>
+              </td>
               <td class="task-enrolled-students">{{instructor_task.task_output.total}}</td>
               <td class="task-certified-students">{{instructor_task.task_output.downloadable}}</td>
               <td class="task-not-certified-students">{{instructor_task.task_output.notpassing}}</td>
@@ -81,7 +84,9 @@
             <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
               data-task-id="{{instructor_task.task_id}}"
               data-in-progress="true">
-              <td class="task-certificate-sample">LINK</td>
+              <td class="task-certificate-pdf">
+                <a href="{{certificate_base_url}}{{instructor_task.task_output.test_certificate_filename}}">{% trans "Sample" %}</a>
+              </td>
               <td class="task-enrolled-students">{{instructor_task.task_output.total}}</td>
               <td class="task-certified-students">{{instructor_task.task_output.downloadable}}</td>
               <td class="task-not-certified-students">{{instructor_task.task_output.notpassing}}</td>

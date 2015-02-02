@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -35,6 +36,7 @@ def certificate_dashboard(request, course_key_string):
 
     return render(request, 'backoffice/certificate.html', {
             'course': course,
+            'certificate_base_url' : settings.CERTIFICATE_BASE_URL,
             'instructor_tasks' : instructor_tasks,
             'instructor_tasks_history' : instructor_tasks_history,
         })

@@ -15,14 +15,19 @@ from certificates.models import (
   GeneratedCertificate)
 
 from fun_certificates.management.commands.generate_fun_certificates import get_enrolled_students, generate_fun_certificate
-from backoffice.certificate_manager.utils import get_teachers_list_from_course
+from backoffice.utils import get_course_key
+from backoffice.certificate_manager.utils import get_teachers_list_from_course, create_test_certificate
+
 from universities.models import University
 
 
 def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_input, action_name):
-    """ """
+    """
+    Generate a certificate for graduated students
+    """
 
     course = modulestore().get_course(course_id, depth=2)
+    course_key = get_course_key(str(course_id))
     course_display_name = unicode(course.display_name).encode('utf-8')
     university = University.objects.get(code=course.location.org)
     certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
@@ -35,9 +40,13 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
     teachers = get_teachers_list_from_course(course_id.to_deprecated_string())
     task_progress = TaskProgress(action_name, enrolled_students.count(), start_time)
 
+    # generate a test certificate
+    test_certificate = create_test_certificate(course, course_key, university)
+
     all_status = {status.notpassing: 0,
-                    status.error: 0,
-                    status.downloadable: 0,}
+                  status.error: 0,
+                  status.downloadable: 0,
+                  'test_certificate_filename' : test_certificate.filename}
 
     for count, student in enumerate(enrolled_students):
         if task_progress.attempted % status_interval == 0:

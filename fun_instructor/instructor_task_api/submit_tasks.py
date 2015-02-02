@@ -6,7 +6,7 @@ This file contains all submit function use to send a task to the instructor_task
 
 from instructor_task.api_helper import submit_task
 
-from tasks import generate_certificate_task_class
+from fun_instructor.tasks import generate_certificate_task_class
 
 
 def submit_generate_certificate(request, course_key, query_features):
