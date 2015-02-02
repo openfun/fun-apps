@@ -76,8 +76,12 @@ def course_detail(request, course_key_string):
     ck = CourseKey.from_string(course_key_string)
     funcourse, created = Course.objects.get_or_create(key=ck)
     if created:
-        funcourse.university = University.objects.get(slug=ck.org)
-        funcourse.save()
+        try:
+            funcourse.university = University.objects.get(slug=ck.org)
+            funcourse.save()
+        except University.DoesNotExist:
+            messages.warning(request, _(u"University with code <strong>%s</strong> do not exists.") % ck.org)
+
 
     TeacherFormSet = inlineformset_factory(Course, Teacher, formset=FirstRequiredFormSet, can_delete=True)
     teacher_formset = TeacherFormSet(instance=funcourse, data=request.POST or None)
