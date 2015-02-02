@@ -49,9 +49,17 @@
 		    var test_certificate_filename = "N/A";
 		}
                 entry.find('.task-certificate-pdf').attr("href", certificate_base_url + test_certificate_filename)
-                entry.find('.task-enrolled-students').text(task_dict.task_progress.total)
-                entry.find('.task-certified-students').text(task_dict.task_progress.downloadable)
-                entry.find('.task-not-certified-students').text(task_dict.task_progress.notpassing)
+		try {
+                    entry.find('.task-enrolled-students').text(task_dict.task_progress.total)
+                    entry.find('.task-certified-students').text(task_dict.task_progress.downloadable)
+                    entry.find('.task-not-certified-students').text(task_dict.task_progress.notpassing)
+		   }
+		catch(err) {
+                    entry.find('.task-enrolled-students').text(0)
+                    entry.find('.task-certified-students').text(0)
+                    entry.find('.task-not-certified-students').text(0)
+		}
+
                 entry.find('.task-state').text(task_dict.task_state)
 
                 var duration_value = (task_dict.task_progress && task_dict.task_progress.duration_ms
