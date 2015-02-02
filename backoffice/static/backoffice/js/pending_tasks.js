@@ -43,7 +43,9 @@
                 var task_dict = response[task_id];
 		// find the corresponding entry, and update it:
                 entry = $(_this.element).find('[data-task-id="' + task_id + '"]');
-                entry.find('.task-certificate-pdf').attr("href", certificate_base_url + task_dict.task_progress.test_certificate_filename)
+		if (task_dict.task_progress.test_certificate_filename) {
+                    entry.find('.task-certificate-pdf').attr("href", certificate_base_url + task_dict.task_progress.test_certificate_filename)
+		}
                 entry.find('.task-enrolled-students').text(task_dict.task_progress.total)
                 entry.find('.task-certified-students').text(task_dict.task_progress.downloadable)
                 entry.find('.task-not-certified-students').text(task_dict.task_progress.notpassing)
