@@ -1,12 +1,18 @@
+#! /usr/bin/env python
+import argparse
 import os
 import optparse
+import sys
 import tempfile
 
 from babel.messages.pofile import read_po, write_po
 from babel.messages.frontend import CommandLineInterface as BabelCommandLineInterface
 
-from django.core.management.base import BaseCommand
-from django.conf import settings
+try:
+    from django.core.management.base import BaseCommand
+except ImportError:
+    class BaseCommand(object):
+        option_list = ()
 
 CURRENT_DIR = os.path.dirname(__file__)
 FUN_APPS_ROOT_DIR = os.path.abspath(os.path.join(CURRENT_DIR, "../../../"))
@@ -19,7 +25,11 @@ FUN_APPS_TO_TRANSLATE = [
 ]
 FUN_THEME_PATH = os.path.expanduser("~/themes/fun")
 PATH_FUN_DJANGOPO = "%(root_path)s/locale/%(locale)s/LC_MESSAGES/django.po"
-PATH_EDX_DJANGOPO = os.path.join(settings.PROJECT_ROOT, "../conf/locale/%(locale)s/LC_MESSAGES/django.po")
+PATH_EDX_DJANGOPO = os.path.join(
+    os.path.dirname(__file__),
+    "../../../../edx-platform/",
+    "conf/locale/%(locale)s/LC_MESSAGES/django.po"
+)
 
 
 class Command(BaseCommand):
@@ -49,7 +59,15 @@ properly compiled:
 
     def handle(self, *args, **options):
         locale = options["locale"]
-        for root_path in args:
+        MessageMaker(self.stdout).handle(args, locale)
+
+class MessageMaker(object):
+
+    def __init__(self, stdout=None):
+        self.stdout = stdout or sys.stdout
+
+    def handle(self, root_paths, locale):
+        for root_path in root_paths:
             if root_path == "all":
                 self.make_all_messages(locale)
             else:
@@ -135,3 +153,11 @@ def keep_overriden_messages(fun_catalog, edx_catalog):
     for message_id in overriden_message_ids:
         fun_catalog[message_id] = fun_catalog.obsolete.pop(message_id, default=None)
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Make messages to translate for FUN")
+    parser.add_argument("locale", choices=['fr', 'de'], help="Locale to translate to")
+    parser.add_argument("paths", nargs='+', help="Paths to process")
+
+    main_args = parser.parse_args()
+
+    MessageMaker().handle(main_args.paths, main_args.locale)
