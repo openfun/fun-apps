@@ -103,7 +103,7 @@ def course_detail(request, course_key_string):
             teacher_formset.save()
 
             messages.success(request, _(u"Teachers have been updated"))
-            return redirect(courses_list)
+            return redirect(course_detail, course_key_string=course_key_string)
 
     try:
         university = University.objects.get(code=course.org)
