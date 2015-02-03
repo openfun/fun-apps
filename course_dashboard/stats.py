@@ -65,6 +65,7 @@ def population_by_country(course_key_string):
         active_enrollments(course_key)
         .values(country_field)
         .annotate(population=Count(country_field))
+        .filter(population__gt=0)
         .order_by(country_field)
     )
     course_population = {}
