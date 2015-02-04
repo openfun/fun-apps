@@ -24,4 +24,4 @@ class FirstRequiredFormSet(BaseInlineFormSet):
     def clean(self):
         form = self.forms[0]
         if not form.is_valid():
-            form._errors[forms.forms.NON_FIELD_ERRORS] = form.error_class([_(u"Please enter at least one teacher")])
+            form._errors[forms.forms.NON_FIELD_ERRORS] = form.error_class([_(u"Please enter at least one teacher name")])

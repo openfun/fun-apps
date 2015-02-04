@@ -44,7 +44,7 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Informations" %}</a></li>
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Information" %}</a></li>
     <li role="presentation"><a href="#teachers" aria-controls="profile" role="tab" data-toggle="tab">{% trans "Teachers" %}</a></li>
   </ul>
 
@@ -57,7 +57,7 @@
         <div class="col-md-9">
 
           <div class="course-info">
-            <h2> {% trans 'Course informations' %} </h2>
+            <h2> {% trans 'Course information' %} </h2>
 
             <p>
               <strong>{% trans "Students enrolled in this course: " %}</strong>{{ course.students_count }}
@@ -86,7 +86,7 @@
             <img src="{{ university.logo.url }}" alt="{{ university.name }}" title="{{ university.name }}" />
             <h4>{{ university.name }}</h4>
           {% else %}
-            {% trans "This course do not belongs to any university" %}
+            {% trans "This course does not belong to any university" %}
           {% endif %}
         </div>
       </div>

@@ -20,8 +20,8 @@ class Course(models.Model):
 
 class Teacher(models.Model):
     course = models.ForeignKey(Course)
-    title = models.CharField(max_length=100, verbose_name=_("Titre"))
-    full_name = models.CharField(max_length=300, verbose_name=_("Nom complet"))
+    title = models.CharField(max_length=100, verbose_name=_("Title"))
+    full_name = models.CharField(max_length=300, verbose_name=_("Full name"))
     order = models.IntegerField(default=0)
 
     class Meta:
