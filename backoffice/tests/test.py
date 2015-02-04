@@ -55,22 +55,11 @@ class TestGenerateCertificate(BaseBackoffice):
         self.client.login(username=self.user.username, password='test')
 
     def test_certificate(self):
-        url = reverse('backoffice-course-certificate', args=[self.course.id.to_deprecated_string()])
+        url = reverse('generate-test-certificate', args=[self.course.id.to_deprecated_string()])
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
         data = {
-            'full_name' : u'superéléve',
-            'form-0-full_name': u'pierre',
-            'form-0-title' : u'prof',
-            'form-1-full_name' : '',
-            'form-1-title' : '',
-            'form-2-full_name' : '',
-            'form-2-title' : '',
-            'form-3-full_name' : '',
-            'form-3-title' : '',
-            'form-INITIAL_FORMS' : 0,
-            'form-MAX_NUM_FORMS' : 1000,
-            'form-TOTAL_FORMS' : 4,
+            'full_name' : u'super élève',
         }
         response = self.client.post(url, data)
         self.assertEqual('application/pdf', response._headers['content-type'][1])
