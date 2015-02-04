@@ -7,10 +7,10 @@ from django.test.utils import override_settings
 from student.tests.factories import UserFactory
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_DIR
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 from universities.factories import UniversityFactory
 
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class BaseBackoffice(ModuleStoreTestCase):
@@ -35,7 +35,7 @@ class TestAuthetification(BaseBackoffice):
         self.client.login(username=self.user.username, password='test')
         response = self.client.get(self.list_url)
         self.assertEqual(200, response.status_code)
-        self.assertEqual(0, len(response.context['courses']))  # use is not staff he can not see not published course
+        self.assertEqual(0, len(response.context['courses']))  # user is not staff he can not see not published course
 
     def test_auth_staff(self):
         self.user.groups.add(self.backoffice_group)
