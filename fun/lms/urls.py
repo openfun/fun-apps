@@ -6,6 +6,9 @@ from django.conf.urls.static import static
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
+# Important: We have to import edx routes to error pages
+from lms.urls import handler404, handler500
+
 
 urlpatterns = patterns('',
     (r'^universities/', include('universities.urls')),
