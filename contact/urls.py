@@ -2,7 +2,6 @@ from django.conf.urls import patterns, url
 
 from contact import views
 
-from lms.urls import handler404, handler500
 
 urlpatterns = patterns(
     '',
