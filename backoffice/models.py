@@ -19,7 +19,7 @@ class Course(models.Model):
 
 
 class Teacher(models.Model):
-    course = models.ForeignKey(Course)
+    course = models.ForeignKey(Course, related_name='teachers')
     title = models.CharField(max_length=100, verbose_name=_("Title"))
     full_name = models.CharField(max_length=300, verbose_name=_("Full name"))
     order = models.IntegerField(default=0)

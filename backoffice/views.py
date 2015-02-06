@@ -81,8 +81,9 @@ def course_detail(request, course_key_string):
             funcourse.save()
         except University.DoesNotExist:
             messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
+
     TeacherFormSet = inlineformset_factory(Course, Teacher, formset=FirstRequiredFormSet, can_delete=True)
-    teacher_formset = TeacherFormSet(instance=funcourse, data=request.POST or None)
+
 
     if request.method == 'POST':
         if request.POST['action'] == 'delete-course':
@@ -97,17 +98,22 @@ def course_detail(request, course_key_string):
             log.warning('Course %s deleted by user %s' % (course.id, request.user.username))
             return redirect(courses_list)
 
-        elif request.POST['action'] == 'update-teachers' and teacher_formset.is_valid():
-            teacher_formset.save()
+        elif request.POST['action'] == 'update-teachers':
 
-            messages.success(request, _(u"Teachers have been updated"))
-            return redirect(course_detail, course_key_string=course_key_string)
+
+            teacher_formset = TeacherFormSet(instance=funcourse, data=request.POST or None)
+            if teacher_formset.is_valid():
+                teacher_formset.save()
+
+                messages.success(request, _(u"Teachers have been updated"))
+                return redirect(course_detail, course_key_string=course_key_string)
 
     try:
         university = University.objects.get(code=course.org)
     except University.DoesNotExist:
         university = None
 
+    teacher_formset = TeacherFormSet(instance=funcourse)
     studio_url = get_cms_course_link(course)
     roles = CourseAccessRole.objects.filter(course_id=ck)
 
