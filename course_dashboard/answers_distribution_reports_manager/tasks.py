@@ -130,6 +130,7 @@ def generate_answers_distribution_report(_xmodule_instance_args, _entry_id, cour
                                               problem_module.ancestors_names['great_grandparent'],
                                               problem_module.ancestors_names['grandparent'],
                                               problem_module.ancestors_names['parent'],
-                                              problem_module.display_name).replace(' ', '-').replace('\'', '-').replace('/', '-'), course_id)
+                                              problem_module.display_name).replace(' ', '-').replace('?', '-').replace('/', '-'), course_id)
+
 
     
