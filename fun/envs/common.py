@@ -94,6 +94,9 @@ GRADES_DOWNLOAD = {
         "ROOT_PATH": "/tmp/edx-s3/grades",
         "STORAGE_TYPE": "localfs"
     }
+
+ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY = "answers_distribution_reports"
+
 HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
         "preview\\.": "draft"
     }

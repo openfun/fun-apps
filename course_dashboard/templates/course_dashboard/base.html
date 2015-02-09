@@ -15,7 +15,6 @@
 
         <!-- Bootstrap core CSS -->
         <link href="${static.url('bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
-
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -23,13 +22,12 @@
         <![endif]-->
 
         <style>
-        .main {
-            margin-top: 60px;
+        body {
+            padding-top: 60px;
         }
         .page-header {
-            margin-top: 80px;
             margin-bottom: 30px;
-        }
+         }
         #container-navigation {
             margin-bottom: 20px;
         }
@@ -47,13 +45,61 @@
             font-size: 46px;
             font-weight: bold;
         }
+        #content .correct_answer {
+            color : green;
+        }
+         #content .answers-distribution-reports {
+             margin-bottom:20px;
+        }
+         #content .problem-path {
+             cursor: pointer;
+             display : flex;
+        }
+         #content .problem-module {
+             margin-bottom  :10px;
+        }
+         #content .results {
+             margin : 10px 0px;
+             padding-left : 15px;
+        }
+         #content .problem-path, #content .breadcrumb  {
+             background-color: #E9E9E9 ;
+        }
+         #content .glyphicon {
+             float : right
+        }
+
+         // center the arrow 
+         #content .problem-module .col-xs-11 {
+             padding-left: 0px;
+             padding-right: 0px;
+             display : flex;
+         }
+         #content .problem-module ol.breadcrumb {
+             margin-bottom: auto;
+             margin-top: auto;
+             padding-left : 5px;
+         }
+         #content .col-glyphicon, #content .col-get-anwers-button {
+             margin-bottom: auto;
+             margin-top: auto; 
+         }
+
+         #content .results caption i {
+             font-weight:bold;
+             color : #2699fc;
+         }
+         #content .results th {
+             font-weight:normal;
+             font-style: italic;
+         }
+         
         </style>
 
         <%block name="extra_head"></%block>
     </head>
 
     <body>
-
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -63,17 +109,17 @@
         </nav>
 
         <div class="container">
-            <div class="main">
                 <!-- Django messages display -->
                 % if messages:
                     % for message in messages:
-                    <div class="alert alert-dismissible alert-{{ message.tags }} " role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        ${message | n}
-                    </div>
+                        <div class="alert alert-dismissible alert-${message.tags}" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            ${message}
+                        </div>
                     % endfor
                 % endif
-
                 <div class="page-header">
                     <%block name="header"></%block>
                 </div>
@@ -81,12 +127,11 @@
                 <div id="content">
                     <%block name="content"></%block>
                 </div>
-            </div>
         </div>
-
         <script src="${static.url('fun/js/jquery-1.11.1.min.js')}"></script>
         <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.js')}"></script>
         <script src="${static.url('bootstrap/js/bootstrap.min.js')}"></script>
+        <%block name="extra_js"></%block>
         <%block name="extra_footer"></%block>
     </body>
 </html>

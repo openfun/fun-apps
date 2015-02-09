@@ -35,6 +35,14 @@ def get_path(*names):
     """
     return os.path.join(root_directory(), *names)
 
+def get_safe_path(*names):
+    """
+    Return the corresponding path and ensure that the corresponding base directory is created
+    """
+    path = get_path(*names)
+    ensure_directory_exists(os.path.dirname(path))
+    return path
+    
 def NamedTemporaryFile(*args, **kwargs):
     """
     Create a temporary file with the same arguments as

@@ -1,0 +1,45 @@
+## mako
+
+<%inherit file="../base_course.html" />
+
+<%! import json %>
+<%! from django.core.urlresolvers import reverse %>
+<%! from django.utils.translation import ugettext as _ %>
+
+<%block name="content">
+    % if running_reports_generation:
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">${_("Running answers distribution reports generation")}</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    % for running_report_generation in running_reports_generation:
+                        <tr><td>${ json.loads(running_report_generation.task_input)['running_report_name']}</td></tr>
+                    % endfor
+                </table>
+            </div>
+        </div>
+    % endif
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">${_("Answers distribution reports")}</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                % if answers_distribution_reports:
+                    % for answers_distribution_report in answers_distribution_reports:
+                        <tr><td><a href='${reverse('course-dashboard:answers-distribution-reports-manager:download',
+                                         kwargs={'course_id': course_id,
+                                         'answers_distribution_report' : answers_distribution_report})}'>${answers_distribution_report}</a></td></tr>
+                    % endfor
+                % endif
+             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <a class="btn btn-success refresh-button" onclick="location.reload();" >${_("Refresh")}</a>
+        </div>
+    </div>
+</%block>
