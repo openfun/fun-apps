@@ -48,6 +48,9 @@
             font-size: 46px;
             font-weight: bold;
         }
+        #content .correct_answer{
+            color : green;
+        }
         </style>
 
         <%block name="extra_head"></%block>
@@ -93,6 +96,7 @@
                     <li role="presentation" ${"class='active'" if active_tab == 'enrollment_stats' else '' }><a href="${reverse('course-dashboard:enrollment-stats', kwargs={'course_id': course_id})}">${_("Subscription statistics")}</a></li>
                     <li role="presentation" ${"class='active'" if active_tab == 'student_map' else '' }><a href="${reverse('course-dashboard:student-map', kwargs={'course_id': course_id})}">${_("Student map")}</a></li>
                     <li role="presentation" ${"class='active'" if active_tab == 'forum_activity' else '' }><a href="${reverse('course-dashboard:forum-activity', kwargs={'course_id': course_id})}">${_("Forum activity")}</a></li>
+                    <li role="presentation" ${"class='active'" if active_tab == 'forum_activity' else '' } ><a href="${reverse('course-dashboard:answers-distribution', kwargs={'course_id': course_id})}">${_("Answers distribution")}</a></li>
                 </ul>
                 <div id="content">
                     <%block name="content"></%block>

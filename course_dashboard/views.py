@@ -10,9 +10,13 @@ from django.utils.translation import ugettext as _
 from django.utils.formats import date_format
 from django_countries import countries
 
+from opaque_keys.edx.keys import CourseKey
+
 from fun.utils.views import ensure_valid_course_key
 from fun.utils.views import staff_required_or_level
 from . import stats
+from answers_distribution import (add_answers_distribution_to_problem_module,
+                                  fetch_all_problem_modules_from_course)
 
 
 @ensure_valid_course_key
@@ -101,6 +105,7 @@ def forum_activity(request, course_id):
         "most_active_username": most_active_username,
     })
 
+
 def csv_response(header_row, data_rows, filename):
     def encode_data(data):
         if isinstance(data, unicode):
@@ -150,3 +155,29 @@ def date_to_js_timestamp(date):
         python timestamp.
     """
     return time.mktime(date.timetuple())*1000
+
+@ensure_valid_course_key
+@staff_required_or_level('staff')
+def answers_distribution(request, course_id):
+    """
+    Show the answers distribution of all problems for a course
+    So far only "Multiple Choice" problems are handled 
+    
+    A course has several problem modules 
+    A problem module can contain different problems 
+
+    A problem is an xml document. We enhance it's contents with the answers distribution
+    and then display it in the answers_distribution template
+    """
+
+    course_key = CourseKey.from_string(course_id)
+    problem_modules = fetch_all_problem_modules_from_course(course_key)
+    problem_modules_as_xml = []
+    
+    for problem_module in problem_modules:
+        problem_modules_as_xml.append(add_answers_distribution_to_problem_module(problem_module))
+               
+    return render(request, 'course_dashboard/answers_distribution.html', {
+        "course_id": course_id,
+        "problem_modules_as_xml" : problem_modules_as_xml
+    })
