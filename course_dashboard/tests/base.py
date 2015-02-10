@@ -28,10 +28,10 @@ class BaseCourseDashboardTestCase(TestCase):
     def get_course_id(self, course):
         return course.id.to_deprecated_string()
 
-    def get_course_url(self, url_name, course, response_format=None):
-        return self.get_response(url_name, self.get_course_id(course), response_format=response_format)
+    def get_response(self, url_name, course, response_format=None):
+        return self.get_course_id_response(url_name, self.get_course_id(course), response_format=response_format)
 
-    def get_response(self, url_name, course_id, response_format=None):
+    def get_course_id_response(self, url_name, course_id, response_format=None):
         url = reverse(url_name, kwargs={"course_id": course_id})
         if response_format is not None:
             url += "?format=" + response_format

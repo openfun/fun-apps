@@ -12,10 +12,10 @@ from .base import BaseCourseDashboardTestCase
 class EnrollmentStatsTestCase(BaseCourseDashboardTestCase):
 
     def get_course_enrollment_stats(self, course, response_format=None):
-        return self.get_course_url("course-dashboard:enrollment-stats", course, response_format=response_format)
+        return self.get_response("course-dashboard:enrollment-stats", course, response_format=response_format)
 
     def get_enrollment_stats(self, course_id, response_format=None):
-        return self.get_response("course-dashboard:enrollment-stats", course_id, response_format=response_format)
+        return self.get_course_id_response("course-dashboard:enrollment-stats", course_id, response_format=response_format)
 
     def test_empty_enrollment_stats(self):
         response = self.get_course_enrollment_stats(self.course)
@@ -59,10 +59,10 @@ class EnrollmentStatsTestCase(BaseCourseDashboardTestCase):
 class StudentMapTestCase(BaseCourseDashboardTestCase):
 
     def get_course_student_map(self, course, response_format=None):
-        return self.get_course_url("course-dashboard:student-map", course, response_format=response_format)
+        return self.get_response("course-dashboard:student-map", course, response_format=response_format)
 
     def get_student_map(self, course_id, response_format=None):
-        return self.get_response("course-dashboard:student-map", course_id, response_format=response_format)
+        return self.get_course_id_response("course-dashboard:student-map", course_id, response_format=response_format)
 
     def test_student_map(self):
         response = self.get_course_student_map(self.course)
@@ -104,4 +104,3 @@ class StudentMapTestCase(BaseCourseDashboardTestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(2, len(rows))
         self.assertEqual([_("France"), "1"], rows[1])
-
