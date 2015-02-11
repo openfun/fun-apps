@@ -67,7 +67,6 @@ def multiplechoice_handler(problem_module, problem, problem_position):
 
     problem_module_results = get_student_responses_to_problem_module(problem_module)
 
-
     for student_problem_module_results in problem_module_results:
         # state field contains all answers of a problem module as json
         state = json.loads(student_problem_module_results.state)
@@ -91,6 +90,8 @@ def multiplechoice_handler(problem_module, problem, problem_position):
         # set the attribute 'total_response' to the correct value
         choices[answer].set('total_response', total_response)
 
+    ## All student result have been add to total_response, now calculate percentage for each different choice
+    add_global_info_to_multiplechoice_problem(problem)
 
 def get_student_responses_to_problem_module(problem_module):
     """ Search all problem_modules in the StudentModule model"""
@@ -105,7 +106,24 @@ def get_student_responses_to_problem_module(problem_module):
     problem_module_results = StudentModule.objects.filter(module_state_key=problem_module_state_key)
     
     return problem_module_results
-        
+
+def add_global_info_to_multiplechoice_problem(problem):
+    total_responses_count = 0
+    
+    # count the number of responses for a problem
+    for choice in problem.iter('choice'):
+        if choice.get("total_response"):
+            total_responses_count += int(choice.get("total_response"))
+    # write total responses in multiplechoiceresponse tag
+    problem.set('total_response',total_responses_count)
+
+    # based on the total_response_count write a percentage for each choice 
+    for choice in problem.iter('choice'):
+       if choice.get("total_response"):
+           per = float(choice.get("total_response")) * (100.0 / total_responses_count)
+           choice.set('percentage_response', per)
+       else:
+           choice.set('percentage_response', 0)
 
 # this dict associate a problem type with his handler function
 # We need to identify all kind of problems even if we don't do anything with it in order

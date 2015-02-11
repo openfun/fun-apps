@@ -3,26 +3,39 @@
 <%inherit file="base.html" />
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils.translation import ugettext as _ %>
+
 <%block name="content">
 % for problem_module_as_xml in problem_modules_as_xml:
 <p>    
   % for element in problem_module_as_xml.iter():
     % if element.tag == 'multiplechoiceresponse':
       <% statement_of_problem = element.find('choicegroup') %>
-      <i> ${statement_of_problem.get('label')} </i>
-      <ul>				 
-      % for choice in element.iter('choice'):
-        <li
-	% if choice.get('correct') == 'true':
-	   class="correct_answer"
-	% endif
-	>
-	${choice.text} / ${choice.get('total_response')}
-        </li>
-      % endfor
-      </ul>
-    % endif
-  % endfor
+      <div class="row">
+        <table class="table col-md-12">
+          <caption><i> ${statement_of_problem.get('label')} </i></caption>
+          <tr>
+            <th>${_("Choice")}</th>
+	    <th>${_("Responses")}</th>
+	    <th>${_("Percentage")}</th>
+      	  </tr>
+          % for choice in element.iter('choice'):
+          <tr>
+	    <td ${'class="correct_answer"' if choice.get('correct') == 'true' else ''}>
+              ${choice.text}
+	    </td>
+	    <td>
+	      ${choice.get('total_response')}
+	    </td>
+	    <td>
+	      ${choice.get('percentage_response')} %
+	    </td>
+          <tr>
+          % endfor
+        </table>
+      </div>
+    %endif
+ % endfor
 </p>
 % endfor
+
 </%block>
