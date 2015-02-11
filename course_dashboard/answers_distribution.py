@@ -72,6 +72,8 @@ def multiplechoice_handler(problem_module, problem, problem_position):
         state = json.loads(student_problem_module_results.state)
         try:
             answers = state["student_answers"]
+            if answers == {}: ## happen when the student submited his response but didn't answerd
+                continue
         except KeyError :
             # happen when a student has loaded the problem but not yet answerd
             continue
