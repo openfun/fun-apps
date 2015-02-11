@@ -72,7 +72,7 @@ def multiplechoice_handler(problem_module, problem, problem_position):
         state = json.loads(student_problem_module_results.state)
         try:
             answers = state["student_answers"]
-            if answers == {}: ## happen when the student submited his response but didn't answerd
+            if answers == {}: ## happen when the student submited his response but didn't answerd 
                 continue
         except KeyError :
             # happen when a student has loaded the problem but not yet answerd
@@ -80,9 +80,12 @@ def multiplechoice_handler(problem_module, problem, problem_position):
 
         # get the id of a problem according to it's position in the problem_module (first problem number is 2, strange)
         question_id = problem_module_root_id_dashed + problem_module_id + "_{}_1".format(problem_position + 1)
-
         # get the response (remove 'choice_' string), only keep the response number
-        answer = int(answers[question_id][-1:])
+        try:
+            answer = int(answers[question_id][-1:])
+        except KeyError :
+            # happen when a student has loaded the problem answer at least one question but not the one we search
+            continue
 
         ## save the student answer in the xml
         
