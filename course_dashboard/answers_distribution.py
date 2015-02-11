@@ -19,7 +19,7 @@ def fetch_all_problem_modules_from_course(course_key):
 def add_answers_distribution_to_problem_module(problem_module):
     """Return problem module as xml tree with answers distibution stats"""
 
-    problem_module_as_xml = ET.fromstring(problem_module.data)
+    problem_module_as_xml = ET.fromstring((problem_module.data).encode('utf-8'))
     problem_position_in_module = 0
 
     for element in problem_module_as_xml.iter():
