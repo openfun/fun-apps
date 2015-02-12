@@ -8,7 +8,7 @@ from universities.models import University
 
 
 class Course(models.Model):
-    key = models.CharField(max_length=200, verbose_name=_(u"Course key"))
+    key = models.CharField(max_length=200, verbose_name=_(u"Course key"), unique=True)
     university = models.ForeignKey(University, null=True, related_name='courses')
 
     class Meta:

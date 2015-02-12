@@ -8,6 +8,7 @@ import random
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Count
+from django.db.utils import IntegrityError
 from django.forms.formsets import formset_factory
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
@@ -72,10 +73,14 @@ def course_detail(request, course_key_string):
     """Course is deleted from Mongo and staff and students enrollments from mySQL.
     States and responses from students are not yet deleted from mySQL
     (StudentModule, StudentModuleHistory are very big tables)."""
+
     course = course_infos(get_course(course_key_string))
     ck = CourseKey.from_string(course_key_string)
-    funcourse, created = Course.objects.get_or_create(key=ck)
-    if created:
+    try:
+        funcourse = Course.objects.create(key=ck)
+    except IntegrityError:
+        funcourse = Course.objects.get(key=ck)
+    if not funcourse.university:
         try:
             funcourse.university = University.objects.get(slug=ck.org)
             funcourse.save()
@@ -83,7 +88,6 @@ def course_detail(request, course_key_string):
             messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
 
     TeacherFormSet = inlineformset_factory(Course, Teacher, formset=FirstRequiredFormSet, can_delete=True)
-
 
     if request.method == 'POST':
         if request.POST['action'] == 'delete-course':
