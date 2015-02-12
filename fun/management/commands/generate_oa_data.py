@@ -1,36 +1,20 @@
 """
 Generate CSV files for submission and assessment data
 """
-import sys
 import os
-import os.path
-import datetime
 import shutil
 import tempfile
-import tarfile
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
-from openassessment.data import CsvWriter
+from django.core.management.base import CommandError
+from openassessment.management.commands import upload_oa_data
 
 
-class Command(BaseCommand):
+class Command(upload_oa_data.Command):
     """
     Create and upload CSV files for submission and assessment data.
     """
 
     help = 'Create a CSV files for submission and assessment data.'
-    args = '<COURSE_ID>'
-
-    OUTPUT_CSV_PATHS = {
-        output_name: "{}.csv".format(output_name)
-        for output_name in CsvWriter.MODELS
-    }
-
-    PROGRESS_INTERVAL = 10
-
-    def __init__(self, *args, **kwargs):
-        super(Command, self).__init__(*args, **kwargs)
-        self._submission_counter = 0
+    args = '<COURSE_ID [OUTPUT_DIRECTORY]>'
 
     def handle(self, *args, **options):
         """
@@ -44,64 +28,26 @@ class Command(BaseCommand):
         """
         if len(args) < 1:
             raise CommandError(u'Usage: generate_oa_data {}'.format(self.args))
+        output_directory = "/tmp"
+        if len(args) >= 2:
+            output_directory = args[1].decode('utf-8')
 
         course_id = args[0].decode('utf-8')
+        self.dump(course_id, output_directory)
+
+    def dump(self, course_id, output_directory):
         csv_dir = tempfile.mkdtemp()
-
         try:
-            print u"Generating CSV files for course '{}'".format(course_id)
-            self._dump_to_csv(course_id, csv_dir)
-            print u"Creating archive of CSV files in {}".format(csv_dir)
-            archive_path = self._create_archive(csv_dir)
-
+            output_path = self.dump_unsafe(course_id, output_directory, csv_dir)
+            print u"Archive of course {} created in {}".format(course_id, output_path)
         finally:
             # Assume that the archive was created in the directory,
             # so to clean up we just need to delete the directory.
             shutil.rmtree(csv_dir)
 
-    def _dump_to_csv(self, course_id, csv_dir):
-        """
-        Create CSV files for submission/assessment data in a directory.
-
-        Args:
-            course_id (unicode): The ID of the course to dump data from.
-            csv_dir (unicode): The absolute path to the directory in which to create CSV files.
-
-        Returns:
-            None
-        """
-        output_streams = {
-            name: open(os.path.join(csv_dir, rel_path), 'w')
-            for name, rel_path in self.OUTPUT_CSV_PATHS.iteritems()
-        }
-        csv_writer = CsvWriter(output_streams, self._progress_callback)
-        csv_writer.write_to_csv(course_id)
-
-    def _create_archive(self, dir_path):
-        """
-        Create an archive of a directory.
-
-        Args:
-            dir_path (unicode): The absolute path to the directory containing the CSV files.
-
-        Returns:
-            unicode: Absolute path to the archive.
-
-        """
-        tarball_name = u"{}.tar.gz".format(
-            datetime.datetime.utcnow().strftime("%Y-%m-%dT%H_%M")
-        )
-        tarball_path = os.path.join('/tmp', tarball_name)
-        with tarfile.open(tarball_path, "w:gz") as tar:
-            for rel_path in self.OUTPUT_CSV_PATHS.values():
-                tar.add(os.path.join(dir_path, rel_path), arcname=rel_path)
-        return tarball_path
-
-    def _progress_callback(self):
-        """
-        Indicate progress to the user as submissions are processed.
-        """
-        self._submission_counter += 1
-        if self._submission_counter > 0 and self._submission_counter % self.PROGRESS_INTERVAL == 0:
-            sys.stdout.write('.')
-            sys.stdout.flush()
+    def dump_unsafe(self, course_id, output_directory, csv_dir):
+        self._dump_to_csv(course_id, csv_dir)
+        archive_path = self._create_archive(csv_dir)
+        output_path = os.path.join(output_directory, os.path.basename(archive_path))
+        shutil.move(archive_path, output_path)
+        return output_path
