@@ -20,25 +20,26 @@ from ..models import Course, Teacher
 
 class BaseBackoffice(ModuleStoreTestCase):
     def setUp(self):
-        super(BaseBackoffice, self).setUp()
-        self.university = UniversityFactory(name='FUN', code='FUN')
+        self.password = super(BaseBackoffice, self).setUp()
+        self.user.is_staff = False
+        self.user.save()
+        self.university = UniversityFactory.create()
         self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
-        self.course = CourseFactory(org=self.university.code, number='001', display_name='test')  # create a non published course
-        self.user = UserFactory(username='auth')
+        self.course = CourseFactory.create(org=self.university.code)  # create a non published course
         self.list_url = reverse('backoffice-courses-list')
 
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
-class TestAuthetification(BaseBackoffice):
+class TestAuthentification(BaseBackoffice):
     def test_auth_not_belonging_to_group(self):
         # Users not belonging to `fun_backoffice` should not log in.
-        self.client.login(username=self.user.username, password='test')
+        self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.list_url)
         self.assertEqual(302, response.status_code)
 
     def test_auth_not_staff(self):
         self.user.groups.add(self.backoffice_group)
-        self.client.login(username=self.user.username, password='test')
+        self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.list_url)
         self.assertEqual(200, response.status_code)
         self.assertEqual(0, len(response.context['courses']))  # user is not staff he can not see not published course
@@ -47,7 +48,7 @@ class TestAuthetification(BaseBackoffice):
         self.user.groups.add(self.backoffice_group)
         self.user.is_staff = True
         self.user.save()
-        self.client.login(username=self.user.username, password='test')
+        self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.list_url)
         self.assertEqual(1, len(response.context['courses']))  # OK
 
@@ -57,9 +58,7 @@ class TestGenerateCertificate(BaseBackoffice):
     def setUp(self):
         super(TestGenerateCertificate, self).setUp()
         self.user.groups.add(self.backoffice_group)
-        self.user.is_staff = True
-        self.user.save()
-        self.client.login(username=self.user.username, password='test')
+        self.client.login(username=self.user.username, password=self.password)
 
     def test_certificate(self):
         url = reverse('generate-test-certificate', args=[self.course.id.to_deprecated_string()])
@@ -74,11 +73,15 @@ class TestGenerateCertificate(BaseBackoffice):
 
 class BaseCourseDetail(ModuleStoreTestCase):
     def setUp(self):
-        super(BaseCourseDetail, self).setUp()
-        self.course = CourseFactory(org='fun', number='001', display_name='test')
-        self.user = UserFactory(username='delete', is_superuser=True)
+        self.password = super(BaseCourseDetail, self).setUp()
+        self.course = CourseFactory.create(org='fun')
+        self.user.is_superuser = True
+        self.user.is_staff = False
+        self.user.save()
         UserPreference.set_preference(self.user, LANGUAGE_KEY, 'en-en')
-        self.client.login(username=self.user.username, password='test')
+        self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
+        self.user.groups.add(self.backoffice_group)
+        self.client.login(username=self.user.username, password=self.password)
         self.url = reverse('backoffice-course-detail', args=[self.course.id.to_deprecated_string()])
 
 
