@@ -82,7 +82,7 @@ def course_detail(request, course_key_string):
         funcourse = Course.objects.get(key=ck)
     if not funcourse.university:
         try:
-            funcourse.university = University.objects.get(slug=ck.org)
+            funcourse.university = University.objects.get(code=ck.org)
             funcourse.save()
         except University.DoesNotExist:
             messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
