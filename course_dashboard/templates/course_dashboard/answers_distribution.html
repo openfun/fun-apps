@@ -4,38 +4,56 @@
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils.translation import ugettext as _ %>
 
+<%block name="extra_js">
+
+<script>
+
+// TODO put in a separate file
+  
+$(function() {
+
+var current_id = ''
+
+function display_results (xml_data){
+  console.log(xml_data)
+  console.log(current_id)
+  $('#' + current_id).html(xml_data)
+}
+
+$('.get-answers').button().click(function(event) {
+
+var ajax_url = $('.get-answers').data().url;
+
+var module_id = event.target.getAttribute('data-module-id');
+
+current_id = module_id;
+
+var data = {'problem_module_id': module_id}
+
+$.get(ajax_url, data, display_results)
+  });
+});
+
+</script>
+
+</%block>
+
 <%block name="content">
-% for problem_module_as_xml in problem_modules_as_xml:
-<p>    
-  % for element in problem_module_as_xml.iter():
-    % if element.tag == 'multiplechoiceresponse':
-      <% statement_of_problem = element.find('choicegroup') %>
-      <div class="row">
-        <table class="table col-md-12">
-          <caption><i> ${statement_of_problem.get('label')} </i></caption>
-          <tr>
-            <th>${_("Choice")}</th>
-	    <th>${_("Responses")}</th>
-	    <th>${_("Percentage")}</th>
-      	  </tr>
-          % for choice in element.iter('choice'):
-          <tr>
-	    <td ${'class="correct_answer"' if choice.get('correct') == 'true' else ''}>
-              ${choice.text}
-	    </td>
-	    <td>
-	      ${choice.get('total_response')}
-	    </td>
-	    <td>
-	      ${choice.get('percentage_response')} %
-	    </td>
-          <tr>
-          % endfor
-        </table>
-      </div>
-    %endif
- % endfor
-</p>
+% for problem_module in problem_modules:
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <ol class="breadcrumb">
+      <li>${problem_module.ancestors_names['great_grandparent']}</li>
+      <li>  ${problem_module.ancestors_names['parent']}</li>
+      <li>  ${problem_module.ancestors_names['grandparent']}</li>
+      <li class="active">  ${problem_module.display_name}</li>
+      <li>  <a  data-url=" ${reverse('course-dashboard:get-answers-to-problem-module', kwargs={'course_id': course_id})}" data-module-id="${problem_module.scope_ids.usage_id.name}" class="btn btn-primary get-answers" >${_("Get answers")}</a></li>
+    </ol>
+  </div>
+  <div class="panel-body">
+    <div id="${problem_module.scope_ids.usage_id.name}" class="results"> </div>
+  </div>
+</div>
 % endfor
 
 </%block>

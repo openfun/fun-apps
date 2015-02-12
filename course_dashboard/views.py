@@ -11,12 +11,15 @@ from django.utils.formats import date_format
 from django_countries import countries
 
 from opaque_keys.edx.keys import CourseKey
+from xmodule.modulestore.django import modulestore
 
 from fun.utils.views import ensure_valid_course_key
 from fun.utils.views import staff_required_or_level
 from . import stats
 from answers_distribution import (add_answers_distribution_to_problem_module,
-                                  fetch_all_problem_modules_from_course)
+                                  fetch_all_problem_modules_from_course,
+                                  add_ancestors_names_to_problem_module,
+                                  parse_problem_data_from_problem_module)
 
 
 @ensure_valid_course_key
@@ -171,13 +174,42 @@ def answers_distribution(request, course_id):
     """
 
     course_key = CourseKey.from_string(course_id)
-    problem_modules = fetch_all_problem_modules_from_course(course_key)
+    store = modulestore()
+    problem_modules = fetch_all_problem_modules_from_course(course_key, store)
+
     problem_modules_as_xml = []
     
     for problem_module in problem_modules:
-        problem_modules_as_xml.append(add_answers_distribution_to_problem_module(problem_module))
-               
+        add_ancestors_names_to_problem_module(problem_module, store)
+        parse_problem_data_from_problem_module(problem_module)
+
     return render(request, 'course_dashboard/answers_distribution.html', {
         "course_id": course_id,
-        "problem_modules_as_xml" : problem_modules_as_xml
+        "problem_modules" : problem_modules
     })
+    
+    
+@ensure_valid_course_key
+@staff_required_or_level('staff')
+def get_answers_to_problem_module(request, course_id):
+
+
+    if 'problem_module_id' in request.REQUEST:
+        course_key = CourseKey.from_string(course_id)
+        store = modulestore()
+        qualifiers = {'qualifiers' : {'category' : 'problem',
+                                      'name' : request.REQUEST['problem_module_id']}}
+        problem_module  = store.get_items(course_key, **qualifiers)
+        
+        if len(problem_module) > 1:
+            pass #TODO problem two modules with same id
+        
+        add_answers_distribution_to_problem_module(problem_module[0])
+
+        return render(request, 'course_dashboard/multiplechoice_response.html', {
+            "course_id": course_id,
+            "problem_module" : problem_module[0]
+        })
+    else:
+        pass##TODO
+        

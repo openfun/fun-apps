@@ -5,29 +5,50 @@ from opaque_keys.edx.keys import UsageKey
 from xmodule.modulestore.django import modulestore
 
 from courseware.models import StudentModule
+from xmodule.modulestore import mixed
 
-
-def fetch_all_problem_modules_from_course(course_key):
+def fetch_all_problem_modules_from_course(course_key, store):
     """
     Fetch all problem modules for a course from the mongo database
     """
 
     qualifiers = {'qualifiers' : {'category' : 'problem'}}
-    problem_modules = modulestore().get_items(course_key, **qualifiers)
+    problem_modules = store.get_items(course_key, **qualifiers)
     return problem_modules
+
+def add_ancestors_names_to_problem_module(problem_module, store):
+    
+    ancestors_names = {'parent' : '',
+                       'grandparent' : '',
+                       'great_grandparent' : ''}
+    
+
+    parent = store.get_parent_location(problem_module.location)
+    if parent:
+        ancestors_names['parent'] = store.get_item(parent).display_name
+        grandparent = store.get_parent_location(parent)
+        if grandparent:
+            ancestors_names['grandparent'] = store.get_item(grandparent).display_name
+            great_grandparent = store.get_parent_location(grandparent)
+            if great_grandparent:
+                ancestors_names['great_grandparent'] = store.get_item(great_grandparent).display_name
+    problem_module.ancestors_names = ancestors_names
+    return
+
+def parse_problem_data_from_problem_module(problem_module):
+        problem_module_as_xml = ET.fromstring((problem_module.data).encode('utf-8'))
+        problem_module.as_xml = problem_module_as_xml
 
 def add_answers_distribution_to_problem_module(problem_module):
     """Return problem module as xml tree with answers distibution stats"""
 
-    problem_module_as_xml = ET.fromstring((problem_module.data).encode('utf-8'))
+    problem_module.as_xml = ET.fromstring((problem_module.data).encode('utf-8'))
     problem_position_in_module = 0
 
-    for element in problem_module_as_xml.iter():
+    for element in problem_module.as_xml.iter():
         if element.tag in problem_handlers:
             problem_position_in_module += 1
             problem_handlers[element.tag](problem_module, element, problem_position_in_module)
-    return problem_module_as_xml
-
 
 def checkbox_handler(problem, problem_module, problem_number):
     """Handler for checkbox problem"""
