@@ -1,2 +1,3 @@
 *.pyc
 .DS_Store
+extend_tinymce/static/extend_tinymce/html-xmodule.js
