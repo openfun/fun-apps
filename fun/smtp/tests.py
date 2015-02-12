@@ -6,7 +6,8 @@ from django.conf import settings
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
 
-from unittest import TestCase
+from django.test import TestCase
+from unittest import skipIf
 
 """"
 Warning for now those tests will only work when dummy SMTP server are running:
@@ -15,6 +16,7 @@ python -m smtpd -n -c DebuggingServer localhost:1026
 """
 
 
+@skipIf(True, "SMTP tests require two running SMTP servers")
 class SMTPsTest(TestCase):
 
     def setUp(self):
