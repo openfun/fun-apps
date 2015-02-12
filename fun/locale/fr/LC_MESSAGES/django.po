@@ -61,6 +61,9 @@ msgstr ""
 msgid "Associate's degree"
 msgstr "Licence professionnelle"
 
+msgid "Looks like you haven't enrolled in any courses yet."
+msgstr "On dirait que vous ne vous êtes encore inscrit à aucun cours."
+
 msgid "Bachelor's degree"
 msgstr "Licence"
 
