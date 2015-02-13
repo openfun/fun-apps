@@ -35,7 +35,7 @@ def _dates_description(course):
     if course.enrollment_start and course.enrollment_start > now:
         inscription_inverval = u"Inscription à partir du %s" % (course.enrollment_start.strftime(FORMAT))
     elif course.enrollment_start and course.enrollment_end and course.enrollment_start < now and course.enrollment_end > now:
-        inscription_inverval = u"Inscription jusqu'au du %s" % (course.enrollment_end.strftime(FORMAT))
+        inscription_inverval = u"Inscription jusqu'au %s" % (course.enrollment_end.strftime(FORMAT))
     else:
         inscription_inverval = u"Les inscriptions sont terminées"
     if course.start and course.start > now:
