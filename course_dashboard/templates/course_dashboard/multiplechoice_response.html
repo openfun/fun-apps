@@ -5,13 +5,14 @@
 
 % for element in problem_module.as_xml.iter():
 % if element.tag == 'multiplechoiceresponse':
-
 <table class="table col-md-12">
   <% statement_of_problem = element.find('choicegroup') %>
-  % if statement_of_problem:
-  <caption><i> ${statement_of_problem.get('label')} </i></caption>
+  % if statement_of_problem.get('label') is not None:
+    <caption><i> ${statement_of_problem.get('label')} </i></caption>
   % else:
-  <caption><i> ${_("Question not Found")} </i></caption>
+    % if previous_element.tag == 'p':
+     <caption><i> ${previous_element.text} </i></caption>    
+    % endif
   % endif 
   <tr>
     <th>${_("Choice")}</th>
@@ -30,8 +31,9 @@
       ${choice.get('percentage_response')} %
     </td>
     <tr>
-   % endfor 
+      % endfor
 </table>
 
 % endif
+<% previous_element = element %>
 % endfor

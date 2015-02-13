@@ -150,7 +150,7 @@ def add_global_info_to_multiplechoice_problem(problem):
     # based on the total_response_count write a percentage for each choice 
     for choice in problem.iter('choice'):
        if choice.get("total_response"):
-           per = float(choice.get("total_response")) * (100.0 / total_responses_count)
+           per = round(float(choice.get("total_response")) * (100.0 / total_responses_count), 2)
            choice.set('percentage_response', per)
        else:
            choice.set('percentage_response', 0)

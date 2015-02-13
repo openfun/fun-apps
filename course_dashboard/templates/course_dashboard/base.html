@@ -24,11 +24,10 @@
         <![endif]-->
 
         <style>
-        .main {
-            margin-top: 60px;
+        body {
+            padding-top: 60px;
         }
         .page-header {
-            margin-top: 80px;
             margin-bottom: 30px;
         }
         #container-navigation {
@@ -48,8 +47,14 @@
             font-size: 46px;
             font-weight: bold;
         }
-        #content .correct_answer{
+        #content .correct_answer {
             color : green;
+        }
+        #content .problem-path img {
+          margin-left : 10px;
+        }
+        #content .problem-module {
+          margin-bottom : 10px;
         }
         </style>
 
@@ -57,7 +62,6 @@
     </head>
 
     <body>
-
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -78,12 +82,13 @@
         </nav>
 
         <div class="container">
-            <div class="main">
                 <!-- Django messages display -->
                 % if messages:
                     % for message in messages:
                     <div class="alert alert-dismissible alert-{{ message.tags }} " role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                         ${message | n}
                     </div>
                     % endfor
@@ -98,11 +103,11 @@
                     <li role="presentation" ${"class='active'" if active_tab == 'forum_activity' else '' }><a href="${reverse('course-dashboard:forum-activity', kwargs={'course_id': course_id})}">${_("Forum activity")}</a></li>
                     <li role="presentation" ${"class='active'" if active_tab == 'forum_activity' else '' } ><a href="${reverse('course-dashboard:answers-distribution', kwargs={'course_id': course_id})}">${_("Answers distribution")}</a></li>
                 </ul>
+                
                 <div id="content">
                     <%block name="content"></%block>
                 </div>
             </div>
-        </div>
 
         <script src="${static.url('fun/js/jquery-1.11.1.min.js')}"></script>
         <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.js')}"></script>
