@@ -4,36 +4,36 @@
 <%! from django.utils.translation import ugettext as _ %>
 
 % for element in problem_module.as_xml.iter():
-% if element.tag == 'multiplechoiceresponse':
-<table class="table col-md-12">
-  <% statement_of_problem = element.find('choicegroup') %>
-  % if statement_of_problem.get('label') is not None:
-    <caption><i> ${statement_of_problem.get('label')} </i></caption>
-  % else:
-    % if previous_element.tag == 'p':
-     <caption><i> ${previous_element.text} </i></caption>    
-    % endif
-  % endif 
-  <tr>
-    <th>${_("Choice")}</th>
-    <th>${_("Responses")}</th>
-    <th>${_("Percentage")}</th>
-  </tr>
-  % for choice in element.iter('choice'):
-  <tr>
-    <td ${'class="correct_answer"' if choice.get('correct') == 'true' else ''}>
-      ${choice.text}
-    </td>
-    <td>
-      ${choice.get('total_response')}
-    </td>
-    <td>
-      ${choice.get('percentage_response')} %
-    </td>
-    <tr>
-      % endfor
-</table>
+    % if element.tag == 'multiplechoiceresponse':
+	<table class="table col-md-12">
+	    <% statement_of_problem = element.find('choicegroup') %>
+	    % if statement_of_problem.get('label') is not None:
+		<caption><i> ${statement_of_problem.get('label')} </i></caption>
+	    % else:
+		% if previous_element.tag == 'p':
+		    <caption><i> ${previous_element.text} </i></caption>    
+		% endif
+	    % endif 
+	    <tr>
+		<th>${_("Choice")}</th>
+		<th>${_("Responses")}</th>
+		<th>${_("Percentage")}</th>
+	    </tr>
+	    % for choice in element.iter('choice'):
+		<tr>
+		    <td ${'class="correct_answer"' if choice.get('correct') == 'true' else ''}>
+			${choice.text}
+		    </td>
+		    <td>
+			${choice.get('total_response')}
+		    </td>
+		    <td>
+			${choice.get('percentage_response')} %
+		    </td>
+		    <tr>
+	    % endfor
+	</table>
 
-% endif
-<% previous_element = element %>
+    % endif
+    <% previous_element = element %>
 % endfor

@@ -1,59 +1,35 @@
 ## mako
 
 <%inherit file="base.html" />
+
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils.translation import ugettext as _ %>
 
 <%block name="extra_js">
-
-<script>
-
-// TODO put in a separate file
-  
-$(function() {
-
-var current_id = ''
-
-function display_results (xml_data){
-  $('#' + current_id).html(xml_data)
-  $('img.' + current_id).remove()
-}
-
-$('.get-answers').button().click(function(event) {
-
-var ajax_url = $('.get-answers').data().url;
-var module_id = event.target.getAttribute('data-module-id');
-current_id = module_id;
-
-var data = {'problem_module_id': module_id}
-var ajaxload_tag = "<img class=' " + module_id + "' src='${STATIC_URL}course_dashboard/images/ajaxload.gif' alt='ajax loading button' >"
-console.log(ajaxload_tag)
-$.get(ajax_url, data, display_results)
-
-$(ajaxload_tag).insertAfter(this);
-  });
-});
-
-</script>
-
+    <script src="${STATIC_URL}course_dashboard/js/answers_distribution.js"></script>
+    <script>
+     answers_distribution('${STATIC_URL}',
+                          '${reverse('course-dashboard:get-answers-to-problem-module',
+                             kwargs={'course_id': course_id})}',
+                          '${_('Refresh')}') 
+    </script>
 </%block>
 
 <%block name="content">
-% for problem_module in problem_modules:
-<div class="problem-module">
-  <div class="row problem-path">
-    <ol class="breadcrumb col-lg-10">
-      <li> ${problem_module.ancestors_names['great_grandparent']}</li>
-      <li>  ${problem_module.ancestors_names['grandparent']}</li>
-      <li>  ${problem_module.ancestors_names['parent']}</li>
-      <li class="active">  ${problem_module.display_name}</li>
-    </ol>
-    <a data-url=" ${reverse('course-dashboard:get-answers-to-problem-module', kwargs={'course_id': course_id})}" data-module-id="${problem_module.scope_ids.usage_id.name}" class="btn btn-primary get-answers  col-lg-1  " >${_("Get answers")}</a>
-  </div>
-  <div class="row">
-    <div id="${problem_module.scope_ids.usage_id.name}" class="results"></div>
-  </div>
-</div>
-% endfor
-
+    % for problem_module in problem_modules:
+        <div class="problem-module">
+            <div class="row problem-path" module-id="${problem_module.scope_ids.usage_id.name}" clicked='false'>
+                <ol class="breadcrumb col-lg-12">
+                    <li class=" glyphicon glyphicon-chevron-right ${problem_module.scope_ids.usage_id.name}"> </li>
+                    <li> ${problem_module.ancestors_names['great_grandparent']}</li>
+                    <li>  ${problem_module.ancestors_names['grandparent']}</li>
+                    <li>  ${problem_module.ancestors_names['parent']}</li>
+                    <li class="active">${problem_module.display_name}</li>
+                </ol>
+            </div>
+            <div class="row">
+                <div id="${problem_module.scope_ids.usage_id.name}" class="results"></div>
+            </div>
+        </div>
+    % endfor
 </%block>
