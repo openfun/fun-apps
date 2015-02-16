@@ -49,7 +49,7 @@
                 {% for course in courses %}
                 <tr>
                     <td>
-                        <a href="{% url 'backoffice-course-detail' course.id %}">{{ course.id }}</a>
+                        <a href="{% url 'backoffice:course-detail' course.id %}">{{ course.id }}</a>
                         {% if course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
                         {% if course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
                     </td>

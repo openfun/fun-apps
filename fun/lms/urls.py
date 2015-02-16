@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     (r'^universities/', include('universities.urls')),
     (r'^contact/', include('contact.urls')),
     (r'^news/', include('newsfeed.urls')),
-    (r'^backoffice/', include('backoffice.urls')),
+    (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # override edX's courses page to replace by FUN's one (we need to use a other route)
     (r'^cours/', include('courses.urls')),

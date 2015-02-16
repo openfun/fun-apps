@@ -6,12 +6,10 @@ from django.test.utils import override_settings
 from django.utils.translation import ugettext as _
 
 from lang_pref import LANGUAGE_KEY
-from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.user_api.models import UserPreference
-from student.tests.factories import UserFactory
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_DIR
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 from universities.factories import UniversityFactory
@@ -20,25 +18,28 @@ from ..models import Course, Teacher
 
 class BaseBackoffice(ModuleStoreTestCase):
     def setUp(self):
-        super(BaseBackoffice, self).setUp()
-        self.university = UniversityFactory(name='FUN', code='FUN')
+        self.password = super(BaseBackoffice, self).setUp()
+        self.user.is_staff = False
+        self.user.save()
+        self.university = UniversityFactory.create()
         self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
-        self.course = CourseFactory(org=self.university.code, number='001', display_name='test')  # create a non published course
-        self.user = UserFactory(username='auth')
-        self.list_url = reverse('backoffice-courses-list')
+        self.course = CourseFactory.create(org=self.university.code)  # create a non published course
+        self.list_url = reverse('backoffice:courses-list')
 
+    def login_with_backoffice_group(self):
+        self.user.groups.add(self.backoffice_group)
+        self.client.login(username=self.user.username, password=self.password)
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
-class TestAuthetification(BaseBackoffice):
+class TestAuthentification(BaseBackoffice):
     def test_auth_not_belonging_to_group(self):
         # Users not belonging to `fun_backoffice` should not log in.
-        self.client.login(username=self.user.username, password='test')
+        self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.list_url)
         self.assertEqual(302, response.status_code)
 
     def test_auth_not_staff(self):
-        self.user.groups.add(self.backoffice_group)
-        self.client.login(username=self.user.username, password='test')
+        self.login_with_backoffice_group()
         response = self.client.get(self.list_url)
         self.assertEqual(200, response.status_code)
         self.assertEqual(0, len(response.context['courses']))  # user is not staff he can not see not published course
@@ -47,7 +48,7 @@ class TestAuthetification(BaseBackoffice):
         self.user.groups.add(self.backoffice_group)
         self.user.is_staff = True
         self.user.save()
-        self.client.login(username=self.user.username, password='test')
+        self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.list_url)
         self.assertEqual(1, len(response.context['courses']))  # OK
 
@@ -56,13 +57,10 @@ class TestAuthetification(BaseBackoffice):
 class TestGenerateCertificate(BaseBackoffice):
     def setUp(self):
         super(TestGenerateCertificate, self).setUp()
-        self.user.groups.add(self.backoffice_group)
-        self.user.is_staff = True
-        self.user.save()
-        self.client.login(username=self.user.username, password='test')
+        self.login_with_backoffice_group()
 
     def test_certificate(self):
-        url = reverse('generate-test-certificate', args=[self.course.id.to_deprecated_string()])
+        url = reverse('backoffice:generate-test-certificate', args=[self.course.id.to_deprecated_string()])
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
         data = {
@@ -74,12 +72,16 @@ class TestGenerateCertificate(BaseBackoffice):
 
 class BaseCourseDetail(ModuleStoreTestCase):
     def setUp(self):
-        super(BaseCourseDetail, self).setUp()
-        self.course = CourseFactory(org='fun', number='001', display_name='test')
-        self.user = UserFactory(username='delete', is_superuser=True)
+        self.password = super(BaseCourseDetail, self).setUp()
+        self.course = CourseFactory.create(org='fun')
+        self.user.is_superuser = True
+        self.user.is_staff = False
+        self.user.save()
         UserPreference.set_preference(self.user, LANGUAGE_KEY, 'en-en')
-        self.client.login(username=self.user.username, password='test')
-        self.url = reverse('backoffice-course-detail', args=[self.course.id.to_deprecated_string()])
+        self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
+        self.user.groups.add(self.backoffice_group)
+        self.client.login(username=self.user.username, password=self.password)
+        self.url = reverse('backoffice:course-detail', args=[self.course.id.to_deprecated_string()])
 
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
@@ -168,3 +170,21 @@ class TestDeleteTeachers(BaseCourseDetail):
         response = self.client.post(self.url, data)
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, funcourse.teachers.count())
+
+@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
+class TestDownloadOra2Submissions(BaseBackoffice):
+
+    def test_download_file(self):
+        self.login_with_backoffice_group()
+        url = reverse("backoffice:ora2-submissions", args=[self.course.id.to_deprecated_string()])
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('application/x-gzip', response['Content-Type'])
+        self.assertNotEqual('', response.content)
+
+    def test_unauthorized_user_has_no_access(self):
+        url = reverse("backoffice:ora2-submissions", args=[self.course.id.to_deprecated_string()])
+        response = self.client.get(url)
+
+        self.assertEqual(302, response.status_code)
