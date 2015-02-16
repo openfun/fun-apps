@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2014-11-13 20:14+0100\n"
+"POT-Creation-Date: 2015-02-16 13:27+0000\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
+# Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:194
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:208
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:224
@@ -40,11 +41,15 @@ msgstr "Tous (Apprenants et équipe pédagogique)"
 msgid "Also receive emails about article edits"
 msgstr "Recevoir aussi des emails concernant la modification des articles"
 
+msgid ""
+"An email has been sent to {email}. Follow the link in the email to change"
+" your password."
+msgstr ""
+"Un email a été envoyé à {email}. Suivez le lien dans l'email pour changer"
+" votre mot de passe."
+
 msgid "Associate's degree"
 msgstr "Licence professionnelle"
-
-msgid "Looks like you haven't enrolled in any courses yet."
-msgstr "On dirait que vous ne vous êtes encore inscrit à aucun cours."
 
 msgid "Bachelor's degree"
 msgstr "Licence"
@@ -52,16 +57,9 @@ msgstr "Licence"
 msgid "Check"
 msgstr "Vérifier"
 
-msgid "Class Feedback"
-msgstr "Réactions de la classe"
-
 # Translated in edx by 'Documents de cours'
 msgid "Course Handouts"
 msgstr "Documents pédagogiques"
-
-#: lms/templates/courseware/info.html
-msgid "Course Updates &amp; News"
-msgstr "Infos et actualités"
 
 msgid "Course-loading errors"
 msgstr "erreurs de chargement des cours"
@@ -83,8 +81,8 @@ msgstr "ACCUEIL DISCUSSION:"
 msgid "Deny all users access to edit this article."
 msgstr "Interdire à tous les utilisateurs de modifier l'article."
 
-msgid "Don't have a Studio Account? Sign up!"
-msgstr "Pas de compte Studio ? Inscrivez-vous !"
+msgid "Download Your {cert_name_short} (PDF)"
+msgstr "Télécharger votre attestation (PDF)"
 
 msgid "E-mail change failed"
 msgstr "changement d'adresse email échoué"
@@ -131,10 +129,6 @@ msgstr "Suivi"
 msgid "Forum Admin"
 msgstr "Administrateurs des forums"
 
-# Translated in edx by 'COMMENT UTILISER LES DISCUSSIONS EDX'
-msgid "HOW TO USE EDX DISCUSSIONS"
-msgstr "COMMENT UTILISER LE FORUM FUN"
-
 # Translated in edx by 'Plus haut niveau de formation obtenu'
 msgid "Highest Level of Education Completed"
 msgstr "Plus haut niveau de formation atteint"
@@ -168,8 +162,8 @@ msgstr "Se Connecter"
 msgid "Log in"
 msgstr "Se connecter"
 
-msgid "Looks like you haven't registered for any courses yet."
-msgstr "Apparemment, vous ne vous êtes pas encore inscrit à un cours."
+msgid "Looks like you haven't enrolled in any courses yet."
+msgstr "On dirait que vous ne vous êtes encore inscrit à aucun cours."
 
 msgid "Male"
 msgstr "Masculin"
@@ -180,11 +174,18 @@ msgstr "Master / Diplôme d'ingénieur"
 msgid "Myself"
 msgstr "Moi-même"
 
+msgid "Password Reset Email Sent"
+msgstr "Email de réinitialisation de mot de passe envoyé"
+
 msgid "Please enter your new email address:"
 msgstr "Merci d'entrer votre nouvelle adresse email :"
 
 msgid "Please go to the following page and choose a new password:"
 msgstr "Visitez la page suivante et choisissez un nouveau mot de passe :"
+
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:164
+msgid "Promoting Your Course with edX"
+msgstr ""
 
 # Translated in edx by 'Nom d'utilisateur public'
 msgid "Public Username"
@@ -228,22 +229,34 @@ msgstr "Equipe pédagogique"
 msgid "Studio user"
 msgstr "L'utilisateur de Studio"
 
-msgid "The edX Team"
-msgstr "L'équipe FUN"
+msgid "Thanks for Registering!"
+msgstr "Merci pour votre inscription !"
 
 # Translated in edx by 'La page que vous recherchiez n'a pas été trouvée.'
 msgid "The page that you were looking for was not found."
 msgstr "La page que vous recherchez n'a pas été trouvée."
 
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:247
+msgid ""
+"These dates impact <strong>when your courseware can be viewed</strong>, "
+"but they are <strong>not the dates shown on your course summary "
+"page</strong>.  To provide the course start and registration dates as "
+"shown on your course summary page, follow the instructions provided by "
+"your <abbr title=\"Program Manager\">PM</abbr>."
+msgstr ""
+
 msgid "This article was last modified:"
 msgstr "Cet article a été modifié :"
 
+msgid ""
+"To uphold the credibility of your {platform} {cert_name_short}, all name "
+"changes will be recorded."
+msgstr ""
+"Pour maintenir la crédibilité de votre attestation {platform}, tout "
+"changement de nom sera enregistré."
+
 msgid "Unanswered"
 msgstr "Sans réponse"
-
-# Translated in edx by 'Universités'
-msgid "Universities"
-msgstr "Les établissements"
 
 # Translated in edx by 'Université'
 msgid "University"
@@ -270,17 +283,37 @@ msgstr "Voir les Cours archivés"
 msgid "View Courseware"
 msgstr "Voir le contenu du Cours"
 
+msgid "View this course as:"
+msgstr "Voir ce cours en tant que :"
+
+msgid ""
+"We will send a confirmation to both {email} and your new email address as"
+" part of the process."
+msgstr ""
+"Un email de confirmation sera envoyé à votre ancienne adresse ({email}) "
+"ainsi qu'à la nouvelle."
+
 msgid "When this article is edited"
 msgstr "Quand cet article est modifié"
 
 msgid "Yes, I am sure"
 msgstr "Oui, je confirme"
 
-msgid "`role` is required"
-msgstr "Le rôle est requis"
+msgid ""
+"You've successfully created an account on {platform_name}. We've sent an "
+"account activation message to {email}. To activate your account and start"
+" enrolling in courses, click the link in the message."
+msgstr ""
+"Votre compte sur {platform_name} a bien été créé. Nous vous avons envoyé "
+"un mail de confirmation à {email}. Pour activer votre compte, cliquez sur"
+" le lien contenu dans le mail."
 
-msgid "edX Additions:"
-msgstr "edX Suppléments :"
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:166
+msgid ""
+"Your course summary page will not be viewable until your course has been "
+"announced. To provide content for the page and preview it, follow the "
+"instructions provided by your <abbr title=\"Program Manager\">PM</abbr>."
+msgstr ""
 
 # Translated in edx by 'exemple : Jean Dupont'
 msgid "example: Jane Doe"
@@ -296,55 +329,3 @@ msgstr "Ecrire anonymement aux camarades de classe"
 msgid "{platform_name}-wide Summary"
 msgstr "{platform_name}-Sommaire général"
 
-#: lms/templates/registration/activate_account_notice.html
-msgid ""
-"You've successfully created an account on {platform_name}. We've sent an "
-"account activation message to {email}. To activate your account and start "
-"enrolling in courses, click the link in the message."
-msgstr "Votre compte sur {platform_name} a bien été créé. Nous vous avons envoyé "
-"un mail de confirmation à {email}. Pour activer votre compte, cliquez sur le lien "
-"contenu dans le mail."
-
-#: lms/templates/registration/activate_account_notice.html
-msgid "Thanks for Registering!"
-msgstr "Merci pour votre inscription !"
-
-#: themes/fun/templates/registration/password_reset_email.html
-msgid ""
-"You're receiving this e-mail because you requested a password reset for your"
-" user account at FUN."
-msgstr ""
-"Vous recevez ce courriel parce que vous avez demandé une réinitialisation du"
-" mot de passe de votre compte sur FUN."
-
-#: lms/templates/dashboard.html
-msgid ""
-"We will send a confirmation to both {email} and your new email address as "
-"part of the process."
-msgstr ""
-"Un email de confirmation sera envoyé à votre ancienne adresse ({email}) ainsi qu'à la nouvelle."
-""
-
-#: lms/templates/verify_student/_modal_editname.html
-msgid ""
-"To uphold the credibility of your {platform} {cert_name_short}, all name "
-"changes will be recorded."
-msgstr ""
-"Pour maintenir la crédibilité de votre attestation {platform}, tout changement de nom "
-"sera enregistré."
-
-#: lms/templates/dashboard/_dashboard_certificate_information.html
-msgid "Download Your {cert_name_short} (PDF)"
-msgstr "Télécharger votre attestation (PDF)"
-
-#: lms/templates/dashboard.html
-msgid "Password Reset Email Sent"
-msgstr "Email de réinitialisation de mot de passe envoyé"
-
-#: lms/templates/dashboard.html
-msgid ""
-"An email has been sent to {email}. Follow the link in the email to change "
-"your password."
-msgstr ""
-"Un email a été envoyé à {email}. Suivez le lien dans l'email pour changer "
-"votre mot de passe."
