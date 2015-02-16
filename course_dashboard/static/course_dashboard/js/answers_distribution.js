@@ -52,7 +52,7 @@ function answers_distribution (static_url, get_answers_url, refresh_string) {
 
     function refresh_results(event) {
 	module_id = this.getAttribute('button-id');
-	
+lol
 	var ajaxload_tag = "<img class='" + module_id + "' src='" + static_url + "course_dashboard/images/ajaxload.gif' alt='ajax loading button' >";
 	if (current_module_id == '') {
 	    $.get(get_answers_url, {'problem_module_id': module_id}, display_results);
