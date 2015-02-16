@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import os
+import tempfile
 
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.db.utils import IntegrityError
 from django.forms.models import inlineformset_factory
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
 
@@ -14,6 +17,7 @@ from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole
 from xmodule.modulestore.django import modulestore
 
+from fun.management.commands.generate_oa_data import Command as OaCommand
 from backoffice.forms import FirstRequiredFormSet
 from backoffice.utils import get_course
 
@@ -124,5 +128,10 @@ def course_detail(request, course_key_string):
 
         })
 
-def ora2_submissions(request, course_id):
-    pass
+@group_required('fun_backoffice')
+def ora2_submissions(request, course_key_string):
+    output_file = tempfile.NamedTemporaryFile(suffix=".tar.gz")
+    OaCommand().dump_to(course_key_string, output_file.name)
+    response = HttpResponse(open(output_file.name).read(), content_type='application/x-gzip')
+    response['Content-Disposition'] = 'attachment; filename="openassessments.tar.gz"'
+    return response

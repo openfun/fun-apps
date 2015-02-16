@@ -26,6 +26,9 @@ class BaseBackoffice(ModuleStoreTestCase):
         self.course = CourseFactory.create(org=self.university.code)  # create a non published course
         self.list_url = reverse('backoffice:courses-list')
 
+    def login_with_backoffice_group(self):
+        self.user.groups.add(self.backoffice_group)
+        self.client.login(username=self.user.username, password=self.password)
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestAuthentification(BaseBackoffice):
@@ -36,8 +39,7 @@ class TestAuthentification(BaseBackoffice):
         self.assertEqual(302, response.status_code)
 
     def test_auth_not_staff(self):
-        self.user.groups.add(self.backoffice_group)
-        self.client.login(username=self.user.username, password=self.password)
+        self.login_with_backoffice_group()
         response = self.client.get(self.list_url)
         self.assertEqual(200, response.status_code)
         self.assertEqual(0, len(response.context['courses']))  # user is not staff he can not see not published course
@@ -55,8 +57,7 @@ class TestAuthentification(BaseBackoffice):
 class TestGenerateCertificate(BaseBackoffice):
     def setUp(self):
         super(TestGenerateCertificate, self).setUp()
-        self.user.groups.add(self.backoffice_group)
-        self.client.login(username=self.user.username, password=self.password)
+        self.login_with_backoffice_group()
 
     def test_certificate(self):
         url = reverse('backoffice:generate-test-certificate', args=[self.course.id.to_deprecated_string()])
@@ -173,5 +174,17 @@ class TestDeleteTeachers(BaseCourseDetail):
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestDownloadOra2Submissions(BaseBackoffice):
 
-    def test_url(self):
+    def test_download_file(self):
+        self.login_with_backoffice_group()
         url = reverse("backoffice:ora2-submissions", args=[self.course.id.to_deprecated_string()])
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('application/x-gzip', response['Content-Type'])
+        self.assertNotEqual('', response.content)
+
+    def test_unauthorized_user_has_no_access(self):
+        url = reverse("backoffice:ora2-submissions", args=[self.course.id.to_deprecated_string()])
+        response = self.client.get(url)
+
+        self.assertEqual(302, response.status_code)
