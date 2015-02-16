@@ -24,11 +24,6 @@ msgstr ""
 msgid "(UTC)"
 msgstr ""
 
-# Translated in edx by '(pour l'inscription des étudiants et l'accès)'
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:134
-msgid "(for student enrollment and access)"
-msgstr ""
-
 # Translated in edx by 'Accès aux cours'
 msgid "Access My Courses"
 msgstr "Accéder à mes Cours"
@@ -39,24 +34,11 @@ msgstr "Activation non valide"
 msgid "Admin"
 msgstr "Administrateurs"
 
-# Translated in edx by 'Paramètres avancés'
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:371
-msgid "Advanced Settings"
-msgstr ""
-
 msgid "All (students, staff and instructors)"
 msgstr "Tous (Apprenants et équipe pédagogique)"
 
 msgid "Also receive emails about article edits"
 msgstr "Recevoir aussi des emails concernant la modification des articles"
-
-# Translated in edx by 'Apparait dans la page de catalogue des cours, quand
-# l'étudiant survole le nom du cours. Limité à ~150 caractères. '
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:263
-msgid ""
-"Appears on the course catalog page when students roll over the course "
-"name. Limit to ~150 characters"
-msgstr ""
 
 msgid "Associate's degree"
 msgstr "Licence professionnelle"

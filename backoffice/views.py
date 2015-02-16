@@ -1,17 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import os
-import json
-import random
 
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
-from django.db.models import Count
 from django.db.utils import IntegrityError
-from django.forms.formsets import formset_factory
 from django.forms.models import inlineformset_factory
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,7 +14,7 @@ from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole
 from xmodule.modulestore.django import modulestore
 
-from backoffice.forms import StudentCertificateForm, FirstRequiredFormSet
+from backoffice.forms import FirstRequiredFormSet
 from backoffice.utils import get_course
 
 from universities.models import University
@@ -99,8 +93,8 @@ def course_detail(request, course_key_string):
             CourseAccessRole.objects.filter(course_id=ck).delete()  # shall we also delete student's enrollments ?
             funcourse.delete()
             messages.warning(request, _(u"Course <strong>%s</strong> has been deleted.") % course.id)
-            log.warning('Course %s deleted by user %s' % (course.id, request.user.username))
-            return redirect(courses_list)
+            log.warning('Course %s deleted by user %s', course.id, request.user.username)
+            return redirect('backoffice:courses-list')
 
         elif request.POST['action'] == 'update-teachers':
 
@@ -110,7 +104,7 @@ def course_detail(request, course_key_string):
                 teacher_formset.save()
 
                 messages.success(request, _(u"Teachers have been updated"))
-                return redirect(course_detail, course_key_string=course_key_string)
+                return redirect("backoffice:course-detail", course_key_string=course_key_string)
 
     try:
         university = University.objects.get(code=course.org)
@@ -129,3 +123,6 @@ def course_detail(request, course_key_string):
             'roles': roles,
 
         })
+
+def ora2_submissions(request, course_id):
+    pass

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-02-04 17:42+0100\n"
+"POT-Creation-Date: 2015-02-16 10:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "A certificate generation is already running"
 msgstr "Une génération d'attestation est déjà en cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:120
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:119
 msgid "Add teacher"
 msgstr "Ajouter un professeur"
 
@@ -35,7 +35,8 @@ msgstr "Attestation"
 msgid "Certificate Management"
 msgstr "Gestion des attestations"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:96
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:95
+#: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:103
 #, python-format
 msgid "Course <strong>%s</strong> has been deleted."
 msgstr "Le cours <strong>%s</strong> a été supprimé"
@@ -48,11 +49,11 @@ msgstr "Informations sur le cours"
 msgid "Course key"
 msgstr "Clé du cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:169
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:168
 msgid "Delete course"
 msgstr "Supprimer un cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:100
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:101
 msgid "Delete this course"
 msgstr "Supprimer ce cours"
 
@@ -82,7 +83,7 @@ msgstr "Début d'inscription"
 msgid "Enrollments"
 msgstr "Inscriptions"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:137
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:136
 msgid "Full name:"
 msgstr "Nom complet:"
 
@@ -122,7 +123,7 @@ msgstr "Génération d'attestations en cours"
 msgid "Please confirm that you really want to generate a certificate for course:"
 msgstr "Veuillez confirmer la génération des certificats pour le cours:"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:173
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:172
 msgid "Please confirm you really want to delete this course:"
 msgstr "Veuillez confirmer la suppression de ce cours :"
 
@@ -148,7 +149,7 @@ msgstr "Échantillon"
 msgid "Start"
 msgstr "Début"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:175
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:174
 msgid "Students enrolled"
 msgstr "Utilisateurs inscrits"
 
@@ -177,11 +178,11 @@ msgid "Task Start"
 msgstr "Démarrage de la tâche"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:48
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:109
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:110
 msgid "Teachers"
 msgstr "Enseignants"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:103
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:106
 msgid "Teachers have been updated"
 msgstr "La liste des enseignants a été mise à jour"
 
@@ -204,10 +205,19 @@ msgstr "Durée totale (sec)"
 msgid "University doesn't exist"
 msgstr "Cette établissement n'existe pas"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:83
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:82
+#: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:109
 #, python-format
 msgid "University with code <strong>%s</strong> does not exist."
 msgstr "L'établissement avec le code <strong>%s</strong> n'existe pas."
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:112
+msgid ""
+"You may enter here the names and titles of the teachers as they will "
+"appear on the certificates"
+msgstr ""
+"Vous pouvez saisir ici les noms et titres des enseignants tels qu'ils "
+"apparaitront sur les attestations."
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:32
 msgid "course"

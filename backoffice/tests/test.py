@@ -6,12 +6,10 @@ from django.test.utils import override_settings
 from django.utils.translation import ugettext as _
 
 from lang_pref import LANGUAGE_KEY
-from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.user_api.models import UserPreference
-from student.tests.factories import UserFactory
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_DIR
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 from universities.factories import UniversityFactory
@@ -26,7 +24,7 @@ class BaseBackoffice(ModuleStoreTestCase):
         self.university = UniversityFactory.create()
         self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
         self.course = CourseFactory.create(org=self.university.code)  # create a non published course
-        self.list_url = reverse('backoffice-courses-list')
+        self.list_url = reverse('backoffice:courses-list')
 
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
@@ -61,7 +59,7 @@ class TestGenerateCertificate(BaseBackoffice):
         self.client.login(username=self.user.username, password=self.password)
 
     def test_certificate(self):
-        url = reverse('generate-test-certificate', args=[self.course.id.to_deprecated_string()])
+        url = reverse('backoffice:generate-test-certificate', args=[self.course.id.to_deprecated_string()])
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
         data = {
@@ -82,7 +80,7 @@ class BaseCourseDetail(ModuleStoreTestCase):
         self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
         self.user.groups.add(self.backoffice_group)
         self.client.login(username=self.user.username, password=self.password)
-        self.url = reverse('backoffice-course-detail', args=[self.course.id.to_deprecated_string()])
+        self.url = reverse('backoffice:course-detail', args=[self.course.id.to_deprecated_string()])
 
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
@@ -171,3 +169,9 @@ class TestDeleteTeachers(BaseCourseDetail):
         response = self.client.post(self.url, data)
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, funcourse.teachers.count())
+
+@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
+class TestDownloadOra2Submissions(BaseBackoffice):
+
+    def test_url(self):
+        url = reverse("backoffice:ora2-submissions", args=[self.course.id.to_deprecated_string()])

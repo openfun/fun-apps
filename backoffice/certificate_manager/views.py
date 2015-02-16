@@ -58,7 +58,7 @@ def generate_test_certificate(request, course_key_string):
         certificate = create_test_certificate(course, course_key, university)
         return certificate_file_response(certificate)
     else:
-        return redirect(certificate_dashboard, course_key_string)
+        return redirect('backoffice:certificate-dashboard', course_key_string)
 
 
 def certificate_file_response(certificate):
@@ -93,11 +93,11 @@ def generate_certificate(request, course_key_string):
 
     if not get_university_attached_to_course(course):
         messages.warning(request, _("University doesn't exist"))
-        return redirect(certificate_dashboard, course_key_string)
+        return redirect('backoffice:certificate-dashboard', course_key_string)
     try:
         submit_generate_certificate(request, course_key, input_args)
-        return redirect(certificate_dashboard, course_key_string)
+        return redirect('backoffice:certificate-dashboard', course_key_string)
     except AlreadyRunningError:
         messages.warning(request, _("A certificate generation is already running"))
-    return redirect(certificate_dashboard, course_key_string)
+    return redirect('backoffice:certificate-dashboard', course_key_string)
 

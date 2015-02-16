@@ -94,7 +94,7 @@
       <div class="row button-bar">
         <div class="col-md-6">
           <a class="btn btn-primary" href="{{ studio_url }}">{% trans "View Course in Studio" %}</a>
-          <a class="btn btn-primary" href="{% url 'certificate-dashboard' course.id %}">{% trans "Certificate Management" %}</a>
+          <a class="btn btn-primary" href="{% url 'backoffice:certificate-dashboard' course.id %}">{% trans "Certificate Management" %}</a>
           <a class="btn btn-primary" href="{% url 'course-dashboard:home' course.id %}">{% trans "Dashboard" %}</a>
         </div>
         <div class="col-md-6 text-right">
@@ -109,11 +109,9 @@
 
       <h2>{% trans 'Teachers' %}</h2>
 
-      <p>
-      Vous pouvez saisir ici les noms et titres des enseignants tels qu'ils apparaitront sur les attestations.
-      </p>
+      <p>{% trans "You may enter here the names and titles of the teachers as they will appear on the certificates" %}</p>
 
-      <form action="{% url 'backoffice-course-detail' course.id %}" method="POST">
+      <form action="{% url 'backoffice:course-detail' course.id %}" method="POST">
         <input type="hidden" name="action" value="update-teachers">
         <fieldset>
           {{ teacher_formset.management_form }}
@@ -159,7 +157,7 @@
 
 
 <!-- Modal -->
-<form action="{% url 'backoffice-course-detail' course.id %}" method="POST">
+<form action="{% url 'backoffice:course-detail' course.id %}" method="POST">
 <input type="hidden" name="action" value="delete-course">
 {% csrf_token %}
 <div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
