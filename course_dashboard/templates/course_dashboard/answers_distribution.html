@@ -17,10 +17,10 @@
 
 <%block name="content">
     % for problem_module in problem_modules:
-        <div class="problem-module">
-            <div class="row problem-path" module-id="${problem_module.scope_ids.usage_id.name}" clicked='false'>
+        <div class="problem-module" id="${problem_module.scope_ids.usage_id.name}">
+            <div class="row problem-path">
                 <ol class="breadcrumb col-lg-12">
-                    <li class=" glyphicon glyphicon-chevron-right ${problem_module.scope_ids.usage_id.name}"> </li>
+                    <li class=" glyphicon glyphicon-chevron-right"> </li>
                     <li> ${problem_module.ancestors_names['great_grandparent']}</li>
                     <li>  ${problem_module.ancestors_names['grandparent']}</li>
                     <li>  ${problem_module.ancestors_names['parent']}</li>
@@ -28,7 +28,7 @@
                 </ol>
             </div>
             <div class="row">
-                <div id="${problem_module.scope_ids.usage_id.name}" class="results"></div>
+                <div class="results"></div>
             </div>
         </div>
     % endfor
