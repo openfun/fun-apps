@@ -12,23 +12,45 @@ from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
+from student.models import UserProfile
 from universities.factories import UniversityFactory
 
 from ..models import Course, Teacher
 
-class BaseBackoffice(ModuleStoreTestCase):
+class BaseTestCase(ModuleStoreTestCase):
+
     def setUp(self):
-        self.password = super(BaseBackoffice, self).setUp()
+        self.password = super(BaseTestCase, self).setUp()
+        self.backoffice_group = Group.objects.create(name='fun_backoffice')
+        self.course = None
+
+    def init(self, is_superuser, university_code):
         self.user.is_staff = False
+        self.user.is_superuser = is_superuser
         self.user.save()
+        UserProfile.objects.create(user=self.user)
+        self.course = CourseFactory.create(org=university_code)
+
+class BaseBackoffice(BaseTestCase):
+    def setUp(self):
+        super(BaseBackoffice, self).setUp()
         self.university = UniversityFactory.create()
-        self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
-        self.course = CourseFactory.create(org=self.university.code)  # create a non published course
+        self.init(False, self.university.code)
         self.list_url = reverse('backoffice:courses-list')
 
     def login_with_backoffice_group(self):
         self.user.groups.add(self.backoffice_group)
         self.client.login(username=self.user.username, password=self.password)
+
+class BaseCourseDetail(BaseTestCase):
+    def setUp(self):
+        super(BaseCourseDetail, self).setUp()
+        self.init(True, "fun")
+
+        self.user.groups.add(self.backoffice_group)
+        UserPreference.set_preference(self.user, LANGUAGE_KEY, 'en-en')
+        self.client.login(username=self.user.username, password=self.password)
+        self.url = reverse('backoffice:course-detail', args=[self.course.id.to_deprecated_string()])
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestAuthentification(BaseBackoffice):
@@ -69,19 +91,6 @@ class TestGenerateCertificate(BaseBackoffice):
         response = self.client.post(url, data)
         self.assertEqual('application/pdf', response._headers['content-type'][1])
 
-
-class BaseCourseDetail(ModuleStoreTestCase):
-    def setUp(self):
-        self.password = super(BaseCourseDetail, self).setUp()
-        self.course = CourseFactory.create(org='fun')
-        self.user.is_superuser = True
-        self.user.is_staff = False
-        self.user.save()
-        UserPreference.set_preference(self.user, LANGUAGE_KEY, 'en-en')
-        self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
-        self.user.groups.add(self.backoffice_group)
-        self.client.login(username=self.user.username, password=self.password)
-        self.url = reverse('backoffice:course-detail', args=[self.course.id.to_deprecated_string()])
 
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
