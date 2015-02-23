@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import csv
+
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -15,6 +17,7 @@ from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 from universities.factories import UniversityFactory
 
 from ..models import Course, Teacher
+
 
 class BaseBackoffice(ModuleStoreTestCase):
     def setUp(self):
@@ -171,6 +174,7 @@ class TestDeleteTeachers(BaseCourseDetail):
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, funcourse.teachers.count())
 
+
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestDownloadOra2Submissions(BaseBackoffice):
 
@@ -188,3 +192,13 @@ class TestDownloadOra2Submissions(BaseBackoffice):
         response = self.client.get(url)
 
         self.assertEqual(302, response.status_code)
+
+
+@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
+class TestExportCoursesList(BaseBackoffice):
+    def test_export(self):
+        self.login_with_backoffice_group()
+        response = self.client.post(self.list_url)
+        self.assertEqual(response.content_type, 'text/csv')
+        data = csv.reader(response.content)
+        self.assertEqual(len(data), 2)
