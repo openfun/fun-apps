@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
+import csv
+import datetime
 import logging
-import os
 import tempfile
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
@@ -25,7 +28,6 @@ from universities.models import University
 from .models import Course, Teacher
 
 ABOUT_SECTION_FIELDS = ['title', 'university']
-
 
 log = logging.getLogger(__name__)
 
@@ -45,6 +47,7 @@ def course_infos(course):
         setattr(course, section, get_course_about_section(course, section))
     setattr(course, 'course_image_url', course_image_url(course))
     setattr(course, 'students_count', CourseEnrollment.objects.filter(course_id=course.id).count())
+    setattr(course, 'video_id', get_course_about_section(course, "video"))
     return course
 
 
@@ -59,6 +62,37 @@ def courses_list(request):
         courses = [course for course in courses
                 if pattern in course.title
                 or pattern in course.id.to_deprecated_string()]
+
+    if request.method == 'POST':
+        # export as CSV
+        filename = 'export-cours-%s.csv' % datetime.datetime.now().strftime('%Y-%m-%d')
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        writer = csv.writer(response)
+        csv_header = [ugettext(u"Title"), ugettext(u"University"), ugettext(u"Organisation code"),
+                ugettext(u"Course"), ugettext(u"Run"), ugettext(u"Start date"), ugettext(u"End date"),
+                ugettext(u"Enrollment start"), ugettext(u"Enrollment end"), ugettext(u"Students count"),
+                ugettext(u"Image"), ugettext(u"Video"), ugettext(u"Url")]
+        writer.writerow([field.encode('utf-8') for field in csv_header])
+
+        for course in courses:
+            raw = []
+            raw.append(course.title.encode('utf-8'))
+            raw.append(course.university.encode('utf-8'))
+            raw.append(course.id.org)
+            raw.append(course.id.course)
+            raw.append(course.id.run)
+            raw.append(course.start.strftime('%Y-%m-%d %H:%M') if course.start else '')
+            raw.append(course.end.strftime('%Y-%m-%d %H:%M') if course.end else '')
+            raw.append(course.enrollment_start.strftime('%Y-%m-%d %H:%M') if course.enrollment_start else '')
+            raw.append(course.enrollment_end.strftime('%Y-%m-%d %H:%M') if course.enrollment_end else '')
+            raw.append(course.students_count)
+            raw.append('https://%s%s' % (settings.LMS_BASE, course.course_image_url))
+            raw.append(course.video_id)
+            raw.append('https://%s%s' % (settings.LMS_BASE,
+                    reverse('about_course', args=[course.id.to_deprecated_string()])))
+            writer.writerow(raw)
+        return response
 
     return render(request, 'backoffice/courses.html', {
         'courses': courses,
@@ -127,6 +161,7 @@ def course_detail(request, course_key_string):
             'roles': roles,
 
         })
+
 
 @group_required('fun_backoffice')
 def ora2_submissions(request, course_key_string):
