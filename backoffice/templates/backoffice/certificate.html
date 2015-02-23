@@ -105,7 +105,7 @@
 
 <!-- Modal call when #generate_certificate_button is pressed -->
 
-<form action="{% url 'generate-certificate' course.id %}" method="GET">
+<form action="{% url 'backoffice:generate-certificate' course.id %}" method="GET">
 <div class="modal fade" id="certificate-generation-modal" tabindex="-1" role="dialog"  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
