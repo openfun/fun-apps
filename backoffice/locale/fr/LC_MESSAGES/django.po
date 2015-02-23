@@ -223,7 +223,7 @@ msgstr ""
 msgid "course"
 msgid_plural "courses"
 msgstr[0] "cours"
-msgstr[1] ""
+msgstr[1] "cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:32
 msgid "for your search pattern"

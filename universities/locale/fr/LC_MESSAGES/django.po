@@ -68,16 +68,6 @@ msgstr "Affiche le logo de l'université sur le site"
 msgid "The universities and schools"
 msgstr "Les universités et écoles françaises"
 
-# Translated in edx by 'Universités'
-#: /edx/app/edxapp/fun-apps/universities/models.py:46
-msgid "Universities"
-msgstr "Universities"
-
-# Translated in edx by 'Université'
-#: /edx/app/edxapp/fun-apps/universities/models.py:45
-msgid "University"
-msgstr "Université"
-
 #: /edx/app/edxapp/fun-apps/universities/models.py:33
 msgid "banner"
 msgstr "bannière"
@@ -102,19 +92,9 @@ msgstr "mis en avant sur le site"
 msgid "logo"
 msgstr "logo"
 
-# Translated in edx by 'nom'
-#: /edx/app/edxapp/fun-apps/universities/models.py:22
-msgid "name"
-msgstr "nom"
-
 #: /edx/app/edxapp/fun-apps/universities/admin.py:42
 msgid "preview"
 msgstr "aperçu"
-
-# Translated in edx by 'slug'
-#: /edx/app/edxapp/fun-apps/universities/models.py:31
-msgid "slug"
-msgstr "slug"
 
 #: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:23
 msgid ""
