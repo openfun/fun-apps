@@ -18,6 +18,9 @@ from universities.factories import UniversityFactory
 
 from ..models import Course, Teacher
 
+DM_CODE = 'x2an9mg'
+YOUTUBE_IFRAME = """\n\n\n<iframe width="560" height="315" src="//www.youtube.com/embed/%s?rel=0" frameborder="0" allowfullscreen=""></iframe>\n\n\n""" % DM_CODE
+
 
 class BaseBackoffice(ModuleStoreTestCase):
     def setUp(self):
@@ -26,7 +29,8 @@ class BaseBackoffice(ModuleStoreTestCase):
         self.user.save()
         self.university = UniversityFactory.create()
         self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
-        self.course = CourseFactory.create(org=self.university.code)  # create a non published course
+        self.course = CourseFactory.create(org=self.university.code,
+                video=YOUTUBE_IFRAME, effort = '3h00')  # create a non published course
         self.list_url = reverse('backoffice:courses-list')
 
     def login_with_backoffice_group(self):
@@ -202,3 +206,6 @@ class TestExportCoursesList(BaseBackoffice):
         self.assertEqual(response.content_type, 'text/csv')
         data = csv.reader(response.content)
         self.assertEqual(len(data), 2)
+        course = data[1]
+        self.assertIn(DM_CODE, course)
+        self.assertIn('3h00', course)

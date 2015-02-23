@@ -55,16 +55,16 @@
                 {% for course in courses %}
                 <tr>
                     <td>
-                        <a href="{% url 'backoffice:course-detail' course.id %}">{{ course.id }}</a>
-                        {% if course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
-                        {% if course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
+                        <a href="{% url 'backoffice:course-detail' course.course.id %}">{{ course.course.id }}</a>
+                        {% if course.course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
+                        {% if course.course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
                     </td>
-                    <td>{{ course.university }}</td>
-                    <td>{{ course.title }}</td>
-                    <td>{{ course.start|date:'d/m/y' }}</td>
-                    <td>{{ course.end|date:'d/m/y' }}</td>
-                    <td>{{ course.enrollment_start|date:'d/m/y' }}</td>
-                    <td>{{ course.enrollment_end|date:'d/m/y' }}</td>
+                    <td>{{ course.course.university }}</td>
+                    <td>{{ course.course.title }}</td>
+                    <td>{{ course.course.start|date:'d/m/y' }}</td>
+                    <td>{{ course.course.end|date:'d/m/y' }}</td>
+                    <td>{{ course.course.enrollment_start|date:'d/m/y' }}</td>
+                    <td>{{ course.course.enrollment_end|date:'d/m/y' }}</td>
                     <td>{{ course.students_count }}</td>
                 </tr>
                 {% empty %}
