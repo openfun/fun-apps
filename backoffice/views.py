@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
 
+import csv
+from collections import namedtuple
+import datetime
 import logging
-import os
+import re
 import tempfile
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
@@ -24,10 +29,12 @@ from backoffice.utils import get_course
 from universities.models import University
 from .models import Course, Teacher
 
-ABOUT_SECTION_FIELDS = ['title', 'university']
-
+ABOUT_SECTION_FIELDS = ['title', 'university', 'effort', 'video']
 
 log = logging.getLogger(__name__)
+
+FunCourse = namedtuple('FunCourse',
+        'course, course_image_url, students_count, ' + ', '.join(ABOUT_SECTION_FIELDS))
 
 
 def group_required(*group_names):
@@ -41,10 +48,21 @@ def group_required(*group_names):
 
 
 def course_infos(course):
+    """Annotate course object with complementary informations."""
+    about_section = {}
     for section in ABOUT_SECTION_FIELDS:
-        setattr(course, section, get_course_about_section(course, section))
-    setattr(course, 'course_image_url', course_image_url(course))
-    setattr(course, 'students_count', CourseEnrollment.objects.filter(course_id=course.id).count())
+        about_section[section] = get_course_about_section(course, section)
+    about_section['effort'] = about_section['effort'].replace('\n', '')  # clean the CRs
+    if about_section['video']:
+        try:  # well, edx store the Youtube iframe html code, we extract it...
+            about_section['video'] = re.findall('www.youtube.com/embed/(?P<hash>[\w]+)\?', about_section['video'])[0]
+        except IndexError:
+            pass
+    course = FunCourse(course=course,
+            course_image_url=course_image_url(course),
+            students_count=CourseEnrollment.objects.filter(course_id=course.id).count(),
+            **about_section
+            )
     return course
 
 
@@ -58,7 +76,44 @@ def courses_list(request):
     if pattern:
         courses = [course for course in courses
                 if pattern in course.title
-                or pattern in course.id.to_deprecated_string()]
+                or pattern in course.course.id.to_deprecated_string()]
+
+    if request.method == 'POST':
+        # export as CSV
+        filename = 'export-cours-%s.csv' % datetime.datetime.now().strftime('%Y-%m-%d')
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        writer = csv.writer(response)
+        csv_header = [ugettext(u"Title"), ugettext(u"University"), ugettext(u"Organisation code"),
+                ugettext(u"Course"), ugettext(u"Run"), ugettext(u"Start date"), ugettext(u"End date"),
+                ugettext(u"Enrollment start"), ugettext(u"Enrollment end"), ugettext(u"Students count"),
+                ugettext(u"Effort"), ugettext(u"Image"), ugettext(u"Video"), ugettext(u"Url")]
+        writer.writerow([field.encode('utf-8') for field in csv_header])
+
+        for course in courses:
+            raw = []
+            raw.append(course.title.encode('utf-8'))
+            raw.append(course.university.encode('utf-8'))
+            raw.append(course.course.id.org)
+            raw.append(course.course.id.course)
+            raw.append(course.course.id.run)
+            raw.append(course.course.start.strftime('%Y-%m-%d %H:%M')
+                    if course.course.start else '')
+            raw.append(course.course.end.strftime('%Y-%m-%d %H:%M')
+                    if course.course.end else '')
+            raw.append(course.course.enrollment_start.strftime('%Y-%m-%d %H:%M')
+                    if course.course.enrollment_start else '')
+            raw.append(course.course.enrollment_end.strftime('%Y-%m-%d %H:%M')
+                    if course.course.enrollment_end else '')
+            raw.append(course.students_count)
+            raw.append(course.effort)
+            raw.append('https://%s%s' % (settings.LMS_BASE, course.course_image_url))
+            raw.append(course.video)
+            raw.append('https://%s%s' % (settings.LMS_BASE,
+                    reverse('about_course', args=[course.course.id.to_deprecated_string()])))
+            writer.writerow(raw)
+
+        return response
 
     return render(request, 'backoffice/courses.html', {
         'courses': courses,
@@ -96,13 +151,11 @@ def course_detail(request, course_key_string):
 
             CourseAccessRole.objects.filter(course_id=ck).delete()  # shall we also delete student's enrollments ?
             funcourse.delete()
-            messages.warning(request, _(u"Course <strong>%s</strong> has been deleted.") % course.id)
-            log.warning('Course %s deleted by user %s', course.id, request.user.username)
+            messages.warning(request, _(u"Course <strong>%s</strong> has been deleted.") % course.course.id)
+            log.warning('Course %s deleted by user %s', course.course.id, request.user.username)
             return redirect('backoffice:courses-list')
 
         elif request.POST['action'] == 'update-teachers':
-
-
             teacher_formset = TeacherFormSet(instance=funcourse, data=request.POST or None)
             if teacher_formset.is_valid():
                 teacher_formset.save()
@@ -111,12 +164,12 @@ def course_detail(request, course_key_string):
                 return redirect("backoffice:course-detail", course_key_string=course_key_string)
 
     try:
-        university = University.objects.get(code=course.org)
+        university = University.objects.get(code=course.course.org)
     except University.DoesNotExist:
         university = None
 
     teacher_formset = TeacherFormSet(instance=funcourse)
-    studio_url = get_cms_course_link(course)
+    studio_url = get_cms_course_link(course.course)
     roles = CourseAccessRole.objects.filter(course_id=ck)
 
     return render(request, 'backoffice/course.html', {
@@ -127,6 +180,7 @@ def course_detail(request, course_key_string):
             'roles': roles,
 
         })
+
 
 @group_required('fun_backoffice')
 def ora2_submissions(request, course_key_string):

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import csv
+
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -16,6 +18,10 @@ from universities.factories import UniversityFactory
 
 from ..models import Course, Teacher
 
+DM_CODE = 'x2an9mg'
+YOUTUBE_IFRAME = """\n\n\n<iframe width="560" height="315" src="//www.youtube.com/embed/%s?rel=0" frameborder="0" allowfullscreen=""></iframe>\n\n\n""" % DM_CODE
+
+
 class BaseBackoffice(ModuleStoreTestCase):
     def setUp(self):
         self.password = super(BaseBackoffice, self).setUp()
@@ -23,7 +29,8 @@ class BaseBackoffice(ModuleStoreTestCase):
         self.user.save()
         self.university = UniversityFactory.create()
         self.backoffice_group = Group.objects.create(name='fun_backoffice')  # create the group
-        self.course = CourseFactory.create(org=self.university.code)  # create a non published course
+        self.course = CourseFactory.create(org=self.university.code,
+                video=YOUTUBE_IFRAME, effort = '3h00')  # create a non published course
         self.list_url = reverse('backoffice:courses-list')
 
     def login_with_backoffice_group(self):
@@ -171,6 +178,7 @@ class TestDeleteTeachers(BaseCourseDetail):
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, funcourse.teachers.count())
 
+
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestDownloadOra2Submissions(BaseBackoffice):
 
@@ -188,3 +196,16 @@ class TestDownloadOra2Submissions(BaseBackoffice):
         response = self.client.get(url)
 
         self.assertEqual(302, response.status_code)
+
+
+@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
+class TestExportCoursesList(BaseBackoffice):
+    def test_export(self):
+        self.login_with_backoffice_group()
+        response = self.client.post(self.list_url)
+        self.assertEqual(response.content_type, 'text/csv')
+        data = csv.reader(response.content)
+        self.assertEqual(len(data), 2)
+        course = data[1]
+        self.assertIn(DM_CODE, course)
+        self.assertIn('3h00', course)
