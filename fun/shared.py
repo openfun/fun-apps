@@ -53,7 +53,7 @@ def ensure_root_exists():
     not make use of this function directly.
     """
     if not os.path.exists(root_directory()):
-        if settings.ENVIRONEMENT not in ['test', 'dev']:
+        if settings.ENVIRONMENT not in ['test', 'dev']:
             raise ValueError("SHARED_ROOT folder %s does not exist" % root_directory())
         else:
             os.makedirs(settings.SHARED_ROOT)

@@ -20,7 +20,7 @@ class SharedTestCase(TestCase):
         self.assertTrue(os.path.isdir(settings.SHARED_ROOT))
         self.assertTrue(os.path.isdir(os.path.join(settings.SHARED_ROOT, "subdir")))
 
-    @override_settings(ENVIRONEMENT='prod')
+    @override_settings(ENVIRONMENT='prod')
     def test_shared_directory_is_not_created(self):
         self.assertRaises(ValueError, shared.ensure_root_exists)
 
