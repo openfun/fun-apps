@@ -35,9 +35,9 @@
 {% block content %}
 
 
-<h1>{{ course.display_name_with_default }}</h1>
-{% if course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
-{% if course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
+<h1>{{ course_info.course.display_name_with_default }}</h1>
+{% if course_info.course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
+{% if course_info.course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
 
 
 <div role="tabpanel">
@@ -92,17 +92,15 @@
       </div>
 
       <div class="row button-bar">
-        <div class="col-md-6">
+        <div class="col-md-10">
             <div class="row">
-                <a class="btn btn-primary col-md-4" href="{{ studio_url }}">{% trans "View Course in Studio" %}</a>
-                <a class="btn btn-primary col-md-4" href="{% url 'backoffice:certificate-dashboard' course.id %}">{% trans "Certificate Management" %}</a>
-                <a class="btn btn-primary col-md-4" href="{% url 'course-dashboard:home' course.id %}">{% trans "Dashboard" %}</a>
-            </div>
-            <div class="row">
-                <a class="btn btn-primary col-md-4" href="{% url 'backoffice:ora2-submissions' course.id %}">{% trans "Download ORA2 submissions" %}</a>
+                <a class="btn btn-primary" href="{{ course_info.studio_url }}">{% trans "View Course in Studio" %}</a>
+                <a class="btn btn-primary" href="{% url 'backoffice:certificate-dashboard' course_info.course.id %}">{% trans "Certificate Management" %}</a>
+                <a class="btn btn-primary" href="{% url 'course-dashboard:home' course_info.course.id %}">{% trans "Dashboard" %}</a>
+                <a class="btn btn-primary" href="{% url 'backoffice:ora2-submissions' course_info.course.id %}">{% trans "Download ORA2 submissions" %}</a>
             </div>
         </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-2 text-right">
           <a id="delete-course" class="btn btn-danger" data-toggle="modal" data-target="#delete-course-modal">{% trans "Delete this course" %}</a>
         </div>
       </div>
@@ -116,7 +114,7 @@
 
       <p>{% trans "You may enter here the names and titles of the teachers as they will appear on the certificates" %}</p>
 
-      <form action="{% url 'backoffice:course-detail' course.id %}" method="POST">
+      <form action="{% url 'backoffice:course-detail' course_info.course.id %}" method="POST">
         <input type="hidden" name="action" value="update-teachers">
         <fieldset>
           {{ teacher_formset.management_form }}
@@ -162,7 +160,7 @@
 
 
 <!-- Modal -->
-<form action="{% url 'backoffice:course-detail' course.id %}" method="POST">
+<form action="{% url 'backoffice:course-detail' course_info.course.id %}" method="POST">
 <input type="hidden" name="action" value="delete-course">
 {% csrf_token %}
 <div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
@@ -175,7 +173,7 @@
       <div class="modal-body">
         <p>
         {% trans "Please confirm you really want to delete this course:" %}<br>
-        <h4>{{ course.display_name_with_default }}</h4>
+        <h4>{{ course_info.course.display_name_with_default }}</h4>
           <strong>{{ students_count }} {% trans "Students enrolled" %}</strong>
         </p>
       </div>
