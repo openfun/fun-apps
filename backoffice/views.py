@@ -5,15 +5,13 @@ from collections import namedtuple
 import datetime
 import logging
 import re
-import tempfile
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
 from django.forms.models import inlineformset_factory
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -22,12 +20,11 @@ from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole
 from xmodule.modulestore.django import modulestore
 
-from fun.management.commands.generate_oa_data import Command as OaCommand
-from backoffice.forms import FirstRequiredFormSet
-from backoffice.utils import get_course
-
 from universities.models import University
+
+from .forms import FirstRequiredFormSet
 from .models import Course, Teacher
+from .utils import get_course, group_required
 
 ABOUT_SECTION_FIELDS = ['title', 'university', 'effort', 'video']
 
@@ -36,15 +33,6 @@ log = logging.getLogger(__name__)
 FunCourse = namedtuple('FunCourse',
         'course, course_image_url, students_count, studio_url, ' + ', '.join(ABOUT_SECTION_FIELDS))
 
-
-def group_required(*group_names):
-    """Requires user membership in at least one of the groups passed in."""
-    def in_groups(u):
-        if u.is_authenticated():
-            if bool(u.groups.filter(name__in=group_names)) or u.is_superuser:
-                return True
-        return False
-    return user_passes_test(in_groups)
 
 
 def get_course_info(course):
@@ -184,12 +172,3 @@ def course_detail(request, course_key_string):
             'roles': roles,
 
         })
-
-
-@group_required('fun_backoffice')
-def ora2_submissions(request, course_key_string):
-    output_file = tempfile.NamedTemporaryFile(suffix=".tar.gz")
-    OaCommand().dump_to(course_key_string, output_file.name)
-    response = HttpResponse(open(output_file.name).read(), content_type='application/x-gzip')
-    response['Content-Disposition'] = 'attachment; filename="openassessments.tar.gz"'
-    return response

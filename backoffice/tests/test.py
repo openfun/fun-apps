@@ -189,26 +189,6 @@ class TestDeleteTeachers(BaseCourseDetail):
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, funcourse.teachers.count())
 
-
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
-class TestDownloadOra2Submissions(BaseBackoffice):
-
-    def test_download_file(self):
-        self.login_with_backoffice_group()
-        url = reverse("backoffice:ora2-submissions", args=[self.course.id.to_deprecated_string()])
-        response = self.client.get(url)
-
-        self.assertEqual(200, response.status_code)
-        self.assertEqual('application/x-gzip', response['Content-Type'])
-        self.assertNotEqual('', response.content)
-
-    def test_unauthorized_user_has_no_access(self):
-        url = reverse("backoffice:ora2-submissions", args=[self.course.id.to_deprecated_string()])
-        response = self.client.get(url)
-
-        self.assertEqual(302, response.status_code)
-
-
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestExportCoursesList(BaseBackoffice):
     def test_export(self):
