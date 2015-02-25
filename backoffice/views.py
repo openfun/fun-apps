@@ -112,7 +112,7 @@ def courses_list(request):
             raw.append(format_datetime(course_info.course.enrollment_start))
             raw.append(format_datetime(course_info.course.enrollment_end))
             raw.append(course_info.students_count)
-            raw.append(course_info.effort)
+            raw.append(course_info.effort.encode('utf-8'))
             raw.append('https://%s%s' % (settings.LMS_BASE, course_info.course_image_url))
             raw.append(course_info.video)
             raw.append('https://%s%s' % (settings.LMS_BASE,
