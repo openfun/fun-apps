@@ -3,9 +3,10 @@ import os
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
+from instructor_task.tests.factories import InstructorTaskFactory
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
-from backoffice.ora2_submissions import tasks as ora2_submission_tasks
+from backoffice.ora2_submissions import tasks_api, tasks
 from backoffice.tests.test import BaseBackoffice
 
 
@@ -29,8 +30,8 @@ class TestDownloadOra2Submissions(BaseBackoffice):
         self.assertEqual(302, response.status_code)
 
     def test_download_file_without_preparation(self):
-        is_prepared = ora2_submission_tasks.file_is_prepared(self.course.id)
-        last_file_date = ora2_submission_tasks.get_last_file_date(self.course.id)
+        is_prepared = tasks_api.file_is_prepared(self.course.id)
+        last_file_date = tasks_api.get_last_file_date(self.course.id)
         response = self.client.get(self.download_url)
 
         self.assertFalse(is_prepared)
@@ -40,10 +41,12 @@ class TestDownloadOra2Submissions(BaseBackoffice):
     def test_download_file(self):
         self.login_with_backoffice_group()
         response_prepare = self.client.post(self.prepare_url, follow=True)
-        is_prepared = ora2_submission_tasks.file_is_prepared(self.course.id)
-        file_path = ora2_submission_tasks.get_file_path(self.course.id)
+        instructor_task = tasks.InstructorTask.objects.get()
+        is_prepared = tasks_api.file_is_prepared(self.course.id)
+        file_path = tasks_api.get_file_path(self.course.id)
         response = self.client.get(self.download_url)
 
+        self.assertEqual("SUCCESS", instructor_task.task_state)
         self.assertTrue(is_prepared)
         self.assertIsNotNone(file_path)
         self.assertTrue(os.path.exists(file_path))
@@ -59,14 +62,14 @@ class TestDownloadOra2Submissions(BaseBackoffice):
     def test_prepare_file_twice(self):
         # Prepare 1st file
         self.client.post(self.prepare_url)
-        file_path1 = ora2_submission_tasks.get_file_path(self.course.id)
-        last_file_date1 = ora2_submission_tasks.get_last_file_date(self.course.id)
+        file_path1 = tasks_api.get_file_path(self.course.id)
+        last_file_date1 = tasks_api.get_last_file_date(self.course.id)
         self.assertTrue(os.path.exists(file_path1))
 
         # Prepare 2nd file
         self.client.post(self.prepare_url)
-        file_path2 = ora2_submission_tasks.get_file_path(self.course.id)
-        last_file_date2 = ora2_submission_tasks.get_last_file_date(self.course.id)
+        file_path2 = tasks_api.get_file_path(self.course.id)
+        last_file_date2 = tasks_api.get_last_file_date(self.course.id)
         self.assertFalse(os.path.exists(file_path1))
         self.assertTrue(os.path.exists(file_path2))
         self.assertLess(last_file_date1, last_file_date2)
@@ -74,3 +77,16 @@ class TestDownloadOra2Submissions(BaseBackoffice):
     def test_status_view(self):
         response = self.client.get(self.status_url)
         self.assertEqual(200, response.status_code)
+
+    @override_settings(TEMPLATE_STRING_IS_INVALID="__INVALID__")
+    def test_status_view_with_running_task(self):
+        InstructorTaskFactory(
+            task_key=tasks_api.get_task_key(self.course.id),
+            course_id=self.course.id,
+            task_id="task_id",
+            task_type=tasks.PREPARATION_TASK_TYPE,
+        )
+        response = self.client.get(self.status_url)
+        self.assertTrue("task_is_running" in response.context)
+        self.assertTrue(response.context["task_is_running"])
+        self.assertFalse("__INVALID__" in response.content)

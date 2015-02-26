@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-02-24 17:19+0000\n"
+"POT-Creation-Date: 2015-02-26 15:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -57,7 +57,11 @@ msgstr "Supprimer un cours"
 msgid "Delete this course"
 msgstr "Supprimer ce cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:8
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:38
+msgid "Download"
+msgstr "Télécharger"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:9
 msgid "Download open assessment submissions"
 msgstr "Télécharger les évaluations par les pairs"
 
@@ -92,7 +96,7 @@ msgid "Full name:"
 msgstr "Nom complet:"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:121
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:22
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:26
 msgid "Generate"
 msgstr "Générer"
 
@@ -104,7 +108,7 @@ msgstr "Génération des attestations"
 msgid "Generate certificates"
 msgstr "Générer les attestations"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:17
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:21
 msgid "Generate new dump of open assessment submissions:"
 msgstr "Générer un nouveau dump des évaluations par les pairs"
 
@@ -120,7 +124,7 @@ msgstr "Identifiant"
 msgid "Information"
 msgstr "Informations sur le cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:31
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:35
 msgid "Last file generated on: "
 msgstr "Dernier fichier généré à :"
 
@@ -184,7 +188,7 @@ msgstr "Apprenants ayant obtenu l'attestation"
 msgid "Students without certificate"
 msgstr "Apprenants n'ayant pas obtenu l'attestation"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:13
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:14
 msgid "Submissions dump is being generated..."
 msgstr "Dump des évaluations en cours de génération..."
 

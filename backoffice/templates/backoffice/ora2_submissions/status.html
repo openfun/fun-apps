@@ -1,6 +1,7 @@
 {% extends 'backoffice/base.html' %}
 {% load i18n %}
 {% load url from future %}
+{% load staticfiles %}
 
 {% block content %}
 <h1>{{ course.display_name_with_default }}</h1>
@@ -9,8 +10,11 @@
 
 <div class="row">
     {% if task_is_running %}
-    <div class="col-md-12">
-        {% blocktrans %}Submissions dump is being generated...{% endblocktrans %}
+    <div class="col-md-6">
+        {% trans "Submissions dump is being generated..." %}
+    </div>
+    <div class="col-md-6">
+        <img src="{% static 'fun/images/spinner.gif' %}">
     </div>
     {% else %}
     <div class="col-md-6">
@@ -31,7 +35,7 @@
         <p>{% blocktrans %}Last file generated on: {% endblocktrans %} {{ last_file_date }}</p>
     </div>
     <div class="col-md-6">
-        <p><a href="{% url 'backoffice:ora2-submissions:download' course.id %}">Download</a></p>
+        <p><a href="{% url 'backoffice:ora2-submissions:download' course.id %}">{% trans "Download" %}</a></p>
     </div>
 </div>
 {% endif %}
