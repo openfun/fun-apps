@@ -82,7 +82,14 @@ def active_enrollments(course_key):
     )
 
 def forum_threads(course_id):
-    # TODO this is absolutely disgusting, untested code
+    """
+    Search for all forum threads created in the given course.
+
+    Returns:
+
+        An array of thread (dict) objects
+    """
+    # Note: this is untested code
     page = 1
     num_pages = 1
     threads = []
@@ -93,6 +100,7 @@ def forum_threads(course_id):
             "per_page": 200,
         })
         threads += result[0]
+        # Iterate over all result pages
         num_pages = result[2]
         if page == num_pages:
             break
@@ -100,10 +108,24 @@ def forum_threads(course_id):
     return threads
 
 def forum_threads_per_day(threads):
+    """Count the number of forum threads created per day.
+
+    Args:
+
+        threads: array of dict objects, as returned by the forum API. In
+        particular, each thread has a "created_at" key that points to a string
+        date value.
+
+    Returns:
+        
+         A sorted array of (date, count) pairs where date is a datetime object
+         and count is an integer. Dates at which no forum entry was created are
+         not listed.
+    """
     threads_per_day = defaultdict(int)
     for thread in threads:
         date = datetime.strptime(thread["created_at"], '%Y-%m-%dT%H:%M:%SZ')
-        threads_per_day[datetime(year=date.year, month=date.month, day=1)] += 1
+        threads_per_day[datetime(year=date.year, month=date.month, day=date.day)] += 1
     return sorted(threads_per_day.items())
 
 def most_active_username(threads):

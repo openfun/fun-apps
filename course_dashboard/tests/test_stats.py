@@ -57,3 +57,10 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         enrollment = self.enroll_student(course, **kwargs)
         enrollment.created = datetime(year, month, day, tzinfo=timezone.UTC())
         enrollment.save()
+
+    def test_forum_threads_per_day(self):
+        threads = [{
+            "created_at": '2015-02-03T18:00:00Z'
+        }]
+        threads_per_day = stats.forum_threads_per_day(threads)
+        self.assertEqual([(datetime(year=2015, month=2, day=3), 1)], threads_per_day)
