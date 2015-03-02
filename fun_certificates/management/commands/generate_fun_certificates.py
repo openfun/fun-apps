@@ -32,10 +32,10 @@ request = factory.get('/')
 request.session = {}
 
 def generate_fun_certificate(student,
- course_id,
- course_display_name, course,
- teachers,
- organization_display_name, organization_logo,
+                             course_id,
+                             course_display_name, course,
+                             teachers,
+                             organization_display_name, organization_logo,
                              certificate_base_filename, ignore_grades, new_grade, fail_flag):
     """Generates a certificate for one student and one course."""
 

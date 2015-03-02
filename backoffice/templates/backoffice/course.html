@@ -97,7 +97,7 @@
                 <a class="btn btn-primary" href="{{ course_info.studio_url }}">{% trans "View Course in Studio" %}</a>
                 <a class="btn btn-primary" href="{% url 'backoffice:certificate-dashboard' course_info.course.id %}">{% trans "Certificate Management" %}</a>
                 <a class="btn btn-primary" href="{% url 'course-dashboard:home' course_info.course.id %}">{% trans "Dashboard" %}</a>
-                <a class="btn btn-primary" href="{% url 'backoffice:ora2-submissions' course_info.course.id %}">{% trans "Download ORA2 submissions" %}</a>
+                <a class="btn btn-primary" href="{% url 'backoffice:ora2-submissions:status' course_info.course.id %}">{% trans "Download ORA2 submissions" %}</a>
             </div>
         </div>
         <div class="col-md-2 text-right">

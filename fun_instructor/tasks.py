@@ -12,9 +12,11 @@ from django.utils.translation import ugettext_noop
 
 from instructor_task.tasks_helper import (
     BaseInstructorTask,
-    run_main_task)
+    run_main_task
+)
 
 from backoffice.certificate_manager.tasks import generate_certificate
+from backoffice.ora2_submissions.tasks import prepare_ora2_submissions
 
 
 @task(base=BaseInstructorTask)
@@ -27,3 +29,7 @@ def generate_certificate_task_class(entry_id, xmodule_instance_args):
     task_fn = partial(generate_certificate, xmodule_instance_args)
     return run_main_task(entry_id, task_fn, action_name)
 
+@task(base=BaseInstructorTask)
+def prepare_ora2_submissions_task(entry_id, _xmodule_instance_args):
+    action_name = "generated"
+    return run_main_task(entry_id, prepare_ora2_submissions, action_name)

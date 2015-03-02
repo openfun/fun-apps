@@ -1,0 +1,42 @@
+{% extends 'backoffice/base.html' %}
+{% load i18n %}
+{% load url from future %}
+{% load staticfiles %}
+
+{% block content %}
+<h1>{{ course.display_name_with_default }}</h1>
+
+<h3>{% trans "Download open assessment submissions" %}</h3>
+
+<div class="row">
+    {% if task_is_running %}
+    <div class="col-md-6">
+        {% trans "Submissions dump is being generated..." %}
+    </div>
+    <div class="col-md-6">
+        <img src="{% static 'fun/images/spinner.gif' %}">
+    </div>
+    {% else %}
+    <div class="col-md-6">
+        {% blocktrans %}Generate new dump of open assessment submissions:{% endblocktrans %}
+    </div>
+    <div class="col-md-6">
+        <form method="POST" action="{% url 'backoffice:ora2-submissions:prepare' course.id %}">
+            {% csrf_token %}
+            <button class="btn">{% trans "Generate" %}</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+{% if last_file_date %}
+<div class="row">
+    <div class="col-md-6">
+        <p>{% blocktrans %}Last file generated on: {% endblocktrans %} {{ last_file_date }}</p>
+    </div>
+    <div class="col-md-6">
+        <p><a href="{% url 'backoffice:ora2-submissions:download' course.id %}">{% trans "Download" %}</a></p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
