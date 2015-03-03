@@ -3,9 +3,9 @@
 import sys
 
 # import cms aws settings
-from ..aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 # import FUN lms/cms common settings
-from .common import *
+from ..common import *
 
 
 INSTALLED_APPS += (

@@ -3,7 +3,7 @@
 Specific CMS settings for developpement environement
 """
 
-from .cms import *
+from .common import *
 from ..dev import *
 
 SITE_NAME = CMS_BASE
