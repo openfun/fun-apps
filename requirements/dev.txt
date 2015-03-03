@@ -1,0 +1,1 @@
+git+https://github.com/openfun/fun-cmd.git@master#egg=fun-cmd
