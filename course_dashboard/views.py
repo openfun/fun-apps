@@ -1,7 +1,6 @@
 import csv
 import time
 from datetime import datetime
-from datetime import timedelta
 from StringIO import StringIO
 
 from django.http import HttpResponse
@@ -18,16 +17,10 @@ from . import stats
 @ensure_valid_course_key
 @staff_required_or_level('staff')
 def enrollment_stats(request, course_id):
-    day_span = 90
-    three_months_ago = datetime.today() - timedelta(days=day_span)
-    enrollments_per_date = stats.enrollments_per_day(course_id, since=three_months_ago)
+    enrollments = stats.EnrollmentStats(course_id)
     if request.GET.get("format") == "csv":
-        return csv_response(["date", "enrollments"], enrollments_per_date, "enrollments.csv")
-
-    enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments_per_date)
-
-    total_population = sum(e[1] for e in enrollments_per_day)
-    average_enrollments_per_day = total_population * 1. / day_span
+        return csv_response(["date", "enrollments"], enrollments.per_date, "enrollments.csv")
+    enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments.per_date)
     best_day = None
     worst_day = None
     if enrollments_per_day:
@@ -39,10 +32,11 @@ def enrollment_stats(request, course_id):
         "course_id": course_id,
         "enrollments_per_day": enrollments_per_day,
         "enrollments_per_timestamp": enrollments_per_timestamp,
-        "average_enrollments_per_day": average_enrollments_per_day,
+        "average_enrollments_per_day": enrollments.daily_average(),
         "best_day": best_day,
         "worst_day": worst_day,
-        "total_population": total_population,
+        "total_population": enrollments.total(),
+        "day_span": enrollments.day_span(),
     })
 
 

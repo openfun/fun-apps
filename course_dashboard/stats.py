@@ -20,7 +20,7 @@ def enrollments_per_month(course_key_string, since=None):
 def enrollments_per(course_key_string, period_name, since=None):
     """
     Returns:
-        [(date, count)] list
+        [(date, count)] list sorted by increasing date.
     """
     course_key = CourseKey.from_string(course_key_string)
     # Be careful: the following datr_trunc_sql does not produce the same result
@@ -117,7 +117,7 @@ def forum_threads_per_day(threads):
         date value.
 
     Returns:
-        
+
          A sorted array of (date, count) pairs where date is a datetime object
          and count is an integer. Dates at which no forum entry was created are
          not listed.
@@ -139,3 +139,26 @@ def most_active_username(threads):
             max_thread_count = thread_count
         best_username = username
     return best_username
+
+class EnrollmentStats(object):
+    """Provide enrollments stats for a given course."""
+
+    def __init__(self, course_id, since=None):
+        self.course_id = course_id
+        self.since = since
+        self.per_date = enrollments_per_day(self.course_id, since=since)
+
+    def day_span(self):
+        """Number of days covered by the stats."""
+        days = 1
+        if self.per_date:
+            days = (self.per_date[-1][0] - self.per_date[0][0]).days + 1
+        return days
+
+    def total(self):
+        """Total number of enrollments"""
+        return sum(e[1] for e in self.per_date)
+
+    def daily_average(self):
+        """Average enrollments per day"""
+        return self.total() * 1. / self.day_span()

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-02-03 10:16+0000\n"
+"POT-Creation-Date: 2015-03-03 16:14+0000\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -32,8 +32,8 @@ msgstr "%d commentaires"
 msgid "%d countries"
 msgstr "%d pays"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:23
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:30
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:23
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:30
 #, python-format
 msgid "%d enrollments"
 msgstr "%d inscriptions"
@@ -48,7 +48,7 @@ msgstr "%d apprenants"
 msgid "%m/%d/%Y"
 msgstr "%d/%m/%Y"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:35
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:35
 msgid "An average of"
 msgstr "Une moyenne de :"
 
@@ -58,21 +58,21 @@ msgstr "Une moyenne de :"
 msgid "Course dashboard"
 msgstr "Tableau de bord de cours"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:28
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:28
 msgid "Day with least enrollments:"
 msgstr "Jour avec le moins d'inscriptions :"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:21
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:21
 msgid "Day with most enrollments:"
 msgstr "Jour avec le plus d'inscriptions :"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:43
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:47
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map.html:40
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:43
 msgid "Download raw CSV data"
 msgstr "Télécharger les données CSV brutes"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:63
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:63
 msgid "Enrollments per day"
 msgstr "Inscriptions par jour"
 
@@ -101,7 +101,7 @@ msgstr "Apprenant le plus actif :"
 msgid "New forum threads per day"
 msgstr "Nouveaux fils de conversations par jour"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:50
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:50
 msgid "Number of enrollments"
 msgstr "Nombre d'inscriptions"
 
@@ -137,12 +137,13 @@ msgstr "Troisième pays"
 msgid "Top country by enrollment"
 msgstr "Premier pays"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:73
+# Translated in edx by ''
+#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:67
 #: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:84
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:37
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:37
 msgid "enrollments / day"
 msgstr "inscriptions / jour"
 
@@ -154,7 +155,8 @@ msgstr "fils de discussion créés"
 msgid "from"
 msgstr "de"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/subscription-stats.html:17
-msgid "students enrolled over the past 90 days"
-msgstr "apprenants inscrits durant les 90 derniers jours"
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:17
+#, python-format
+msgid "students enrolled over %d days"
+msgstr "apprenants inscrits en %d jours"
 
