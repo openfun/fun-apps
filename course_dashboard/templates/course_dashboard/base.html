@@ -1,7 +1,6 @@
 ## mako
 <!DOCTYPE html>
 <%! from django.utils.translation import ugettext as _ %>
-<%! from django.core.urlresolvers import reverse %>
 <%namespace name='static' file='/static_content.html'/>
 <html lang="en">
     <head>
@@ -58,19 +57,8 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="${reverse('course-dashboard:home', kwargs={'course_id': course_id})}"><strong>France Université Numérique</strong> | ${_("Course dashboard")}</a>
+                    <%block name="navbar_header"></%block>
                 </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        ## <li class="active"><a href="${reverse('backoffice:courses-list')}">${_("Courses")}</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
             </div>
         </nav>
 
@@ -87,13 +75,9 @@
                 % endif
 
                 <div class="page-header">
-                    <h1>${_("Course dashboard")} <small>${course_id}</small></h1>
+                    <%block name="header"></%block>
                 </div>
-                <ul id="container-navigation" class="nav nav-pills">
-                    <li role="presentation" ${"class='active'" if active_tab == 'enrollment_stats' else '' }><a href="${reverse('course-dashboard:enrollment-stats', kwargs={'course_id': course_id})}">${_("Subscription statistics")}</a></li>
-                    <li role="presentation" ${"class='active'" if active_tab == 'student_map' else '' }><a href="${reverse('course-dashboard:student-map', kwargs={'course_id': course_id})}">${_("Student map")}</a></li>
-                    <li role="presentation" ${"class='active'" if active_tab == 'forum_activity' else '' }><a href="${reverse('course-dashboard:forum-activity', kwargs={'course_id': course_id})}">${_("Forum activity")}</a></li>
-                </ul>
+                <%block name="navigation"></%block>
                 <div id="content">
                     <%block name="content"></%block>
                 </div>

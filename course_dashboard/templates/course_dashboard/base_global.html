@@ -1,0 +1,18 @@
+## mako
+<%inherit file="base.html" />
+<%! from django.utils.translation import ugettext as _ %>
+<%! from django.core.urlresolvers import reverse %>
+
+<%block name="navbar_header">
+## TODO
+</%block>
+
+<%block name="header">
+    <h1>${_("Paltform stats")}</h1>
+</%block>
+
+<%block name="navigation">
+    <ul id="container-navigation" class="nav nav-pills">
+        <li role="presentation" ${"class='active'" if active_tab == 'enrollment_stats' else '' }><a href="${reverse('course-dashboard-global:enrollment-stats')}">${_("Subscription statistics")}</a></li>
+    </ul>
+</%block>

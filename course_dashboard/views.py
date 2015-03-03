@@ -10,7 +10,7 @@ from django.utils.formats import date_format
 from django_countries import countries
 
 from fun.utils.views import ensure_valid_course_key
-from fun.utils.views import staff_required_or_level
+from fun.utils.views import staff_required, staff_required_or_level
 from . import stats
 
 
@@ -20,6 +20,18 @@ def enrollment_stats(request, course_id):
     enrollments = stats.EnrollmentStats(course_id)
     if request.GET.get("format") == "csv":
         return csv_response(["date", "enrollments"], enrollments.per_date, "enrollments.csv")
+    context = enrollment_stats_context(enrollments)
+    return render(request, 'course_dashboard/enrollment-stats.html', context)
+
+@staff_required
+def global_enrollment_stats(request):
+    enrollments = stats.EnrollmentStats(None)
+    if request.GET.get("format") == "csv":
+        return csv_response(["date", "enrollments"], enrollments.per_date, "enrollments.csv")
+    context = enrollment_stats_context(enrollments)
+    return render(request, 'course_dashboard/enrollment-stats-global.html', context)
+
+def enrollment_stats_context(enrollments):
     enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments.per_date)
     best_day = None
     worst_day = None
@@ -27,9 +39,9 @@ def enrollment_stats(request, course_id):
         best_day = max(enrollments_per_day, key=lambda e: e[1])
         worst_day = min(enrollments_per_day, key=lambda e: e[1])
 
-    return render(request, 'course_dashboard/enrollment-stats.html', {
+    return {
         "active_tab": "enrollment_stats",
-        "course_id": course_id,
+        "course_id": enrollments.course_id,
         "enrollments_per_day": enrollments_per_day,
         "enrollments_per_timestamp": enrollments_per_timestamp,
         "average_enrollments_per_day": enrollments.daily_average(),
@@ -37,8 +49,7 @@ def enrollment_stats(request, course_id):
         "worst_day": worst_day,
         "total_population": enrollments.total(),
         "day_span": enrollments.day_span(),
-    })
-
+    }
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')

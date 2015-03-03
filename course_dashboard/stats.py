@@ -11,22 +11,17 @@ import lms.lib.comment_client as comment_client
 from student.models import CourseEnrollment
 
 
-def enrollments_per_day(course_key_string, since=None):
-    return enrollments_per(course_key_string, "day", since=since)
-
-def enrollments_per_month(course_key_string, since=None):
-    return enrollments_per(course_key_string, "month", since=since)
-
-def enrollments_per(course_key_string, period_name, since=None):
+def enrollments_per_day(course_key_string=None, since=None):
     """
     Returns:
         [(date, count)] list sorted by increasing date.
     """
-    course_key = CourseKey.from_string(course_key_string)
+    course_key = CourseKey.from_string(course_key_string) if course_key_string else None
     # Be careful: the following datr_trunc_sql does not produce the same result
     # with sqlite and postgresql, hence unit test discrepancies.
     #   sqlite: the day field is a string
     #   postgresql: the day field is a datetime object
+    period_name = 'day'
     truncate_date = connection.ops.date_trunc_sql(period_name, 'created')
     query = active_enrollments(course_key)
     if since is not None:
@@ -74,12 +69,11 @@ def population_by_country(course_key_string):
         course_population[country] = result["population"]
     return course_population
 
-def active_enrollments(course_key):
-    return (
-        CourseEnrollment.objects
-        .filter(course_id=course_key)
-        .filter(user__is_active=True)
-    )
+def active_enrollments(course_key=None):
+    queryset = CourseEnrollment.objects.filter(user__is_active=True)
+    if course_key is not None:
+        queryset = queryset.filter(course_id=course_key)
+    return queryset
 
 def forum_threads(course_id):
     """
@@ -143,7 +137,7 @@ def most_active_username(threads):
 class EnrollmentStats(object):
     """Provide enrollments stats for a given course."""
 
-    def __init__(self, course_id, since=None):
+    def __init__(self, course_id=None, since=None):
         self.course_id = course_id
         self.since = since
         self.per_date = enrollments_per_day(self.course_id, since=since)
