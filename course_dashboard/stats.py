@@ -40,7 +40,7 @@ def enrollments_per_day(course_key_string=None, since=None):
     return [(dateify(result[period_name]), result['enrollment_count']) for result in query]
 
 
-def population_by_country(course_key_string):
+def population_by_country(course_key_string=None):
     """Get geographical stats for a given course.
 
     Arguments:
@@ -51,10 +51,13 @@ def population_by_country(course_key_string):
         student count (int) for active students associated to the course. If
         the course does not exist, return None.
     """
-    try:
-        course_key = CourseKey.from_string(course_key_string)
-    except InvalidKeyError:
-        return None
+    if course_key_string is None:
+        course_key = None
+    else:
+        try:
+            course_key = CourseKey.from_string(course_key_string)
+        except InvalidKeyError:
+            return None
     country_field = "user__profile__country"
     query = (
         active_enrollments(course_key)

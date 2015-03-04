@@ -31,3 +31,8 @@ class GlobalViewsTestCase(ModuleStoreTestCase):
         url = reverse('course-dashboard-global:home')
         response = self.client.get(url)
         self.assertEqual(404, response.status_code)
+
+    def test_student_map(self):
+        url = reverse('course-dashboard-global:student-map')
+        response = self.client.get(url)
+        self.assertEqual(200, response.status_code)

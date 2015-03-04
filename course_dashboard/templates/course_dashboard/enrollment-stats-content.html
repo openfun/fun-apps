@@ -50,7 +50,7 @@
             <th>${_("Date")}</th>
             <th>${_("Number of enrollments")}</th>
         </tr>
-        % for day, count in  enrollments_per_day[::-1]:
+        % for day, count in  reversed(enrollments_per_day):
         <tr>
             <td>${day}</td>
             <td>${count}</td>

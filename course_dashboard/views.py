@@ -18,18 +18,18 @@ from . import stats
 @staff_required_or_level('staff')
 def enrollment_stats(request, course_id):
     enrollments = stats.EnrollmentStats(course_id)
-    if request.GET.get("format") == "csv":
-        return csv_response(["date", "enrollments"], enrollments.per_date, "enrollments.csv")
-    context = enrollment_stats_context(enrollments)
-    return render(request, 'course_dashboard/enrollment-stats.html', context)
+    return enrollment_stats_response(request, enrollments, 'course_dashboard/enrollment-stats.html')
 
 @staff_required
 def global_enrollment_stats(request):
     enrollments = stats.EnrollmentStats(None)
+    return enrollment_stats_response(request, enrollments, 'course_dashboard/enrollment-stats-global.html')
+
+def enrollment_stats_response(request, enrollments, template):
     if request.GET.get("format") == "csv":
         return csv_response(["date", "enrollments"], enrollments.per_date, "enrollments.csv")
     context = enrollment_stats_context(enrollments)
-    return render(request, 'course_dashboard/enrollment-stats-global.html', context)
+    return render(request, template, context)
 
 def enrollment_stats_context(enrollments):
     enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments.per_date)
@@ -55,6 +55,16 @@ def enrollment_stats_context(enrollments):
 @staff_required_or_level('staff')
 def student_map(request, course_id):
     course_population_by_country_code = stats.population_by_country(course_id)
+    return student_map_response(request, course_population_by_country_code,
+                                'course_dashboard/student-map.html', course_id)
+
+@staff_required
+def global_student_map(request):
+    course_population_by_country_code = stats.population_by_country(None)
+    return student_map_response(request, course_population_by_country_code,
+                                'course_dashboard/student-map-global.html', None)
+
+def student_map_response(request, course_population_by_country_code, template, course_id):
     top_countries = sorted(
         [(population, code, get_country_name(code))
          for code, population in course_population_by_country_code.iteritems()],
@@ -65,7 +75,7 @@ def student_map(request, course_id):
         return csv_response(["country", "enrollments"], data_rows, "countries.csv")
     total_population = sum(course_population_by_country_code.values())
 
-    return render(request, 'course_dashboard/student-map.html', {
+    return render(request, template, {
         "active_tab": "student_map",
         "course_id": course_id,
         "course_population": course_population_by_country_code,
