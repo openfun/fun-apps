@@ -64,7 +64,7 @@ msgstr "Télécharger"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:100
 msgid "Download ORA2 submissions"
-msgstr "Télécharger les évaluations par les pairs (ORA2)"
+msgstr "Télécharger les évaluations par les pairs ORA2"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:9
 msgid "Download open assessment submissions"
@@ -85,7 +85,7 @@ msgstr "Fin"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:94
 msgid "End date"
-msgstr "Fin"
+msgstr "Date de fin"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:35
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:75
@@ -180,9 +180,9 @@ msgstr "Historique des générations d'attestations"
 msgid "Published"
 msgstr "Publié"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:94
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:86
 msgid "Run"
-msgstr "Run"
+msgstr "Exécuter"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:48
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:89
@@ -201,13 +201,17 @@ msgstr "Voir le cours"
 msgid "Start"
 msgstr "Début"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:94
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:86
 msgid "Start date"
-msgstr "Début"
+msgstr "Date de début"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:95
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:42
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:87
 msgid "Students count"
-msgstr "Nombre d'inscrits"
+msgstr "Nombre d'étudiants"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:177
 msgid "Students enrolled"
