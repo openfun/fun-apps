@@ -5,10 +5,8 @@ import csv
 from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
-from django.contrib.auth.models import User, Group
 
 from courseware.models import StudentModule
-from student.models import UserProfile
 
 from opaque_keys.edx.keys import UsageKey
 
@@ -18,11 +16,11 @@ from opaque_keys.edx.keys import UsageKey
 
 def cleanup_newlines(s):
     """Makes sure all the newlines in s are representend by \r only."""
-    return s.replace("\r\n","\r").replace("\n","\r")
+    return s.replace("\r\n", "\r").replace("\n", "\r")
 
 def return_csv(header_row, data_rows, filename):
     """Outputs a CSV file from the contents of a datatable."""
-    ofile  = open(filename, "wb")
+    ofile = open(filename, "wb")
     writer = csv.writer(ofile, dialect='excel', quotechar='"', quoting=csv.QUOTE_ALL)
     writer.writerow(header_row)
     for datarow in data_rows:
@@ -58,40 +56,40 @@ class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
         make_option('--organisation',
-                    action = 'store',
-                    dest = 'organisation',
-                    type = 'string'
+                    action='store',
+                    dest='organisation',
+                    type='string'
                     ),
         make_option('--course-number',
-                    action = 'store',
+                    action='store',
                     dest='course_number',
-                    type = 'string'
+                    type='string'
                     ),
         make_option('--quizz-id',
-                    action = 'store',
-                    dest = 'quizz_id',
-                    type = 'string'
+                    action='store',
+                    dest='quizz_id',
+                    type='string'
                     ),
         make_option('--quizz-size',
-                    action = 'store',
-                    dest = 'quizz_size',
-                    type = 'int'
+                    action='store',
+                    dest='quizz_size',
+                    type='int'
                     ),
         make_option('--demography',
-                    action = 'store_true',
-                    dest = 'demography',
-                    default = False,
+                    action='store_true',
+                    dest='demography',
+                    default=False,
                    ),
         make_option('--output-file-name',
-                    action = 'store',
-                    dest = 'output_file_name',
-                    default = False,
+                    action='store',
+                    dest='output_file_name',
+                    default=False,
                    ),
         )
 
     def create_header_row(self, quizz_size, demography):
         header_row = []
-        i = 0;
+        i = 0
 
         if (demography):
             header_row.append('id')
@@ -99,16 +97,16 @@ class Command(BaseCommand):
             header_row.append('year_of_birth')
             header_row.append('level_of_education')
         while i < quizz_size:
-            header_row.append( 'q' + str(i + 1))
+            header_row.append('q' + str(i + 1))
             i += 1
         return header_row
 
     def create_list_of_question_id(self, organisation, course_number, quizz_id, quizz_size):
         question_ids = []
-        i = 0;
+        i = 0
 
         while i < quizz_size:
-            question_ids.append( "i4x-" + organisation + "-" + course_number +  "-problem-" + quizz_id + "_" + str((i + 2))+ "_1")
+            question_ids.append("i4x-" + organisation + "-" + course_number +  "-problem-" + quizz_id + "_" + str((i + 2))+ "_1")
             i += 1
         return question_ids
 
@@ -117,13 +115,15 @@ class Command(BaseCommand):
 
         if not all([options['organisation'], options['course_number'], options['quizz_size'],
                     options['quizz_size']]):
-             raise CommandError('all arguments are mandatory')
+            raise CommandError('all arguments are mandatory')
 
-        if not options['output_file_name'] :
+        if not options['output_file_name']:
             options['output_file_name'] = options['quizz_id']
 
-        # the csv will have a header_row (name of each column) and data_rows which is (a list of data_row)
-        # data_row contain all the answers of a quizz for one student (if 'demography' option is true the date_row contains also demographic information about the student)
+        # the csv will have a header_row (name of each column) and data_rows
+        # which is (a list of data_row) data_row contain all the answers of a
+        # quizz for one student (if 'demography' option is true the date_row
+        # contains also demographic information about the student)
         header_row = self.create_header_row(options['quizz_size'], options['demography'])
         data_rows = []
         data_row = []
@@ -140,25 +140,25 @@ class Command(BaseCommand):
         module_usage_key = UsageKey.from_string(module_state_key)
 
         # request to get all the answers to the quizz
-        answers_list = StudentModule.objects.filter(module_state_key = module_usage_key)
+        answers_list = StudentModule.objects.filter(module_state_key=module_usage_key)
 
         # iterate through the answers and fill for each student the data_row
         for answer in answers_list:
-            if (answer.student.is_superuser is not True):
+            if answer.student.is_superuser:
+                continue
+            if (options['demography']):
+                student = answer.student.profile
+                data_row = [answer.student.id, student.gender,
+                            student.year_of_birth, student.level_of_education]
+            else:
+                data_row = []
 
-                if (options['demography']):
-                    student = UserProfile.objects.get(user = answer.student)
-                    data_row = [student.id, student.gender,
-                                student.year_of_birth, student.level_of_education]
-                else:
-                    data_row = []
+            json_answer = json.loads(answer.state)
 
-                json_answer = json.loads(answer.state)
-
-                for question_id in question_ids:
-                    try:
-                        data_row.append(json_answer["student_answers"][question_id])
-                    except KeyError:
-                        data_row.append("NA")
-                data_rows.append(data_row)
+            for question_id in question_ids:
+                try:
+                    data_row.append(json_answer["student_answers"][question_id])
+                except KeyError:
+                    data_row.append("NA")
+            data_rows.append(data_row)
         return_csv(header_row, data_rows, options['output_file_name']  + ".csv")
