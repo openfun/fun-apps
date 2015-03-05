@@ -51,3 +51,7 @@ class University(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('universities-detail', (self.slug,))
+
+    def get_name(self):
+        """Return university's parent name if this one has a parent."""
+        return self.name if not self.parent else self.parent.name

@@ -31,7 +31,7 @@ ABOUT_SECTION_FIELDS = ['title', 'university', 'effort', 'video']
 log = logging.getLogger(__name__)
 
 FunCourse = namedtuple('FunCourse',
-        'course, course_image_url, students_count, studio_url, ' + ', '.join(ABOUT_SECTION_FIELDS))
+        'course, fun, course_image_url, students_count, url, studio_url, ' + ', '.join(ABOUT_SECTION_FIELDS))
 
 
 
@@ -46,9 +46,17 @@ def get_course_info(course):
             about_sections['video'] = re.findall('www.youtube.com/embed/(?P<hash>[\w]+)\?', about_sections['video'])[0]
         except IndexError:
             pass
+    try:
+        funcourse = Course.objects.get(key=course.id)
+    except Course.DoesNotExist:
+        funcourse = None
+
     course_info = FunCourse(course=course,
+            fun=funcourse,
             course_image_url=course_image_url(course),
             students_count=CourseEnrollment.objects.filter(course_id=course.id).count(),
+            url='https://%s%s' % (settings.LMS_BASE,
+                    reverse('about_course', args=[course.id.to_deprecated_string()])),
             studio_url=get_cms_course_link(course),
             **about_sections
             )
@@ -103,8 +111,7 @@ def courses_list(request):
             raw.append(course_info.effort.encode('utf-8'))
             raw.append('https://%s%s' % (settings.LMS_BASE, course_info.course_image_url))
             raw.append(course_info.video)
-            raw.append('https://%s%s' % (settings.LMS_BASE,
-                    reverse('about_course', args=[course_info.course.id.to_deprecated_string()])))
+            raw.append(course_info.url)
             writer.writerow(raw)
 
         return response
