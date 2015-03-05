@@ -22,7 +22,7 @@ ol.nav-global {
 ol.user li.primary a.user-link {
   color: #a06123;
 }
-h1.logo a img {
+header nav h1.logo a img {
   display: block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -31,3 +31,12 @@ h1.logo a img {
   height: 107px;
   padding-left: 131px;
 }
+
+/* courseware slim version */
+header.slim nav h1.logo {
+  width: 30px !important;
+}
+header.slim nav h1.logo a img {
+  background: url('../images/logo-sandbox-slim.png') no-repeat !important;
+}
+
