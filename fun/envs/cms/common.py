@@ -94,3 +94,5 @@ CC_PROCESSOR = {
 }
 
 SITE_VARIANT = 'cms'
+
+FEATURES['IS_EDX_DOMAIN'] = True  # used to display Edx Studio logo, see edx-platform/cms/templates/widgets/header.html
