@@ -11,22 +11,17 @@ import lms.lib.comment_client as comment_client
 from student.models import CourseEnrollment
 
 
-def enrollments_per_day(course_key_string, since=None):
-    return enrollments_per(course_key_string, "day", since=since)
-
-def enrollments_per_month(course_key_string, since=None):
-    return enrollments_per(course_key_string, "month", since=since)
-
-def enrollments_per(course_key_string, period_name, since=None):
+def enrollments_per_day(course_key_string=None, since=None):
     """
     Returns:
-        [(date, count)] list
+        [(date, count)] list sorted by increasing date.
     """
-    course_key = CourseKey.from_string(course_key_string)
+    course_key = CourseKey.from_string(course_key_string) if course_key_string else None
     # Be careful: the following datr_trunc_sql does not produce the same result
     # with sqlite and postgresql, hence unit test discrepancies.
     #   sqlite: the day field is a string
     #   postgresql: the day field is a datetime object
+    period_name = 'day'
     truncate_date = connection.ops.date_trunc_sql(period_name, 'created')
     query = active_enrollments(course_key)
     if since is not None:
@@ -45,7 +40,7 @@ def enrollments_per(course_key_string, period_name, since=None):
     return [(dateify(result[period_name]), result['enrollment_count']) for result in query]
 
 
-def population_by_country(course_key_string):
+def population_by_country(course_key_string=None):
     """Get geographical stats for a given course.
 
     Arguments:
@@ -56,10 +51,13 @@ def population_by_country(course_key_string):
         student count (int) for active students associated to the course. If
         the course does not exist, return None.
     """
-    try:
-        course_key = CourseKey.from_string(course_key_string)
-    except InvalidKeyError:
-        return None
+    if course_key_string is None:
+        course_key = None
+    else:
+        try:
+            course_key = CourseKey.from_string(course_key_string)
+        except InvalidKeyError:
+            return None
     country_field = "user__profile__country"
     query = (
         active_enrollments(course_key)
@@ -74,12 +72,11 @@ def population_by_country(course_key_string):
         course_population[country] = result["population"]
     return course_population
 
-def active_enrollments(course_key):
-    return (
-        CourseEnrollment.objects
-        .filter(course_id=course_key)
-        .filter(user__is_active=True)
-    )
+def active_enrollments(course_key=None):
+    queryset = CourseEnrollment.objects.filter(user__is_active=True)
+    if course_key is not None:
+        queryset = queryset.filter(course_id=course_key)
+    return queryset
 
 def forum_threads(course_id):
     """
@@ -117,7 +114,7 @@ def forum_threads_per_day(threads):
         date value.
 
     Returns:
-        
+
          A sorted array of (date, count) pairs where date is a datetime object
          and count is an integer. Dates at which no forum entry was created are
          not listed.
@@ -139,3 +136,26 @@ def most_active_username(threads):
             max_thread_count = thread_count
         best_username = username
     return best_username
+
+class EnrollmentStats(object):
+    """Provide enrollments stats for a given course."""
+
+    def __init__(self, course_id=None, since=None):
+        self.course_id = course_id
+        self.since = since
+        self.per_date = enrollments_per_day(self.course_id, since=since)
+
+    def day_span(self):
+        """Number of days covered by the stats."""
+        days = 1
+        if self.per_date:
+            days = (self.per_date[-1][0] - self.per_date[0][0]).days + 1
+        return days
+
+    def total(self):
+        """Total number of enrollments"""
+        return sum(e[1] for e in self.per_date)
+
+    def daily_average(self):
+        """Average enrollments per day"""
+        return self.total() * 1. / self.day_span()

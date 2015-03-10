@@ -1,0 +1,20 @@
+## mako
+<%inherit file="base.html" />
+<%! from django.utils.translation import ugettext as _ %>
+<%! from django.core.urlresolvers import reverse %>
+
+<%block name="navbar_header">
+    <a class="navbar-brand" href="${reverse('course-dashboard:home', kwargs={'course_id': course_id})}"><strong>France Université Numérique</strong> | ${_("Course dashboard")}</a>
+</%block>
+
+<%block name="header">
+    <h1>${_("Course dashboard")} <small>${course_id}</small></h1>
+</%block>
+
+<%block name="navigation">
+    <ul id="container-navigation" class="nav nav-pills">
+        <li role="presentation" ${"class='active'" if active_tab == 'enrollment_stats' else '' }><a href="${reverse('course-dashboard:enrollment-stats', kwargs={'course_id': course_id})}">${_("Subscription statistics")}</a></li>
+        <li role="presentation" ${"class='active'" if active_tab == 'student_map' else '' }><a href="${reverse('course-dashboard:student-map', kwargs={'course_id': course_id})}">${_("Student map")}</a></li>
+        <li role="presentation" ${"class='active'" if active_tab == 'forum_activity' else '' }><a href="${reverse('course-dashboard:forum-activity', kwargs={'course_id': course_id})}">${_("Forum activity")}</a></li>
+    </ul>
+</%block>

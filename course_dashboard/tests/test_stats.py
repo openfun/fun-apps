@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from django.test.utils import override_settings
 from django.utils import timezone
 
 from student.tests.factories import CourseEnrollmentFactory
@@ -11,6 +10,14 @@ from .base import BaseCourseDashboardTestCase
 
 
 class StatsTestCase(BaseCourseDashboardTestCase):
+
+    def test_average_enrollments(self):
+        self.enroll_student_at(self.course, 2015, 2, 2)
+        self.enroll_student_at(self.course, 2015, 2, 3)
+        enrollments = stats.EnrollmentStats(self.get_course_id(self.course))
+
+        self.assertEqual(2, enrollments.day_span())
+        self.assertEqual(1, enrollments.daily_average())
 
     def test_population_by_country_for_empty_course(self):
         course = CourseFactory.create()
@@ -35,21 +42,6 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         self.enroll_student(course, user__profile__country='FR', user__is_active=False)
         course_population = stats.population_by_country(self.get_course_id(course))
         self.assertEqual({}, course_population)
-
-    @override_settings(TIME_ZONE=timezone.UTC())
-    def test_enrollments_per_month(self):
-        course = CourseFactory.create()
-        # Note that date parsing is not supposed to work for timezones other
-        # than UTC
-        self.enroll_student_at(course, 2013, 12, 31)
-        self.enroll_student_at(course, 2014, 1, 14)
-        self.enroll_student_at(course, 2014, 1, 31)
-        self.enroll_student_at(course, 2014, 2, 1)
-        self.enroll_student_at(course, 2014, 3, 1, user__is_active=False)
-        since = datetime(2014, 1, 1, tzinfo=timezone.UTC())
-
-        enrollments = stats.enrollments_per_month(self.get_course_id(course), since=since)
-        self.assertEqual([(datetime(2014, 1, 1), 2), (datetime(2014, 2, 1), 1)], enrollments)
 
     def enroll_student_at(self, course, year, month, day, **kwargs):
         # For some reason, the course enrollment factory does not set the

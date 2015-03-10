@@ -1,0 +1,34 @@
+<%! import json %>
+
+<%namespace name='static' file='/static_content.html'/>
+<link rel="stylesheet" href="${static.url('js/vendor/jquery-jvectormap-1.1.1/jquery-jvectormap-1.1.1.css')}" type="text/css"/>
+<link rel="stylesheet" href="${static.url('flags/css/flag-icon.min.css')}" type="text/css"/>
+<script type="text/javascript" src="${static.url('js/vendor/jquery-jvectormap-1.1.1/jquery-jvectormap-1.1.1.min.js')}"></script>
+<script type="text/javascript" src="${static.url('js/vendor/jquery-jvectormap-1.1.1/jquery-jvectormap-world-mill-en.js')}"></script>
+<style>
+    .jvectormap-zoomin, .jvectormap-zoomout {
+        /* Fix zoom in/out map buttons */
+        box-sizing: content-box;
+    }
+</style>
+<script>
+    (function(){
+        var coursePopulation = ${json.dumps(course_population)}
+        $(function(){
+            $('#students-world-map').vectorMap({
+                map: 'world_mill_en',
+                backgroundColor: '#eeeeee',
+                series: {
+                    regions: [{
+                        values: coursePopulation,
+                        scale: ['#C8EEFF', '#004F73'],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+                onRegionLabelShow: function(event, label, code){
+                    label.text(label.text() + ': ' + (coursePopulation[code] || 0));
+                }
+            });
+        });
+    })();
+</script>

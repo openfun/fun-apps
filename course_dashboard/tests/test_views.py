@@ -42,6 +42,13 @@ class EnrollmentStatsTestCase(BaseCourseDashboardTestCase):
         response = self.get_course_enrollment_stats(self.course)
         self.assertEqual(200, response.status_code)
 
+    def test_inactive_staff_user_has_no_access(self):
+        student = UserFactory.create(is_staff=True, is_active=False)
+        self.client.logout()
+        self.client.login(username=student.username, password="test")
+        response = self.get_course_enrollment_stats(self.course)
+        self.assertEqual(404, response.status_code)
+
     def test_csv_response(self):
         course_enrollment = self.enroll_student(self.course)
         enrolled_at = datetime(year=2015, month=1, day=1, tzinfo=timezone.UTC())
@@ -104,4 +111,3 @@ class StudentMapTestCase(BaseCourseDashboardTestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(2, len(rows))
         self.assertEqual([_("France"), "1"], rows[1])
-

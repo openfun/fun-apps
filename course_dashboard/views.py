@@ -1,7 +1,6 @@
 import csv
 import time
 from datetime import datetime
-from datetime import timedelta
 from StringIO import StringIO
 
 from django.http import HttpResponse
@@ -11,45 +10,61 @@ from django.utils.formats import date_format
 from django_countries import countries
 
 from fun.utils.views import ensure_valid_course_key
-from fun.utils.views import staff_required_or_level
+from fun.utils.views import staff_required, staff_required_or_level
 from . import stats
 
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')
 def enrollment_stats(request, course_id):
-    day_span = 90
-    three_months_ago = datetime.today() - timedelta(days=day_span)
-    enrollments_per_date = stats.enrollments_per_day(course_id, since=three_months_ago)
+    enrollments = stats.EnrollmentStats(course_id)
+    return enrollment_stats_response(request, enrollments, 'course_dashboard/enrollment-stats.html')
+
+@staff_required
+def global_enrollment_stats(request):
+    enrollments = stats.EnrollmentStats(None)
+    return enrollment_stats_response(request, enrollments, 'course_dashboard/enrollment-stats-global.html')
+
+def enrollment_stats_response(request, enrollments, template):
     if request.GET.get("format") == "csv":
-        return csv_response(["date", "enrollments"], enrollments_per_date, "enrollments.csv")
+        return csv_response(["date", "enrollments"], enrollments.per_date, "enrollments.csv")
+    context = enrollment_stats_context(enrollments)
+    return render(request, template, context)
 
-    enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments_per_date)
-
-    total_population = sum(e[1] for e in enrollments_per_day)
-    average_enrollments_per_day = total_population * 1. / day_span
+def enrollment_stats_context(enrollments):
+    enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments.per_date)
     best_day = None
     worst_day = None
     if enrollments_per_day:
         best_day = max(enrollments_per_day, key=lambda e: e[1])
         worst_day = min(enrollments_per_day, key=lambda e: e[1])
 
-    return render(request, 'course_dashboard/enrollment-stats.html', {
+    return {
         "active_tab": "enrollment_stats",
-        "course_id": course_id,
+        "course_id": enrollments.course_id,
         "enrollments_per_day": enrollments_per_day,
         "enrollments_per_timestamp": enrollments_per_timestamp,
-        "average_enrollments_per_day": average_enrollments_per_day,
+        "average_enrollments_per_day": enrollments.daily_average(),
         "best_day": best_day,
         "worst_day": worst_day,
-        "total_population": total_population,
-    })
-
+        "total_population": enrollments.total(),
+        "day_span": enrollments.day_span(),
+    }
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')
 def student_map(request, course_id):
     course_population_by_country_code = stats.population_by_country(course_id)
+    return student_map_response(request, course_population_by_country_code,
+                                'course_dashboard/student-map.html', course_id)
+
+@staff_required
+def global_student_map(request):
+    course_population_by_country_code = stats.population_by_country(None)
+    return student_map_response(request, course_population_by_country_code,
+                                'course_dashboard/student-map-global.html', None)
+
+def student_map_response(request, course_population_by_country_code, template, course_id):
     top_countries = sorted(
         [(population, code, get_country_name(code))
          for code, population in course_population_by_country_code.iteritems()],
@@ -60,7 +75,7 @@ def student_map(request, course_id):
         return csv_response(["country", "enrollments"], data_rows, "countries.csv")
     total_population = sum(course_population_by_country_code.values())
 
-    return render(request, 'course_dashboard/student-map.html', {
+    return render(request, template, {
         "active_tab": "student_map",
         "course_id": course_id,
         "course_population": course_population_by_country_code,
