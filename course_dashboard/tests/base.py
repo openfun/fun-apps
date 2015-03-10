@@ -2,19 +2,21 @@ import csv
 from StringIO import StringIO
 
 from django.core.urlresolvers import reverse
-from django.test import TestCase
 from django.test.utils import override_settings
 
 from courseware.tests.factories import InstructorFactory
 from student.tests.factories import CourseEnrollmentFactory
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 from xmodule.modulestore.tests.factories import CourseFactory
 
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
-class BaseCourseDashboardTestCase(TestCase):
+class BaseCourseDashboardTestCase(ModuleStoreTestCase):
 
     def setUp(self):
+        super(BaseCourseDashboardTestCase, self).setUp(create_user=False)
+
         self.course = CourseFactory.create()
         instructor = InstructorFactory.create(course_key=self.course.id)
         self.client.login(username=instructor.username, password="test")
