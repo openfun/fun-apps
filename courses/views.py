@@ -158,7 +158,7 @@ class CoursesFeed(Feed):
     __name__ = 'FUNRSS'
 
     def items(self, request):
-        return get_courses(None)[:10]
+        return _sort_courses(get_courses(None)[:16])
 
     def item_title(self, course):
         return get_course_about_section(course, 'title')
@@ -169,6 +169,10 @@ class CoursesFeed(Feed):
         context['image_url'] = course_image_url(course) + '?width=300'
         context['short_description'] = get_course_about_section(course, 'short_description')
         context['course'] = course
+        try:
+            context['university'] = University.objects.get(code=course.org)
+        except University.DoesNotExist:
+            pass
         return render_to_string('courses/feed/feed.html', context)
 
     def item_link(self, course):
