@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2014-11-25 09:33+0100\n"
+"POT-Creation-Date: 2015-03-10 12:12+0100\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -36,19 +36,32 @@ msgstr "Les cours"
 msgid "Current"
 msgstr "En cours"
 
+#: /edx/app/edxapp/fun-apps/courses/views.py:155
+msgid "Fun latest published courses"
+msgstr "Derniers cours publiés sur FUN"
+
 #: /edx/app/edxapp/fun-apps/courses/forms.py:22
 msgid "Incoming"
 msgstr "A venir"
 
+#: /edx/app/edxapp/fun-apps/courses/views.py:157
+msgid "Latests courses published on www.france-universite-numerique-mooc.fr"
+msgstr "Derniers cours publiés sur www.france-universite-numerique-mooc.fr"
+
 # Translated in edx by 'Nouveau'
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:148
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:146
 msgid "New"
-msgstr ""
+msgstr "Nouveau"
 
 #: /edx/app/edxapp/fun-apps/courses/forms.py:24
 msgid "Past"
 msgstr "Terminé"
 
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/feed/feed.html:9
+msgid "Proposed by"
+msgstr "Cours proposé par"
+
+# Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/courses/forms.py:27
 msgid "State"
 msgstr "État"
@@ -57,3 +70,4 @@ msgstr "État"
 #: /edx/app/edxapp/fun-apps/courses/forms.py:29
 msgid "University"
 msgstr "Établissement"
+

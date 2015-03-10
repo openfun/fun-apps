@@ -1,15 +1,21 @@
 ## mako
+<%!
+from django.utils.translation import ugettext as _
+%>
 <html>
 <body>
 <img src="http://www.france-universite-numerique-mooc.fr${image_url}">
 <p>
+% if university:
+    ${ _(u"Proposed by")}: ${university.get_name()}
+% endif
+</p>
+<p>
 ${short_description}
 </p>
-<hr>
 <p>
 ${course.inscription_inverval}
 </p>
-
 <p>
 ${course.course_interval}
 </p>
