@@ -29,6 +29,11 @@ class TestDownloadOra2Submissions(BaseBackoffice):
 
         self.assertEqual(302, response.status_code)
 
+    def test_get_output_path(self):
+        from collections import namedtuple
+        task = namedtuple("MockInstructorTask", ['task_output'])(None)
+        self.assertIsNone(tasks.get_output_path(task))
+
     def test_download_file_without_preparation(self):
         is_prepared = tasks_api.file_is_prepared(self.course.id)
         last_file_date = tasks_api.get_last_file_date(self.course.id)

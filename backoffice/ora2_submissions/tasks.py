@@ -32,6 +32,8 @@ def prepare_ora2_submissions_file(course_key_string):
     return output_file.name
 
 def get_output_path(instructor_task):
+    if not instructor_task.task_output:
+        return None
     task_output = json.loads(instructor_task.task_output)
     return task_output["path"]
 
