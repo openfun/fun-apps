@@ -26,7 +26,7 @@ class GlobalViewsTestCase(ModuleStoreTestCase):
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
 
-    def test_non_staff_is_not_allowed(self):
+    def test_logged_out_user_is_not_allowed(self):
         self.client.logout()
         url = reverse('course-dashboard-global:home')
         response = self.client.get(url)

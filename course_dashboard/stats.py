@@ -73,7 +73,10 @@ def population_by_country(course_key_string=None):
     return course_population
 
 def active_enrollments(course_key=None):
-    queryset = CourseEnrollment.objects.filter(user__is_active=True)
+    """
+    Return a queryset of active course enrollments.
+    """
+    queryset = CourseEnrollment.objects.filter(is_active=True)
     if course_key is not None:
         queryset = queryset.filter(course_id=course_key)
     return queryset

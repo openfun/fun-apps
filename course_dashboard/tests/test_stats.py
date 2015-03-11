@@ -1,14 +1,17 @@
 from datetime import datetime
 
+from django.test.utils import override_settings
 from django.utils import timezone
 
 from student.tests.factories import CourseEnrollmentFactory
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 from xmodule.modulestore.tests.factories import CourseFactory
 
 import course_dashboard.stats as stats
 from .base import BaseCourseDashboardTestCase
 
 
+@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class StatsTestCase(BaseCourseDashboardTestCase):
 
     def test_average_enrollments(self):
@@ -37,11 +40,18 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         self.assertEqual({}, empty_course_population)
         self.assertEqual({'FR': 1}, course_population)
 
-    def test_non_active_students_not_included(self):
+    def test_inactive_students_are_included_but_not_inactive_enrollments(self):
+        course = CourseFactory.create()
+        self.enroll_student(course, user__profile__country='FR', user__is_active=False)
+        self.enroll_student(course, user__profile__country='US', is_active=False)
+        course_population = stats.population_by_country(self.get_course_id(course))
+        self.assertEqual({'FR': 1}, course_population)
+
+    def test_inactive_enrollments_are_not_included(self):
         course = CourseFactory.create()
         self.enroll_student(course, user__profile__country='FR', user__is_active=False)
         course_population = stats.population_by_country(self.get_course_id(course))
-        self.assertEqual({}, course_population)
+        self.assertEqual({'FR': 1}, course_population)
 
     def enroll_student_at(self, course, year, month, day, **kwargs):
         # For some reason, the course enrollment factory does not set the
