@@ -32,6 +32,7 @@ msgstr "%d commentaires"
 msgid "%d countries"
 msgstr "%d pays"
 
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:20
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:27
 #, python-format
@@ -48,9 +49,26 @@ msgstr "%d apprenants"
 msgid "%m/%d/%Y"
 msgstr "%d/%m/%Y"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:32
+#: /edx/app/edxapp/fun-apps/course_dashboard/answers_distribution_reports_manager/views.py:61
+msgid "A report on answers distribution is already running"
+msgstr "Un rapport sur la répartition des réponses est déjà en cours"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:35
 msgid "An average of"
-msgstr "Une moyenne de :"
+msgstr "Une moyenne de"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:133
+msgid "Answers distribution"
+msgstr "Répartition des réponses"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:23
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:34
+msgid "Answers distribution reports"
+msgstr "Rapports de répartition des réponses"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:18
+msgid "Choice"
+msgstr "Choix"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:14
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:7
@@ -93,6 +111,10 @@ msgstr "Activité des forums"
 msgid "France"
 msgstr "France"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:41
+msgid "Get answers"
+msgstr "Résultats"
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:35
 msgid "Least active forum thread:"
 msgstr "Fil de discussion le moins actif :"
@@ -108,6 +130,7 @@ msgstr "Apprenant le plus actif :"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:67
 msgid "New forum threads per day"
 msgstr "Nouveaux fils de conversations par jour"
+
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:51
 msgid "Number of enrollments"
@@ -140,6 +163,25 @@ msgstr "Carte des apprenants"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:16
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:16
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:20
+msgid "Percentage"
+msgstr "Pourcentage"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:14
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:49
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:19
+msgid "Responses"
+msgstr "Réponses"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:21
+msgid "Running answers distribution reports generation"
+msgstr "Génération des rapports de répartition des notes en cours"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:130
 msgid "Subscription statistics"
 msgstr "Statistiques d'inscriptions"
 
@@ -173,4 +215,6 @@ msgstr "de"
 #, python-format
 msgid "students enrolled over %d days"
 msgstr "apprenants inscrits en %d jours"
+
+
 
