@@ -22,7 +22,7 @@ def write_csv(header_row, data_rows, filename, course_id):
     """write a CSV file from the contents of a datatable."""
     shared.ensure_directory_exists(settings.ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY, course_id.org, course_id.course)
 
-    path = shared.get_safe_path(settings.ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY,
+    path = shared.get_safe_file_path(settings.ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY,
                                 course_id.org, course_id.course,
                                 filename)
     ## need to encode the unico path in order to open the file in prod env    
