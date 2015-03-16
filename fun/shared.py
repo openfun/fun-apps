@@ -35,7 +35,7 @@ def get_path(*names):
     """
     return os.path.join(root_directory(), *names)
 
-def get_safe_path(*names):
+def get_safe_file_path(*names):
     """
     Return the corresponding path and ensure that the corresponding base directory is created
     """
