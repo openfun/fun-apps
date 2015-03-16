@@ -5,7 +5,6 @@
 {% block extr_js %}
 <script>
     $(document).ready(function() {
-        $.fn.dataTable.moment('DD/MM/YY');
         $('#courses-list').DataTable({
             paging:   false,
             searching: false,
@@ -65,10 +64,10 @@
                         {% if course_info.fun.university %}{{ course_info.fun.university.get_name }}{% else %}<span class="no-university">{{ course_info.course.org }}</span>{% endif %}
                     </td>
                     <td>{{ course_info.course.display_name_with_default }}</td>
-                    <td>{{ course_info.course.start|date:'d/m/y' }}</td>
-                    <td>{{ course_info.course.end|date:'d/m/y' }}</td>
-                    <td>{{ course_info.course.enrollment_start|date:'d/m/y' }}</td>
-                    <td>{{ course_info.course.enrollment_end|date:'d/m/y' }}</td>
+                    <td data-order="{{ course_info.course.start|date:'y/m/d' }}">{{ course_info.course.start|date:'d/m/y' }}</td>
+                    <td data-order="{{ course_info.course.end|date:'y/m/d' }}">{{ course_info.course.end|date:'d/m/y' }}</td>
+                    <td data-order="{{ course_info.course.enrollment_start|date:'y/m/d' }}">{{ course_info.course.enrollment_start|date:'d/m/y' }}</td>
+                    <td data-order="{{ course_info.course.enrollment_end|date:'y/m/d' }}">{{ course_info.course.enrollment_end|date:'d/m/y' }}</td>
                     <td>{{ course_info.students_count }}</td>
                     <td>
                         <a target="_blank" href="{{ course_info.url }}" title="{% trans 'See course' %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
