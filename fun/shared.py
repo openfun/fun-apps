@@ -42,6 +42,16 @@ def get_safe_path(*names):
     path = get_path(*names)
     ensure_directory_exists(os.path.dirname(path))
     return path
+
+def get_course_path(root_dir_in_shared, course, filename):
+    """
+    Return the full path to a given file for a given course
+
+    E.g:
+        get_course_path("answers_distribution_reports", course, "exercise1.csv")
+    """
+
+    return get_safe_path(root_dir_in_shared, course.id.to_deprecated_string(), filename)
     
 def NamedTemporaryFile(*args, **kwargs):
     """
