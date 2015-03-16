@@ -95,8 +95,6 @@ GRADES_DOWNLOAD = {
         "STORAGE_TYPE": "localfs"
     }
 
-ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY = "answers_distribution_reports"
-
 HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
         "preview\\.": "draft"
     }
