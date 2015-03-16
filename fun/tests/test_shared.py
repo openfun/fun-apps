@@ -39,9 +39,9 @@ class SharedTestCase(TestCase):
         path = shared.get_safe_path("dir1", "dir2", "myfile")
         self.assertTrue(os.path.isdir(settings.SHARED_ROOT + "/dir1/dir2"))
 
-    def test_get_course_path(self):
+    def test_get_course_file_path(self):
         course = CourseFactory.create()
-        course_path = shared.get_course_path("answers_distribution_reports",
+        course_path = shared.get_course_file_path("answers_distribution_reports",
                                              course, "exo1.csv")
         self.assertTrue(os.path.exists(os.path.dirname(course_path)))
         self.assertEqual("exo1.csv", os.path.basename(course_path))

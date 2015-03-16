@@ -43,7 +43,7 @@ def get_safe_path(*names):
     ensure_directory_exists(os.path.dirname(path))
     return path
 
-def get_course_path(root_dir_in_shared, course, filename):
+def get_course_file_path(root_dir_in_shared, course, filename):
     """
     Return the full path to a given file for a given course
 
