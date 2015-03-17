@@ -1,2 +1,2 @@
--e git+https://github.com/openfun/dmcloud.git@1.1.5#egg=dmcloud-xblock
+-e git+https://github.com/openfun/dmcloud.git@1.1.7#egg=dmcloud-xblock
 -e git+https://github.com/openfun/cloudkey-py@1.2.7-1#egg=cloudkey
