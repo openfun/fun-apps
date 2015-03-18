@@ -1,14 +1,16 @@
 import os
+import shutil
 
 from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 
-import shutil
+from xmodule.modulestore.tests.factories import CourseFactory
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 from fun import shared
 
-@override_settings(SHARED_ROOT='/tmp/shared-test')
+@override_settings(SHARED_ROOT='/tmp/shared-test', MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class SharedTestCase(TestCase):
 
     def setUp(self):
@@ -36,3 +38,10 @@ class SharedTestCase(TestCase):
     def test_get_safe_path(self):
         path = shared.get_safe_path("dir1", "dir2", "myfile")
         self.assertTrue(os.path.isdir(settings.SHARED_ROOT + "/dir1/dir2"))
+
+    def test_get_course_file_path(self):
+        course = CourseFactory.create()
+        course_path = shared.get_course_file_path("answers_distribution_reports",
+                                             course, "exo1.csv")
+        self.assertTrue(os.path.exists(os.path.dirname(course_path)))
+        self.assertEqual("exo1.csv", os.path.basename(course_path))
