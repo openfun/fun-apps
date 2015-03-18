@@ -13,9 +13,6 @@ from student.models import CourseEnrollment
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys import InvalidKeyError
 from xmodule.modulestore.django import modulestore
-from xmodule.course_module import CourseDescriptor
-
-
 
 class Command(BaseCommand):
     help = """
@@ -44,19 +41,17 @@ class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
         make_option('-c', '--course',
-                    action = 'store',
-                    dest = 'course',
-                    type = 'string'
-                    ),
+                    action='store',
+                    dest='course',
+                    type='string'),
         make_option('-e', '--exclude-non-active-users',
-                    action = 'store_true',
-                    dest = 'exclude',
-                    default = False,
-                   ),
+                    action='store_true',
+                    dest='exclude',
+                    default=False,),
         make_option('-i', '--info-interval',
-                    action = 'store',
-                    dest = 'info_interval',
-                    type = 'int'
+                    action='store',
+                    dest='info_interval',
+                    type='int'
                    ),
         )
 
@@ -82,13 +77,13 @@ class Command(BaseCommand):
                 print "\n Course %s not found." % COURSE_ID
                 return
 
-            students = 0
             enrolled = 0
             start = datetime.datetime.now(UTC)
 
             # Fetch all users that are not superuser, exclude non active students if necessary
-            if (options['exclude']):
-                users = User.objects.exclude(Q(is_active=False) | Q(profile__isnull=True))
+            if options['exclude']:
+                users = User.objects.exclude(Q(is_active=False) |
+                                             Q(profile__isnull=True))
             else:
                 users = User.objects.exclude(profile__isnull=True)
 
@@ -105,19 +100,19 @@ class Command(BaseCommand):
                     hours, remainder = divmod(timeleft.seconds, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     print "{0} students out of {1} were successfully enrolled to course {2} ~{3:02}:{4:02}m remaining".format(
-                        enrolled, total_students,COURSE_ID, hours, minutes)
+                        enrolled, total_students, COURSE_ID, hours, minutes)
 
                     start = datetime.datetime.now(UTC)
 
                 if not CourseEnrollment.objects.filter(user=user, course_id=course_key).exists():
                     CourseEnrollment.objects.create(user=user,
-                                                        course_id=course_key,
-                                                        is_active=True,
-                                                        mode='honor')
+                                                    course_id=course_key,
+                                                    is_active=True,
+                                                    mode='honor')
                 enrolled += 1
 
             print "\nSubscription progress is over : {0} students out of {1} were successfully enrolled to course {2}".format(
-                        enrolled, total_students,COURSE_ID)
+                        enrolled, total_students, COURSE_ID)
 
         except InvalidKeyError:
             print("Course id {} could not be parsed as a CourseKey;".format(COURSE_ID))
