@@ -103,7 +103,7 @@ def forum_activity(request, course_id):
     total_threads = len(threads)
     most_active_thread = None
     least_active_thread = None
-    most_active_username = stats.most_active_username(threads)
+    most_active_user = stats.most_active_user(threads)
     if threads:
         most_active_thread = max(threads, key=lambda t: t["comments_count"])
         least_active_thread = min(threads, key=lambda t: t["comments_count"])
@@ -116,7 +116,7 @@ def forum_activity(request, course_id):
         "most_active_thread": most_active_thread,
         "least_active_thread": least_active_thread,
         "total_threads": total_threads,
-        "most_active_username": most_active_username,
+        "most_active_user": most_active_user,
     })
 
 
