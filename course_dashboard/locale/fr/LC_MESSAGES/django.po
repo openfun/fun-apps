@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-03-10 09:16+0000\n"
+"POT-Creation-Date: 2015-03-23 18:55+0100\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -32,7 +32,6 @@ msgstr "%d commentaires"
 msgid "%d countries"
 msgstr "%d pays"
 
-
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:20
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:27
 #, python-format
@@ -49,20 +48,20 @@ msgstr "%d apprenants"
 msgid "%m/%d/%Y"
 msgstr "%d/%m/%Y"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/answers_distribution_reports_manager/views.py:61
+#: /edx/app/edxapp/fun-apps/course_dashboard/answers_distribution_reports_manager/views.py:66
 msgid "A report on answers distribution is already running"
 msgstr "Un rapport sur la répartition des réponses est déjà en cours"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:35
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:32
 msgid "An average of"
 msgstr "Une moyenne de"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:133
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:19
 msgid "Answers distribution"
 msgstr "Répartition des réponses"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:23
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:34
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:26
 msgid "Answers distribution reports"
 msgstr "Rapports de répartition des réponses"
 
@@ -76,11 +75,6 @@ msgstr "Choix"
 msgid "Course dashboard"
 msgstr "Tableau de bord de cours"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:50
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:53
-msgid "Date"
-msgstr "Date"
-
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:25
 msgid "Day with least enrollments:"
 msgstr "Jour avec le moins d'inscriptions :"
@@ -92,8 +86,8 @@ msgstr "Jour avec le plus d'inscriptions :"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:41
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:43
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:47
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:38
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:40
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:42
 msgid "Download raw CSV data"
 msgstr "Télécharger les données CSV brutes"
 
@@ -106,14 +100,10 @@ msgstr "Inscriptions par jour"
 msgid "Forum activity"
 msgstr "Activité des forums"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:90
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:113
+#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:93
+#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:116
 msgid "France"
 msgstr "France"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:41
-msgid "Get answers"
-msgstr "Résultats"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:35
 msgid "Least active forum thread:"
@@ -131,12 +121,20 @@ msgstr "Apprenant le plus actif :"
 msgid "New forum threads per day"
 msgstr "Nouveaux fils de conversations par jour"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:35
+msgid ""
+"Note: the 'Unknown' country refers to the users who have not provided "
+"their country of origin. These data are collected on a declarative basis."
+msgstr ""
+"Note : le pays 'Inconnu fait référence aux utilisateurs n'ayant pas "
+"renseigné leur pays d'origine. Ces données sont collectées de manière "
+"purement déclaratives."
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:51
 msgid "Number of enrollments"
 msgstr "Nombre d'inscriptions"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:48
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:50
 msgid "Number of learners"
 msgstr "Nombre d'apprenants"
 
@@ -144,13 +142,30 @@ msgstr "Nombre d'apprenants"
 msgid "Number of new threads"
 msgstr "Nombre de nouveaux fils de discussion"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:20
+msgid "Percentage"
+msgstr "Pourcentage"
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:11
 msgid "Platform statistics"
 msgstr "Statistiques de la plateforme"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:49
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:51
 msgid "Proportion"
 msgstr "Proportion"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:14
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:42
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:19
+msgid "Responses"
+msgstr "Réponses"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:13
+msgid "Running answers distribution reports generation"
+msgstr "Génération des rapports de répartition des notes en cours"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:28
 msgid "Second country by enrollment"
@@ -163,25 +178,6 @@ msgstr "Carte des apprenants"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:16
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:16
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:20
-msgid "Percentage"
-msgstr "Pourcentage"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:14
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:49
-msgid "Refresh"
-msgstr "Rafraîchir"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:19
-msgid "Responses"
-msgstr "Réponses"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:21
-msgid "Running answers distribution reports generation"
-msgstr "Génération des rapports de répartition des notes en cours"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:130
 msgid "Subscription statistics"
 msgstr "Statistiques d'inscriptions"
 
@@ -193,9 +189,9 @@ msgstr "Troisième pays"
 msgid "Top country by enrollment"
 msgstr "Premier pays"
 
-# Translated in edx by 'Inconnu'
-#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:88
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:91
+# Translated in edx by ''
+#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:91
+#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:94
 msgid "Unknown"
 msgstr "Inconnu"
 
@@ -215,6 +211,4 @@ msgstr "de"
 #, python-format
 msgid "students enrolled over %d days"
 msgstr "apprenants inscrits en %d jours"
-
-
 
