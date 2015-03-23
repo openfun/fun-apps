@@ -66,6 +66,24 @@ $(document).ready(function(){
         return html
       };
 
+      DiscussionContentShowView.prototype.getEndorserDisplay = function() {
+        var endorsement;
+        endorsement = this.model.get('endorsement');
+        if (endorsement && endorsement.username) {
+          return _.template($("#post-user-display-template").html())({
+            username: endorsement.username,
+            user_url: DiscussionUtil.urlFor('user_profile', endorsement.user_id),
+            is_community_ta: DiscussionUtil.isTA(endorsement.user_id),
+            is_staff: DiscussionUtil.isStaff(endorsement.user_id),
+            is_active: false,
+            is_recommended: false,
+            is_official: false
+          });
+        } else {
+          return null;
+        }
+      };
+
       // lms/static/xmodule_js/common_static/coffe/src/discussion/content.js
       Content.prototype.initialize = function() {
         var userId;
