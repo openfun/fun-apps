@@ -9,6 +9,7 @@ from opaque_keys import InvalidKeyError
 
 import lms.lib.comment_client as comment_client
 from student.models import CourseEnrollment
+from student.models import User
 
 
 def enrollments_per_day(course_key_string=None, since=None):
@@ -127,6 +128,12 @@ def forum_threads_per_day(threads):
         date = datetime.strptime(thread["created_at"], '%Y-%m-%dT%H:%M:%SZ')
         threads_per_day[datetime(year=date.year, month=date.month, day=date.day)] += 1
     return sorted(threads_per_day.items())
+
+def most_active_user(threads):
+    username = most_active_username(threads)
+    if username is None:
+        return None
+    return User.objects.get(username=username)
 
 def most_active_username(threads):
     user_activity = defaultdict(int)

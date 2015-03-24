@@ -34,11 +34,11 @@
         %if least_active_thread:
         <div class="thumbnail col-md-3 key-stats forum-key-stats">${thread_stat(_("Least active forum thread:"), least_active_thread)}</div>
         %endif
-        %if most_active_username:
+        %if most_active_user:
         <div class="thumbnail col-md-3 key-stats forum-key-stats">
             <h2>&nbsp;</h2>
             <h2>${_("Most active student:")}</h2>
-            <h1>${most_active_username}</h1>
+            <h1><a href="${reverse('django_comment_client.forum.views.user_profile', args=[course_id, most_active_user.id])}">${most_active_user.username}</a></h1>
         </div>
         %endif
 

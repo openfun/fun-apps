@@ -1,6 +1,6 @@
 ## mako
 <%! from django.core.urlresolvers import reverse %>
-<%! from django.utils.translation import ugettext_lazy as _ %>
+<%! from django.utils.translation import ugettext as _ %>
 
 <div class="row">
     <figure>
@@ -31,6 +31,8 @@
     <div class="thumbnail col-md-3 key-stats">${country_stat(_("Third country by enrollment"), top_countries[2])}</div>
     %endif
 </div>
+
+<p>${_("Note: the 'Unknown' country refers to the users who have not provided their country of origin. These data are collected on a declarative basis.")}</p>
 
 <div class="row">
     <div class="col-md-12">
