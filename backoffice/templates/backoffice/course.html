@@ -10,30 +10,7 @@
 </style>
 {% endblock %}
 
-{% block extr_js %}
-    <script src="{% static 'fun/js/djangoExtendFormset.js' %}"></script>
-<script>
-
-    $('.teachers-form').extendFormset({
-        clone_selector: 'div.teacher-row',
-        add_button_class: 'btn btn-info',
-        add_button_value: $('.teachers-form').data('add-button-caption'),
-        add_button_container: '.teachers-form-button-group',
-        handle_order: false,
-        handle_delete: true,
-        delete_button: '<i class="glyphicon glyphicon-trash"></i>'
-    })
-
-    // open tab if form error
-    var tab = $('.text-danger').closest('.tab-pane').attr('id');
-    $('ul.nav.nav-tabs a[href="#'+ tab + '"]').tab('show')
-
-
-</script>
-{% endblock %}
-
 {% block content %}
-
 
 <h1>{{ course_info.course.display_name_with_default }}</h1>
 {% if course_info.course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
@@ -140,7 +117,7 @@
                 {{ teacher_form.full_name }}
                 {% if teacher_form.full_name.errors %}<span class="text-danger">  {{ teacher_form.full_name.errors.0 }}</span>{% endif %}
                 {{ teacher_form.order }}
-                {{ teacher_form.DELETE }}
+                {% if teacher_form.instance.id %}{{ teacher_form.DELETE }} <label for="{{ teacher_form.DELETE.id_for_label }}">{% trans 'Delete' %}</label>{% endif %}
               </div>
             {% endfor %}
           </div>
