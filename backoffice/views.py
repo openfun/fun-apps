@@ -140,8 +140,7 @@ def course_detail(request, course_key_string):
             funcourse.save()
         except University.DoesNotExist:
             messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
-
-    TeacherFormSet = inlineformset_factory(Course, Teacher, formset=FirstRequiredFormSet, can_delete=True)
+    TeacherFormSet = inlineformset_factory(Course, Teacher, formset=FirstRequiredFormSet, can_delete=True, max_num=4, extra=4)
 
     if request.method == 'POST':
         if request.POST['action'] == 'delete-course':
