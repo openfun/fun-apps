@@ -14,6 +14,7 @@ from course_dashboard.answers_distribution import (get_problem_module,
 from course_dashboard.answers_distribution_reports_manager import utils
 from fun import shared
 
+
 def cleanup_newlines(string):
     """Makes sure all the newlines in s are representend by \r only."""
     return string.replace("\r\n", "\r").replace("\n", "\r")
@@ -25,7 +26,7 @@ def write_csv(header_row, data_rows, filename, course_id):
                                    course_id.org, course_id.course)
 
 
-    path = shared.get_safe_file_path(settings.ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY,
+    path = shared.get_safe_file_path(utils.ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY,
                                 course_id.org, course_id.course,
                                 filename)
     ## need to encode the unico path in order to open the file in prod env
@@ -84,7 +85,7 @@ def generate_answers_distribution_report(_xmodule_instance_args, _entry_id,
 
     Csv structure will be as follow:
 
-    'id', 'gender', 'year_of_birth', 'level_of_education', q1,      , q2       
+    'id', 'gender', 'year_of_birth', 'level_of_education', q1,      , q2
      15,     f    ,    1989        ,    m                , choice 1 , choice 2
     """
 
