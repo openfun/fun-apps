@@ -139,13 +139,8 @@ def most_active_username(threads):
     user_activity = defaultdict(int)
     for thread in threads:
         user_activity[thread["username"]] += 1
-    best_username = None
-    max_thread_count = 0
-    for username, thread_count in user_activity.iteritems():
-        if thread_count > max_thread_count:
-            max_thread_count = thread_count
-        best_username = username
-    return best_username
+    # user_activity is of the form {"username": count, ...}
+    return max(user_activity.items(), key=lambda i: i[1])[0]
 
 class EnrollmentStats(object):
     """Provide enrollments stats for a given course."""
