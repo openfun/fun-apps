@@ -66,3 +66,12 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         }]
         threads_per_day = stats.forum_threads_per_day(threads)
         self.assertEqual([(datetime(year=2015, month=2, day=3), 1)], threads_per_day)
+
+    def test_most_active_username(self):
+        threads = [
+            {"username": 1},
+            {"username": 1},
+            {"username": 2},
+        ]
+        self.assertEqual(1, stats.most_active_username(threads))
+
