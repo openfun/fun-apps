@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-04-02 12:34+0200\n"
+"POT-Creation-Date: 2015-04-03 14:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -269,6 +269,14 @@ msgstr "Enseignants"
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:163
 msgid "Teachers have been updated"
 msgstr "La liste des enseignants a été mise à jour"
+
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:18
+msgid "Temporary account suspension"
+msgstr "Suspension temporaire de compte"
+
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:19
+msgid "Temporary account suspensions"
+msgstr "Suspensions temporaires de compte"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:66
 msgid "This course does not belong to any university"
