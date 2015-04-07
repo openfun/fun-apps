@@ -33,7 +33,7 @@ function answers_distribution (static_url, get_answers_url, refresh_string) {
 	    if ($(this).hasClass('refresh-button') || !$(problem_module_selector + ' .refresh-button').length) {
 		// perform the request
 
-		$.get(get_answers_url, {'problem_module_id': problem_module_id}, display_results);
+		$.get(get_answers_url, {'problem_id': problem_module_id}, display_results);
 
 		// insert ajax load tag at the right place
 		$(problem_module_selector + ' .results .control .data-results').append(ajaxload_tag);

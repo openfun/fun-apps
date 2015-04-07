@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-03-23 18:55+0100\n"
+"POT-Creation-Date: 2015-04-08 10:16+0200\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -48,7 +48,7 @@ msgstr "%d apprenants"
 msgid "%m/%d/%Y"
 msgstr "%d/%m/%Y"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/answers_distribution_reports_manager/views.py:66
+#: /edx/app/edxapp/fun-apps/course_dashboard/reports_manager/views.py:66
 msgid "A report on answers distribution is already running"
 msgstr "Un rapport sur la répartition des réponses est déjà en cours"
 
@@ -60,10 +60,14 @@ msgstr "Une moyenne de"
 msgid "Answers distribution"
 msgstr "Répartition des réponses"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:23
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:26
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:26
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:23
 msgid "Answers distribution reports"
 msgstr "Rapports de répartition des réponses"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/multiplechoice.html:28
+msgid "Blank answers"
+msgstr "Aucune réponse"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:18
 msgid "Choice"
@@ -154,8 +158,8 @@ msgstr "Statistiques de la plateforme"
 msgid "Proportion"
 msgstr "Proportion"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution.html:14
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:42
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:42
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:14
 msgid "Refresh"
 msgstr "Rafraîchir"
 
@@ -163,13 +167,17 @@ msgstr "Rafraîchir"
 msgid "Responses"
 msgstr "Réponses"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/answers_distribution_reports_manager/dashboard.html:13
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:13
 msgid "Running answers distribution reports generation"
 msgstr "Génération des rapports de répartition des notes en cours"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:28
 msgid "Second country by enrollment"
 msgstr "Deuxième pays"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/nothandled.html:5
+msgid "Sorry this problem is not handled yet."
+msgstr "Veuillez nous excuser, ce problème n'est pas encore gèré par le dashboard."
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:17
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:17
@@ -190,7 +198,7 @@ msgid "Top country by enrollment"
 msgstr "Premier pays"
 
 # Translated in edx by ''
-#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:91
+#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:87
 #: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:94
 msgid "Unknown"
 msgstr "Inconnu"

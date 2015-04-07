@@ -1,0 +1,34 @@
+## mako
+<%! from django.utils.translation import ugettext as _ %>
+<%! from course_dashboard.problem_stats.utils import percentage %>
+
+<p>
+    
+    <%block name="question_title">
+    </%block>
+
+    <table class='table correctness'>
+        <tr>
+            <th>${_("Total")}</th>
+            <td> ${total_answers} </td>
+        </tr>
+        
+        <tr>
+            <th>${_("Correct")}</th>
+            <td> ${correctness['correct']}</td>
+            <td>${percentage(correctness['correct'], total_answers)}% </td>
+        </tr>
+        
+        <tr>
+            <th>${_("Incorrect")}</th>
+            <td> ${correctness['incorrect']}</td>
+            <td>${percentage(correctness['incorrect'], total_answers)}% </td>
+        </tr>
+    </table>
+
+    <table class='table'>
+        <%block name="answers_distribution">
+        </%block>
+    </table>
+
+</p>
