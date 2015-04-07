@@ -36,7 +36,7 @@ msgstr "Résultats de tâches Celery"
 
 #: /edx/app/edxapp/fun-apps/backoffice/admin.py:35
 msgid "Celery taskset result"
-msgstr "Résultat de groupe de tâche Celery"
+msgstr "Résultat de groupe de tâches Celery"
 
 #: /edx/app/edxapp/fun-apps/backoffice/admin.py:36
 msgid "Celery taskset results"
