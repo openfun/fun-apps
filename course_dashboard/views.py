@@ -9,13 +9,9 @@ from django.utils.translation import ugettext as _
 from django.utils.formats import date_format
 from django_countries import countries
 
-from opaque_keys.edx.keys import CourseKey
-from xmodule.modulestore.django import modulestore
-
 from fun.utils.views import ensure_valid_course_key
 from fun.utils.views import staff_required, staff_required_or_level
 from . import stats
-from . import answers_distribution as ad
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')
@@ -169,51 +165,3 @@ def date_to_js_timestamp(date):
         python timestamp.
     """
     return time.mktime(date.timetuple())*1000
-
-@ensure_valid_course_key
-@staff_required_or_level('staff')
-def answers_distribution(request, course_id):
-    """
-    Show the answers distribution of all problems for a course
-    So far only "Multiple Choice" problems are handled
-
-    A course has several problem modules
-    A problem module can contain different problems
-
-    A problem is an xml document. We enhance it's contents with the answers distribution
-    and then display it in the answers_distribution template
-    """
-
-    course_key = CourseKey.from_string(course_id)
-    store = modulestore()
-    problem_modules = ad.fetch_all_problem_modules_from_course(course_key, store)
-
-    for problem_module in problem_modules:
-        ad.add_ancestors_names_to_problem_module(problem_module, store)
-        ad.parse_problem_data_from_problem_module(problem_module)
-
-    return render(request, 'course_dashboard/answers_distribution.html', {
-        "course_id": course_id,
-        "problem_modules" : problem_modules
-    })
-
-
-@ensure_valid_course_key
-@staff_required_or_level('staff')
-def get_answers_to_problem_module(request, course_id):
-
-    if 'problem_module_id' in request.GET:
-        course_key = CourseKey.from_string(course_id)
-        store = modulestore()
-        qualifiers = {'qualifiers' : {'category' : 'problem',
-                                      'name' : request.REQUEST['problem_module_id']}}
-        problem_module = store.get_items(course_key, **qualifiers)
-
-        ad.add_answers_distribution_to_problem_module(problem_module[0])
-
-        return render(request, 'course_dashboard/multiplechoice_response.html', {
-            "course_id": course_id,
-            "problem_module" : problem_module[0]
-        })
-    else:
-        raise Http404

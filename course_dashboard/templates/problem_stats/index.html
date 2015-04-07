@@ -1,6 +1,6 @@
 ## mako
 
-<%inherit file="base_course.html" />
+<%inherit file="/course_dashboard/base_course.html" />
 
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils.translation import ugettext as _ %>
@@ -9,7 +9,7 @@
     <script src="${STATIC_URL}course_dashboard/js/answers_distribution.js"></script>
     <script>
      answers_distribution('${STATIC_URL}',
-                          '${reverse('course-dashboard:get-answers-to-problem-module',
+                          '${reverse('course-dashboard:problem-stats:get-stats',
                              kwargs={'course_id': course_id})}',
                           '${_('Refresh')}') 
     </script>
@@ -18,26 +18,26 @@
 <%block name="content">
     <div class="row answers-distribution-reports">
         <div class="col-xs-12 text-right">
-            <a href='${reverse('course-dashboard:answers-distribution-reports-manager:dashboard',
+            <a href='${reverse('course-dashboard:reports-manager:dashboard',
                        kwargs={'course_id': course_id})}'
                class='btn btn-info'>${_("Answers distribution reports")}</a>            
         </div>
     </div>
-    % for problem_module in problem_modules:
-        <div class="problem-module" id="${problem_module.scope_ids.usage_id.name}">
+    % for problem in problems:
+        <div class="problem-module" id="${problem.scope_ids.usage_id.name}">
             <div class="row problem-path">
                 <div class="col-xs-12">
                     <ol class="breadcrumb">
-                        <li> ${problem_module.ancestors_names['great_grandparent']}</li>
-                        <li>  ${problem_module.ancestors_names['grandparent']}</li>
-                        <li>  ${problem_module.ancestors_names['parent']}</li>
-                        <li class="active">${problem_module.display_name}</li>
+                        % for ancestor_name in problem.ancestors_names:
+                            <li> ${ancestor_name}</li>
+                        % endfor
+                        <li class="active">${problem.display_name}</li>
                     </ol>
                 </div>
                 <div class="col-xs-1 col-get-anwers-button">
-                    <a href='${reverse('course-dashboard:answers-distribution-reports-manager:generate',
+                    <a href='${reverse('course-dashboard:reports-manager:generate',
                              kwargs={'course_id': course_id,
-                                     'problem_module_id' : problem_module.scope_ids.usage_id.name})}'
+                                     'problem_id' : problem.scope_ids.usage_id.name})}'
                        class='glyphicon glyphicon-list-alt get-answers-button'></a>
                 </div>
                 <div class="col-xs-1 col-md-1 col-glyphicon">

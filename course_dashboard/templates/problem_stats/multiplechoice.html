@@ -1,0 +1,32 @@
+## mako
+<%! from django.utils.translation import ugettext as _ %>
+<%! from course_dashboard.problem_stats.utils import percentage %>
+
+<%inherit file="base.html" />
+
+<%block name="question_title">
+    % for element in title:
+       <p><b>${element.text}</b></p>
+    % endfor
+</%block>
+
+<%block name="answers_distribution">
+    % for index, choice in enumerate(question_tree.iter('choice')):
+        <tr>
+            <td ${'class="correct_answer"' if choice.get('correct') == 'true' else ''}>
+                ${choice.text}
+            </td>
+            <td>
+                ${student_answers["choice_{}".format(index)]}
+            </td>
+            <td>
+                ${percentage(student_answers["choice_{}".format(index)], total_answers)}%
+            </td>
+        </tr>
+    % endfor
+    <tr>
+        <th>${_("Blank answers")}</th>
+        <td> ${blank_answers}</td>
+        <td>${percentage(blank_answers, total_answers)}% </td>
+    </tr>
+</%block>

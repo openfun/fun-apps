@@ -29,7 +29,7 @@
             <table class="table">
                 % if answers_distribution_reports:
                     % for answers_distribution_report in answers_distribution_reports:
-                        <tr><td><a href='${reverse('course-dashboard:answers-distribution-reports-manager:download',
+                        <tr><td><a href='${reverse('course-dashboard:reports-manager:download',
                                          kwargs={'course_id': course_id,
                                          'answers_distribution_report' : answers_distribution_report})}'>${answers_distribution_report}</a></td></tr>
                     % endfor

@@ -21,14 +21,13 @@ def submit_generate_certificate(request, course_key, query_features):
     return submit_task(request, task_type, task_class, course_key, task_input, task_key)
 
 
-def submit_generate_answers_distribution_report(request, course_key, query_features):
+def submit_generate_answers_distribution_report(request, course_key, task_input):
     """ Request to generate certificate as a background task. """
 
     task_type = 'answers-distribution-report-generation'
     task_class = answers_distribution_report_generation_task_class
-    task_input = query_features
-    task_key = ""
-    return submit_task(request, task_type, task_class, course_key, task_input, task_key)
+    task_input = task_input
+    return submit_task(request, task_type, task_class, course_key, task_input, "")
 
 
 
