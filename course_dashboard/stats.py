@@ -130,10 +130,9 @@ def forum_threads_per_day(threads):
     return sorted(threads_per_day.items())
 
 def most_active_user(threads):
-    username = most_active_username(threads)
-    if username is None:
-        return None
-    return User.objects.get(username=username)
+    if threads:
+        username = most_active_username(threads)
+        return User.objects.get(username=username)
 
 def most_active_username(threads):
     user_activity = defaultdict(int)
