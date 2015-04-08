@@ -4,20 +4,23 @@ from StringIO import StringIO
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
+
 from courseware.tests.factories import InstructorFactory
 from student.tests.factories import CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 from xmodule.modulestore.tests.factories import CourseFactory
-
+from xmodule.modulestore.tests.factories import ItemFactory
 
 @override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class BaseCourseDashboardTestCase(ModuleStoreTestCase):
 
     def setUp(self):
         super(BaseCourseDashboardTestCase, self).setUp(create_user=False)
-
         self.course = CourseFactory.create()
+        self.problem_module = None
+        self._generate_modules_tree(self.course, 'chapter', 'sequential',
+                                    'vertical', 'problem')
         instructor = InstructorFactory.create(course_key=self.course.id)
         self.client.login(username=instructor.username, password="test")
 
@@ -43,3 +46,25 @@ class BaseCourseDashboardTestCase(ModuleStoreTestCase):
         response_content = StringIO(response.content)
         response_content.seek(0)
         return [row for row in csv.reader(response_content)]
+
+
+    def _generate_modules_tree(self, module, *args):
+        if not args:
+            self.problem_module = module
+            return
+        category = args[0]
+        self._generate_modules_tree(ItemFactory(parent=module,
+                                                category=category,
+                                                display_name=None),
+                                    *args[1:])
+
+    #TODO merge this function with the _generate_modules_tree
+    def _generate_modules_tree_with_display_names(self, module, *args):
+        if not args:
+            self.problem_module = module
+            return
+        category = args[0]
+        self._generate_modules_tree_with_display_names(ItemFactory(parent=module,
+                                                                   category=category,
+                                                                   display_name=category),
+                                                       *args[1:])
