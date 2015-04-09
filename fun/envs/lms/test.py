@@ -10,6 +10,7 @@ logging.getLogger("factory").setLevel(logging.WARN)
 logging.getLogger("raven.contrib.django.client.DjangoClient").setLevel(logging.WARN)
 logging.getLogger('instructor_task.api_helper').setLevel(logging.ERROR)
 logging.getLogger('instructor_task.tasks_helper').setLevel(logging.ERROR)
+logging.getLogger('xmodule.modulestore.django').setLevel(logging.ERROR)
 
 ########### Imported from edx-platform/lms/envs/test.py
 from path import path
