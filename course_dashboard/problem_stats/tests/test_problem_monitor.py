@@ -80,14 +80,13 @@ class ProblemMonitorTestCase(BaseCourseDashboardTestCase):
         for index, correctness in enumerate(args):
             cmap.update(CorrectMap(answer_id=self._build_question_id(index),
                                    correctness=correctness))
-        # convert from CorrectMap to dict type
         return cmap.cmap
 
     def _build_student_answers(self, *args):
         student_answers = {}
         for index, response in enumerate(args):
             student_answers[self._build_question_id(index)] = response
-        return json.dumps(student_answers)
+        return student_answers
 
     def _build_student_module_state(self, correct_map, student_answers,
                                     seed='1', done='True', attempts=1,
@@ -101,7 +100,7 @@ class ProblemMonitorTestCase(BaseCourseDashboardTestCase):
             'attempts' : attempts,
             'last_submission_time' : last_submission_time
         }
-        return json.dumps(state)
+        return state
 
     def test_get_student_answers(self):
         first_question = RF.MultipleChoiceResponseXMLFactory().build_xml(
