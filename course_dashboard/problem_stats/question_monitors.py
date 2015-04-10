@@ -1,4 +1,5 @@
 from collections import defaultdict
+from lxml import etree
 
 from django.template.loader import render_to_string
 
@@ -40,10 +41,11 @@ class QuestionMonitor(object):
         Return the question title. If not found in 'label' attribute
         extract it from context.
         """
-        choicegroup = self.question_tree.find('choicegroup')
-        if choicegroup:
-            label = choicegroup.get('label')
-        return label if label else self.context
+        label = self.question_tree.find('choicegroup').get('label')
+        if label:
+            title = etree.Element('p')
+            title.text = label
+        return [title] if label else self.context
 
     def _compute_stats(self):
         """Computes various student answers data.
