@@ -16,6 +16,7 @@
         <li role="presentation" ${"class='active'" if active_tab == 'enrollment_stats' else '' }><a href="${reverse('course-dashboard:enrollment-stats', kwargs={'course_id': course_id})}">${_("Subscription statistics")}</a></li>
         <li role="presentation" ${"class='active'" if active_tab == 'student_map' else '' }><a href="${reverse('course-dashboard:student-map', kwargs={'course_id': course_id})}">${_("Student map")}</a></li>
         <li role="presentation" ${"class='active'" if active_tab == 'forum_activity' else '' }><a href="${reverse('course-dashboard:forum-activity', kwargs={'course_id': course_id})}">${_("Forum activity")}</a></li>
+        <li role="presentation" ${"class='active'" if active_tab == 'wiki_activity' else '' }><a href="${reverse('course-dashboard:wiki-activity', kwargs={'course_id': course_id})}">${_("Wiki activity")}</a></li>
         <li role="presentation" ${"class='active'" if active_tab == 'answers_distribution' else '' } ><a href="${reverse('course-dashboard:problem-stats:index', kwargs={'course_id': course_id})}">${_("Answers distribution")}</a></li>
         <li role="presentation" ${"class='active'" if active_tab == 'reports' else '' } ><a href="${reverse('course-dashboard:reports-manager:dashboard', kwargs={'course_id': course_id})}">${_("Reports bucket")}</a></li>
     </ul>

@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
+
 import csv
-import time
+from collections import defaultdict
 from datetime import datetime
 from StringIO import StringIO
+import time
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
@@ -9,9 +12,17 @@ from django.utils.translation import ugettext as _
 from django.utils.formats import date_format
 from django_countries import countries
 
+from wiki.models import URLPath, Article, ArticleRevision, ArticleForObject
+
+from opaque_keys.edx.keys import CourseKey
+from course_wiki.utils import course_wiki_slug
+from courseware.courses import get_course_by_id
+
 from fun.utils.views import ensure_valid_course_key
 from fun.utils.views import staff_required, staff_required_or_level
+
 from . import stats
+
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')
@@ -115,6 +126,62 @@ def forum_activity(request, course_id):
         "most_active_user": most_active_user,
     })
 
+
+@ensure_valid_course_key
+@staff_required_or_level('staff')
+def wiki_activity(request, course_id):
+
+    # Offical edX way to replace slashes by dots: course_key.replace('/', '.')
+    course_key = CourseKey.from_string(course_id)
+    course = get_course_by_id(course_key)
+    course_slug = course_wiki_slug(course)
+
+    try:
+        urlpath = URLPath.get_by_path(course_slug)
+        wiki = True
+    except URLPath.DoesNotExist:
+        wiki = False
+
+    data = {}
+    data['article_creation'] = defaultdict(int)
+    data['revision_counts'] = defaultdict(int)
+    data['article_revision'] = defaultdict(int)
+    data['user_activity'] = defaultdict(int)
+    data['urlpathes'] = []
+    data['page_count'] = 0
+
+    if wiki:
+        root = Article.objects.get(id=urlpath.id)  # get the root article of the course
+        urlpathes = root.descendant_objects()
+        for urlpath in urlpathes:
+            data['urlpathes'].append(urlpath)
+            data['article_creation'][urlpath.article.created.date()] += 1
+            for revision in urlpath.article.articlerevision_set.all():
+                data['revision_counts'][urlpath] += 1
+                data['article_revision'][revision.created.date()] += 1
+                data['user_activity'][revision.user or urlpath.article.owner] += 1  # use Article owner if revision is anonymous (tests)
+
+    series = []
+    series.append(sorted(formatted_dates(data['article_creation'].items())[1], key=lambda item: item[0]))
+    series.append(sorted(formatted_dates(data['article_revision'].items())[1], key=lambda item: item[0]))
+
+    most_active_pages = sorted(
+        data['revision_counts'].items(), key=lambda item: item[1], reverse=True)
+    last_created = sorted(data['urlpathes'], key= lambda item: item.article.created, reverse=True)
+    most_active_users = sorted(data['user_activity'].items(), key=lambda item: item[1], reverse=True)
+
+
+    return render(request, 'course_dashboard/wiki-activity.html', {
+        "series": series,
+        "most_active_pages": most_active_pages,
+        "last_created": last_created,
+        "most_active_users": most_active_users,
+        "page_count": len(data['urlpathes']),
+        "user_count": len(data['user_activity'].items()),
+        "revision_count": sum(data['article_revision'].values()),
+        "active_tab": "wiki_activity",
+        "course_id": course_id,
+    })
 
 def csv_response(header_row, data_rows, filename):
     def encode_data(data):
