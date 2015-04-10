@@ -34,8 +34,6 @@ class QuestionMonitorTestCase(BaseCourseDashboardTestCase):
             choicegroup.set('label', label_text)
         return question_tree
 
-    def test_get_title(self):
+    def test_title(self):
         self.assertEqual(self.label_text, self.question_monitor.get_title()[0].text)
-
-    def test_render_title(self):
         self.assertIn(self.label_text, self.question_monitor.get_html('problem_stats/multiplechoice.html'))
