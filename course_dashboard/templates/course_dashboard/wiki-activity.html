@@ -1,0 +1,149 @@
+## mako
+<%inherit file="base_course.html" />
+<%! from django.core.urlresolvers import reverse %>
+<%! from django.utils.translation import ugettext as _ %>
+<%! from django.utils.formats import localize %>
+
+<%namespace name='static' file='/static_content.html'/>
+
+<%block name="extra_footer">
+<script type="text/javascript" src="${static.url('fun/js/jquery.flot.time.js')}"></script>
+<script>
+    (function(){
+        var data = ${series};
+        $.plot(
+            $("#wiki-stats"),
+            [{
+                label: "${_(u'Page creation by day')}",
+                data: data[0],
+                color: '#a76dff'
+            },{
+                label: "${_(u'Page revision by day')}",
+                data: data[1],
+                color: '#ac5689'
+            }],
+            {
+                series: {
+                    lines: {
+                        show: true,
+                    },
+                    points: {
+                        show: true,
+                        hoverable: true
+                    }
+                },
+                grid: {
+                    hoverable: true,
+                },
+                xaxis: {
+                    mode: "time",
+                    timeformat: "${_('%m/%d/%Y')}",
+                },
+                yaxis: {
+                    tickFormatter: function(value) {
+                        return Math.floor(value);
+                    }
+                }
+            }
+        );
+    })();
+</script>
+</%block>
+
+<%block name="content">
+
+    <div class="row">
+        <figure>
+            <div id="wiki-stats" style="width: 100%; height: 600px"></div>
+        </figure>
+    </div>
+
+    <div class="row">
+        <div class="thumbnail col-md-4 key-stats">
+            <h2>&nbsp;</h2>
+            <h1>${page_count}</h1>
+            <h2>${_(u"created pages")}</h2>
+        </div>
+        <div class="thumbnail col-md-4 key-stats">
+            <h2>&nbsp;</h2>
+            <h1>${revision_count}</h1>
+            <h2>${_(u"modified pages")}</h2>
+        </div>
+        <div class="thumbnail col-md-4 key-stats">
+            <h2>&nbsp;</h2>
+            <h1>${user_count}</h1>
+            <h2>${_(u"active users")}</h2>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <h3> ${_(u"Pages by activity")}</h3>
+        <table class="table col-md-12">
+            <tbody>
+            <tr>
+                <th>${_(u"Page")}</th>
+                <th>${_(u"Revision count")}</th>
+            </tr>
+
+            % for urlpath, count in most_active_pages:
+            <tr>
+                <td>
+                    <a href="/courses/${course_id}/wiki/${urlpath.path}">${urlpath.article}</a>
+                </td>
+                <td>
+                    ${count}
+                </td>
+            </tr>
+            % endfor
+            </tbody>
+        </table>
+
+
+        <h3> ${_(u"Last created pages")}</h3>
+        <table class="table col-md-12">
+            <tbody>
+            <tr>
+                <th>${_(u"Page")}</th>
+                <th>${_(u"Creation date")}</th>
+            </tr>
+            </thead>
+            % for urlpath in last_created:
+                <tr>
+                    <td>
+                        <a href="/courses/${course_id}/wiki/${urlpath.path}">${urlpath.article}</a>
+                    </td>
+                    <td>
+                        ${localize(urlpath.article.created)}
+                    </td>
+                </tr>
+            % endfor
+            </tbody>
+        </table>
+
+        <h3> ${_(u"Users by activity")}</h3>
+        <table class="table col-md-12">
+            <tbody>
+            <tr>
+                <th>${_(u"Page")}</th>
+                <th>${_(u"Revision count")}</th>
+            </tr>
+            </thead>
+
+            % for user, count in most_active_users:
+                <tr>
+                    <td>
+                        ${user.username}
+                    </td>
+                    <td>
+                        ${count}
+                    </td>
+                </tr>
+            % endfor
+            </tbody>
+        </table>
+
+    </div>
+
+</%block>

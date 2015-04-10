@@ -1,4 +1,4 @@
-from django.conf.urls import url, patterns, include 
+from django.conf.urls import url, patterns, include
 
 urlpatterns = patterns('course_dashboard.views',
     url(r'^enrollments/$', 'enrollment_stats', name='enrollment-stats'),
@@ -8,5 +8,6 @@ urlpatterns = patterns('course_dashboard.views',
                                            namespace='problem-stats')),
     url(r'^reports_manager/', include('course_dashboard.reports_manager.urls',
                                                            namespace='reports-manager')),
+    url(r'^wiki/$', 'wiki_activity', name='wiki-activity'),
     url(r'^$', 'enrollment_stats', name='home'),
 )
