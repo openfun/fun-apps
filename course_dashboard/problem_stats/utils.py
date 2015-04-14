@@ -1,4 +1,7 @@
 from lxml import etree
+
+from django.core.urlresolvers import reverse
+
 from capa import responsetypes
 
 def fetch_problems(store, course_key):
@@ -53,7 +56,6 @@ def get_problem_size(problem):
     Returns:
          Int: The number of questions.
      """
-
     tree = etree.XML(problem.data)
     registered_tags = responsetypes.registry.registered_tags()
     questions = [node.tag for node in tree.iter() if node.tag in registered_tags]
@@ -61,3 +63,28 @@ def get_problem_size(problem):
 
 def percentage(part, whole):
     return round(100 * float(part)/float(whole), 2)
+
+def _is_problem(module):
+    return True if module.category == 'problem' else False
+
+def build_course_tree(module):
+    """ Build a course tree recursively for feeding the jstree in the index page.
+    Args:
+         module (Descriptor): A module descriptor.
+    Returns:
+         dict : The course tree.
+     """
+    is_problem = _is_problem(module)
+    course_tree = {'text': module.display_name,
+                   'children': [build_course_tree(child)
+                                for child in module.get_children()],
+                   'state': {'opened': True},
+                   'icon' : 'glyphicon glyphicon-pencil' if is_problem else 'default',
+                   'li_attr' : {'category' : 'problem' if is_problem else 'other', 'report_url' :
+                                reverse('course-dashboard:reports-manager:generate',
+                                        kwargs={'course_id': unicode(module.location.course_key),
+                                                'problem_id' : module.location.name}) if is_problem else '#'},
+                   'a_attr' : {'href' : reverse('course-dashboard:problem-stats:get-stats',
+                                                kwargs={'course_id': unicode(module.location.course_key),
+                                                        'problem_id' : module.location.name}) if is_problem else '#'}}
+    return course_tree

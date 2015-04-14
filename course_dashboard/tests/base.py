@@ -4,15 +4,14 @@ from StringIO import StringIO
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
-
 from courseware.tests.factories import InstructorFactory
 from student.tests.factories import CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
+
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.factories import ItemFactory
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class BaseCourseDashboardTestCase(ModuleStoreTestCase):
 
     def setUp(self):

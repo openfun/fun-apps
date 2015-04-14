@@ -1,7 +1,5 @@
 from course_dashboard.tests.base import BaseCourseDashboardTestCase
 from django.core.urlresolvers import reverse
-import random
-import hashlib
 
 class ProblemStatsViewTestCase(BaseCourseDashboardTestCase):
     def test_index(self):
@@ -14,6 +12,7 @@ class ProblemStatsViewTestCase(BaseCourseDashboardTestCase):
 
     def test_get_stats(self):
         url = reverse("course-dashboard:problem-stats:get-stats",
-                      kwargs={"course_id": self.get_course_id(self.course)})
+                      kwargs={"course_id": self.get_course_id(self.course),
+                              "problem_id": self.problem_module.location.name})
         response = self.client.get(url, {'problem_id' : self.problem_module.location.name})
         self.assertEqual(200, response.status_code)

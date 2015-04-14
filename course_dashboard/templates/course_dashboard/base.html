@@ -45,55 +45,6 @@
             font-size: 46px;
             font-weight: bold;
         }
-        #content .correct_answer {
-            color : green;
-        }
-         #content .answers-distribution-reports {
-             margin-bottom:20px;
-        }
-         #content .problem-path {
-             cursor: pointer;
-             display : flex;
-        }
-         #content .problem-module {
-             margin-bottom  :10px;
-        }
-         #content .results {
-             margin : 10px 0px;
-             padding-left : 15px;
-        }
-         #content .problem-path, #content .breadcrumb  {
-             background-color: #E9E9E9 ;
-        }
-         #content .glyphicon {
-             float : right
-        }
-
-         // center the arrow 
-         #content .problem-module .col-xs-11 {
-             padding-left: 0px;
-             padding-right: 0px;
-             display : flex;
-         }
-         #content .problem-module ol.breadcrumb {
-             margin-bottom: auto;
-             margin-top: auto;
-             padding-left : 5px;
-         }
-         #content .col-glyphicon, #content .col-get-anwers-button {
-             margin-bottom: auto;
-             margin-top: auto; 
-         }
-
-         #content .results caption i {
-             font-weight:bold;
-             color : #2699fc;
-         }
-         #content .results th {
-             font-weight:normal;
-             font-style: italic;
-         }
-         
         </style>
 
         <%block name="extra_head"></%block>
@@ -108,7 +59,7 @@
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container-fluid">
                 <!-- Django messages display -->
                 % if messages:
                     % for message in messages:

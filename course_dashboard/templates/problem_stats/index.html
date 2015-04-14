@@ -5,52 +5,84 @@
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils.translation import ugettext as _ %>
 
+<%block name="extra_head">
+    <link rel="stylesheet" href="${STATIC_URL}course_dashboard/problem_stats/jstree/themes/proton/style.min.css" />
+    <style>
+     #content #left-panel {
+         overflow : hidden;
+         border-right: thin double grey;
+     }
+     
+     #content li[category="problem"], #content .correct_answer {
+         color : green;
+     }
+     
+     #content .glyphicon-chevron-left, #content .glyphicon-chevron-right {
+         color : green;
+         font-size: 20px;
+         cursor: pointer;
+     }
+     
+     #content #show-left-panel {
+         visibility: hidden;
+         float : left;
+     }
+     
+     #content #hide-left-panel, #content #generate-raw-data {
+         float : right;
+     }
+     
+     #content #problem-stat-header {
+         margin-bottom : 35px;
+     }
+     
+     #content #refresh-button {
+         visibility: hidden;
+         float: right;
+     }
+     
+     #content #loading-message {
+         visibility: hidden;
+     }
+     
+     #content #ajax-load-img {
+         margin-left : 5px;
+     }
+    </style>
+    
+</%block>
 <%block name="extra_js">
-    <script src="${STATIC_URL}course_dashboard/js/answers_distribution.js"></script>
+    <script src="${STATIC_URL}course_dashboard/problem_stats/jstree/jstree.min.js"></script>
+    <script src="${STATIC_URL}course_dashboard/problem_stats/utils.js"></script>
     <script>
-     answers_distribution('${STATIC_URL}',
-                          '${reverse('course-dashboard:problem-stats:get-stats',
-                             kwargs={'course_id': course_id})}',
-                          '${_('Refresh')}') 
+        build_json_tree(${course_tree_data}); 
     </script>
 </%block>
 
 <%block name="content">
-    <div class="row answers-distribution-reports">
-        <div class="col-xs-12 text-right">
-            <a href='${reverse('course-dashboard:reports-manager:dashboard',
-                       kwargs={'course_id': course_id})}'
-               class='btn btn-info'>${_("Answers distribution reports")}</a>            
+    <div class="row">
+        <div id="left-panel" class="col-xs-4">
+            <span id='hide-left-panel' class='glyphicon glyphicon-chevron-left'> </span>
+            <div  id="course-tree"></div>
+        </div>
+        <div id="right-panel" class="col-xs-8">
+            <div id="problem-stat-header">
+                <span id='show-left-panel' class='glyphicon glyphicon-chevron-right'> </span>
+                <a  hidden id='generate-raw-data' href=''>${_("Download raw data")}</a>
+                <div id='loading-message'>
+                    <p>
+                        ${_("Please wait while data is being loaded.")}
+                        <img src='${STATIC_URL}fun/images/spinner.gif' id='ajax-load-img' alt='ajax loading button'>
+                    </p>
+                </div>
+            </div>
+            <div id="problem-stat">
+            </div>
+            <div id="problem-stat-footer">
+                <button  type="button" id="refresh-button" data-loading-text="${_("Loading ...")}" class="btn btn-success" autocomplete="off">
+                    ${_("Refresh")}
+                </button>
+            </div>
         </div>
     </div>
-    % for problem in problems:
-        <div class="problem-module" id="${problem.scope_ids.usage_id.name}">
-            <div class="row problem-path">
-                <div class="col-xs-12">
-                    <ol class="breadcrumb">
-                        % for ancestor_name in problem.ancestors_names:
-                            <li> ${ancestor_name}</li>
-                        % endfor
-                        <li class="active">${problem.display_name}</li>
-                    </ol>
-                </div>
-                <div class="col-xs-1 col-get-anwers-button">
-                    <a href='${reverse('course-dashboard:reports-manager:generate',
-                             kwargs={'course_id': course_id,
-                                     'problem_id' : problem.scope_ids.usage_id.name})}'
-                       class='glyphicon glyphicon-list-alt get-answers-button'></a>
-                </div>
-                <div class="col-xs-1 col-md-1 col-glyphicon">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </div>
-            </div>
-            <div class="results">
-                <div class="row data"></div>
-                <div class="row control">
-                    <div class="data-results col-xs-12 text-right"></div>
-                </div>
-            </div>
-        </div>
-    % endfor
-
 </%block>
