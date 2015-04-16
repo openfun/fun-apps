@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys
-
-# import cms aws settings
 from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
-# import FUN lms/cms common settings
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 del DEFAULT_FILE_STORAGE  # We do not use S3 file storage backend set in aws.py
@@ -50,6 +46,7 @@ FEATURES['SUBDOMAIN_BRANDING'] = False
 FEATURES['SUBDOMAIN_COURSE_LISTINGS'] = False
 FEATURES['ENABLE_DJANGO_ADMIN_SITE'] = True
 FEATURES['ACCESS_REQUIRE_STAFF_FOR_COURSE'] = True  # hide spocs from course list
+FEATURES['ENABLE_COURSEWARE_INDEX'] = False
 
 #### PASSWORD POLICY SETTINGS #####
 FEATURES['ENFORCE_PASSWORD_POLICY'] = True
@@ -95,7 +92,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
 # desactivate email sending of stacktrace
 del LOGGING['handlers']['mail_admins']
-del LOGGING['loggers']['django.request']['handlers'][LOGGING['loggers']['django.request']['handlers'].index('mail_admins')]
+LOGGING['loggers']['django.request']['handlers'].remove('mail_admins')
 
 # remove newrelic
 del LOGGING['handlers']['newrelic']
@@ -142,7 +139,7 @@ REGISTRATION_EXTRA_FIELDS = {
 SITE_VARIANT = 'lms'
 
 # Certificates related settings
-CERTIFICATE_BASE_URL =  '/attestations/'
+CERTIFICATE_BASE_URL = '/attestations/'
 CERTIFICATES_DIRECTORY = '/edx/var/edxapp/attestations/'
 FUN_LOGO_PATH = BASE_ROOT / 'themes/fun/static/images/logo.png'
 STUDENT_NAME_FOR_TEST_CERTIFICATE = 'Test User'
