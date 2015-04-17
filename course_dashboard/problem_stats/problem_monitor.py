@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from lxml import etree
 import json
 
@@ -26,7 +27,7 @@ class ProblemMonitor(object):
     def __init__(self, problem_module):
         self.problem_module = problem_module
         self.problem_tree = etree.XML(problem_module.data)
-        self.question_monitors = {}
+        self.question_monitors = OrderedDict()
         self._preprocess_problem()
 
     def _preprocess_problem(self):
@@ -75,15 +76,13 @@ class ProblemMonitor(object):
             if not student_answers or not correct_map:
                 continue
             for id, question_monitor in self.question_monitors.iteritems():
-                if isinstance(question_monitor, UnhandledQuestionMonitor):
-                    continue
                 try:
                     question_monitor.correctness[correct_map[id]['correctness']] += 1
                 except KeyError:
                     ## there is always a correctmap id for each question this happen when the problem have changed, TODO
                     pass
                 try:
-                    question_monitor.student_answers[student_answers[id]] += 1
+                    question_monitor.student_answers[unicode(student_answers[id])] += 1
                 except KeyError:
                     question_monitor.no_answer += 1
 

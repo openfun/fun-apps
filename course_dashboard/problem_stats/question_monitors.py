@@ -41,10 +41,13 @@ class QuestionMonitor(object):
         Return the question title. If not found in 'label' attribute
         extract it from context.
         """
-        label = self.question_tree.find('choicegroup').get('label')
-        if label:
-            title = etree.Element('p')
-            title.text = label
+        label = None
+        choicegroup = self.question_tree.find('choicegroup')
+        if choicegroup:
+            label = choicegroup.get('label')
+            if label:
+                title = etree.Element('p')
+                title.text = label
         return [title] if label else self.context
 
     def _compute_stats(self):
@@ -70,8 +73,9 @@ class QuestionMonitor(object):
 
         total_answers = self._compute_stats()
         if not total_answers:
-            return  u"<p>no answers</p>" # TODO a bit rough, write a better template
-        context = {'question_tree' :self.question_tree,
+            return  render_to_string('problem_stats/no_answers.html', {'title' : self.get_title()})
+        context = {'question_id' : self.id,
+                   'question_tree' :self.question_tree,
                    'title' : self.get_title(),
                    'total_answers': total_answers,
                    'student_answers' : self.student_answers,
@@ -96,5 +100,5 @@ class UnhandledQuestionMonitor(QuestionMonitor):
     tags = [tags for tags in loncapa_question_tags if tags not in monitor_question_tags]
 
     def get_html(self):
-        return render_to_string('problem_stats/nothandled.html',
-                                {'question_id' : self.id})
+        return super(UnhandledQuestionMonitor, self).get_html('problem_stats/nothandled.html')
+
