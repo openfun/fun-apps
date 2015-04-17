@@ -1,5 +1,11 @@
 ## mako
-
 <%! from django.utils.translation import ugettext as _ %>
-<p>${question_id}<p>
-<p>${_("Sorry this problem is not handled yet.")}</p>
+<%! from course_dashboard.problem_stats.utils import percentage %>
+
+<%inherit file="base.html" />
+
+<%block name="answers_distribution">
+    <p style='margin-bottom : 150px;'>
+        ${ _("The answers distribution for problem {} is not handled yet.").format(question_id)}
+    </p>
+</%block>

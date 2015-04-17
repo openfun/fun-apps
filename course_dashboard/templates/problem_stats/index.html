@@ -13,7 +13,7 @@
          border-right: thin double grey;
      }
      
-     #content li[category="problem"], #content .correct_answer {
+     #content li[category="problem"] {
          color : green;
      }
      
@@ -54,6 +54,7 @@
 <%block name="extra_js">
     <script src="${STATIC_URL}course_dashboard/problem_stats/jstree/jstree.min.js"></script>
     <script src="${STATIC_URL}course_dashboard/problem_stats/utils.js"></script>
+    <script src="${STATIC_URL}fun/js/jquery.flot.pie.js"></script>
     <script>
         build_json_tree(${course_tree_data}); 
     </script>
@@ -68,7 +69,7 @@
         <div id="right-panel" class="col-xs-8">
             <div id="problem-stat-header">
                 <span id='show-left-panel' class='glyphicon glyphicon-chevron-right'> </span>
-                <a  hidden id='generate-raw-data' href=''>${_("Download raw data")}</a>
+                <a  hidden id='generate-raw-data' href=''>${_("Download raw CSV data")}</a>
                 <div id='loading-message'>
                     <p>
                         ${_("Please wait while data is being loaded.")}
