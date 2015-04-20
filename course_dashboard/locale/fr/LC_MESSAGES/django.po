@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-04-08 10:16+0200\n"
+"POT-Creation-Date: 2015-04-20 14:51+0200\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -44,6 +44,7 @@ msgid "%d students"
 msgstr "%d apprenants"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/graph.html:35
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:40
 #, python-format
 msgid "%m/%d/%Y"
 msgstr "%d/%m/%Y"
@@ -56,7 +57,7 @@ msgstr "Un rapport sur la répartition des réponses est déjà en cours"
 msgid "An average of"
 msgstr "Une moyenne de"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:19
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:20
 msgid "Answers distribution"
 msgstr "Répartition des réponses"
 
@@ -78,6 +79,10 @@ msgstr "Choix"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:11
 msgid "Course dashboard"
 msgstr "Tableau de bord de cours"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:109
+msgid "Creation date"
+msgstr "Date de création"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:25
 msgid "Day with least enrollments:"
@@ -108,6 +113,10 @@ msgstr "Activité des forums"
 #: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:116
 msgid "France"
 msgstr "France"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:104
+msgid "Last created pages"
+msgstr "Dernières pages créées"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:35
 msgid "Least active forum thread:"
@@ -146,6 +155,18 @@ msgstr "Nombre d'apprenants"
 msgid "Number of new threads"
 msgstr "Nombre de nouveaux fils de discussion"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:17
+msgid "Page creation by day"
+msgstr "Nombre de pages créées par jour"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:21
+msgid "Page revision by day"
+msgstr "Nombre de pages modifiées par jour"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:82
+msgid "Pages by activity"
+msgstr "Pages par activité"
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:20
 msgid "Percentage"
 msgstr "Pourcentage"
@@ -166,6 +187,11 @@ msgstr "Rafraîchir"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:19
 msgid "Responses"
 msgstr "Réponses"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:87
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:130
+msgid "Revision count"
+msgstr "Nombre de modifications"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:13
 msgid "Running answers distribution reports generation"
@@ -197,11 +223,27 @@ msgstr "Troisième pays"
 msgid "Top country by enrollment"
 msgstr "Premier pays"
 
-# Translated in edx by ''
-#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:87
+# Translated in edx by 'Inconnu'
+#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:102
 #: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:94
 msgid "Unknown"
 msgstr "Inconnu"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:125
+msgid "Users by activity"
+msgstr "Utilisateurs par activité"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:19
+msgid "Wiki activity"
+msgstr "Activité du wiki"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:75
+msgid "active users"
+msgstr "utilisateurs actifs"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:65
+msgid "created pages"
+msgstr "pages créées"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:34
 msgid "enrollments / day"
@@ -214,6 +256,10 @@ msgstr "fils de discussion créés"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:21
 msgid "from"
 msgstr "de"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:70
+msgid "modified pages"
+msgstr "pages modifiées"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:14
 #, python-format
