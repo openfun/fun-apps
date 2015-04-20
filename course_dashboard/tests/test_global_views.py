@@ -1,12 +1,9 @@
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 
 from student.models import UserProfile
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class GlobalViewsTestCase(ModuleStoreTestCase):
 
     def setUp(self):

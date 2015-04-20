@@ -1,17 +1,14 @@
 from datetime import datetime
 
-from django.test.utils import override_settings
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from student.tests.factories import UserFactory
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 from course_dashboard import views
 from .base import BaseCourseDashboardTestCase
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class EnrollmentStatsTestCase(BaseCourseDashboardTestCase):
 
     def get_course_enrollment_stats(self, course, response_format=None):
