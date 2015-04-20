@@ -51,6 +51,32 @@ PASSWORD_HASHERS = (
 STATICFILES_STORAGE='pipeline.storage.NonPackagingPipelineStorage'
 PIPELINE_ENABLED=False
 
+CACHES.update({
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'edx_loc_mem_cache',
+        'KEY_FUNCTION': 'util.memcache.safe_key',
+    },
+
+    'general': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'KEY_PREFIX': 'general',
+        'VERSION': 4,
+        'KEY_FUNCTION': 'util.memcache.safe_key',
+    },
+
+    'mongo_metadata_inheritance': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': os.path.join(tempfile.gettempdir(), 'mongo_metadata_inheritance'),
+        'TIMEOUT': 300,
+        'KEY_FUNCTION': 'util.memcache.safe_key',
+    },
+    'loc_cache': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'edx_location_mem_cache',
+    },
+
+})
 ################ Disable Django debug toolbar
 INSTALLED_APPS = tuple([app for app in INSTALLED_APPS if app not in DEBUG_TOOLBAR_INSTALLED_APPS])
 MIDDLEWARE_CLASSES = tuple([m for m in MIDDLEWARE_CLASSES if m not in DEBUG_TOOLBAR_MIDDLEWARE_CLASSES])
