@@ -14,11 +14,11 @@
         $.plot(
             $("#wiki-stats"),
             [{
-                label: "${_(u'Page creation by day')}",
+                label: "${_(u'Page creations by day')}",
                 data: data[0],
                 color: '#a76dff'
             },{
-                label: "${_(u'Page revision by day')}",
+                label: "${_(u'Page revisions by day')}",
                 data: data[1],
                 color: '#ac5689'
             }],
@@ -79,7 +79,7 @@
 
     <div class="row">
 
-        <h3> ${_(u"Pages by activity")}</h3>
+        <h3>${_(u"Pages by activity")}</h3>
         <table class="table col-md-12">
             <tbody>
             <tr>
@@ -108,7 +108,6 @@
                 <th>${_(u"Page")}</th>
                 <th>${_(u"Creation date")}</th>
             </tr>
-            </thead>
             % for urlpath in last_created:
                 <tr>
                     <td>
@@ -129,7 +128,6 @@
                 <th>${_(u"Page")}</th>
                 <th>${_(u"Revision count")}</th>
             </tr>
-            </thead>
 
             % for user, count in most_active_users:
                 <tr>
