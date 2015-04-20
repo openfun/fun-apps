@@ -4,7 +4,6 @@ import csv
 
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 from django.utils.translation import ugettext as _
 
 from lang_pref import LANGUAGE_KEY
@@ -12,7 +11,6 @@ from openedx.core.djangoapps.user_api.models import UserPreference
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 from student.models import UserProfile
 from universities.factories import UniversityFactory
@@ -43,7 +41,7 @@ class BaseBackoffice(BaseTestCase):
         self.university = UniversityFactory.create()
         self.init(False, self.university.code)
         self.course = CourseFactory.create(org=self.university.code,
-                video=YOUTUBE_IFRAME, effort = '3h00')  # create a non published course
+                video=YOUTUBE_IFRAME, effort='3h00')  # create a non published course
         self.list_url = reverse('backoffice:courses-list')
 
     def login_with_backoffice_group(self):
@@ -62,7 +60,6 @@ class BaseCourseDetail(BaseTestCase):
         self.url = reverse('backoffice:course-detail', args=[self.course.id.to_deprecated_string()])
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestAuthentification(BaseBackoffice):
     def test_auth_not_belonging_to_group(self):
         # Users not belonging to `fun_backoffice` should not log in.
@@ -85,7 +82,6 @@ class TestAuthentification(BaseBackoffice):
         self.assertEqual(1, len(response.context['course_infos']))  # OK
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestGenerateCertificate(BaseBackoffice):
     def setUp(self):
         super(TestGenerateCertificate, self).setUp()
@@ -102,7 +98,6 @@ class TestGenerateCertificate(BaseBackoffice):
         self.assertEqual('application/pdf', response._headers['content-type'][1])
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestDeleteCourse(BaseCourseDetail):
     def test_get_view(self):
         response = self.client.get(self.url)
@@ -129,7 +124,6 @@ class TestDeleteCourse(BaseCourseDetail):
                 response.content.decode('utf-8'))
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestAddTeachers(BaseCourseDetail):
     def test_add(self):
         response = self.client.get(self.url)  # call view to create the related fun course
@@ -157,7 +151,6 @@ class TestAddTeachers(BaseCourseDetail):
         self.assertEqual(2, funcourse.teachers.count())
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestDeleteTeachers(BaseCourseDetail):
     def test_delete(self):
         funcourse = Course.objects.create(key=self.course.id.to_deprecated_string())
@@ -189,7 +182,6 @@ class TestDeleteTeachers(BaseCourseDetail):
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, funcourse.teachers.count())
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestExportCoursesList(BaseBackoffice):
     def test_export(self):
         self.login_with_backoffice_group()

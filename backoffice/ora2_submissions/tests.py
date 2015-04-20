@@ -4,13 +4,11 @@ from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
 from instructor_task.tests.factories import InstructorTaskFactory
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 
 from backoffice.ora2_submissions import tasks_api, tasks
 from backoffice.tests.test import BaseBackoffice
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class TestDownloadOra2Submissions(BaseBackoffice):
 
     def setUp(self):

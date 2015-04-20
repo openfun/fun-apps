@@ -1,17 +1,14 @@
 from datetime import datetime
 
-from django.test.utils import override_settings
 from django.utils import timezone
 
 from student.tests.factories import CourseEnrollmentFactory
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MOCK_MODULESTORE
 from xmodule.modulestore.tests.factories import CourseFactory
 
 import course_dashboard.stats as stats
 from .base import BaseCourseDashboardTestCase
 
 
-@override_settings(MODULESTORE=TEST_DATA_MOCK_MODULESTORE)
 class StatsTestCase(BaseCourseDashboardTestCase):
 
     def test_average_enrollments(self):
