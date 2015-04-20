@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from glob import glob
+import os
 import sys
 import gettext
 
 from path import path
-from dealer.git import git
 
 BASE_ROOT = path('/edx/app/edxapp/')  # folder where edx-platform main repository and our stuffs are
 
@@ -177,45 +177,30 @@ CODE_JAIL = {
     "user": "sandbox"
 }
 
-CACHES = {
-    "celery": {
+# ora2 fileupload
+ORA2_FILEUPLOAD_BACKEND = "filesystem"
+ORA2_FILEUPLOAD_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions")
+if not os.path.exists(ORA2_FILEUPLOAD_ROOT):
+    os.mkdir(ORA2_FILEUPLOAD_ROOT)
+ORA2_FILEUPLOAD_CACHE_NAME = "openassessment_submissions"
+FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
+
+def default_cache_configuration(key_prefix):
+    return {
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
         "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": "integration_celery",
-        "LOCATION": [
-            "localhost:11211"
-        ]
-    },
-    "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": "sandbox_default",
-        "LOCATION": [
-            "localhost:11211"
-        ]
-    },
-    "general": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": "sandbox_general",
-        "LOCATION": [
-            "localhost:11211"
-        ]
-    },
-    "mongo_metadata_inheritance": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": "integration_mongo_metadata_inheritance",
-        "LOCATION": [
-            "localhost:11211"
-        ]
-    },
-    "staticfiles": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": "integration_static_files",
+        "KEY_PREFIX": key_prefix,
         "LOCATION": [
             "localhost:11211"
         ]
     }
+
+
+CACHES = {
+    "celery": default_cache_configuration("integration_celery"),
+    "default": default_cache_configuration("sandbox_default"),
+    "general": default_cache_configuration("sandbox_general"),
+    "mongo_metadata_inheritance": default_cache_configuration("integration_mongo_metadata_inheritance"),
+    "staticfiles": default_cache_configuration("integration_static_files"),
+    ORA2_FILEUPLOAD_CACHE_NAME: default_cache_configuration("openassessment_submissions"),
 }
