@@ -72,13 +72,27 @@ def build_course_tree(module):
     Args:
          module (Descriptor): A module descriptor.
     Returns:
-         dict : The course tree.
+         (Dict, Boolean): (course_tree, is_open)
      """
+
+    children = []
+    tree_info = ()
+    is_open = False
+
+    for child in module.get_children():
+        tree_info = build_course_tree(child)
+        children.append(tree_info[0])
+        if tree_info[1]:
+            is_open = True
+
     is_problem = _is_problem(module)
+    if not module.get_children():
+        if is_problem:
+            is_open = True
+
     course_tree = {'text': module.display_name,
-                   'children': [build_course_tree(child)
-                                for child in module.get_children()],
-                   'state': {'opened': True},
+                   'children': children,
+                   'state': {'opened': is_open},
                    'icon' : 'glyphicon glyphicon-pencil' if is_problem else 'default',
                    'li_attr' : {'category' : 'problem' if is_problem else 'other', 'report_url' :
                                 reverse('course-dashboard:reports-manager:generate',
@@ -87,4 +101,8 @@ def build_course_tree(module):
                    'a_attr' : {'href' : reverse('course-dashboard:problem-stats:get-stats',
                                                 kwargs={'course_id': unicode(module.location.course_key),
                                                         'problem_id' : module.location.name}) if is_problem else '#'}}
-    return course_tree
+
+    if module.category == 'course':
+        return course_tree
+
+    return (course_tree, is_open)

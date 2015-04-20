@@ -26,6 +26,7 @@ def index(request, course_id):
     store = modulestore()
     course_key = CourseKey.from_string(course_id)
     course_tree = utils.build_course_tree(store.get_course(course_key))
+
     tracker.emit("course_dashboard.problem_stats.views.index",
                  {'task-time' : time.time() - start_time})
 
