@@ -41,7 +41,8 @@ class BuildCourseTreeTestCase(ModuleStoreTestCase):
                      'icon': 'default'}],
                 'li_attr': {'category': 'other', 'report_url': '#'},
                 'icon': 'default'}
+
         course_tree = build_course_tree(self.course)
-        self.assertEqual(tree, course_tree)
+        self.assertEqual(tree, course_tree[0])
 
 
