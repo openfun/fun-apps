@@ -156,11 +156,11 @@ msgid "Number of new threads"
 msgstr "Nombre de nouveaux fils de discussion"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:17
-msgid "Page creation by day"
+msgid "Page creations by day"
 msgstr "Nombre de pages créées par jour"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:21
-msgid "Page revision by day"
+msgid "Page revisions by day"
 msgstr "Nombre de pages modifiées par jour"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:82
@@ -222,12 +222,6 @@ msgstr "Troisième pays"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:25
 msgid "Top country by enrollment"
 msgstr "Premier pays"
-
-# Translated in edx by 'Inconnu'
-#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:102
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:94
-msgid "Unknown"
-msgstr "Inconnu"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:125
 msgid "Users by activity"

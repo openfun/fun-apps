@@ -126,35 +126,37 @@ def forum_activity(request, course_id):
         "most_active_user": most_active_user,
     })
 
+def get_urlpath(course_id):
+    """Returns url path of root wiki page for course."""
+    # Offical edX way to replace slashes by dots: course_key.replace('/', '.')
+    course_key = CourseKey.from_string(course_id)
+    course = get_course_by_id(course_key)
+    course_slug = course_wiki_slug(course)
+    try:
+        urlpath = URLPath.get_by_path(course_slug)
+    except URLPath.DoesNotExist:
+        urlpath = None
+    return urlpath
+
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')
 def wiki_activity(request, course_id):
 
-    # Offical edX way to replace slashes by dots: course_key.replace('/', '.')
-    course_key = CourseKey.from_string(course_id)
-    course = get_course_by_id(course_key)
-    course_slug = course_wiki_slug(course)
-
-    try:
-        urlpath = URLPath.get_by_path(course_slug)
-        wiki = True
-    except URLPath.DoesNotExist:
-        wiki = False
-
+    urlpath = get_urlpath(course_id)
     data = {}
     data['article_creation'] = defaultdict(int)
     data['revision_counts'] = defaultdict(int)
     data['article_revision'] = defaultdict(int)
     data['user_activity'] = defaultdict(int)
-    data['urlpathes'] = []
+    data['urlpaths'] = []
     data['page_count'] = 0
 
-    if wiki:
+    if urlpath:
         root = Article.objects.get(id=urlpath.id)  # get the root article of the course
-        urlpathes = root.descendant_objects()
-        for urlpath in urlpathes:
-            data['urlpathes'].append(urlpath)
+        urlpaths = root.descendant_objects()
+        for urlpath in urlpaths:
+            data['urlpaths'].append(urlpath)
             data['article_creation'][urlpath.article.created.date()] += 1
             for revision in urlpath.article.articlerevision_set.all():
                 data['revision_counts'][urlpath] += 1
@@ -167,16 +169,15 @@ def wiki_activity(request, course_id):
 
     most_active_pages = sorted(
         data['revision_counts'].items(), key=lambda item: item[1], reverse=True)
-    last_created = sorted(data['urlpathes'], key= lambda item: item.article.created, reverse=True)
+    last_created = sorted(data['urlpaths'], key= lambda item: item.article.created, reverse=True)
     most_active_users = sorted(data['user_activity'].items(), key=lambda item: item[1], reverse=True)
-
 
     return render(request, 'course_dashboard/wiki-activity.html', {
         "series": series,
         "most_active_pages": most_active_pages,
         "last_created": last_created,
         "most_active_users": most_active_users,
-        "page_count": len(data['urlpathes']),
+        "page_count": len(data['urlpaths']),
         "user_count": len(data['user_activity'].items()),
         "revision_count": sum(data['article_revision'].values()),
         "active_tab": "wiki_activity",
