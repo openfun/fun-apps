@@ -92,6 +92,13 @@ class MultipleChoiceMonitor(QuestionMonitor):
         return super(MultipleChoiceMonitor, self).get_html('problem_stats/multiplechoice.html')
 
 @registry.register
+class StringQuestionMonitor(QuestionMonitor):
+    """Monitor for Multiplechoice questions"""
+    tags = ['stringresponse']
+    def get_html(self):
+        return super(StringQuestionMonitor, self).get_html('problem_stats/string_question.html')
+
+@registry.register
 class UnhandledQuestionMonitor(QuestionMonitor):
     """Monitor for unhandled questions."""
 
