@@ -26,12 +26,13 @@ def index(request, course_id):
     store = modulestore()
     course_key = CourseKey.from_string(course_id)
     course_tree = utils.build_course_tree(store.get_course(course_key))
+
     tracker.emit("course_dashboard.problem_stats.views.index",
                  {'task-time' : time.time() - start_time})
 
     return render(request, 'problem_stats/index.html', {
         "course_id": course_id,
-        "course_tree_data" : json.dumps(course_tree)
+        "course_tree_data" : json.dumps(course_tree[0])
     })
 
 @ensure_valid_course_key
