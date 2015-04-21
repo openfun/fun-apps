@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-04-08 10:16+0200\n"
+"POT-Creation-Date: 2015-04-17 13:08+0000\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -61,17 +61,12 @@ msgid "Answers distribution"
 msgstr "Répartition des réponses"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:26
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:23
 msgid "Answers distribution reports"
 msgstr "Rapports de répartition des réponses"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/multiplechoice.html:28
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/multiplechoice.html:33
 msgid "Blank answers"
 msgstr "Aucune réponse"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:18
-msgid "Choice"
-msgstr "Choix"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:14
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:7
@@ -92,6 +87,7 @@ msgstr "Jour avec le plus d'inscriptions :"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:47
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:40
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:42
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:75
 msgid "Download raw CSV data"
 msgstr "Télécharger les données CSV brutes"
 
@@ -113,6 +109,10 @@ msgstr "France"
 msgid "Least active forum thread:"
 msgstr "Fil de discussion le moins actif :"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:86
+msgid "Loading ..."
+msgstr "Chargement ..."
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:32
 msgid "Most active forum thread:"
 msgstr "Fil de discussion le plus actif :"
@@ -124,6 +124,10 @@ msgstr "Apprenant le plus actif :"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:67
 msgid "New forum threads per day"
 msgstr "Nouveaux fils de conversations par jour"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/no_answers.html:11
+msgid "No answers were found for this question."
+msgstr "Aucune réponse trouvée pour cette question."
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:35
 msgid ""
@@ -146,26 +150,26 @@ msgstr "Nombre d'apprenants"
 msgid "Number of new threads"
 msgstr "Nombre de nouveaux fils de discussion"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:20
-msgid "Percentage"
-msgstr "Pourcentage"
-
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:11
 msgid "Platform statistics"
 msgstr "Statistiques de la plateforme"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:78
+msgid "Please wait while data is being loaded."
+msgstr "Veuillez patienter pendant le chargement des données."
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:51
 msgid "Proportion"
 msgstr "Proportion"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:42
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:14
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:87
 msgid "Refresh"
 msgstr "Rafraîchir"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/multiplechoice_response.html:19
-msgid "Responses"
-msgstr "Réponses"
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:20
+msgid "Reports bucket"
+msgstr "Rapports"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:13
 msgid "Running answers distribution reports generation"
@@ -174,10 +178,6 @@ msgstr "Génération des rapports de répartition des notes en cours"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:28
 msgid "Second country by enrollment"
 msgstr "Deuxième pays"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/nothandled.html:5
-msgid "Sorry this problem is not handled yet."
-msgstr "Veuillez nous excuser, ce problème n'est pas encore gèré par le dashboard."
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:17
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:17
@@ -189,6 +189,10 @@ msgstr "Carte des apprenants"
 msgid "Subscription statistics"
 msgstr "Statistiques d'inscriptions"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/nothandled.html:9
+msgid "The answers distribution for problem {} is not handled yet."
+msgstr "Veuillez nous excuser, la distribution des réponses n'est pas encore gérée pour le problème {}."
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:31
 msgid "Third country by enrollment"
 msgstr "Troisième pays"
@@ -197,7 +201,7 @@ msgstr "Troisième pays"
 msgid "Top country by enrollment"
 msgstr "Premier pays"
 
-# Translated in edx by ''
+# Translated in edx by 'Inconnu'
 #: /edx/app/edxapp/fun-apps/course_dashboard/views.py:87
 #: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:94
 msgid "Unknown"
@@ -219,4 +223,16 @@ msgstr "de"
 #, python-format
 msgid "students enrolled over %d days"
 msgstr "apprenants inscrits en %d jours"
+
+#~ msgid "Choice"
+#~ msgstr "Choix"
+
+#~ msgid "Percentage"
+#~ msgstr "Pourcentage"
+
+#~ msgid "Responses"
+#~ msgstr "Réponses"
+
+#~ msgid "Download raw data"
+#~ msgstr "Télécharger les données CSV brutes"
 

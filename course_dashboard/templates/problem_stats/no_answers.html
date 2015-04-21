@@ -1,0 +1,14 @@
+## mako
+<%! from django.utils.translation import ugettext as _ %>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        % for element in title:
+            <p>${element.text}</p>
+        % endfor
+    </div>
+    <div class="panel-body">
+        ${_("No answers were found for this question.")}
+    </div>
+</div>
+
