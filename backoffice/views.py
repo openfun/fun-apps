@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.db.utils import IntegrityError
 from django.forms.models import inlineformset_factory
 from django.shortcuts import render, redirect
@@ -30,41 +31,74 @@ ABOUT_SECTION_FIELDS = ['title', 'university', 'effort', 'video']
 
 log = logging.getLogger(__name__)
 
-FunCourse = namedtuple('FunCourse',
-        'course, fun, course_image_url, students_count, url, studio_url, ' + ', '.join(ABOUT_SECTION_FIELDS))
+FunCourse = namedtuple('FunCourse', [
+    'course',
+    'fun',
+    'course_image_url',
+    'students_count',
+    'url',
+    'studio_url'
+] + ABOUT_SECTION_FIELDS)
 
 
-
-def get_course_info(course):
-    """Returns an object containing original edX course and some complementary properties."""
-    about_sections = {}
-    for field in ABOUT_SECTION_FIELDS:
-        about_sections[field] = get_course_about_section(course, field)
+def get_about_section(course_descriptor):
+    about_sections = {
+        field: get_course_about_section(course_descriptor, field)
+        for field in ABOUT_SECTION_FIELDS
+    }
     about_sections['effort'] = about_sections['effort'].replace('\n', '')  # clean the many CRs
     if about_sections['video']:
         try:  # edX stores the Youtube iframe HTML code, let's extract the Dailymotion Cloud ID
-            about_sections['video'] = re.findall('www.youtube.com/embed/(?P<hash>[\w]+)\?', about_sections['video'])[0]
+            about_sections['video'] = re.findall(r'www.youtube.com/embed/(?P<hash>[\w]+)\?', about_sections['video'])[0]
         except IndexError:
             pass
-    try:
-        funcourse = Course.objects.get(key=course.id)
-    except Course.DoesNotExist:
-        funcourse = None
+    return about_sections
 
-    course_info = FunCourse(course=course,
-            fun=funcourse,
-            course_image_url=course_image_url(course),
-            students_count=CourseEnrollment.objects.filter(course_id=course.id).count(),
-            url='https://%s%s' % (settings.LMS_BASE,
-                    reverse('about_course', args=[course.id.to_deprecated_string()])),
-            studio_url=get_cms_course_link(course),
-            **about_sections
-            )
+def get_course_info(course_descriptor, course, students_count):
+    """Returns an object containing original edX course and some complementary properties."""
+    about_sections = get_about_section(course_descriptor)
+    course_info = FunCourse(
+        course=course_descriptor,
+        fun=course,
+        course_image_url=course_image_url(course_descriptor),
+        students_count=students_count,
+        url='https://%s%s' % (settings.LMS_BASE,
+                reverse('about_course', args=[course_descriptor.id.to_deprecated_string()])),
+        studio_url=get_cms_course_link(course_descriptor),
+        **about_sections
+    )
     return course_info
 
+def get_course_enrollment_counts(course_descriptors_ids):
+    queryset = (
+        CourseEnrollment.objects
+        .filter(course_id__in=course_descriptors_ids)
+        .values('course_id')
+        .annotate(total=Count('course_id'))
+     )
+    return {
+        result['course_id']: result['total'] for result in queryset
+    }
+
+def get_course_infos(course_descriptors):
+    course_descriptor_ids = [course_descriptor.id for course_descriptor in course_descriptors]
+    courses = Course.objects.filter(key__in=course_descriptor_ids)
+    course_enrollment_counts = get_course_enrollment_counts(course_descriptor_ids)
+    course_dict = {course.key: course for course in courses}
+    return [
+        get_course_info(
+            course_descriptor,
+            course_dict.get(course_descriptor.id.to_deprecated_string()),
+            course_enrollment_counts.get(course_descriptor.id.to_deprecated_string(), 0)
+        )
+        for course_descriptor in course_descriptors
+    ]
+
+def get_complete_course_info(course_descriptor):
+    return get_course_infos([course_descriptor])[0]
 
 def get_filtered_course_infos(request):
-    course_infos = [get_course_info(course) for course in get_courses(request.user)]
+    course_infos = get_course_infos(get_courses(request.user))
     pattern = request.GET.get('search')
 
     if pattern:
@@ -128,7 +162,7 @@ def course_detail(request, course_key_string):
     States and responses from students are not yet deleted from mySQL
     (StudentModule, StudentModuleHistory are very big tables)."""
 
-    course_info = get_course_info(get_course(course_key_string))
+    course_info = get_complete_course_info(get_course(course_key_string))
     ck = CourseKey.from_string(course_key_string)
     try:
         funcourse = Course.objects.create(key=ck)
