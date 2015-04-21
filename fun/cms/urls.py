@@ -8,8 +8,6 @@ from django.conf.urls import url, include, patterns
 from cms.urls import handler404, handler500
 
 urlpatterns = patterns( '',
-
-    (r'^selftest/', include('selftest.urls')),
-
     (r'^', include('cms.urls')),
+    (r'^', include('fun.common_urls')),
 )
