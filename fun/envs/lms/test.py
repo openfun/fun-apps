@@ -11,6 +11,7 @@ logging.getLogger("raven.contrib.django.client.DjangoClient").setLevel(logging.W
 logging.getLogger('instructor_task.api_helper').setLevel(logging.ERROR)
 logging.getLogger('instructor_task.tasks_helper').setLevel(logging.ERROR)
 logging.getLogger('xmodule.modulestore.django').setLevel(logging.ERROR)
+logging.getLogger('util.models').setLevel(logging.CRITICAL)
 
 ########### Imported from edx-platform/lms/envs/test.py
 from path import path
