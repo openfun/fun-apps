@@ -31,12 +31,12 @@ urlpatterns = patterns('',
     ),
     url(r'^courses/fun/dashboard/', include('course_dashboard.urls_global', namespace='course-dashboard-global')),
 
-    (r'^selftest/', include('selftest.urls')),
-
     # Grade downloads
     url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN), include('fun_instructor.urls')),
     url(r'^get-grades/{}/(?P<filename>.+.csv)'.format(settings.COURSE_ID_PATTERN), 'fun_instructor.views.get_grades'),
+
     (r'^', include('lms.urls')),
+    (r'^', include('fun.common_urls')),
 )
 
 # Ckeditor - Used by Univerity app
@@ -47,4 +47,3 @@ urlpatterns += (
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
