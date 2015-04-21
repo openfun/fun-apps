@@ -8,30 +8,30 @@
 
 <section class="container">
     <section class="featured-articles">
-        % if articles:
-            % if featured_section and featured_section.image:
+        % if featured_section and featured_section.image:
             % if featured_section.article:
-            <a href="${article_url(featured_section.article)}">
-            % endif
-                <section class="top-article" style="${background_style(featured_section.image.url)}">
-                    <section class="article-preview">
-                        <section class="article-title">
-                            % if featured_section.title:
-                            <h2>${featured_section.title}</h2>
-                            % elif featured_section.article:
-                            <h2>${featured_section.article.title}</h2>
-                            % else:
-                            <h2>${_("News Section")}</h2>
-                            % endif
+                <a href="${article_url(featured_section.article)}">
+                % endif
+                    <section class="top-article" style="${background_style(featured_section.image.url)}">
+                        <section class="article-preview">
+                            <section class="article-title">
+                                % if featured_section.title:
+                                <h2>${featured_section.title}</h2>
+                                % elif featured_section.article:
+                                <h2>${featured_section.article.title}</h2>
+                                % else:
+                                <h2>${_("News Section")}</h2>
+                                % endif
 
+                            </section>
                         </section>
                     </section>
-                </section>
-            % if featured_section.article:
-            </a>
+                % if featured_section.article:
+                </a>
             % endif
-            % endif
+        % endif
 
+        % if articles:
             % for article in articles[:3]:
             <section class="featured-article">
                 <a href="${article_url(article)}">

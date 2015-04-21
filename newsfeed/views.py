@@ -26,17 +26,20 @@ class ArticleListView(mako.MakoTemplateMixin, ListView):
         # Display all published articles. We might want to filter on language
         # and limit the queryset to the first n results in the future (see the
         # .featured() method).
-        queryset = models.Article.objects.viewable()
+        queryset = self.get_viewable_queryset()
         # We exclude the article that's selected in the featured section.
         featured_section = models.FeaturedSection.get_solo()
         if featured_section and featured_section.article:
             queryset = queryset.exclude(id=featured_section.article.id)
         return queryset
+
+    def get_viewable_queryset(self):
+        return models.Article.objects.viewable()
 article_list = ArticleListView.as_view()
 
 
 class ArticleListPreviewView(StaffOnlyView, ArticleListView):
-    def get_queryset(self):
+    def get_viewable_queryset(self):
         return models.Article.objects.published_or(slug=self.kwargs['slug'])
 article_list_preview = ArticleListPreviewView.as_view()
 
