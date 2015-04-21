@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
+import openassessment.fileupload.urls
+
 # Important: We have to import edx routes to error pages
 from lms.urls import handler404, handler500 #pylint: disable=unused-import
 
@@ -37,6 +39,9 @@ urlpatterns = patterns('',
     url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN), include('fun_instructor.urls')),
     url(r'^get-grades/{}/(?P<filename>.+.csv)'.format(settings.COURSE_ID_PATTERN), 'fun_instructor.views.get_grades'),
     (r'^', include('lms.urls')),
+
+    # Ora2 file upload
+    url(r'^openassessment/storage', include(openassessment.fileupload.urls)),
 )
 
 # Ckeditor - Used by Univerity app
