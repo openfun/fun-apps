@@ -51,6 +51,8 @@ FEATURES['ENABLE_COURSEWARE_INDEX'] = False
 #### PASSWORD POLICY SETTINGS #####
 FEATURES['ENFORCE_PASSWORD_POLICY'] = True
 
+FEATURES['ENABLE_CONTENT_LIBRARIES'] = False  # disable content libraries support (need new coursekey format)
+
 # Use a FUN-specific root urlconf module
 ROOT_URLCONF = 'fun.lms.urls'
 

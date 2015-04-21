@@ -82,6 +82,7 @@ FEATURES['USE_CUSTOM_THEME'] = False
 
 FEATURES['ENFORCE_PASSWORD_POLICY'] = True
 
+FEATURES['ENABLE_CONTENT_LIBRARIES'] = False  # disable content libraries support (need new coursekey format)
 
 CC_PROCESSOR = {
     'CyberSource': {
