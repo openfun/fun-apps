@@ -24,6 +24,10 @@ STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
 STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
 BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
 
+# those 2 constants are used in code to describe certificate, they are not i18ned, you could do it
+CERT_NAME_SHORT = u"Attestation"
+CERT_NAME_LONG = u"Attestation de réussite"
+
 ADMINS = [['funteam', 'dev@france-universite-numerique-mooc.fr']]
 
 SESSION_COOKIE_DOMAIN = None
