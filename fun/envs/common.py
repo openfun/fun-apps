@@ -184,11 +184,17 @@ CODE_JAIL = {
 # ora2 fileupload
 ORA2_FILEUPLOAD_BACKEND = "filesystem"
 ORA2_FILEUPLOAD_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions")
-if not os.path.exists(ORA2_FILEUPLOAD_ROOT):
-    os.mkdir(ORA2_FILEUPLOAD_ROOT)
+ORA2_FILEUPLOAD_CACHE_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions_cache")
 ORA2_FILEUPLOAD_CACHE_NAME = "openassessment_submissions"
 FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
 
+def ensure_directory_exists(directory):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+ensure_directory_exists(ORA2_FILEUPLOAD_ROOT)
+ensure_directory_exists(ORA2_FILEUPLOAD_CACHE_ROOT)
+
+# Caches
 def default_cache_configuration(key_prefix):
     return {
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
@@ -206,5 +212,11 @@ CACHES = {
     "general": default_cache_configuration("sandbox_general"),
     "mongo_metadata_inheritance": default_cache_configuration("integration_mongo_metadata_inheritance"),
     "staticfiles": default_cache_configuration("integration_static_files"),
-    ORA2_FILEUPLOAD_CACHE_NAME: default_cache_configuration("openassessment_submissions"),
+
+    ORA2_FILEUPLOAD_CACHE_NAME: {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        "KEY_FUNCTION": "util.memcache.safe_key",
+        "KEY_PREFIX": "openassessment_submissions",
+        "LOCATION": ORA2_FILEUPLOAD_CACHE_ROOT
+    }
 }
