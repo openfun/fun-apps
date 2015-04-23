@@ -6,19 +6,19 @@ from datetime import datetime
 from StringIO import StringIO
 import time
 
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.utils.formats import date_format
 from django_countries import countries
 
-from wiki.models import URLPath, Article, ArticleRevision, ArticleForObject
+from wiki.models import URLPath, Article
 
-from opaque_keys.edx.keys import CourseKey
 from course_wiki.utils import course_wiki_slug
 from courseware.courses import get_course_by_id
+from opaque_keys.edx.keys import CourseKey
+from util.views import ensure_valid_course_key
 
-from fun.utils.views import ensure_valid_course_key
 from fun.utils.views import staff_required, staff_required_or_level
 
 from . import stats
@@ -161,7 +161,8 @@ def wiki_activity(request, course_id):
             for revision in urlpath.article.articlerevision_set.all():
                 data['revision_counts'][urlpath] += 1
                 data['article_revision'][revision.created.date()] += 1
-                data['user_activity'][revision.user or urlpath.article.owner] += 1  # use Article owner if revision is anonymous (tests)
+                # use Article owner if revision is anonymous (tests)
+                data['user_activity'][revision.user or urlpath.article.owner] += 1
 
     series = []
     series.append(sorted(formatted_dates(data['article_creation'].items())[1], key=lambda item: item[0]))
@@ -169,7 +170,7 @@ def wiki_activity(request, course_id):
 
     most_active_pages = sorted(
         data['revision_counts'].items(), key=lambda item: item[1], reverse=True)
-    last_created = sorted(data['urlpaths'], key= lambda item: item.article.created, reverse=True)
+    last_created = sorted(data['urlpaths'], key=lambda item: item.article.created, reverse=True)
     most_active_users = sorted(data['user_activity'].items(), key=lambda item: item[1], reverse=True)
 
     return render(request, 'course_dashboard/wiki-activity.html', {

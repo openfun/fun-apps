@@ -13,7 +13,7 @@ from xmodule.modulestore.django import modulestore
 from backoffice.utils import get_course_key
 from backoffice.certificate_manager.utils import get_running_instructor_tasks
 from fun_instructor.instructor_task_api.submit_tasks import submit_generate_answers_distribution_report
-from fun.utils.views import ensure_valid_course_key
+from util.views import ensure_valid_course_key
 from fun.utils.views import staff_required_or_level
 from fun import shared
 from course_dashboard.problem_stats.utils import fetch_problem

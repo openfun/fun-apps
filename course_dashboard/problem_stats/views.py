@@ -6,11 +6,11 @@ from django.shortcuts import render
 
 from eventtracking import tracker
 from opaque_keys.edx.keys import CourseKey
+from util.views import ensure_valid_course_key
 from xmodule.modulestore.django import modulestore
 
 from course_dashboard.problem_stats import utils
 from course_dashboard.problem_stats.problem_monitor import ProblemMonitor
-from fun.utils.views import ensure_valid_course_key
 from fun.utils.views import staff_required_or_level
 
 @ensure_valid_course_key

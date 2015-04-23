@@ -1,29 +1,8 @@
-from functools import wraps
-
-from django.http import Http404, HttpResponseForbidden
+from django.http import HttpResponseForbidden
 
 from instructor.views.api import require_level
 from static_template_view.views import render_404
-from util.views import ensure_valid_course_key as edx_ensure_valid_course_key
 
-def ensure_valid_course_key(view_func):
-    """Render 404 template on invalid course key.
-
-    This function is based on the eponymous function from edx in util.views. It
-    addresses an issue in test: whenever an Http404 is raised in tests, the
-    404.html template cannot be found and a TemplateDoesNotExist error is
-    raised.
-    """
-    edx_inner = edx_ensure_valid_course_key(view_func)
-
-    @wraps(view_func)
-    def inner(request, *args, **kwargs):
-        try:
-            return edx_inner(request, *args, **kwargs)
-        except Http404:
-            return render_404(request)
-
-    return inner
 
 def staff_required(func):
     """View decorator for staff members.
