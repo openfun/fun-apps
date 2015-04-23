@@ -11,7 +11,6 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.db.utils import IntegrityError
 from django.forms.models import inlineformset_factory
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -108,7 +107,6 @@ def get_filtered_course_infos(request):
 
     return course_infos, pattern
 
-
 def format_datetime(dt):
     FORMAT = '%Y-%m-%d %H:%M'
     return dt.strftime(FORMAT) if dt else ''
@@ -131,22 +129,22 @@ def courses_list(request):
         writer.writerow([field.encode('utf-8') for field in csv_header])
 
         for course_info in course_infos:
-            raw = []
-            raw.append(course_info.title.encode('utf-8'))
-            raw.append(course_info.university.encode('utf-8'))
-            raw.append(course_info.course.id.org)
-            raw.append(course_info.course.id.course)
-            raw.append(course_info.course.id.run)
-            raw.append(format_datetime(course_info.course.start))
-            raw.append(format_datetime(course_info.course.end))
-            raw.append(format_datetime(course_info.course.enrollment_start))
-            raw.append(format_datetime(course_info.course.enrollment_end))
-            raw.append(course_info.students_count)
-            raw.append(course_info.effort.encode('utf-8'))
-            raw.append('https://%s%s' % (settings.LMS_BASE, course_info.course_image_url))
-            raw.append(course_info.video)
-            raw.append(course_info.url)
-            writer.writerow(raw)
+            writer.writerow([
+                course_info.title.encode('utf-8'),
+                course_info.university.encode('utf-8'),
+                course_info.course.id.org,
+                course_info.course.id.course,
+                course_info.course.id.run,
+                format_datetime(course_info.course.start),
+                format_datetime(course_info.course.end),
+                format_datetime(course_info.course.enrollment_start),
+                format_datetime(course_info.course.enrollment_end),
+                course_info.students_count,
+                course_info.effort.encode('utf-8'),
+                'https://%s%s' % (settings.LMS_BASE, course_info.course_image_url),
+                course_info.video,
+                course_info.url
+            ])
 
         return response
 
@@ -164,17 +162,16 @@ def course_detail(request, course_key_string):
 
     course_info = get_complete_course_info(get_course(course_key_string))
     ck = CourseKey.from_string(course_key_string)
-    try:
-        funcourse = Course.objects.create(key=ck)
-    except IntegrityError:
-        funcourse = Course.objects.get(key=ck)
+    funcourse, _created = Course.objects.get_or_create(key=ck)
     if not funcourse.university:
         try:
             funcourse.university = University.objects.get(code=ck.org)
             funcourse.save()
         except University.DoesNotExist:
             messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
-    TeacherFormSet = inlineformset_factory(Course, Teacher, formset=FirstRequiredFormSet, can_delete=True, max_num=4, extra=4)
+    TeacherFormSet = inlineformset_factory(Course, Teacher,
+                                           formset=FirstRequiredFormSet,
+                                           can_delete=True, max_num=4, extra=4)
 
     if request.method == 'POST':
         if request.POST['action'] == 'delete-course':

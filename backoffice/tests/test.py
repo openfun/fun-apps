@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import csv
+from StringIO import StringIO
 
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
 from lang_pref import LANGUAGE_KEY
-from openedx.core.djangoapps.user_api.models import UserPreference
+from openedx.core.djangoapps.user_api.preferences.api import set_user_preference
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
@@ -17,22 +18,23 @@ from universities.factories import UniversityFactory
 
 from ..models import Course, Teacher
 
-DM_CODE = 'x2an9mg'
-YOUTUBE_IFRAME = """\n\n\n<iframe width="560" height="315" src="//www.youtube.com/embed/%s?rel=0" frameborder="0" allowfullscreen=""></iframe>\n\n\n""" % DM_CODE
-
 
 class BaseTestCase(ModuleStoreTestCase):
     def setUp(self):
         self.password = super(BaseTestCase, self).setUp()
         self.course = None
+        self.backoffice_group = None
 
     def init(self, is_superuser, university_code):
-        self.backoffice_group, created = Group.objects.get_or_create(name='fun_backoffice')
+        self.backoffice_group, _created = Group.objects.get_or_create(name='fun_backoffice')
         self.user.is_staff = False
         self.user.is_superuser = is_superuser
         self.user.save()
         UserProfile.objects.create(user=self.user)
         self.course = CourseFactory.create(org=university_code)
+
+    def login(self):
+        self.client.login(username=self.user.username, password=self.password)
 
 
 class BaseBackoffice(BaseTestCase):
@@ -40,13 +42,11 @@ class BaseBackoffice(BaseTestCase):
         super(BaseBackoffice, self).setUp()
         self.university = UniversityFactory.create()
         self.init(False, self.university.code)
-        self.course = CourseFactory.create(org=self.university.code,
-                video=YOUTUBE_IFRAME, effort='3h00')  # create a non published course
         self.list_url = reverse('backoffice:courses-list')
 
     def login_with_backoffice_group(self):
         self.user.groups.add(self.backoffice_group)
-        self.client.login(username=self.user.username, password=self.password)
+        self.login()
 
 
 class BaseCourseDetail(BaseTestCase):
@@ -55,31 +55,31 @@ class BaseCourseDetail(BaseTestCase):
         self.init(True, "fun")
 
         self.user.groups.add(self.backoffice_group)
-        UserPreference.set_preference(self.user, LANGUAGE_KEY, 'en-en')
+        set_user_preference(self.user, LANGUAGE_KEY, 'en-en')
         self.client.login(username=self.user.username, password=self.password)
         self.url = reverse('backoffice:course-detail', args=[self.course.id.to_deprecated_string()])
 
 
-class TestAuthentification(BaseBackoffice):
-    def test_auth_not_belonging_to_group(self):
-        # Users not belonging to `fun_backoffice` should not log in.
+class TestAuthentication(BaseBackoffice):
+    def test_users_not_belonging_to_group_should_not_login(self):
         self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.list_url)
         self.assertEqual(302, response.status_code)
 
-    def test_auth_not_staff(self):
+    def test_users_belonging_to_group_should_login_and_see_no_published_course(self):
         self.login_with_backoffice_group()
         response = self.client.get(self.list_url)
         self.assertEqual(200, response.status_code)
-        self.assertEqual(0, len(response.context['course_infos']))  # user is not staff he can not see not published course
+        # user is not staff so he cannot see any published course
+        self.assertEqual(0, len(response.context['course_infos']))
 
-    def test_auth_staff(self):
+    def test_staff_users_see_all_courses(self):
         self.user.groups.add(self.backoffice_group)
         self.user.is_staff = True
         self.user.save()
         self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.list_url)
-        self.assertEqual(1, len(response.context['course_infos']))  # OK
+        self.assertEqual(1, len(response.context['course_infos']))
 
 
 class TestGenerateCertificate(BaseBackoffice):
@@ -115,7 +115,7 @@ class TestDeleteCourse(BaseCourseDetail):
         self.assertEqual(None, modulestore().get_course(self.course.id))
         self.assertEqual(0, Course.objects.filter(key=self.course.id.to_deprecated_string()).count())
         self.assertIn(_(u"Course <strong>%s</strong> has been deleted.") % self.course.id,
-                response.content.decode('utf-8'))
+                      response.content.decode('utf-8'))
 
     def test_no_university(self):
         """In a course is not bound to an university, a alert should be shown."""
@@ -144,7 +144,7 @@ class TestAddTeachers(BaseCourseDetail):
             'teachers-1-DELETE': False,
             'teachers-1-full_name': "Who",
             'teachers-1-title': "Doctor",
-            }
+        }
         response = self.client.post(self.url, data)
         self.assertEqual(302, response.status_code)
         funcourse = Course.objects.get(key=self.course.id.to_deprecated_string())
@@ -183,12 +183,20 @@ class TestDeleteTeachers(BaseCourseDetail):
         self.assertEqual(1, funcourse.teachers.count())
 
 class TestExportCoursesList(BaseBackoffice):
+
     def test_export(self):
-        self.login_with_backoffice_group()
+        self.user.is_superuser = True
+        self.user.is_staff = True
+        self.user.save()
+        self.login()
+
         response = self.client.post(self.list_url)
+        self.assertEqual(200, response.status_code)
         self.assertEqual('text/csv', response._headers['content-type'][1])
-        data = csv.reader(response.content)
-        self.assertEqual(2, len(list(data)))
+
+        response_content = StringIO(response.content)
+        data = [row for row in csv.reader(response_content)]
+
+        self.assertEqual(2, len(data))
         course = data[1]
-        self.assertIn(DM_CODE, course)
-        self.assertIn('3h00', course)
+        self.assertEqual(self.university.code, course[2])

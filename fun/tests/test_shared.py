@@ -34,5 +34,5 @@ class SharedTestCase(TestCase):
         ))
 
     def test_get_safe_path(self):
-        path = shared.get_safe_path("dir1", "dir2", "myfile")
+        _path = shared.get_safe_file_path("dir1", "dir2", "myfile")
         self.assertTrue(os.path.isdir(settings.SHARED_ROOT + "/dir1/dir2"))
