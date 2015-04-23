@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import csv
+import mock
 from StringIO import StringIO
 
 from django.contrib.auth.models import Group
@@ -16,6 +17,7 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from student.models import UserProfile
 from universities.factories import UniversityFactory
 
+from backoffice import views
 from ..models import Course, Teacher
 
 
@@ -104,24 +106,26 @@ class TestDeleteCourse(BaseCourseDetail):
         self.assertEqual(200, response.status_code)
 
     def test_funcourse_automatique_creation(self):
-        """A fun Course object should be automaticaly created if it do not already exists."""
+        """A fun Course object should be automaticaly created if it does not already exist."""
         response = self.client.get(self.url)
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, Course.objects.filter(key=self.course.id.to_deprecated_string()).count())
 
     def test_delete_course(self):
+        views.logger.warning = mock.Mock()
         data = {'action': 'delete-course'}
         response = self.client.post(self.url, data, follow=True)
         self.assertEqual(None, modulestore().get_course(self.course.id))
         self.assertEqual(0, Course.objects.filter(key=self.course.id.to_deprecated_string()).count())
         self.assertIn(_(u"Course <strong>%s</strong> has been deleted.") % self.course.id,
                       response.content.decode('utf-8'))
+        self.assertEqual(1, views.logger.warning.call_count)
 
     def test_no_university(self):
         """In a course is not bound to an university, a alert should be shown."""
         response = self.client.get(self.url)
         self.assertIn(_(u"University with code <strong>%s</strong> does not exist.") % self.course.id.org,
-                response.content.decode('utf-8'))
+                      response.content.decode('utf-8'))
 
 
 class TestAddTeachers(BaseCourseDetail):

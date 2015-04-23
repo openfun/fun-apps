@@ -28,7 +28,7 @@ from .utils import get_course, group_required
 
 ABOUT_SECTION_FIELDS = ['title', 'university', 'effort', 'video']
 
-log = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 FunCourse = namedtuple('FunCourse', [
     'course',
@@ -183,7 +183,7 @@ def course_detail(request, course_key_string):
             CourseAccessRole.objects.filter(course_id=ck).delete()  # shall we also delete student's enrollments ?
             funcourse.delete()
             messages.warning(request, _(u"Course <strong>%s</strong> has been deleted.") % course_info.course.id)
-            log.warning('Course %s deleted by user %s', course_info.course.id, request.user.username)
+            logger.warning('Course %s deleted by user %s', course_info.course.id, request.user.username)
             return redirect('backoffice:courses-list')
 
         elif request.POST['action'] == 'update-teachers':
