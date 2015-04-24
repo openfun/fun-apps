@@ -98,8 +98,18 @@ class MultipleChoiceMonitor(QuestionMonitor):
 class StringQuestionMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['stringresponse']
+    
     def get_html(self):
         return super(StringQuestionMonitor, self).get_html('problem_stats/string_question.html')
+
+@registry.register
+class OptionQuestionMonitor(QuestionMonitor):
+    """Monitor for Multiplechoice questions"""
+    tags = ['optionresponse']
+
+
+    def get_html(self):
+        return super(OptionQuestionMonitor, self).get_html('problem_stats/option_question.html')
 
 @registry.register
 class ChoiceQuestionMonitor(QuestionMonitor):
@@ -114,7 +124,7 @@ class ChoiceQuestionMonitor(QuestionMonitor):
         e.g.: u"[u'choice_0',u'choice_2']" -> (1, 3)
               u"[u'choice_1',u'choice_2']" -> (2, 3)
         The first choice beeing 1 and not 0.
-     """
+        """
 
         student_answers = {}
         for answer, value in self.student_answers.iteritems():
