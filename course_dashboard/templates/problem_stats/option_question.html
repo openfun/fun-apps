@@ -1,0 +1,47 @@
+## mako
+
+<%! from django.utils.translation import ugettext as _ %>
+<%! from course_dashboard.problem_stats.utils import percentage %>
+
+<%inherit file="base.html" />
+<%block name="answers_distribution">
+    
+<style>
+ #option-question-table td {
+     padding : 10px;
+ }
+
+ #option-question-table {
+     margin : 10px;
+ }
+ 
+ #content .correct_answer {
+     color : green;
+ }
+</style>
+
+<% right_answer = question_tree.find('optioninput').get('correct') %>
+
+<table id='option-question-table' class='table-bordered'>
+    % for answer, count in student_answers.iteritems():
+        <tr>
+            <td ${'class="correct_answer"' if answer == right_answer else ''}>
+                ${answer}
+            </td>
+            <td>${count}</td>
+            <td> ${percentage(count, total_answers)}%</td>
+        </tr>
+    % endfor
+    <tr>
+        <td>${_("Blank answers")}</td>
+        <td> ${blank_answers}</td>
+        <td>${percentage(blank_answers, total_answers)}% </td>
+    </tr>
+    <tr>
+        <td>${_("Total")}</td>
+        <td> ${total_answers}</td>
+        <td>100%</td>
+    </tr>
+</table>
+
+</%block>
