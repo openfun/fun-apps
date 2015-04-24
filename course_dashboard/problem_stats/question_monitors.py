@@ -1,3 +1,5 @@
+import ast
+
 from collections import defaultdict
 from lxml import etree
 
@@ -88,6 +90,7 @@ class QuestionMonitor(object):
 class MultipleChoiceMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['multiplechoiceresponse']
+
     def get_html(self):
         return super(MultipleChoiceMonitor, self).get_html('problem_stats/multiplechoice.html')
 
@@ -97,6 +100,33 @@ class StringQuestionMonitor(QuestionMonitor):
     tags = ['stringresponse']
     def get_html(self):
         return super(StringQuestionMonitor, self).get_html('problem_stats/string_question.html')
+
+@registry.register
+class ChoiceQuestionMonitor(QuestionMonitor):
+    """Monitor for Multiplechoice questions"""
+    tags = ['choiceresponse']
+
+    def _parse_student_answers(self):
+        """Parses student answers from string.
+
+        Answers for ChoiceQuestion come as a strings like u"[u'choice_0',u'choice_2']"
+        To facilitate the rendering of the answer we convert the string into a tuple.
+        e.g.: u"[u'choice_0',u'choice_2']" -> (1, 3)
+              u"[u'choice_1',u'choice_2']" -> (2, 3)
+        The first choice beeing 1 and not 0.
+     """
+
+        student_answers = {}
+        for answer, value in self.student_answers.iteritems():
+            choices = ast.literal_eval(answer)
+            choices = [int(choice[-1:]) + 1 for choice in choices]
+            student_answers[tuple(choices)] = value
+        self.student_answers = student_answers
+
+    def get_html(self):
+        self._parse_student_answers()
+        return super(ChoiceQuestionMonitor, self).get_html('problem_stats/choice_question.html')
+
 
 @registry.register
 class UnhandledQuestionMonitor(QuestionMonitor):
