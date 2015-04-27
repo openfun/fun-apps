@@ -15,7 +15,7 @@ from django.forms.models import inlineformset_factory
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
+from courseware.courses import course_image_url, get_courses, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole
 from xmodule.modulestore.django import modulestore
@@ -25,8 +25,9 @@ from universities.models import University
 from .forms import FirstRequiredFormSet
 from .models import Course, Teacher
 from .utils import get_course, group_required
+from courses.utils import get_about_section
 
-ABOUT_SECTION_FIELDS = ['title', 'university', 'effort', 'video']
+ABOUT_SECTION_FIELDS = ['effort', 'video']
 
 logger = logging.getLogger(__name__)
 
@@ -35,14 +36,16 @@ FunCourse = namedtuple('FunCourse', [
     'fun',
     'course_image_url',
     'students_count',
+    'title',
+    'university',
     'url',
     'studio_url'
 ] + ABOUT_SECTION_FIELDS)
 
 
-def get_about_section(course_descriptor):
+def get_about_sections(course_descriptor):
     about_sections = {
-        field: get_course_about_section(course_descriptor, field)
+        field: get_about_section(course_descriptor, field) or ''
         for field in ABOUT_SECTION_FIELDS
     }
     about_sections['effort'] = about_sections['effort'].replace('\n', '')  # clean the many CRs
@@ -55,12 +58,14 @@ def get_about_section(course_descriptor):
 
 def get_course_info(course_descriptor, course, students_count):
     """Returns an object containing original edX course and some complementary properties."""
-    about_sections = get_about_section(course_descriptor)
+    about_sections = get_about_sections(course_descriptor)
     course_info = FunCourse(
         course=course_descriptor,
         fun=course,
         course_image_url=course_image_url(course_descriptor),
         students_count=students_count,
+        title=course_descriptor.display_name_with_default,
+        university=course_descriptor.display_org_with_default,
         url='https://%s%s' % (settings.LMS_BASE,
                 reverse('about_course', args=[course_descriptor.id.to_deprecated_string()])),
         studio_url=get_cms_course_link(course_descriptor),
