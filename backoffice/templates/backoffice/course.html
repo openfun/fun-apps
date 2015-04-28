@@ -35,15 +35,14 @@
 
           <div class="course-info">
             <h2> {% trans 'Course information' %} </h2>
-
             <p>
               <strong>{% trans "Students enrolled in this course: " %}</strong>{{ course.students_count }}
             </p>
             <p>
-              {% regroup roles by role as roles_list %}
+              {% regroup roles|dictsort:"role" by role as roles_list %}
               <ul>
                 {% for role in roles_list %}
-                  <li><strong>{{ role.grouper }}:</strong>
+                  <li ><strong class='role-name'>{{ role.grouper }}:</strong>
                   <ul>
                       {% for item in role.list %}
                         <li>{% if item.user.get_full_name %}{{ item.user.get_full_name }}{% else %}{{ item.user.username }}{% endif %}
