@@ -1,13 +1,8 @@
-<%! from django.core.urlresolvers import reverse %>
 <%! from django.utils.translation import ugettext as _ %>
 <%page args="section_data"/>
 <%! from courseware.courses import get_studio_url %>
 <%! from microsite_configuration import microsite %>
 <%! from openedx.core.djangoapps.course_groups.partition_scheme import get_cohorted_user_partition %>
-
-## FUN: we override this template to add 3 new forum roles
-<%! from forum_contributors.views import FORUM_ROLE_OFFICIAL_CONTRIBUTOR, FORUM_ROLE_RECOMMENDED, FORUM_ROLE_ACTIVE %>
-
 
 <script type="text/template" id="member-list-widget-template">
   <div class="member-list-widget">
@@ -49,10 +44,10 @@
     <div class="hint auto-enroll-hint">
       <span class="hint-caret"></span>
       <p>
-  ${_("If this option is <em>checked</em>, users who have not yet registered for {platform_name} will be automatically enrolled.").format(platform_name=settings.PLATFORM_NAME)}
-  ${_("If this option is left <em>unchecked</em>, users who have not yet registered for {platform_name} will not be enrolled, but will be allowed to enroll once they make an account.").format(platform_name=settings.PLATFORM_NAME)}
-  <br /><br />
-  ${_("Checking this box has no effect if 'Unenroll' is selected.")}
+	${_("If this option is <em>checked</em>, users who have not yet registered for {platform_name} will be automatically enrolled.").format(platform_name=settings.PLATFORM_NAME)}
+	${_("If this option is left <em>unchecked</em>, users who have not yet registered for {platform_name} will not be enrolled, but will be allowed to enroll once they make an account.").format(platform_name=settings.PLATFORM_NAME)}
+	<br /><br />
+	${_("Checking this box has no effect if 'Unenroll' is selected.")}
       </p>
     </div>
   </div>
@@ -63,7 +58,7 @@
     <div class="hint email-students-hint">
       <span class="hint-caret"></span>
       <p>
-  ${_("If this option is <em>checked</em>, users will receive an email notification.")}
+	${_("If this option is <em>checked</em>, users will receive an email notification.")}
       </p>
     </div>
   </div>
@@ -120,9 +115,9 @@
     <div class="hint auto-enroll-beta-hint">
       <span class="hint-caret"></span>
       <p>
-  ${_("If this option is <em>checked</em>, users who have not enrolled in your course will be automatically enrolled.")}
-  <br /><br />
-  ${_("Checking this box has no effect if 'Remove beta testers' is selected.")}
+	${_("If this option is <em>checked</em>, users who have not enrolled in your course will be automatically enrolled.")}
+	<br /><br />
+	${_("Checking this box has no effect if 'Remove beta testers' is selected.")}
       </p>
     </div>
   </div>
@@ -248,6 +243,10 @@
       data-add-button-label="${_("Add Community TA")}"
     ></div>
 
+
+    ## FUN: we override this template to add 3 new forum roles
+    <%! from forum_contributors.views import FORUM_ROLE_OFFICIAL_CONTRIBUTOR, FORUM_ROLE_RECOMMENDED, FORUM_ROLE_ACTIVE %>
+    <%! from django.core.urlresolvers import reverse %>
 
     <div class="auth-list-container"
       data-rolename="${FORUM_ROLE_OFFICIAL_CONTRIBUTOR}"
