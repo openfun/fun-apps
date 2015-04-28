@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from bs4 import BeautifulSoup
 import csv
 import mock
 from StringIO import StringIO
@@ -14,7 +15,9 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
+from courseware.tests.factories import StaffFactory, InstructorFactory
 from student.models import UserProfile
+from student.roles import GlobalStaff, CourseStaffRole, CourseInstructorRole
 from universities.factories import UniversityFactory
 
 from backoffice import views
@@ -49,7 +52,6 @@ class BaseBackoffice(BaseTestCase):
     def login_with_backoffice_group(self):
         self.user.groups.add(self.backoffice_group)
         self.login()
-
 
 class BaseCourseDetail(BaseTestCase):
     def setUp(self):
@@ -185,6 +187,20 @@ class TestDeleteTeachers(BaseCourseDetail):
         response = self.client.post(self.url, data)
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, funcourse.teachers.count())
+
+class TestRenderRoles(BaseCourseDetail):
+    def setUp(self):
+        super(TestRenderRoles, self).setUp()
+        InstructorFactory(course_key=self.course.id, username='instructor_robot1')
+        StaffFactory(course_key=self.course.id, username='staff_robot')
+        InstructorFactory(course_key=self.course.id, username='instructor_robot2')
+
+    def test_render_roles(self):
+        response = self.client.get(self.url)
+        soup = BeautifulSoup(response.content)
+        roles = soup.find_all(class_='role-name')
+        self.assertEqual([role.text[:-1] for role in roles],
+                         ['instructor', 'staff'])
 
 class TestExportCoursesList(BaseBackoffice):
 
