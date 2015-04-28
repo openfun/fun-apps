@@ -8,21 +8,26 @@ import re
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.forms.models import inlineformset_factory
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from bulk_email.models import Optout
 from courseware.courses import course_image_url, get_courses, get_cms_course_link
+from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
-from student.models import CourseEnrollment, CourseAccessRole
+from student.models import CourseEnrollment, CourseAccessRole, UserProfile, UserStanding
 from xmodule.modulestore.django import modulestore
 
 from universities.models import University
 
-from .forms import FirstRequiredFormSet
+from .forms import FirstRequiredFormSet, SearchUserForm, UserForm, UserProfileForm
 from .models import Course, Teacher
 from .utils import get_course, group_required
 from courses.utils import get_about_section
@@ -41,6 +46,8 @@ FunCourse = namedtuple('FunCourse', [
     'url',
     'studio_url'
 ] + ABOUT_SECTION_FIELDS)
+
+LIMIT_SEARCH_RESULT = 100
 
 
 def get_about_sections(course_descriptor):
@@ -156,6 +163,7 @@ def courses_list(request):
     return render(request, 'backoffice/courses.html', {
         'course_infos': course_infos,
         'pattern': pattern,
+        'tab': 'courses',
     })
 
 
@@ -212,5 +220,93 @@ def course_detail(request, course_key_string):
             'teacher_formset': teacher_formset,
             'university': university,
             'roles': roles,
+            'tab': 'courses',
+        })
 
+
+@group_required('fun_backoffice')
+def user_list(request):
+
+    form = SearchUserForm(data=request.GET)
+    users = User.objects.select_related('profile').exclude(profile__isnull=True).order_by('date_joined')
+
+    total_count = users.count()
+
+    if form.data and form.is_valid():
+        pattern = form.cleaned_data['search']
+        users = users.filter(Q(username__icontains=pattern)
+                | Q(email__icontains=pattern)
+                | Q(profile__name__icontains=pattern)
+                )
+        count = users.count()
+
+    users = users[:LIMIT_SEARCH_RESULT]
+    count = users.count()
+
+    return render(request, 'backoffice/users.html', {
+        'users': users,
+        'count': count,
+        'total_count': total_count,
+        'form': form,
+        'tab': 'users',
+        })
+
+
+@group_required('fun_backoffice')
+def user_detail(request, username):
+
+    user = User.objects.select_related('profile').get(username=username)
+    if 'action' in request.POST:
+        if request.POST['action'] == 'ban-user':
+            user_account, created = UserStanding.objects.get_or_create(
+                    user=user, defaults={'changed_by': request.user})
+            if request.POST['value'] == 'disable':
+                user_account.account_status = UserStanding.ACCOUNT_DISABLED
+                messages.success(request, _(u"Successfully disabled {}'s account").format(user.username))
+            elif request.POST['value'] == 'reenable':
+                user_account.account_status = UserStanding.ACCOUNT_ENABLED
+                messages.success(request, _(u"Successfully reenabled {}'s account").format(username))
+            user_account.changed_by = request.user
+            user_account.standing_last_changed_at = timezone.now()
+            user_account.save()
+
+        elif request.POST['action'] == 'change-password':
+            user.set_password(request.POST['new-password'])
+            user.save()
+            messages.success(request, _(u"User password changed"))
+
+        return redirect('backoffice:user-list')
+
+
+
+    userform = UserForm(instance=user, data=request.POST or None)
+    userprofileform = UserProfileForm(instance=user.profile, data=request.POST or None)
+
+    disabled = UserStanding.objects.filter(user=user,
+        account_status=UserStanding.ACCOUNT_DISABLED).exists()
+
+    enrollments = []
+    for enrollment in CourseEnrollment.objects.filter(user=user):
+        optout = Optout.objects.filter(user=user, course_id=enrollment.course_id).exists()
+        try:
+            title = Course.objects.get(key=enrollment.course_id)
+        except Course.DoesNotExist:
+            title = enrollment.course_id
+        roles = CourseAccessRole.objects.filter(
+                user=user, course_id=enrollment.course_id).values_list('role', flat=True)
+        enrollments.append((title, enrollment.course_id, optout, roles))
+
+    if request.method == 'POST':
+        if all([userform.is_valid(), userprofileform.is_valid()]):
+            userform.save()
+            userprofileform.save()
+            messages.success(request, _(u"User %s has been modified") % user.username)
+            return redirect('backoffice:user-list')
+
+    return render(request, 'backoffice/user.html', {
+        'userform': userform,
+        'userprofileform': userprofileform,
+        'enrollments': enrollments,
+        'disabled': disabled,
+        'tab': 'users',
         })

@@ -1,0 +1,194 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n staticfiles bootstrap %}
+
+{% block extra_head %}
+<style>
+.no-border {
+  border-top: none !important;
+  padding-top: 0 !important;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <h2>{{ userform.instance.profile.name }}  {{ userform.instance.username }}</h2>
+
+        {% if disabled %}
+        <div class="alert alert-warning" role="alert">
+            {% with userform.instance.standing.all.0 as standing %}
+              {% trans "This account is disabled since" %}: {{ standing.standing_last_changed_at }} {% trans "by" %} {{ standing.changed_by }}
+            {% endwith %}
+        </div>
+        {% endif %}
+
+
+        <form action="." method="POST" class="form-horizontal">
+          {% csrf_token %}
+
+
+          <div class="form-group">
+              <label class="col-sm-4 control-label">{% trans "Account created:" %}</label>
+              <div class="col-sm-8">
+                <p class="form-control-static">{{ user.date_joined }}</p>
+              </div>
+              <label class="col-sm-4 control-label">{% trans "Last connection:" %}</label>
+              <div class="col-sm-8">
+                <p class="form-control-static">{{ user.last_login }}</p>
+              </div>
+              <label class="col-sm-4 control-label">{% trans "Is active:" %}</label>
+              <div class="col-sm-8">
+                <p class="form-control-static">
+                {% if user.is_active %}
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true">
+                {% else %}
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true">
+                {% endif%}</p>
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+              {{ userform|bootstrap_horizontal:'col-lg-4' }}
+
+              {% if userform.instance.profile %}
+                  {{ userprofileform|bootstrap_horizontal:'col-lg-4' }}
+              {% else %}
+                  {% trans "This user does not have edX profile" %}
+              {% endif %}
+
+            </div>
+
+            <div class="form-group">
+              <div class="pull-right">
+                <button type="submit" class="btn btn-primary">{% trans "save" %}</button>
+              </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="col-md-6">
+
+    <h3>{% trans "Enrollments" %}</h3>
+
+    <table class="table table-condensed">
+    <tr>
+      <th>{% trans "Course" %}</th>
+      <th>{% trans "Opt out" %}</th>
+      <th>{% trans "Forum" %}</th>
+    </tr>
+    {% for title, key, optout, roles in enrollments %}
+    <tr>
+        <td>{{ title }}</td>
+        <td class="text-center">
+          {% if optout %}
+            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" title="{% trans 'User has opted out key emails' %}"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+          <a target="_blank" href="{% url 'user_profile' key userform.instance.id %}">
+            <span title="{% trans 'See user contributions to key forum' %}"class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+          </a>
+        </td>
+        {% if roles %}
+          <tr>
+            <td colspan="3" class="no-border">
+            {% for role in roles %}
+              <span class="label label-primary">{{ role }}</span>
+            {% endfor %}
+            </td>
+          </tr>
+        {% endif %}
+
+    </tr>
+    {% empty %}
+      <tr><td colspan="3">{% trans "No course enrollments" %}</td></tr>
+    {% endfor %}
+    </table>
+
+
+    <button class="btn btn-warning" data-toggle="modal" data-target="#change-password">
+      {% trans "Change password" context "change-user-password" %}
+    </button>
+
+    <button class="btn btn-warning" data-toggle="modal" data-target="#ban-user">
+    {% if disabled %}
+        {% trans "Unban" %}
+    {% else %}
+        {% trans "Ban" %}
+    {% endif %}
+    </button>
+
+
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<form method="POST" method=".">{% csrf_token %}
+<input type="hidden" name="action" value="ban-user">
+<input type="hidden" name="value" value="{% if disabled %}reenable{% else %}disable{% endif %}">
+<div class="modal fade" id="ban-user" tabindex="-1" role="dialog" aria-labelledby="ban-user-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ban-user-label">{% trans "Please confirm" %}</h4>
+      </div>
+      <div class="modal-body">
+
+      <h3>{% if disabled %}{% trans "Confirm unban of user" %}{% else %}{% trans "Confirm ban of user" %}{% endif %}</h3>
+      {% trans "Full name" context "user-full-name" %}: <strong>{{ userform.instance.profile.name }}</strong><br>
+      {% trans "Username" %}: <strong>{{ userform.instance.username }}</strong>
+
+      <br><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+<!-- Modal -->
+<form method="POST" method=".">{% csrf_token %}
+<input type="hidden" name="action" value="change-password">
+<div class="modal fade" id="change-password" tabindex="-1" role="dialog" aria-labelledby="change-password-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="change-password-label">{% trans "Change user password" %}</h4>
+      </div>
+      <div class="modal-body">
+
+      <h3>{% trans "Enter new password" %}</h3>
+
+      <input type="text" class="form-control" name="new-password">
+
+      <br><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Change" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+{% endblock %}

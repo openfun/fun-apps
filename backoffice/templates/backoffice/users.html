@@ -1,0 +1,71 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n staticfiles %}
+
+{% block extr_js %}
+<script>
+    $(document).ready(function() {
+        $('#user-list').DataTable({
+            paging: false,
+            searching: false,
+            info: false,
+        });
+    } );
+</script>
+{% endblock %}
+
+
+{% block extra_head %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1></h1>
+
+
+
+<div class="col-md-5">
+    <form method="GET" action=".">
+        <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon1">{% trans "Search users" %}</span>
+            <input type="text" class="form-control" placeholder="{% trans 'by username, name or email' %}" aria-describedby="sizing-addon1" value="{{ request.GET.search|default:'' }}" name="search">
+        </div>
+    </form>
+</div>
+
+<div class="col-md-offset-4 col-md-2">
+    {{ total_count }} {% trans "users" %}
+    <br>
+    {{ count }} {% trans "displayed" %}
+</div>
+
+
+{% if users %}
+
+<table class="table table-condensed" id="user-list">
+    <thead>
+        <tr>
+            <th>{% trans "Full name" context "user-full-name" %}</th>
+            <th>{% trans 'Username' %}</th>
+            <th>{% trans 'email' %}</th>
+            <th>{% trans 'Account creation date' %}</th>
+        </tr>
+    </thead>
+
+    {% for user in users %}
+    <tr>
+        <td><a href="{% url 'backoffice:user-detail' user.username %}">{{ user.profile.name|default:"Pas de profile utilsateur" }}</a></td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.date_joined }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+{% endif %}
+{% endblock %}

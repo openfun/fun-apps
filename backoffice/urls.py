@@ -5,7 +5,15 @@ from django.conf.urls import include, url, patterns
 
 urlpatterns = patterns('backoffice.views',
     url(r'^$', 'courses_list', name='courses-list'),
-    url(r'^course/{}?$'.format(settings.COURSE_KEY_PATTERN), 'course_detail', name='course-detail'),
+    url(r'^course/{}?$'.format(settings.COURSE_KEY_PATTERN), 'course_detail',
+            name='course-detail'),
+
+    url(r'users/$', 'user_list', name='user-list'),
+    #url(r'course/{}/users/^$'.format(settings.COURSE_KEY_PATTERN), 'user_list',
+    #        name='user-list'),
+    url(r'^user/(?P<username>[^/]+)/$', 'user_detail', name='user-detail'),
+
+
     url(
         r'^course/submissions/{}/'.format(settings.COURSE_KEY_PATTERN),
         include('backoffice.ora2_submissions.urls', namespace="ora2-submissions")
