@@ -2,6 +2,9 @@
 <%! import django_comment_client.helpers as helpers %>
 <%! from django.template.defaultfilters import escapejs %>
 <%! from django.core.urlresolvers import reverse %>
+<%doc>
+    We overrride this template just to allow <include> tag to load our own _js_head_dependencies.html
+</%doc>
 
 <%inherit file="../main.html" />
 <%namespace name='static' file='../static_content.html'/>
@@ -35,9 +38,9 @@
          data-user-cohort-id="${user_cohort}"
          data-course-settings="${course_settings}">
     <div class="discussion-body">
-        <div class="forum-nav"></div>
-        <div class="discussion-column">
-          <article class="new-post-article" style="display: none"></article>
+        <div class="forum-nav" role="complementary" aria-label="${_("Discussion thread list")}"></div>
+        <div class="discussion-column" role="main" aria-label="Discussion" id="discussion-column">
+          <article class="new-post-article" style="display: none" tabindex="-1" aria-label="${_("New topic form")}"></article>
           <div class="forum-content"></div>
         </div>
     </div>
