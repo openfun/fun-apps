@@ -14,6 +14,8 @@ SERVER_EMAIL = '%s-%s@france-universite-numerique-mooc.fr' % (ENVIRONMENT, SITE_
 
 PIPELINE_SASS_ARGUMENTS = PIPELINE_SASS_ARGUMENTS.format(proj_dir=PROJECT_ROOT)
 
+INSTALLED_APPS += ('django_extensions',)
+
 ################################ DEBUG TOOLBAR ################################
 
 INSTALLED_APPS += DEBUG_TOOLBAR_INSTALLED_APPS

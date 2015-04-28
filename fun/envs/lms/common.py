@@ -7,6 +7,7 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 INSTALLED_APPS += (
     'fun',
     'adminsortable',
+    'bootstrapform',
     'courses',
     'course_dashboard',
     'forum_contributors',
