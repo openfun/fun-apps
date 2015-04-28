@@ -79,18 +79,7 @@ MIDDLEWARE_CLASSES[
 
 TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
-# we customize original edX logging configuration (we should have our own configuration)
-# see: edx-platform/common/lib/logsettings.py
-# same in cms.py
-
-# LOGGING contant is populated by get_logger_config function called in edx's common settings.
-# For sorme reason, not configuring a remote syslogger makes a lot of
-# useless messages in logs (TypeError: getsockaddrarg: AF_INET address must be tuple, not NoneType)
-# We then remove this logger untill we realy want to configured it
-#del LOGGING['handlers']['syslogger-remote']
-#del LOGGING['loggers']['']['handlers'][LOGGING['loggers']['']['handlers'].index('syslogger-remote')]
-
-# desactivate email sending of stacktrace
+# deactivate email sending of stacktrace
 del LOGGING['handlers']['mail_admins']
 LOGGING['loggers']['django.request']['handlers'].remove('mail_admins')
 
@@ -100,16 +89,13 @@ del LOGGING['handlers']['newrelic']
 
 # add 'forum_contributors' application templates directory to MAKO template finder...
 MAKO_TEMPLATES['main'] = [
-    ENV_ROOT / 'fun-apps/course_dashboard/templates',
-    ENV_ROOT / 'fun-apps/forum_contributors/templates',
+    FUN_BASE_ROOT / 'course_dashboard/templates',
+    FUN_BASE_ROOT / 'forum_contributors/templates',
 ] + MAKO_TEMPLATES['main']
 
 # Xiti
 XITI_ENABLED = True
 XITI_XTN2 = '100'
-# static urls are builded using edx-platform git revision
-# we have to do so when builing manually xtcore.js static url
-from dealer.git import git
 XITI_JS_URL = '/static/themes/fun/js/vendor/xtcore.js'
 XITI_XTSITE = '530632'
 XITI_XTSD = 'https://logs1279'

@@ -8,8 +8,8 @@ import gettext
 from path import path
 
 BASE_ROOT = path('/edx/app/edxapp/')  # folder where edx-platform main repository and our stuffs are
-
-sys.path.append('/edx/app/edxapp/fun-apps') # Add the fun-apps repo to sys.path:
+FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
+sys.path.append(FUN_BASE_ROOT)
 
 PLATFORM_NAME = "FUN"
 DEFAULT_FROM_EMAIL = "inscription@france-universite-numerique-mooc.fr"
@@ -19,7 +19,7 @@ TECH_SUPPORT_EMAIL = "helpdesk@france-universite-numerique-mooc.fr"
 CONTACT_EMAIL = "contact@france-universite-numerique-mooc.fr"
 BUGS_EMAIL = "bugs@france-universite-numerique-mooc.fr"
 PAYMENT_SUPPORT_EMAIL = "paiements@france-universite-numerique-mooc.fr"
-# STATS emails are used by fun-apps/fun/management/commands/enrollment_statistics.py
+# STATS emails are used by fun/management/commands/enrollment_statistics.py
 STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
 STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
 BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
@@ -126,9 +126,9 @@ SEGMENT_IO_LMS = True
 
 
 # Locale path
-LOCALIZED_APPS = sorted([path.split("/")[-2] for path in glob(BASE_ROOT / "fun-apps/*/locale")])
+LOCALIZED_APPS = sorted([path.split("/")[-2] for path in glob(FUN_BASE_ROOT / "*/locale")])
 LOCALE_PATHS = tuple(
-    [BASE_ROOT / "fun-apps" / app / "locale" for app in LOCALIZED_APPS] +
+    [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_APPS] +
     [
         BASE_ROOT / 'themes/fun/locale',
         BASE_ROOT / 'edx-platform/conf/locale',

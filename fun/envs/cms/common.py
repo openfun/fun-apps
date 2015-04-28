@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import sys
-
-# import cms aws settings
 from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
-# import FUN lms/cms common settings
-from ..common import *
+from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 
 INSTALLED_APPS += (
@@ -18,17 +14,10 @@ INSTALLED_APPS += (
 
 ROOT_URLCONF = 'fun.cms.urls'
 
-# LOGGING contant is populated by get_logger_config function called in edx's common settings.
-# For sorme reason, not configuring a remote syslogger makes a lot of
-# useless messages in logs (TypeError: getsockaddrarg: AF_INET address must be tuple, not NoneType)
-# We then remove this logger untill we realy want to configured it
-# same in lms.py
-#del LOGGING['handlers']['syslogger-remote']
-#del LOGGING['loggers']['']['handlers'][LOGGING['loggers']['']['handlers'].index('syslogger-remote')]
 
-# desactivate email sending of stacktrace
+# deactivate email sending of stacktrace
 del LOGGING['handlers']['mail_admins']
-del LOGGING['loggers']['django.request']['handlers'][LOGGING['loggers']['django.request']['handlers'].index('mail_admins')]
+LOGGING['loggers']['django.request']['handlers'].remove('mail_admins')
 
 # remove newrelic
 del LOGGING['handlers']['newrelic']
