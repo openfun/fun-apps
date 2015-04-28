@@ -11,8 +11,65 @@ OVERRIDDEN_TEMPLATES = [
         "lms/templates/instructor/instructor_dashboard_2/membership.html",
         "forum_contributors/templates/instructor/instructor_dashboard_2/membership.html"
     ),
+    (
+        "lms/templates/discussion/_js_head_dependencies.html",
+        "forum_contributors/templates/discussion/_js_head_dependencies.html"
+    ),
+    (
+        "lms/templates/discussion/_underscore_templates.html",
+        "forum_contributors/templates/discussion/_underscore_templates.html"
+    ),
+    (
+        "lms/templates/discussion/index.html",
+        "forum_contributors/templates/discussion/index.html"
+    ),
 ]
+
 OVERRIDDEN_THEME_TEMPLATES = [
+    (
+        "lms/templates/courseware/course_about.html",
+        "templates/courseware/course_about.html",
+    ),
+    (
+        "lms/templates/dashboard/_dashboard_course_listing.html",
+        "templates/dashboard/_dashboard_course_listing.html",
+    ),
+    (
+        "lms/templates/registration/password_reset_complete.html",
+        "templates/registration/password_reset_complete.html",
+    ),
+    (
+        "lms/templates/registration/password_reset_confirm.html",
+        "templates/registration/password_reset_confirm.html",
+    ),
+    (
+        "lms/templates/registration/password_reset_email.html",
+        "templates/registration/password_reset_email.html",
+    ),
+    (
+        "cms/templates/500.html",
+        "templates/500.html",
+    ),
+    (
+        "lms/templates/index.html",
+        "templates/index.html",
+    ),
+    (
+        "lms/templates/login.html",
+        "templates/login.html",
+    ),
+    (
+        "lms/templates/main.html",
+        "templates/main.html",
+    ),
+    (
+        "lms/templates/main_django.html",
+        "templates/main_django.html",
+    ),
+    (
+        "lms/templates/navigation.html",
+        "templates/navigation.html",
+    ),
 ]
 
 class Command(BaseCommand):
