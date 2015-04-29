@@ -34,7 +34,7 @@ PATH_EDX_DJANGOPO = os.path.join(
 
 class Command(BaseCommand):
 
-    help = """Usage: makemessages_fun [-l fr|de] path1 [path2 [...]]
+    help = """Usage: makemessages_fun [-v] [-l fr|de] path1 [path2 [...]]
     
 Update the %s file to make sure all fun-apps translations are
 up-to-date.
@@ -55,16 +55,22 @@ properly compiled:
             choices=("fr", "de"),
             default="fr",
             help="Select locale to process."),
-        )
+        optparse.make_option('--verbose',
+            action="store_true",
+            default=False,
+            help="Activate verbose mode."),
+    )
 
     def handle(self, *args, **options):
         locale = options["locale"]
-        MessageMaker(self.stdout).handle(args, locale)
+        is_verbose = options["verbose"] or options["verbosity"] > 1
+        MessageMaker(self.stdout, is_verbose=is_verbose).handle(args, locale)
 
 class MessageMaker(object):
 
-    def __init__(self, stdout=None):
+    def __init__(self, stdout=None, is_verbose=False):
         self.stdout = stdout or sys.stdout
+        self.is_verbose = is_verbose
 
     def handle(self, root_paths, locale):
         for root_path in root_paths:
@@ -90,6 +96,8 @@ class MessageMaker(object):
         update_catalog(fun_catalog, edx_catalog, pot_catalog)
 
         self.stdout.write("Updating %s...\n" % path_fun_djangopo)
+        if self.is_verbose:
+            check_catalog(fun_catalog)
         write_po_catalog(fun_catalog, path_fun_djangopo)
 
 def app_root_path(app_name):
@@ -111,6 +119,16 @@ def make_pot_catalog(root_path):
 def read_po_catalog(path, locale):
     with open(path) as po_file:
         return read_po(po_file, locale=locale)
+
+def check_catalog(catalog):
+    missing_translations = sorted([
+        message.id for message in catalog
+        if not message.string
+    ])
+    if missing_translations:
+        print "{} missing translations:".format(len(missing_translations))
+        for missing_translation in missing_translations:
+            print "    - {}".format(missing_translation)
 
 def write_po_catalog(catalog, path):
     with open(path, "w") as catalog_file:
