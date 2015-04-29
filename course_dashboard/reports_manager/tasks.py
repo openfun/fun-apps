@@ -1,16 +1,15 @@
-import codecs
 import csv
 import json
 from time import time
 
-from django.contrib.auth.models import User
+from django.conf import settings
 
 from courseware.models import StudentModule
 from student.models import UserProfile
 from instructor_task.tasks_helper import TaskProgress
 from xmodule.modulestore.django import modulestore
 
-from course_dashboard.reports_manager.utils import ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY
+from course_dashboard.reports_manager.utils import ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY, anonymize_username
 from course_dashboard.problem_stats.utils import fetch_problem, fetch_ancestors_names, get_problem_size
 from fun import shared
 
@@ -48,7 +47,7 @@ def fetch_user_profile_data(student_module):
     """
     user = student_module.student
     user_profile = UserProfile.objects.get(user=user)
-    data_row = [unicode(user.id),
+    data_row = [anonymize_username(user.username),
                 unicode(user_profile.gender),
                 unicode(user_profile.year_of_birth),
                 unicode(user_profile.level_of_education)]

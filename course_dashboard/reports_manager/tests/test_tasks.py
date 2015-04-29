@@ -1,7 +1,8 @@
-import os
-import json
-import shutil
 import csv
+
+import json
+import os
+import shutil
 
 from mock import patch
 from django.conf import settings
@@ -15,7 +16,7 @@ from instructor_task.tests.test_tasks import PROBLEM_URL_NAME
 
 from course_dashboard.problem_stats.tests.test_problem_monitor import ProblemMonitorTestCase
 from course_dashboard.reports_manager.tasks import generate_answers_distribution_report, get_path
-from course_dashboard.reports_manager.utils import build_answers_distribution_report_name
+from course_dashboard.reports_manager.utils import build_answers_distribution_report_name, anonymize_username
 
 @override_settings(SHARED_ROOT='/tmp/shared-test-answers-distribution')
 class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonitorTestCase):
@@ -59,9 +60,9 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
 
     def _create_response_row(self):
         user_profile = UserProfile.objects.get(user__username=self.username)
-        response_row = [unicode(x) for x in
-                        [user_profile.user.id, user_profile.gender, user_profile.year_of_birth,
-                         user_profile.level_of_education]] + [OPTION_1, OPTION_2]
+        response_row = [unicode(x) for x in [anonymize_username(user_profile.user.username),
+                                             user_profile.gender, user_profile.year_of_birth,
+                                             user_profile.level_of_education]] + [OPTION_1, OPTION_2]
         return response_row
 
     def test_generate_answers_distribution_report(self):

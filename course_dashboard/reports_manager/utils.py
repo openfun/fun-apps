@@ -1,4 +1,6 @@
 import datetime
+import hashlib
+import hmac
 import os
 import unicodedata
 
@@ -24,7 +26,6 @@ def get_reports_from_course(course_key):
 
 def remove_accents(input_str):
     """Replace accented caracter by unaccented caracters"""
-    
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     only_ascii = nfkd_form.encode('ASCII', 'ignore')
     return only_ascii
@@ -42,10 +43,16 @@ def build_answers_distribution_report_name(problem):
     Returns:
         The answer distribution report name (Unicode).
     """
-
     running_report_name = course_and_time_based_filename_generator(problem.location,
                                                                    problem.display_name)
     running_report_name += u".csv"
     return running_report_name[:255]
 
-
+def anonymize_username(username):
+    """ Anonymize username.
+    Args:
+        username (unicode)
+    Returns:
+        (str) A 64-bit hash.
+    """
+    return hmac.new(settings.ANONYMIZATION_KEY, username, hashlib.sha256).hexdigest()

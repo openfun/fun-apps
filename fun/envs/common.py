@@ -220,3 +220,5 @@ CACHES = {
         "LOCATION": ORA2_FILEUPLOAD_CACHE_ROOT
     }
 }
+
+ANONYMIZATION_KEY = """dummykey"""
