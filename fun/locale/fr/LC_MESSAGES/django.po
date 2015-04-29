@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-04-29 11:21+0200\n"
+"POT-Creation-Date: 2015-04-29 11:23+0200\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -162,6 +162,10 @@ msgstr "Français"
 #: /edx/app/edxapp/fun-apps/fun/envs/common.py:52
 msgid "German"
 msgstr "Allemand"
+
+# Translated in edx by 'Note requise pour le {cert_name_short}:'
+msgid "Grade required for a {cert_name_short}:"
+msgstr "Note requise pour l'attestation :"
 
 # Translated in edx by 'Plus haut niveau de formation obtenu'
 msgid "Highest Level of Education Completed"
