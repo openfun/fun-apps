@@ -125,7 +125,8 @@ def update_catalog(fun_catalog, edx_catalog, pot_catalog):
         - make sure that translations from fun_catalog that override edx_catalog messages are kept
     """
     remove_messages_that_should_not_be_translated(pot_catalog, fun_catalog, edx_catalog)
-    comment_messages(pot_catalog, fun_catalog, edx_catalog)
+    comment_messages(pot_catalog, edx_catalog)
+    comment_messages(fun_catalog, edx_catalog)
     fun_catalog.update(pot_catalog)
     keep_overriden_messages(fun_catalog, edx_catalog)
 
@@ -138,9 +139,10 @@ def remove_messages_that_should_not_be_translated(pot_catalog, fun_catalog, edx_
     for message_id in message_ids_to_delete:
         pot_catalog.delete(message_id)
 
-def comment_messages(pot_catalog, fun_catalog, edx_catalog):
-    for message in pot_catalog:
-        if message.id in fun_catalog and message.id in edx_catalog:
+def comment_messages(catalog, edx_catalog):
+    for message in catalog:
+        message.user_comments = []
+        if message.id in edx_catalog:
             message.user_comments.append("Translated in edx by '%s'" % edx_catalog[message.id].string)
 
 def keep_overriden_messages(fun_catalog, edx_catalog):
