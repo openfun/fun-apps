@@ -11,6 +11,8 @@ import lms.lib.comment_client as comment_client
 from student.models import CourseEnrollment
 from student.models import User
 
+import fun.utils.countries
+
 
 def enrollments_per_day(course_key_string=None, since=None):
     """
@@ -67,10 +69,10 @@ def population_by_country(course_key_string=None):
         .filter(population__gt=0)
         .order_by(country_field)
     )
-    course_population = {}
+    course_population = defaultdict(int)
     for result in query:
-        country = result[country_field]
-        course_population[country] = result["population"]
+        country = fun.utils.countries.territory_country(result[country_field])
+        course_population[country] += result["population"]
     return course_population
 
 def active_enrollments(course_key=None):

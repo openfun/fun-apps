@@ -37,6 +37,13 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         self.assertEqual({}, empty_course_population)
         self.assertEqual({'FR': 1}, course_population)
 
+    def test_dependent_territories_are_not_listed_separately(self):
+        course = CourseFactory.create()
+        self.enroll_student(course, user__profile__country='GF', user__is_active=False)
+        self.enroll_student(course, user__profile__country='PF', user__is_active=False)
+        course_population = stats.population_by_country(self.get_course_id(course))
+        self.assertEqual({'FR': 2}, course_population)
+
     def test_inactive_students_are_included_but_not_inactive_enrollments(self):
         course = CourseFactory.create()
         self.enroll_student(course, user__profile__country='FR', user__is_active=False)
