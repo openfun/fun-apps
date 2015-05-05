@@ -1,4 +1,5 @@
 import os
+import celery.states
 
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -93,3 +94,15 @@ class TestDownloadOra2Submissions(BaseBackoffice):
         self.assertTrue("task_is_running" in response.context)
         self.assertTrue(response.context["task_is_running"])
         self.assertFalse("__INVALID__" in response.content)
+
+    def test_last_successful_tasks_have_valid_task_output(self):
+        InstructorTaskFactory(
+            task_key=tasks_api.get_task_key(self.course.id),
+            course_id=self.course.id,
+            task_id="task_id",
+            task_type=tasks.PREPARATION_TASK_TYPE,
+            task_output=None,
+            task_state=celery.states.SUCCESS,
+        )
+        last_successful_task = tasks_api.get_last_successful_instructor_task(self.course.id)
+        self.assertIsNone(last_successful_task)

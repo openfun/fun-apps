@@ -44,7 +44,8 @@ def get_last_unready_instructor_tasks(course_id):
 
 def get_last_successful_instructor_tasks(course_id):
     return get_last_instructor_tasks(course_id).filter(
-        task_state=celery.states.SUCCESS
+        task_state=celery.states.SUCCESS,
+        task_output__isnull=False,
     )
 
 def get_last_instructor_tasks(course_id):
