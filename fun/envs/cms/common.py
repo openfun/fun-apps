@@ -14,19 +14,12 @@ INSTALLED_APPS += (
 
 ROOT_URLCONF = 'fun.cms.urls'
 
-
-# deactivate email sending of stacktrace
-del LOGGING['handlers']['mail_admins']
-LOGGING['loggers']['django.request']['handlers'].remove('mail_admins')
-
-# remove newrelic
-del LOGGING['handlers']['newrelic']
-
-# Static content
-# edX base cms settings file append edx-platform repo. git revision to STATIC_ROOT and STATIC_URL,
-# we remove it as we use PipelineCachedStorage for both apps.
+# edX base cms settings file appends the git revision of the edx-platform repo
+# git revision to STATIC_ROOT and STATIC_URL.  We remove it as we use
+# PipelineCachedStorage for both apps.
 STATIC_URL = "/static/"
-STATIC_ROOT = "/edx/var/edxapp/staticfiles"
+
+update_logging_config(LOGGING)
 
 # add 'theme/cms/templates' directory to MAKO template finder to override some CMS templates...
 MAKO_TEMPLATES['main'].insert(0, ENV_ROOT / 'fun-apps/fun/templates/cms')

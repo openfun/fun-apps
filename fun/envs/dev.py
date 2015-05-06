@@ -12,11 +12,6 @@ PREVIEW_LMS_BASE = LMS_BASE
 
 MEDIA_ROOT = "/edx/var/edxapp/uploads"
 
-# do not log to sentry in dev
-RAVEN_CONFIG = {
-    'dsn': '',
-}
-
 DEBUG = True
 TEMPLATE_DEBUG = True
 
