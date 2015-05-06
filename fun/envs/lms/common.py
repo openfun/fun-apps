@@ -3,6 +3,28 @@
 from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
+
+INSTALLED_APPS += (
+    'fun',
+    'adminsortable',
+    'courses',
+    'course_dashboard',
+    'forum_contributors',
+    'ckeditor',
+    'contact',
+    'raven.contrib.django.raven_compat',
+    'universities',
+    'fun_certificates',
+    'fun_instructor',
+    'newsfeed',
+    'selftest',
+    'backoffice',
+    )
+
+ROOT_URLCONF = 'fun.lms.urls'
+
+update_logging_config(LOGGING)
+
 del DEFAULT_FILE_STORAGE  # We do not use S3 file storage backend set in aws.py
 
 # those values also have to be in env.json file,
@@ -51,26 +73,6 @@ FEATURES['SUBDOMAIN_COURSE_LISTINGS'] = False
 FEATURES['ENFORCE_PASSWORD_POLICY'] = True
 FEATURES['ENABLE_CONTENT_LIBRARIES'] = False  # Content libraries support requires new coursekey format
 
-# Use a FUN-specific root urlconf module
-ROOT_URLCONF = 'fun.lms.urls'
-
-INSTALLED_APPS += (
-    'fun',
-    'adminsortable',
-    'courses',
-    'course_dashboard',
-    'forum_contributors',
-    'ckeditor',
-    'contact',
-    'raven.contrib.django.raven_compat',
-    'universities',
-    'fun_certificates',
-    'fun_instructor',
-    'newsfeed',
-    'selftest',
-    'backoffice',
-    )
-
 # replace edX's StaticContentServer middleware by ours (which generates nice thumbnails)
 MIDDLEWARE_CLASSES = list(MIDDLEWARE_CLASSES)
 MIDDLEWARE_CLASSES[
@@ -78,14 +80,6 @@ MIDDLEWARE_CLASSES[
 ] = 'fun.middleware.ThumbnailStaticContentServer'
 
 TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
-
-# deactivate email sending of stacktrace
-del LOGGING['handlers']['mail_admins']
-LOGGING['loggers']['django.request']['handlers'].remove('mail_admins')
-
-# remove newrelic
-del LOGGING['handlers']['newrelic']
-
 
 # add 'forum_contributors' application templates directory to MAKO template finder...
 MAKO_TEMPLATES['main'] = [
@@ -136,5 +130,3 @@ GRADES_DOWNLOAD = {
     'BUCKET': 'edx-grades',
     'ROOT_PATH': '/edx/var/edxapp/grades',
 }
-
-STATIC_ROOT = "/edx/var/edxapp/staticfiles"

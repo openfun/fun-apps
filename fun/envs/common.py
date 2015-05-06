@@ -62,6 +62,8 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = "/edx/var/edxapp/uploads"
 
+STATIC_ROOT = "/edx/var/edxapp/staticfiles"
+
 # This is the folder where all file data will be shared between the instances
 # of the same environment.
 SHARED_ROOT = '/edx/var/edxapp/shared'
@@ -112,7 +114,6 @@ CMS_BASE = 'studio.france-universite-numerique-mooc.fr'  # Studio web address
 # but we may want to use a 'preview' instance of LMS as in v1
 PREVIEW_LMS_BASE = ''  # Sudio will build preview address like this //PREVIEW_LMS_BASE + LMS_BASE to/course...
 
-
 LOCAL_LOGLEVEL = 'INFO'
 LOGGING_ENV = 'sandbox'
 LOG_DIR = '/edx/var/logs/edx'
@@ -123,7 +124,6 @@ MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = 30
 SEGMENT_IO_LMS = True
 PAID_COURSE_REGISTRATION_CURRENCY = ["usd", "$"]
 SEGMENT_IO_LMS = True
-
 
 # Locale path
 LOCALIZED_APPS = sorted([path.split("/")[-2] for path in glob(FUN_BASE_ROOT / "*/locale")])
@@ -154,7 +154,6 @@ EMAIL_HOST = 'infrasmtp02.cines.fr'   # we will use the new smtp for transaction
 
 BULK_SMTP_SERVER = 'smtpmooc.cines.fr'  # old server will only be used for bulk email on brick lms
 TRANSACTIONAL_SMTP_SERVER = EMAIL_HOST
-
 
 ANALYTICS_SERVER_URL = ''
 BOOK_URL = ''
@@ -222,3 +221,33 @@ CACHES = {
 }
 
 ANONYMIZATION_KEY = """dummykey"""
+
+RAVEN_CONFIG = {
+    'dsn': '',
+}
+
+def update_logging_config(logging_config):
+    """
+    Call this function with the LOGGING variable to configure some additional
+    loggers.
+    """
+    # Deactivate email sending of stacktrace
+    logging_config['handlers'].pop('mail_admins', None)
+    if 'mail_admins' in logging_config['loggers']['django.request']['handlers']:
+        logging_config['loggers']['django.request']['handlers'].remove('mail_admins')
+
+    # Remove newrelic
+    logging_config['handlers'].pop('newrelic', None)
+
+    # Send all errors to sentry
+    logging_config['handlers']['sentry'] = {
+        'level': 'ERROR',
+        'class': 'raven.handlers.logging.SentryHandler',
+        'dsn': '',# don't forget to update this once you know the sentry dsn
+    }
+    if 'sentry' not in logging_config['loggers']['']['handlers']:
+        logging_config['loggers']['']['handlers'].append('sentry')
+
+def configure_raven(sentry_dsn, raven_config, logging_config):
+    logging_config['handlers']['sentry']['dsn'] = sentry_dsn
+    raven_config['dsn'] = sentry_dsn
