@@ -24,7 +24,7 @@ msgstr "Une génération d'attestation est déjà en cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:37
 msgid "Account created:"
-msgstr "Compte créé:"
+msgstr "Compte créé :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:54
 msgid "Account creation date"
@@ -65,7 +65,7 @@ msgstr "Changer le mot de passe"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:175
 msgid "Change user password"
-msgstr "Changement de mot de passe"
+msgstr "Changement le mot de passe de l'utilsateur"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:150
 msgid "Confirm ban of user"
@@ -73,7 +73,7 @@ msgstr "Confirmer l'exclusion de l'utilisateur"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:150
 msgid "Confirm unban of user"
-msgstr "Confirmer la reintegration de l'utilisateur"
+msgstr "Confirmer la réintegration de l'utilisateur"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:198
 #: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:122
@@ -157,7 +157,7 @@ msgstr "Forum"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:115
 msgid "Full name:"
-msgstr "Nom complet:"
+msgstr "Nom complet :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:121
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:26
@@ -194,20 +194,19 @@ msgstr "Informations sur le cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:45
 msgid "Is active:"
-msgstr "Actif:"
+msgstr "Actif :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:41
 msgid "Last connection:"
-msgstr "Dernière connexion:"
+msgstr "Dernière connexion :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:35
 msgid "Last file generated on: "
 msgstr "Dernier fichier généré à :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:114
-#, fuzzy
 msgid "No course enrollments"
-msgstr "Inscriptions"
+msgstr "Aucune inscription"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:79
 msgid "No result for this search pattern"
@@ -227,11 +226,11 @@ msgstr "Génération d'attestations en cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:146
 msgid "Please confirm"
-msgstr "Confirmer"
+msgstr "Veuillez confirmer"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:116
 msgid "Please confirm that you really want to generate a certificate for course:"
-msgstr "Veuillez confirmer la génération des certificats pour le cours:"
+msgstr "Veuillez confirmer la génération des certificats pour le cours :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:151
 msgid "Please confirm you really want to delete this course:"
@@ -259,11 +258,6 @@ msgstr "Exécuter"
 msgid "Sample"
 msgstr "Échantillon"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:33
-#, fuzzy
-msgid "Search users"
-msgstr "Enseignants"
-
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:51
 msgid "See"
 msgstr "Voir"
@@ -273,7 +267,7 @@ msgid "See course"
 msgstr "Voir le cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:99
-msgid "See user contributions to key forum"
+msgid "See user contributions to course forum"
 msgstr "Voir les contributions de l'utilisateur dans le forum du cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:46
@@ -342,8 +336,8 @@ msgid "Temporary account suspensions"
 msgstr "Suspensions temporaires de compte"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:26
-msgid "This account is disabled since"
-msgstr "Cet utilisateur a été exclu depuis"
+msgid "This account is disabled since:"
+msgstr "Cet utilisateur a été exclu depuis :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:65
 msgid "This course does not belong to any university"
@@ -366,7 +360,7 @@ msgstr "Durée totale (sec)"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:125
 msgid "Unban"
-msgstr "Reintégrer"
+msgstr "Réintégrer"
 
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:56
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:95
@@ -420,14 +414,14 @@ msgstr[1] "cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:42
 msgid "displayed"
-msgstr "Affichés"
+msgstr "affichés"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:37
 msgid "for your search pattern"
 msgstr "pour votre critère de recherche"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:71
-msgid "save"
+msgid "Save"
 msgstr "Enregistrer"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:26
@@ -438,6 +432,10 @@ msgstr "établissement ou nom de cours"
 msgid "users"
 msgstr "utilisateurs"
 
-#~ msgid "ORA2 submissions"
-#~ msgstr "Evaluations ORA2"
+msgctxt "user-full-name"
+msgid "Full name"
+msgstr "Nom complet"
 
+msgctxt "change-user-password"
+msgid "Change password"
+msgstr "Changer le mot de passe"

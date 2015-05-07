@@ -5,4 +5,4 @@ django-solo==1.0.3
 unicodecsv==0.9.4
 raven
 reportlab
-django-bootstrap-form
+django-bootstrap-form==3.2

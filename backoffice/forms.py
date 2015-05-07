@@ -45,6 +45,8 @@ class UserProfileForm(forms.ModelForm):
         for field in self.fields.values():
             if 'rows' in field.widget.attrs:
                 field.widget.attrs['rows'] = 3
+            field.label = _(field.label)  # i18n exists, but fields have no labels
+
     class Meta:
         model = UserProfile
         fields = ('name', 'gender', 'language', 'level_of_education', 'location',

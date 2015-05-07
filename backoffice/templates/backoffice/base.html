@@ -38,8 +38,8 @@
         </button>
         <div id="NavBar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="{% if tab = 'courses' %}active{% endif %}"><a href="{% url 'backoffice:courses-list' %}">{% trans "Courses" %}</a></li>
-            <li class="{% if tab = 'users' %}active{% endif %}"><a href="{% url 'backoffice:user-list' %}">{% trans "Users" %}</a></li>
+            <li class="{% if tab == 'courses' %}active{% endif %}"><a href="{% url 'backoffice:courses-list' %}">{% trans "Courses" %}</a></li>
+            <li class="{% if tab == 'users' %}active{% endif %}"><a href="{% url 'backoffice:user-list' %}">{% trans "Users" %}</a></li>
             <li class=""><a href="{% url 'course-dashboard-global:home' %}">{% trans "Statistics" %}</a></li>
           </ul>
         </div><!--/.nav-collapse -->

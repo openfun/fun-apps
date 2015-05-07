@@ -22,9 +22,7 @@
 
         {% if disabled %}
         <div class="alert alert-warning" role="alert">
-            {% with userform.instance.standing.all.0 as standing %}
-              {% trans "This account is disabled since" %}: {{ standing.standing_last_changed_at }} {% trans "by" %} {{ standing.changed_by }}
-            {% endwith %}
+              {% trans "This account is disabled since:" %} {{ disabled.0.standing_last_changed_at }} {% trans "by" %} {{ disabled.0.changed_by }}
         </div>
         {% endif %}
 
@@ -68,7 +66,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-primary">{% trans "save" %}</button>
+                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
               </div>
             </div>
 
@@ -96,7 +94,7 @@
         </td>
         <td class="text-center">
           <a target="_blank" href="{% url 'user_profile' key userform.instance.id %}">
-            <span title="{% trans 'See user contributions to key forum' %}"class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            <span title="{% trans 'See user contributions to course forum' %}"class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
           </a>
         </td>
         {% if roles %}
@@ -120,14 +118,15 @@
       {% trans "Change password" context "change-user-password" %}
     </button>
 
-    <button class="btn btn-warning" data-toggle="modal" data-target="#ban-user">
-    {% if disabled %}
-        {% trans "Unban" %}
-    {% else %}
-        {% trans "Ban" %}
+    {% if request.user != userform.instance %}
+      <button class="btn btn-warning" data-toggle="modal" data-target="#ban-user">
+      {% if disabled %}
+          {% trans "Unban" %}
+      {% else %}
+          {% trans "Ban" %}
+      {% endif %}
+      </button>
     {% endif %}
-    </button>
-
 
     </div>
 

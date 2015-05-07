@@ -10,11 +10,11 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.forms.models import inlineformset_factory
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -254,7 +254,11 @@ def user_list(request):
 
 @group_required('fun_backoffice')
 def user_detail(request, username):
-    user = User.objects.select_related('profile').get(username=username)
+    try:
+        user = User.objects.select_related('profile').get(username=username)
+    except User.DoesNotExist:
+        raise Http404()
+
     if 'action' in request.POST:
         if request.POST['action'] == 'ban-user':
             user_account, created = UserStanding.objects.get_or_create(
@@ -276,13 +280,11 @@ def user_detail(request, username):
 
         return redirect('backoffice:user-list')
 
-
-
     userform = UserForm(instance=user, data=request.POST or None)
     userprofileform = UserProfileForm(instance=user.profile, data=request.POST or None)
 
     disabled = UserStanding.objects.filter(user=user,
-        account_status=UserStanding.ACCOUNT_DISABLED).exists()
+        account_status=UserStanding.ACCOUNT_DISABLED)
 
     enrollments = []
     for enrollment in CourseEnrollment.objects.filter(user=user):
