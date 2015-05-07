@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import csv
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 import datetime
 import logging
 import re
@@ -14,7 +14,7 @@ from django.http import HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.forms.models import inlineformset_factory
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -23,6 +23,7 @@ from courseware.courses import course_image_url, get_courses, get_cms_course_lin
 from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole, UserProfile, UserStanding
+from xmodule_django.models import CourseKeyField
 from xmodule.modulestore.django import modulestore
 
 from universities.models import University
@@ -238,7 +239,6 @@ def user_list(request):
                 | Q(email__icontains=pattern)
                 | Q(profile__name__icontains=pattern)
                 )
-        count = users.count()
 
     users = users[:LIMIT_SEARCH_RESULT]
     count = users.count()
@@ -258,7 +258,6 @@ def user_detail(request, username):
         user = User.objects.select_related('profile').get(username=username)
     except User.DoesNotExist:
         raise Http404()
-
     if 'action' in request.POST:
         if request.POST['action'] == 'ban-user':
             user_account, created = UserStanding.objects.get_or_create(
@@ -280,6 +279,8 @@ def user_detail(request, username):
 
         return redirect('backoffice:user-list')
 
+
+
     userform = UserForm(instance=user, data=request.POST or None)
     userprofileform = UserProfileForm(instance=user.profile, data=request.POST or None)
 
@@ -287,12 +288,17 @@ def user_detail(request, username):
         account_status=UserStanding.ACCOUNT_DISABLED)
 
     enrollments = []
+    optouts = Optout.objects.filter(user=user).values_list('course_id', flat=True)
+    user_roles = defaultdict(list)
+    for car in CourseAccessRole.objects.filter(user=user).exclude(course_id=CourseKeyField.Empty):
+        user_roles[car.course_id.to_deprecated_string()].append(car.role)
+
     for enrollment in CourseEnrollment.objects.filter(user=user):
-        optout = Optout.objects.filter(user=user, course_id=enrollment.course_id).exists()
-        title = get_course(enrollment.course_id.to_deprecated_string()).display_name
-        roles = CourseAccessRole.objects.filter(
-                user=user, course_id=enrollment.course_id).values_list('role', flat=True)
-        enrollments.append((title, enrollment.course_id, optout, roles))
+        key = enrollment.course_id.to_deprecated_string()
+        optout = key in optouts
+        title = get_course(key).display_name
+        course_roles = user_roles.get(key, [])
+        enrollments.append((title, enrollment.course_id, optout, course_roles))
 
     if request.method == 'POST':
         if all([userform.is_valid(), userprofileform.is_valid()]):
