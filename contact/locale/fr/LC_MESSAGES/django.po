@@ -129,6 +129,7 @@ msgstr "Mon nom"
 
 # Translated in edx by 'Nom'
 #: /edx/app/edxapp/fun-apps/contact/views.py:36
+msgctxt "contact-form"
 msgid "Name"
 msgstr "De :"
 
