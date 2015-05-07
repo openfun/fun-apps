@@ -254,7 +254,6 @@ def user_list(request):
 
 @group_required('fun_backoffice')
 def user_detail(request, username):
-
     user = User.objects.select_related('profile').get(username=username)
     if 'action' in request.POST:
         if request.POST['action'] == 'ban-user':

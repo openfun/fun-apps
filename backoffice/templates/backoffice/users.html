@@ -30,7 +30,7 @@
 <div class="col-md-5">
     <form method="GET" action=".">
         <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon1">{% trans "Search users" %}</span>
+            <span class="input-group-addon" id="sizing-addon1">{% trans "Search" %}</span>
             <input type="text" class="form-control" placeholder="{% trans 'by username, name or email' %}" aria-describedby="sizing-addon1" value="{{ request.GET.search|default:'' }}" name="search">
         </div>
     </form>
