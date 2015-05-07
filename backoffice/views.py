@@ -288,10 +288,7 @@ def user_detail(request, username):
     enrollments = []
     for enrollment in CourseEnrollment.objects.filter(user=user):
         optout = Optout.objects.filter(user=user, course_id=enrollment.course_id).exists()
-        try:
-            title = Course.objects.get(key=enrollment.course_id)
-        except Course.DoesNotExist:
-            title = enrollment.course_id
+        title = get_course(enrollment.course_id.to_deprecated_string()).display_name
         roles = CourseAccessRole.objects.filter(
                 user=user, course_id=enrollment.course_id).values_list('role', flat=True)
         enrollments.append((title, enrollment.course_id, optout, roles))
