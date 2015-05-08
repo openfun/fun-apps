@@ -229,7 +229,7 @@ def course_detail(request, course_key_string):
 def user_list(request):
 
     form = SearchUserForm(data=request.GET)
-    users = User.objects.select_related('profile').exclude(profile__isnull=True).order_by('date_joined')
+    users = User.objects.select_related('profile').exclude(profile__isnull=True).order_by('-date_joined')
 
     total_count = users.count()
 
@@ -291,12 +291,15 @@ def user_detail(request, username):
     optouts = Optout.objects.filter(user=user).values_list('course_id', flat=True)
     user_roles = defaultdict(list)
     for car in CourseAccessRole.objects.filter(user=user).exclude(course_id=CourseKeyField.Empty):
-        user_roles[car.course_id.to_deprecated_string()].append(car.role)
+        user_roles[unicode(car.course_id)].append(car.role)
 
     for enrollment in CourseEnrollment.objects.filter(user=user):
-        key = enrollment.course_id.to_deprecated_string()
+        key = unicode(enrollment.course_id)
         optout = key in optouts
-        title = get_course(key).display_name
+        course = get_course(key)
+        if not course:
+            continue  # enrollment can exists for course that does not exist anymore in mongo
+        title = course.display_name
         course_roles = user_roles.get(key, [])
         enrollments.append((title, enrollment.course_id, optout, course_roles))
 
