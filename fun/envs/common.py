@@ -13,7 +13,7 @@ sys.path.append(FUN_BASE_ROOT)
 
 PLATFORM_NAME = "FUN"
 DEFAULT_FROM_EMAIL = "inscription@france-universite-numerique-mooc.fr"
-DEFAULT_FEEDBACK_EMAIL = "feedback@france-universite-numerique-mooc.fr"
+DEFAULT_FEEDBACK_EMAIL = "contact@france-universite-numerique-mooc.fr"
 DEFAULT_BULK_FROM_EMAIL = "cours@france-universite-numerique-mooc.fr"
 TECH_SUPPORT_EMAIL = "helpdesk@france-universite-numerique-mooc.fr"
 CONTACT_EMAIL = "contact@france-universite-numerique-mooc.fr"
