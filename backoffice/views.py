@@ -20,9 +20,8 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from bulk_email.models import Optout
 from courseware.courses import course_image_url, get_courses, get_cms_course_link
-from courseware.courses import course_image_url, get_course_about_section, get_courses, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
-from student.models import CourseEnrollment, CourseAccessRole, UserProfile, UserStanding
+from student.models import CourseEnrollment, CourseAccessRole, UserStanding
 from xmodule_django.models import CourseKeyField
 from xmodule.modulestore.django import modulestore
 
@@ -142,23 +141,26 @@ def courses_list(request):
         writer.writerow([field.encode('utf-8') for field in csv_header])
 
         for course_info in course_infos:
-            writer.writerow([
+            row = [
                 course_info.title.encode('utf-8'),
                 course_info.university.encode('utf-8'),
-                course_info.course.id.org,
-                course_info.course.id.course,
-                course_info.course.id.run,
+                course_info.course.id.org.encode('utf-8'),
+                course_info.course.id.course.encode('utf-8'),
+                course_info.course.id.run.encode('utf-8'),
                 format_datetime(course_info.course.start),
                 format_datetime(course_info.course.end),
                 format_datetime(course_info.course.enrollment_start),
                 format_datetime(course_info.course.enrollment_end),
                 course_info.students_count,
                 course_info.effort.encode('utf-8'),
-                'https://%s%s' % (settings.LMS_BASE, course_info.course_image_url),
+                'https://%s%s' % (
+                    settings.LMS_BASE,
+                    course_info.course_image_url.encode("utf-8")
+                ),
                 course_info.video,
                 course_info.url
-            ])
-
+            ]
+            writer.writerow(row)
         return response
 
     return render(request, 'backoffice/courses.html', {
@@ -260,7 +262,7 @@ def user_detail(request, username):
         raise Http404()
     if 'action' in request.POST:
         if request.POST['action'] == 'ban-user':
-            user_account, created = UserStanding.objects.get_or_create(
+            user_account, _created = UserStanding.objects.get_or_create(
                     user=user, defaults={'changed_by': request.user})
             if request.POST['value'] == 'disable':
                 user_account.account_status = UserStanding.ACCOUNT_DISABLED
