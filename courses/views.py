@@ -158,7 +158,7 @@ class CoursesFeed(Feed):
     __name__ = 'FUNRSS'
 
     def items(self, request):
-        return _sort_courses(get_courses(None)[:16])
+        return _sort_courses(get_courses(None))[:16]
 
     def item_title(self, course):
         return get_course_about_section(course, 'title')
