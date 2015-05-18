@@ -8,14 +8,10 @@ from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from xmodule.modulestore.tests.factories import CourseFactory, CourseAboutFactory, ABOUT_ATTRIBUTES
 
 from student.models import UserProfile
 from universities.factories import UniversityFactory
-
-
-DM_CODE = 'x2an9mg'
-YOUTUBE_IFRAME = """\n\n\n<iframe width="560" height="315" src="//www.youtube.com/embed/%s?rel=0" frameborder="0" allowfullscreen=""></iframe>\n\n\n""" % DM_CODE
 
 
 class BaseCourseList(ModuleStoreTestCase):
@@ -30,14 +26,15 @@ class BaseCourseList(ModuleStoreTestCase):
         self.client.login(username=self.user.username, password='password')
 
         self.university = UniversityFactory.create()
+        self.course1 = CourseFactory.create(number='001', display_name=u"unpublished",
+                                            ispublic=False)
 
-        self.course1 = CourseFactory.create(number='001', display_name=u"unpublished", ispublic=False,
-                video=YOUTUBE_IFRAME, effort='3h00')
+        CourseAboutFactory.create(course_id=self.course1.id,
+                                  course_runtime=self.course1.runtime)
+
         self.course2 = CourseFactory.create(org=self.university.code, number='002',
-                display_name=u"unpublished", ispublic=True,
-                video=YOUTUBE_IFRAME, effort='3h00')
+                             display_name=u"published", ispublic=True)
         self.list_url = reverse('backoffice:courses-list')
-
 
 class TestExportCoursesList(BaseCourseList):
     def get_csv_response_rows(self, response):
@@ -49,8 +46,7 @@ class TestExportCoursesList(BaseCourseList):
         response = self.client.post(self.list_url)
         self.assertEqual('text/csv', response._headers['content-type'][1])
         rows = self.get_csv_response_rows(response)
-        self.assertEqual(2, len(rows))
-
+        self.assertEqual(3, len(rows))
         course = rows[1]
-        self.assertIn(DM_CODE, course)
-        self.assertIn('3h00', course)
+        self.assertIn("www.youtube.com/embed/testing-video-link", course)
+        self.assertIn(ABOUT_ATTRIBUTES['effort'], course)
