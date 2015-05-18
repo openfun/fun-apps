@@ -5,9 +5,9 @@
 from mock import patch
 
 from django.core import mail
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils.translation import ugettext as _
 
 from contact.views import ContactFormView
 
@@ -21,12 +21,12 @@ class ContactTest(TestCase):
             'name': u'John Doe',
             'email': u'john@example.com',
             'phone': u'+33664446505',
-            'function': u'Student',
+            'function': u'student',
             'inquiry': u'account',
             'body': u'Hello! æêé'
         }
 
-    @patch('contact.views.render_to_response')
+    @patch('contact.views.ContactFormView.render_to_response')
     def test_contact_form_view_get(self, mock_render_to_response):
         """
         Test contact page display (GET)
@@ -37,20 +37,11 @@ class ContactTest(TestCase):
 
         self.assertEqual(len(mock_render_to_response.call_args_list), 1)
         mock_call = mock_render_to_response.call_args_list[0][0]
-        self.assertEqual(len(mock_call), 2)
-        self.assertEqual(mock_call[0], 'contact/contact_form.html')
-        self.assertEqual(len(mock_call[1]), 2)
-        self.assertEqual(mock_call[1]['field_id2name'], {
-            'name': _('Name'),
-            'email': _('Email'),
-            'body': _('Message'),
-            'inquiry': _('Inquiry')
-        })
-        self.assertTrue(mock_call[1]['form'])
-
+        self.assertEqual(len(mock_call), 1)
+        self.assertEqual(['form'], mock_call[0].keys())
         self.assertEqual(len(mail.outbox), 0)
 
-    @patch('contact.views.render_to_response')
+    @patch('contact.views.ContactFormView.render_to_response')
     def test_contact_form_view_post_missing_fields(self, mock_render_to_response):
         """
         Test contact page display (POST), with missing fields values
@@ -61,13 +52,10 @@ class ContactTest(TestCase):
 
         self.assertEqual(len(mock_render_to_response.call_args_list), 1)
         mock_call = mock_render_to_response.call_args_list[0][0]
-        self.assertEqual(len(mock_call), 2)
-        self.assertEqual(mock_call[0], 'contact/contact_form.html')
-        self.assertEqual(len(mock_call[1]), 2)
-        self.assertTrue(mock_call[1]['field_id2name'])
-        self.assertTrue(mock_call[1]['form'])
+        self.assertEqual(len(mock_call), 1)
+        self.assertEqual(['form'], mock_call[0].keys())
 
-        form = mock_call[1]['form']
+        form = mock_call[0]['form']
         self.assertTrue(form.errors['name'])
         self.assertTrue(form.errors['email'])
         self.assertTrue(form.errors['body'])
@@ -81,18 +69,12 @@ class ContactTest(TestCase):
         """
         Test contact page display (POST), all correct & sent
         """
-        contact_form_view = ContactFormView.as_view()
-        request = self.factory.post('/contact/', self.post_vars)
+        response = self.client.post('/contact/', self.post_vars)
 
-        self.assertEqual(len(mail.outbox), 0)
-        response = contact_form_view(request)
+        self.assertRedirects(response, reverse('contact_form_sent'))
         self.assertEqual(len(mail.outbox), 1)
-
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['Location'], '/contact/sent/')
-        self.assertEqual(mail.outbox[0].subject, 'Contact request - edX')
-        self.assertEqual(
-            mail.outbox[0].body,
-            u'Inquiry: My account\nFrom: John Doe <john@example.com>\nPhone: +33664446505\n\nHello! \xe6\xea\xe9\n'
-        )
-
+        self.assertIn('Contact', mail.outbox[0].subject)
+        self.assertIn('FUN', mail.outbox[0].subject)
+        self.assertIn(self.post_vars["name"], mail.outbox[0].body)
+        self.assertIn(self.post_vars["email"], mail.outbox[0].body)
+        self.assertIn(self.post_vars["phone"], mail.outbox[0].body)

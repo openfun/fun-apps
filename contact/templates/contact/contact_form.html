@@ -25,7 +25,7 @@ from django.template.defaultfilters import striptags
           ${ form.non_field_errors() }
           % for field in form:
             % if field.errors:
-              <li>${ field_id2name[field.name] } : ${ striptags(field.errors).lower() }</li>
+              <li>${field.label} : ${ striptags(field.errors).lower() }</li>
             % endif
           % endfor
         </ul
@@ -109,7 +109,7 @@ from django.template.defaultfilters import striptags
       </div>
 
       <div class="form-legend">
-        <p>* Champ obligatoire</p>
+        <p>${_("* Mandatory field")}</p>
       </div>
     </form>
   </section>
