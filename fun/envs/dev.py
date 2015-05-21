@@ -54,6 +54,7 @@ DEBUG_TOOLBAR_PANELS = [
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
+    'JQUERY_URL': '',# use jquery from every page
     'SHOW_TOOLBAR_CALLBACK': "{}.true".format(__name__)
 }
 def true(request):
