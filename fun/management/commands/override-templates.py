@@ -70,6 +70,10 @@ OVERRIDDEN_THEME_TEMPLATES = [
         "lms/templates/navigation.html",
         "templates/navigation.html",
     ),
+    (
+        "lms/templates/register-sidebar.html",
+        "templates/register-sidebar.html",
+    ),
 ]
 
 class Command(BaseCommand):
