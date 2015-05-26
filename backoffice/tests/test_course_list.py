@@ -10,10 +10,12 @@ from django.core.urlresolvers import reverse
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, CourseAboutFactory, ABOUT_ATTRIBUTES
 
+from fun.tests.utils import skipUnlessLms
 from student.models import UserProfile
 from universities.factories import UniversityFactory
 
 
+@skipUnlessLms
 class BaseCourseList(ModuleStoreTestCase):
     def setUp(self):
         super(BaseCourseList, self).setUp(create_user=False)

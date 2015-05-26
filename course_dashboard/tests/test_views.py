@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from student.tests.factories import UserFactory
 
-from course_dashboard import views
 from .base import BaseCourseDashboardTestCase
 
 
@@ -15,7 +14,8 @@ class EnrollmentStatsTestCase(BaseCourseDashboardTestCase):
         return self.get_response("course-dashboard:enrollment-stats", course, response_format=response_format)
 
     def get_enrollment_stats(self, course_id, response_format=None):
-        return self.get_course_id_response("course-dashboard:enrollment-stats", course_id, response_format=response_format)
+        return self.get_course_id_response("course-dashboard:enrollment-stats",
+                                           course_id, response_format=response_format)
 
     def test_empty_enrollment_stats(self):
         response = self.get_course_enrollment_stats(self.course)
@@ -87,6 +87,7 @@ class StudentMapTestCase(BaseCourseDashboardTestCase):
         self.assertIn("France", response.content)
 
     def test_get_country_name(self):
+        from course_dashboard import views
         self.assertEqual(_("France"), views.get_country_name('FR'))
         self.assertEqual(_("Unknown"), views.get_country_name(''))
 

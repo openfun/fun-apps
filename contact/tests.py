@@ -10,8 +10,10 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 
 from contact.views import ContactFormView
+from fun.tests.utils import skipUnlessLms
 
 
+@skipUnlessLms
 @patch.dict('django.conf.settings.FEATURES', {'ENABLE_CONTACT_FORM': True})
 class ContactTest(TestCase):
 

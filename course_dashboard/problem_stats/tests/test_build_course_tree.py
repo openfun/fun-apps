@@ -1,7 +1,12 @@
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+
 from course_dashboard.problem_stats.utils import build_course_tree
 from course_dashboard.problem_stats.tests import sample_courses
 
+from fun.tests.utils import skipUnlessLms
+
+
+@skipUnlessLms
 class BuildCourseTreeTestCase(ModuleStoreTestCase):
     def setUp(self):
         super(BuildCourseTreeTestCase, self).setUp()

@@ -12,15 +12,19 @@ from student.models import UserProfile
 from student.tests.factories import UserFactory
 from courseware.tests.factories import StudentModuleFactory
 from instructor_task.tests.test_base import InstructorTaskModuleTestCase, OPTION_1, OPTION_2
-from instructor_task.tests.test_tasks import PROBLEM_URL_NAME
 
 from course_dashboard.problem_stats.tests.test_problem_monitor import ProblemMonitorTestCase
 from course_dashboard.reports_manager.tasks import generate_answers_distribution_report, get_path
 from course_dashboard.reports_manager.utils import build_answers_distribution_report_name, anonymize_username
 
+from fun.tests.utils import skipUnlessLms
+
+@skipUnlessLms
 @override_settings(SHARED_ROOT='/tmp/shared-test-answers-distribution')
 class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonitorTestCase):
     def setUp(self):
+        from instructor_task.tests.test_tasks import PROBLEM_URL_NAME
+
         super(AnswersDistributionReportsTask, self).setUp()
         self._rm_tree()
         self.initialize_course()

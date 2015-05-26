@@ -3,11 +3,13 @@ from django.db import IntegrityError
 from django.test import TestCase
 import django.utils.translation
 
+from fun.tests.utils import skipUnlessLms
 from newsfeed import models
 
 from .factories import ArticleFactory
 
 
+@skipUnlessLms
 class ArticleTest(TestCase):
 
     def test_create(self):

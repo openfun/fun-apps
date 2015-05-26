@@ -6,9 +6,11 @@ from django.core.urlresolvers import reverse
 
 from student.tests.factories import UserFactory
 
+from fun.tests.utils import skipUnlessLms
 from . import factories
 
 
+@skipUnlessLms
 class ViewArticlesTest(TestCase):
 
     def create_user_and_login(self, as_staff=False):

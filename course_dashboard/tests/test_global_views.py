@@ -3,7 +3,10 @@ from django.core.urlresolvers import reverse
 from student.models import UserProfile
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
+from fun.tests.utils import skipUnlessLms
 
+
+@skipUnlessLms
 class GlobalViewsTestCase(ModuleStoreTestCase):
 
     def setUp(self):

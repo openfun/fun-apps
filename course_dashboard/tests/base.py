@@ -6,11 +6,11 @@ from django.core.urlresolvers import reverse
 from courseware.tests.factories import InstructorFactory
 from student.tests.factories import CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.factories import ItemFactory
+from fun.tests.utils import skipUnlessLms
 
-
+@skipUnlessLms
 class BaseCourseDashboardTestCase(ModuleStoreTestCase):
 
     def setUp(self):

@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User, Group
-from django.test import TestCase
-from django.test.utils import override_settings
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-from student.models import UserProfile, UserStanding
+from student.models import UserStanding
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
+from fun.tests.utils import skipUnlessLms
 from ..models import Course
 from .test_course_list import BaseCourseList
 
 
+@skipUnlessLms
 class TestUsers(BaseCourseList):
     def setUp(self):
         super(TestUsers, self).setUp()
@@ -44,7 +44,8 @@ class TestUsers(BaseCourseList):
         self.assertEqual(200, response.status_code)
 
         self.assertEqual(response.context['enrollments'][0][0], self.course1.display_name)
-        self.assertEqual(response.context['enrollments'][0][1].to_deprecated_string(), self.course1.id.to_deprecated_string())
+        self.assertEqual(response.context['enrollments'][0][1].to_deprecated_string(),
+                         self.course1.id.to_deprecated_string())
         self.assertEqual(response.context['enrollments'][0][2], False)
         self.assertEqual(set(response.context['enrollments'][0][3]), set([u'test_role']))
 
@@ -59,7 +60,7 @@ class TestUsers(BaseCourseList):
             'year_of_birth': u"1973",
             'mailing_address': u"",
             'city': u"",
-            'country': u"" ,
+            'country': u"",
             'goals': u"fun",
         }
         response = self.client.post(reverse('backoffice:user-detail',

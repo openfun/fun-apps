@@ -17,13 +17,14 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from courseware.tests.factories import StaffFactory, InstructorFactory
 from student.models import UserProfile
-from student.roles import GlobalStaff, CourseStaffRole, CourseInstructorRole
-from universities.factories import UniversityFactory
 
 from backoffice import views
+from fun.tests.utils import skipUnlessLms
+from universities.factories import UniversityFactory
 from ..models import Course, Teacher
 
 
+@skipUnlessLms
 class BaseTestCase(ModuleStoreTestCase):
     def setUp(self):
         self.password = super(BaseTestCase, self).setUp()
