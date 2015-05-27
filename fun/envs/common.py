@@ -251,3 +251,7 @@ def update_logging_config(logging_config):
 def configure_raven(sentry_dsn, raven_config, logging_config):
     logging_config['handlers']['sentry']['dsn'] = sentry_dsn
     raven_config['dsn'] = sentry_dsn
+
+# If True, we will monkey patch edX (in fun-apps/selftest/__init__.py)
+# to use our dm-cloud video player instead of Youtube's
+USE_DM_CLOUD_VIDEO_PLAYER = True
