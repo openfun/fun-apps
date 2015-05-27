@@ -100,6 +100,11 @@
         {% if roles %}
           <tr>
             <td colspan="3" class="no-border">
+              <a href="{% url 'about_course' key.to_deprecated_string %}">{{ key }}</a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="no-border">
             {% for role in roles %}
               <span class="label label-primary">{{ role }}</span>
             {% endfor %}
