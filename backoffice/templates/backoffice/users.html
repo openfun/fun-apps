@@ -32,10 +32,18 @@
     </form>
 </div>
 
-<div class="col-md-offset-4 col-md-2">
+<div class="col-md-offset-4 col-md-3">
     {{ total_count }} {% trans "users" %}
     <br>
-    {{ count }} {% trans "displayed" %}
+    {% if request.GET.search %}
+        {% if count > LIMIT_SEARCH_RESULT %}
+            {{ count }} {% trans "results" %} ({{ LIMIT_SEARCH_RESULT }} {% trans "displayed" %})
+        {% else %}
+            {{ count }} {% trans "results" %}
+        {% endif %}
+    {% else %}
+        {{ count }} {% trans "displayed" %}
+    {% endif %}
 </div>
 
 

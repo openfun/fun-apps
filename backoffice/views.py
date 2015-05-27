@@ -242,8 +242,9 @@ def user_list(request):
                 | Q(profile__name__icontains=pattern)
                 )
 
-    users = users[:LIMIT_SEARCH_RESULT]
     count = users.count()
+    users = users[:LIMIT_SEARCH_RESULT]
+
 
     return render(request, 'backoffice/users.html', {
         'users': users,
@@ -251,6 +252,7 @@ def user_list(request):
         'total_count': total_count,
         'form': form,
         'tab': 'users',
+        'LIMIT_SEARCH_RESULT': LIMIT_SEARCH_RESULT,
         })
 
 
