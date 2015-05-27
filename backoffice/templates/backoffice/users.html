@@ -36,13 +36,13 @@
     {{ total_count }} {% trans "users" %}
     <br>
     {% if request.GET.search %}
-        {% if count > LIMIT_SEARCH_RESULT %}
-            {{ count }} {% trans "results" %} ({{ LIMIT_SEARCH_RESULT }} {% trans "displayed" %})
+        {% if count > displayed %}
+            {{ count }} {% trans "results" %} ({{ displayed }} {% trans "displayed" %})
         {% else %}
             {{ count }} {% trans "results" %}
         {% endif %}
     {% else %}
-        {{ count }} {% trans "displayed" %}
+        {{ displayed }} {% trans "displayed" %}
     {% endif %}
 </div>
 

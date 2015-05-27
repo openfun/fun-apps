@@ -97,20 +97,20 @@
             <span title="{% trans 'See user contributions to course forum' %}"class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
           </a>
         </td>
-        {% if roles %}
-          <tr>
-            <td colspan="3" class="no-border">
-              <a href="{% url 'about_course' key.to_deprecated_string %}">{{ key }}</a>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3" class="no-border">
-            {% for role in roles %}
-              <span class="label label-primary">{{ role }}</span>
-            {% endfor %}
-            </td>
-          </tr>
-        {% endif %}
+    <tr>
+        <td colspan="3" class="no-border">
+          <a href="{% url 'about_course' key.to_deprecated_string %}">{{ key }}</a>
+        </td>
+    </tr>
+    {% if roles %}
+        <tr>
+          <td colspan="3" class="no-border">
+          {% for role in roles %}
+            <span class="label label-primary">{{ role }}</span>
+          {% endfor %}
+          </td>
+        </tr>
+      {% endif %}
 
     </tr>
     {% empty %}

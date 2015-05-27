@@ -243,8 +243,8 @@ def user_list(request):
                 )
 
     count = users.count()
-    users = users[:LIMIT_SEARCH_RESULT]
-
+    users = list(users[:LIMIT_SEARCH_RESULT])
+    displayed = min([count, len(users)])
 
     return render(request, 'backoffice/users.html', {
         'users': users,
@@ -252,7 +252,7 @@ def user_list(request):
         'total_count': total_count,
         'form': form,
         'tab': 'users',
-        'LIMIT_SEARCH_RESULT': LIMIT_SEARCH_RESULT,
+        'displayed': displayed,
         })
 
 
