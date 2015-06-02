@@ -1,8 +1,7 @@
 django-admin-sortable2==0.2.5
+django-bootstrap-form==3.2
 django-ckeditor-updated==4.2.8
 django-contact-form==1.0
 django-solo==1.0.3
 unicodecsv==0.9.4
-raven
-reportlab
-django-bootstrap-form==3.2
+raven==5.2.0
