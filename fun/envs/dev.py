@@ -5,8 +5,8 @@ Common settings for LMS & CMS developpement environments
 
 ENVIRONMENT = 'dev'
 
-CMS_BASE = 'localhost:9001'  # Studio web address
-LMS_BASE = 'localhost:9000'  # LMS web address
+CMS_BASE = 'localhost:8001'  # Studio web address
+LMS_BASE = 'localhost:8000'  # LMS web address
 
 PREVIEW_LMS_BASE = LMS_BASE
 
