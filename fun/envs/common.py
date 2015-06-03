@@ -23,6 +23,7 @@ PAYMENT_SUPPORT_EMAIL = "paiements@france-universite-numerique-mooc.fr"
 STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
 STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
 BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
+FAVICON_PATH = "themes/fun/images/favicon.ico"
 
 # those 2 constants are used in code to describe certificate, they are not i18ned, you could do it
 CERT_NAME_SHORT = u"Attestation"
