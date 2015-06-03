@@ -9,6 +9,7 @@ INSTALLED_APPS += (
     'ckeditor',
     'adminsortable',
     'selftest',
+    'password_container',
     'raven.contrib.django.raven_compat',
     )
 
