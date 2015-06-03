@@ -20,6 +20,7 @@ INSTALLED_APPS += (
     'newsfeed',
     'selftest',
     'backoffice',
+    'password_container', # this is an xblock we had to applications to allow syncdb of its models
     )
 
 ROOT_URLCONF = 'fun.lms.urls'
