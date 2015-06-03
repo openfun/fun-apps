@@ -1,22 +1,19 @@
-## -*- coding: utf-8 -*-
-<%! from django.utils.translation import ugettext as _ %>
-<%! from django.template.defaultfilters import escapejs %>
+## coding=utf-8
 <%namespace name='static' file='static_content.html'/>
+<%!
+from django.utils.translation import ugettext as _
+from django.utils.translation import get_language_bidi
+from django.template.defaultfilters import escapejs
+import json
 
-<%
-# We override this file from edx-platform studio to add teacher-sandox CSS file
+dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
 %>
+
+## We override this file from edx-platform studio to add teacher-sandox CSS file
 
 <!doctype html>
-<!--[if IE 7]><html class="ie7 lte9 lte8 lte7" lang="${LANGUAGE_CODE}"><![endif]-->
-<!--[if IE 8]><html class="ie8 lte9 lte8" lang="${LANGUAGE_CODE}"><![endif]-->
-<!--[if IE 9]><html class="ie9 lte9" lang="${LANGUAGE_CODE}"><![endif]-->
-<!--[if gt IE 9]><!--><html lang="${LANGUAGE_CODE}"><!--<![endif]-->
-<%
-    # set doc language direction
-    from django.utils.translation import get_language_bidi
-    dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
-%>
+<!--[if lte IE 9]><html class="ie9 lte9" lang="${LANGUAGE_CODE}"><![endif]-->
+<!--[if !IE]><<!--><html lang="${LANGUAGE_CODE}"><!--<![endif]-->
   <head dir="${dir_rtl}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -25,8 +22,10 @@
         % if context_course:
         <% ctx_loc = context_course.location %>
         ${context_course.display_name_with_default | h} |
+        % elif context_library:
+        ${context_library.display_name_with_default | h} |
         % endif
-        edX Studio
+        ${settings.STUDIO_NAME}
     </title>
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -35,9 +34,7 @@
     <%static:css group='style-vendor'/>
     <%static:css group='style-vendor-tinymce-content'/>
     <%static:css group='style-vendor-tinymce-skin'/>
-    <%static:css group='style-app'/>
-    <%static:css group='style-app-extend1'/>
-    <%static:css group='style-xmodule'/>
+    <%static:css group='style-main'/>
 
     <%include file="widgets/segment-io.html" />
 
@@ -51,10 +48,11 @@
   <body class="${dir_rtl} <%block name='bodyclass'></%block> lang_${LANGUAGE_CODE}">
   <%block name="view_notes"></%block>
 
-    <a class="nav-skip" href="#content">${_("Skip to this view's content")}</a>
+    <a class="nav-skip" href="#content">${_("Skip to main content")}</a>
 
     <script type="text/javascript">
-      window.baseUrl = "${settings.STATIC_URL}";
+      window.baseUrl = ${json.dumps(settings.STATIC_URL)};
+      window.TENDER_SUBDOMAIN = ${json.dumps(settings.TENDER_SUBDOMAIN)};
       var require = {baseUrl: window.baseUrl};
     </script>
     <script type="text/javascript" src="${static.url("js/vendor/require.js")}"></script>
@@ -88,6 +86,9 @@
     </div>
 
     <div id="page-prompt"></div>
+
+    <%block name="modal_placeholder"></%block>
+
     <%block name="jsextra"></%block>
     <script type="text/javascript">
       require(['js/factories/common_deps'], function () {

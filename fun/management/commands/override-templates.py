@@ -41,10 +41,6 @@ OVERRIDDEN_THEME_TEMPLATES = [
         "templates/courseware/course_about.html",
     ),
     (
-        "lms/templates/dashboard/_dashboard_course_listing.html",
-        "templates/dashboard/_dashboard_course_listing.html",
-    ),
-    (
         "lms/templates/registration/password_reset_complete.html",
         "templates/registration/password_reset_complete.html",
     ),
@@ -57,10 +53,6 @@ OVERRIDDEN_THEME_TEMPLATES = [
         "templates/registration/password_reset_email.html",
     ),
     (
-        "cms/templates/500.html",
-        "templates/500.html",
-    ),
-    (
         "lms/templates/index.html",
         "templates/index.html",
     ),
@@ -71,10 +63,6 @@ OVERRIDDEN_THEME_TEMPLATES = [
     (
         "lms/templates/main.html",
         "templates/main.html",
-    ),
-    (
-        "lms/templates/main_django.html",
-        "templates/main_django.html",
     ),
     (
         "lms/templates/navigation.html",
