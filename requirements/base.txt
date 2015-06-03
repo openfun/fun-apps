@@ -13,3 +13,5 @@ raven==5.2.0
 # Password Container XBlock
 -e git+https://github.com/openfun/password-container-xblock.git@master#egg=password_container
 -e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
+
+git+https://github.com/openfun/dmotion-xblock.git@0.1#egg=dmotion-xblock

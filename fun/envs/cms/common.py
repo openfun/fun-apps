@@ -15,21 +15,6 @@ INSTALLED_APPS += (
 
 ROOT_URLCONF = 'fun.cms.urls'
 
-def prefer_fun_xmodules(identifier, entry_points):
-    """
-    Make sure that DmCloud is used as the video xmodule in the studio.
-    """
-    from django.conf import settings
-    if identifier == 'video' and settings.USE_DM_CLOUD_VIDEO_PLAYER:
-        import pkg_resources
-        from xblock.core import XBlock
-        # These entry points are listed in the setup.py of the dmcloud app
-        # Inspired by the XBlock.load_class method
-        entry_points = list(pkg_resources.iter_entry_points(XBlock.entry_point, name='dmcloud'))
-    return prefer_xmodules(identifier, entry_points)
-
-XBLOCK_SELECT_FUNCTION = prefer_fun_xmodules
-
 # edX base cms settings file appends the git revision of the edx-platform repo
 # git revision to STATIC_ROOT and STATIC_URL.  We remove it as we use
 # PipelineCachedStorage for both apps.

@@ -147,8 +147,21 @@ PASSWORD_COMPLEXITY = {
 }
 
 
-from xmodule.modulestore import prefer_xmodules
-XBLOCK_SELECT_FUNCTION = prefer_xmodules
+def prefer_fun_xmodules(identifier, entry_points):
+    """
+    Make sure that we use the correct FUN xmodule for video in the studio
+    """
+    from django.conf import settings
+    from xmodule.modulestore import prefer_xmodules
+    if identifier == 'video' and settings.USE_DM_CLOUD_VIDEO_PLAYER:
+        import pkg_resources
+        from xblock.core import XBlock
+        # These entry points are listed in the setup.py of the dmcloud app
+        # Inspired by the XBlock.load_class method
+        entry_points = list(pkg_resources.iter_entry_points(XBlock.entry_point, name='dmcloud'))
+    return prefer_xmodules(identifier, entry_points)
+
+XBLOCK_SELECT_FUNCTION = prefer_fun_xmodules
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'infrasmtp02.cines.fr'   # we will use the new smtp for transactional emails on all instances
