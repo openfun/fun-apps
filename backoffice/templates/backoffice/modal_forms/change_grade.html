@@ -1,0 +1,12 @@
+{% extends 'backoffice/modal_forms/base_modal_form.html' %}
+{% load i18n %}
+{% block input-form%}
+    <input type="hidden" name="action" value="change-grade">
+    <input type="hidden" name="course-id" value="">
+{% endblock %}
+
+{% block modal-body %}
+    <h3>{% trans "Enter new grade (range from 0 to 1):" %}</h3>
+    <input type="text" class="form-control" name="new-grade">
+    <br><br>
+{% endblock %}
