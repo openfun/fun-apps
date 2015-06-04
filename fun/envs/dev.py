@@ -23,7 +23,8 @@ CELERY_ALWAYS_EAGER = True
 import logging
 
 # Disable noisy loggers
-for pkg_name in ['track.contexts', 'track.middleware', 'dd.dogapi']:
+for pkg_name in ['track.contexts', 'track.middleware', 'dd.dogapi',
+                 'raven.contrib.django.client.DjangoClient', 'raven.base.Client']:
     logging.getLogger(pkg_name).setLevel(logging.CRITICAL)
 
 ################################ EMAIL ########################################
