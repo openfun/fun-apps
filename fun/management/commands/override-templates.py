@@ -94,7 +94,7 @@ this script, make sure your openfun/fork branch is up-to-date."""
         make_option('--branch',
                     default="openfun/fork",
                     help='edx-platform branch to fetch the templates from.'),
-        make_option('--reverse',
+        make_option('--to-edx',
                     action='store_true',
                     default=False,
                     help='Override the edX templates with the templates from fun-apps'),
@@ -117,13 +117,13 @@ this script, make sure your openfun/fork branch is up-to-date."""
         self.edx_repo_path = options['edx_repo']
         self.is_verbose = options['verbose']
 
-        self.override_all(OVERRIDDEN_TEMPLATES, options['fun_repo'], reverse=options["reverse"])
-        self.override_all(OVERRIDDEN_THEME_TEMPLATES, options['theme_repo'], reverse=options["reverse"])
+        self.override_all(OVERRIDDEN_TEMPLATES, options['fun_repo'], to_edx=options["to_edx"])
+        self.override_all(OVERRIDDEN_THEME_TEMPLATES, options['theme_repo'], to_edx=options["to_edx"])
 
-    def override_all(self, templates_to_override, dst_dir, reverse=False):
+    def override_all(self, templates_to_override, dst_dir, to_edx=False):
         for edx_relative_path, dst_relative_path in templates_to_override:
             dst_path = os.path.abspath(os.path.join(dst_dir, dst_relative_path))
-            if reverse:
+            if to_edx:
                 self.reverse_override(edx_relative_path, dst_path)
             else:
                 self.override(edx_relative_path, dst_path)
