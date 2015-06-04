@@ -39,7 +39,7 @@ class Command(BaseCommand):
 Update the %s file to make sure all fun-apps translations are
 up-to-date.
 
-You may also pass the 'all' app name to compile messages for all applications.
+You may also pass the 'all' app name to gather messages for all applications.
 
 After you have collected the messages for an app, don't forget to run the
 following command in the app folder to make sure the new translations are
@@ -55,6 +55,10 @@ properly compiled:
             choices=("fr", "de"),
             default="fr",
             help="Select locale to process."),
+        optparse.make_option('--compile',
+            action="store_true",
+            default=False,
+            help="Run compilemessages after message collection."),
         optparse.make_option('--verbose',
             action="store_true",
             default=False,
@@ -64,28 +68,30 @@ properly compiled:
     def handle(self, *args, **options):
         locale = options["locale"]
         is_verbose = options["verbose"] or options["verbosity"] > 1
-        MessageMaker(self.stdout, is_verbose=is_verbose).handle(args, locale)
+        run_compile = options["compile"]
+        MessageMaker(self.stdout, is_verbose=is_verbose).handle(args, locale, run_compile=run_compile)
 
 class MessageMaker(object):
 
-    def __init__(self, stdout=None, is_verbose=False):
+    def __init__(self, stdout=None, is_verbose=False, run_compile=False):
         self.stdout = stdout or sys.stdout
         self.is_verbose = is_verbose
+        self.run_compile = run_compile
 
-    def handle(self, root_paths, locale):
+    def handle(self, root_paths, locale, run_compile=False):
         for root_path in root_paths:
             if root_path == "all":
-                self.make_all_messages(locale)
+                self.make_all_messages(locale, run_compile=run_compile)
             else:
-                self.make_messages(os.path.abspath(root_path), locale)
+                self.make_messages(os.path.abspath(root_path), locale, run_compile=run_compile)
 
-    def make_all_messages(self, locale):
+    def make_all_messages(self, locale, run_compile=False):
         for app_name in FUN_APPS_TO_TRANSLATE:
-            self.make_messages(app_root_path(app_name), locale)
+            self.make_messages(app_root_path(app_name), locale, run_compile=run_compile)
         # Translate theme
-        self.make_messages(FUN_THEME_PATH, locale)
+        self.make_messages(FUN_THEME_PATH, locale, run_compile=run_compile)
 
-    def make_messages(self, root_path, locale):
+    def make_messages(self, root_path, locale, run_compile=False):
         pot_catalog = make_pot_catalog(root_path)
         path_fun_djangopo = PATH_FUN_DJANGOPO % {"locale": locale, "root_path": root_path}
         path_edx_djangopo = PATH_EDX_DJANGOPO % {"locale": locale}
@@ -99,6 +105,16 @@ class MessageMaker(object):
         if self.is_verbose:
             check_catalog(fun_catalog)
         write_po_catalog(fun_catalog, path_fun_djangopo)
+
+        if run_compile:
+            compile_messages(root_path, locale)
+
+def compile_messages(path, locale):
+    from fun.utils.context import cd, setenv
+    import subprocess
+    with cd(path):
+        with setenv("DJANGO_SETTINGS_MODULE", None):
+            subprocess.call(["/edx/app/edxapp/venvs/edxapp/bin/django-admin.py", "compilemessages", "-l", locale])
 
 def app_root_path(app_name):
     return os.path.join(FUN_APPS_ROOT_DIR, app_name)

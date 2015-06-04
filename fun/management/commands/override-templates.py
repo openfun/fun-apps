@@ -5,6 +5,8 @@ import subprocess
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
+from fun.utils.context import cd
+
 # List of edx-platform/fun-apps tuples that indicate relative paths of templates to override.
 OVERRIDDEN_TEMPLATES = [
     (
@@ -155,17 +157,3 @@ this script, make sure your openfun/fork branch is up-to-date."""
         if self.is_verbose:
             self.stdout.write(message % args)
             self.stdout.write("\n")
-
-
-class cd:
-    """Context manager for changing the current working directory"""
-    def __init__(self, new_path):
-        self.new_path = os.path.expanduser(new_path)
-        self.saved_path = None
-
-    def __enter__(self):
-        self.saved_path = os.getcwd()
-        os.chdir(self.new_path)
-
-    def __exit__(self, etype, value, traceback):
-        os.chdir(self.saved_path)
