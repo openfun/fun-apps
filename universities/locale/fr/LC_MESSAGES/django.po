@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2014-11-13 19:12+0100\n"
+"POT-Creation-Date: 2015-06-08 16:59+0200\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:21
 msgid "An university with parent will be grouped with it in university filtering"
-msgstr ""
+msgstr "Une université avec un parent sera groupée avec lui lors du filtrage"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:37
 msgid "DM API Key"
@@ -31,7 +31,7 @@ msgstr "Dailymotion User ID"
 
 #: /edx/app/edxapp/fun-apps/universities/admin.py:22
 msgid "Daily Motion"
-msgstr ""
+msgstr "Daily Motion"
 
 #: /edx/app/edxapp/fun-apps/universities/admin.py:28
 msgid "Displayed On Site | Banner | Description"
@@ -54,9 +54,8 @@ msgid "Only used is set as featured"
 msgstr "Seulement utilisé si mis en avant"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:20
-#, fuzzy
 msgid "Parent university"
-msgstr "Université"
+msgstr "Université parente"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:29
 msgid ""
@@ -67,6 +66,10 @@ msgstr "Affiche le logo de l'université sur le site"
 #: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:17
 msgid "The universities and schools"
 msgstr "Les universités et écoles françaises"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:46
+msgid "Universities"
+msgstr "Universités"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:33
 msgid "banner"
@@ -82,7 +85,7 @@ msgstr "code"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:35
 msgid "description"
-msgstr ""
+msgstr "description"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:28
 msgid "featured on site"
