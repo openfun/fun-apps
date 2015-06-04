@@ -10,6 +10,10 @@ from fun.utils.context import cd
 # List of edx-platform/fun-apps tuples that indicate relative paths of templates to override.
 OVERRIDDEN_TEMPLATES = [
     (
+        "cms/templates/settings.html",
+        "fun/templates/cms/settings.html"
+    ),
+    (
         "lms/templates/instructor/instructor_dashboard_2/membership.html",
         "forum_contributors/templates/instructor/instructor_dashboard_2/membership.html"
     ),
