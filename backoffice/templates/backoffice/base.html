@@ -50,10 +50,12 @@
       <!-- Django messages display -->
           {% if messages %}
               {% for message in messages %}
-              <div class="alert alert-dismissible alert-{{ message.tags }} " role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <div class="alert alert-dismissible alert-{% if message.tags == 'error'%}danger{% else %}{{message.tags}}{% endif %}" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
                    {{ message|safe }}
-              </div>
+                  </div>
               {% endfor %}
           {% endif %}
 

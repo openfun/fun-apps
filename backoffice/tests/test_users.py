@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
+from certificates.models import GeneratedCertificate
+from certificates.tests.factories import GeneratedCertificateFactory
 from student.models import UserStanding
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
@@ -42,7 +44,6 @@ class TestUsers(BaseCourseList):
         CourseAccessRoleFactory(course_id=self.course1.id, user=self.user2, role=u'test_role')
         response = self.client.get(reverse('backoffice:user-detail', args=[self.user2.username]))
         self.assertEqual(200, response.status_code)
-
         self.assertEqual(response.context['enrollments'][0][0], self.course1.display_name)
         self.assertEqual(response.context['enrollments'][0][1].to_deprecated_string(),
                          self.course1.id.to_deprecated_string())
@@ -105,3 +106,35 @@ class TestUsers(BaseCourseList):
         self.assertEqual(302, response.status_code)
         self.assertTrue(UserStanding.objects.filter(user=self.user2,
                 account_status=UserStanding.ACCOUNT_ENABLED).exists())
+
+    def _create_certificate(self, course, grade):
+        return GeneratedCertificateFactory.create(user_id=self.user2.id,
+                                                  course_id=course.id,
+                                                  grade=str(grade))
+
+    def _change_certificate_grade(self, certificate, new_grade):
+        """ Changes the certificate grade.
+
+        Args:
+         certificate (GeneratedCertificate): The certificate to change the grade from.
+         new_grade (float): The new grade.
+
+        Returns (GeneratedCertificate) : The changed certificate.
+        """
+
+        data = {'action': u"change-grade",
+                'course-id' : str(certificate.course_id),
+                'new-grade': str(new_grade)}
+        self.client.post(reverse('backoffice:user-detail', args=[self.user2.username]),
+                         data)
+        return GeneratedCertificate.objects.get(user=self.user2)
+
+    def test_change_grade(self):
+        certificate = self._change_certificate_grade(self._create_certificate(self.course1, 0.3),
+                                                     0.8)
+        self.assertEqual(certificate.grade, '0.8')
+
+    def test_invalid_grade(self):
+        certificate = self._change_certificate_grade(self._create_certificate(self.course1, 0.3),
+                                                     "SUPERGRADE!!!!")
+        self.assertEqual(certificate.grade, '0.3')

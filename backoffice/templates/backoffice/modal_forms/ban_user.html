@@ -1,0 +1,13 @@
+{% extends 'backoffice/modal_forms/base_modal_form.html' %}
+{% load i18n %}
+{% block input-form%}
+    <input type="hidden" name="action" value="ban-user">
+    <input type="hidden" name="value" value="{% if disabled %}reenable{% else %}disable{% endif %}">
+{% endblock %}
+
+{% block modal-body %}
+    <h3>{% if disabled %}{% trans "Confirm unban of user" %}{% else %}{% trans "Confirm ban of user" %}{% endif %}</h3>
+    {% trans "Full name" context "user-full-name" %}: <strong>{{ userform.instance.profile.name }}</strong><br>
+    {% trans "Username" %}: <strong>{{ userform.instance.username }}</strong>
+    <br><br>
+{% endblock %}

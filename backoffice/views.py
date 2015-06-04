@@ -19,6 +19,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from bulk_email.models import Optout
+from certificates.models import GeneratedCertificate
 from courseware.courses import course_image_url, get_courses, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole, UserStanding
@@ -29,7 +30,7 @@ from universities.models import University
 
 from .forms import FirstRequiredFormSet, SearchUserForm, UserForm, UserProfileForm
 from .models import Course, Teacher
-from .utils import get_course, group_required
+from .utils import get_course, group_required, get_course_key
 from courses.utils import get_about_section
 
 ABOUT_SECTION_FIELDS = ['effort', 'video']
@@ -256,40 +257,73 @@ def user_list(request):
         })
 
 
+def ban_user(request, user):
+    user_account, _created = UserStanding.objects.get_or_create(
+        user=user, defaults={'changed_by': request.user})
+    if request.POST['value'] == 'disable':
+        user_account.account_status = UserStanding.ACCOUNT_DISABLED
+        messages.success(request, _(u"Successfully disabled {}'s account").format(user.username))
+    elif request.POST['value'] == 'reenable':
+        user_account.account_status = UserStanding.ACCOUNT_ENABLED
+        messages.success(request, _(u"Successfully reenabled {}'s account").format(user.username))
+    user_account.changed_by = request.user
+    user_account.standing_last_changed_at = timezone.now()
+    user_account.save()
+
+def change_password(request, user):
+    user.set_password(request.POST['new-password'])
+    user.save()
+    messages.success(request, _(u"User password changed"))
+
+def change_grade(request, user):
+    """ Change a certificate grade per user, per course.
+
+    Grade comes as string and needs to range from 0 to 1.
+    Args:
+         request (HttpRequest): Contains the course id in request.POST['course-id'].
+         user (User): The user attached to the certificate.
+     """
+    course = get_course_key(request.POST['course-id'])
+    generated_certificate = GeneratedCertificate.objects.get(user=user, course_id=course)
+    try:
+        new_grade = float(request.POST['new-grade'])
+    except ValueError:
+        messages.error(request, _(u"Invalid certificate grade."))
+    else:
+        if not 0 <= new_grade <= 1:
+            messages.error(request, _(u"Grades range from 0 to 1."))
+        else:
+            generated_certificate.grade = request.POST['new-grade']
+            generated_certificate.save()
+            messages.success(request, _(u"User grade changed."))
+
+
+user_actions = {'ban-user' : ban_user,
+                'change-password' : change_password,
+                'change-grade' : change_grade}
+
 @group_required('fun_backoffice')
 def user_detail(request, username):
     try:
         user = User.objects.select_related('profile').get(username=username)
     except User.DoesNotExist:
         raise Http404()
+
     if 'action' in request.POST:
-        if request.POST['action'] == 'ban-user':
-            user_account, _created = UserStanding.objects.get_or_create(
-                    user=user, defaults={'changed_by': request.user})
-            if request.POST['value'] == 'disable':
-                user_account.account_status = UserStanding.ACCOUNT_DISABLED
-                messages.success(request, _(u"Successfully disabled {}'s account").format(user.username))
-            elif request.POST['value'] == 'reenable':
-                user_account.account_status = UserStanding.ACCOUNT_ENABLED
-                messages.success(request, _(u"Successfully reenabled {}'s account").format(username))
-            user_account.changed_by = request.user
-            user_account.standing_last_changed_at = timezone.now()
-            user_account.save()
+        action = request.POST.get('action')
+        if action in user_actions:
+            user_actions[action](request, user)
+        else:
+            messages.error(request, _(u"Invalid user action."))
+        return redirect('backoffice:user-detail', username=username)
 
-        elif request.POST['action'] == 'change-password':
-            user.set_password(request.POST['new-password'])
-            user.save()
-            messages.success(request, _(u"User password changed"))
-
-        return redirect('backoffice:user-list')
-
-
+    certificates = GeneratedCertificate.objects.filter(user=user)
 
     userform = UserForm(instance=user, data=request.POST or None)
     userprofileform = UserProfileForm(instance=user.profile, data=request.POST or None)
 
     disabled = UserStanding.objects.filter(user=user,
-        account_status=UserStanding.ACCOUNT_DISABLED)
+                                           account_status=UserStanding.ACCOUNT_DISABLED)
 
     enrollments = []
     optouts = Optout.objects.filter(user=user).values_list('course_id', flat=True)
@@ -320,4 +354,5 @@ def user_detail(request, username):
         'enrollments': enrollments,
         'disabled': disabled,
         'tab': 'users',
+        'certificates' : certificates
         })
