@@ -124,11 +124,11 @@ this script, make sure your openfun/fork branch is up-to-date."""
         for edx_relative_path, dst_relative_path in templates_to_override:
             dst_path = os.path.abspath(os.path.join(dst_dir, dst_relative_path))
             if to_edx:
-                self.reverse_override(edx_relative_path, dst_path)
+                self.copy_to_edx(edx_relative_path, dst_path)
             else:
-                self.override(edx_relative_path, dst_path)
+                self.copy_to_fun(edx_relative_path, dst_path)
 
-    def override(self, edx_relative_path, dst_path):
+    def copy_to_fun(self, edx_relative_path, dst_path):
         """Copy edx-platform template (from openfun/fork branch) to destination file"""
         self.log_override(dst_path, os.path.join(self.edx_repo_path, edx_relative_path))
         with cd(self.edx_repo_path):
@@ -140,7 +140,7 @@ this script, make sure your openfun/fork branch is up-to-date."""
         with open(os.path.join(dst_path), 'w') as fun_file:
             fun_file.write(file_content)
 
-    def reverse_override(self, edx_relative_path, src_path):
+    def copy_to_edx(self, edx_relative_path, src_path):
         """Copy template from src_path to edx-platform"""
         edx_path = os.path.abspath(os.path.join(self.edx_repo_path, edx_relative_path))
         self.log_override(edx_path, src_path)
