@@ -161,7 +161,7 @@ div.pagination span.current {
                                   <p>${get_course_about_section(course, 'short_description')}</p>
                                 </div>
                                 <div class="bottom">
-                                  <span class="start-date-label">Date de début:</span>
+                                    <span class="start-date-label">${_("Start date:")}</span>
                                   % if not course.start_date_is_still_default:
                                   <span class="start-date-date">${format(course.start, 'l d F Y')}</span>
                                   % endif
@@ -178,8 +178,8 @@ div.pagination span.current {
                 </ul>
             % else:
                 <div class="no-result">
-                Il n'y a pas de résultat pour votre recherche.<br>
-                <a href="${reverse('fun-courses-index')}">Voir tous les cours.</a>
+                    ${_("No result found.")}<br>
+                    <a href="${reverse('fun-courses-index')}">${_("View all courses")}</a>
                 </div>
             % endif
         </section>
@@ -196,16 +196,16 @@ div.pagination span.current {
             %>
             <span class="step previous">
                 % if courses.has_previous():
-                    <a href="?page=${ courses.previous_page_number() }${ params }">Page précédente</a>
+                <a href="?page=${ courses.previous_page_number() }${ params }">${_("Previous page")}</a>
                 % endif
             </span>
             <span class="step next">
                 % if courses.has_next():
-                    <a href="?page=${ courses.next_page_number() }${ params }">Page suivante</a>
+                <a href="?page=${ courses.next_page_number() }${ params }">${_("Next page")}</a>
                 % endif
             </span>
             <span class="step current">
-                ${ courses.paginator.count } cours - Page ${ courses.number } sur ${ courses.paginator.num_pages }
+                ${ courses.paginator.count } ${_("courses")} - ${_("Page %d of %d") % (courses.number, courses.paginator.num_pages)}
             </span>
         </div>
     </section>
