@@ -23,8 +23,11 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from bulk_email.models import Optout
 from certificates.models import GeneratedCertificate
 from courseware.courses import course_image_url, get_courses, get_cms_course_link
+from edxmako.shortcuts import render_to_string
+from microsite_configuration import microsite
 from opaque_keys.edx.keys import CourseKey
-from student.models import CourseEnrollment, CourseAccessRole, UserStanding
+from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Registration
+
 from xmodule_django.models import CourseKeyField
 from xmodule.modulestore.django import modulestore
 
@@ -311,9 +314,29 @@ def change_grade(request, user):
             messages.success(request, _(u"User grade changed."))
 
 
+def resend_activation_email(request, user):
+
+    context = {
+            'name': user.profile.name,
+            'key': Registration.objects.get(user=user).activation_key,
+            'site': microsite.get_value('SITE_NAME', settings.SITE_NAME)}
+    subject = ''.join(render_to_string('emails/activation_email_subject.txt', context).splitlines())
+    message = render_to_string('emails/activation_email.txt', context)
+
+    from_address = microsite.get_value(
+        'email_from_address',
+        settings.DEFAULT_FROM_EMAIL
+    )
+    user.email_user(subject, message, from_address)
+    logger.warning(u"Activation email has been resent to user %s at addresse: %s", user.username, user.email)
+    messages.success(request, _(u"Activation email has been resent to user %s at addresse: %s") % (user.username, user.email))
+
+
 user_actions = {'ban-user' : ban_user,
                 'change-password' : change_password,
-                'change-grade' : change_grade}
+                'change-grade' : change_grade,
+                'resend-activation': resend_activation_email,
+                }
 
 @group_required('fun_backoffice')
 def user_detail(request, username):

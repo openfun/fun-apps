@@ -45,22 +45,22 @@
         <form action="." method="POST" class="form-horizontal">
           {% csrf_token %}
           <div class="form-group">
-              <label class="col-sm-4 control-label">{% trans "Account created:" %}</label>
-              <div class="col-sm-8">
-                  <p class="form-control-static">{{ user.date_joined }}</p>
+              <label class="col-sm-5 control-label">{% trans "Account created:" %}</label>
+              <div class="col-sm-7">
+                  <p class="form-control-static">{{ userform.instance.date_joined }}</p>
               </div>
-              <label class="col-sm-4 control-label">{% trans "Last connection:" %}</label>
-              <div class="col-sm-8">
-                  <p class="form-control-static">{{ user.last_login }}</p>
+              <label class="col-sm-5 control-label">{% trans "Last connection:" %}</label>
+              <div class="col-sm-7">
+                  <p class="form-control-static">{{ userform.instance.last_login }}</p>
               </div>
-              <label class="col-sm-4 control-label">{% trans "Is active:" %}</label>
-              <div class="col-sm-8">
+              <label class="col-sm-5 control-label">{% trans "Is active:" %}</label>
+              <div class="col-sm-7">
                   <p class="form-control-static">
-                  {% if user.is_active %}
+                  {% if userform.instance.is_active %}
                       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;&nbsp;<span class="label label-success">{% trans "Email is OK" %}</span>
                   {% else %}
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;<span class="label label-warning">{% trans "User does not validate it email address" %}</span>
-                  {% endif%}</p>
+                  {% endif %}</p>
               </div>
 
             </div>
@@ -82,80 +82,94 @@
         </form>
     </div>
     <div class="col-md-6">
-        <h3>{% trans "Enrollments" %}</h3>
-        <table class="table table-condensed">
-        <tr>
-            <th>{% trans "Course" %}</th>
-            <th>{% trans "Opt out" %}</th>
-            <th>{% trans "Forum" %}</th>
-        </tr>
-        {% for title, key, optout, roles in enrollments %}
-        <tr>
-            <td>{{ title }}</td>
-            <td class="text-center">
-                {% if optout %}
-                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" title="{% trans 'User has opted out key emails' %}"></span>
-                {% endif %}
-            </td>
-            <td class="text-center">
-                <a target="_blank" href="{% url 'user_profile' key userform.instance.id %}">
-                    <span title="{% trans 'See user contributions to course forum' %}"class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                </a>
-            </td>
-        <tr>
-            <td colspan="3" class="no-border">
-                <a href="{% url 'about_course' key.to_deprecated_string %}">{{ key }}</a>
-            </td>
-        </tr>
-        {% if roles %}
-        <tr>
-            <td colspan="3" class="no-border">
-            {% for role in roles %}
-                <span class="label label-primary">{{ role }}</span>
-            {% endfor %}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% empty %}
-            <tr><td colspan="3">{% trans "No course enrollments" %}</td></tr>
-        {% endfor %}
-        </table>
-
-
-        <button class="btn btn-warning" data-toggle="modal" data-target="#change-password">
-            {% trans "Change password" context "change-user-password" %}
-        </button>
-
-        {% if request.user != userform.instance %}
-            <button class="btn btn-warning" data-toggle="modal" data-target="#ban-user">
-            {% if disabled %}
-                {% trans "Unban" %}
-            {% else %}
-                {% trans "Ban" %}
-            {% endif %}
-            </button>
-        {% endif %}
-
-        <h3>{% trans "Certificates" context "change-user-grade"%}</h3>
-        <table class="table table-condensed">
+        <div class="col-md-12">
+            <h3>{% trans "Enrollments" %}</h3>
+            <table class="table table-condensed">
             <tr>
                 <th>{% trans "Course" %}</th>
-                <th>{% trans "Grade" %} </th>
-                <th>{% trans "Status" %}</th>
-                <th>{% trans "Pdf" %}</th>
+                <th>{% trans "Opt out" %}</th>
+                <th>{% trans "Forum" %}</th>
             </tr>
-            {% for certificate in certificates %}
-                <tr>
-                    <td>{{ certificate.course_id }}</td>
-                    <td> {{ certificate.grade }} <a class="btn"><span id='change-grade-button' data-course-id="{{certificate.course_id}}" class='glyphicon glyphicon-pencil' data-toggle="modal" data-target="#change-grade"></span></a></td>
-                    <td>{{ certificate.status }}</td>
-                    <td>{{ certificate.download_url }}</td>
-                </tr>
+            {% for title, key, optout, roles in enrollments %}
+            <tr>
+                <td>{{ title }}</td>
+                <td class="text-center">
+                    {% if optout %}
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" title="{% trans 'User has opted out key emails' %}"></span>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a target="_blank" href="{% url 'user_profile' key userform.instance.id %}">
+                        <span title="{% trans 'See user contributions to course forum' %}"class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="no-border">
+                    <a href="{% url 'about_course' key.to_deprecated_string %}">{{ key }}</a>
+                </td>
+            </tr>
+            {% if roles %}
+            <tr>
+                <td colspan="3" class="no-border">
+                {% for role in roles %}
+                    <span class="label label-primary">{{ role }}</span>
+                {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
+
             {% empty %}
-                <tr><td colspan="3">{% trans "No certificates generated." %}</td></tr>
+                <tr><td colspan="3">{% trans "No course enrollments" %}</td></tr>
             {% endfor %}
-        </table>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+
+            <button class="btn btn-warning" data-toggle="modal" data-target="#change-password">
+                {% trans "Change password" context "change-user-password" %}
+            </button>
+
+            {% if request.user != userform.instance %}
+                <button class="btn btn-warning" data-toggle="modal" data-target="#ban-user">
+                {% if disabled %}
+                    {% trans "Unban" %}
+                {% else %}
+                    {% trans "Ban" %}
+                {% endif %}
+                </button>
+            {% endif %}
+
+            {% if not userform.instance.is_active %}
+                <form action="." method="POST" style="display: inline">
+                    <input type="hidden" name="action" value="resend-activation">{% csrf_token %}
+                    <button class="btn btn-info" type="submit">{% trans "Resend activation email" %}</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="col-md-12">
+            <h3>{% trans "Certificates" context "change-user-grade"%}</h3>
+            <table class="table table-condensed">
+                <tr>
+                    <th>{% trans "Course" %}</th>
+                    <th>{% trans "Grade" %} </th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Pdf" %}</th>
+                </tr>
+                {% for certificate in certificates %}
+                    <tr>
+                        <td>{{ certificate.course_id }}</td>
+                        <td> {{ certificate.grade }} <a class="btn"><span id='change-grade-button' data-course-id="{{certificate.course_id}}" class='glyphicon glyphicon-pencil' data-toggle="modal" data-target="#change-grade"></span></a></td>
+                        <td>{{ certificate.status }}</td>
+                        <td>{{ certificate.download_url }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="3">{% trans "No certificates generated." %}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
 
