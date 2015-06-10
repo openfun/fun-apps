@@ -18,6 +18,8 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+
 from bulk_email.models import Optout
 from certificates.models import GeneratedCertificate
 from courseware.courses import course_image_url, get_courses, get_cms_course_link
@@ -48,7 +50,7 @@ FunCourse = namedtuple('FunCourse', [
     'studio_url'
 ] + ABOUT_SECTION_FIELDS)
 
-LIMIT_SEARCH_RESULT = 100
+LIMIT_BY_PAGE = 100
 
 
 def get_about_sections(course_descriptor):
@@ -228,11 +230,24 @@ def course_detail(request, course_key_string):
         })
 
 
+def order_and_paginater_queryset(request, queryset, default_order):
+    order = request.GET.get('order', default_order)
+    direction = '' if 'd' in request.GET else '-'
+    try:
+        page = request.GET.get('page', 1)
+    except PageNotAnInteger:
+        page = 1
+    queryset = queryset.order_by(direction + order)
+    paginator = Paginator(queryset, LIMIT_BY_PAGE, request=request)
+    slice = paginator.page(page)
+    return slice
+
+
 @group_required('fun_backoffice')
 def user_list(request):
 
     form = SearchUserForm(data=request.GET)
-    users = User.objects.select_related('profile').exclude(profile__isnull=True).order_by('-date_joined')
+    users = User.objects.select_related('profile').exclude(profile__isnull=True)
 
     total_count = users.count()
 
@@ -242,10 +257,9 @@ def user_list(request):
                 | Q(email__icontains=pattern)
                 | Q(profile__name__icontains=pattern)
                 )
-
     count = users.count()
-    users = list(users[:LIMIT_SEARCH_RESULT])
-    displayed = min([count, len(users)])
+
+    users = order_and_paginater_queryset(request, users, 'date_joined')
 
     return render(request, 'backoffice/users.html', {
         'users': users,
@@ -253,7 +267,6 @@ def user_list(request):
         'total_count': total_count,
         'form': form,
         'tab': 'users',
-        'displayed': displayed,
         })
 
 

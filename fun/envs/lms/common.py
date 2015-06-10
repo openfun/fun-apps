@@ -21,6 +21,7 @@ INSTALLED_APPS += (
     'selftest',
     'backoffice',
     'password_container', # this is an xblock we had to applications to allow syncdb of its models
+    'pure_pagination',
     )
 
 ROOT_URLCONF = 'fun.lms.urls'
@@ -131,4 +132,9 @@ GRADES_DOWNLOAD = {
     'STORAGE_TYPE': 'localfs',
     'BUCKET': 'edx-grades',
     'ROOT_PATH': '/edx/var/edxapp/grades',
+}
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 10,
+    'MARGIN_PAGES_DISPLAYED': 10,
 }
