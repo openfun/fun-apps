@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext
 
 from ckeditor.fields import RichTextField
 
@@ -43,7 +44,7 @@ class University(models.Model):
     class Meta:
         ordering = ('order', 'id',)
         verbose_name = _('University')
-        verbose_name_plural = _('Universities')
+        verbose_name_plural = pgettext('University model', 'Universities')
 
     def __unicode__(self):
         return self.name
