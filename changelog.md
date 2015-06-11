@@ -1,5 +1,18 @@
 # Changelog www.france-universite-numerique.fr
 
+## 2.14 16/06/2015
+- Merge edX au 26/05/2015
+    - Visualisation et édition des profils utilisateurs
+- Backoffice utilisateurs:
+	- pagination, tri par colonne
+	- renvoi du mail d'activation
+	- bouton pour modifier la note d'une attestation
+- Utilisation des vidéos DailyMotion via l'ajout d'un module dans les paramètres avancés
+
+
+## 2.13 26/05/2015
+- Ajout des conditions de confidentialité CNIL
+- Modifications mineures
 
 ## 2.12 12/05/2015
 - Mise à jour des mentions légales
