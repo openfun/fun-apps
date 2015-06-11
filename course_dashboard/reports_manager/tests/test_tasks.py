@@ -52,7 +52,7 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
         StudentModuleFactory(course_id=self.course.id,
                              module_state_key=self.problem_module.location,
                              student=UserFactory(username=self.username,
-                                                 profile__year_of_birth=u'1989',
+                                                 profile__year_of_birth=1989,
                                                  profile__level_of_education=u'bac'),
                              state=json.dumps(self._build_student_module_state(cmap, student_answers)))
 
@@ -71,6 +71,7 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
 
     def test_generate_answers_distribution_report(self):
         self._create_student_module_entry()
+
         self._launch_task()
         rows = self._read_report_file(get_path(self.running_report_name,
                                                self.problem_module.location))
