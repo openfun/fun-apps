@@ -32,11 +32,11 @@ class BuildCourseTreeTestCase(ModuleStoreTestCase):
                                'state': {'opened': True},
                                'children': [
                                    {'text': 'Blank Advanced Problem',
-                                    'a_attr': {'href': '/courses/FUN/toy/SPRING_2015/fun/dashboard/problem_stats/get_stats/89b2ed2a06ce4f9f8dcd26fee087b60a'},
+                                    'a_attr': {'href': "/courses/{}/fun/dashboard/problem_stats/get_stats/89b2ed2a06ce4f9f8dcd26fee087b60a".format(str(self.course.id))},
                                     'state': {'opened': True},
                                     'children': [],
                                     'li_attr': {'category': 'problem',
-                                                'report_url': '/courses/FUN/toy/SPRING_2015/fun/dashboard/reports_manager/generate/89b2ed2a06ce4f9f8dcd26fee087b60a/'},
+                                                'report_url': "/courses/{}/fun/dashboard/reports_manager/generate/89b2ed2a06ce4f9f8dcd26fee087b60a/".format(str(self.course.id))},
                                     'icon': 'glyphicon glyphicon-pencil'}],
                                'li_attr': {'category': 'other', 'report_url': '#'},
                                'icon': 'default'}],
@@ -46,8 +46,5 @@ class BuildCourseTreeTestCase(ModuleStoreTestCase):
                      'icon': 'default'}],
                 'li_attr': {'category': 'other', 'report_url': '#'},
                 'icon': 'default'}
-
         course_tree = build_course_tree(self.course)
         self.assertEqual(tree, course_tree)
-
-

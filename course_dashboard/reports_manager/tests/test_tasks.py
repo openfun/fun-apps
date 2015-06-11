@@ -29,7 +29,8 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
         self._rm_tree()
         self.initialize_course()
         self.define_option_problem(problem_url_name=PROBLEM_URL_NAME)
-        self.problem_module = self.store.get_item(self.problem_location(PROBLEM_URL_NAME))
+        self.problem_module = self.store.get_item(self.problem_location(PROBLEM_URL_NAME,
+                                                                        self.course.id))
         self.running_report_name = build_answers_distribution_report_name(self.problem_module)
         self.username = 'joe'
 
