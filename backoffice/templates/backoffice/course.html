@@ -22,7 +22,6 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Information" %}</a></li>
-    <li role="presentation"><a href="#teachers" aria-controls="profile" role="tab" data-toggle="tab">{% trans "Teachers" %}</a></li>
   </ul>
 
 
@@ -83,51 +82,6 @@
 
     </div>
 
-
-    <div role="tabpanel" class="tab-pane" id="teachers">
-
-      <h2>{% trans 'Teachers' %}</h2>
-
-      <p>{% trans "You may enter here the names and titles of the teachers as they will appear on the certificates" %}</p>
-
-      <form action="{% url 'backoffice:course-detail' course_info.course.id %}" method="POST">
-        <input type="hidden" name="action" value="update-teachers">
-        <fieldset>
-          {{ teacher_formset.management_form }}
-          {% csrf_token %}
-          <div class="teachers-form" data-add-button-caption="{%trans 'Add teacher' %}">
-
-            {% for teacher_form in teacher_formset %}
-              {% if teacher_form.non_field_errors %}
-              <div class="panel panel-default">
-                <div class="panel-body text-danger">
-                  {% for error in teacher_form.non_field_errors %}
-                    {{ error }}
-                  {% endfor %}
-                </div>
-              </div>
-              {% endif %}
-
-              <div class="teacher-row form-group form-inline">
-                {{ teacher_form.id }}
-                <label>{% trans "Title:" %}</label>
-                {{ teacher_form.title }}
-                &nbsp;&nbsp;&nbsp;<label>{% trans "Full name:" %}</label>
-                {{ teacher_form.full_name }}
-                {% if teacher_form.full_name.errors %}<span class="text-danger">  {{ teacher_form.full_name.errors.0 }}</span>{% endif %}
-                {{ teacher_form.order }}
-                {% if teacher_form.instance.id %}{{ teacher_form.DELETE }} <label for="{{ teacher_form.DELETE.id_for_label }}">{% trans 'Delete' %}</label>{% endif %}
-              </div>
-            {% endfor %}
-          </div>
-          <div class=" btn-toolbar">
-          <span class="teachers-form-button-group"></span>
-            <input class="btn btn-primary" type="submit" value="{% trans 'Save' %}">
-          </div>
-        </fieldset>
-      </form>
-
-    </div>
   </div>
 
 </div>

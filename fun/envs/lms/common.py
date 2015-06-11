@@ -3,7 +3,6 @@
 from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
-
 INSTALLED_APPS += (
     'fun',
     'adminsortable',
@@ -22,6 +21,7 @@ INSTALLED_APPS += (
     'backoffice',
     'password_container', # this is an xblock we had to applications to allow syncdb of its models
     'pure_pagination',
+    'teachers',
     )
 
 ROOT_URLCONF = 'fun.lms.urls'

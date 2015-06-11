@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from capa.xqueue_interface import make_hashkey
 from instructor_task.models import InstructorTask
 
-from backoffice.models import Teacher
+from teachers.models import CertificateTeacher
 from fun_certificates.generator import CertificateInfo
 from universities.models import University
 
@@ -72,7 +72,8 @@ def get_teachers_list_from_course(course_key):
     Return the teachers/title list attached to course
     """
 
-    teachers = Teacher.objects.filter(course__key=str(course_key))
+    teachers = [certificate_teacher.teacher for certificate_teacher in \
+        CertificateTeacher.objects.filter(course__key=str(course_key)).select_related("teacher")]
     teachers_list = [u"{}/{}".format(teacher.full_name, teacher.title) for teacher in teachers]
     return teachers_list
 

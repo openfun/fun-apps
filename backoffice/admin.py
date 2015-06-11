@@ -8,12 +8,6 @@ from djcelery.models import TaskMeta, TaskSetMeta
 
 from student.models import LoginFailures
 
-from .models import Course, Teacher
-
-
-admin.site.register(Course)
-admin.site.register(Teacher)
-
 
 # proxy models allow us to override django_celery admin settings.
 class TaskMetaProxy(TaskMeta):

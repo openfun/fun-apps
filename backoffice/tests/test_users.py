@@ -11,7 +11,7 @@ from student.models import UserStanding, Registration
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
 from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
-from ..models import Course
+from courses.models import Course
 from .test_course_list import BaseCourseList
 
 
@@ -55,7 +55,6 @@ class TestUsers(BaseCourseList):
         self.assertTrue(self.user2 in users)
         self.assertTrue(self.user3 not in users)
         self.assertTrue(self.user not in users)
-
 
     def test_user_detail(self):
         CourseEnrollmentFactory(course_id=self.course1.id, user=self.user2)
@@ -178,3 +177,4 @@ class TestUsers(BaseCourseList):
         response = self.client.post(reverse('backoffice:user-detail',
                 args=[self.user2.username]), data)
         self.assertEquals(len(mail.outbox), 1)
+

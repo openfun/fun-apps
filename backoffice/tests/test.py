@@ -21,7 +21,7 @@ from student.models import UserProfile
 from backoffice import views
 from fun.tests.utils import skipUnlessLms
 from universities.factories import UniversityFactory
-from ..models import Course, Teacher
+from courses.models import Course
 
 
 @skipUnlessLms
@@ -130,64 +130,6 @@ class TestDeleteCourse(BaseCourseDetail):
         self.assertIn(_(u"University with code <strong>%s</strong> does not exist.") % self.course.id.org,
                       response.content.decode('utf-8'))
 
-
-class TestAddTeachers(BaseCourseDetail):
-    def test_add(self):
-        response = self.client.get(self.url)  # call view to create the related fun course
-        self.assertEqual(200, response.status_code)
-
-        data = {
-            'action': 'update-teachers',
-            'teachers-TOTAL_FORMS': '2',
-            'teachers-INITIAL_FORMS': '0',
-            'teachers-MAX_NUM_FORMS': '5',
-            'teachers-0-id': '',
-            'teachers-0-order': 0,
-            'teachers-0-full_name': "Mabuse",
-            'teachers-0-title': "Doctor",
-            'teachers-0-DELETE': False,
-            'teachers-1-id': '',
-            'teachers-1-order': 0,
-            'teachers-1-DELETE': False,
-            'teachers-1-full_name': "Who",
-            'teachers-1-title': "Doctor",
-        }
-        response = self.client.post(self.url, data)
-        self.assertEqual(302, response.status_code)
-        funcourse = Course.objects.get(key=self.course.id.to_deprecated_string())
-        self.assertEqual(2, funcourse.teachers.count())
-
-
-class TestDeleteTeachers(BaseCourseDetail):
-    def test_delete(self):
-        funcourse = Course.objects.create(key=self.course.id.to_deprecated_string())
-        t1 = Teacher.objects.create(course=funcourse, full_name="Mabuse", title="Doctor")
-        t2 = Teacher.objects.create(course=funcourse, full_name="Who", title="Doctor")
-        self.assertEqual(2, funcourse.teachers.count())
-
-        response = self.client.get(self.url)
-        self.assertEqual(200, response.status_code)
-        self.assertIn("Mabuse", response.content)
-        data = {
-            'action': 'update-teachers',
-            'teachers-TOTAL_FORMS': '2',
-            'teachers-INITIAL_FORMS': '2',
-            'teachers-MAX_NUM_FORMS': '5',
-            'teachers-0-id': t1.id,
-            'teachers-0-order': 0,
-            'teachers-0-full_name': "Mabuse",
-            'teachers-0-title': "Doctor",
-            'teachers-0-DELETE': True,
-            'teachers-1-id': t2.id,
-            'teachers-1-order': 0,
-            'teachers-1-DELETE': False,
-            'teachers-1-full_name': "Who",
-            'teachers-1-title': "Doctor",
-            }
-
-        response = self.client.post(self.url, data)
-        self.assertEqual(302, response.status_code)
-        self.assertEqual(1, funcourse.teachers.count())
 
 class TestRenderRoles(BaseCourseDetail):
     def setUp(self):
