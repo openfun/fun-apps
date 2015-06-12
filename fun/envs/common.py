@@ -201,6 +201,15 @@ ORA2_FILEUPLOAD_CACHE_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissio
 ORA2_FILEUPLOAD_CACHE_NAME = "openassessment_submissions"
 FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
 
+# Profile image upload
+PROFILE_IMAGE_BACKEND = {
+    'class': 'storages.backends.overwrite.OverwriteStorage',
+    'options': {
+        'location': os.path.join(MEDIA_ROOT, 'profile-images/'),
+        'base_url': os.path.join(MEDIA_URL, 'profile-images/'),
+    },
+}
+
 def ensure_directory_exists(directory):
     if not os.path.exists(directory):
         os.mkdir(directory)
