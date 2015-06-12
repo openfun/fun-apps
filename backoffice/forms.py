@@ -42,10 +42,13 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
+        # i18n fields labels and choices
         for field in self.fields.values():
             if 'rows' in field.widget.attrs:
                 field.widget.attrs['rows'] = 3
-            field.label = _(field.label)  # i18n exists, but fields have no labels
+            field.label = _(field.label)
+            if isinstance(field, forms.fields.TypedChoiceField):
+                field.choices = [(key, _(value)) for key, value in field.choices]
 
     class Meta:
         model = UserProfile

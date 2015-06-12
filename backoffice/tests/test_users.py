@@ -2,11 +2,12 @@
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.core import mail
 from django.core.urlresolvers import reverse
 
 from certificates.models import GeneratedCertificate
 from certificates.tests.factories import GeneratedCertificateFactory
-from student.models import UserStanding
+from student.models import UserStanding, Registration
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
 from fun.tests.utils import skipUnlessLms
@@ -28,16 +29,18 @@ class TestUsers(BaseCourseList):
     def test_user_list(self):
         response = self.client.get(reverse('backoffice:user-list'))
         self.assertEqual(200, response.status_code)
-        self.assertTrue(self.user2 in response.context['users'])
-        self.assertTrue(self.user in response.context['users'])
-        self.assertTrue(self.user3 not in response.context['users'])
+        users = response.context['users'].object_list
+        self.assertTrue(self.user2 in users)
+        self.assertTrue(self.user in users)
+        self.assertTrue(self.user3 not in users)
 
     def test_user_list_filtering(self):
         response = self.client.get(reverse('backoffice:user-list') + '?search=user1')
+        users = response.context['users'].object_list
         self.assertEqual(200, response.status_code)
-        self.assertTrue(self.user2 in response.context['users'])
-        self.assertTrue(self.user3 not in response.context['users'])
-        self.assertTrue(self.user not in response.context['users'])
+        self.assertTrue(self.user2 in users)
+        self.assertTrue(self.user3 not in users)
+        self.assertTrue(self.user not in users)
 
     def test_user_detail(self):
         CourseEnrollmentFactory(course_id=self.course1.id, user=self.user2)
@@ -138,3 +141,26 @@ class TestUsers(BaseCourseList):
         certificate = self._change_certificate_grade(self._create_certificate(self.course1, 0.3),
                                                      "SUPERGRADE!!!!")
         self.assertEqual(certificate.grade, '0.3')
+
+    def test_resend_activation_email_button(self):
+        self.user2.is_active = False
+        self.user2.save()
+        response = self.client.get(reverse('backoffice:user-detail', args=[self.user2.username]))
+        self.assertIn('value="resend-activation"', response.content)
+
+        self.user3.is_active = True
+        self.user3.save()
+        response = self.client.get(reverse('backoffice:user-detail', args=[self.user3.username]))
+        self.assertNotIn('value="resend-activation"', response.content)
+
+    def test_resend_activation_email(self):
+        self.user2.is_active = False
+        self.user2.save()
+        Registration.objects.create(user=self.user2, activation_key='test_activation_key')
+        data = {
+            'action': u"resend-activation"
+        }
+        response = self.client.post(reverse('backoffice:user-detail',
+                args=[self.user2.username]), data)
+        self.assertEquals(len(mail.outbox), 1)
+

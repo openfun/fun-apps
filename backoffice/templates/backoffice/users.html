@@ -1,75 +1,74 @@
 {% extends 'backoffice/base.html' %}
 {% load url from future %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles tables %}
 
 {% block extr_js %}
-<script>
-    $(document).ready(function() {
-        $('#user-list').DataTable({
-            paging: false,
-            searching: false,
-            info: false,
-        });
-    } );
-</script>
 {% endblock %}
 
 
 {% block extra_head %}
 <style>
-
+#user-list {
+    margin-top: 20px;
+}
 </style>
 {% endblock %}
 
 {% block content %}
+<div class="row">
+    <div class="col-md-5">
+        <form method="GET" action=".">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1">{% trans "Search" %}</span>
+                <input type="text" class="form-control" placeholder="{% trans 'by username, name or email' %}" aria-describedby="sizing-addon1" value="{{ request.GET.search|default:'' }}" name="search">
+            </div>
+        </form>
+    </div>
 
-<div class="col-md-5">
-    <form method="GET" action=".">
-        <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon1">{% trans "Search" %}</span>
-            <input type="text" class="form-control" placeholder="{% trans 'by username, name or email' %}" aria-describedby="sizing-addon1" value="{{ request.GET.search|default:'' }}" name="search">
-        </div>
-    </form>
-</div>
-
-<div class="col-md-offset-4 col-md-3">
-    {{ total_count }} {% trans "users" %}
-    <br>
-    {% if request.GET.search %}
-        {% if count > displayed %}
-            {{ count }} {% trans "results" %} ({{ displayed }} {% trans "displayed" %})
-        {% else %}
+    <div class="col-md-offset-4 col-md-3">
+        {{ total_count }} {% trans "users" %}
+        <br>
+        {% if request.GET.search %}
             {{ count }} {% trans "results" %}
         {% endif %}
-    {% else %}
-        {{ displayed }} {% trans "displayed" %}
-    {% endif %}
+    </div>
 </div>
 
+{% if users.object_list %}
 
-{% if users %}
+<div class="row">
+    <table class="table table-condensed" id="user-list">
+        <thead>
+            <tr>
+                <th>{% order_col "profile__name" "Full name" "Full name" %}</th>
+                <th>{% order_col "username" "Username" "Username" %}</th>
+                <th>{% order_col "email" "Email" "Email" %}</th>
+                <th>{% order_col "date_joined" "Account creation date" "Account creation date" %}</th>
+            </tr>
+        </thead>
 
-<table class="table table-condensed" id="user-list">
-    <thead>
+        {% for user in users.object_list %}
         <tr>
-            <th>{% trans "Full name" context "user-full-name" %}</th>
-            <th>{% trans 'Username' %}</th>
-            <th>{% trans 'email' %}</th>
-            <th>{% trans 'Account creation date' %}</th>
+            <td><a href="{% url 'backoffice:user-detail' user.username %}">{{ user.profile.name|default:"Pas de profile utilsateur" }}</a></td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.date_joined }}</td>
         </tr>
-    </thead>
+        {% endfor %}
 
-    {% for user in users %}
-    <tr>
-        <td><a href="{% url 'backoffice:user-detail' user.username %}">{{ user.profile.name|default:"Pas de profile utilsateur" }}</a></td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.date_joined }}</td>
-    </tr>
-    {% endfor %}
+    </table>
+</div>
 
-</table>
-
+<div class="row">
+    <div id="pagination">
+        {{ users.render }}
+    </div>
+</div>
+{% else %}
+<div class="row">
+    {% trans "No result" %}
+</div>
 
 {% endif %}
+
 {% endblock %}
