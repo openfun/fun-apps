@@ -13,29 +13,9 @@ from django.utils.dateformat import format
 
 <%inherit file="../main.html" />
 
+<%block name="headextra">
+
 <style>
-
-.funstatus{
-    background: none repeat scroll 0 0 #0E4586;
-    border-radius: 2px;
-    color: #FFFFFF;
-    font-size: 10px;
-    left: 10px;
-    padding: 2px 10px;
-    position: absolute;
-    text-transform: uppercase;
-    top: -18px;
-    z-index: 100;
-}
-
-.courses ul {
-    margin : 1.5em 0;
-}
-
-#course-title
-{
-    font-size : 14px;
-}
 
 .courses-list-filter {
     text-align: right;
@@ -68,7 +48,6 @@ from django.utils.dateformat import format
     color: #3a76bb;
     font-weight: bold;
 }
-
 
 /* form */
 .fun-courses-filter-button {
@@ -122,6 +101,8 @@ div.pagination span.current {
 }
 
 </style>
+</%block>
+
 
 <section class="find-courses">
     <section class="courses-container">
