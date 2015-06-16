@@ -1,6 +1,9 @@
 ## mako
 <%!
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from courseware.courses import course_image_url, get_course_about_section
+from django.utils.dateformat import format
 %>
 
 <%namespace name='static' file='../static_content.html'/>
@@ -11,6 +14,7 @@ from django.utils.translation import ugettext as _
 <%inherit file="../main.html" />
 
 <%block name="body">
+
   <section class="university-courses">
     <section class="introduction container">
       % if university.banner:
@@ -28,18 +32,14 @@ from django.utils.translation import ugettext as _
       ${ university.description }
       </%block>
     </section>
-    <section id="courses-list" class="find-courses container">
-      <section class="courses">
-        <ul class="courses-listing">
-          % for course in courses:
-          <li class="courses-listing-item">
-            <%include file="../course.html" args="course=course" />
-          </li>
-          % endfor
-        </ul>
-      </section>
 
+    <section class="find-courses">
+
+        <section id="courses-list" class="courses-container">
+            <section class="courses">
+                <%include file="/courses/listing.html"/>
+            </section>
+        </section>
     </section>
-  </section>
 </%block>
 
