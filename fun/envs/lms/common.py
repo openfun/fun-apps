@@ -84,8 +84,9 @@ MIDDLEWARE_CLASSES[
 
 TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
-# add 'forum_contributors' application templates directory to MAKO template finder...
+# add application templates directory to MAKO template finder
 MAKO_TEMPLATES['main'] = [
+    FUN_BASE_ROOT / 'courses/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
 ] + MAKO_TEMPLATES['main']

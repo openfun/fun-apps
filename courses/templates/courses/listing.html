@@ -1,0 +1,45 @@
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from courseware.courses import course_image_url, get_course_about_section
+from django.utils.dateformat import format
+%>
+
+<ul class="courses-listing">
+  %for course in courses:
+    <li class="courses-listing-item-fun">
+        <article id="${course.id.to_deprecated_string()}" class="course">
+          %if course.is_newish:
+            <span class="funstatus">${_("New")}</span>
+          %endif
+          <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+          <div class="inner-wrapper">
+              <header class="course-preview">
+                <hgroup>
+                  <h2 id="course-title"><span class="course-number">${course.display_number_with_default | h}</span> ${get_course_about_section(course, 'title')}</h2>
+                </hgroup>
+                <div class="info-link">&#x2794;</div>
+              </header>
+              <section class="info">
+                <div class="cover-image">
+                  <img src="${course_image_url(course)}?width=300" alt="${course.display_number_with_default | h} ${get_course_about_section(course, 'title')} Image de présentation" />
+                </div>
+                <div class="desc">
+                  <p>${get_course_about_section(course, 'short_description')}</p>
+                </div>
+                <div class="bottom">
+                    <span class="start-date-label">${_("Start date:")}</span>
+                  % if not course.start_date_is_still_default:
+                  <span class="start-date-date">${format(course.start, 'l d F Y')}</span>
+                  % endif
+                </div>
+              </section>
+            </div>
+            <div class="meta-info">
+              <p class="university">${get_course_about_section(course, 'university')}</p>
+            </div>
+          </a>
+        </article>
+    </li>
+  %endfor
+</ul>
