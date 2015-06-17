@@ -134,6 +134,7 @@ GRADES_DOWNLOAD = {
     'BUCKET': 'edx-grades',
     'ROOT_PATH': '/edx/var/edxapp/grades',
 }
+GRADES_DOWNLOAD_ROUTING_KEY = None
 
 PAGINATION_SETTINGS = {
     'PAGE_RANGE_DISPLAYED': 10,
