@@ -7,7 +7,6 @@ from .dev import *
 CELERY_ALWAYS_EAGER = False
 BROKER_URL = 'django://'
 INSTALLED_APPS += ('djcelery.transport', )
-CELERY_RESULT_BACKEND = 'database'
 DJKOMBU_POLLING_INTERVAL = 1.0
 MIDDLEWARE_CLASSES = tuple(
     c for c in MIDDLEWARE_CLASSES
