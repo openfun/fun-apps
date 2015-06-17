@@ -72,6 +72,10 @@ OVERRIDDEN_THEME_TEMPLATES = [
         "lms/templates/register-sidebar.html",
         "templates/register-sidebar.html",
     ),
+    (
+        "lms/templates/dashboard/_dashboard_course_listing.html",
+        "templates/dashboard/_dashboard_course_listing.html",
+    ),
 ]
 
 class Command(BaseCommand):
