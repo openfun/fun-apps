@@ -29,12 +29,12 @@
         {{ total_count }} {% trans "users" %}
         <br>
         {% if request.GET.search %}
-            {{ count }} {% trans "results" %}
+            {{ users.paginator.count }} {% trans "results" %}
         {% endif %}
     </div>
 </div>
 
-{% if users.object_list %}
+{% if users.paginator.count > 0 %}
 
 <div class="row">
     <table class="table table-condensed" id="user-list">
