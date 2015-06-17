@@ -242,8 +242,7 @@ def order_and_paginater_queryset(request, queryset, default_order):
         page = 1
     queryset = queryset.order_by(direction + order)
     paginator = Paginator(queryset, LIMIT_BY_PAGE, request=request)
-    slice = paginator.page(page)
-    return slice
+    return paginator.page(page)
 
 
 @group_required('fun_backoffice')
@@ -256,21 +255,19 @@ def user_list(request):
 
     if form.data and form.is_valid():
         pattern = form.cleaned_data['search']
-        users = users.filter(Q(username__icontains=pattern)
-                | Q(email__icontains=pattern)
-                | Q(profile__name__icontains=pattern)
-                )
-    count = users.count()
-
+        users = users.filter(
+            Q(username__icontains=pattern)
+            | Q(email__icontains=pattern)
+            | Q(profile__name__icontains=pattern)
+        )
     users = order_and_paginater_queryset(request, users, 'date_joined')
 
     return render(request, 'backoffice/users.html', {
         'users': users,
-        'count': count,
         'total_count': total_count,
         'form': form,
         'tab': 'users',
-        })
+    })
 
 
 def ban_user(request, user):
@@ -317,9 +314,10 @@ def change_grade(request, user):
 def resend_activation_email(request, user):
 
     context = {
-            'name': user.profile.name,
-            'key': Registration.objects.get(user=user).activation_key,
-            'site': microsite.get_value('SITE_NAME', settings.SITE_NAME)}
+        'name': user.profile.name,
+        'key': Registration.objects.get(user=user).activation_key,
+        'site': microsite.get_value('SITE_NAME', settings.SITE_NAME)
+    }
     subject = ''.join(render_to_string('emails/activation_email_subject.txt', context).splitlines())
     message = render_to_string('emails/activation_email.txt', context)
 
@@ -329,7 +327,10 @@ def resend_activation_email(request, user):
     )
     user.email_user(subject, message, from_address)
     logger.warning(u"Activation email has been resent to user %s at addresse: %s", user.username, user.email)
-    messages.success(request, _(u"Activation email has been resent to user %s at addresse: %s") % (user.username, user.email))
+    messages.success(
+        request,
+        _(u"Activation email has been resent to user %s at addresse: %s") % (user.username, user.email)
+    )
 
 
 user_actions = {'ban-user' : ban_user,
