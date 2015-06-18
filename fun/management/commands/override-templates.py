@@ -41,18 +41,6 @@ OVERRIDDEN_THEME_TEMPLATES = [
         "templates/courseware/course_about.html",
     ),
     (
-        "lms/templates/registration/password_reset_complete.html",
-        "templates/registration/password_reset_complete.html",
-    ),
-    (
-        "lms/templates/registration/password_reset_confirm.html",
-        "templates/registration/password_reset_confirm.html",
-    ),
-    (
-        "lms/templates/registration/password_reset_email.html",
-        "templates/registration/password_reset_email.html",
-    ),
-    (
         "lms/templates/index.html",
         "templates/index.html",
     ),
