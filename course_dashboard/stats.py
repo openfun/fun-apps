@@ -73,6 +73,11 @@ def population_by_country(course_key_string=None):
     for result in query:
         country = fun.utils.countries.territory_country(result[country_field])
         course_population[country] += result["population"]
+    # Because there is no NULL country we need to perform an additional query
+    # to include enrollments with NULL country.
+    null_country_users = active_enrollments(course_key).filter(**{country_field + "__isnull": True}).count()
+    if null_country_users > 0:
+        course_population[fun.utils.countries.UNKNOWN_COUNTRY_CODE] += null_country_users
     return course_population
 
 def active_enrollments(course_key=None):
