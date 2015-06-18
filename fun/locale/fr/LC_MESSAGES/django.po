@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-06-08 16:59+0200\n"
+"POT-Creation-Date: 2015-06-18 11:41+0200\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -16,6 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+
+# Translated in edx by ''
+#, python-format
+msgid ""
+"\n"
+"        Required fields are noted by %(bold_start)sbold text and an "
+"asterisk (*)%(bold_end)s.\n"
+"        "
+msgstr ""
+"\n"
+"        Les champs requis sont notés en %(bold_start)stexte gras et avec "
+"un astérisque (*)%(bold_end)s.\n"
+"        "
 
 # Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:200
@@ -355,3 +368,4 @@ msgstr "votre identifiant vidéo"
 # Translated in edx by 'Résumé général de {platform_name}'
 msgid "{platform_name}-wide Summary"
 msgstr "{platform_name}-Sommaire général"
+
