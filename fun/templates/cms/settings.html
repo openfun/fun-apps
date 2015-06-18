@@ -32,26 +32,7 @@ CMS.URL.UPLOAD_ASSET = '${upload_asset_url}';
 
 require(["domReady!", "jquery", "js/models/settings/course_details", "js/views/settings/main"],
   function(doc, $, CourseDetailsModel, MainView) {
-    // highlighting labels when fields are focused in
-    $("form :input").focus(function() {
-      $("label[for='" + this.id + "']").addClass("is-focused");
-    }).blur(function() {
-      $("label").removeClass("is-focused");
-      });
-    var model = new CourseDetailsModel();
-    model.urlRoot = '${details_url}';
-    model.fetch({
-      success: function(model) {
-        var editor = new MainView({
-            el: $('.settings-details'),
-            model: model
-        });
-        editor.render();
-      },
-      reset: true
-    });
-    model.videosourceSample = function() {
-
+    CourseDetailsModel.prototype.videosourceSample = function() {
         if (this.has('intro_video')){
             //We teach videosourceSample how to handle properly DMCloud URLS and DM Classic ID that might be given
             //as they are now stored in the db just like Youtube IDs
@@ -83,7 +64,6 @@ require(["domReady!", "jquery", "js/models/settings/course_details", "js/views/s
         } else {
             return "";
         }
-
     }
 });
   </script>
