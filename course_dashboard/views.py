@@ -8,9 +8,7 @@ import time
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils.translation import ugettext as _
 from django.utils.formats import date_format
-from django_countries import countries
 
 from wiki.models import URLPath, Article
 
@@ -20,6 +18,7 @@ from opaque_keys.edx.keys import CourseKey
 from util.views import ensure_valid_course_key
 
 from fun.utils.views import staff_required, staff_required_or_level
+from fun.utils.countries import get_country_name
 
 from . import stats
 
@@ -92,11 +91,6 @@ def student_map_response(request, course_population_by_country_code, template, c
         "top_countries": top_countries,
         "total_population": total_population,
     })
-
-def get_country_name(country_code):
-    if country_code == '':
-        return unicode(_("Unknown"))
-    return unicode(countries.name(country_code))
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')

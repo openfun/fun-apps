@@ -6,6 +6,7 @@ from student.tests.factories import CourseEnrollmentFactory
 from xmodule.modulestore.tests.factories import CourseFactory
 
 import course_dashboard.stats as stats
+from fun.utils import countries
 from .base import BaseCourseDashboardTestCase
 
 
@@ -36,6 +37,16 @@ class StatsTestCase(BaseCourseDashboardTestCase):
 
         self.assertEqual({}, empty_course_population)
         self.assertEqual({'FR': 1}, course_population)
+
+    def test_null_countries_are_counted(self):
+        course = CourseFactory.create()
+        course_id = self.get_course_id(course)
+        CourseEnrollmentFactory.create(course_id=course_id, user__profile__country=None)
+        CourseEnrollmentFactory.create(course_id=course_id, user__profile__country=None)
+
+        course_population = stats.population_by_country(course_id)
+        self.assertEqual(1, len(course_population))
+        self.assertEqual(2, course_population[countries.UNKNOWN_COUNTRY_CODE])
 
     def test_dependent_territories_are_not_listed_separately(self):
         course = CourseFactory.create()
