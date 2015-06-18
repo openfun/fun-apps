@@ -53,6 +53,10 @@ OVERRIDDEN_THEME_TEMPLATES = [
         "templates/main.html",
     ),
     (
+        "lms/templates/main_django.html",
+        "templates/main_django.html",
+    ),
+    (
         "lms/templates/navigation.html",
         "templates/navigation.html",
     ),
