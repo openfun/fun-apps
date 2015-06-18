@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-04-22 09:43+0000\n"
+"POT-Creation-Date: 2015-06-22 15:20+0200\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -65,7 +65,9 @@ msgstr "Répartition des réponses"
 msgid "Answers distribution reports"
 msgstr "Rapports de répartition des réponses"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/choice_question.html:54
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/multiplechoice.html:33
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/option_question.html:36
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/string_question.html:34
 msgid "Blank answers"
 msgstr "Aucune réponse"
@@ -106,8 +108,8 @@ msgstr "Inscriptions par jour"
 msgid "Forum activity"
 msgstr "Activité des forums"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:90
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:113
+#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:91
+#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:114
 msgid "France"
 msgstr "France"
 
@@ -144,7 +146,7 @@ msgid ""
 "Note: the 'Unknown' country refers to the users who have not provided "
 "their country of origin. These data are collected on a declarative basis."
 msgstr ""
-"Note : le pays 'Inconnu fait référence aux utilisateurs n'ayant pas "
+"Note : le pays 'Inconnu' fait référence aux utilisateurs n'ayant pas "
 "renseigné leur pays d'origine. Ces données sont collectées de manière "
 "purement déclaratives."
 
@@ -230,12 +232,6 @@ msgstr "Troisième pays"
 msgid "Top country by enrollment"
 msgstr "Premier pays"
 
-# Translated in edx by 'Inconnu'
-#: /edx/app/edxapp/fun-apps/course_dashboard/views.py:98
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:91
-msgid "Unknown"
-msgstr "Inconnu"
-
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:124
 msgid "Users by activity"
 msgstr "Utilisateurs par activité"
@@ -272,16 +268,3 @@ msgstr "pages modifiées"
 #, python-format
 msgid "students enrolled over %d days"
 msgstr "apprenants inscrits en %d jours"
-
-#~ msgid "Choice"
-#~ msgstr "Choix"
-
-#~ msgid "Percentage"
-#~ msgstr "Pourcentage"
-
-#~ msgid "Responses"
-#~ msgstr "Réponses"
-
-#~ msgid "Download raw data"
-#~ msgstr "Télécharger les données CSV brutes"
-

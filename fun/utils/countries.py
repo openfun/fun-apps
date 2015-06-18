@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+from django.utils.translation import ugettext as _
+
+from django_countries import countries
+
 
 # Dictionary of (territory code, country code) that associates a territory to
 # its administering country.
@@ -18,6 +22,14 @@ TERRITORIES = {
     'YT': 'FR',# Mayotte
 }
 
+UNKNOWN_COUNTRY_CODE = 'XX'
+
 def territory_country(territory_code):
     """Return the country associated to a territory code."""
     return TERRITORIES.get(territory_code, territory_code)
+
+def get_country_name(country_code):
+    if country_code == UNKNOWN_COUNTRY_CODE:
+        return unicode(_("Unknown"))
+    return unicode(countries.name(country_code))
+
