@@ -92,7 +92,7 @@ def courses_index(request):
             elif form.cleaned_data['state'] == 'past':
                 courses = [c for c in courses if c.end and c.end < now]
     elif form.errors:
-        return redirect(course_index)
+        return redirect(courses_index)
     courses = _sort_courses(courses)
 
     # paginate courses

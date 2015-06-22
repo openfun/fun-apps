@@ -15,5 +15,6 @@ class UniversityFactory(factory.DjangoModelFactory):
 
     name = factory.Sequence("University{0}".format)
     code = factory.Sequence("university{0}".format)
+    slug = factory.Sequence("university{0}".format)
     logo = SimpleUploadedFile('logo.png', FUN_LOGO.decode('base64'))
     certificate_logo = SimpleUploadedFile('logo.png', FUN_LOGO.decode('base64'))
