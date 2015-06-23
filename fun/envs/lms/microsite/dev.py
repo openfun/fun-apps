@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from ..dev import *
+from .common import *
+
+MICROSITE_CONFIGURATION = get_microsite_configuration("localhost")
 
 FEATURES['USE_MICROSITES'] = True
 
