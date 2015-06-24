@@ -9,9 +9,13 @@ def get_microsite_configuration(hostname):
     value returned is suitable for the MICROSITE_CONFIGURATION variable.
     """
     sys.path.append(MICROSITE_ROOT_DIR)
-    import fun_microsites
-    configuration = fun_microsites.get_configuration(hostname)
-    sys.path.pop()
+    try:
+        import fun_microsites
+        configuration = fun_microsites.get_configuration(hostname)
+    except ImportError:
+        configuration = {}
+    finally:
+        sys.path.pop()
     return configuration
 
 def patch_features_for_microsites(features):
