@@ -2,15 +2,22 @@ from datetime import datetime
 
 from django.utils import timezone
 
+from microsite_configuration import microsite
 from student.tests.factories import CourseEnrollmentFactory
+from student.tests.factories import UserFactory
 from xmodule.modulestore.tests.factories import CourseFactory
 
 import course_dashboard.stats as stats
 from fun.utils import countries
+from fun.tests.utils import setMicrositeTestSettings
+
 from .base import BaseCourseDashboardTestCase
 
 
 class StatsTestCase(BaseCourseDashboardTestCase):
+    def setUp(self):
+        super(StatsTestCase, self).setUp()
+        self.user = UserFactory()
 
     def test_average_enrollments(self):
         self.enroll_student_at(self.course, 2015, 2, 2)
@@ -90,3 +97,10 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         ]
         self.assertEqual(1, stats.most_active_username(threads))
 
+    @setMicrositeTestSettings
+    def test_enrollment_stats_with_microsite_configuration(self):
+        self.enroll_student(user=UserFactory(),
+                            course=CourseFactory.create(org=microsite.get_value('course_org_filter')))
+        self.enroll_student(user=self.user,
+                            course=self.course)
+        self.assertEqual(stats.active_enrollments().count(), 1)

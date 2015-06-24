@@ -251,6 +251,8 @@ def user_list(request):
     form = SearchUserForm(data=request.GET)
     users = User.objects.select_related('profile').exclude(profile__isnull=True)
 
+    if settings.FEATURES['USE_MICROSITES']:
+        users = users.filter(usersignupsource__site=microsite.get_value('SITE_NAME'))
     total_count = users.count()
 
     if form.data and form.is_valid():
