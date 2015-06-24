@@ -13,3 +13,8 @@ def get_microsite_configuration(hostname):
     configuration = fun_microsites.get_configuration(hostname)
     sys.path.pop()
     return configuration
+
+def patch_features_for_microsites(features):
+    features['USE_MICROSITES'] = True
+    features['USE_CUSTOM_THEME'] = False
+    features['ENABLE_MKTG_SITE'] = False

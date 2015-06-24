@@ -1,4 +1,5 @@
 from ..test import *
+from .common import *
 
 # set up some testing for microsites
 MICROSITE_CONFIGURATION = {
@@ -34,5 +35,7 @@ MICROSITE_CONFIGURATION = {
 
 MICROSITE_ROOT_DIR = COMMON_ROOT / 'test' / 'test_microsites'
 MICROSITE_TEST_HOSTNAME = 'testmicrosite.testserver'
+MICROSITE_CONFIGURATION = get_microsite_configuration("localhost")
 
-FEATURES['USE_MICROSITES'] = True
+THEME_NAME = ""
+patch_features_for_microsites(FEATURES)
