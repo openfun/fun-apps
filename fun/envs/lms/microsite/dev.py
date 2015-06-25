@@ -5,6 +5,12 @@ from .common import *
 
 MICROSITE_CONFIGURATION = get_microsite_configuration("localhost")
 
-PLATFORM_NAME = ""  # void constant which should be set to current microsite but is not.
+FEATURES['USE_MICROSITES'] = True
+
+FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
+
+# There are 2 ways to customize Edx font-end: The "Stanford Theming" way and the Microsite way.
+# Here we are using microsites, so we disable the "Custom Theme" feature.
 THEME_NAME = ""
-patch_features_for_microsites(FEATURES)
+FEATURES['USE_CUSTOM_THEME'] = False
+FEATURES['ENABLE_MKTG_SITE'] = False
