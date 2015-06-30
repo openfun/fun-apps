@@ -11,6 +11,7 @@ from fun.tests.utils import skipUnlessLms
 from universities.factories import UniversityFactory
 
 
+@skipUnlessLms
 class CourseListTest(ModuleStoreTestCase):
     def setUp(self):
         super(CourseListTest, self).setUp()
