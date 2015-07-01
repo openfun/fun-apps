@@ -68,6 +68,3 @@ PIPELINE_SASS_ARGUMENTS = '--debug-info --require {proj_dir}/static/sass/bourbon
 
 ########################### DEBUG #################################
 TEMPLATE_STRING_IS_INVALID = "__INVALID__"
-
-# Disable our DM Cloud player
-USE_DM_CLOUD_VIDEO_PLAYER = False
