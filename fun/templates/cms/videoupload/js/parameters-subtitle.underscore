@@ -1,0 +1,15 @@
+<td><%= language_label %></td>
+<td>
+  <ul class="actions-list">
+    <li class="action-item">
+      <a class="action-button" href="<%= url %>" data-tooltip="<%= gettext('Download') %>" target="_blank"><i class="icon fa fa-download"></i> <span class="sr"><%= gettext('Download') %></span></a>
+    </li>
+  </ul>
+</td>
+<td>
+  <ul class="actions-list">
+    <li class="action-item action-delete">
+      <a class="action-button" href="#" data-tooltip="<%= gettext('Delete') %>"><i class="icon fa fa-times-circle"></i> <span class="sr"><%= gettext('Delete') %></span></a>
+    </li>
+  </ul>
+</td>

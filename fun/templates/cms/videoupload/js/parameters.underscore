@@ -1,0 +1,44 @@
+<div class="modal-section">
+  <div class="modal-section">
+    <div class="modal-section-title"><%= title %></div>
+
+    <div class="modal-subsection">
+      <div class="modal-subsection-title"><%= gettext("Subtitles") %></div>
+      <div class="modal-subsection-content">
+
+        <table>
+          <thead>
+            <tr>
+              <th><%= gettext("Language") %></th>
+              <th><%= gettext("Download") %></th>
+              <th><%= gettext("Action") %></th>
+            </tr>
+          </thead>
+          <tbody class="subtitles"></tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="divider-visual"></div>
+
+    <div class="modal-subsection">
+      <div class="modal-subsection-title"><%= gettext("Add subtitles") %></div>
+      <div class="modal-subsection-content">
+        <div class="upload-subtitles"></div>
+      </div>
+    </div>
+
+    <div class="divider-visual"></div>
+
+    <div class="thumbnail"></div>
+
+    <div class="divider-visual"></div>
+    <div class="modal-subsection">
+      <div class="modal-subsection-title"><%= gettext("Change thumbnail") %></div>
+      <div class="modal-subsection-content">
+        <div class="upload-thumbnail"></div>
+      </div>
+    </div>
+  </div>
+</div>

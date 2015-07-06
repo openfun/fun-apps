@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import functools
 import mock
 import unittest
 
 from django.conf import settings
-from django.test.utils import override_settings
+import fun.utils
 
 def skipUnlessCms(func):
-    # TODO should we use SERVICE_VARIANT setting instead?
-    return unittest.skipUnless(settings.ROOT_URLCONF == 'fun.cms.urls', 'Test only valid in cms')(func)
+    return unittest.skipUnless(fun.utils.is_cms_running(), 'Test only valid in cms')(func)
 
 def skipUnlessLms(func):
-    return unittest.skipUnless(settings.ROOT_URLCONF == 'fun.lms.urls', 'Test only valid in lms')(func)
-
+    return unittest.skipUnless(fun.utils.is_lms_running(), 'Test only valid in lms')(func)
 
 ### Microsite test settings
 

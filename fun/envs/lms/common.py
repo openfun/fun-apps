@@ -28,7 +28,8 @@ ROOT_URLCONF = 'fun.lms.urls'
 
 update_logging_config(LOGGING)
 
-del DEFAULT_FILE_STORAGE  # We do not use S3 file storage backend set in aws.py
+# Disable S3 file storage
+del DEFAULT_FILE_STORAGE
 
 # those values also have to be in env.json file,
 # because pavlib.utils.envs reads it to build asset's preprocessing commands

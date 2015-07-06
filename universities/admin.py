@@ -3,7 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from adminsortable.admin import SortableAdminMixin
 
+import fun.utils
 from universities.models import University
+import videoproviders.admin
 
 
 class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
@@ -19,7 +21,7 @@ class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
                 ('parent',),
             )
         }),
-        (_('Daily Motion'), {
+        (_('Dailymotion Cloud'), {
             'fields': (
                 ('dm_user_id',),
                 ('dm_api_key',),
@@ -34,13 +36,16 @@ class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
             )
         }),
     )
+    inlines = [videoproviders.admin.DailymotionAuthAdminInline]
 
     def preview(self, obj):
         template = u"""<img src="{url}" style="max-height: 48px;" />"""
         url = obj.logo.url if obj.logo else ''
         return template.format(url=url)
-    preview.short_description=_('preview')
+    preview.short_description = _('preview')
     preview.allow_tags = True
 
 
-admin.site.register(University, UniversityAdmin)
+if fun.utils.is_lms_running():
+    # Don't administer universities in cms. Logo file storage would not work.
+    admin.site.register(University, UniversityAdmin)

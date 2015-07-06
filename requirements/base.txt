@@ -16,3 +16,5 @@ django-pure-pagination==0.2.1
 -e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
 
 git+https://github.com/openfun/dmotion-xblock.git@0.1#egg=dmotion-xblock
+git+https://github.com/dailymotion/dailymotion-sdk-python@0.2.0#egg=dailymotion-sdk-python
+

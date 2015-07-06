@@ -1,0 +1,13 @@
+<table>
+  <thead>
+    <tr>
+      <th class="preview"><%- gettext("Preview") %></th>
+      <th><%- gettext("Title") %></th>
+      <th><%- gettext("Created at") %></th>
+      <th><%- gettext("ID") %></th>
+      <th><%- gettext("Status") %></th>
+      <th><%- gettext("Action") %></th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>

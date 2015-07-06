@@ -14,6 +14,10 @@ OVERRIDDEN_TEMPLATES = [
         "fun/templates/cms/base.html"
     ),
     (
+        "cms/templates/widgets/header.html",
+        "fun/templates/cms/widgets/header.html"
+    ),
+    (
         "cms/templates/settings.html",
         "fun/templates/cms/settings.html"
     ),
