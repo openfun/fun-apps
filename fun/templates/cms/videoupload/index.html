@@ -1,0 +1,138 @@
+<%inherit file="../base.html" />
+<%!
+from django.utils.translation import ugettext as _
+from videoproviders.forms import SubtitleForm, ThumbnailForm
+%>
+<%namespace name='static' file='../static_content.html'/>
+
+<%block name="title">${_("Video Uploads")}</%block>
+
+<%block name="header_extras">
+<style>
+  .content-primary.videoupload table, .modal-window.videoupload-parameters .modal-content table {
+    background-color: #ffffff;
+    width: 100%;
+    text-align: left;
+  }
+  .content-primary.videoupload table tbody tr:nth-child(odd) {
+    background: #eee;
+  }
+  .content-primary.videoupload table thead th {
+    font-weight: bold;
+    padding-right: 20px;
+    vertical-align: middle;
+  }
+  .content-primary.videoupload table td {
+    padding-right: 20px;
+    vertical-align: middle;
+  }
+  .content-primary.videoupload table td.title {
+    max-width: 200px;
+    word-wrap: break-word;
+  }
+  .content-primary.videoupload .invisible {
+    display: none;
+  }
+  .content-primary.videoupload .ui-widget-content {
+    border: 1px solid #aaaaaa;
+    background-color: #ffffff;
+    color: #222222;
+  }
+  .content-primary.videoupload .ui-widget-header {
+    border: 1px solid #aaaaaa;
+    background-color: #cccccc;
+    color: #222222;
+    font-weight: bold;
+  }
+  .content-primary.videoupload .ui-corner-all {
+    border-radius: 4px;
+  }
+  .content-primary.videoupload .ui-corner-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  .content-primary.videoupload .actions-list .action-item {
+    display: list-item;
+  }
+  [class*="view-"] .modal-actions {
+    text-align: right;
+  }
+}
+</style>
+
+## Modal underscore templates
+% for template_name in ['basic-modal', 'modal-button']:
+<script type="text/template" id="${template_name}-tpl">
+  <%static:include path="js/${template_name}.underscore" />
+</script>
+% endfor
+
+## Load underscore templates for the various backbone views. These templates will be loaded via TemplateUtils.loadTemplate(name) calls.
+## E.g: 'video' will be available as the 'videoupload-video' template.
+% for template_name in ['list', 'video', 'parameters', 'parameters-subtitle', 'parameters-thumbnail']:
+<script type="text/template" id="videoupload-${template_name}-tpl">
+  <%static:include path="videoupload/js/${template_name}.underscore" />
+</script>
+% endfor
+
+<script type="text/template" id="videoupload-subtitle-form-tpl">
+  ## Form for uploading new subtitles
+  <form method="POST" enctype="multipart/form-data" onsubmit="return false;">
+    <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
+    <table>${SubtitleForm().as_table()}</table>
+    <input type="submit" value="${_('Add')}">
+  </form>
+</script>
+<script type="text/template" id="videoupload-thumbnail-form-tpl">
+  ## Form for uploading a new thumbnail
+  <form method="POST" enctype="multipart/form-data" onsubmit="return false;">
+    <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
+    <table>${ThumbnailForm().as_table()}</table>
+    <input type="submit" value="${_('Change')}">
+  </form>
+</script>
+
+</%block>
+
+<%block name="jsextra">
+<script type="text/javascript">
+  <%include file="js/videoupload.js"/>
+</script>
+</%block>
+
+<%block name="bodyclass">is-signedin course view-videouploads</%block>
+
+<%block name="content">
+<div class="wrapper-mast wrapper">
+  <header class="mast has-actions has-subtitle">
+    <h1 class="page-header">
+      <small class="subtitle">${_("Content")}</small>
+      ${_("Video uploads")}
+    </h1>
+    <nav class="nav-actions" aria-label="${_('Page Actions')}">
+      <div id="upload-video-button">
+        <form id="videoupload-form">
+          <button class="button button-new"><i class="icon fa fa-plus"></i>${_('Upload new videos')}</button>
+          <input type="file" title="${_('Click to upload a new video')}" style="display: none;" multiple>
+        </form>
+      </div>
+    </nav>
+  </header>
+</div>
+
+<div class="wrapper-content wrapper">
+  <section class="content view-uploads">
+    <article class="content-primary videoupload" role="main">
+      <div id="videoupload-list">
+        <div style="text-align: center; width: 100%"><i class="icon fa fa-refresh fa-spin"></i></div>
+      </div>
+    </article>
+    <aside class="content-supplementary" role="complementary">
+      <div class="bit">
+        <h3>${_("Add videos to your course")}</h3>
+        <p>${_("All uploaded videos are sent to our storage backend.")}</p>
+      </div>
+    </aside>
+  </section>
+</div>
+</%block>

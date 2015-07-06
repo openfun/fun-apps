@@ -1,0 +1,6 @@
+<div class="modal-subsection">
+  <div class="modal-subsection-title"><%= gettext("Thumbnail") %></div>
+  <div class="modal-subsection-content videoupload-parameters-thumbnail">
+    <img src='<%= thumbnail_url %>' alt='<%= gettext("Video thumbnail") %>' width='200px'>
+  </div>
+</div>

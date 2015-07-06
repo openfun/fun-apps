@@ -6,6 +6,9 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 
 INSTALLED_APPS += (
     'fun',
+    'videoproviders',
+    'universities',
+
     'ckeditor',
     'adminsortable',
     'selftest',
@@ -68,3 +71,6 @@ CC_PROCESSOR = {
 }
 
 SITE_VARIANT = 'cms'
+
+# Set this to 'True' to enable the video dashboard.
+#FUN_VIDEO_UPLOAD_ENABLED = True

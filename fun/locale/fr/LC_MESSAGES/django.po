@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 1\n"
+"Project-Id-Version: France Université Numérique 2\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-07-22 17:41+0200\n"
-"PO-Revision-Date: 2015-07-22 17:41+0000\n"
+"POT-Creation-Date: 2015-07-23 14:53+0200\n"
+"PO-Revision-Date: 2015-07-23 14:53+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -42,6 +42,14 @@ msgstr "Accéder à mes Cours"
 msgid "Activation Invalid"
 msgstr "Activation non valide"
 
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:76
+msgid "Add"
+msgstr "Ajouter"
+
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:125
+msgid "Add videos to your course"
+msgstr "Ajouter la vidéo à votre cours"
+
 # Translated in edx by 'Admin'
 msgid "Admin"
 msgstr "Administrateurs"
@@ -49,6 +57,12 @@ msgstr "Administrateurs"
 # Translated in edx by 'Tous (élèves, personnel et professeur)'
 msgid "All (students, staff and instructors)"
 msgstr "Tous (Apprenants et équipe pédagogique)"
+
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:126
+msgid "All uploaded videos are sent to our storage backend."
+msgstr ""
+"Toutes les vidéos ajoutées sont envoyées vers notre infrastructure de "
+"stockage."
 
 # Translated in edx by 'Recevoir aussi des e-mails concernant les éditions de
 # l'article'
@@ -62,6 +76,70 @@ msgstr "Licence"
 # Translated in edx by 'Valider'
 msgid "Check"
 msgstr "Vérifier"
+
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:109
+msgid "Click to upload a new video"
+msgstr "Cliquez pour ajouter une nouvelle vidéo"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:187
+msgid "Could not add subtitles:"
+msgstr "Impossible d'ajouter des sous-titres :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:232
+msgid "Could not add thumbnail:"
+msgstr "Impossible d'ajouter une vignette :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:97
+msgid "Could not change video title:"
+msgstr "Impossible de changer le titre de la vidéo :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:121
+msgid "Could not create video:"
+msgstr "Impossible de créer la vidéo :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:207
+msgid "Could not delete subtitle:"
+msgstr "Impossible de supprimer les sous-titres :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:89
+msgid "Could not delete video:"
+msgstr "Impossible de supprimer la vidéo :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:202
+msgid "Could not fetch subtitle:"
+msgstr "Impossible de récupérer les sous-titres :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:106
+msgid "Could not fetch upload url:"
+msgstr "Impossible de récupérer l'url d'upload"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:51
+msgid "Could not fetch video list:"
+msgstr "Impossible de récupérer la liste de vidéos :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:175
+msgid "Could not fetch video subtitles:"
+msgstr "Impossible de récupérer les sous-titres :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:83
+msgid "Could not fetch video:"
+msgstr "Impossible de récupérer la vidéo :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:145
+msgid "Could not publish video:"
+msgstr "Impossible de publier la vidéo :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:164
+msgid "Could not unpublish video:"
+msgstr "Impossible de dé-publier la vidéo :"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:189
+msgid "Could not upload subtitles"
+msgstr "Impossible d'ajouter les sous-titres"
+
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:234
+msgid "Could not upload thumbnail"
+msgstr "Impossible d'ajouter la vignette"
 
 # Translated in edx by 'Documents de cours'
 msgid "Course Handouts"
@@ -217,6 +295,10 @@ msgstr "Masculin"
 msgid "Master's or professional degree"
 msgstr "Master / Diplôme d'ingénieur"
 
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:24
+msgid "Missing credentials:"
+msgstr "Identifiants manquants"
+
 # Translated in edx by 'Moi même'
 msgid "Myself"
 msgstr "Moi-même"
@@ -284,6 +366,16 @@ msgstr "Merci pour votre inscription !"
 msgid "The page that you were looking for was not found."
 msgstr "La page que vous recherchez n'a pas été trouvée."
 
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:25
+msgid ""
+"There is no video storage credentials defined for this account. Please "
+"get in touch with your administrator or support team to setup the "
+"credentials for university '{}'"
+msgstr ""
+"Il n'y a pas d'identifiant pour le stockage de vidéos défini pour ce "
+"compte. Veuillez rentrer en contact avec votre université ou votre équipe"
+" de support pour définir les identifiants de votre établissement '{}'."
+
 # Translated in edx by 'Cet article a été modifié pour la dernière fois:'
 msgid "This article was last modified:"
 msgstr "Cet article a été modifié :"
@@ -296,9 +388,9 @@ msgstr "Sans réponse"
 msgid "University"
 msgstr "Établissement"
 
-# Translated in edx by 'Envoyer un Nouveau Fichier'
-msgid "Upload New File"
-msgstr "Upload Nouveau Fichier"
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:108
+msgid "Upload new videos"
+msgstr "Ajouter de nouvelles vidéos"
 
 # Translated in edx by 'Promouvoir des messages et des bonnes réponses'
 msgid "Upvote posts and good responses"
@@ -311,6 +403,10 @@ msgstr "Exemples utiles :"
 # Translated in edx by 'Une adresse courriel valide est requise.'
 msgid "Valid e-mail address required."
 msgstr "Une adresse email valide est requise."
+
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:103
+msgid "Video uploads"
+msgstr "Upload de vidéos"
 
 # Translated in edx by 'Voir le cours'
 msgid "View Archived Course"
