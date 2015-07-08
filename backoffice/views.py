@@ -247,10 +247,8 @@ def order_and_paginater_queryset(request, queryset, default_order):
 
 @group_required('fun_backoffice')
 def user_list(request):
-    #import ipdb; ipdb.set_trace()
     form = SearchUserForm(data=request.GET)
     users = User.objects.select_related('profile').exclude(profile__isnull=True)
-
     if settings.FEATURES['USE_MICROSITES']:
         users = users.filter(usersignupsource__site=microsite.get_value('SITE_NAME'))
     total_count = users.count()
