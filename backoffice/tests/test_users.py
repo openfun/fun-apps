@@ -10,8 +10,9 @@ from certificates.tests.factories import GeneratedCertificateFactory
 from student.models import UserStanding, Registration
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
-from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
 from courses.models import Course
+from fun.tests.utils import skipUnlessLms
+
 from .test_course_list import BaseCourseList
 
 
@@ -33,20 +34,6 @@ class TestUsers(BaseCourseList):
         self.assertTrue(self.user2 in users)
         self.assertTrue(self.user in users)
         self.assertTrue(self.user3 not in users)
-
-    @setMicrositeTestSettings
-    def test_user_list_with_microsite(self):
-        microsite_user = UserFactory()
-        response = self.client.get(reverse('backoffice:user-list'))
-        users = response.context['users'].object_list
-        self.assertEqual(200, response.status_code)
-
-        self.assertTrue(microsite_user in users)
-
-        self.assertTrue(self.user2 not in users)
-        self.assertTrue(self.user3 not in users)
-        self.assertTrue(self.user not in users)
-
 
     def test_user_list_filtering(self):
         response = self.client.get(reverse('backoffice:user-list') + '?search=user1')
