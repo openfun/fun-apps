@@ -12,7 +12,8 @@ from .models import Course, CourseSubject
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('key', 'university', 'level')
     list_filter = ('level', 'subjects', 'university')
-    search_fields = ('key',)
+    search_fields = ('key', 'certificateteacher_related__teacher__full_name',
+        'courseteacher_related__teacher__full_name')
     filter_horizontal = ('subjects',)
     inlines = (CourseTeacherInline, CertificateTeacherInline)
     fieldsets = (
