@@ -18,7 +18,7 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         db.rename_table('courses_course', 'backoffice_course')
         db.send_create_signal('backoffice', ['Course'])
-        db.rename_table('teachers_teacher', 'backoffice_teachers')
+        db.rename_table('teachers_teacher', 'backoffice_teacher')
         db.send_create_signal('backoffice', ['Teacher'])
 
     models = {}
