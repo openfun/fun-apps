@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+import functools
 import mock
 import unittest
 
@@ -20,11 +23,16 @@ def fake_microsite_get_value(name, default=None):
     """
     return settings.FAKE_MICROSITE.get(name, default)
 
-def setMicrositeTestSettings(test_func):
+def setMicrositeTestSettings(microsite_settings=None):
     """Decorator used to run test with microsite configuration.
 
     We patch microsite.get_value function, used to get the microsite configuration from the current thread.
     We patch the setting USE_MICROSITES, which activates the microsite functionality.
     """
-    test_func = mock.patch("microsite_configuration.microsite.get_value", fake_microsite_get_value)(test_func)
-    return mock.patch.dict(settings.FEATURES, {'USE_MICROSITES' : True, 'USE_CUSTOM_THEME' : False})(test_func)
+    def wrapper(test_func):
+
+        fake_settings = microsite_settings or settings.FAKE_MICROSITE
+
+        test_func = mock.patch("microsite_configuration.microsite.get_value", fake_settings.get)(test_func)
+        return mock.patch.dict(settings.FEATURES, {'USE_MICROSITES' : True, 'USE_CUSTOM_THEME' : False})(test_func)
+    return wrapper
