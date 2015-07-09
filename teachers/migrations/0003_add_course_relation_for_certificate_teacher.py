@@ -22,11 +22,17 @@ class Migration(DataMigration):
                     u'Data Migration: Could not find course relation for this '
                     'teacher: "{}" - (#{})'.format(teacher.full_name, teacher.id)
                 )
-            if related_course:
+                continue
+            # Get all teachers entries with the same name - we use to have several
+            # entries when the same teacher is associated to several couses.
+            teacher_entries = orm.Teacher.objects.filter(
+                full_name=teacher.full_name
+            )
+            for teacher_entry in teacher_entries:
                 orm.CertificateTeacher.objects.create(
-                    course=teacher.course,
                     teacher=teacher,
-                    order=teacher.order,
+                    course=teacher_entry.course,
+                    order=teacher_entry.order,
                 )
 
     def backwards(self, orm):
