@@ -13,7 +13,6 @@ from django.db.models import Q
 from django.http import HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.forms.models import inlineformset_factory
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -33,9 +32,9 @@ from xmodule.modulestore.django import modulestore
 
 from universities.models import University
 
-from .forms import FirstRequiredFormSet, SearchUserForm, UserForm, UserProfileForm
-from .models import Course, Teacher
+from .forms import SearchUserForm, UserForm, UserProfileForm
 from .utils import get_course, group_required, get_course_key
+from courses.models import Course
 from courses.utils import get_about_section
 
 ABOUT_SECTION_FIELDS = ['effort', 'video']
@@ -191,9 +190,6 @@ def course_detail(request, course_key_string):
             funcourse.save()
         except University.DoesNotExist:
             messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
-    TeacherFormSet = inlineformset_factory(Course, Teacher,
-                                           formset=FirstRequiredFormSet,
-                                           can_delete=True, max_num=4, extra=4)
 
     if request.method == 'POST':
         if request.POST['action'] == 'delete-course':
@@ -208,25 +204,15 @@ def course_detail(request, course_key_string):
             logger.warning('Course %s deleted by user %s', course_info.course.id, request.user.username)
             return redirect('backoffice:courses-list')
 
-        elif request.POST['action'] == 'update-teachers':
-            teacher_formset = TeacherFormSet(instance=funcourse, data=request.POST or None)
-            if teacher_formset.is_valid():
-                teacher_formset.save()
-
-                messages.success(request, _(u"Teachers have been updated"))
-                return redirect("backoffice:course-detail", course_key_string=course_key_string)
-
     try:
         university = University.objects.get(code=course_info.course.org)
     except University.DoesNotExist:
         university = None
 
-    teacher_formset = TeacherFormSet(instance=funcourse)
     roles = CourseAccessRole.objects.filter(course_id=ck)
 
     return render(request, 'backoffice/course.html', {
             'course_info': course_info,
-            'teacher_formset': teacher_formset,
             'university': university,
             'roles': roles,
             'tab': 'courses',

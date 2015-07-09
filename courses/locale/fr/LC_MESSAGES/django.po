@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  edx-platform\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-06-08 17:28+0200\n"
+"POT-Creation-Date: 2015-07-08 15:25+0200\n"
 "PO-Revision-Date: 2014-07-04 13:50-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/edx-"
@@ -27,8 +27,24 @@ msgctxt "Course search form: All universities"
 msgid "All"
 msgstr "Tous"
 
+#: /edx/app/edxapp/fun-apps/courses/models.py:37
+msgid "Course Subject"
+msgstr "Sujet de cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:38
+msgid "Course Subjects"
+msgstr "sujets de cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:12
+msgid "Course key"
+msgstr "Clé du cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:26
+msgid "Course {}"
+msgstr "cours {}"
+
 # Translated in edx by 'Cours'
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:12
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:10
 msgid "Courses"
 msgstr "Les cours"
 
@@ -36,7 +52,7 @@ msgstr "Les cours"
 msgid "Current"
 msgstr "En cours"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:134
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:113
 msgid "Filter"
 msgstr "Filtrer"
 
@@ -49,19 +65,27 @@ msgstr "Derniers cours publiés sur FUN"
 msgid "Incoming"
 msgstr "A venir"
 
+#: /edx/app/edxapp/fun-apps/courses/choices.py:10
+msgid "Intermediate"
+msgstr "Intermédiaire"
+
+#: /edx/app/edxapp/fun-apps/courses/choices.py:9
+msgid "Introductory"
+msgstr "Introduction"
+
 #: /edx/app/edxapp/fun-apps/courses/views.py:157
 msgid "Latests courses published on www.france-universite-numerique-mooc.fr"
 msgstr "Derniers cours publiés sur www.france-universite-numerique-mooc.fr"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:146
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/listing.html:13
 msgid "New"
 msgstr "Nouveau"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:181
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:123
 msgid "No result found."
 msgstr "Aucun résultat trouvé."
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:208
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:150
 #, python-format
 msgid "Page %d of %d"
 msgstr "Page %d sur %d"
@@ -74,7 +98,7 @@ msgstr "Terminé"
 msgid "Proposed by"
 msgstr "Cours proposé par"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:164
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/listing.html:31
 msgid "Start date:"
 msgstr "Date de début :"
 
@@ -88,11 +112,28 @@ msgstr "État"
 msgid "University"
 msgstr "Établissement"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:182
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:124
 msgid "View all courses"
 msgstr "Voir tous les cours"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:208
+#: /edx/app/edxapp/fun-apps/courses/models.py:22
+msgid "course"
+msgstr "cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:23
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:150
 msgid "courses"
 msgstr "cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:32
+msgid "description"
+msgstr "description"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:18
+msgid "level"
+msgstr "niveau"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:33
+msgid "order"
+msgstr "order"
 
