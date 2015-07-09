@@ -20,7 +20,7 @@ class Migration(DataMigration):
         for teacher in orm.Teacher.objects.all():
             slug = slugify(teacher.full_name)
             if orm.Teacher.objects.filter(slug=slug).exclude(pk=teacher.pk).exists():
-                slug = '{}-{}'.format(slug, teacher.id)
+                slug = '{}-{}-REMOVE'.format(slug, teacher.id)
                 logger.warning(
                     u'Data Migration: Found duplicate slug for this teacher: '
                     '"{}" - (#{})'.format(teacher.full_name, teacher.id)

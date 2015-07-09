@@ -23,7 +23,7 @@ class Teacher(models.Model):
 
 
 class CourseTeacherRelation(models.Model):
-    course = models.ForeignKey('courses.Course', related_name='+')
+    course = models.ForeignKey('courses.Course', related_name='%(class)s_related')
     teacher = models.ForeignKey('Teacher', related_name='+')
     order = models.PositiveIntegerField(_('order'), default=0)
 
@@ -40,7 +40,6 @@ class CourseTeacher(CourseTeacherRelation):
     '''
     A teacher that is displayed on a course page.
     '''
-
 
     class Meta(CourseTeacherRelation.Meta):
         verbose_name = _('course teacher')
