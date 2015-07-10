@@ -22,6 +22,7 @@ INSTALLED_APPS += (
     'password_container', # this is an xblock we had to applications to allow syncdb of its models
     'pure_pagination',
     'teachers',
+    'faq',
     )
 
 ROOT_URLCONF = 'fun.lms.urls'

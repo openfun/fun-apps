@@ -278,3 +278,9 @@ def configure_raven(sentry_dsn, raven_config, logging_config):
 # If True, we will monkey patch edX (in fun-apps/selftest/__init__.py)
 # to use our dm-cloud video player instead of Youtube's
 USE_DM_CLOUD_VIDEO_PLAYER = True
+
+# FUN Mongo database
+# Other settings FUN_MONGO_HOST, FUN_MONGO_USER and FUN_MONGO_PASSWORD will come from lms/cms.auth.env
+FUN_MONGO_DATABASE = 'fun'
+
+

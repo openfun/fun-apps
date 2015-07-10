@@ -68,3 +68,8 @@ PIPELINE_SASS_ARGUMENTS = '--debug-info --require {proj_dir}/static/sass/bourbon
 
 ########################### DEBUG #################################
 TEMPLATE_STRING_IS_INVALID = "__INVALID__"
+
+# FUN Mongo database
+FUN_MONGO_HOST = 'localhost'
+FUN_MONGO_USER = ''
+FUN_MONGO_PASSWORD = ''

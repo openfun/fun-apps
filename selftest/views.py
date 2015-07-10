@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
 from django.utils.safestring import mark_safe

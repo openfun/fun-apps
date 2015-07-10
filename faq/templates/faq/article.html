@@ -1,0 +1,49 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+%>
+
+<%namespace name='static' file='../static_content.html'/>
+
+<%block name="bodyclass">view-course-list</%block>
+<%block name="title"><title>${_("Courses")}</title></%block>
+
+<%inherit file="../main.html" />
+
+<%block name="headextra">
+
+<style>
+ul.faq-breadcrumb li {
+    list-style-type: none;
+    float: left;
+    font-size: 14px;
+}
+
+div.article {
+    margin-top: 44px;
+    clear: both;
+}
+</style>
+</%block>
+
+
+<section class="faq-article">
+    <section class="courses-container">
+
+
+    <ul class="faq-breadcrumb">
+        <li><a href="${reverse('faq:index')}">${_("Help")}</a>&nbsp;>&nbsp;</li>
+        <li><a href="${reverse('faq:index')}#${article['category']['id']}">${article['category']['name']}</a>&nbsp;>&nbsp;</li>
+        <li><a href="${reverse('faq:index')}#${article['section']['id']}">${article['section']['name']}</a></li>
+    </ul>
+
+    <div class="article">
+        <h1>${article['name']}</h1>
+        <p>
+            ${article['body']}
+        </p>
+    </div>
+
+    </section>
+</section>
