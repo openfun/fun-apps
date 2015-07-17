@@ -24,6 +24,7 @@ INSTALLED_APPS += (
     'teachers',
     'faq',
     'edx_gea',
+    'djangobower',
     )
 
 ROOT_URLCONF = 'fun.lms.urls'
@@ -142,4 +143,15 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 10,
 }
 
+<<<<<<< HEAD
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
+=======
+# We user Bower to handle our own CSS/Javascript dependencies
+STATICFILES_FINDERS += ('djangobower.finders.BowerFinder',)
+BOWER_COMPONENTS_ROOT = FUN_BASE_ROOT + '/components/'
+BOWER_PATH = '/usr/bin/bower'
+BOWER_INSTALLED_APPS = (
+    'bootstrap',
+    'jquery',
+)
+>>>>>>> add bower to handle CSS/JS dependencies
