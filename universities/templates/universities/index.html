@@ -3,17 +3,15 @@
 from django.utils.translation import ugettext as _
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/base.html" />
 
-<%block name="bodyclass">view-university-list</%block>
-<%block name="title"><title>${_("Institutions")}</title></%block>
 
-<%inherit file="../main.html" />
+<%block name="title">${_("Institutions")}</%block>
+
 
 
 <section class="university-list">
   <header>
-    <img class="illustration" src="${static.url('themes/fun/images/illustrations/university.jpg')}" />
     <h1>${_("The universities and schools")}</h1>
     <h2>${_("Offer courses and trainings on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h2>
   </header>
