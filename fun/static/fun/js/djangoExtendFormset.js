@@ -51,7 +51,6 @@
         // add button after this.$element
         var button_id = 'add-form-' + self.options.prefix;
         var container = self.options.add_button_container || self.$element;
-        console.log(container);
         $(container).after($('<input>').attr({
                 'type': 'button',
                 'value': self.options.add_button_value,
