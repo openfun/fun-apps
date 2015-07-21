@@ -1,0 +1,101 @@
+## mako
+<%! from django.core.urlresolvers import reverse %>
+<%inherit file="../parts/base.html" />
+
+
+<%block name="title"><title>Conditions d’utilisation</title></%block>
+
+<section class="static-container tos">
+  <h1>Conditions d’utilisation</h1>
+  <hr class="horizontal-divider">
+
+  <div class="inner-wrapper">
+    <p><strong>Les contenus diffusés sur la plateforme FUN sont régis par quatre types de licence soumises au droit français :</strong></p>
+
+    <ul>
+      <li><strong>Licence restrictive</strong> : l’utilisateur ne peut exploiter l’œuvre qu’à des fins personnelles et doit mentionner le nom de l’auteur ;</li>
+      <li><strong>Licence CC BY NC ND</strong> : l’utilisateur doit mentionner le nom de l’auteur, il peut exploiter l’œuvre sauf dans un contexte commercial et il ne peut apporter de modifications de l’œuvre originale ;</li>
+      <li><strong>Licence CC BY NC</strong> : l’utilisateur doit mentionner le nom de l’auteur, il peut exploiter l’œuvre sauf dans un contexte commercial, il peut créer une œuvre dérivée (modifications) de l’œuvre originale ;</li>
+      <li><strong>Licence CC BY NC SA</strong> : l’utilisateur doit mentionner le nom de l’auteur, il peut exploiter l’œuvre sauf dans un contexte commercial, il peut créer une œuvre dérivée de l’œuvre originale si l’œuvre dérivée est diffusée sous la même licence que l’œuvre originale.</li>
+    </ul>
+
+    <table class="licenses">
+      <thead>
+        <tr>
+          <th class="column-first">Type de licences</th>
+          <th class="column-other">Droit d’exploiter l’œuvre à des fins personnelles</th>
+          <th class="column-other">Droit d’exploiter l’œuvre pour tous les modes d’exploitation (sauf exploitation commerciale)</th>
+          <th class="column-other">Droit de créer des œuvres dérivées sans limitation (modifications)</th>
+          <th class="column-other">Droit de créer des œuvres dérivées si elles sont distribuées sous une licence identique à celle qui régit l’œuvre originale</th>
+          <th class="column-other">Mention du nom de l’auteur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div><strong>Des conditions restrictives de réutilisation</strong></div>
+            <div><em>(option par défaut sur la plateforme FUN)</em></div>
+          </td>
+          <td><span class="cross">x</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="cross">x</span></td>
+        </tr>
+        <tr>
+          <td>
+            Licence <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.fr" target="_blank">CC BY NC ND</a>
+            <div class="deeds">
+              <img src="${static.url('themes/fun/images/deeds/by.png')}" />
+              <img src="${static.url('themes/fun/images/deeds/nc.png')}" />
+              <img src="${static.url('themes/fun/images/deeds/nd.png')}" />
+            </div>
+          </td>
+          <td><span class="cross">x</span></td>
+          <td><span class="cross">x</span></td>
+          <td></td>
+          <td></td>
+          <td><span class="cross">x</span></td>
+        </tr>
+        <tr>
+          <td>
+            Licence <a href="http://creativecommons.org/licenses/by-nc/3.0/deed.fr" target="_blank">CC BY NC</a>
+            <div class="deeds">
+              <img src="${static.url('themes/fun/images/deeds/by.png')}" />
+              <img src="${static.url('themes/fun/images/deeds/nc.png')}" />
+            </div>
+          </td>
+          <td><span class="cross">x</span></td>
+          <td><span class="cross">x</span></td>
+          <td><span class="cross">x</span></td>
+          <td></td>
+          <td><span class="cross">x</span></td>
+        </tr>
+        <tr>
+          <td>
+            Licence <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr" target="_blank">CC BY NC SA</a>
+            <div class="deeds">
+              <img src="${static.url('themes/fun/images/deeds/by.png')}" />
+              <img src="${static.url('themes/fun/images/deeds/nc.png')}" />
+              <img src="${static.url('themes/fun/images/deeds/sa.png')}" />
+            </div>
+          </td>
+          <td><span class="cross">x</span></td>
+          <td><span class="cross">x</span></td>
+          <td><span class="cross">x</span></td>
+          <td><span class="cross">x</span></td>
+          <td><span class="cross">x</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-legend">Source : Extrait du site <a href="http://creativecommons.org/" target="_blank">Creative Commons</a></p>
+
+    <p><strong>En participant à un cours en ligne ouvert et massif, vous disposez également de droits quant à l’utilisation du contenu que vous serez amené à produire.</strong> Par défaut, votre production relève de votre propriété intellectuelle et ne peut donc pas être réutilisée sauf mention contraire sur le descriptif du cours. Dans ce dernier cas, trois types de licences Creative Commons peuvent s’appliquer sur votre production :</p>
+    <ul>
+      <li><strong>Licence CC BY NC ND</strong> : l’utilisateur doit mentionner le nom de l’auteur, il peut exploiter l’œuvre sauf dans un contexte commercial et il ne peut apporter de modifications de l’œuvre originale ;</li>
+      <li><strong>Licence CC BY NC</strong> : l’utilisateur doit mentionner le nom de l’auteur, il peut exploiter l’œuvre sauf dans un contexte commercial, il peut créer une œuvre dérivée (modifications) de l’œuvre originale ;</li>
+      <li><strong>Licence CC BY NC SA</strong> : l’utilisateur doit mentionner le nom de l’auteur, il peut exploiter l’œuvre sauf dans un contexte commercial, il peut créer une œuvre dérivée de l’œuvre originale si l’œuvre dérivée est diffusée sous la même licence que l’œuvre originale.</li>
+    </ul>
+
+  </div>
+</section>
