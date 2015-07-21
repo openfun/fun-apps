@@ -5,12 +5,10 @@ from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/base.html" />
 
-<%block name="bodyclass">view-university-detail</%block>
-<%block name="title"><title>${ university.name }</title></%block>
+<%block name="title">${ university.name }</%block>
 
-<%inherit file="../main.html" />
 
 <%block name="body">
 
