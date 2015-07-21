@@ -18,14 +18,6 @@ except ImportError:
 
 CURRENT_DIR = os.path.dirname(__file__)
 FUN_APPS_ROOT_DIR = os.path.abspath(os.path.join(CURRENT_DIR, "../../../"))
-FUN_APPS_TO_TRANSLATE = [
-    "contact",
-    "courses",
-    "forum_contributors",
-    "fun",
-    "universities"
-]
-FUN_THEME_PATH = os.path.expanduser("~/themes/fun")
 PATH_FUN_DJANGOPO = "%(root_path)s/locale/%(locale)s/LC_MESSAGES/django.po"
 PATH_EDX_DJANGOPO = os.path.join(
     os.path.dirname(__file__),
@@ -69,7 +61,7 @@ properly compiled:
 
     def handle(self, *args, **options):
         locale = options["locale"]
-        is_verbose = options["verbose"] or options["verbosity"] > 1
+        is_verbose = options["verbose"] or int(options["verbosity"]) > 1
         run_compile = options["compile"]
         MessageMaker(self.stdout, is_verbose=is_verbose).handle(args, locale, run_compile=run_compile)
 
@@ -88,17 +80,28 @@ class MessageMaker(object):
                 self.make_messages(os.path.abspath(root_path), locale, run_compile=run_compile)
 
     def make_all_messages(self, locale, run_compile=False):
-        for app_name in FUN_APPS_TO_TRANSLATE:
+        # Translate apps
+        from django.conf import settings
+        fun_apps_to_translate = settings.LOCALIZED_APPS
+        for app_name in fun_apps_to_translate:
             self.make_messages(app_root_path(app_name), locale, run_compile=run_compile)
+
         # Translate theme
-        self.make_messages(FUN_THEME_PATH, locale, run_compile=run_compile)
+        fun_theme_path = os.path.expanduser("~/themes/fun")
+        self.make_messages(fun_theme_path, locale, run_compile=run_compile)
 
     def make_messages(self, root_path, locale, run_compile=False):
+
+        # Catalog of required translations
         pot_catalog = make_pot_catalog(root_path)
+
+        # Catalog of fun translations
         path_fun_djangopo = PATH_FUN_DJANGOPO % {"locale": locale, "root_path": root_path}
-        path_edx_djangopo = PATH_EDX_DJANGOPO % {"locale": locale}
         fun_catalog = read_po_catalog(path_fun_djangopo, locale)
+
+        # Catalog of edx translations
         # TODO load edx_catalog once for all apps
+        path_edx_djangopo = PATH_EDX_DJANGOPO % {"locale": locale}
         edx_catalog = read_po_catalog(path_edx_djangopo, locale)
 
         update_catalog(fun_catalog, edx_catalog, pot_catalog)
@@ -205,6 +208,7 @@ def keep_overriden_messages(fun_catalog, edx_catalog):
             overriden_message_ids.add(message_id)
 
     for message_id in overriden_message_ids:
+        # default=None is actually required here because of a quirkness in how odict.pop works
         fun_catalog[message_id] = fun_catalog.obsolete.pop(message_id, default=None)
 
 if __name__ == "__main__":
