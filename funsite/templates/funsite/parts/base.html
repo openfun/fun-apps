@@ -1,6 +1,10 @@
 ## mako
 <%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+
 from staticfiles.storage import staticfiles_storage
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,9 +32,10 @@ from staticfiles.storage import staticfiles_storage
     ${self.body()}
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <%include file="footer.html" />
+
+
     <script src="${staticfiles_storage.url('jquery/dist/jquery.min.js')}"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${staticfiles_storage.url('bootstrap/js/bootstrap.min.js')}"></script>
   </body>
 </html>

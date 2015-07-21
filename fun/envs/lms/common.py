@@ -90,7 +90,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
 # add application templates directory to MAKO template finder
 MAKO_TEMPLATES['main'] = [
-    FUN_BASE_ROOT / 'site/templates/lms',   # overrides template in edx-platform/lms/templates
+    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
+    FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'courses/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
