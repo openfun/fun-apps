@@ -1,11 +1,9 @@
 ## mako
 <%! from django.utils.translation import ugettext as _ %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/base.html" />
 
-<%inherit file="../main.html" />
-
-<%block name="title"><title>${_("Contact")}</title></%block>
+<%block name="title">${_("Contact")}</%block>
 
 <section class="container contact-sent">
   <section class="message">
