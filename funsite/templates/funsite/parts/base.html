@@ -15,6 +15,8 @@ from staticfiles.storage import staticfiles_storage
 
     <link href="${staticfiles_storage.url('bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
 
+    <link href="${staticfiles_storage.url('bootstrap-big-grid/dist/css/bootstrap-big-grid.min.css')}" rel="stylesheet">
+
     <title><%block name="title" /></title>
 
     <!-- Bootstrap -->
@@ -27,6 +29,7 @@ from staticfiles.storage import staticfiles_storage
     <![endif]-->
   </head>
   <body>
+    <div class="container-fluid">
 
     <%include file="menu.html" />
 
@@ -37,6 +40,9 @@ from staticfiles.storage import staticfiles_storage
 
     <%include file="footer.html" />
 
+
+
+    </div> <!-- bootstrape container -->
 
     <script src="${staticfiles_storage.url('jquery/dist/jquery.min.js')}"></script>
     <script src="${staticfiles_storage.url('bootstrap/js/bootstrap.min.js')}"></script>

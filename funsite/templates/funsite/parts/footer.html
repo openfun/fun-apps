@@ -4,47 +4,73 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 %>
 
-    <ul>
-        <li>
-            <a href="${reverse('site:render_static_template', args=['about'])}">
-                ${_("About...")}
-            </a>
-        </li>
-        <li>
-            <a href="${reverse('site:render_static_template', args=['help'])}">
-                ${_("Help")}
-            </a>
-        </li>
-        <li>
-            <a href="${reverse('site:render_static_template', args=['honor'])}">
-                ${_("Terms and conditions")}
-            </a>
-        </li>
-        <li>
-            <a href="${reverse('site:render_static_template', args=['tos'])}">
-                ${_("Terms of use")}
-            </a>
-        </li>
-        <li>
-            <a href="${reverse('site:render_static_template', args=['honor'])}">
-                ${_("Usage policy")}
-            </a>
-        </li>
-        <li>
-            <a href="${reverse('site:render_static_template', args=['privacy'])}">
-                ${_("Privacy policy")}
-            </a>
-        </li>
-        <li>
-            <a href="${reverse('site:render_static_template', args=['legal'])}">
-                ${_("Terms and conditions")}
-            </a>
-        </li>
+<style>
 
-        <li>
-            <a href="${reverse('contact:contact')}">
-                ${_("Contact")}
-            </a>
-        </li>
-  </ul>
+.fun-footer {
+    background-color: #08223C;
+}
 
+ul.footer-links {
+    list-style-type: none;
+}
+ul.footer-links li {
+    float: left;
+    font-size: 12px;
+    margin-right: 20px;
+}
+ul.footer-links li a{
+    color: white;
+}
+</style>
+
+<div class="row fun-footer">
+
+    <div class="col-xs-12">
+
+        <ul class="footer-links">
+            <li>
+                <a href="${reverse('site:render_static_template', args=['about'])}">
+                    ${_("About...")}
+                </a>
+            </li>
+            <li>
+                <a href="${reverse('site:render_static_template', args=['help'])}">
+                    ${_("Help")}
+                </a>
+            </li>
+            <li>
+                <a href="${reverse('site:render_static_template', args=['honor'])}">
+                    ${_("Terms and conditions")}
+                </a>
+            </li>
+            <li>
+                <a href="${reverse('site:render_static_template', args=['tos'])}">
+                    ${_("Terms of use")}
+                </a>
+            </li>
+            <li>
+                <a href="${reverse('site:render_static_template', args=['honor'])}">
+                    ${_("Usage policy")}
+                </a>
+            </li>
+            <li>
+                <a href="${reverse('site:render_static_template', args=['privacy'])}">
+                    ${_("Privacy policy")}
+                </a>
+            </li>
+            <li>
+                <a href="${reverse('site:render_static_template', args=['legal'])}">
+                    ${_("Terms and conditions")}
+                </a>
+            </li>
+
+            <li>
+                <a href="${reverse('contact:contact')}">
+                    ${_("Contact")}
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
