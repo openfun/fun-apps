@@ -1,16 +1,12 @@
-# edX translation file
-#
-# Translators:
-# France Université Numerique <team@openfun.fr>, 2013
+
 msgid ""
 msgstr ""
-"Project-Id-Version:  edx-platform\n"
+"Project-Id-Version: France Université Numérique 1\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-06-11 18:06+0200\n"
-"PO-Revision-Date: 2014-07-04 13:50-0400\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/edx-"
-"platform/language/fr/)\n"
+"POT-Creation-Date: 2015-07-22 17:41+0200\n"
+"PO-Revision-Date: 2015-07-22 17:41+0000\n"
+"Last-Translator: FUN <team@openfun.fr>\n"
+"Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
