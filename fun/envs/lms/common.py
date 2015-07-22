@@ -158,5 +158,5 @@ BOWER_PATH = '/usr/bin/bower'
 BOWER_INSTALLED_APPS = (
     'bootstrap',
     'jquery',
-)
->>>>>>> add bower to handle CSS/JS dependencies
+    'arg.js',
+)>>>>>>> add bower to handle CSS/JS dependencies

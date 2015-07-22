@@ -5,130 +5,41 @@
 ## FUN overrides this template to:
 ## - modify the sidebar
 
-<%! from django.core.urlresolvers import reverse %>
-<%! from django.utils.translation import ugettext as _ %>
-<%! import third_party_auth %>
-<%! from third_party_auth import provider, pipeline %>
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 
+from staticfiles.storage import staticfiles_storage
+%>
 
 <%block name="js_extra">
-  <script type="text/javascript">
-    $(function() {
+    <script src="${staticfiles_storage.url('arg.js/dist/arg-1.2.js')}"></script>
+    <script type="text/javascript">
 
-      // adding js class for styling with accessibility in mind
-      $('body').addClass('js');
+        var loginForm = $('#login-form');
+        loginForm.submit(function() {
+            $.ajax({
+                type: 'POST',
+                url: '/login_ajax',
+                data: loginForm.serialize(),
+                success: function(data) {
+                    var next = Arg.parse(window.location.search)['next'];
+                    if (data.redirect_url) {
+                        location.href = json.redirect_url;
+                    } else if (next) {
+                        location.href = next;
+                    } else {
+                       location.href = "${reverse('dashboard')}";
+                    }
+                },
+                error: function(data) {
+                    console.log(data.value)  // error message
+                }
+            });
+            return false;
+        })
 
-      // show forgot password modal UI if URL contains matching DOM ID
-      if ($.deparam.fragment()['forgot-password-modal'] !== undefined) {
-        $('.pwd-reset').click();
-      }
-
-      // new window/tab opening
-      $('a[rel="external"], a[class="new-vp"]')
-      .click( function() {
-        window.open( $(this).attr('href') );
-        return false;
-      });
-
-      // form field label styling on focus
-      $("form :input").focus(function() {
-        $("label[for='" + this.id + "']").parent().addClass("is-focused");
-      }).blur(function() {
-        $("label").parent().removeClass("is-focused");
-      });
-
-      $("#email").focus();
-    });
-
-    (function() {
-      toggleSubmitButton(true);
-
-      $('#login-form').on('submit', function() {
-        toggleSubmitButton(false);
-      });
-
-      $('#login-form').on('ajax:error', function(event, request, status_string) {
-        toggleSubmitButton(true);
-
-        if (request.status === 403) {
-          $('.message.submission-error').removeClass('is-shown');
-          $('.third-party-signin.message').addClass('is-shown').focus();
-          $('.third-party-signin.message .instructions').html(request.responseText);
-        } else {
-          $('.third-party-signin.message').removeClass('is-shown');
-          $('.message.submission-error').addClass('is-shown').focus();
-          $('.message.submission-error').html(gettext("Your request could not be completed.  Please try again."));
-        }
-      });
-
-      $('#login-form').on('ajax:success', function(event, json, xhr) {
-        if(json.success) {
-          var u=decodeURI(window.location.search);
-          var next = u.split("next=")[1];
-          if (next != undefined) {
-            // if next is undefined, decodeURI returns "undefined" causing a bad redirect.
-            next = decodeURIComponent(next);
-          }
-          if (next && !isExternal(next)) {
-            location.href=next;
-          }  else if(json.redirect_url){
-            location.href=json.redirect_url;
-          } else {
-            location.href="${reverse('dashboard')}";
-          }
-        } else if(json.hasOwnProperty('redirect')) {
-          var u=decodeURI(window.location.search);
-          if (!isExternal(json.redirect)) { // a paranoid check.  Our server is the one providing json.redirect
-              location.href=json.redirect+u;
-          } // else we just remain on this page, which is fine since this particular path implies a login failure
-            // that has been generated via packet tampering (json.redirect has been messed with).
-        } else {
-          toggleSubmitButton(true);
-          $('.message.submission-error').addClass('is-shown').focus();
-          $('.message.submission-error .message-copy').html(json.value);
-        }
-      });
-      $("#forgot-password-link").click(function() {
-        $("#forgot-password-modal").show();
-        $("#forgot-password-modal .close-modal").focus();
-      });
-
-    })(this);
-
-    function toggleSubmitButton(enable) {
-      var $submitButton = $('form .form-actions #submit');
-
-      if(enable) {
-        $submitButton.
-          removeClass('is-disabled').
-          attr('aria-disabled', false).
-          removeProp('disabled').
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
-      }
-      else {
-        $submitButton.
-          addClass('is-disabled').
-          prop('disabled', true).
-          text("${_(u'Processing your account information')}");
-      }
-    }
-
-    function thirdPartySignin(event, url) {
-      event.preventDefault();
-      window.location.href = url;
-    }
-
-    (function post_form_if_pipeline_running(pipeline_running) {
-       // If the pipeline is running, the user has already authenticated via a
-       // third-party provider. We want to invoke /login_ajax to loop in the
-       // code that does logging and sets cookies on the request. It is most
-       // consistent to do that by using the same mechanism that is used when
-       // the use does first-party sign-in: POSTing the sign-in form.
-       if (pipeline_running) {
-         $('#login-form').submit();
-       }
-    })(${pipeline_running})
-  </script>
+    </script>
 </%block>
 
 <%block name="title">${_("Log into your FUN Account")}</%block>
@@ -204,7 +115,7 @@
     % endif
 
       <div class="form-actions">
-        <button name="submit" type="submit" id="submit" class="action action-primary action-update login-button"></button>
+        <button name="submit" type="submit" id="submit" class="action action-primary action-update login-button">Login</button>
       </div>
     </form>
 
