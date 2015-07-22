@@ -16,12 +16,12 @@ from staticfiles.storage import staticfiles_storage
     <script src="${staticfiles_storage.url('arg.js/dist/arg-1.2.js')}"></script>
     <script type="text/javascript">
 
-        var loginForm = $('#login-form');
-        loginForm.submit(function() {
+        var $loginForm = $('#login-form');
+        $loginForm.submit(function() {
             $.ajax({
                 type: 'POST',
                 url: '/login_ajax',
-                data: loginForm.serialize(),
+                data: $loginForm.serialize(),
                 success: function(data) {
                     var next = Arg.parse(window.location.search)['next'];
                     if (data.redirect_url) {
@@ -38,6 +38,23 @@ from staticfiles.storage import staticfiles_storage
             });
             return false;
         })
+
+        var $modal = $('#password-reset-modal');
+        $modal.find('.btn-primary').on('click', function(event) {
+            $.ajax({
+                type: 'POST',
+                url: '${reverse("password_reset")}',
+                data: $('#password-reset-form').serialize(),
+                success: function(data) {
+                    console.log(data);
+                    $modal.modal('hide');
+                },
+                error: function(data) {
+                    console.log(data);
+                    $modal.modal('hide');
+                }
+            });
+        });
 
     </script>
 </%block>
@@ -87,9 +104,13 @@ from staticfiles.storage import staticfiles_storage
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>
             <input id="password" type="password" name="password" value="" required aria-required="true" />
+
             <span class="tip tip-input">
-              <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true">${_('Forgot password?')}</a>
+              <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true" data-toggle="modal" data-target="#password-reset-modal">${_('Forgot password?')}</a>
             </span>
+
+
+
           </li>
         </ol>
       </div>
@@ -139,3 +160,31 @@ from staticfiles.storage import staticfiles_storage
   </aside>
   </section>
 
+
+
+<div class="modal fade" id="password-reset-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+
+
+        <form id="password-reset-form" action="${reverse('password_reset')}" method="post" data-remote="true">
+
+              <label for="pwd_reset_email">${_("Your E-mail Address")}</label>
+              <input class="" id="pwd_reset_email" type="email" name="email" value="" placeholder="example: username@domain.com" aria-describedby="pwd_reset_email-tip" aria-required="true" />
+
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">${_("Cancel")}</button>
+        <button type="button" class="btn btn-primary">${_("Reset My Password")}</button>
+      </div>
+    </div>
+  </div>
+</div>
