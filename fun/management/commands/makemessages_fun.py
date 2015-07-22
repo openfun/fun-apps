@@ -1,5 +1,7 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 import argparse
+from datetime import datetime
 import os
 import optparse
 import sys
@@ -104,10 +106,26 @@ class MessageMaker(object):
         self.stdout.write("Updating %s...\n" % path_fun_djangopo)
         if self.is_verbose:
             check_catalog(fun_catalog)
+
+        fix_catalog_properties(fun_catalog)
         write_po_catalog(fun_catalog, path_fun_djangopo)
 
         if run_compile:
             compile_messages(root_path, locale)
+
+def fix_catalog_properties(catalog):
+    """Set FUn-compliant catalog properties"""
+    catalog.header_comment = ""
+    catalog.project = u"France Université Numérique"
+    catalog.revision_date = datetime.now()
+    try:
+        catalog.version = str(int(catalog.version) + 1)
+    except ValueError:
+        catalog.version = "0"
+    catalog.copyright_holder = u"France Université Numérique"
+    catalog.msgid_bugs_address = "team@openfun.fr"
+    catalog.language_team = "FUN <team@openfun.fr>"
+    catalog.last_translator = catalog.language_team
 
 def compile_messages(path, locale):
     from fun.utils.context import cd, setenv
