@@ -6,9 +6,8 @@ from django.core.urlresolvers import reverse
 from student.tests.factories import UserFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
+from courses.models import Course
 from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
-
-from ..models import Course
 
 from .factories import MicrositeUserFactory
 from .test_course_list import BaseCourseList
