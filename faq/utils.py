@@ -4,16 +4,17 @@ import pymongo
 
 from django.conf import settings
 
-MONGO = settings.CONTENTSTORE['OPTIONS']
+MONGO = settings.CONTENTSTORE['DOC_STORE_CONFIG']
 COLLECTION = 'zendesk_student_faq_articles'
 
 
 def connect_to_mongo():
     """Connect to FUN Mongo database."""
     db = pymongo.database.Database(
-            pymongo.MongoClient(host=MONGO['host'][0]),
+            pymongo.MongoClient(host=MONGO['host']),
             MONGO['db'])
-    db.authenticate(MONGO['user'], MONGO['password'])
+    if 'user' in MONGO:
+        db.authenticate(MONGO['user'], MONGO['password'])
     return db
 
 

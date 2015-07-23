@@ -2,6 +2,7 @@
 
 from django.conf.urls import patterns, url
 
+# namespace='faq'
 
 urlpatterns = patterns('faq.views',
     url(r'^$', 'index', name='index'),
