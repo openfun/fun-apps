@@ -1,7 +1,0 @@
---- 
-edxapp_use_custom_theme: true
-edxapp_theme_name: 'fun'
-edxapp_theme_source_repo: 'https://github.com/openfun/edx-theme.git'
-edxapp_theme_version: 'mooclab/develop'
-EDXAPP_PLATFORM_NAME: 'FUN'
-
