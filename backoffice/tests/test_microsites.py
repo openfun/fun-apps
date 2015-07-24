@@ -8,6 +8,7 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from courses.models import Course
 from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
+from newsfeed.models import Article
 
 from .factories import MicrositeUserFactory
 from .test_course_list import BaseCourseList
@@ -83,3 +84,20 @@ class TestMicrositeUsers(BaseMicrositeTestCase):
         self.client.login(username=self.backuser2.username, password='password')
         response = self.client.get(reverse('backoffice:user-list'))
         self.assertEqual(302, response.status_code)  # should be redirected to login page
+
+    @setMicrositeTestSettings(FAKE_MICROSITE1)
+    def test_ensure_news_created_in_backoffice_has_the_right_microsite(self):
+        """Ensure News created in backoffice has the right microsite."""
+        data = {
+            'title': u"Admin microsite 1",
+            'slug': 'admin_microsite1',
+            'published': True,
+            'language': 'fr',
+            'created_at': '24/07/2015 12:46:20',
+            'text': 'blah',
+        }
+        self.client.login(username=self.backuser1.username, password='password')
+        response = self.client.post(reverse('backoffice:news-create'), data)
+        self.assertEqual(302, response.status_code)
+        article = Article.objects.get(slug='admin_microsite1')
+        self.assertEqual('microsite1', article.microsite)

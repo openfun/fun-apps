@@ -1,0 +1,62 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n staticfiles bootstrap %}
+
+{% block extra_head %}
+<link href="{% static 'backoffice/datetimepicker/css/bootstrap-datetimepicker.css' %}" rel="stylesheet">
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<style>
+</style>
+{% endblock %}
+
+{% block extr_js %}
+<script type="text/javascript" src="{% static 'backoffice/datetimepicker/js/moment.js' %}"></script>
+<script type="text/javascript" src="{% static 'backoffice/datetimepicker/js/bootstrap-datetimepicker.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
+    <script>
+    $(function () {
+        $('#id_created_at').datetimepicker({locale: 'fr'});
+        // handle slug generation from title
+        document.getElementById("id_title").onkeyup = function() {
+            var e = document.getElementById("id_slug");
+            if (!e._changed) {
+                e.value = URLify(document.getElementById("id_title").value, 50);
+            }
+        }
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <h1>{% trans "Article" %}</h1>
+</div>
+
+<div class="row">
+
+        <form action="." method="POST" class="form-horizontal">
+          {% csrf_token %}
+
+            <div class="form-group">
+                {{ form|bootstrap_horizontal:'col-lg-4' }}
+            </div>
+
+            <div class="form-group">
+
+                <div class="pull-left">
+                    {% if form.instance.id %}
+                    <a class="btn btn-info" href="{% url 'newsfeed-article-preview' form.instance.slug %}">{% trans "Preview" %}</a>
+                    <a class="btn btn-info" href="{% url 'newsfeed-landing-preview' form.instance.slug %}">{% trans "Preview news page" %}</a></p>
+                    {% endif %}
+                </div>
+
+              <div class="pull-right">
+                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+              </div>
+            </div>
+        </form>
+
+</div>
+
+{% endblock %}

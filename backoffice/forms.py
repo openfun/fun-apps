@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from microsite_configuration import microsite
+
+from newsfeed.models import Article
 from student.models import UserProfile
 
 
@@ -36,3 +40,16 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('name', 'gender', 'language', 'level_of_education', 'location',
             'year_of_birth', 'mailing_address', 'city', 'country', 'goals')
+
+
+class ArticleForm(forms.ModelForm):
+
+    class Meta:
+        model = Article
+        fields = ['title', 'slug', 'created_at', 'thumbnail', 'language',
+                'text', 'published',]
+
+    def save(self, *args, **kwargs):
+        if settings.FEATURES['USE_MICROSITES']:
+            self.instance.microsite = microsite.get_value('SITE_NAME')
+        return super(ArticleForm, self).save(*args, **kwargs)

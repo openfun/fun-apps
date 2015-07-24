@@ -1,5 +1,10 @@
+# -*- coding: utf-8 -*-
+
+from django.conf import settings
 import django.http
 from django.views.generic import ListView, DetailView
+
+from microsite_configuration import microsite
 
 from fun.utils import mako
 
@@ -31,6 +36,9 @@ class ArticleListView(mako.MakoTemplateMixin, ListView):
         featured_section = models.FeaturedSection.get_solo()
         if featured_section and featured_section.article:
             queryset = queryset.exclude(id=featured_section.article.id)
+
+        if settings.FEATURES['USE_MICROSITES']:
+            queryset = queryset.filter(microsite=microsite.get_value('SITE_NAME'))
         return queryset
 
     def get_viewable_queryset(self):

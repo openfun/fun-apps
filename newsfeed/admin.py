@@ -1,6 +1,7 @@
 import datetime
 
 from django import forms
+from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
@@ -32,14 +33,14 @@ class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = ArticleAdminForm
     change_form_template = "newsfeed/change_form.html"
 
-    list_display = ("title", "preview", "published", "created_at",)
-    readonly_fields = ("edited_at",)# TODO display that
+    list_display = ("title", "preview", "published", "created_at", "microsite",)
+    readonly_fields = ("edited_at",)  # TODO display that
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title", "text", "slug",)
     fieldsets = (
         (None, {
             "fields": ("title", "slug", "language", "thumbnail",
-                ("published", "created_at"), "text",
+                ("published", "created_at"), "microsite", "text",
             )
         }),
     )

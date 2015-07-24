@@ -8,6 +8,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 
+from microsite_configuration import microsite
+
 from solo.models import SingletonModel
 
 
@@ -43,7 +45,6 @@ class ArticleManager(models.Manager):
         language.
         """
         return self.viewable(get_language())[:ArticleManager.FEATURED_ARTICLES_COUNT]
-
 
 
 class FeaturedSection(SingletonModel):
@@ -85,6 +86,8 @@ class Article(models.Model):
     published = models.BooleanField(verbose_name=_("published"),
             default=False)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    microsite = models.CharField(max_length=128, blank=True, db_index=True)
 
     objects = ArticleManager()
 

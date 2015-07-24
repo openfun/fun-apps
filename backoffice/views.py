@@ -30,9 +30,10 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Reg
 from xmodule_django.models import CourseKeyField
 from xmodule.modulestore.django import modulestore
 
+from newsfeed.models import Article
 from universities.models import University
 
-from .forms import SearchUserForm, UserForm, UserProfileForm
+from .forms import SearchUserForm, UserForm, UserProfileForm, ArticleForm
 from .utils import get_course, group_required, get_course_key
 from courses.models import Course
 from courses.utils import get_about_section
@@ -219,7 +220,7 @@ def course_detail(request, course_key_string):
         })
 
 
-def order_and_paginater_queryset(request, queryset, default_order):
+def order_and_paginate_queryset(request, queryset, default_order):
     order = request.GET.get('order', default_order)
     direction = '' if 'd' in request.GET else '-'
     try:
@@ -246,7 +247,7 @@ def user_list(request):
             | Q(email__icontains=pattern)
             | Q(profile__name__icontains=pattern)
         )
-    users = order_and_paginater_queryset(request, users, 'date_joined')
+    users = order_and_paginate_queryset(request, users, 'date_joined')
 
     return render(request, 'backoffice/users.html', {
         'users': users,
@@ -383,3 +384,35 @@ def user_detail(request, username):
         'tab': 'users',
         'certificates' : certificates
         })
+
+
+def news_list(request):
+    articles = Article.objects.all().order_by('-created_at')
+    if settings.FEATURES['USE_MICROSITES']:
+        articles = articles.filter(microsite=microsite.get_value('SITE_NAME'))
+
+    articles = order_and_paginate_queryset(request, articles, 'created_at')
+
+    return render(request, 'backoffice/articles.html', {
+        'articles': articles,
+        'tab': 'news',
+    })
+
+
+def news_detail(request, news_id=None):
+    if news_id:
+        article = Article.objects.get(id=news_id)
+        if settings.FEATURES['USE_MICROSITES']:
+            assert article.microsite == microsite.get_value('SITE_NAME')
+    else:
+        article = None
+
+    form = ArticleForm(data=request.POST or None, instance=article)
+    if form.is_valid():
+        form.save()
+        return redirect('backoffice:news-list')
+
+    return render(request, 'backoffice/article.html', {
+        'form': form,
+        'tab': 'news',
+    })

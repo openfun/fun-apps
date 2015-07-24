@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Specific CMS settings for developpement environement
 """

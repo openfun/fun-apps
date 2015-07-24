@@ -100,4 +100,3 @@ def generate_certificate(request, course_key_string):
     except AlreadyRunningError:
         messages.warning(request, _("A certificate generation is already running"))
     return redirect('backoffice:certificate-dashboard', course_key_string)
-

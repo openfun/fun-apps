@@ -29,7 +29,13 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'backoffice:courses-list' %}"><strong>FUN</strong> | {% trans "Support team" %}<small> ({{ ENVIRONMENT }})</small></a>
+        <a class="navbar-brand" href="{% url 'backoffice:courses-list' %}">
+          {% if USE_MICROSITE %}
+            <strong>{{ MICROSITE_PLATFORM }}</strong> | {% trans "Backoffice" %}<small> ({{ ENVIRONMENT }})</small>
+          {% else %}
+            <strong>FUN</strong> | {% trans "Support team" %}<small> ({{ ENVIRONMENT }})</small>
+          {% endif %}
+        </a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#NavBar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -40,6 +46,7 @@
           <ul class="nav navbar-nav">
             <li class="{% if tab == 'courses' %}active{% endif %}"><a href="{% url 'backoffice:courses-list' %}">{% trans "Courses" %}</a></li>
             <li class="{% if tab == 'users' %}active{% endif %}"><a href="{% url 'backoffice:user-list' %}">{% trans "Users" %}</a></li>
+            <li class="{% if tab == 'news' %}active{% endif %}"><a href="{% url 'backoffice:news-list' %}">{% trans "News" %}</a></li>
             <li class=""><a href="{% url 'course-dashboard-global:home' %}">{% trans "Statistics" %}</a></li>
           </ul>
         </div><!--/.nav-collapse -->
