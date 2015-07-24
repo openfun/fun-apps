@@ -15,6 +15,9 @@ django-pure-pagination==0.2.1
 -e git+https://github.com/openfun/password-container-xblock.git@master#egg=password_container
 -e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
 
+# Grade External Activitiy XBlock
+-e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
+
 git+https://github.com/openfun/dmotion-xblock.git@0.1#egg=dmotion-xblock
 git+https://github.com/dailymotion/dailymotion-sdk-python@0.2.0#egg=dailymotion-sdk-python
 

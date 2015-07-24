@@ -14,6 +14,7 @@ INSTALLED_APPS += (
     'selftest',
     'password_container',
     'raven.contrib.django.raven_compat',
+    'edx_gea'
     )
 
 ROOT_URLCONF = 'fun.cms.urls'

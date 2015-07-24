@@ -23,6 +23,7 @@ INSTALLED_APPS += (
     'pure_pagination',
     'teachers',
     'faq',
+    'edx_gea',
     )
 
 ROOT_URLCONF = 'fun.lms.urls'
