@@ -11,12 +11,16 @@ FUNAPPS_DIR = os.path.dirname(__file__)
 def main():
     args = parse_args()
     paths = find_module_and_packages(args.root_path)
-    run(paths, args.pylint)
+    run(paths, args.pylint, args.output_format)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run quality tests on fun-apps")
-    parser.add_argument("-i", "--input", dest='root_path', default='.', help="Path to module or package")
     parser.add_argument("--pylint", default='pylint', help="Path to pylint")
+    parser.add_argument("-i", "--input", dest='root_path', default='.',
+                        help="Path to module or package")
+    parser.add_argument("-f", "--format", dest='output_format', default='colorized',
+                        choices=('colorized', 'parseable', 'colorized', 'msvs', 'html'),
+                        help="Pylint output format")
     return parser.parse_args()
 
 def find_module_and_packages(root_path):
@@ -26,10 +30,11 @@ def find_module_and_packages(root_path):
     else:
         return [root_path]
 
-def run(paths, pylint):
+def run(paths, pylint, output_format):
     pylintrc_path = os.path.join(FUNAPPS_DIR, "pylint.cfg")
     cmd = [
         pylint,
+        '-f', output_format,
         '--rcfile={}'.format(pylintrc_path),
     ] + paths
     subprocess.call(cmd)
