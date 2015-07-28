@@ -1,39 +1,43 @@
 from StringIO import StringIO
 
-from wiki.models.urlpath import URLPath
-from wiki.models.article import Article
-
-from course_wiki.views import get_or_create_root
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
-from fun.management.commands import remove_wiki_write_permissions
+from fun.tests.utils import skipUnlessLms
 
 
+@skipUnlessLms
 class TestRemoveWikiWritePermissions(ModuleStoreTestCase):
 
     def setUp(self):
         super(TestRemoveWikiWritePermissions, self).setUp()
+        from course_wiki.views import get_or_create_root
         self.wiki_root = get_or_create_root()
         self.course = CourseFactory.create(org='ORG', display_name='COURSE', number='RUN')
 
+    def reload_article(self, article):
+        from wiki.models.article import Article
+        return Article.objects.get(pk=article.pk)
+
     def create_article(self, parent, slug, title):
+        from wiki.models.urlpath import URLPath
         return URLPath.create_article(parent, slug, title=title, article_kwargs={
             'group_write': True,
             'other_write': True,
         })
 
     def remove_write_permissions(self):
+        from fun.management.commands import remove_wiki_write_permissions
         command = remove_wiki_write_permissions.Command()
         command.execute(unicode(self.course.id), stdout=StringIO())
 
     def assertHasWritePermission(self, article):
-        article = Article.objects.get(pk=article.pk)
+        article = self.reload_article(article)
         self.assertTrue(article.group_write)
         self.assertTrue(article.other_write)
 
     def assertHasNoWritePermission(self, article):
-        article = Article.objects.get(pk=article.pk)
+        article = self.reload_article(article)
         self.assertFalse(article.group_write)
         self.assertFalse(article.other_write)
 
