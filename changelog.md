@@ -1,5 +1,17 @@
 # Changelog www.france-universite-numerique.fr
 
+## 2.17 30/07/2015
+- Ajout d'un xblock permettant d'intégrer des notes externes dans le courseware
+- Backoffice :
+    - Edition des news
+    - Prise en compte des microsites
+- Upload de vidéo sur Dailymotion Public. (pas de lien pour les concepteurs)
+- Intégration de la FAQ Zendesk sur la page /aide 
+- Résolution d'un problème de CSS qui décentrait le header de toutes les pages
+- Création d'un script permettant de supprimer les permissions d'écriture du wiki d'un cours
+- Modification de la visibilité par défaut des profils des utilisateurs
+- Ajout de metadatas cours/enseignant/thematiques en vue fun v3 + migrations des données existantes
+
 ## 2.14 16/06/2015
 - Merge edX au 26/05/2015
     - Visualisation et édition des profils utilisateurs
@@ -8,7 +20,6 @@
 	- renvoi du mail d'activation
 	- bouton pour modifier la note d'une attestation
 - Utilisation des vidéos DailyMotion via l'ajout d'un module dans les paramètres avancés
-
 
 ## 2.13 26/05/2015
 - Ajout des conditions de confidentialité CNIL
