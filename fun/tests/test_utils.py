@@ -9,7 +9,7 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
 from courses.utils import get_about_section
-from courses.views import get_dmcloud_url
+from courses.utils import get_dmcloud_url
 from fun.tests.utils import skipUnlessCms
 import fun.utils.html
 
