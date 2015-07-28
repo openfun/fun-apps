@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from south.utils import datetime_utils as datetime
-from south.db import db
 from south.v2 import DataMigration
-from django.db import models
 from django.template.defaultfilters import slugify
 
 
@@ -14,7 +11,7 @@ logger = logging.getLogger(__name__)
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        # Note: Don't use "from appname.models import ModelName". 
+        # Note: Don't use "from appname.models import ModelName".
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
         for teacher in orm.Teacher.objects.all():

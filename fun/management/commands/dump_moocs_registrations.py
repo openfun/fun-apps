@@ -1,20 +1,16 @@
 # pylint: disable=missing-docstring
 
 import csv
-import json
 import datetime
 from pytz import UTC
 
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
 
 from certificates.models import GeneratedCertificate
 from certificates.models import CertificateStatuses as status
 from student.models import UserProfile
 from student.models import CourseEnrollment
 from xmodule.modulestore.django import modulestore
-from opaque_keys.edx.locations import SlashSeparatedCourseKey
-from opaque_keys.edx.keys import CourseKey
 
 ##
 ##  Csv functions
@@ -22,11 +18,11 @@ from opaque_keys.edx.keys import CourseKey
 
 def cleanup_newlines(s):
     """Makes sure all the newlines in s are representend by \r only."""
-    return s.replace("\r\n","\r").replace("\n","\r")
+    return s.replace("\r\n", "\r").replace("\n", "\r")
 
 def return_csv(header_row, data_rows, filename, start_time):
     """Outputs a CSV file from the contents of a datatable."""
-    ofile  = open(filename, "wb")
+    ofile = open(filename, "wb")
     writer = csv.writer(ofile, dialect='excel', quotechar='"', quoting=csv.QUOTE_ALL)
     writer.writerow(header_row)
     for datarow in data_rows:
@@ -60,13 +56,13 @@ and if he got the certification. Below the csv structure :
     def check_certification(self, user, course_id):
         """return the certificate status for a particular user"""
         try:
-           certificate = GeneratedCertificate.objects.get(user=user, course_id=course_id)
-           if certificate.status == status.downloadable:
-               return 'SUCCEED'
-           elif certificate.status == status.notpassing:
-               return 'FAILED'
-           else:
-               return certificate.status
+            certificate = GeneratedCertificate.objects.get(user=user, course_id=course_id)
+            if certificate.status == status.downloadable:
+                return 'SUCCEED'
+            elif certificate.status == status.notpassing:
+                return 'FAILED'
+            else:
+                return certificate.status
         except GeneratedCertificate.DoesNotExist:
             return 'NOT GRADED'
 
@@ -81,7 +77,7 @@ and if he got the certification. Below the csv structure :
 
         students = UserProfile.objects.all()
 
-        print ( "The command has just begun, please wait")
+        print "The command has just begun, please wait"
         start_time = datetime.datetime.now(UTC)
 
         for student in students:
@@ -89,8 +85,8 @@ and if he got the certification. Below the csv structure :
             for course in courses:
                 #print(course.id._key)
                 try:
-                    courses_enrolled = CourseEnrollment.objects.get(user=student.user, course_id=course.id,
-                                                                     user__is_superuser=False)
+                    CourseEnrollment.objects.get(user=student.user, course_id=course.id,
+                                                 user__is_superuser=False)
                     certification = self.check_certification(student.user, course.id)
                     data_row.append(certification)
                 except CourseEnrollment.DoesNotExist:

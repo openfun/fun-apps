@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 import logging
+from smtplib import SMTPRecipientsRefused
 
 from django.db.models import Q, Count
 from django.template.loader import render_to_string
 from django.contrib.auth import models as auth_models
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from student.models import CourseEnrollment
 
@@ -52,7 +53,7 @@ class Command(BaseCommand):
         try:
             email.send()
         except SMTPRecipientsRefused:
-            logger.error(u"Stat email could not be sent(%s)." % subject)
+            logger.error(u"Stat email could not be sent(%s).", context['subject'])
 
 
 

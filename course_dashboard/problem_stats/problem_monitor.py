@@ -5,7 +5,6 @@ import json
 import capa.responsetypes as loncapa_question_types
 from courseware.models import StudentModule
 
-from course_dashboard.problem_stats.question_monitors import UnhandledQuestionMonitor
 from course_dashboard.problem_stats import question_monitors
 
 
@@ -35,7 +34,8 @@ class ProblemMonitor(object):
 
         Each QuestionMonitor will be store in self.question_monitors.
         """
-        for count, question in enumerate(self.problem_tree.xpath('//' + "|//".join(loncapa_question_types.registry.registered_tags()))):
+        questions = self.problem_tree.xpath('//' + "|//".join(loncapa_question_types.registry.registered_tags()))
+        for count, question in enumerate(questions):
             question_monitor_cls = question_monitors.registry.get_class_for_tag(question.tag)
             question_id = "{}_{}_1".format(self.problem_module.location.html_id(), count + 2)
             self.question_monitors[question_id] = question_monitor_cls(question_id, question,

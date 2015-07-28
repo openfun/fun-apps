@@ -6,20 +6,14 @@ from smtplib import SMTPRecipientsRefused
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.core import serializers
 from django.core.mail import EmailMultiAlternatives
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from optparse import make_option
-from django.db.models.query import QuerySet
 from pprint import PrettyPrinter
 from django.core.files import File
 from django.template.loader import render_to_string
-import json
-from bson import json_util
 
-import lms.lib.comment_client as cc
-from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from pymongo import MongoClient
 from student.models import UserProfile
 
@@ -45,28 +39,28 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option(
             "--username",
-            dest = "username",
-            help = "the username"
+            dest="username",
+            help="the username"
         ),
         make_option(
             "--file",
-            dest = "file",
-            help = "the file to write"
+            dest="file",
+            help="the file to write"
         ),
         make_option(
             "--host",
-            dest = "host",
-            help = "the ip host adress for mongo connexion"
+            dest="host",
+            help="the ip host adress for mongo connexion"
         ),
         make_option(
             "--user_mongo",
-            dest = "user_mongo",
-            help = "the username for mongo connexion"
+            dest="user_mongo",
+            help="the username for mongo connexion"
         ),
         make_option(
             "--pwd_mongo",
-            dest = "pwd_mongo",
-            help = "the password for mongo connexion"
+            dest="pwd_mongo",
+            help="the password for mongo connexion"
         ),
         make_option(
             "--email",
@@ -79,9 +73,9 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-        if options['username'] == None :
+        if options['username'] == None:
             raise CommandError("Option `--username=...` must be specified.")
-        if options['file'] == None :
+        if options['file'] == None:
             filename = "export_%s.log" %options['username']
         else:
             filename = options['file']
@@ -95,15 +89,15 @@ class Command(BaseCommand):
 
         host = '127.0.0.1'
         if options['host']:
-            host=options['host']
+            host = options['host']
             print u"Using %s as host address" %host
 
 
         user_mongo = None
         password_mongo = None
         if options['user_mongo']:
-            user_mongo=options['user_mongo']
-            password_mongo=options['pwd_mongo']
+            user_mongo = options['user_mongo']
+            password_mongo = options['pwd_mongo']
             print u"With user %s" % user_mongo
 
         all_models = models.get_models(include_auto_created=True) #return all models found
@@ -124,7 +118,7 @@ class Command(BaseCommand):
             #OTHER TABLE
             for model in all_models: #parse all models to find which one has a foreign key with User
                 for field in model._meta.fields:
-                    if field.get_internal_type()=="ForeignKey" and field.rel.to==User:
+                    if field.get_internal_type() == "ForeignKey" and field.rel.to == User:
                         printer.pprint("Table %s :" %model.__name__)
                         #OR if isinstance(field, models.ForeignKey)
                         kwargs = {field.name: user}
@@ -171,29 +165,28 @@ class Command(BaseCommand):
             try:
                 email.send()
             except SMTPRecipientsRefused:
-                logger.error(u"Stat email could not be sent(%s)." % subject)
-                print u"Unexpected error append while sending %s" % filename
+                logger.error(u"Stat email could not be sent(%s).", context['subject'])
+                print u"Unexpected error append while sending %s", filename
 
-def to_dict(obj, exclude=[]):
-    """
-    """
+def to_dict(obj, exclude=None):
+    exclude = exclude or []
     tree = {}
     for field in obj._meta.fields + obj._meta.many_to_many:
         if field.name in exclude or \
            '%s.%s' % (type(obj).__name__, field.name) in exclude:
             continue
 
-        try :
+        try:
             value = getattr(obj, field.name)
         except obj.DoesNotExist:
             value = None
 
-        if type(field) in [models.ForeignKey, models.OneToOneField]:
-            tree[field.name] = "%s" %value #to_dict(value, exclude=exclude)
+        if isinstance(field, (models.ForeignKey, models.OneToOneField)):
+            tree[field.name] = "%s" % value
         elif isinstance(field, models.ManyToManyField):
             vs = []
             for v in value.all():
-                vs.append(v) #to_dict(v, exclude=exclude))
+                vs.append(v)
             tree[field.name] = "%s" %vs
         elif isinstance(field, models.DateTimeField):
             tree[field.name] = str(value)

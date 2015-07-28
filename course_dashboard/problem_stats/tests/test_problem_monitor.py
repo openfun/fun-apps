@@ -1,7 +1,5 @@
 from lxml import etree
-import json
 
-from xmodule.modulestore.tests.factories import ItemFactory
 from capa.correctmap import CorrectMap
 from capa.tests import response_xml_factory as RF
 
@@ -22,7 +20,8 @@ class ProblemMonitorTestCase(BaseCourseDashboardTestCase):
         for string_question in args:
             xml_question = etree.fromstring(string_question)
             if xml_question.tag == 'problem':
-                [problem.append(element) for element in xml_question.findall('*')]
+                for element in xml_question.findall('*'):
+                    problem.append(element)
             else:
                 problem.append(xml_question)
         return etree.tostring(problem)
@@ -54,11 +53,13 @@ class ProblemMonitorTestCase(BaseCourseDashboardTestCase):
                                    QM.UnhandledQuestionMonitor))
         self.assertTrue(isinstance(question_monitors[self._build_question_id(2)],
                                    QM.MultipleChoiceMonitor))
-        
+
     def test_preprocess_problem_with_context(self):
-        problem_tree = self._build_problem(RF.MultipleChoiceResponseXMLFactory().build_xml(question_text='First question, who am I ?'),
-                                           "<p>Second question, whot are you ?</p>",
-                                           RF.MultipleChoiceResponseXMLFactory().build_xml(question_text='Choose the best answer.'))
+        problem_tree = self._build_problem(
+            RF.MultipleChoiceResponseXMLFactory().build_xml(question_text='First question, who am I ?'),
+            "<p>Second question, whot are you ?</p>",
+            RF.MultipleChoiceResponseXMLFactory().build_xml(question_text='Choose the best answer.')
+        )
 
         self.problem_module.data = problem_tree
         problem_monitor = ProblemMonitor(self.problem_module)
@@ -88,19 +89,16 @@ class ProblemMonitorTestCase(BaseCourseDashboardTestCase):
             student_answers[self._build_question_id(index)] = response
         return student_answers
 
-    def _build_student_module_state(self, correct_map, student_answers,
-                                    seed='1', done='True', attempts=1,
-                                    last_submission_time="2015-04-01T15:53:28Z"):
-        state = {
+    def _build_student_module_state(self, correct_map, student_answers):
+        return {
             'correct_map': correct_map,
             'student_answers': student_answers,
             'input_state': None,
-            'seed': seed,
-            'done': done,
-            'attempts' : attempts,
-            'last_submission_time' : last_submission_time
+            'seed': '1',
+            'done': 'True',
+            'attempts': 1,
+            'last_submission_time': "2015-04-01T15:53:28Z"
         }
-        return state
 
     def test_get_student_answers(self):
         first_question = RF.MultipleChoiceResponseXMLFactory().build_xml(

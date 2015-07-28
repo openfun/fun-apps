@@ -10,7 +10,7 @@ from certificates.tests.factories import GeneratedCertificateFactory
 from student.models import UserStanding, Registration
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
-from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
+from fun.tests.utils import skipUnlessLms
 from courses.models import Course
 
 from .test_course_list import BaseCourseList
@@ -161,7 +161,6 @@ class TestUsers(BaseCourseList):
         data = {
             'action': u"resend-activation"
         }
-        response = self.client.post(reverse('backoffice:user-detail',
-                args=[self.user2.username]), data)
+        self.client.post(reverse('backoffice:user-detail', args=[self.user2.username]), data)
         self.assertEquals(len(mail.outbox), 1)
 

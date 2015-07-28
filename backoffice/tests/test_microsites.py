@@ -6,24 +6,22 @@ from django.core.urlresolvers import reverse
 from student.tests.factories import UserFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
-from courses.models import Course
 from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
 
 from .factories import MicrositeUserFactory
-from .test_course_list import BaseCourseList
 
 
 FAKE_MICROSITE1 = {
     "SITE_NAME": "microsite1",
     "university": "organization1",
     "course_org_filter": "org1",
-    }
+}
 
 FAKE_MICROSITE2 = {
     "SITE_NAME": "microsite2",
     "university": "organization2",
     "course_org_filter": "org2",
-    }
+}
 
 
 class BaseMicrositeTestCase(ModuleStoreTestCase):
@@ -32,7 +30,7 @@ class BaseMicrositeTestCase(ModuleStoreTestCase):
         user = MicrositeUserFactory(user__username=username, site=microsite).user
         user.set_password('password')
         user.save()
-        backoffice_group, created = Group.objects.get_or_create(name='fun_backoffice')
+        backoffice_group, _created = Group.objects.get_or_create(name='fun_backoffice')
         user.groups.add(backoffice_group)
         return user
 

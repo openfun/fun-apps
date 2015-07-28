@@ -10,14 +10,13 @@ logger = logging.getLogger(__name__)
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        # Note: Don't use "from appname.models import ModelName". 
+        # Note: Don't use "from appname.models import ModelName".
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
         for teacher in orm.Teacher.objects.all():
             try:
-                related_course = teacher.course
+                _related_course = teacher.course
             except orm['courses.Course'].DoesNotExist:
-                related_course = None
                 logger.warning(
                     u'Data Migration: Could not find course relation for this '
                     'teacher: "{}" - (#{})'.format(teacher.full_name, teacher.id)

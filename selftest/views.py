@@ -10,7 +10,6 @@ from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
-from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.translation import get_language
 from django.views.debug import get_safe_settings
@@ -50,8 +49,10 @@ def selftest_index(request):
             os.chdir(settings.BASE_ROOT / repo)
             git.path = settings.BASE_ROOT / repo
             git.init_repo()
-            revisions[repo] = mark_safe(git.repo.git('log -1 --decorate --format=<strong>%h</strong>&nbsp;%aD&nbsp;%d<br><strong>%s</strong>&nbsp;%ae'))
-        except Exception, e:
+            revisions[repo] = mark_safe(git.repo.git(
+                'log -1 --decorate --format=<strong>%h</strong>&nbsp;%aD&nbsp;%d<br><strong>%s</strong>&nbsp;%ae'
+            ))
+        except Exception as e:
             revisions[repo] = mark_safe("<strong>Unknown</strong> %r" % e)
     return render(request, 'selftest/index.html', {
         'emailform': emailform,
