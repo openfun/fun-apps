@@ -5,7 +5,6 @@ from xmodule.capa_module import CapaDescriptor
 from course_dashboard.tests.base import BaseCourseDashboardTestCase
 from course_dashboard.problem_stats import utils
 
-import sample_courses
 
 class UtilsTestCase(BaseCourseDashboardTestCase):
     def test_fetch_problems(self):
@@ -35,4 +34,3 @@ class UtilsTestCase(BaseCourseDashboardTestCase):
         self.problem_module.data = RF.MultipleChoiceResponseXMLFactory().build_xml()
         size = utils.get_problem_size(self.problem_module)
         self.assertEqual(size, 1)
-        

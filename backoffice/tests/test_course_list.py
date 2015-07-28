@@ -4,7 +4,6 @@ import csv
 from StringIO import StringIO
 
 from django.contrib.auth.models import User, Group
-from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
@@ -22,7 +21,7 @@ class BaseCourseList(ModuleStoreTestCase):
         self.user = User.objects.create(username='backoffice', is_staff=True)
         self.user.set_password('password')
         self.user.save()
-        self.backoffice_group, created = Group.objects.get_or_create(name='fun_backoffice')
+        self.backoffice_group, _created = Group.objects.get_or_create(name='fun_backoffice')
         self.user.groups.add(self.backoffice_group)
         UserProfile.objects.create(user=self.user)
         self.client.login(username=self.user.username, password='password')

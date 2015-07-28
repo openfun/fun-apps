@@ -7,7 +7,6 @@ import random
 
 
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
 
 from capa.xqueue_interface import make_hashkey
 from instructor_task.models import InstructorTask
@@ -51,9 +50,11 @@ def filter_instructor_task(instructor_tasks):
         if instructor_task.task_output:
             instructor_task.task_output = json.loads(instructor_task.task_output)
         else:
-            instructor_task.task_output = {'total' : 0,
-                                           'downloadable' : 0,
-                                           'notpassing': 0 }
+            instructor_task.task_output = {
+                'total' : 0,
+                'downloadable' : 0,
+                'notpassing': 0
+            }
     return instructor_tasks
 
 def get_running_instructor_tasks(course_id, task_type):

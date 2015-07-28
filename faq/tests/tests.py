@@ -2,10 +2,8 @@
 
 from bs4 import BeautifulSoup
 import datetime
-import pymongo
 
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
@@ -14,8 +12,16 @@ from fun.tests.utils import skipUnlessLms
 from ..utils import connect_to_mongo, COLLECTION
 
 now = datetime.datetime.now()
-article = {"category": {"position": 1, "id": 1, "name": "Category name 1"}, "body": "Article body 1", "name": "Article 1",
-        "udated_at": now, "section": {"position": 1, "id": 1, "name": "Section 1"}, "last_document_update": now, "id": 1, "last_update": now}
+article = {
+    "category": {"position": 1, "id": 1, "name": "Category name 1"},
+    "body": "Article body 1",
+    "name": "Article 1",
+    "udated_at": now,
+    "section": {"position": 1, "id": 1, "name": "Section 1"},
+    "last_document_update": now,
+    "id": 1,
+    "last_update": now
+}
 
 
 @skipUnlessLms

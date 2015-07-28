@@ -8,9 +8,9 @@ from django.template.loader import render_to_string
 from capa.registry import TagRegistry
 import capa.responsetypes as loncapa_question_types
 
-from course_dashboard.problem_stats.utils import percentage
 
 registry = TagRegistry()
+
 
 class QuestionMonitor(object):
     """Class for question monitoring.
@@ -63,7 +63,10 @@ class QuestionMonitor(object):
         total_answers = sum(self.student_answers.values()) + self.no_answer
         return total_answers
 
-    def get_html(self, template_name):
+    def get_html(self):
+        raise NotImplementedError()
+
+    def get_template_html(self, template_name):
         """ Render the corresponding question template with it's context.
 
         Args:
@@ -92,15 +95,15 @@ class MultipleChoiceMonitor(QuestionMonitor):
     tags = ['multiplechoiceresponse']
 
     def get_html(self):
-        return super(MultipleChoiceMonitor, self).get_html('problem_stats/multiplechoice.html')
+        return self.get_template_html('problem_stats/multiplechoice.html')
 
 @registry.register
 class StringQuestionMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['stringresponse']
-    
+
     def get_html(self):
-        return super(StringQuestionMonitor, self).get_html('problem_stats/string_question.html')
+        return self.get_template_html('problem_stats/string_question.html')
 
 @registry.register
 class OptionQuestionMonitor(QuestionMonitor):
@@ -109,7 +112,7 @@ class OptionQuestionMonitor(QuestionMonitor):
 
 
     def get_html(self):
-        return super(OptionQuestionMonitor, self).get_html('problem_stats/option_question.html')
+        return self.get_template_html('problem_stats/option_question.html')
 
 @registry.register
 class ChoiceQuestionMonitor(QuestionMonitor):
@@ -135,7 +138,7 @@ class ChoiceQuestionMonitor(QuestionMonitor):
 
     def get_html(self):
         self._parse_student_answers()
-        return super(ChoiceQuestionMonitor, self).get_html('problem_stats/choice_question.html')
+        return self.get_template_html('problem_stats/choice_question.html')
 
 
 @registry.register
@@ -147,5 +150,5 @@ class UnhandledQuestionMonitor(QuestionMonitor):
     tags = [tags for tags in loncapa_question_tags if tags not in monitor_question_tags]
 
     def get_html(self):
-        return super(UnhandledQuestionMonitor, self).get_html('problem_stats/nothandled.html')
+        return self.get_template_html('problem_stats/nothandled.html')
 

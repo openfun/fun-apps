@@ -5,7 +5,6 @@ import dateutil.parser
 import json
 import logging
 import requests
-import pymongo
 import pytz
 
 from django.conf import settings
@@ -13,9 +12,9 @@ from django.utils import timezone
 
 from optparse import make_option
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
-from ...utils import connect_and_drop_collection, COLLECTION, connect_to_mongo
+from ...utils import connect_and_drop_collection, COLLECTION
 
 
 logger = logging.getLogger(__name__)
@@ -96,15 +95,24 @@ class Command(BaseCommand):
                     if updated_at > last_document_update:
                         last_document_update = updated_at
 
-                    item = {'id': article['id'],
-                            'category': {'id': category['id'], 'name': category['name'], 'position': category['position']},
-                            'section': {'id': section['id'], 'name': section['name'], 'position': section['position']},
-                            'name': article['name'],
-                            'udated_at': updated_at,
-                            'body': article['body'],
-                            'last_update': timezone.now(),  # This is the last time we successuly fetched Zendesk API
-                            'last_document_update': last_document_update,  # This is the lastest document update
-                            }
+                    item = {
+                        'id': article['id'],
+                        'category': {
+                            'id': category['id'],
+                            'name': category['name'],
+                            'position': category['position']
+                        },
+                        'section': {
+                            'id': section['id'],
+                            'name': section['name'],
+                            'position': section['position']
+                        },
+                        'name': article['name'],
+                        'udated_at': updated_at,
+                        'body': article['body'],
+                        'last_update': timezone.now(),  # This is the last time we successuly fetched Zendesk API
+                        'last_document_update': last_document_update,  # This is the lastest document update
+                    }
 
                     if not options['dry_run']:
                         collection.insert(item)

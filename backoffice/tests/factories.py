@@ -3,7 +3,7 @@
 import factory
 from factory.django import DjangoModelFactory
 
-from student.models import UserStanding, Registration, UserSignupSource
+from student.models import UserSignupSource
 from student.tests.factories import UserFactory
 
 

@@ -12,8 +12,6 @@ from django.conf import settings
 
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 
-from courseware.courses import get_course_with_access, get_course_by_id
-from courseware.access import has_access
 from instructor.views.api import require_level
 from instructor_task.models import ReportStore
 
@@ -23,7 +21,7 @@ from instructor_task.models import ReportStore
 def list_report_downloads(_request, course_id):
     """
     List grade CSV files that are available for download for this course.
-    Remove  "file:///tmp/edx-s3" from the url to permit download 
+    Remove  "file:///tmp/edx-s3" from the url to permit download
     """
 
     course_id = SlashSeparatedCourseKey.from_deprecated_string(course_id)

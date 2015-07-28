@@ -98,8 +98,9 @@ class Command(BaseCommand):
                     diff = datetime.datetime.now(UTC) - start
                     timeleft = diff * (total_students - enrolled) / STATUS_INTERVAL
                     hours, remainder = divmod(timeleft.seconds, 3600)
-                    minutes, seconds = divmod(remainder, 60)
-                    print "{0} students out of {1} were successfully enrolled to course {2} ~{3:02}:{4:02}m remaining".format(
+                    minutes, _seconds = divmod(remainder, 60)
+                    print ("{0} students out of {1} were successfully enrolled to "
+                           "course {2} ~{3:02}:{4:02}m remaining").format(
                         enrolled, total_students, COURSE_ID, hours, minutes)
 
                     start = datetime.datetime.now(UTC)
@@ -111,7 +112,8 @@ class Command(BaseCommand):
                                                     mode='honor')
                 enrolled += 1
 
-            print "\nSubscription progress is over : {0} students out of {1} were successfully enrolled to course {2}".format(
+            print ("\nSubscription progress is over : {0} students out of {1}"
+                   " were successfully enrolled to course {2}").format(
                         enrolled, total_students, COURSE_ID)
 
         except InvalidKeyError:

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django_future.csrf import ensure_csrf_cookie
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponseBadRequest
 from django.utils.html import strip_tags
 from django.views.decorators.cache import cache_control
 
 from courseware.access import has_access
-from courseware.courses import get_course_with_access, get_course_by_id
+from courseware.courses import get_course_by_id
 from django_comment_client.utils import has_forum_access
 from django_comment_common.models import Role, FORUM_ROLE_ADMINISTRATOR
-from instructor.access import list_with_level, allow_access, revoke_access, update_forum_role
+from instructor.access import update_forum_role
 from instructor.views.api import require_level, require_query_params
 from instructor.views.tools import get_student_from_identifier
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
@@ -25,6 +25,9 @@ CUSTOM_ROLES = [FORUM_ROLE_OFFICIAL_CONTRIBUTOR, FORUM_ROLE_RECOMMENDED, FORUM_R
 FIELDS = ['username', 'email', 'first_name', 'last_name']  # fields to serialize and return to ajax call
 
 
+class UnauthorizedAccessError(Exception):
+    pass
+
 def _check_rights(course_id, user, rolename):
     """Check if user has correct rights."""
     course_id = SlashSeparatedCourseKey.from_deprecated_string(course_id)
@@ -34,13 +37,13 @@ def _check_rights(course_id, user, rolename):
 
     # default roles require either (staff & forum admin) or (instructor)
     if not (has_forum_admin or has_instructor_access):
-        raise HttpResponseBadRequest(
+        raise UnauthorizedAccessError(
             "Operation requires staff & forum admin or instructor access"
         )
 
     # filter out unsupported for roles
     if not rolename in CUSTOM_ROLES:
-        raise HttpResponseBadRequest(strip_tags(
+        raise UnauthorizedAccessError(strip_tags(
             "Unrecognized FUN special rolename '{}'.".format(rolename)
         ))
 
@@ -71,7 +74,10 @@ def _check_custom_roles(course_id):
 def list_special_forum_contributors(request, course_id):
 
     rolename = request.GET.get('rolename')
-    course_key =_check_rights(course_id, request.user, rolename)
+    try:
+        course_key = _check_rights(course_id, request.user, rolename)
+    except UnauthorizedAccessError as e:
+        return HttpResponseBadRequest(e.message)
     try:
         role = Role.objects.get(name=rolename, course_id=course_key)
         users = list(role.users.all().values(*FIELDS).order_by('username'))
@@ -95,7 +101,10 @@ def modify_special_forum_contributors(request, course_id):
     rolename = request.GET.get('rolename')
     action = request.GET.get('action')
 
-    course_id =_check_rights(course_id, request.user, rolename)
+    try:
+        course_id = _check_rights(course_id, request.user, rolename)
+    except UnauthorizedAccessError as e:
+        return HttpResponseBadRequest(e.message)
     course = get_course_by_id(course_id)
     _check_custom_roles(course_id)
 

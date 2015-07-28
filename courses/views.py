@@ -6,7 +6,6 @@ import re
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.contrib.syndication.views import Feed
-from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone, translation
@@ -34,13 +33,16 @@ def _dates_description(course):
     course_interval = ''
     if course.enrollment_start and course.enrollment_start > now:
         inscription_inverval = u"Inscription à partir du %s" % (course.enrollment_start.strftime(FORMAT))
-    elif course.enrollment_start and course.enrollment_end and course.enrollment_start < now and course.enrollment_end > now:
+    elif (course.enrollment_start and course.enrollment_end and
+          course.enrollment_start < now and course.enrollment_end > now):
         inscription_inverval = u"Inscription jusqu'au %s" % (course.enrollment_end.strftime(FORMAT))
     else:
         inscription_inverval = u"Les inscriptions sont terminées"
     if course.start and course.start > now:
         if course.end:
-            course_interval = u"Le cours dure du %s au %s" % (course.start.strftime(FORMAT), course.end.strftime(FORMAT))
+            course_interval = u"Le cours dure du %s au %s" % (
+                course.start.strftime(FORMAT), course.end.strftime(FORMAT)
+            )
         else:
             course_interval = u"Le cours démarre le %s" % (course.start.strftime(FORMAT))
     elif course.end and course.end > now:
@@ -118,13 +120,14 @@ def get_dmcloud_url(course, video_id):
     if len(video_id) > 20:
         # Studio saves in mongo youtube urls with dmcloud id, we have to extract dmclouid to build correct url
         try:
-            dmcloud = re.compile('/([\d\w]+)\?').search(video_id).groups()[0]
+            dmcloud = re.compile(r'/([\d\w]+)\?').search(video_id).groups()[0]
         except AttributeError:
             dmcloud = ''
     else:
         # FUN v1 did the stuff write
         dmcloud = video_id
-    html='<iframe width="560" height="315" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + dmcloud + '"></iframe>'
+    html = ('<iframe width="560" height="315" frameborder="0" '
+            'scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/') + dmcloud + '"></iframe>'
     return html
 
 

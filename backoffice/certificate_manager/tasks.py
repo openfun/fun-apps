@@ -2,9 +2,7 @@
 This file contains backoffice tasks that are designed to perform background operations on the running state of a course.
 """
 
-from datetime import datetime
 from time import time
-from pytz import UTC
 import os
 
 from instructor_task.tasks_helper import TaskProgress
@@ -12,9 +10,11 @@ from xmodule.modulestore.django import modulestore
 from certificates.models import (
   certificate_status_for_student,
   CertificateStatuses as status,
-  GeneratedCertificate)
+)
 
-from fun_certificates.management.commands.generate_fun_certificates import get_enrolled_students, generate_fun_certificate
+from fun_certificates.management.commands.generate_fun_certificates import (
+    get_enrolled_students, generate_fun_certificate
+)
 from backoffice.utils import get_course_key
 from backoffice.certificate_manager.utils import get_teachers_list_from_course, create_test_certificate
 
@@ -33,7 +33,6 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
     certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
 
     start_time = time()
-    start_date = datetime.now(UTC)
     status_interval = 1
     enrolled_students = get_enrolled_students(course_id)
     teachers = get_teachers_list_from_course(course_id.to_deprecated_string())
@@ -47,7 +46,7 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
                   status.downloadable: 0,
                   'test_certificate_filename' : test_certificate.filename}
 
-    for count, student in enumerate(enrolled_students):
+    for student in enrolled_students:
         task_progress.attempted += 1
         if task_progress.attempted % status_interval == 0:
             task_progress.update_task_state(extra_meta=all_status)

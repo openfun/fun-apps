@@ -2,8 +2,6 @@ import csv
 import json
 from time import time
 
-from django.conf import settings
-
 from courseware.models import StudentModule
 from student.models import UserProfile
 from instructor_task.tasks_helper import TaskProgress
