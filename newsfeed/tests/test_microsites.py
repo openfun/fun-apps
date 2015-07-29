@@ -14,6 +14,8 @@ from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
 
 from ..models import Article
 
+
+@skipUnlessLms
 class TestNews(ModuleStoreTestCase):
     def setUp(self):
         news1 = Article.objects.create(title=u"Microsite 1", slug='microsite1',
