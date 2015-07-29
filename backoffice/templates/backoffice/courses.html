@@ -4,13 +4,15 @@
 
 {% block extr_js %}
 <script>
+    {% if course_infos %}
     $(document).ready(function() {
         $('#courses-list').DataTable({
             paging:   false,
             searching: false,
             info: false,
         });
-    } );
+    });
+    {% endif %}
 </script>
 {% endblock %}
 
