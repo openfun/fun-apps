@@ -82,3 +82,10 @@ msgstr "Paramètres vidéo"
 msgid "Video thumbnail"
 msgstr "Vignette de la vidéo"
 
+# We temporarily override this upstreal i18nation to fix bad typo
+msgid ""
+"The name that appears on your certificates. Other learners never see your "
+"full name."
+msgstr ""
+"Le nom complet visible sur vos certificats. Les autres étudiants ne pourront"
+" pas voir votre nom complet."
