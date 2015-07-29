@@ -386,6 +386,7 @@ def user_detail(request, username):
         })
 
 
+@group_required('fun_backoffice')
 def news_list(request):
     articles = Article.objects.all().order_by('-created_at')
     if settings.FEATURES['USE_MICROSITES']:
@@ -399,6 +400,7 @@ def news_list(request):
     })
 
 
+@group_required('fun_backoffice')
 def news_detail(request, news_id=None):
     if news_id:
         article = Article.objects.get(id=news_id)

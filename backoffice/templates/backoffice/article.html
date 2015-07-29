@@ -4,7 +4,9 @@
 
 {% block extra_head %}
 <link href="{% static 'backoffice/datetimepicker/css/bootstrap-datetimepicker.css' %}" rel="stylesheet">
-
+<script>
+    window['CKEDITOR_BASEPATH'] = "{% static 'ckeditor/ckeditor/' %}"
+</script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 <style>
 </style>
