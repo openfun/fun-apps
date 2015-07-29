@@ -1,6 +1,6 @@
 {% extends 'backoffice/base.html' %}
 {% load url from future %}
-{% load i18n staticfiles bootstrap %}
+{% load i18n static bootstrap %}
 
 {% block extra_head %}
 <style>
@@ -163,7 +163,7 @@
                         <td>{{ certificate.course_id }}</td>
                         <td> {{ certificate.grade }} <a class="btn"><span id='change-grade-button' data-course-id="{{certificate.course_id}}" class='glyphicon glyphicon-pencil' data-toggle="modal" data-target="#change-grade"></span></a></td>
                         <td>{{ certificate.status }}</td>
-                        <td><a href="{% static certificate.download_url %}"><span class='glyphicon glyphicon-download-alt'></span></a></td>
+                        <td><a href="{% get_static_prefix %}{{certificate.download_url|slice:"1:"}}"><span class='glyphicon glyphicon-download-alt'></span></a></td>
                     </tr>
                 {% empty %}
                     <tr><td colspan="4">{% trans "No certificates generated." %}</td></tr>
