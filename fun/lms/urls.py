@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     (r'^contact/', include('contact.urls')),
     (r'^news/', include('newsfeed.urls')),
     # as we override a theme static_page, it has to work whith and without trailing slash
-    (r'^help(?:/)', include('faq.urls', namespace='faq')),
+    (r'^help/', include('faq.urls', namespace='faq')),
     (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # override edX's courses page to replace by FUN's one (we need to use a other route)

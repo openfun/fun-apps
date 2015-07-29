@@ -45,7 +45,6 @@ SITE_NAME = LMS_BASE
 # (also see MKTG_URLS in cms.py)
 MKTG_URL_LINK_MAP = {
     "ABOUT": "about",
-    "HELP": "help",
     "HONOR": "honor",
     "HOW-IT-WORKS": "how-it-works",
     "TOS": "tos",
@@ -102,8 +101,7 @@ XITI_XTSITE = '530632'
 XITI_XTSD = 'https://logs1279'
 
 
-# Enable help and legal pages
-MKTG_URL_LINK_MAP['HELP'] = 'help'
+# Enable legal page
 MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
 ENABLE_SYSADMIN_DASHBOARD = True
