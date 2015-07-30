@@ -1,31 +1,24 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-import requests
-
-from django.utils import formats
+from django.utils.translation import gettext as _
 
 import dailymotion
-from opaque_keys.edx.keys import CourseKey
-from xmodule.modulestore.django import modulestore
 
 from .. import models
+from .base import BaseClient, MissingCredentials, ClientError
 
 
-class Client(object):
+class Client(BaseClient):
     # Warning: this is mostly NOT unit-tested code
 
-    VIDEO_FIELDS = 'id,created_time,duration,embed_url,published,publishing_progress,status,title,thumbnail_url'
+    VIDEO_FIELDS = 'id,created_time,embed_url,status,title,thumbnail_url'
     SUBTITLE_FIELDS = 'id,language,language_label,url'
+    CHANNEL = 'school'
+    TAGS = [u"France Université Numérique"]
 
     def __init__(self, course_key_string):
-        self.course_module = self.get_course_module(course_key_string)
+        super(Client, self).__init__(course_key_string)
         self._dailymotion = None
         self._auth = None
-
-    @staticmethod
-    def get_course_module(course_key_string):
-        course_key = CourseKey.from_string(course_key_string)
-        return modulestore().get_course(course_key)
 
     @property
     def dailymotion(self):
@@ -43,84 +36,47 @@ class Client(object):
             })
         return self._dailymotion
 
-    @property
-    def auth(self):
+    def get_auth(self):
         """Return the DailymotionAuth credentials for the course after checking their validity."""
-        if self._auth is None:
-            try:
-                auth = models.DailymotionAuth.objects.get_for_course(self.course_module)
-            except models.DailymotionAuth.DoesNotExist:
-                raise MissingCredentials(self.org)
-            if not all([auth.username, auth.password, auth.api_key, auth.api_secret]):
-                raise MissingCredentials()
-            self._auth = auth
-        return self._auth
+        try:
+            auth = models.DailymotionAuth.objects.get_for_course(self.course_module)
+        except models.DailymotionAuth.DoesNotExist:
+            raise MissingCredentials(self.org)
+        if not all([auth.username, auth.password, auth.api_key, auth.api_secret]):
+            raise MissingCredentials(self.org)
+        return auth
 
     @property
     def playlist_id(self):
         """Playlist id associated to this account
         TODO"""
 
-    @property
-    def org(self):
-        return self.course_module.location.org
-
-    def get_videos(self):
-        """Return a list of videos for the current user."""
-        return list(self.iter_videos())
-
     def iter_videos(self):
         """Iterator over the current user's videos."""
         for result in self.iter_results("/me/videos", {'fields': self.VIDEO_FIELDS}):
-            result['created_at'] = formats.date_format(
-                datetime.fromtimestamp(result['created_time']),
-                "DATETIME_FORMAT"
-            )
-            yield result
-
-    def upload_file(self, file_object):
-        """Upload a file using the Dailymotion storage service
-
-        This can be used to store e.g: videos, subtitles or thumbnail files.
-
-        Args:
-            file_object: File-like object.
-
-        Returns:
-            url (str): url to the uploaded file.
-        """
-        # Get upload url
-        upload_url = self.get_upload_url()['upload_url']
-
-        # Store file using the obtained upload url
-        upload_response = requests.post(
-            upload_url,
-            files={"file": file_object}
-        )
-        upload_response = upload_response.json()
-
-        if 'url' not in upload_response:
-            raise ClientError("Error in uploading file")
-
-        return upload_response['url']
-
-    def get_upload_url(self):
-        """Get a URL for uploading a video.
-
-        Returns: {
-            "upload_url": ...
-            "progress_url": ...
-        }
-        """
-        response = self.get("/file/upload")
-        if 'upload_url' not in response:
-            raise ClientError("Could not fetch upload url")
-        return response
+            yield self.convert_result_to_video(result)
 
     def get_video(self, video_id):
-        return self.get("/video/{}".format(video_id), {
-                            'fields': self.VIDEO_FIELDS,
-                        })
+        result = self.get("/video/{}".format(video_id), {'fields': self.VIDEO_FIELDS})
+        return self.convert_result_to_video(result)
+
+    def convert_result_to_video(self, result):
+        # TODO we should probably remove some unnecessary fields here
+        result['created_at'] = self.timestamp_to_str(result['created_time'])
+        result['external_link'] = "http://www.dailymotion.com/video/{}".format(result['id'])
+        return result
+
+    def get_upload_url(self):
+        response = self.get("/file/upload")
+        if 'upload_url' not in response:
+            raise ClientError(_("Could not fetch upload url"))
+        return {
+            'url': response['upload_url'],
+            'file_parameter_name': 'file',
+        }
+
+    def update_video_title(self, video_id, title):
+        return self.update_video(video_id, title=title)
 
     def update_video(self, video_id, **kwargs):
         """Set video attributes
@@ -143,7 +99,7 @@ class Client(object):
                 params[key] = value
         return self.post("/video/{}".format(video_id), params)
 
-    def create_video(self, url, title=None):
+    def create_video(self, payload, title=None):
         """Create a video after it has been uploaded.
 
         Returns: (same as update_video)
@@ -154,31 +110,54 @@ class Client(object):
                 "title": "My title"
             }
         """
+        url = payload.get("url")
+        if not url:
+            raise ClientError(_("Missing url parameter"))
         params = {"url": url}
         if title:
             params["title"] = title
         return self.post("/me/videos", params)
 
-    def delete_video(self, video_id):
-        """Delete a video
+    def publish_video(self, video_id):
+        # TODO do we need to specify the title again here?
+        # Set channel and tags while we are at it
+        return self.update_video(
+            video_id,
+            published=True,
+            #title=title,
+            channel=self.CHANNEL,
+            tags=self.TAGS,
+        )
 
+    def unpublish_video(self, video_id):
+        return self.update_video(video_id, published=False)
+
+    def delete_video(self, video_id):
+        """
         Note that the video may remain in the "deleted" status for some time.
         """
-        return self.delete("/video/{}".format(video_id))
+        self.delete("/video/{}".format(video_id))
+
+    def set_thumbnail(self, video_id, url):
+        return self.update_video(video_id, thumbnail_url=url)
 
     def get_video_subtitles(self, video_id):
-        """Get the subtitles associated to a video"""
-        return list(self.iter_results("/video/{}/subtitles".format(video_id),
+        return list(self.iter_results(self.video_subtitles_url(video_id),
                                       {"fields": self.SUBTITLE_FIELDS}))
 
-    def get_video_subtitle(self, video_id, subtitle_id):
-        """Get a subtitle object"""
-        return self.get(self.video_subtitle_url(video_id, subtitle_id),
-                        {"fields": self.SUBTITLE_FIELDS})
+    def upload_subtitle(self, video_id, file_object, language):
+        subtitle_url = self.upload_file(file_object)
+        self.post(
+            self.video_subtitles_url(video_id),
+            {'url': subtitle_url, 'language': language, 'format': 'SRT'}
+        )
 
     def delete_video_subtitle(self, video_id, subtitle_id):
-        """Delete a subtitle"""
+        # TODO do we really have to return something?
         return self.delete(self.video_subtitle_url(video_id, subtitle_id))
+
+    def video_subtitles_url(self, video_id):
+        return "/video/{}/subtitles".format(video_id)
 
     def video_subtitle_url(self, video_id, subtitle_id):
         return "/video/{}/subtitles/{}".format(video_id, subtitle_id)
@@ -195,16 +174,7 @@ class Client(object):
             if not results['has_more']:
                 break
 
-    def get(self, endpoint, params=None):
-        return self.call(endpoint, params=params)
-
-    def post(self, endpoint, params=None, files=None):
-        return self.call(endpoint, method='POST', params=params, files=files)
-
-    def delete(self, endpoint, params=None):
-        return self.call(endpoint, method='DELETE', params=params)
-
-    def call(self, endpoint, method='GET', params=None, files=None):
+    def request(self, endpoint, method='GET', params=None, files=None):
         try:
             result = self.dailymotion.call(endpoint, method=method, params=params, files=files)
         except (dailymotion.DailymotionClientError, dailymotion.DailymotionApiError) as e:
@@ -216,10 +186,3 @@ class Client(object):
             self.dailymotion._session_store.get_value("expires"),
         )
         return result
-
-
-class MissingCredentials(Exception):
-    pass
-
-class ClientError(Exception):
-    pass

@@ -4,27 +4,29 @@ from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-i
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 INSTALLED_APPS += (
+    'backoffice',
     'fun',
-    'adminsortable',
-    'bootstrapform',
-    'courses',
-    'course_dashboard',
-    'forum_contributors',
-    'ckeditor',
-    'contact',
-    'raven.contrib.django.raven_compat',
-    'universities',
     'fun_certificates',
     'fun_instructor',
+    'contact',
+    'course_dashboard',
+    'courses',
     'newsfeed',
+    'universities',
+    'videoproviders',
+
+    'adminsortable',
+    'bootstrapform',
+    'forum_contributors',
+    'ckeditor',
+    'raven.contrib.django.raven_compat',
     'selftest',
-    'backoffice',
     'password_container', # this is an xblock we had to applications to allow syncdb of its models
     'pure_pagination',
     'teachers',
     'faq',
     'edx_gea',
-    )
+)
 
 ROOT_URLCONF = 'fun.lms.urls'
 

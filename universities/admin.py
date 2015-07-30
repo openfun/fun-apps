@@ -36,7 +36,10 @@ class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
             )
         }),
     )
-    inlines = [videoproviders.admin.DailymotionAuthAdminInline]
+    inlines = [
+        videoproviders.admin.DailymotionAuthAdminInline,
+        videoproviders.admin.LibcastAuthAdminInline,
+    ]
 
     def preview(self, obj):
         template = u"""<img src="{url}" style="max-height: 48px;" />"""

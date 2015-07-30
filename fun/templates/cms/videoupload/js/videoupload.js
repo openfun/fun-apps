@@ -10,8 +10,10 @@ def reverse_course(handler_name, kwargs=None):
   return reverse(handler_name, kwargs=kwargs)
 %>
 
-require(["jquery", "underscore", "backbone", "gettext", "js/utils/templates", "js/views/modals/base_modal", "js/views/feedback_notification"],
-  function ($, _, Backbone, gettext, TemplateUtils, BaseModal, NotificationView) {
+require(["jquery", "underscore", "backbone", "gettext",
+         "js/utils/templates", "js/views/modals/base_modal", "js/views/feedback_notification",
+         "videojs-fun", "libcast"],
+  function ($, _, Backbone, gettext, TemplateUtils, BaseModal, NotificationView, videojs, libcast) {
 
     var ajaxSettings = (function() {
       var headers = {};
@@ -68,8 +70,11 @@ require(["jquery", "underscore", "backbone", "gettext", "js/utils/templates", "j
       defaults: {
         created_at: "",
         embed_url: "",
+        video_sources: [],
+        external_link: "",
         error: "",
         progress: null,
+        subtitles: [],
         title: "",
       },
 
@@ -168,6 +173,11 @@ require(["jquery", "underscore", "backbone", "gettext", "js/utils/templates", "j
             values.id = "";
         }
         this.$el.html(this.template(values));
+        if (!values.embed_url && values.video_sources && values.video_sources.length > 0) {
+          // Time to activate the libcast videojs player
+          var video = this.$el.find('video')[0];
+          libcast(video);
+        }
         return this;
       },
 
@@ -238,20 +248,20 @@ require(["jquery", "underscore", "backbone", "gettext", "js/utils/templates", "j
         var that = this;
         $.getJSON('${reverse_course("videoupload:upload-url")}',
           function(data) {
-            that.model.setStatus("prepared", data.upload_url);
+            that.model.setStatus("prepared", data);
           }
         );
       },
 
-      uploadFile: function(uploadUrl) {
+      uploadFile: function(uploadParams) {
         var formData = new FormData();
-        formData.append("file", this.model.get("file"))
+        formData.append(uploadParams.file_parameter_name, this.model.get("file"))
 
         var that = this;
         ajaxSettings.unsetHeaders();
         ajaxSettings.unsetNotify();
         this.request = $.ajax({
-          url: uploadUrl,
+          url: uploadParams.url,
           data: formData,
           type: 'POST',
           contentType: false,
@@ -275,7 +285,7 @@ require(["jquery", "underscore", "backbone", "gettext", "js/utils/templates", "j
             if (data.error) {
               that.model.setError(data.error)
             } else {
-              that.model.setStatus("uploaded", data.url);
+              that.model.setStatus("uploaded", data);
             }
           },
           error: function(jqXHR, textStatus, errorThrown) {
@@ -284,7 +294,7 @@ require(["jquery", "underscore", "backbone", "gettext", "js/utils/templates", "j
         });
       },
 
-      createVideo: function(url) {
+      createVideo: function(uploadedData) {
         ajaxSettings.resetHeaders();
         ajaxSettings.unsetNotify();
         var that = this;
@@ -292,7 +302,7 @@ require(["jquery", "underscore", "backbone", "gettext", "js/utils/templates", "j
           url: '${reverse_course("videoupload:create-video")}',
           data: {
             title: that.model.get("title"),
-            url: url,
+            payload: JSON.stringify(uploadedData),
           },
           type: 'POST',
           success: function(data) {

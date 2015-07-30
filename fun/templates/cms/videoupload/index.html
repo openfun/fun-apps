@@ -8,6 +8,7 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
 <%block name="title">${_("Video Uploads")}</%block>
 
 <%block name="header_extras">
+<link rel="stylesheet" type="text/css" href="${static.url('fun/js/vendor/videojs/video-js.min.css')}" />
 <style>
   .content-primary.videoupload table, .modal-window.videoupload-parameters .modal-content table {
     background-color: #ffffff;

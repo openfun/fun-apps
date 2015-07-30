@@ -1,15 +1,21 @@
 <td>
   <% if (embed_url.length > 0) { %>
-  <iframe frameborder="0" src="<%= embed_url %>" width="250"></iframe>
+  <iframe frameborder="0" src="<%= embed_url %>" width="350" scrolling="no" allowfullscreen></iframe>
+  <% } else if(video_sources.length > 0) { %>
+  <video class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="350" height="197">
+    <% for (var s = 0; s < video_sources.length; s += 1) { %>
+    <source src="<%= video_sources[s].url %>" type="video/mp4" label="<%= video_sources[s].label %>" res="<%= video_sources[s].res %>"/>
+    <% } %>
+  </video>
   <% } %>
 </td>
 <td class="title">
-  <% if (id.length > 0) { %>
-    <a href="http://www.dailymotion.com/video/<%= id %>" target="_blank" class="togglable"><%= title %></a>
-    <input value="<%= title %>" class="togglable invisible">
+  <% if (external_link.length > 0) { %>
+    <a href="<%= external_link %>" target="_blank" class="togglable"><%= title %></a>
   <% } else { %>
     <%= title %>
   <% } %>
+  <input value="<%= title %>" class="togglable invisible">
 
   <% if (status === "ready" || status === "published") { %>
     <ul class="actions-list togglable">

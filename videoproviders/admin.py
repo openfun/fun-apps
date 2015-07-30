@@ -8,3 +8,7 @@ class DailymotionAuthAdminInline(admin.StackedInline):
     fields = ("username", "password", "api_key", "api_secret", "access_token", "refresh_token", "expires_at_time",)
     readonly_fields = ("access_token", "refresh_token", "expires_at_time",)
 
+
+class LibcastAuthAdminInline(admin.StackedInline):
+    model = models.LibcastAuth
+    fields = ("username", "api_key",)

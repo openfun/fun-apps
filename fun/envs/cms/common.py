@@ -6,8 +6,8 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 
 INSTALLED_APPS += (
     'fun',
-    'videoproviders',
     'universities',
+    'videoproviders',
 
     'ckeditor',
     'adminsortable',
@@ -15,7 +15,7 @@ INSTALLED_APPS += (
     'password_container',
     'raven.contrib.django.raven_compat',
     'edx_gea'
-    )
+)
 
 ROOT_URLCONF = 'fun.cms.urls'
 
@@ -73,5 +73,10 @@ CC_PROCESSOR = {
 
 SITE_VARIANT = 'cms'
 
-# Set this to 'True' to enable the video dashboard.
-#FUN_VIDEO_UPLOAD_ENABLED = True
+def IS_VIDEOUPLOAD_DASHBOARD_ENABLED(course_id):
+    """Determine whether we should display the videoupload link in the dashboard.
+    Args:
+        course_id (CourseKey)
+    """
+    return False
+    # return course_id.org in ['FUN', 'Org']
