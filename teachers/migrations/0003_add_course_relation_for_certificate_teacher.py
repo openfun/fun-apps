@@ -28,11 +28,20 @@ class Migration(DataMigration):
                 full_name=teacher.full_name
             )
             for teacher_entry in teacher_entries:
-                orm.CertificateTeacher.objects.create(
-                    teacher=teacher,
-                    course=teacher_entry.course,
-                    order=teacher_entry.order,
-                )
+                try:
+                    orm.CertificateTeacher.objects.create(
+                        teacher=teacher,
+                        course=teacher_entry.course,
+                        order=teacher_entry.order,
+                    )
+                except Exception as e:
+                    logger.warning(
+                        u'Data Migration: There was an issue while creating a'
+                        'teacher-certificate relation. '
+                        'Teacher: "{}" - (#{}).'
+                        'Error: {}'.format(teacher.full_name, teacher.id, e)
+                    )
+
 
     def backwards(self, orm):
         orm.CertificateTeacher.objects.all().delete()
