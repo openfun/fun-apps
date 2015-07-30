@@ -147,18 +147,22 @@ PASSWORD_COMPLEXITY = {
 }
 
 
+# Set this to either 'dmcloud', 'libcast_xblock' or None.
+FUN_DEFAULT_VIDEO_PLAYER = 'dmcloud'
+
 def prefer_fun_xmodules(identifier, entry_points):
     """
     Make sure that we use the correct FUN xmodule for video in the studio
     """
     from django.conf import settings
     from xmodule.modulestore import prefer_xmodules
-    if identifier == 'video' and settings.USE_DM_CLOUD_VIDEO_PLAYER:
+    if identifier == 'video' and settings.FUN_DEFAULT_VIDEO_PLAYER is not None:
         import pkg_resources
         from xblock.core import XBlock
         # These entry points are listed in the setup.py of the dmcloud app
         # Inspired by the XBlock.load_class method
-        entry_points = list(pkg_resources.iter_entry_points(XBlock.entry_point, name='dmcloud'))
+        entry_points = list(pkg_resources.iter_entry_points(XBlock.entry_point,
+                                                            name=settings.FUN_DEFAULT_VIDEO_PLAYER))
     return prefer_xmodules(identifier, entry_points)
 
 XBLOCK_SELECT_FUNCTION = prefer_fun_xmodules
@@ -227,20 +231,32 @@ def default_cache_configuration(key_prefix):
         ]
     }
 
+def file_cache_configuration(key_prefix, subfolder_name):
+    cache_path = os.path.join(SHARED_ROOT, subfolder_name)
+    ensure_directory_exists(cache_path)
+    return {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        "KEY_FUNCTION": "util.memcache.safe_key",
+        "KEY_PREFIX": key_prefix,
+        "LOCATION": cache_path
+    }
 
 CACHES = {
     "celery": default_cache_configuration("integration_celery"),
     "default": default_cache_configuration("sandbox_default"),
     "general": default_cache_configuration("sandbox_general"),
+    "libcast": default_cache_configuration("libcast"),
+    "video_subtitles": file_cache_configuration(
+        "video_subtitles",
+        "video_subtitles_cache"
+    ),
     "mongo_metadata_inheritance": default_cache_configuration("integration_mongo_metadata_inheritance"),
     "staticfiles": default_cache_configuration("integration_static_files"),
 
-    ORA2_FILEUPLOAD_CACHE_NAME: {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": "openassessment_submissions",
-        "LOCATION": ORA2_FILEUPLOAD_CACHE_ROOT
-    }
+    ORA2_FILEUPLOAD_CACHE_NAME: file_cache_configuration(
+        "openassessment_submissions",
+        "openassessment_submissions_cache"
+    )
 }
 
 ANONYMIZATION_KEY = """dummykey"""
@@ -275,12 +291,6 @@ def configure_raven(sentry_dsn, raven_config, logging_config):
     logging_config['handlers']['sentry']['dsn'] = sentry_dsn
     raven_config['dsn'] = sentry_dsn
 
-# If True, we will monkey patch edX (in fun-apps/selftest/__init__.py)
-# to use our dm-cloud video player instead of Youtube's
-USE_DM_CLOUD_VIDEO_PLAYER = True
-
 # FUN Mongo database
 # Other settings FUN_MONGO_HOST, FUN_MONGO_USER and FUN_MONGO_PASSWORD will come from lms/cms.auth.env
 FUN_MONGO_DATABASE = 'fun'
-
-

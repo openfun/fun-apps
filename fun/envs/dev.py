@@ -18,6 +18,9 @@ TEMPLATE_DEBUG = True
 # By default don't use a worker, execute tasks as if they were local functions
 CELERY_ALWAYS_EAGER = True
 
+# use libcast in development mode
+FUN_DEFAULT_VIDEO_PLAYER = 'libcast_xblock'
+
 ################################ LOGGERS ######################################
 
 import logging
