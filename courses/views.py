@@ -76,7 +76,7 @@ class CoursesFeed(Feed):
     def item_description(self, course):
         course = courses_utils.dates_description(course)
         context = {}
-        context['image_url'] = course_image_url(course) + '?width=300'
+        context['image_url'] = courses_utils.course_image_url(course) + '?width=300'
         context['short_description'] = get_course_about_section(course, 'short_description')
         context['course'] = course
         try:
