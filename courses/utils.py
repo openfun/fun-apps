@@ -25,7 +25,7 @@ def get_about_section(course_descriptor, field):
         return None
 
 
-def _dates_description(course):
+def dates_description(course):
     # As we do not know user timezone, assume he is in the same as instructor :-/
     FORMAT = '%d/%m/%Y'  # '%A %d %B %Y'
 

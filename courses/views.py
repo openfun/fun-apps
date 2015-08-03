@@ -21,7 +21,7 @@ COURSES_BY_PAGE = 24
 
 
 def courses_index(request):
-    courses = [courses_utils._dates_description(course) for course in get_courses(request.user)]
+    courses = [courses_utils.dates_description(course) for course in get_courses(request.user)]
     form = CourseFilteringForm(request.GET or None)
     by = request.GET.get('by', COURSES_BY_PAGE)  # override default page size
 
@@ -74,7 +74,7 @@ class CoursesFeed(Feed):
         return get_course_about_section(course, 'title')
 
     def item_description(self, course):
-        course = courses_utils._dates_description(course)
+        course = courses_utils.dates_description(course)
         context = {}
         context['image_url'] = course_image_url(course) + '?width=300'
         context['short_description'] = get_course_about_section(course, 'short_description')
