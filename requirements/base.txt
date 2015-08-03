@@ -8,7 +8,7 @@ raven==5.1.0
 django-pure-pagination==0.2.1
 
 # DMCloud XBlock 
--e git+https://github.com/openfun/dmcloud.git@1.1.9#egg=dmcloud-xblock
+-e git+https://github.com/openfun/dmcloud.git@1.1.8#egg=dmcloud-xblock
 -e git+https://github.com/openfun/cloudkey-py@1.2.7-1#egg=cloudkey
 
 # Password Container XBlock
