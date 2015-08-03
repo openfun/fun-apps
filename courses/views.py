@@ -40,7 +40,7 @@ def courses_index(request):
                 courses = [c for c in courses if c.end and c.end < now]
     elif form.errors:
         return redirect(courses_index)
-    courses = courses_utils._sort_courses(courses)
+    courses = courses_utils.sort_courses(courses)
 
     # paginate courses
     paginator = Paginator(courses, by, orphans=3)
@@ -68,7 +68,7 @@ class CoursesFeed(Feed):
     __name__ = 'FUNRSS'
 
     def items(self, request):
-        return courses_utils._sort_courses(get_courses(None))[:16]
+        return courses_utils.sort_courses(get_courses(None))[:16]
 
     def item_title(self, course):
         return get_course_about_section(course, 'title')

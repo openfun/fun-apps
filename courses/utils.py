@@ -56,7 +56,7 @@ def dates_description(course):
     return course
 
 
-def _sort_courses(courses):
+def sort_courses(courses):
     """Sort courses in a usefull order for user:
         - courses with enrollement date started should be first
         - then course to start to enroll should be ordered by enrollement start date (asc)
