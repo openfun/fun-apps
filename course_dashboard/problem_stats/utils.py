@@ -89,8 +89,14 @@ def build_course_tree(module):
     if not module.get_children():
         if is_problem:
             is_open = True
+    # If a module has no predefined display name, `module.display_name` returns a `django.utils.functional.proxy` object.
+    # The default display_name is then accessible through module.display_name.title().
+    if isinstance(module.display_name, (unicode, str)):
+        display_name = module.display_name
+    else:
+        display_name = module.display_name.title()
 
-    course_tree = {'text': module.display_name,
+    course_tree = {'text': display_name,
                    'children': children,
                    'state': {'opened': is_open},
                    'icon' : 'glyphicon glyphicon-pencil' if is_problem else 'default',
