@@ -133,6 +133,16 @@ class StringQuestionMonitor(QuestionMonitor):
                                       {'right_answer' : right_answer})
 
 @registry.register
+class NumericalQuestionMonitor(QuestionMonitor):
+    """Monitor for Multiplechoice questions"""
+    tags = ['numericalresponse']
+
+    def get_html(self):
+        right_answer = self.question_tree.get('answer')
+        return self.get_template_html('problem_stats/single_choice_question.html',
+                                      {'right_answer' : right_answer})
+
+@registry.register
 class OptionQuestionMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['optionresponse']
