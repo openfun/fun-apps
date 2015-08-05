@@ -53,7 +53,7 @@ class ProblemMonitor(object):
         """
         context = []
         element = question.getprevious()
-        while element is not None and element.tag == 'p':
+        while element is not None and (element.tag == 'p' or element.tag == 'legend'):
             context.append(element)
             element = element.getprevious()
         if context:
