@@ -59,14 +59,14 @@ class QuestionMonitor(object):
 
         Returns:
             int: the sum of answers.
-     """
+        """
         total_answers = sum(self.student_answers.values()) + self.no_answer
         return total_answers
 
     def get_html(self):
         raise NotImplementedError()
 
-    def get_template_html(self, template_name):
+    def get_template_html(self, template_name, extra_context=None):
         """ Render the corresponding question template with it's context.
 
         Args:
@@ -79,14 +79,19 @@ class QuestionMonitor(object):
         total_answers = self._compute_stats()
         if not total_answers:
             return  render_to_string('problem_stats/no_answers.html', {'title' : self.get_title()})
+
         context = {'question_id' : self.id,
-                   'question_tree' :self.question_tree,
+                   'question_tree' : self.question_tree,
                    'title' : self.get_title(),
                    'total_answers': total_answers,
                    'student_answers' : self.student_answers,
                    'blank_answers': self.no_answer,
                    'correctness' : self.correctness}
+        if extra_context:
+            context.update(extra_context)
+
         html = render_to_string(template_name, context)
+
         return html
 
 @registry.register
@@ -94,8 +99,28 @@ class MultipleChoiceMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['multiplechoiceresponse']
 
+    def convert_student_answers(self):
+        """Convert choice number to it's text choice.
+        For Multiplechoice questions only the choice number is included in the student answer.
+        Therefore we replace the choice number by it's real value as text.
+
+        Example:
+            For a question like `Which countrie is in Europe ?`
+            >> self.student_answers
+               {"choice_1" : 4, "choice_2" : 1}
+            >> convert_student_answers()
+            >> {"France" : 4, "Brazil" : 1}
+        """
+        student_answers = {}
+        for index, choice in enumerate(self.question_tree.iter('choice')):
+            student_answers[choice.text] = self.student_answers["choice_{}".format(index)]
+        self.student_answers = student_answers
+
     def get_html(self):
-        return self.get_template_html('problem_stats/multiplechoice.html')
+        self.convert_student_answers()
+        right_answer = self.question_tree.find(".//choice[@correct='true']").text
+        return self.get_template_html('problem_stats/single_choice_question.html',
+                                      {'right_answer' : right_answer})
 
 @registry.register
 class StringQuestionMonitor(QuestionMonitor):
@@ -103,16 +128,19 @@ class StringQuestionMonitor(QuestionMonitor):
     tags = ['stringresponse']
 
     def get_html(self):
-        return self.get_template_html('problem_stats/string_question.html')
+        right_answer = self.question_tree.get('answer')
+        return self.get_template_html('problem_stats/single_choice_question.html',
+                                      {'right_answer' : right_answer})
 
 @registry.register
 class OptionQuestionMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['optionresponse']
 
-
     def get_html(self):
-        return self.get_template_html('problem_stats/option_question.html')
+        right_answer = self.question_tree.find('optioninput').get('correct')
+        return self.get_template_html('problem_stats/single_choice_question.html',
+                                      {'right_answer' : right_answer})
 
 @registry.register
 class ChoiceQuestionMonitor(QuestionMonitor):
@@ -128,7 +156,6 @@ class ChoiceQuestionMonitor(QuestionMonitor):
               u"[u'choice_1',u'choice_2']" -> (2, 3)
         The first choice beeing 1 and not 0.
         """
-
         student_answers = {}
         for answer, value in self.student_answers.iteritems():
             choices = ast.literal_eval(answer)
