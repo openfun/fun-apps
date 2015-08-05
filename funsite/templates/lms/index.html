@@ -4,5 +4,88 @@
 
 <%block name="title">Index</%block>
 
-index.html
+<div class="row">
 
+<style>
+
+.highlighted-courses .big-course {
+    border: 1px solid black;
+    width: 370px;
+    height: 385px;
+
+}
+.highlighted-courses .big-course img.main {
+    margin: 16px;
+}
+
+</style>
+
+
+<!-- Pas de colonnes pour toucher les bords -->
+
+<img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
+
+
+
+    <div class="highlighted-courses">
+
+    <div class="row">
+
+        <!-- haute def > 1350: 4 mises en avant principales -->
+        <div class="col-lg-12 col-md-12 visible-xlg hidden-lg">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="big-course center-block">
+                        <img class="main img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width338&w=338&h=190">
+                        super course 1
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="big-course center-block">
+                        super course 2
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="big-course center-block">
+                        super course 3
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="big-course center-block">
+                        super course 4
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- haute def < 1350: 3 mises en avant principales -->
+        <div class="col-lg-12 col-md-12 hidden-xlg visible-lg">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="big-course center-block">
+                        <img class="main img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width338&w=338&h=190">
+                        super course 1
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="big-course center-block">
+                        super course 2
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="big-course center-block">
+                        super course 3
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
