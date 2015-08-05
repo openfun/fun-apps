@@ -5,6 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
 
+from courseware.courses import get_course
+from opaque_keys.edx.locator import CourseLocator
+
 from . import choices as courses_choices
 
 
@@ -21,6 +24,18 @@ class Course(models.Model):
     class Meta:
         verbose_name = _('course')
         verbose_name_plural = _('courses')
+
+    @property
+    def course_locator(self):
+        return CourseLocator.from_string(self.key)
+
+    @property
+    def course_descriptor(self):
+        try:
+            course = get_course(self.course_locator)
+        except ValueError:
+            course = None
+        return course
 
     def __unicode__(self):
         return _('Course {}').format(self.key)
