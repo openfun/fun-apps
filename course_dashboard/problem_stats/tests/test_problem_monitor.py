@@ -39,7 +39,7 @@ class ProblemMonitorTestCase(BaseCourseDashboardTestCase):
     def test_preprocess_problem_with_not_handled_question(self):
 
         problem_tree = self._build_problem(RF.MultipleChoiceResponseXMLFactory().build_xml(),
-                                           RF.NumericalResponseXMLFactory().build_xml(),
+                                           RF.SymbolicResponseXMLFactory().build_xml(),
                                            RF.MultipleChoiceResponseXMLFactory().build_xml())
         self.problem_module.data = problem_tree
 

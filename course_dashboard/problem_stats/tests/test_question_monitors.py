@@ -38,7 +38,7 @@ class QuestionMonitorTestCase(BaseCourseDashboardTestCase):
 
     def test_title(self):
         self.assertEqual(self.label_text, self.question_monitor.get_title()[0].text)
-        self.assertIn(self.label_text, self.question_monitor.get_template_html('problem_stats/multiplechoice.html'))
+        self.assertIn(self.label_text, self.question_monitor.get_template_html('problem_stats/single_choice_question.html'))
 
 class ChoiceQuestionMonitorTestCase(TestCase):
     def setUp(self):
@@ -49,7 +49,6 @@ class ChoiceQuestionMonitorTestCase(TestCase):
         self.question_monitor = ChoiceQuestionMonitor(1, question_tree, None)
         self.question_monitor.student_answers = {"[u'choice_0',u'choice_2']": 10,
                                                  "[u'choice_0',u'choice_1']": 42}
-    def test_parse_student_answers(self):
-        self.question_monitor._parse_student_answers()
-        self.assertEqual(self.question_monitor.student_answers,
+    def test_format_student_answers(self):
+        self.assertEqual(self.question_monitor.format_student_answers(),
                          {(1, 3) : 10, (1, 2) :42})

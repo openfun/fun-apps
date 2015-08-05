@@ -52,6 +52,9 @@ class QuestionMonitor(object):
                 title.text = label
         return [title] if label else self.context
 
+    def format_student_answers(self):
+        return self.student_answers
+
     def _compute_stats(self):
         """Computes various student answers data.
 
@@ -67,13 +70,14 @@ class QuestionMonitor(object):
         raise NotImplementedError()
 
     def get_template_html(self, template_name, extra_context=None):
-        """ Render the corresponding question template with it's context.
+        """Render the corresponding question template with it's context.
 
         Args:
-         template_name (str): The template file corresponding to the question.
+            template_name (str): The template file corresponding to the question.
+            extra_context (dict) : Extra template variables.
 
         Returns:
-         str: The html as string.
+            str: The html as string.
         """
 
         total_answers = self._compute_stats()
@@ -84,7 +88,7 @@ class QuestionMonitor(object):
                    'question_tree' : self.question_tree,
                    'title' : self.get_title(),
                    'total_answers': total_answers,
-                   'student_answers' : self.student_answers,
+                   'student_answers' : self.format_student_answers(),
                    'blank_answers': self.no_answer,
                    'correctness' : self.correctness}
         if extra_context:
@@ -99,13 +103,13 @@ class MultipleChoiceMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['multiplechoiceresponse']
 
-    def convert_student_answers(self):
+    def format_student_answers(self):
         """Convert choice number to it's text choice.
         For Multiplechoice questions only the choice number is included in the student answer.
         Therefore we replace the choice number by it's real value as text.
 
         Example:
-            For a question like `Which countrie is in Europe ?`
+            For a question like `Which country is in Europe ?`
             >> self.student_answers
                {"choice_1" : 4, "choice_2" : 1}
             >> convert_student_answers()
@@ -114,10 +118,9 @@ class MultipleChoiceMonitor(QuestionMonitor):
         student_answers = {}
         for index, choice in enumerate(self.question_tree.iter('choice')):
             student_answers[choice.text] = self.student_answers["choice_{}".format(index)]
-        self.student_answers = student_answers
+        return student_answers
 
     def get_html(self):
-        self.convert_student_answers()
         right_answer = self.question_tree.find(".//choice[@correct='true']").text
         return self.get_template_html('problem_stats/single_choice_question.html',
                                       {'right_answer' : right_answer})
@@ -157,8 +160,8 @@ class ChoiceQuestionMonitor(QuestionMonitor):
     """Monitor for Multiplechoice questions"""
     tags = ['choiceresponse']
 
-    def _parse_student_answers(self):
-        """Parses student answers from string.
+    def format_student_answers(self):
+        """Format student answers from string.
 
         Answers for ChoiceQuestion come as a strings like u"[u'choice_0',u'choice_2']"
         To facilitate the rendering of the answer we convert the string into a tuple.
@@ -171,10 +174,9 @@ class ChoiceQuestionMonitor(QuestionMonitor):
             choices = ast.literal_eval(answer)
             choices = [int(choice[-1:]) + 1 for choice in choices]
             student_answers[tuple(choices)] = value
-        self.student_answers = student_answers
+        return student_answers
 
     def get_html(self):
-        self._parse_student_answers()
         return self.get_template_html('problem_stats/choice_question.html')
 
 
@@ -188,4 +190,3 @@ class UnhandledQuestionMonitor(QuestionMonitor):
 
     def get_html(self):
         return self.get_template_html('problem_stats/nothandled.html')
-

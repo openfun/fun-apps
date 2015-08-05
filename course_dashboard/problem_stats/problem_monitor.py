@@ -45,7 +45,7 @@ class ProblemMonitor(object):
         """Catch the surrounding xml context of a question.
 
         As problem are written by teachers. They are free to put the question title wherever they want.
-        It can be found therefore inside one or two <p></p> before the question,
+        It can be found therefore inside one or two <p></p> before the question, in a `legend` tag
         or in the label attribute of the tag question itself.
 
         Args:
@@ -79,7 +79,7 @@ class ProblemMonitor(object):
                 try:
                     question_monitor.correctness[correct_map[id]['correctness']] += 1
                 except KeyError:
-                    ## there is always a correctmap id for each question this happen when the problem have changed, TODO
+                    ## there is always a correctmap id for each question this happen when the problem has changed, TODO
                     pass
                 try:
                     question_monitor.student_answers[unicode(student_answers[id])] += 1
