@@ -146,9 +146,8 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 10,
 }
 
-<<<<<<< HEAD
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
-=======
+
 # We user Bower to handle our own CSS/Javascript dependencies
 STATICFILES_FINDERS += ('djangobower.finders.BowerFinder',)
 BOWER_COMPONENTS_ROOT = FUN_BASE_ROOT + '/components/'
@@ -159,4 +158,4 @@ BOWER_INSTALLED_APPS = (
     'bootstrap',
     'jquery',
     'arg.js',
-)>>>>>>> add bower to handle CSS/JS dependencies
+)
