@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 
 from courseware.courses import get_course
 from opaque_keys.edx.locator import CourseLocator
+from xmodule.contentstore.content import StaticContent
 
 from . import choices as courses_choices
 
@@ -36,6 +37,15 @@ class Course(models.Model):
         except ValueError:
             course = None
         return course
+
+    @property
+    def image_url(self):
+        if not self.course_descriptor:
+            return ''
+        location = StaticContent.compute_location(
+            self.course_locator, self.course_descriptor.course_image
+        )
+        return location.to_deprecated_string()
 
     def __unicode__(self):
         return _('Course {}').format(self.key)
