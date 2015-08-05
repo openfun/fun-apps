@@ -156,6 +156,7 @@ BOWER_PATH = '/usr/bin/bower'
 # then collectected with other statics
 BOWER_INSTALLED_APPS = (
     'bootstrap',
+    'bootstrap-big-grid',  # http://benwhitehead.github.io/
     'jquery',
     'arg.js',
 )
