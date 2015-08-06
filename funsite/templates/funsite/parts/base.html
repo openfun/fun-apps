@@ -35,7 +35,32 @@ from staticfiles.storage import staticfiles_storage
             margin-left: auto;
             margin-right: auto;
             border: 1px solid black;
+            overflow: hidden; /* hide horizontal scrollbar which show up for no reason */
         }
+
+        @media (min-width: 1900px) {
+            .main-width {
+                width: 1900px;
+            }
+
+
+            ul.primary-highlight li {
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            ul.secondary-highlight li {
+                margin-left: 16px;
+                margin-right: 16px;
+            }
+
+
+        }
+
+
+
+
+
         @media (max-width: 1900px) {
             .main-width {
                 width: 1280px;
@@ -46,6 +71,17 @@ from staticfiles.storage import staticfiles_storage
             .visible-1280 {
                 display: block !important;
             }
+
+            ul.primary-highlight li {
+                margin-left: 24px;
+                margin-right: 24px;
+            }
+
+            ul.secondary-highlight li {
+                margin-left: 21px;
+                margin-right: 21px;
+            }
+
         }
         @media (max-width: 1279px) {
             .main-width {
@@ -57,6 +93,7 @@ from staticfiles.storage import staticfiles_storage
             .visible-960 {
                 display: block !important;
             }
+
         }
 
         @media (max-width: 959px) {
