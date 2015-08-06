@@ -8,84 +8,263 @@
 
 <style>
 
+
+
 .highlighted-courses .big-course {
     border: 1px solid black;
     width: 370px;
     height: 385px;
-
 }
 .highlighted-courses .big-course img.main {
     margin: 16px;
 }
 
+.highlighted-courses .small-course {
+    width: 270px;
+    height: 340px;
+    background-color: white;
+}
+
+.highlighted-courses .small-course img.main {
+    margin: 0px;
+}
+
+.big-title h2 {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 50px;
+}
+
+.all-items-button {
+    background-color: white;
+    border: 1px solid #3877BC;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #3877BC;
+    padding: 12px 48px 12px 48px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+
+}
+.all-items-button a:hover {
+    text-decoration: none;
+    color: #3877BC;   /* change ? */
+}
+
+.universities {
+    background-color: white;
+}
+
+.universities-list {
+    list-style-type: none;
+}
+.universities-list li {
+    float: left;
+    margin: 10px;
+}
+.university-logo {
+    width: 185px;
+    height: 105px;
+    border: 1px solid #E6E6E6;
+}
+
 </style>
 
 
-<!-- Pas de colonnes pour toucher les bords -->
+<!-- Pas de colonne pour toucher les bords -->
 
 <img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
 
 
+<div class="row">
+    <div class="col-lg-12 big-title text-center">
+        <h2>Les cours à la une</h2>
+    </div>
+</div>
 
-    <div class="highlighted-courses">
 
-    <div class="row">
+<div class="highlighted-courses">
 
-        <!-- haute def > 1350: 4 mises en avant principales -->
-        <div class="col-lg-12 col-md-12 visible-xlg hidden-lg">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="big-course center-block">
-                        <img class="main img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width338&w=338&h=190">
-                        super course 1
+    <div class="visible-xlg hidden-1280">
+        <div class="row">
+            <!-- haute def > 1350: 4 mises en avant principales -->
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/big-course-block.html" args="id=1"/>
                     </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="big-course center-block">
-                        super course 2
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/big-course-block.html" args="id=2" />
                     </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="big-course center-block">
-                        super course 3
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/big-course-block.html" args="id=3" />
                     </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="big-course center-block">
-                        super course 4
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/big-course-block.html" args="id=3" />
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <!-- haute def > 1350: 6 mises en avant secondaires -->
+            <div class="col-lg-12 col-md-12">
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <%include file="funsite/parts/small-course-block.html" args="id=1" />
+                    </div>
+                    <div class="col-lg-2">
+                        <%include file="funsite/parts/small-course-block.html" args="id=2" />
+                    </div>
+                    <div class="col-lg-2">
+                        <%include file="funsite/parts/small-course-block.html" args="id=3" />
+                    </div>
+                    <div class="col-lg-2">
+                        <%include file="funsite/parts/small-course-block.html" args="id=4" />
+                    </div>
+                    <div class="col-lg-2">
+                        <%include file="funsite/parts/small-course-block.html" args="id=5" />
+                    </div>
+                    <div class="col-lg-2">
+                        <%include file="funsite/parts/small-course-block.html" args="id=6" />
+                    </div>
 
 
-        <!-- haute def < 1350: 3 mises en avant principales -->
-        <div class="col-lg-12 col-md-12 hidden-xlg visible-lg">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="big-course center-block">
-                        <img class="main img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width338&w=338&h=190">
-                        super course 1
-                    </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="big-course center-block">
-                        super course 2
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="big-course center-block">
-                        super course 3
-                    </div>
-                </div>
+
             </div>
-
         </div>
-
-
-
-
     </div>
 
+
+    <div class="hidden-xlg visible-1280">
+        <!-- haute def < 1350: 3 mises en avant principales -->
+        <div class="col-lg-12 col-md-12">
+            <div class="row">
+                <div class="col-lg-4">
+                    <%include file="funsite/parts/big-course-block.html" args="id=1" />
+                </div>
+                <div class="col-lg-4">
+                    <%include file="funsite/parts/big-course-block.html" args="id=2" />
+                </div>
+                <div class="col-lg-4">
+                    <%include file="funsite/parts/big-course-block.html" args="id=3" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <!-- haute def > 1350: 4 mises en avant secondaires -->
+            <div class="col-lg-12 col-md-12">
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/small-course-block.html" args="id=1" />
+                    </div>
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/small-course-block.html" args="id=2" />
+                    </div>
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/small-course-block.html" args="id=3" />
+                    </div>
+                    <div class="col-lg-3">
+                        <%include file="funsite/parts/small-course-block.html" args="id=4" />
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <span class="all-items-button"><a href="">Tous les cours</a></span>
+    </div>
+</div>
+
+
+<div class="universities">
+    <div class="row ">
+        <div class="col-lg-12 big-title text-center">
+            <h2>Les établissements</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="universities-list">
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-768">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-768">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <span class="all-items-button"><a href="">Tous les établissements</a></span>
+        </div>
+    </div>
 
 </div>
