@@ -38,6 +38,46 @@ from staticfiles.storage import staticfiles_storage
             overflow: hidden; /* hide horizontal scrollbar which show up for no reason */
         }
 
+        .container-fluid {
+            background-color: #EDEEEF;
+        }
+
+
+        #sandwich-overlay {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            background-color: #3D79BE;
+        }
+        #sandwich-overlay ul {
+            list-style-type: none;
+            margin-top: 7%;
+            margin-bottom: 7%;
+            text-align: center;
+        }
+        #sandwich-overlay li {
+            font-size: 2.5em;
+            font-family: 'Raleway', sans-serif;
+            margin-bottom: 0.8em;
+        }
+        #sandwich-overlay li a:hover {
+            text-decoration: none;
+            color: #fff;
+            text-shadow: -1px 1px 8px #57A1E7, 1px -1px 8px #57A1E7; /* light blue  glow */
+
+        }
+        #sandwich-overlay li a.selected {
+            border: 1px solid white;
+            padding: 16px;
+        }
+
+
+        #sandwich-overlay li a {
+            color: white;
+        }
+
         @media (min-width: 1900px) {
             .main-width {
                 width: 1900px;
@@ -117,10 +157,13 @@ from staticfiles.storage import staticfiles_storage
 
 
 
-        .container-fluid {
-            background-color: #EDEEEF;
-        }
+
         </style>
+
+
+
+
+
 </head>
 <body>
 
@@ -145,10 +188,38 @@ from staticfiles.storage import staticfiles_storage
 
 </div>  <!-- main-width -->
 
+<%include file="sandwich-overlay.html" />
+
 
     <script src="${staticfiles_storage.url('jquery/dist/jquery.min.js')}"></script>
     <script src="${staticfiles_storage.url('bootstrap/js/bootstrap.min.js')}"></script>
     <script type="text/javascript" src="/jsi18n/"></script>
     <%block name="js_extra" />
+
+    <script>
+    (function() {
+        /* Sandwich menu handler */
+        $(document).keydown(function(event) {
+            if (($('#sandwich-overlay').is(':visible')) & (event.keyCode == 27)) { // ESC key
+                $('#sandwich-overlay').hide();
+                console.log('close by keyboard');
+            }
+        });
+
+        $('#close-sandwich-overlay').on('click', function(event) {
+            $('#sandwich-overlay').hide();
+            console.log('close by button');
+        });
+
+        $('#sandwich-menu').on('click', function(event) {
+            console.log('clicked');
+            $('#sandwich-overlay').show();
+
+        })
+    })();
+
+    </script>
+
+
   </body>
 </html>
