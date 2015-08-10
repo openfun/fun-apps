@@ -2,6 +2,8 @@ from datetime import datetime
 
 from django.utils import timezone
 
+from certificates.tests.factories import GeneratedCertificateFactory
+from certificates.models import CertificateStatuses
 from microsite_configuration import microsite
 from student.tests.factories import CourseEnrollmentFactory
 from student.tests.factories import UserFactory
@@ -12,7 +14,6 @@ from fun.utils import countries
 from fun.tests.utils import setMicrositeTestSettings
 
 from .base import BaseCourseDashboardTestCase
-
 
 class StatsTestCase(BaseCourseDashboardTestCase):
     def setUp(self):
@@ -104,3 +105,16 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         self.enroll_student(user=self.user,
                             course=self.course)
         self.assertEqual(stats.active_enrollments().count(), 1)
+
+    def test_certificate_stats(self):
+        GeneratedCertificateFactory(course_id=self.course.id, user=self.user,
+                                    status=CertificateStatuses.notpassing)
+        GeneratedCertificateFactory(course_id=self.course.id, user=UserFactory(),
+                                    status=CertificateStatuses.downloadable)
+        certificate_stats = stats.CertificateStats(unicode(self.course.id))
+        self.assertEqual(certificate_stats.not_passing(), 1)
+        self.assertEqual(certificate_stats.passing(), 1)
+
+    def test_certificate_stats_with_no_generated_certificates(self):
+        certificate_stats = stats.CertificateStats(unicode(self.course.id))
+        self.assertEqual(certificate_stats.not_passing(), 0)

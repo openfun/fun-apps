@@ -228,3 +228,14 @@ def date_to_js_timestamp(date):
         python timestamp.
     """
     return time.mktime(date.timetuple())*1000
+
+@ensure_valid_course_key
+@staff_required_or_level('staff')
+def certificate_stats(request, course_id):
+    """Return basic certificate stats (success, failure)."""
+    certif_stats = stats.CertificateStats(course_id)
+    return render(request, 'course_dashboard/certificate-stats.html',
+                  {'course_id': course_id,
+                   'passing': certif_stats.passing(),
+                   'not_passing': certif_stats.not_passing(),
+                   'total':certif_stats.total()})

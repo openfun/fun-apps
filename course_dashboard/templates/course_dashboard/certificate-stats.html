@@ -1,0 +1,28 @@
+## mako
+<%inherit file="base_course.html" />
+<%! from django.utils.translation import ugettext as _ %>
+<%! from course_dashboard.problem_stats.utils import percentage %>
+
+<%block name="content">
+    %if total:
+        <table class="table">
+            <tr class="success">
+                <th>${_("Students with certificate")}</th>               
+                <td>${passing}</td>
+                <td>${percentage(passing, total)}%</td>
+            </tr>
+            <tr class="danger">
+                <th>${_("Students without certificate")} </th>
+                <td>${not_passing}</td>
+                <td>${percentage(not_passing, total)}%</td>
+            </tr>
+            <tr>
+                <th>${_("Total")} </th>
+                <td>${total}</td>
+                <td>100%</td>
+            </tr>
+        </table>
+    %else:
+        ${_("Certificates have not been generated yet.")}
+    %endif
+</%block>

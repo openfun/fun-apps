@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db import connection
 from django.db.models import Count
 
+from certificates.models import GeneratedCertificate, CertificateStatuses
 from microsite_configuration import microsite
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys import InvalidKeyError
@@ -175,3 +176,22 @@ class EnrollmentStats(object):
     def daily_average(self):
         """Average enrollments per day"""
         return self.total() * 1. / self.day_span()
+
+
+
+class CertificateStats(object):
+    """Provide certificate stats for a given course."""
+
+    def __init__(self, course_key_string):
+        self.certificates = GeneratedCertificate.objects.filter(course_id=CourseKey.from_string(course_key_string))
+
+    def not_passing(self):
+        """Return the number of failed certificates"""
+        return self.certificates.filter(status=CertificateStatuses.notpassing).count()
+
+    def passing(self):
+        """Return the number of available certificates"""
+        return self.certificates.filter(status=CertificateStatuses.downloadable).count()
+
+    def total(self):
+        return self.certificates.count()
