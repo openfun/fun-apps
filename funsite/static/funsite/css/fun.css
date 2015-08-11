@@ -10,6 +10,10 @@
 
 .container-fluid {
     background-color: #EDEEEF;
+    padding-right: 0;
+    padding-left: 0;
+    font-family: 'Raleway', sans-serif;
+
 }
 
 /* Sandwich menu */
@@ -29,7 +33,6 @@
 }
 #sandwich-overlay li {
     font-size: 2.5em;
-    font-family: 'Raleway', sans-serif;
     margin-bottom: 0.8em;
 }
 #sandwich-overlay li a:hover {
@@ -48,7 +51,6 @@
 
 /* Big title */
 .big-title h2 {
-    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 50px;
@@ -62,7 +64,6 @@
 .all-items-button {
     background-color: white;
     border: 1px solid #3877BC;
-    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -85,6 +86,22 @@
         width: 1900px;
     }
 
+    .course-list .list {
+        border: 1px solid red;
+        position: relative;
+        left: -280px;
+        width: 1500px;
+    }
+
+    .criteria-overlay {
+        left: -302px;
+        width: 1486px
+    }
+    .criteria-overlay ul {
+        -moz-column-count: 5;
+        -webkit-column-count: 5;
+        column-count: 5;
+    }
 
     ul.primary-highlight li {
         margin-left: 47px;
@@ -95,7 +112,6 @@
         margin-left: 16px;
         margin-right: 16px;
     }
-
 
 }
 
@@ -112,6 +128,22 @@
         display: block !important;
     }
 
+    .course-list .list {
+        border: 1px solid red;
+        position: relative;
+        left: -80px;
+        width: 900px;
+    }
+    .criteria-overlay {
+        left: -96px;
+        width: 955px;
+    }
+    .criteria-overlay ul {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+
+    }
     ul.primary-highlight li {
         margin-left: 16px;
         margin-right: 16px;
@@ -127,6 +159,23 @@
     .main-width {
         width: 960px;
     }
+
+    .course-list .list {
+        border: 1px solid red;
+        position: relative;
+        left: 24px;
+        width: 600px;
+    }
+    .criteria-overlay {
+        left: 11px;
+        width: 634px;
+    }
+    .criteria-overlay ul {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+
     .hidden-960 {
         display: none !important;
     }
@@ -169,6 +218,8 @@ ul.secondary-highlight {
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
+    display: inline-block;
+
 }
 ul.primary-highlight li {
     float: left;
@@ -191,13 +242,13 @@ ul.secondary-highlight li {
     margin: 16px;
 }
 
-.highlighted-courses .small-course {
+.small-course {
     width: 270px;
     height: 340px;
     background-color: white;
 }
 
-.highlighted-courses .small-course img.main {
+.small-course img.main {
     margin: 0px;
 }
 
@@ -246,3 +297,99 @@ ul.universities-list {
 
 /* Courses filtering and searching courses/index.html */
 
+.course-list {
+}
+
+.course-list .list ul {
+    list-style-type: none;
+    margin: 0 auto;
+    display: inline-block;
+    padding-left: 0;
+}
+.course-list .list ul li {
+    float: left;
+    display: inline-block;
+    padding-right: 24px
+}
+
+.filters {
+    background-color: #08223C;
+    width: 325px;
+    padding-left: 48px;
+    overflow: visible;
+}
+/*
+.filters.affix {
+    position: fixed;
+    top: 0px;
+}
+.filters.affix-top {
+    position: static;
+}
+.filters.affix-bottom {
+    position: absolute;
+}
+*/
+.criteria-overlay {
+    padding-top: 0px;
+    padding-right: 20px;
+    display: none;
+    position: absolute;
+    background-color: #08223C;
+}
+
+.criteria-overlay ul {
+}
+.criteria-overlay ul li {
+    line-height: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.filters h1 {
+    color: #3976BC;
+    font-size: 32px;
+    font-weight: 200;
+}
+.criteria-block h2 {
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    padding-left: 6px;
+    margin-bottom: 0;
+    padding-bottom: 8px;
+    border-bottom-color: #aaa;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    width: 232px;
+}
+
+.criteria-block ul.criteria {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.criteria-block ul.criteria li {
+    font-size: 14px;
+    color: #ccc;
+    padding-left: 6px;
+    border-bottom-color: #aaa;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 232px;
+}
+.criteria-block ul.criteria li .badge {
+    font-size: 11px;
+    background-color: #F32A2E;
+    border-radius: 10px;
+    /* line-height: 20px;
+    border-radius: 20px; */
+    font-weight: 200;
+}
+
+.filters .all-items-button {
+    margin-top: 6px;
+    background-color: transparent;
+}
