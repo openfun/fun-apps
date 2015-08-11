@@ -1,0 +1,248 @@
+
+/** Site wide CSS **/
+
+
+.main-width {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+}
+
+.container-fluid {
+    background-color: #EDEEEF;
+}
+
+/* Sandwich menu */
+#sandwich-overlay {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: #3D79BE;
+}
+#sandwich-overlay ul {
+    list-style-type: none;
+    margin-top: 7%;
+    margin-bottom: 7%;
+    text-align: center;
+}
+#sandwich-overlay li {
+    font-size: 2.5em;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 0.8em;
+}
+#sandwich-overlay li a:hover {
+    text-decoration: none;
+    color: #fff;
+    text-shadow: -1px 1px 8px #57A1E7, 1px -1px 8px #57A1E7; /* light blue glow */
+
+}
+#sandwich-overlay li a.selected {
+    border: 1px solid white;
+    padding: 16px;
+}
+#sandwich-overlay li a {
+    color: white;
+}
+
+/* Big title */
+.big-title h2 {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 50px;
+    color: #2B2B2B;
+}
+.big-title.white h2 {
+    color: white;
+}
+
+/* big button */
+.all-items-button {
+    background-color: white;
+    border: 1px solid #3877BC;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #3877BC;
+    padding: 12px 48px 12px 48px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+
+}
+.all-items-button a:hover {
+    text-decoration: none;
+    color: #3877BC;   /* TODO: find out if we have a rollover effect */
+}
+
+
+/* Responsive */
+@media (min-width: 1900px) {
+    .main-width {
+        width: 1900px;
+    }
+
+
+    ul.primary-highlight li {
+        margin-left: 47px;
+        margin-right: 47px;
+    }
+
+    ul.secondary-highlight li {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+
+}
+
+
+
+@media (max-width: 1900px) {
+    .main-width {
+        width: 1280px;
+    }
+    .hidden-1280 {
+        display: none !important;
+    }
+    .visible-1280 {
+        display: block !important;
+    }
+
+    ul.primary-highlight li {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    ul.secondary-highlight li {
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+
+}
+@media (max-width: 1279px) {
+    .main-width {
+        width: 960px;
+    }
+    .hidden-960 {
+        display: none !important;
+    }
+    .visible-960 {
+        display: block !important;
+    }
+
+}
+
+@media (max-width: 959px) {
+    .main-width {
+        width: 768px;
+    }
+    .hidden-768 {
+        display: none !important;
+    }
+    .visible-768 {
+        display: block !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-width {
+        width: 320px;
+    }
+}
+
+/* Courses */
+ul.primary-highlight {
+    list-style-type: none;
+    margin: 0 auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+ul.secondary-highlight {
+    list-style-type: none;
+    margin: 0 auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+ul.primary-highlight li {
+    float: left;
+    display: inline-block;
+
+}
+
+ul.secondary-highlight li {
+    float: left;
+    display: inline-block;
+
+}
+
+.highlighted-courses .big-course {
+    border: 1px solid black;
+    width: 370px;
+    height: 385px;
+}
+.highlighted-courses .big-course img.main {
+    margin: 16px;
+}
+
+.highlighted-courses .small-course {
+    width: 270px;
+    height: 340px;
+    background-color: white;
+}
+
+.highlighted-courses .small-course img.main {
+    margin: 0px;
+}
+
+/** Page specific CSS **/
+
+
+/* FUN home page funsite/index.html */
+.universities {
+    background-color: white;
+}
+
+ul.universities-list {
+    list-style-type: none;
+}
+.universities-list li {
+    float: left;
+    margin: 4px;
+}
+.university-logo {
+    width: 185px;
+    height: 105px;
+    border: 1px solid #E6E6E6;
+}
+
+.fun-news {
+    background-color: #2B2B2B;
+
+}
+.fun-news .primary {
+    margin-left: auto;
+    margin-right: auto;
+    width: 575px;
+    height: 335px;
+    border: 1px solid white;
+    margin-bottom: 30px;
+}
+.fun-news .secondary {
+    margin-left: auto;
+    margin-right: auto;
+    width: 575px;
+    height: 152px;
+    border: 1px solid white;
+    margin-bottom: 30px;
+}
+
+
+/* Courses filtering and searching courses/index.html */
+
