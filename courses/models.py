@@ -21,8 +21,10 @@ class Course(models.Model):
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
         choices=courses_choices.COURSE_LEVEL_CHOICES)
+    score = models.PositiveIntegerField(_('score'), default=0)
 
     class Meta:
+        ordering = ('-score',)
         verbose_name = _('course')
         verbose_name_plural = _('courses')
 

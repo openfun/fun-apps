@@ -1,15 +1,14 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from adminsortable.admin import SortableAdminMixin
-
 import fun.utils
 from universities.models import University
 import videoproviders.admin
 
 
-class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'preview', 'code', 'slug', 'featured')
+class UniversityAdmin(admin.ModelAdmin):
+    list_display = ('name', 'preview', 'code', 'slug', 'featured', 'score')
+    list_editable = ('score',)
     list_filter = ('featured',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
@@ -18,7 +17,7 @@ class UniversityAdmin(SortableAdminMixin, admin.ModelAdmin):
                 ('name', 'code'),
                 ('logo',),
                 ('certificate_logo',),
-                ('parent',),
+                ('parent', 'score'),
             )
         }),
         (_('Dailymotion Cloud'), {
