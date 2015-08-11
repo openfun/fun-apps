@@ -36,13 +36,13 @@ class University(models.Model):
     description = RichTextField(_('description'), blank=True)
     dm_user_id = models.CharField(_('DM User ID'), max_length=255, blank=True)
     dm_api_key = models.CharField(_('DM API Key'), max_length=255, blank=True)
-    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    score = models.PositiveIntegerField(_('score'), default=0)
 
     objects = models.Manager()
     featured_objects = FeaturedUniversityManager()
 
     class Meta:
-        ordering = ('order', 'id',)
+        ordering = ('-score', 'id',)
         verbose_name = _('University')
         verbose_name_plural = pgettext('University model', 'Universities')
 
