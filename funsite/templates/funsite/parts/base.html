@@ -13,7 +13,7 @@ from staticfiles.storage import staticfiles_storage
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%block name="meta_extra" />
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,700,600,800,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,700,600,800,900' rel='stylesheet' type='text/css'>
 
     <link href="${staticfiles_storage.url('bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
 
@@ -71,8 +71,8 @@ from staticfiles.storage import staticfiles_storage
     (function() {
         /* Sandwich menu handler */
         $(document).keydown(function(event) {
-            if (($('#sandwich-overlay').is(':visible')) & (event.keyCode == 27)) { // ESC key
-                $('#sandwich-overlay').hide();
+            if (event.keyCode == 27) { // ESC key
+                $('.hide-on-escake-key').hide();
                 console.log('close by keyboard');
             }
         });

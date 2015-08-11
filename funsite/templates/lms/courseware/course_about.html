@@ -1,0 +1,24 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from courseware.courses import course_image_url, get_course_about_section
+%>
+
+<%inherit file="/funsite/parts/base.html" />
+
+<%block name="meta_extra">
+    ## OG (Open Graph) title and description added below to give social media info to display
+    ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
+    ## TODO Add at least image tag with correct format.
+
+    <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
+    <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
+
+</%block>
+
+<%block name="title">${get_course_about_section(course, 'title')}</%block>
+
+
+
+<h1>${get_course_about_section(course, 'title')}</h1>
