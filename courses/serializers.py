@@ -29,4 +29,5 @@ class CourseSerializer(serializers.ModelSerializer):
             'level',
             'subjects',
             'image_url',
+            'score',
         )

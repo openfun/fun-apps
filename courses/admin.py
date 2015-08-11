@@ -10,12 +10,13 @@ from .models import Course, CourseSubject
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('key', 'university', 'level')
+    list_display = ('key', 'university', 'level', 'score')
     list_filter = ('level', 'subjects', 'university')
     search_fields = ('key', 'certificateteacher_related__teacher__full_name',
         'courseteacher_related__teacher__full_name')
     filter_horizontal = ('subjects',)
     inlines = (CourseTeacherInline, CertificateTeacherInline)
+    list_editable = ('score',)
     fieldsets = (
         (None, {
             'fields': (
@@ -23,6 +24,7 @@ class CourseAdmin(admin.ModelAdmin):
                 'university',
                 'level',
                 'subjects',
+                'score',
             )
         }),
     )
