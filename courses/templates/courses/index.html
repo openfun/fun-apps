@@ -2,59 +2,49 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from courseware.courses import course_image_url, get_course_about_section
 %>
 
 <%inherit file="/funsite/parts/base.html" />
 
 <%block name="title">${_("Courses")}</%block>
 
-<section class="find-courses">
-    <section class="courses-container">
 
-        <section class="courses">
-            <section class="courses-list-filter">
-                <form action="." method="GET">
-                    <ul>
-                        ${form.as_ul()}
-                        <li><input type="submit" value="${_('Filter')}" class="fun-courses-filter-button"></li>
-                    </ul>
-                </form>
-            </section>
+<img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
 
-            <div style="clear: both"></div>
-            % if courses:
-                <%include file="listing.html"/>
-            % else:
-                <div class="no-result">
-                    ${_("No result found.")}<br>
-                    <a href="${reverse('fun-courses-index')}">${_("View all courses")}</a>
-                </div>
-            % endif
-        </section>
 
-        <div class="pagination">
-            <%
-                params = ''
-                if request.GET.get('by'):
-                    params += '&by=' + request.GET['by']
-                if request.GET.get('university'):
-                    params += '&university=' + request.GET['university']
-                if request.GET.get('state'):
-                    params += '&state=' + request.GET['state']
-            %>
-            <span class="step previous">
-                % if courses.has_previous():
-                <a href="?page=${ courses.previous_page_number() }${ params }">${_("Previous page")}</a>
-                % endif
-            </span>
-            <span class="step next">
-                % if courses.has_next():
-                <a href="?page=${ courses.next_page_number() }${ params }">${_("Next page")}</a>
-                % endif
-            </span>
-            <span class="step current">
-                ${ courses.paginator.count } ${_("courses")} - ${_("Page %d of %d") % (courses.number, courses.paginator.num_pages)}
-            </span>
-        </div>
-    </section>
-</section>
+<div class="row">
+    <div class="col-lg-12 big-title text-center">
+        <h2>Les cours à la une</h2>
+    </div>
+</div>
+
+
+<div class="highlighted-courses">
+
+    <div class="row">
+        <!-- haute def > 1350: 4 mises en avant principales -->
+        <ul class="primary-highlight">
+            <li>
+                <%include file="/funsite/parts/big-course-block.html" args="id=1"/>
+            </li>
+            <li>
+                <%include file="/funsite/parts/big-course-block.html" args="id=2" />
+            </li>
+            <li class="hidden-960">
+                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+    %for course in courses:
+          <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+            ${get_course_about_section(course, 'title')}<br>
+        </a>
+    %endfor
