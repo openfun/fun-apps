@@ -6,119 +6,6 @@
 
 <style>
 
-ul.primary-highlight {
-    list-style-type: none;
-    margin: 0 auto;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-}
-
-ul.secondary-highlight {
-    list-style-type: none;
-    margin: 0 auto;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-}
-ul.primary-highlight li {
-    float: left;
-    display: inline-block;
-
-}
-
-ul.secondary-highlight li {
-    float: left;
-    display: inline-block;
-
-}
-
-.highlighted-courses .big-course {
-    border: 1px solid black;
-    width: 370px;
-    height: 385px;
-}
-.highlighted-courses .big-course img.main {
-    margin: 16px;
-}
-
-.highlighted-courses .small-course {
-    width: 270px;
-    height: 340px;
-    background-color: white;
-}
-
-.highlighted-courses .small-course img.main {
-    margin: 0px;
-}
-
-.big-title h2 {
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 50px;
-    color: #2B2B2B;
-}
-.big-title.white h2 {
-    color: white;
-}
-
-.all-items-button {
-    background-color: white;
-    border: 1px solid #3877BC;
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    color: #3877BC;
-    padding: 12px 48px 12px 48px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: inline-block;
-
-}
-.all-items-button a:hover {
-    text-decoration: none;
-    color: #3877BC;   /* change ? */
-}
-
-.universities {
-    background-color: white;
-}
-
-ul.universities-list {
-    list-style-type: none;
-}
-.universities-list li {
-    float: left;
-    margin: 4px;
-}
-.university-logo {
-    width: 185px;
-    height: 105px;
-    border: 1px solid #E6E6E6;
-}
-
-.fun-news {
-    background-color: #2B2B2B;
-
-}
-.fun-news .primary {
-    margin-left: auto;
-    margin-right: auto;
-    width: 575px;
-    height: 335px;
-    border: 1px solid white;
-    margin-bottom: 30px;
-}
-.fun-news .secondary {
-    margin-left: auto;
-    margin-right: auto;
-    width: 575px;
-    height: 152px;
-    border: 1px solid white;
-    margin-bottom: 30px;
-}
 </style>
 
 
@@ -136,57 +23,57 @@ ul.universities-list {
 
 <div class="highlighted-courses">
 
-        <div class="row">
-            <!-- haute def > 1350: 4 mises en avant principales -->
-            <ul class="primary-highlight">
-                <li>
-                    <%include file="funsite/parts/big-course-block.html" args="id=1"/>
-                </li>
-                <li>
-                    <%include file="funsite/parts/big-course-block.html" args="id=2" />
-                </li>
-                <li class="hidden-960">
-                    <%include file="funsite/parts/big-course-block.html" args="id=3" />
-                </li>
-                <li class="hidden-1280">
-                    <%include file="funsite/parts/big-course-block.html" args="id=3" />
-                </li>
-            </ul>
+    <div class="row">
+        <!-- haute def > 1350: 4 mises en avant principales -->
+        <ul class="primary-highlight">
+            <li>
+                <%include file="/funsite/parts/big-course-block.html" args="id=1"/>
+            </li>
+            <li>
+                <%include file="/funsite/parts/big-course-block.html" args="id=2" />
+            </li>
+            <li class="hidden-960">
+                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <!-- haute def > 1350: 6 mises en avant secondaires -->
+        <ul class="secondary-highlight">
+
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=1" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=2" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=3" />
+            </li>
+            <li class="hidden-960">
+                <%include file="/funsite/parts/small-course-block.html" args="id=4" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/small-course-block.html" args="id=5" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/small-course-block.html" args="id=6" />
+            </li>
+
+
+        </ul>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <span class="all-items-button"><a href="">Tous les cours</a></span>
         </div>
-        <div class="row">
-            <!-- haute def > 1350: 6 mises en avant secondaires -->
-            <ul class="secondary-highlight">
-
-                <li>
-                    <%include file="funsite/parts/small-course-block.html" args="id=1" />
-                </li>
-                <li>
-                    <%include file="funsite/parts/small-course-block.html" args="id=2" />
-                </li>
-                <li>
-                    <%include file="funsite/parts/small-course-block.html" args="id=3" />
-                </li>
-                <li class="hidden-960">
-                    <%include file="funsite/parts/small-course-block.html" args="id=4" />
-                </li>
-                <li class="hidden-1280">
-                    <%include file="funsite/parts/small-course-block.html" args="id=5" />
-                </li>
-                <li class="hidden-1280">
-                    <%include file="funsite/parts/small-course-block.html" args="id=6" />
-                </li>
-
-
-            </ul>
-
-        </div>
-
-
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <span class="all-items-button"><a href="">Tous les cours</a></span>
-            </div>
-        </div>
+    </div>
 
 </div>
 

@@ -12,12 +12,15 @@ from staticfiles.storage import staticfiles_storage
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <%block name="meta_extra" />
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,700,600,800,900' rel='stylesheet' type='text/css'>
 
     <link href="${staticfiles_storage.url('bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
 
     <link href="${staticfiles_storage.url('bootstrap-big-grid/dist/css/bootstrap-big-grid.min.css')}" rel="stylesheet">
+
+    <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
+
 
     <title><%block name="title" /></title>
 
@@ -30,138 +33,7 @@ from staticfiles.storage import staticfiles_storage
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-
-       .main-width {
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid black;
-        }
-
-        .container-fluid {
-            background-color: #EDEEEF;
-        }
-
-
-        #sandwich-overlay {
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: none;
-            background-color: #3D79BE;
-        }
-        #sandwich-overlay ul {
-            list-style-type: none;
-            margin-top: 7%;
-            margin-bottom: 7%;
-            text-align: center;
-        }
-        #sandwich-overlay li {
-            font-size: 2.5em;
-            font-family: 'Raleway', sans-serif;
-            margin-bottom: 0.8em;
-        }
-        #sandwich-overlay li a:hover {
-            text-decoration: none;
-            color: #fff;
-            text-shadow: -1px 1px 8px #57A1E7, 1px -1px 8px #57A1E7; /* light blue glow */
-
-        }
-        #sandwich-overlay li a.selected {
-            border: 1px solid white;
-            padding: 16px;
-        }
-
-
-        #sandwich-overlay li a {
-            color: white;
-        }
-
-        @media (min-width: 1900px) {
-            .main-width {
-                width: 1900px;
-            }
-
-
-            ul.primary-highlight li {
-                margin-left: 47px;
-                margin-right: 47px;
-            }
-
-            ul.secondary-highlight li {
-                margin-left: 16px;
-                margin-right: 16px;
-            }
-
-
-        }
-
-
-
-
-
-        @media (max-width: 1900px) {
-            .main-width {
-                width: 1280px;
-            }
-            .hidden-1280 {
-                display: none !important;
-            }
-            .visible-1280 {
-                display: block !important;
-            }
-
-            ul.primary-highlight li {
-                margin-left: 16px;
-                margin-right: 16px;
-            }
-
-            ul.secondary-highlight li {
-                margin-left: 18px;
-                margin-right: 18px;
-            }
-
-        }
-        @media (max-width: 1279px) {
-            .main-width {
-                width: 960px;
-            }
-            .hidden-960 {
-                display: none !important;
-            }
-            .visible-960 {
-                display: block !important;
-            }
-
-        }
-
-        @media (max-width: 959px) {
-            .main-width {
-                width: 768px;
-            }
-            .hidden-768 {
-                display: none !important;
-            }
-            .visible-768 {
-                display: block !important;
-            }
-        }
-
-        @media (max-width: 767px) {
-            .main-width {
-                width: 320px;
-            }
-        }
-
-
-
-
-
-        </style>
-
-
-
-
+    </style>
 
 </head>
 <body>
