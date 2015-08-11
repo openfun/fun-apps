@@ -1,13 +1,74 @@
 ## mako
 <%!
+import random
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
+
+
+## we need themes and probably Universities to have short names for correct display
+themes = [
+    u"Chime",
+    u"Géographie",
+    u"Histoire",
+    u"Entrepreneuriat",
+    u"Environnement",
+    u"Santé",
+    u"Sciences",
+    u"Agronomie et agriculture",
+    u"Communication",
+    u"Création, arts et design",
+    u"Cultures et civilisations",
+    u"Découverte de l'Univers",
+    u"Droit et juridique",
+    u"Économie et finance",
+    u"Enjeux de société",
+    u"Enseignement et formation",
+    u"Informatique, programmation",
+    u"Innovation",
+    u"Langues",
+    u"Lettres",
+    u"Management",
+    u"Mathématiques et stats",
+    u"Médias",
+    u"Numérique, technologie",
+    u"Outils pour la recherche",
+    u"Philosophie",
+    u"Physique",
+    u"Politique",
+    u"Relations internationales",
+    u"Réseaux et télécom.",
+    u"Sciences cognitives",
+    u"Sciences Terre et de l'Univers",
+    u"Sciences de la vie",
+    u"Sciences humaines et sociales",
+    u"Sciences pour l'ingénieur",
+    u"Sport",
+    u"Vie de l’entreprise",
+]
 %>
 
 <%inherit file="/funsite/parts/base.html" />
 
 <%block name="title">${_("Courses")}</%block>
+
+
+<%block name="js_extra">
+<script>
+    $('#show-all-themes').on('click', function(event) {
+        console.log(event);
+        $('#all-themes-overlay').show();
+
+        var posy =  $(this).prev().prev().offset().top - $('.filters').offset().top;
+        $('#all-themes-overlay').css('top', posy + 'px');
+
+
+
+    });
+
+
+</script>
+</%block>
 
 
 <img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
@@ -48,3 +109,76 @@ from courseware.courses import course_image_url, get_course_about_section
             ${get_course_about_section(course, 'title')}<br>
         </a>
     %endfor
+
+
+<div class="course-list">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
+            <div class="filters criteria-block">
+                <h1>Recherche</h1>
+                <h2>Disponibilité</h2>
+                <ul class="criteria">
+                    <li>Nouveau cours<span class="badge pull-right">22</span></li>
+                    <li>Fin d'inscription imminente<span class="badge pull-right">5</span></li>
+                    <li>Démarre bientôt<span class="badge pull-right">99</span></li>
+                    <li>A la demande<span class="badge pull-right">27</span></li>
+                </ul>
+                <h2>Thèmes</h2>
+                <ul class="criteria">
+                    %for theme in themes[:8]:
+                    <li>
+                        ${ theme }
+                        <span class="badge pull-right">${ random.randint(1, 30) }</span>
+                    </li>
+                    %endfor
+                </ul>
+                <span class="all-items-button" id="show-all-themes"><a href="">Toutes les thèmes</a></span>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="pagination">
+
+            </div>
+            <div class="list">
+                <ul>
+                    %for a in range(30):  ## mutliple of 5, 3, 2 and 1
+                    <li>
+                        <%include file="/funsite/parts/small-course-block.html" args="id=1" />
+                    </li>
+                    %endfor
+                </ul>
+
+            </div>
+
+            <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escake-key">
+                <h2>Tous les tèmes</h2>
+                <ul class="criteria">
+                    %for theme in themes[8:]:
+                    <li>
+                        ${ theme }
+                        <span class="badge pull-right">${ random.randint(1, 30) }</span>
+                    </li>
+                    %endfor
+                </ul>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
