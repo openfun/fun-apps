@@ -12,7 +12,7 @@ class CourseSubjectSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    university = UniversitySerializer()
+    universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
     image_url = serializers.CharField(source='image_url')
     short_description = serializers.CharField(source='short_description')
@@ -25,7 +25,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'key',
             'title',
             'short_description',
-            'university',
+            'universities',
             'level',
             'subjects',
             'image_url',

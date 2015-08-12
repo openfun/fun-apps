@@ -10,8 +10,8 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     paginate_by = 10
     paginate_by_param = 'rpp'
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('university', 'subjects', 'level')
+    filter_fields = ('universities', 'subjects', 'level')
 
     def get_queryset(self):
-        queryset = Course.objects.prefetch_related('subjects', 'university')
+        queryset = Course.objects.prefetch_related('subjects', 'universities')
         return queryset
