@@ -15,8 +15,8 @@ from . import choices as courses_choices
 class Course(models.Model):
     key = models.CharField(max_length=200, verbose_name=_(u'Course key'),
         unique=True)
-    university = models.ForeignKey('universities.University',
-        related_name='+', null=True, blank=True)
+    universities = models.ManyToManyField('universities.University',
+        through='CourseUniversityRelation')
     subjects = models.ManyToManyField('CourseSubject', related_name='courses',
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
@@ -82,3 +82,19 @@ class CourseSubject(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class CourseUniversityRelation(models.Model):
+    university = models.ForeignKey('universities.University',
+        related_name='related_courses')
+    course = models.ForeignKey('Course',
+        related_name='related_universities')
+    order = models.PositiveIntegerField(_('order'), default=0)
+
+    class Meta:
+        ordering = ('order', 'id',)
+        verbose_name = _('course-university relation')
+        verbose_name_plural = _('course-university relation')
+
+    def __unicode__(self):
+        return u'{} - {}'.format(self.university, self.course)
