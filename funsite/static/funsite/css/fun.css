@@ -5,7 +5,6 @@
 .main-width {
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid black;
 }
 
 .container-fluid {
@@ -13,8 +12,20 @@
     padding-right: 0;
     padding-left: 0;
     font-family: 'Raleway', sans-serif;
-
 }
+
+#top-menu {
+    width: inherit;
+    margin: auto;
+    background-color: white;
+    height: 60px;
+}
+.light-shadow {
+    -webkit-box-shadow: 0 6px 6px -6px #aaa;
+       -moz-box-shadow: 0 6px 6px -6px #aaa;
+            box-shadow: 0 6px 6px -6px #aaa;
+}
+
 
 /* Sandwich menu */
 #sandwich-overlay {
@@ -84,6 +95,13 @@
 @media (min-width: 1900px) {
     .main-width {
         width: 1900px;
+    }
+
+    .hidden-1900 {
+        display: none !important;
+    }
+    .visible-1900 {
+        display: block !important;
     }
 
     .course-list .list {
@@ -201,6 +219,15 @@
     .main-width {
         width: 320px;
     }
+
+    .hidden-320 {
+        display: none !important;
+    }
+    .visible-320 {
+        display: block !important;
+    }
+
+
 }
 
 /* Courses */
