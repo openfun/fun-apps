@@ -6,22 +6,30 @@ from adminsortable.admin import SortableAdminMixin
 
 from teachers.admin import CourseTeacherInline, CertificateTeacherInline
 
-from .models import Course, CourseSubject
+from .models import Course, CourseSubject, CourseUniversityRelation
+
+
+class CourseUniversityRelationInline(admin.TabularInline):
+    model = CourseUniversityRelation
+    extra = 1
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('key', 'university', 'level', 'score')
-    list_filter = ('level', 'subjects', 'university')
+    list_display = ('key', 'level', 'score')
+    list_filter = ('level', 'subjects', 'universities')
     search_fields = ('key', 'certificateteacher_related__teacher__full_name',
         'courseteacher_related__teacher__full_name')
     filter_horizontal = ('subjects',)
-    inlines = (CourseTeacherInline, CertificateTeacherInline)
+    inlines = (
+        CourseUniversityRelationInline,
+        CourseTeacherInline,
+        CertificateTeacherInline,
+    )
     list_editable = ('score',)
     fieldsets = (
         (None, {
             'fields': (
                 'key',
-                'university',
                 'level',
                 'subjects',
                 'score',
