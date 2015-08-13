@@ -4,32 +4,12 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 %>
 
-<style>
-
-.fun-footer {
-    background-color: #08223C;
-    height: 80px;
-}
-
-ul.footer-links {
-    list-style-type: none;
-}
-ul.footer-links li {
-    float: left;
-    font-size: 12px;
-    margin-right: 20px;
-}
-ul.footer-links li a {
-    color: white;
-}
-</style>
-
 <div class="fun-footer">
 
     <div class="row">
         <div class="col-xs-12">
 
-            <ul class="footer-links">
+            <ul class="footer-links left">
                 <li>
                     <a href="${reverse('site:render_static_template', args=['about'])}">
                         ${_("About...")}
@@ -50,6 +30,8 @@ ul.footer-links li a {
                         ${_("Terms of use")}
                     </a>
                 </li>
+            </ul>
+            <ul class="footer-links right">
                 <li>
                     <a href="${reverse('site:render_static_template', args=['honor'])}">
                         ${_("Usage policy")}
@@ -73,6 +55,14 @@ ul.footer-links li a {
                 </li>
             </ul>
 
+        </div>
+    </div>
+    <div class="row bottom-footer">
+        <div class="col-xs-6 pull-left">
+            logo fun
+        </div>
+        <div class="col-xs-6 pull-right">
+            logos reseaux sociaux
         </div>
     </div>
 </div>
