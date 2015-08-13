@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from adminsortable.admin import SortableAdminMixin
 
@@ -39,9 +40,16 @@ class CourseAdmin(admin.ModelAdmin):
 
 
 class CourseSubjectAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'slug',)
+    list_display = ('name', 'slug', 'preview', 'featured')
+    list_filter = ('featured',)
     prepopulated_fields = {'slug': ('name',)}
 
+    def preview(self, obj):
+        template = u"""<img src="{url}" style="max-height: 48px;" />"""
+        url = obj.image.url if obj.image else ''
+        return template.format(url=url)
+    preview.short_description=_('preview')
+    preview.allow_tags = True
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(CourseSubject, CourseSubjectAdmin)
