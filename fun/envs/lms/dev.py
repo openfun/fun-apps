@@ -27,4 +27,6 @@ FEATURES['AUTOMATIC_VERIFY_STUDENT_IDENTITY_FOR_TESTING'] = True
 FEATURES['ENABLE_PAYMENT_FAKE'] = True
 FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 
-MAKO_MODULE_DIR = None
+MAKO_MODULE_DIR = None   # this will prevent Mako to cache generated files
+# To totaly deactivate cache we also have de desactive Edx cache on views
+# by commenting line 79 (cache.set(cache_key, response, 60 * 3)) in file common/djangoapps/util/cache.py
