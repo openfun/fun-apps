@@ -7,6 +7,7 @@ pycaption==0.4.6
 unicodecsv==0.9.4
 raven==5.1.0
 django-pure-pagination==0.2.1
+django-bower==5.0.4
 
 # DMCloud XBlock 
 -e git+https://github.com/openfun/dmcloud.git@1.2#egg=dmcloud-xblock
