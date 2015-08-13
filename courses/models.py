@@ -10,6 +10,7 @@ from opaque_keys.edx.locator import CourseLocator
 from xmodule.contentstore.content import StaticContent
 
 from . import choices as courses_choices
+from .managers import CourseSubjectManager
 
 
 class Course(models.Model):
@@ -74,11 +75,19 @@ class CourseSubject(models.Model):
     slug = models.SlugField(_('slug'), max_length=255, unique=True)
     description = RichTextField(_('description'), blank=True)
     order = models.PositiveIntegerField(_('order'), default=0)
+    featured = models.BooleanField(verbose_name=_('featured'))
+    image = models.ImageField(_("image"), upload_to="courses",
+        null=True, blank=True)
+
+    objects = CourseSubjectManager()
 
     class Meta:
         ordering = ('order', 'id',)
         verbose_name = _('Course Subject')
         verbose_name_plural = _('Course Subjects')
+
+    def get_absolute_url(self):
+        return '/TODO/'
 
     def __unicode__(self):
         return self.name
