@@ -9,7 +9,7 @@ from universities.courses import get_university_courses
 
 class UniversityMixin(object):
     def get_queryset(self):
-        return University.featured_objects.all()
+        return University.objects.featured()
 
 
 class UniversityLandingView(mako.MakoTemplateMixin, UniversityMixin, ListView):

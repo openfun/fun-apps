@@ -6,12 +6,7 @@ from django.utils.translation import pgettext
 
 from ckeditor.fields import RichTextField
 
-
-class FeaturedUniversityManager(models.Manager):
-    def get_query_set(self):
-        return super(FeaturedUniversityManager, self
-                ).get_query_set().filter(featured=True)
-
+from .managers import UniversityManager
 
 class University(models.Model):
     """
@@ -21,6 +16,8 @@ class University(models.Model):
             related_name='children', verbose_name=_(u"Parent university"),
             help_text=_(u"An university with parent will be grouped with it in university filtering"))
     name = models.CharField(_('name'), max_length=255)
+    short_name = models.CharField(_('short name'), max_length=255, blank=True,
+        help_text=_('Displayed where space is rare - on side panel for instance.'))
     code = models.CharField(_('code'), max_length=255, unique=True)
     certificate_logo = models.ImageField(_('certificate logo'),
         upload_to='universities', null=True, blank=True,
@@ -38,8 +35,7 @@ class University(models.Model):
     dm_api_key = models.CharField(_('DM API Key'), max_length=255, blank=True)
     score = models.PositiveIntegerField(_('score'), default=0)
 
-    objects = models.Manager()
-    featured_objects = FeaturedUniversityManager()
+    objects = UniversityManager()
 
     class Meta:
         ordering = ('-score', 'id',)
