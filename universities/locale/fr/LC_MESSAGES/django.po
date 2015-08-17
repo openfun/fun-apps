@@ -37,6 +37,10 @@ msgstr "Affiché sur le site | Bannière | Description"
 msgid "Institutions"
 msgstr "Établissements"
 
+#: /edx/app/edxapp/fun-apps/universities/models.py:25
+msgid "Displayed where space is rare - on side panel for instance."
+msgstr "Affiché dans le panneau latéral où l'espace est réduit."
+
 #: /edx/app/edxapp/fun-apps/universities/models.py:27
 msgid "Logo to be displayed on the certificate document."
 msgstr "Logo à afficher sur le certificat"

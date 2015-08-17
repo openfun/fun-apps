@@ -5,47 +5,13 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
 
+from courses.models import CourseSubject
+from universities.models import University
 
-## we need themes and probably Universities to have short names for correct display
-themes = [
-    u"Chime",
-    u"Géographie",
-    u"Histoire",
-    u"Entrepreneuriat",
-    u"Environnement",
-    u"Santé",
-    u"Sciences",
-    u"Agronomie et agriculture",
-    u"Communication",
-    u"Création, arts et design",
-    u"Cultures et civilisations",
-    u"Découverte de l'Univers",
-    u"Droit et juridique",
-    u"Économie et finance",
-    u"Enjeux de société",
-    u"Enseignement et formation",
-    u"Informatique, programmation",
-    u"Innovation",
-    u"Langues",
-    u"Lettres",
-    u"Management",
-    u"Mathématiques et stats",
-    u"Médias",
-    u"Numérique, technologie",
-    u"Outils pour la recherche",
-    u"Philosophie",
-    u"Physique",
-    u"Politique",
-    u"Relations internationales",
-    u"Réseaux et télécom.",
-    u"Sciences cognitives",
-    u"Sciences Terre et de l'Univers",
-    u"Sciences de la vie",
-    u"Sciences humaines et sociales",
-    u"Sciences pour l'ingénieur",
-    u"Sport",
-    u"Vie de l’entreprise",
-]
+course_subjects_by_score = CourseSubject.objects.by_score()
+course_subjects_by_name = CourseSubject.objects.by_name()
+universities_by_score = University.objects.by_score()
+universities_by_name = University.objects.by_name()
 %>
 
 <%inherit file="/funsite/parts/base.html" />
@@ -128,14 +94,32 @@ themes = [
                 </ul>
                 <h2>Thèmes</h2>
                 <ul class="criteria">
-                    %for theme in themes[:8]:
+                    %for course_subject in course_subjects_by_score[:8]:
                     <li>
-                        ${ theme }
-                        <span class="badge pull-right">${ random.randint(1, 30) }</span>
+                        ${ course_subject.short_name or course_subject.name }
+                        <span class="badge pull-right">${ course_subject.courses.count() }</span>
                     </li>
                     %endfor
                 </ul>
                 <span class="all-items-button" id="show-all-themes"><a href="">Toutes les thèmes</a></span>
+                <h2>Établissements</h2>
+                <ul class="criteria">
+                    %for university in universities_by_score[:10]:
+                    <li>
+                        ${ university.short_name or university.name }
+                        <span class="badge pull-right">${ university.courses.count() }</span>
+                    </li>
+                    %endfor
+                </ul>
+                <br />Touts les établissements:
+                    %for university in universities_by_name:
+                    <li>
+                        ${ university.short_name or university.name }
+                        <span class="badge pull-right">${ university.courses.count() }</span>
+                    </li>
+                    %endfor
+                </ul>
+
             </div>
         </div>
 
@@ -157,10 +141,10 @@ themes = [
             <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escake-key">
                 <h2>Tous les tèmes</h2>
                 <ul class="criteria">
-                    %for theme in themes[8:]:
+                    %for course_subject in course_subjects_by_name:
                     <li>
-                        ${ theme }
-                        <span class="badge pull-right">${ random.randint(1, 30) }</span>
+                        ${ course_subject.short_name or course_subject.name }
+                        <span class="badge pull-right">${ course_subject.courses.count() }</span>
                     </li>
                     %endfor
                 </ul>
