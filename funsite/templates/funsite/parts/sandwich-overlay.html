@@ -1,0 +1,48 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
+<div id="sandwich-overlay" class="hide-on-escake-key">
+    <span id="close-sandwich-overlay">X</span>
+    <ul class="">
+        <li>
+            <a class="selected" href="/">
+                ${_("Home")}
+            </a>
+        </li>
+        <li>
+            <a href="${reverse('newsfeed-landing')}">
+                ${_("News")}
+            </a>
+        </li>
+
+        <li>
+            <a href="${reverse('fun-courses-index')}">
+                ${_("Courses")}
+            </a>
+        </li>
+        <li>
+            <a href="${reverse('universities-landing')}">
+                ${_("Universities")}
+            </a>
+        </li>
+
+        <li>
+            <a href="${reverse('register_user')}">
+                ${_("Register")}
+            </a>
+        </li>
+
+        <li>
+            <a href="${reverse('signin_user')}">
+                ${_("Login")}
+            </a>
+        </li>
+        <li>
+            <a href="${reverse('logout')}">
+                ${_("Logout")}
+            </a>
+        </li>
+    </ul>
+</div>

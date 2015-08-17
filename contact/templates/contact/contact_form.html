@@ -4,14 +4,11 @@ from django.utils.translation import ugettext as _
 from django.template.defaultfilters import striptags
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/base.html" />
 
-<%inherit file="../main.html" />
-
-<%block name="title"><title>${_("Contact")}</title></%block>
+<%block name="title">${_("Contact")}</%block>
 
 <section class="contact container">
-  <img class="illustration" src="${static.url('themes/fun/images/illustrations/contact.jpg')}" />
 
   <section role="main" class="content">
     <h2>${_('Contact us')}</h2>

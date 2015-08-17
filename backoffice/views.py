@@ -35,7 +35,7 @@ from universities.models import University
 
 from .forms import SearchUserForm, UserForm, UserProfileForm, ArticleForm
 from .utils import get_course, group_required, get_course_key
-from courses.models import Course
+from courses.models import Course, CourseUniversityRelation
 from courses.utils import get_about_section
 
 ABOUT_SECTION_FIELDS = ['effort', 'video']
@@ -185,12 +185,13 @@ def course_detail(request, course_key_string):
     course_info = get_complete_course_info(get_course(course_key_string))
     ck = CourseKey.from_string(course_key_string)
     funcourse, _created = Course.objects.get_or_create(key=ck)
-    if not funcourse.university:
-        try:
-            funcourse.university = University.objects.get(code=ck.org)
-            funcourse.save()
-        except University.DoesNotExist:
-            messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
+    try:
+        university = University.objects.get(code=ck.org)
+    except University.DoesNotExist:
+        messages.warning(request, _(u"University with code <strong>%s</strong> does not exist.") % ck.org)
+        university = None
+    if university and university not in funcourse.universities.all():
+        CourseUniversityRelation.objects.create(course=funcourse, university=university)
 
     if request.method == 'POST':
         if request.POST['action'] == 'delete-course':

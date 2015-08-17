@@ -1,0 +1,96 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+
+from staticfiles.storage import staticfiles_storage
+
+%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%block name="meta_extra" />
+    <link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,700,600,800,900' rel='stylesheet' type='text/css'>
+
+    <link href="${staticfiles_storage.url('bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
+
+    <link href="${staticfiles_storage.url('bootstrap-big-grid/dist/css/bootstrap-big-grid.min.css')}" rel="stylesheet">
+
+    <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
+
+
+    <title><%block name="title" /></title>
+
+    <!-- Bootstrap -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    </style>
+
+</head>
+<body>
+
+
+<div class="main-width">
+
+    <%include file="menu.html" />
+
+    <div class="container-fluid">
+
+
+
+
+    ${self.body()}
+
+
+    <%include file="footer.html" />
+
+
+
+    </div> <!-- bootstrape container -->
+
+</div>  <!-- main-width -->
+
+<%include file="sandwich-overlay.html" />
+
+
+    <script src="${staticfiles_storage.url('jquery/dist/jquery.min.js')}"></script>
+    <script src="${staticfiles_storage.url('bootstrap/js/bootstrap.min.js')}"></script>
+    <script type="text/javascript" src="/jsi18n/"></script>
+    <%block name="js_extra" />
+
+    <script>
+    (function() {
+        /* Sandwich menu handler */
+        $(document).keydown(function(event) {
+            if (event.keyCode == 27) { // ESC key
+                $('.hide-on-escake-key').hide();
+                console.log('close by keyboard');
+            }
+        });
+
+        $('#close-sandwich-overlay').on('click', function(event) {
+            $('#sandwich-overlay').hide();
+            console.log('close by button');
+        });
+
+        $('#sandwich-menu').on('click', function(event) {
+            console.log('clicked');
+            $('#sandwich-overlay').show();
+
+        })
+    })();
+
+    </script>
+
+
+  </body>
+</html>

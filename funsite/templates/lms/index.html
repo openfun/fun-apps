@@ -1,0 +1,245 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+
+from courses.models import CourseSubject
+%>
+
+<%inherit file="funsite/parts/base.html" />
+
+<%block name="title">Index</%block>
+
+<style>
+
+</style>
+
+
+
+<img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
+
+
+<div class="row">
+    <div class="col-lg-12 big-title text-center">
+        <h2>Les cours à la une</h2>
+    </div>
+</div>
+
+
+<div class="highlighted-courses">
+
+    <div class="row hidden-320">
+        <!-- haute def > 1350: 4 mises en avant principales -->
+        <ul class="primary-highlight">
+            <li>
+                <%include file="/funsite/parts/big-course-block.html" args="id=1"/>
+            </li>
+            <li class="hidden-768">
+                <%include file="/funsite/parts/big-course-block.html" args="id=2" />
+            </li>
+            <li class="hidden-960">
+                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+            </li>
+        </ul>
+    </div>
+
+    <div class="row hidden-768 hidden-960 hidden-1280 hidden-1900 visible-320">
+        <!-- en 320, les primary s'affichent en petit -->
+        <ul class="secondary-highlight">
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=1" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=2" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=3" />
+            </li>
+        </ul>
+    </div>
+
+    <div class="row hidden-320">
+        <!-- haute def > 1350: 6 mises en avant secondaires -->
+        <ul class="secondary-highlight">
+
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=4" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=5" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="id=6" />
+            </li>
+            <li class="hidden-960">
+                <%include file="/funsite/parts/small-course-block.html" args="id=7" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/small-course-block.html" args="id=8" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/small-course-block.html" args="id=9" />
+            </li>
+
+
+        </ul>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <span class="all-items-button"><a href="${reverse('fun-courses-index')}">Tous les cours</a></span>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="universities">
+    <div class="row ">
+        <div class="col-lg-12 big-title text-center">
+            <h2>Les établissements</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="universities-list">
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li>
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-768">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-768">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-960">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+                <li class="hidden-1280">
+                    <div class="university-logo center-block">Etablissement</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <span class="all-items-button"><a href="">Tous les établissements</a></span>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="fun-news">
+    <div class="row ">
+        <div class="col-lg-12 big-title white text-center">
+            <h2>Les actualités</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 text-center">
+            <div class="primary">
+            </div>
+        </div>
+        <div class="col-lg-6 text-center">
+            <div class="secondary">
+
+            </div>
+
+            <div class="secondary">
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <span class="all-items-button"><a href="">Toutes les actus</a></span>
+        </div>
+    </div>
+
+
+
+<div class="fun-themes">
+    <div class="row ">
+        <div class="col-lg-12 big-title white text-center">
+            <h2>les thématiques</h2>
+
+            % for course_subject in CourseSubject.objects.random_featured():
+                <br />${course_subject.name}
+                <br />${course_subject.get_absolute_url()}
+                % if course_subject.image:
+                    <br />${course_subject.image.url}
+                % endif
+            % endfor
+
+        </div>
+    </div>
+
+    <div class="row">
+
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <span class="all-items-button"><a href="">Toutes les actus</a></span>
+        </div>
+    </div>
+
+
+</div>

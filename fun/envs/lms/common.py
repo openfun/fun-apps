@@ -24,6 +24,8 @@ INSTALLED_APPS += (
     'teachers',
     'faq',
     'edx_gea',
+    'djangobower',
+    'funsite',
     )
 
 ROOT_URLCONF = 'fun.lms.urls'
@@ -35,8 +37,8 @@ del DEFAULT_FILE_STORAGE
 
 # those values also have to be in env.json file,
 # because pavlib.utils.envs reads it to build asset's preprocessing commands
-THEME_NAME = "fun"
-FEATURES['USE_CUSTOM_THEME'] = True
+#THEME_NAME = "fun"
+#FEATURES['USE_CUSTOM_THEME'] = True
 FEATURES['ENABLE_MKTG_SITE'] = False
 
 SITE_NAME = LMS_BASE
@@ -88,6 +90,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
 # add application templates directory to MAKO template finder
 MAKO_TEMPLATES['main'] = [
+    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
+    FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'courses/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
@@ -143,3 +147,16 @@ PAGINATION_SETTINGS = {
 }
 
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
+
+# We user Bower to handle our own CSS/Javascript dependencies
+STATICFILES_FINDERS += ('djangobower.finders.BowerFinder',)
+BOWER_COMPONENTS_ROOT = FUN_BASE_ROOT + '/components/'
+BOWER_PATH = '/usr/bin/bower'
+# JS libraries will be downloaded to fun-apps/components/bower_components by `fun lms.dev bower install` command,
+# then collectected with other statics
+BOWER_INSTALLED_APPS = (
+    'bootstrap',
+    'bootstrap-big-grid',  # http://benwhitehead.github.io/
+    'jquery',
+    'arg.js',
+)
