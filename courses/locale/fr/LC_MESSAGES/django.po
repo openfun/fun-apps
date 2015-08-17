@@ -48,6 +48,10 @@ msgstr "Les cours"
 msgid "Current"
 msgstr "En cours"
 
+#: /edx/app/edxapp/fun-apps/courses/models.py:76
+msgid "Displayed where space is rare - on side panel for instance."
+msgstr "Affiché dans le panneau latéral où l'espace est réduit."
+
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:113
 msgid "Filter"
 msgstr "Filtrer"
