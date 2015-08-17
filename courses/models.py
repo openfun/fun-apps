@@ -72,6 +72,8 @@ class Course(models.Model):
 
 class CourseSubject(models.Model):
     name = models.CharField(_('name'), max_length=255)
+    short_name = models.CharField(_('short name'), max_length=255, blank=True,
+        help_text=_('Displayed where space is rare - on side panel for instance.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True)
     description = RichTextField(_('description'), blank=True)
     order = models.PositiveIntegerField(_('order'), default=0)
