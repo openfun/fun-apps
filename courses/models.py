@@ -17,7 +17,7 @@ class Course(models.Model):
     key = models.CharField(max_length=200, verbose_name=_(u'Course key'),
         unique=True)
     universities = models.ManyToManyField('universities.University',
-        through='CourseUniversityRelation')
+        through='CourseUniversityRelation', related_name='courses')
     subjects = models.ManyToManyField('CourseSubject', related_name='courses',
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
