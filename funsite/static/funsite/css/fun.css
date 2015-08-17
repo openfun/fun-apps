@@ -92,7 +92,13 @@ ul..footer-links.right {
     border-top-width: 1px;
     border-top-color: #374C61;
 }
-
+.fun-footer .bottom-footer div.left {
+    padding-left: 0;
+}
+.fun-footer .bottom-footer div.right {
+    text-align: right;
+    padding-right: 0;
+}
 
 
 /* Big title */
@@ -235,6 +241,15 @@ ul..footer-links.right {
     .visible-960 {
         display: block !important;
     }
+    .footer-links {
+        width: 50%;
+    }
+    .footer-links li {
+        width: 100%;
+    }
+    .footer-links.right {
+        padding-left: 16px;
+    }
 
 }
 
@@ -247,15 +262,6 @@ ul..footer-links.right {
     }
     .visible-768 {
         display: block !important;
-    }
-    .footer-links {
-        width: 50%;
-    }
-    .footer-links li {
-        width: 100%;
-    }
-    .footer-links.right {
-        padding-left: 16px;
     }
 }
 
