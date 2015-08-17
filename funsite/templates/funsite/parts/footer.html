@@ -2,6 +2,7 @@
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from staticfiles.storage import staticfiles_storage
 %>
 
 <div class="fun-footer">
@@ -58,11 +59,18 @@ from django.utils.translation import ugettext as _
         </div>
     </div>
     <div class="row bottom-footer">
-        <div class="col-xs-6 pull-left">
-            logo fun
+        <div class="col-xs-6 left">
+            <a href="/">
+                <img src="${staticfiles_storage.url('funsite/images/logos/fun45.png')}" alt="Logo France Université Numérique">
+            </a>
         </div>
-        <div class="col-xs-6 pull-right">
-            logos reseaux sociaux
+        <div class="col-xs-6 right">
+            <a href="https://www.facebook.com/france.universite.numerique" target="_blank">
+                <img src="${staticfiles_storage.url('funsite/images/logos/facebook32.png')}" alt="Facebook">
+            </a>
+            <a href="https://twitter.com/universite_num" target="_blank">
+                <img src="${staticfiles_storage.url('funsite/images/logos/twitter32.png')}" alt="Twitter">
+            </a>
         </div>
     </div>
 </div>
