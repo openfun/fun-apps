@@ -40,7 +40,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 
 class CourseSubjectAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'slug', 'preview', 'featured')
+    list_display = ('name', 'short_name', 'slug', 'preview', 'featured')
     list_filter = ('featured',)
     prepopulated_fields = {'slug': ('name',)}
 
