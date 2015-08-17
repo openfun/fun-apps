@@ -7,14 +7,14 @@ import videoproviders.admin
 
 
 class UniversityAdmin(admin.ModelAdmin):
-    list_display = ('name', 'preview', 'code', 'slug', 'featured', 'score')
+    list_display = ('name', 'short_name', 'preview', 'code', 'slug', 'featured', 'score')
     list_editable = ('score',)
     list_filter = ('featured',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         (None, {
             'fields': (
-                ('name', 'code'),
+                ('name', 'short_name', 'code'),
                 ('logo',),
                 ('certificate_logo',),
                 ('parent', 'score'),
