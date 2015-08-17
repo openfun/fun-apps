@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 import wiki.models.urlpath
 import wiki.models.article
+from course_wiki.utils import course_wiki_slug
 
 from opaque_keys.edx.keys import CourseKey
 from xmodule.modulestore.django import modulestore
@@ -22,12 +23,14 @@ django-wiki prevents inheriting read/write permission changes.
         for course_key_string in args:
             course_key = CourseKey.from_string(course_key_string)
             course = modulestore().get_course(course_key)
-            slug = course.wiki_slug
+            slug = course_wiki_slug(course)
 
-            # Note that this requires on request per argument and could be optimised
+            # Note that this requires one request per argument and could be optimised
             urlpaths = wiki.models.urlpath.URLPath.objects.select_related("article").filter(slug=slug)
             if not urlpaths:
-                self.stdout.write("---- Wiki article '{}' could not be found\n".format(slug))
+                self.stdout.write(
+                    "---- Wiki article '{}' for course {} could not be found\n".format(slug, course_key_string)
+                )
                 continue
             for urlpath in urlpaths:
                 urlpath.article.group_write = False
@@ -36,4 +39,6 @@ django-wiki prevents inheriting read/write permission changes.
                 urlpath_descendants = urlpath.article.descendant_objects()
                 (wiki.models.article.Article.objects.filter(urlpath__in=urlpath_descendants)
                                                     .update(group_write=False, other_write=False))
-                self.stdout.write("++++ Write permissions removed from wiki '{}'\n".format(slug))
+                self.stdout.write(
+                    "++++ Write permissions removed from wiki '{}' for course {}\n".format(slug, course_key_string)
+                )
