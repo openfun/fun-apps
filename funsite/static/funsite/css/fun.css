@@ -8,10 +8,13 @@
 }
 
 .container-fluid {
-    background-color: #EDEEEF;
     padding-right: 0;
     padding-left: 0;
     font-family: 'Raleway', sans-serif;
+}
+
+.container-fluid.drop-down {
+    margin-top: 60px;  /* top-menu's height */
 }
 
 #top-menu {
@@ -59,6 +62,8 @@
 #sandwich-overlay li a {
     color: white;
 }
+
+
 
 /* Page footer */
 .fun-footer {
@@ -171,6 +176,9 @@ ul..footer-links.right {
         margin-left: 16px;
         margin-right: 16px;
     }
+    .no-gutter-right-1900 {
+        padding-right: 0 !important;
+    }
 
 }
 
@@ -193,6 +201,7 @@ ul..footer-links.right {
         left: -80px;
         width: 900px;
     }
+
     .criteria-overlay {
         left: -96px;
         width: 955px;
@@ -472,4 +481,30 @@ ul.universities-list {
 .filters .all-items-button {
     margin-top: 6px;
     background-color: transparent;
+}
+
+/* static content pages */
+.simple-content {
+    background-color: #EDEEEF;
+    padding-top: 60px;
+}
+.typographic-content {
+    padding-top: 24px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 70px;
+    margin-left: 60px;
+    background-color: white;
+}
+.small-blue-column {
+    background-color: #08223C;
+    color: white;
+    padding: 24px 8px 24px 8px;
+}
+
+.no-gutter-right {
+    padding-right: 0 !important;
+}
+.no-gutter-left {
+    padding-left: 0 !important;
 }

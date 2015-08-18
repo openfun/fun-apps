@@ -4,98 +4,94 @@ from django.core.urlresolvers import reverse
 from staticfiles.storage import staticfiles_storage
 %>
 
-<%inherit file="../parts/base.html" />
+<%inherit file="/funsite/parts/simple-content.html" />
 
 <%block name="title">Qu’est-ce que FUN ?</%block>
 
-<section class="container about">
-  <section class="vision">
-    <section class="message left about" id="about">
+<%block name="page_content">
+    <section>
       <article>
-        <h2>Qu’est-ce que FUN ?</h2>
+          <h2>Qu’est-ce que FUN ?</h2>
 
-        <p>FUN est une plateforme de <strong>MOOC (Massive Open Online Courses, en français « Cours en ligne ouverts à tous »)</strong> mise à disposition des établissements de l’enseignement supérieur français et de leurs partenaires académiques dans le monde entier. Lancée par le Ministère de l’Enseignement Supérieur et de la Recherche en octobre 2013, cette initiative vise à fédérer les projets des universités et écoles françaises pour leur donner une visibilité internationale, et <strong>permettre à tous les publics d’accéder à des cours variés et de qualité où qu’ils soient dans le monde</strong>.</p>
+          <p>FUN est une plateforme de <strong>MOOC (Massive Open Online Courses, en français « Cours en ligne ouverts à tous »)</strong> mise à disposition des établissements de l’enseignement supérieur français et de leurs partenaires académiques dans le monde entier. Lancée par le Ministère de l’Enseignement Supérieur et de la Recherche en octobre 2013, cette initiative vise à fédérer les projets des universités et écoles françaises pour leur donner une visibilité internationale, et <strong>permettre à tous les publics d’accéder à des cours variés et de qualité où qu’ils soient dans le monde</strong>.</p>
 
-        <p>Tous les cours présents sur  FUN sont conçus par des professeurs d’universités et écoles françaises et leurs partenaires académiques internationaux. Les étudiants et les internautes peuvent suivre ces cours <strong>de manière interactive et collaborative, à leur rythme</strong>.</p>
+          <p>Tous les cours présents sur  FUN sont conçus par des professeurs d’universités et écoles françaises et leurs partenaires académiques internationaux. Les étudiants et les internautes peuvent suivre ces cours <strong>de manière interactive et collaborative, à leur rythme</strong>.</p>
 
-        <p>Le catalogue de cours disponibles  s’enrichira continuellement pour proposer une variété de formations répondant aux besoins de tous les publics.</p>
-      </article>
-      <hr class="fade-right-hr-divider">
+          <p>Le catalogue de cours disponibles  s’enrichira continuellement pour proposer une variété de formations répondant aux besoins de tous les publics.</p>
+        </article>
+
     </section>
 
-    <section class="message left actors" id="actors">
-      <article>
-        <h2>Un projet, quatre acteurs clés</h2>
-        <p>A l’initiative du Ministère de l’Enseignement Supérieur et de la Recherche, ce projet s’est construit autour de trois acteurs publics…</p>
-        <ul>
-          <li>L’INRIA pour le déploiement de la plateforme, le CINES pour la conception, l'administration et l’hébergement de l'infrastructure informatique, RENATER pour les infrastructures réseaux</li>
-        </ul>
-        <p>… et d’experts et représentants des équipes pédagogiques de la communauté universitaire pour participer  à la conception de la plateforme et à la définition des choix fonctionnels et techniques.</p>
-      </article>
+    <section>
+        <article>
+          <h2>Un projet, quatre acteurs clés</h2>
+          <p>A l’initiative du Ministère de l’Enseignement Supérieur et de la Recherche, ce projet s’est construit autour de trois acteurs publics…</p>
+          <ul>
+            <li>L’INRIA pour le déploiement de la plateforme, le CINES pour la conception, l'administration et l’hébergement de l'infrastructure informatique, RENATER pour les infrastructures réseaux</li>
+          </ul>
+          <p>… et d’experts et représentants des équipes pédagogiques de la communauté universitaire pour participer  à la conception de la plateforme et à la définition des choix fonctionnels et techniques.</p>
+        </article>
     </section>
 
-    <section class="message left mesr" id="mesr">
-      <div class="photo">
-        <a href="http://www.enseignementsup-recherche.gouv.fr/" target="_blank">
-          <img src="${staticfiles_storage.url('funsite/images/logos/menes.png')}" alt="Logo du Ministère de l’éducation nationale, de l'enseignement supérieur et de la recherche" />
-        </a>
+    <section>
+        <article>
+          <h2>Ministère de l’éducation nationale, de l'enseignement supérieur et de la recherche</h2>
+          <p>La stratégie du ministère chargé de l’Enseignement supérieur et de la Recherche s’inscrit dans l’agenda numérique du gouvernement qui fixe comme axe prioritaire la jeunesse, l’école et l’université. La loi du 22 juillet 2013 qui prévoit d’introduire systématiquement dans les formations du service public de l’enseignement supérieur la mise à disposition des ressources numériques et d’une formation à leur utilisation, s’inscrit dans cette optique.</p>
 
-     </div>
-      <article>
-        <h2>Ministère de l’éducation nationale, de l'enseignement supérieur et de la recherche</h2>
-        <p>La stratégie du ministère chargé de l’Enseignement supérieur et de la Recherche s’inscrit dans l’agenda numérique du gouvernement qui fixe comme axe prioritaire la jeunesse, l’école et l’université. La loi du 22 juillet 2013 qui prévoit d’introduire systématiquement dans les formations du service public de l’enseignement supérieur la mise à disposition des ressources numériques et d’une formation à leur utilisation, s’inscrit dans cette optique.</p>
-
-        <p>Pour entretenir cette dynamique, le ministère a pour objectif de contribuer à mettre en valeur l’offre de formation en ligne française et les ressources pédagogiques ouvertes. En permettant aux établissements qui le souhaitent de dispenser leurs formations en ligne, le lancement de FUN s’inscrit pleinement dans cet objectif.</p>
-        <p><a href="http://www.enseignementsup-recherche.gouv.fr/" target="_blank">http://www.enseignementsup-recherche.gouv.fr</a></p>
-      </article>
+          <p>Pour entretenir cette dynamique, le ministère a pour objectif de contribuer à mettre en valeur l’offre de formation en ligne française et les ressources pédagogiques ouvertes. En permettant aux établissements qui le souhaitent de dispenser leurs formations en ligne, le lancement de FUN s’inscrit pleinement dans cet objectif.</p>
+          <p><a href="http://www.enseignementsup-recherche.gouv.fr/" target="_blank">http://www.enseignementsup-recherche.gouv.fr</a></p>
+        </article>
     </section>
 
-    <section class="message left inria" id="inria">
-      <div class="photo">
-        <a href="http://www.inria.fr/" target="_blank">
-          <img src="${staticfiles_storage.url('funsite/images/logos/inria.jpg')}" alt="Logo Inria" />
-        </a>
-      </div>
-      <article>
-        <h2>Inria</h2>
-        <p>Créé en 1967, Inria est l'institut public de recherche entièrement dédié aux sciences du numérique. A l’interface des sciences informatiques et des mathématiques, les 3400 chercheurs des équipes Inria inventent les technologies numériques de demain. Issus des plus grandes universités internationales, ils croisent avec créativité recherche fondamentale et recherche appliquée. Ils se consacrent à des problèmes concrets, collaborent avec les acteurs de la recherche publique et privée en France et à l’étranger, et transfèrent le fruit de leurs travaux vers les entreprises innovantes. Les chercheurs des équipes Inria ont publié plus de 4700 articles de référence en 2012. Ils sont à l'origine de plus de 270 brevets actifs et de 105 start-ups.</p>
+    <section>
+        <article>
+            <h2>Inria</h2>
+            <p>Créé en 1967, Inria est l'institut public de recherche entièrement dédié aux sciences du numérique. A l’interface des sciences informatiques et des mathématiques, les 3400 chercheurs des équipes Inria inventent les technologies numériques de demain. Issus des plus grandes universités internationales, ils croisent avec créativité recherche fondamentale et recherche appliquée. Ils se consacrent à des problèmes concrets, collaborent avec les acteurs de la recherche publique et privée en France et à l’étranger, et transfèrent le fruit de leurs travaux vers les entreprises innovantes. Les chercheurs des équipes Inria ont publié plus de 4700 articles de référence en 2012. Ils sont à l'origine de plus de 270 brevets actifs et de 105 start-ups.</p>
 
-        <p>Inria contribue à l’adaptation et l'évolution de la technologie utilisée par la plateforme FUN, et à la conception de nouveaux contenus. A ce titre, les chercheurs et ingénieurs d’Inria ont mis leur expertise en sciences et technologies du numérique dans la conception de cette plateforme innovante pour une expérience utilisateur de qualité. Pour Inria, cette contribution permettra également de prendre en compte des questions de recherche nouvelles dont la résolution contribuera à faire évoluer les futures plateformes et leurs usages.</p>
-        <p><a href="http://www.inria.fr/" target="_blank">http://www.inria.fr</a><br /><a href="https://twitter.com/inria" target="_blank">https://twitter.com/inria</a></p>
-      </article>
+            <p>Inria contribue à l’adaptation et l'évolution de la technologie utilisée par la plateforme FUN, et à la conception de nouveaux contenus. A ce titre, les chercheurs et ingénieurs d’Inria ont mis leur expertise en sciences et technologies du numérique dans la conception de cette plateforme innovante pour une expérience utilisateur de qualité. Pour Inria, cette contribution permettra également de prendre en compte des questions de recherche nouvelles dont la résolution contribuera à faire évoluer les futures plateformes et leurs usages.</p>
+            <p><a href="http://www.inria.fr/" target="_blank">http://www.inria.fr</a><br /><a href="https://twitter.com/inria" target="_blank">https://twitter.com/inria</a></p>
+        </article>
     </section>
 
-    <section class="message left cines" id="cines">
-      <div class="photo">
-        <a href="http://www.cines.fr/" target="_blank">
-          <img src="${staticfiles_storage.url('funsite/images/logos/cines.jpg')}" alt="Logo CINES" />
-        </a>
-      </div>
-      <article>
-        <h2>CINES</h2>
-        <p>Le C.I.N.E.S. est un Etablissement Public à caractère Administratif national, basé à Montpellier, placé sous tutelle du Ministère de l’Enseignement Supérieur et de la Recherche. Il propose des moyens informatiques exceptionnels, à l’ensemble de la communauté scientifique, dans ses deux missions statutaires :</p>
-        <ul>
-          <li>Le calcul numérique intensif : le Centre héberge et exploite un des plus puissants supercalculateurs européens</li>
-          <li>L’archivage pérenne de données électroniques : la plateforme du CINES est agréée par le Service Interministériel des Archives de France</li>
-        </ul>
-        <p>Les ingénieurs et techniciens du CINES ont conçu, installé et mis en œuvre, dans les infrastructures sécurisées de haut niveau, les environnements de base de la plateforme supportant les progiciels développés par les partenaires de l’initiative FUN. Ils en assurent l’exploitation 24h sur 24.</p>
-        <p><a href="http://www.cines.fr/" target="_blank">http://www.cines.fr</a>
-      </article>
+    <section>
+
+        <article>
+            <h2>CINES</h2>
+            <p>Le C.I.N.E.S. est un Etablissement Public à caractère Administratif national, basé à Montpellier, placé sous tutelle du Ministère de l’Enseignement Supérieur et de la Recherche. Il propose des moyens informatiques exceptionnels, à l’ensemble de la communauté scientifique, dans ses deux missions statutaires :</p>
+            <ul>
+              <li>Le calcul numérique intensif : le Centre héberge et exploite un des plus puissants supercalculateurs européens</li>
+              <li>L’archivage pérenne de données électroniques : la plateforme du CINES est agréée par le Service Interministériel des Archives de France</li>
+            </ul>
+            <p>Les ingénieurs et techniciens du CINES ont conçu, installé et mis en œuvre, dans les infrastructures sécurisées de haut niveau, les environnements de base de la plateforme supportant les progiciels développés par les partenaires de l’initiative FUN. Ils en assurent l’exploitation 24h sur 24.</p>
+            <p><a href="http://www.cines.fr/" target="_blank">http://www.cines.fr</a>
+        </article>
     </section>
 
-    <section class="message left renater" id="renater">
-      <div class="photo">
-        <a href="http://www.renater.fr/" target="_blank">
-          <img src="${staticfiles_storage.url('funsite/images/logos/renater.png')}" alt="Logo Renater" />
-        </a>
-      </div>
-      <article>
-        <h2>Renater</h2>
-        <p>Le Groupement d’Intérêt Public RENATER a été constitué en février 1993 pour fédérer les infrastructures de télécommunication pour la Technologie, l’Enseignement et de la Recherche en France et pour assurer leurs connexions aux réseaux européens et internationaux.</p>
-        <p>Le réseau RENATER en tant que très grande infrastructure joue un rôle majeur dans le rayonnement de l’enseignement et de la recherche en Europe et dans le monde.</p>
-        <p>Les infrastructures de très haut débit mises en place par RENATER permettront de supporter l'ensemble des échanges numériques du programme FUN dans les meilleures conditions de qualité, de sécurité et d’intégrité. La participation active de RENATER à la construction des réseaux européens et mondiaux contribuera au renforcement de la visibilité de la France à l'international à travers l'initiative FUN.</p>
-        <p><a href="http://www.renater.fr/" target="_blank">http://www.renater.fr</a></p>
-      </article>
+    <section>
+
+        <article>
+            <h2>Renater</h2>
+            <p>Le Groupement d’Intérêt Public RENATER a été constitué en février 1993 pour fédérer les infrastructures de télécommunication pour la Technologie, l’Enseignement et de la Recherche en France et pour assurer leurs connexions aux réseaux européens et internationaux.</p>
+            <p>Le réseau RENATER en tant que très grande infrastructure joue un rôle majeur dans le rayonnement de l’enseignement et de la recherche en Europe et dans le monde.</p>
+            <p>Les infrastructures de très haut débit mises en place par RENATER permettront de supporter l'ensemble des échanges numériques du programme FUN dans les meilleures conditions de qualité, de sécurité et d’intégrité. La participation active de RENATER à la construction des réseaux européens et mondiaux contribuera au renforcement de la visibilité de la France à l'international à travers l'initiative FUN.</p>
+            <p><a href="http://www.renater.fr/" target="_blank">http://www.renater.fr</a></p>
+        </article>
     </section>
-  </section>
-</section>
+  </%block>
+
+
+<%block name="column">
+    <h2>blah blah column</h2>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore illo, totam harum aliquid eius odio, id, officia tempora architecto voluptate aut modi ipsam recusandae sed eaque quod officiis quibusdam voluptatem.
+    </p>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore illo, totam harum aliquid eius odio, id, officia tempora architecto voluptate aut modi ipsam recusandae sed eaque quod officiis quibusdam voluptatem.
+    </p>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore illo, totam harum aliquid eius odio, id, officia tempora architecto voluptate aut modi ipsam recusandae sed eaque quod officiis quibusdam voluptatem.
+    </p>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore illo, totam harum aliquid eius odio, id, officia tempora architecto voluptate aut modi ipsam recusandae sed eaque quod officiis quibusdam voluptatem.
+    </p>
+</%block>
