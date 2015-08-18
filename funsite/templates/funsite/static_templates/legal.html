@@ -1,15 +1,18 @@
 ## mako
-<%! from django.core.urlresolvers import reverse %>
-<%inherit file="../parts/base.html" />
+<%!
+from django.core.urlresolvers import reverse
+from staticfiles.storage import staticfiles_storage
+%>
 
+<%inherit file="/funsite/parts/simple-content.html" />
 
 <%block name="title">Mentions légales</%block>
 
-<section class="static-container tos">
-  <h1>Mentions légales</h1>
-  <hr class="horizontal-divider">
+<%block name="page_content">
 
-  <div class="inner-wrapper">
+<section>
+  <h1>Mentions légales</h1>
+
     <h2>Description du site</h2>
 
     <p>FUN est une plateforme d’hébergement de MOOC (Massive Open Online Courses, en français « cours en ligne ouvert et massif ») mise à disposition des établissements de l’enseignement supérieur français et de leurs partenaires académiques dans le monde entier.</p>
@@ -70,5 +73,6 @@
 
     <p><em>Mise à jour : 11 juin 2015</em></p>
 
-  </div>
 </section>
+
+</%block>
