@@ -155,7 +155,6 @@ BOWER_PATH = '/usr/bin/bower'
 # JS libraries will be downloaded to fun-apps/components/bower_components by `fun lms.dev bower install` command,
 # then collectected with other statics
 BOWER_INSTALLED_APPS = (
-    'bootstrap',
     'bootstrap-big-grid',  # http://benwhitehead.github.io/
     'jquery',
     'arg.js',
