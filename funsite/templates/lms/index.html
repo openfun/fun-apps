@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
 from courses.models import CourseSubject
+
+course_subjects = CourseSubject.objects.random_featured()
 %>
 
 <%inherit file="funsite/parts/base.html" />
@@ -217,7 +219,7 @@ from courses.models import CourseSubject
         <div class="col-lg-12 big-title white text-center">
             <h2>les thématiques</h2>
 
-            % for course_subject in CourseSubject.objects.random_featured():
+            % for course_subject in course_subjects:
                 <br />${course_subject.name}
                 <br />${course_subject.get_absolute_url()}
                 % if course_subject.image:

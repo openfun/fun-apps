@@ -76,15 +76,15 @@ class CourseSubject(models.Model):
         help_text=_('Displayed where space is rare - on side panel for instance.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True)
     description = RichTextField(_('description'), blank=True)
-    order = models.PositiveIntegerField(_('order'), default=0)
     featured = models.BooleanField(verbose_name=_('featured'))
     image = models.ImageField(_("image"), upload_to="courses",
         null=True, blank=True)
+    score = models.PositiveIntegerField(_('score'), default=0)
 
     objects = CourseSubjectManager()
 
     class Meta:
-        ordering = ('order', 'id',)
+        ordering = ('-score', 'name', 'id',)
         verbose_name = _('Course Subject')
         verbose_name_plural = _('Course Subjects')
 
