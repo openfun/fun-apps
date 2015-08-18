@@ -1,16 +1,18 @@
 ## mako
-<%! from django.core.urlresolvers import reverse %>
-<%! from django.utils.translation import ugettext as _ %>
-<%inherit file="../parts/base.html" />
+<%!
+from django.core.urlresolvers import reverse
+from staticfiles.storage import staticfiles_storage
+%>
 
+<%inherit file="/funsite/parts/simple-content.html" />
 
 <%block name="title">Charte Utilisateurs</%block>
 
-<section class="static-container honor-code">
-  <h1>Charte utilisateurs</h1>
-  <hr class="horizontal-divider">
+<%block name="page_content">
 
-  <div class="inner-wrapper">
+<section>
+  <h1>Charte utilisateurs</h1>
+
     <p>En vous inscrivant sur FUN, vous rejoignez une communauté mondiale d'apprenants. L'ambition de FUN est de fournir un accès aux meilleures formations de l’enseignement supérieur et ce quelle que soit votre localisation géographique.</p>
 
     <p>Tout utilisateur souhaitant accéder à FUN doit donc avoir préalablement consulté la présente Charte Utilisateurs ainsi que les Conditions Générales d’Utilisation et la Politique de Confidentialité qui décrivent les conditions dans lesquelles FUN donne accès à ses services. </p>
@@ -40,5 +42,6 @@
 
    <p>(*) A noter: une fois les attestations éditées, il n’y aura plus de possibilité de modifier le nom d’utilisateur sur ce document. </p>
 
-  </div>
 </section>
+
+</%block>

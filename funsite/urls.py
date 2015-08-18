@@ -2,7 +2,7 @@
 
 from django.conf.urls import patterns, include, url
 
-static_pages = r'(?P<page>(about|help|honor|legal|licences|privacy|tos))'
+static_pages = r'(?P<page>(about|honor|legal|privacy|tos))'
 
 urlpatterns = patterns('funsite.views',
     url(r'^{}/$'.format(static_pages), 'render_static_template',

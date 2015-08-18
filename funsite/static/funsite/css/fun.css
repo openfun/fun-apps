@@ -508,3 +508,59 @@ ul.universities-list {
 .no-gutter-left {
     padding-left: 0 !important;
 }
+
+/* FAQ */
+
+ul.faq-categories > li {
+    list-style-type: none;
+}
+ul.faq-sections > li {
+    list-style-type: none;
+}
+ul.faq-articles > li {
+    list-style-type: disc;
+    line-height: 24px;
+}
+
+.fun-faq h1 {
+    text-align: left;
+    font-size: 28px;
+    color: #555;
+    text-transform: uppercase;
+    line-height: 20px;
+    margin-top: 32px;
+}
+
+.fun-faq h2 {
+    font-size: 22px;
+    color: #888;
+    line-height: 18px;
+    margin-top: 26px;
+}
+
+.fun-faq a.article {
+    color: black;
+}
+
+.faq-last-update {
+    text-align: right
+}
+.faq-last-update label {
+    font-size: 12px;
+    color: #888;
+}
+.faq-last-update span {
+    font-size: 12px;
+    color: #666;
+}
+
+ul.faq-breadcrumb li {
+    list-style-type: none;
+    float: left;
+    font-size: 14px;
+}
+
+div.article {
+    margin-top: 44px;
+    clear: both;
+}
