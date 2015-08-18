@@ -3,8 +3,6 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from adminsortable.admin import SortableAdminMixin
-
 from teachers.admin import CourseTeacherInline, CertificateTeacherInline
 
 from .models import Course, CourseSubject, CourseUniversityRelation
@@ -39,8 +37,8 @@ class CourseAdmin(admin.ModelAdmin):
     )
 
 
-class CourseSubjectAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'short_name', 'slug', 'preview', 'featured')
+class CourseSubjectAdmin(admin.ModelAdmin):
+    list_display = ('name', 'short_name', 'slug', 'preview', 'featured', 'score')
     list_filter = ('featured',)
     prepopulated_fields = {'slug': ('name',)}
 
