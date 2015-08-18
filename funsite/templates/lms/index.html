@@ -12,17 +12,13 @@ course_subjects = CourseSubject.objects.random_featured()
 
 <%block name="title">Index</%block>
 
-<style>
-
-</style>
-
-
+<%block name="content">
 
 <img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
 
 
 <div class="row">
-    <div class="col-lg-12 big-title text-center">
+    <div class="col-lg-36 big-title text-center">
         <h2>Les cours à la une</h2>
     </div>
 </div>
@@ -93,7 +89,7 @@ course_subjects = CourseSubject.objects.random_featured()
 
 
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-36 text-center">
             <span class="all-items-button"><a href="${reverse('fun-courses-index')}">Tous les cours</a></span>
         </div>
     </div>
@@ -105,13 +101,13 @@ course_subjects = CourseSubject.objects.random_featured()
 
 <div class="universities">
     <div class="row ">
-        <div class="col-lg-12 big-title text-center">
+        <div class="col-lg-36 big-title text-center">
             <h2>Les établissements</h2>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-36">
             <ul class="universities-list">
                 <li>
                     <div class="university-logo center-block">Etablissement</div>
@@ -173,7 +169,7 @@ course_subjects = CourseSubject.objects.random_featured()
 
 
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-36 text-center">
             <span class="all-items-button"><a href="">Tous les établissements</a></span>
         </div>
     </div>
@@ -183,17 +179,17 @@ course_subjects = CourseSubject.objects.random_featured()
 
 <div class="fun-news">
     <div class="row ">
-        <div class="col-lg-12 big-title white text-center">
+        <div class="col-lg-36 big-title white text-center">
             <h2>Les actualités</h2>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-lg-6 text-center">
+        <div class="col-lg-18 text-center">
             <div class="primary">
             </div>
         </div>
-        <div class="col-lg-6 text-center">
+        <div class="col-lg-18 text-center">
             <div class="secondary">
 
             </div>
@@ -207,16 +203,16 @@ course_subjects = CourseSubject.objects.random_featured()
 
 
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-36 text-center">
             <span class="all-items-button"><a href="">Toutes les actus</a></span>
         </div>
     </div>
-
+</div>
 
 
 <div class="fun-themes">
     <div class="row ">
-        <div class="col-lg-12 big-title white text-center">
+        <div class="col-lg-36 big-title white text-center">
             <h2>les thématiques</h2>
 
             % for course_subject in course_subjects:
@@ -238,10 +234,12 @@ course_subjects = CourseSubject.objects.random_featured()
 
 
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-36 text-center">
             <span class="all-items-button"><a href="">Toutes les actus</a></span>
         </div>
     </div>
 
 
+
 </div>
+</%block>

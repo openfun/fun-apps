@@ -15,10 +15,11 @@ from staticfiles.storage import staticfiles_storage
     <%block name="meta_extra" />
     <link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,700,600,800,900' rel='stylesheet' type='text/css'>
 
-    <link href="${staticfiles_storage.url('bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
+    <link href="${staticfiles_storage.url('funsite/bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
 
-    <link href="${staticfiles_storage.url('bootstrap-big-grid/dist/css/bootstrap-big-grid.min.css')}" rel="stylesheet">
-
+    <!--
+        <link href="${staticfiles_storage.url('bootstrap-big-grid/dist/css/bootstrap-big-grid.min.css')}" rel="stylesheet">
+    -->
     <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
 
 
@@ -43,12 +44,10 @@ from staticfiles.storage import staticfiles_storage
 
     <%include file="menu.html" />
 
-    <div class="container-fluid">
+    <div class="container-fluid drop-down">
 
 
-
-
-    ${self.body()}
+    <%block name="content"></%block>
 
 
     <%include file="footer.html" />
@@ -63,7 +62,7 @@ from staticfiles.storage import staticfiles_storage
 
 
     <script src="${staticfiles_storage.url('jquery/dist/jquery.min.js')}"></script>
-    <script src="${staticfiles_storage.url('bootstrap/js/bootstrap.min.js')}"></script>
+    <script src="${staticfiles_storage.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
     <script type="text/javascript" src="/jsi18n/"></script>
     <%block name="js_extra" />
 
