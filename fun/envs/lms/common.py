@@ -158,4 +158,5 @@ BOWER_INSTALLED_APPS = (
     'bootstrap-big-grid',  # http://benwhitehead.github.io/
     'jquery',
     'arg.js',
+    'OwlCarousel2',
 )
