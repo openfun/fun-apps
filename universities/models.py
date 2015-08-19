@@ -15,7 +15,7 @@ class University(models.Model):
     parent = models.ForeignKey('University', blank=True, null=True,
             related_name='children', verbose_name=_(u"Parent university"),
             help_text=_(u"An university with parent will be grouped with it in university filtering"))
-    name = models.CharField(_('name'), max_length=255)
+    name = models.CharField(_('name'), max_length=255, db_index=True)
     short_name = models.CharField(_('short name'), max_length=255, blank=True,
         help_text=_('Displayed where space is rare - on side panel for instance.'))
     code = models.CharField(_('code'), max_length=255, unique=True)
@@ -33,7 +33,7 @@ class University(models.Model):
     description = RichTextField(_('description'), blank=True)
     dm_user_id = models.CharField(_('DM User ID'), max_length=255, blank=True)
     dm_api_key = models.CharField(_('DM API Key'), max_length=255, blank=True)
-    score = models.PositiveIntegerField(_('score'), default=0)
+    score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
 
     objects = UniversityManager()
 
