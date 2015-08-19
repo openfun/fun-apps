@@ -7,7 +7,7 @@ from staticfiles.storage import staticfiles_storage
 
 <%inherit file="/funsite/parts/simple-content.html" />
 
-<%block name="title"><title>${_("Help")}</title></%block>
+<%block name="title">${article['name']}</%block>
 
 
 <%block name="page_content">
