@@ -22,7 +22,7 @@ class Course(models.Model):
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
         choices=courses_choices.COURSE_LEVEL_CHOICES, blank=True)
-    score = models.PositiveIntegerField(_('score'), default=0)
+    score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
 
     class Meta:
         ordering = ('-score',)
@@ -71,7 +71,7 @@ class Course(models.Model):
 
 
 class CourseSubject(models.Model):
-    name = models.CharField(_('name'), max_length=255)
+    name = models.CharField(_('name'), max_length=255, db_index=True)
     short_name = models.CharField(_('short name'), max_length=255, blank=True,
         help_text=_('Displayed where space is rare - on side panel for instance.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True)
@@ -79,7 +79,7 @@ class CourseSubject(models.Model):
     featured = models.BooleanField(verbose_name=_('featured'))
     image = models.ImageField(_("image"), upload_to="courses",
         null=True, blank=True)
-    score = models.PositiveIntegerField(_('score'), default=0)
+    score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
 
     objects = CourseSubjectManager()
 
@@ -100,7 +100,7 @@ class CourseUniversityRelation(models.Model):
         related_name='related_courses')
     course = models.ForeignKey('Course',
         related_name='related_universities')
-    order = models.PositiveIntegerField(_('order'), default=0)
+    order = models.PositiveIntegerField(_('order'), default=0, db_index=True)
 
     class Meta:
         ordering = ('order', 'id',)
