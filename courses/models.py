@@ -21,7 +21,7 @@ class Course(models.Model):
     subjects = models.ManyToManyField('CourseSubject', related_name='courses',
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
-        choices=courses_choices.COURSE_LEVEL_CHOICES)
+        choices=courses_choices.COURSE_LEVEL_CHOICES, blank=True)
     score = models.PositiveIntegerField(_('score'), default=0)
 
     class Meta:
