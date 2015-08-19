@@ -12,7 +12,45 @@ course_subjects = CourseSubject.objects.random_featured()
 
 <%block name="title">Index</%block>
 
+
+<%block name="js_extra">
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        nav: false,
+        responsive: {
+          0: {
+            items: 1,
+          },
+          768: {
+            items: 3,
+          },
+          960: {
+            items: 4,
+            margin: 20
+          },
+          1280: {
+            items: 5,
+            margin: 20
+          },
+          1900: {
+            items: 6,
+            margin: 20
+          }
+        }
+          })
+</script>
+</%block>
+
 <%block name="content">
+
+<style>
+
+
+</style>
+
 
 <img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
 
@@ -212,34 +250,41 @@ course_subjects = CourseSubject.objects.random_featured()
 
 <div class="fun-themes">
     <div class="row ">
-        <div class="col-lg-36 big-title white text-center">
-            <h2>les thématiques</h2>
-
-            % for course_subject in course_subjects:
-                <br />${course_subject.name}
-                <br />${course_subject.get_absolute_url()}
-                % if course_subject.image:
-                    <br />${course_subject.image.url}
-                % endif
-            % endfor
-
+        <div class="col-lg-36 big-title text-center">
+            <h2>Les thématiques</h2>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row ">
+        <div class="col-md-36">
+            <div class="owl-carousel owl-theme">
 
+                %for idx, subject in enumerate(course_subjects):
+                <div class="item">
+                    <a href="#">
+                        <div class="">
+                            <h3>${idx}</h3>
+                            <img src="${subject.image.url}" class="" title="${subject.name}">
+                        </div>
+                    </a>
 
+                </div>
+                %endfor
+            </div>
 
-    </div>
-
-
-    <div class="row">
-        <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="">Toutes les actus</a></span>
         </div>
     </div>
 
 
 
 </div>
+
+
+<div class="row">
+    <div class="col-lg-36 text-center">
+        <span class="all-items-button"><a href="">Toutes les thématiques</a></span>
+    </div>
+</div>
+
+
 </%block>
