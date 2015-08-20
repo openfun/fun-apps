@@ -30,6 +30,7 @@
 }
 
 
+
 /* Sandwich menu */
 #sandwich-overlay {
     width: 100%;
@@ -180,6 +181,17 @@ ul..footer-links.right {
         padding-right: 0 !important;
     }
 
+    div.page-image {
+        width: 1900px;
+        height: 450px;
+    }
+    div.page-image.home-page {
+        background-image: url('/static/funsite/images/homepage1900_draft.png')
+    }
+    div.page-image.courses-page {
+        background-image: url('/static/funsite/images/homepage1900_draft.png')
+    }
+
 }
 
 
@@ -222,6 +234,17 @@ ul..footer-links.right {
         margin-right: 18px;
     }
 
+    div.page-image {
+        width: 1280px;
+        height: 360px;
+    }
+    div.page-image.home-page {
+        background-image: url('/static/funsite/images/homepage1280_draft.png')
+    }
+    div.page-image.courses-page {
+        background-image: url('/static/funsite/images/homepage1280_draft.png')
+    }
+
 }
 @media (max-width: 1279px) {
     .main-width {
@@ -259,6 +282,16 @@ ul..footer-links.right {
     .footer-links.right {
         padding-left: 16px;
     }
+    div.page-image {
+        width: 960px;
+        height: 320px;
+    }
+    div.page-image.home-page {
+        background-image: url('/static/funsite/images/homepage960_draft.png')
+    }
+    div.page-image.courses-page {
+        background-image: url('/static/funsite/images/homepage960_draft.png')
+    }
 
 }
 
@@ -272,6 +305,18 @@ ul..footer-links.right {
     .visible-768 {
         display: block !important;
     }
+
+    div.page-image {
+        width: 768px;
+        height: 260px;
+    }
+    div.page-image.home-page {
+        background-image: url('/static/funsite/images/homepage768_draft.png')
+    }
+    div.page-image.courses-page {
+        background-image: url('/static/funsite/images/homepage768_draft.png')
+    }
+
 }
 
 @media (max-width: 767px) {
@@ -287,6 +332,16 @@ ul..footer-links.right {
     }
     .footer-links {
         width: 100%;
+    }
+    div.page-image {
+        width: 320px;
+        height: 260px;
+    }
+    div.page-image.home-page {
+        background-image: url('/static/funsite/images/homepage320_draft.png')
+    }
+    div.page-image.courses-page {
+        background-image: url('/static/funsite/images/homepage320_draft.png')
     }
 
 }
