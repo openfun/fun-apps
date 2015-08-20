@@ -36,7 +36,7 @@ course_subjects = CourseSubject.objects.random_featured()
             margin: 20
           },
           1900: {
-            items: 6,
+            items: 8,
             margin: 20
           }
         }
@@ -261,10 +261,10 @@ course_subjects = CourseSubject.objects.random_featured()
 
                 %for idx, subject in enumerate(course_subjects):
                 <div class="item">
-                    <a href="#">
-                        <div class="">
-                            <h3>${idx}</h3>
-                            <img src="${subject.image.url}" class="" title="${subject.name}">
+                    <a href="${'{}?theme={}'.format(reverse('fun-courses-index'), subject.slug)}"}">
+                        <div>
+                            <h3>${subject.name}</h3>
+                            <img src="${subject.image.url}" alt="${subject.name}">
                         </div>
                     </a>
 
