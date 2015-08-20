@@ -3,6 +3,8 @@
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
+from staticfiles.storage import staticfiles_storage
+
 from courses.models import CourseSubject
 
 course_subjects = CourseSubject.objects.random_featured()
@@ -52,7 +54,7 @@ course_subjects = CourseSubject.objects.random_featured()
 </style>
 
 
-<img class="img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=width1920&w=1920&h=400">
+<div class="page-image home-page"></div>
 
 
 <div class="row">
