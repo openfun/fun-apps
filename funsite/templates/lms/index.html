@@ -262,8 +262,9 @@ course_subjects = CourseSubject.objects.random_featured()
             <div class="owl-carousel owl-theme">
 
                 %for idx, subject in enumerate(course_subjects):
+                %if subject.image:
                 <div class="item">
-                    <a href="${'{}?theme={}'.format(reverse('fun-courses-index'), subject.slug)}"}">
+                    <a href="${'{}?theme={}'.format(reverse('fun-courses-index'), subject.slug)}">
                         <div>
                             <h3>${subject.name}</h3>
                             <img src="${subject.image.url}" alt="${subject.name}">
@@ -271,6 +272,7 @@ course_subjects = CourseSubject.objects.random_featured()
                     </a>
 
                 </div>
+                %endif
                 %endfor
             </div>
 
