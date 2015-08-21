@@ -4,6 +4,8 @@
 <%! from django.utils.translation import ugettext_lazy as _ %>
 <%! from django.utils.formats import date_format %>
 
+<%block name="content">
+
 <section class="container news-article">
     <a href="${reverse('newsfeed-article', kwargs={'slug': article.slug})}"><h2>${article.title}</h2></a>
     <section class="subtitle">
@@ -12,3 +14,5 @@
 
     <p>${article.text}</p>
 </section>
+
+</%block>
