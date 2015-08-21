@@ -12,6 +12,5 @@ class UniversityManager(models.Manager):
     def by_name(self):
         return self.with_related().order_by('name')
 
-
-    def featured(self):
-        return self.filter(featured=True)
+    def have_page(self):
+        return self.filter(detail_page_enabled=True)
