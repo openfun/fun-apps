@@ -6,21 +6,20 @@ from universities.models import University
 from universities.courses import get_university_courses
 
 
-
-class UniversityMixin(object):
-
-    def get_queryset(self):
-        return University.objects.have_page()
-
-
-class UniversityLandingView(mako.MakoTemplateMixin, UniversityMixin, ListView):
+class UniversityLandingView(mako.MakoTemplateMixin, ListView):
     template_name = 'universities/index.html'
     context_object_name = 'universities'
 
+    def get_queryset(self):
+        return University.objects.all()
 
-class UniversityDetailView(mako.MakoTemplateMixin, UniversityMixin, DetailView):
+
+class UniversityDetailView(mako.MakoTemplateMixin, DetailView):
     template_name = 'universities/detail.html'
     context_object_name = 'university'
+
+    def get_queryset(self):
+        return University.objects.have_page()
 
     def get_context_data(self, **kwargs):
         context = super(UniversityDetailView, self).get_context_data(**kwargs)
