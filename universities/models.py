@@ -8,6 +8,7 @@ from ckeditor.fields import RichTextField
 
 from .managers import UniversityManager
 
+
 class University(models.Model):
     """
     A university or a school that provides online courses.
@@ -23,11 +24,11 @@ class University(models.Model):
         upload_to='universities', null=True, blank=True,
         help_text=_('Logo to be displayed on the certificate document.'))
     logo = models.ImageField(_('logo'), upload_to='universities')
-    featured = models.BooleanField(_('featured on site'), default=False,
-        help_text=_('Shows the logo on various sections of the site and enables '
-        'the university page.'))
+    detail_page_enabled = models.BooleanField(_('detail page enabled'),
+        default=False, db_index=True,
+        help_text=_('Enables the university detail page.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True, blank=True,
-        help_text=_('Only used is set as featured'))
+        help_text=_('Only used if detail page is enabled'))
     banner = models.ImageField(_('banner'), upload_to='universities', null=True,
         blank=True)
     description = RichTextField(_('description'), blank=True)
