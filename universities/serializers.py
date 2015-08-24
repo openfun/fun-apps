@@ -13,6 +13,6 @@ class UniversitySerializer(serializers.ModelSerializer):
             'name',
             'code',
             'logo',
-            'featured',
+            'detail_page_enabled',
             'banner',
         )

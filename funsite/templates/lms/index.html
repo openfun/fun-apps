@@ -6,8 +6,10 @@ from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
 
 from courses.models import CourseSubject
+from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
+universities = University.objects.have_page()
 %>
 
 <%inherit file="funsite/parts/base.html" />
@@ -149,60 +151,19 @@ course_subjects = CourseSubject.objects.random_featured()
     <div class="row">
         <div class="col-md-36">
             <ul class="universities-list">
-                <li>
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li>
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li>
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li>
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li>
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li>
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-768">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-768">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-960">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-960">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-960">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-960">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-1280">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-1280">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-1280">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-1280">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-1280">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
-                <li class="hidden-1280">
-                    <div class="university-logo center-block">Etablissement</div>
-                </li>
+            % for university in universities:
+                % if (loop.index > 11):
+                    <li class="hidden-1280">
+                % elif (loop.index > 7):
+                    <li class="hidden-960">
+                % elif (loop.index > 5):
+                    <li class="hidden-768">
+                % else:
+                    <li>
+                % endif
+                <div class="university-logo center-block">${ university.name }</div>
+                    </li>
+            % endfor
             </ul>
         </div>
     </div>

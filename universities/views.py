@@ -8,8 +8,9 @@ from universities.courses import get_university_courses
 
 
 class UniversityMixin(object):
+
     def get_queryset(self):
-        return University.objects.featured()
+        return University.objects.have_page()
 
 
 class UniversityLandingView(mako.MakoTemplateMixin, UniversityMixin, ListView):
