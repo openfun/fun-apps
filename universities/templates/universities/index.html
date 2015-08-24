@@ -22,19 +22,17 @@ from django.utils.translation import ugettext as _
   <p>${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}</p>
 
     <ul>
-% for university in universities:
-    % if university.logo:
-      <li>
-        % if university.enable_page:
-          <a href="${ university.get_absolute_url()}">
+    % for university in universities:
+          <li>
+            % if university.detail_page_enabled:
+              <a href="${ university.get_absolute_url()}">
+            % endif
+              <img src="${ university.logo.url }" alt="${ university.name }" title="${ university.name }" />
+            % if university.detail_page_enabled:
+              </a>
+          </li>
         % endif
-          <img src="${ university.logo.url }" alt="${ university.name }" title="${ university.name }" />
-        % if university.enable_page:
-          </a>
-        % endif
-      </li>
-    % endif
-% endfor
+    % endfor
     </ul>
   </section>
 </section>
