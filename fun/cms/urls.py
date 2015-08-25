@@ -13,9 +13,6 @@ from cms.urls import handler404, handler500 # pylint: disable=unused-import
 
 
 urlpatterns = patterns('',
-
-    (r'^selftest/', include('selftest.urls')),
-
     # Ora2 file upload
     url(r'^openassessment/storage', include(openassessment.fileupload.urls)),
 
