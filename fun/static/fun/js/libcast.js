@@ -24,11 +24,10 @@ define(['videojs-fun'], function(videojs) {
         this.label = options.label;
         this.res = options.res;
 
-        this.on('click', this.onClick);
-        this.on('touchstart', this.onClick);
+        this.on('click', videojs.bind(this, this.switchResolution));
         player.on('resolutionchange', videojs.bind(this, this.checkIfSelected));
       },
-      onClick: function() {
+      switchResolution: function() {
         player.changeSrc({
           label: this.label,
           res: this.res,
@@ -163,7 +162,7 @@ define(['videojs-fun'], function(videojs) {
       player.updateSrc(newSources);
     }
   };
-  //
+
   // Associate plugin to videojs
   videojs.plugin('resolutionSwitcher', resolutionSwitcher);
 
