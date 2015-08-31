@@ -192,8 +192,14 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
     def course_key_string(self):
         return unicode(self.course_id)
 
-    def get_file_slug(self, video_id):
-        resource = self.get_resource(video_id)
+    def get_resource_file(self, resource):
+        file_slug = self.get_resource_file_slug(resource)
+        response = self.get(self.urls.file_path(file_slug))
+        if response.status_code >= 400:
+            raise ClientError(_("Could not fetch file"))
+        return parse_xml(response)
+
+    def get_resource_file_slug(self, resource):
         file_href = resource.find("file").attrib['href']
         return os.path.basename(file_href)
 
@@ -209,11 +215,23 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
             files=files
         )
 
-    def convert_resource_to_video(self, resource):
+    def convert_resource_to_video(self, resource, file_obj):
         visibility = resource.find('visibility').text
         # TODO we could take into account the "encoding_progress" integer value of the file object
-        status = 'published' if visibility == 'visible' else 'ready'
+        encoding_status = file_obj.find('encoding_status').text
+        if encoding_status != 'finished':
+            status = 'processing'
+        elif visibility == 'visible':
+            status = 'published'
+        else:
+            status = 'ready'
         slug = resource.find('slug').text
+        if status == "processing":
+            video_sources = []
+            external_link = ""
+        else:
+            video_sources = self.video_sources(slug)
+            external_link = self.urls.flavor_url(slug, 'SD')
 
         published_at = resource.find('published_at').text
         created_at = self.timestamp_to_str(int(published_at)) if published_at else None
@@ -224,8 +242,8 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
             'subtitles': self.get_resource_subtitles(resource),
             'status': status,
             'thumbnail_url': resource.find('thumbnail').text,
-            'video_sources': self.video_sources(slug),
-            'external_link': self.urls.flavor_url(slug, 'SD'),
+            'video_sources': video_sources,
+            'external_link': external_link
         }
 
     def video_sources(self, video_id):
@@ -263,8 +281,7 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         })
         if response.status_code >= 400:
             raise ClientError(_("Could not create resource"))
-        resource = parse_xml(response)
-        return self.convert_resource_to_video(resource)
+        return parse_xml(response)
 
     def convert_subtitle_to_dict(self, subtitle):
         subtitle_href = subtitle.attrib['href']
@@ -302,30 +319,32 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         """
         # Iterate on course playlist
         etree = parse_xml(self.get(self.urls.stream_resources_path()))
-        file_hrefs = set()
-        for resource in etree.iter('resource'):
-            yield self.convert_resource_to_video(resource)
-            file_href = resource.find('file').attrib['href']
-            file_hrefs.add(file_href)
+        resources = {
+            resource.find('file').attrib['href']: resource for resource in etree.iter('resource')
+        }
 
         # Iterate on folder and create associated resources if necessary
         etree = parse_xml(self.get(self.urls.directory_path()))
         for file_obj in etree.iter('file'):
             file_href = file_obj.attrib['href']
-            if file_href not in file_hrefs:
-                file_slug = file_obj.find('slug').text
-                file_name = file_obj.find('name').text
-                yield self.create_resource(file_slug, file_name)
+            file_slug = file_obj.find('slug').text
+            file_name = file_obj.find('name').text
+            resource = resources.get(file_href)
+            if not resource:
+                resource = self.create_resource(file_slug, file_name)
+            yield self.convert_resource_to_video(resource, file_obj)
 
     def get_video(self, video_id):
         resource = self.get_resource(video_id)
-        return self.convert_resource_to_video(resource)
+        file_obj = self.get_resource_file(resource)
+        return self.convert_resource_to_video(resource, file_obj)
 
     def delete_video(self, video_id):
         # Deleting the file causes the deletion of associated resources
         # Note that if multiple resources are associated to a single file, all
         # resources will be deleted.
-        file_slug = self.get_file_slug(video_id)
+        resource = self.get_resource(video_id)
+        file_slug = self.get_resource_file_slug(resource)
         response = self.delete(self.urls.file_path(file_slug))
         if response.status_code >= 400:
             raise ClientError(_("Could not delete video"))
@@ -351,7 +370,9 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         file_slug = payload.get('result', {}).get('slug')
         if not file_slug:
             raise ClientError(_("Undefined file slug"))
-        return self.create_resource(file_slug, title)
+        resource = self.create_resource(file_slug, title)
+        file_obj = self.get_resource_file(resource)
+        return self.convert_resource_to_video(resource, file_obj)
 
     def publish_video(self, video_id):
         return self.set_video_visibility(video_id, self.VISIBILITY_VISIBLE)

@@ -78,6 +78,11 @@ require(["jquery", "underscore", "backbone", "gettext",
         title: "",
       },
 
+      url: function() {
+        var baseUrl = '${reverse_course("videoupload:video", kwargs={"video_id": "videoid"})}';
+        return baseUrl.replace("videoid", this.get("id"));
+      },
+
       setStatus: function(status, data) {
         this.set("status", status);
         this.trigger("status-" + status, data);
