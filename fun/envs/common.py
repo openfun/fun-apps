@@ -58,7 +58,7 @@ LANGUAGES = (
 # (student.views.dashboard use settings.LANGUAGE instead of request.LANGUAGE)
 
 PIPELINE = True  # use djangopipeline aggregated css and js file (in production)
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = "/edx/var/edxapp/uploads"
