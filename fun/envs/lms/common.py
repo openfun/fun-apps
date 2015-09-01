@@ -149,7 +149,7 @@ PAGINATION_SETTINGS = {
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 
 # We user Bower to handle our own CSS/Javascript dependencies
-STATICFILES_FINDERS += ('djangobower.finders.BowerFinder',)
+STATICFILES_FINDERS += ('fun.utils.staticfiles_finders.BowerFinder',)
 BOWER_COMPONENTS_ROOT = FUN_BASE_ROOT + '/components/'
 BOWER_PATH = '/usr/bin/bower'
 # JS libraries will be downloaded to fun-apps/components/bower_components by `fun lms.dev bower install` command,
