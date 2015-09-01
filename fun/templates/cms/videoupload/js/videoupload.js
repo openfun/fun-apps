@@ -519,12 +519,14 @@ require(["jquery", "underscore", "backbone", "gettext",
         ParameterView.__super__.renderContents.apply(this);
 
         // thumbnail view
-        var thumbnailView = new ThumbnailView({model: this.model});
-        this.$(".thumbnail").html(thumbnailView.render().el);
+        if (false) {
+          var thumbnailView = new ThumbnailView({model: this.model});
+          this.$(".thumbnail").html(thumbnailView.render().el);
+          this.$(".upload-thumbnail").html(this.templateThumbnailForm());
+        }// disable thumbnail upload for now
 
-        // subtitle/thumbnail upload forms
+        // subtitle upload forms
         this.$(".upload-subtitles").html(this.templateSubtitleForm());
-        this.$(".upload-thumbnail").html(this.templateThumbnailForm());
 
         // Fill video_id values in both subtitle/thumbnail forms
         this.$("form [name='video_id']").val(this.model.videoId());
