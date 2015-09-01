@@ -166,11 +166,6 @@ define(['videojs-fun'], function(videojs) {
   // Associate plugin to videojs
   videojs.plugin('resolutionSwitcher', resolutionSwitcher);
 
-  // Configure flash fallback
-  // Here, we need to hard-code the url to the swf fallback. It would be great
-  // to find an alternative solution.
-  videojs.options.flash.swf = "/static/fun/js/vendor/videojs/video-js.swf";
-  
   // Export function
   return function (element) {
     var player = videojs(element);
