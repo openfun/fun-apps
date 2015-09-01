@@ -24,9 +24,7 @@ def catch_missing_credentials_error(view_func):
         except MissingCredentials as e:
             return json_error_response(
                 _("Missing credentials:"),
-                _("""There is no video storage credentials defined for this account. """
-                  """Please get in touch with your administrator or support team to """
-                  """setup the credentials for university '{}'""").format(e.message)
+                e.verbose_message
             )
     return wrapped
 
@@ -216,6 +214,6 @@ def video_update_thumbnail(request, course_key_string, video_id):
 
 def json_error_response(title, message):
     return JsonResponse({
-        "error": title + " " + message
+        "error": "{} {}".format(title, message)
     })
 

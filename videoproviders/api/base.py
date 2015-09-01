@@ -3,12 +3,20 @@ from datetime import datetime
 import requests
 
 from django.utils import formats
+from django.utils.translation import gettext as _
 
 from fun.utils import get_course
 
 
 class MissingCredentials(Exception):
-    pass
+
+    @property
+    def verbose_message(self):
+        return _(
+            """There is no video storage credentials defined for this account. """
+            """Please get in touch with your administrator or support team to """
+            """setup the credentials for university '{}'"""
+        ).format(self.message)
 
 
 class ClientError(Exception):
