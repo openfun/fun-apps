@@ -21,20 +21,12 @@ class LibcastUrls(object):
     API_URL_PATTERN = 'https://console.libcast.com/services/{}'
     FUN_LIBCAST_URL_PATTERN = 'https://fun.libcast.com/{}'
 
-    def __init__(self, course_key_string, http_auth):
+    def __init__(self, course_key_string):
         """
         Args:
             course_key_string (str)
-            http_auth (requests.auth.AuthBase)
         """
         self.course_key_string = course_key_string
-        self.http_auth = http_auth
-
-    def request(self, endpoint, method='GET', params=None, files=None):
-        return http_request(
-            self.libcast_url(endpoint), method=method, params=params,
-            files=files, auth=self.http_auth
-        )
 
     def libcast_url(self, endpoint):
         return self.url(self.API_URL_PATTERN, endpoint)
@@ -179,7 +171,7 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
 
     def __init__(self, *args, **kwargs):
         super(Client, self).__init__(*args, **kwargs)
-        self.urls = LibcastUrls(self.course_key_string, self.auth)
+        self.urls = LibcastUrls(self.course_key_string)
         if self.course_key_string:
             self.ensure_course_is_configured()
 
@@ -210,9 +202,9 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         return parse_xml(response)
 
     def request(self, endpoint, method='GET', params=None, files=None):
-        return self.urls.request(
-            endpoint, method=method, params=params,
-            files=files
+        return http_request(
+            self.urls.libcast_url(endpoint), method=method, params=params,
+            files=files, auth=self.auth
         )
 
     def convert_resource_to_video(self, resource, file_obj):
