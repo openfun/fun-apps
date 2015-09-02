@@ -101,9 +101,8 @@ class LibcastAccountVerifierMixin(object):
         cache = get_cache(self.CACHE_NAME)
         if not cache.get(self.course_key_string):
             self.ensure_course_directory_exists()
-            self.ensure_stream_exists(self.org)
-            self.ensure_stream_exists(self.course_key_string,
-                                      parent_stream=self.org)
+            parent_stream_slug = self.get_or_create_parent_stream()
+            self.ensure_stream_exists(self.course_key_string, parent_stream_slug)
             cache.set(self.course_key_string, self.LIBCAST_CONFIG_CHECK_PERIOD_SECONDS)
 
     def ensure_course_directory_exists(self):
@@ -130,6 +129,23 @@ class LibcastAccountVerifierMixin(object):
                              "things will follow! Expected %s, got %s for course %s",
                              expected_href, folder_href, self.course_key_string)
 
+    def get_or_create_parent_stream(self):
+        """Get or create the parent stream of the course stream.
+
+        Returns:
+            stream_slug (str): slug of the parent stream
+        """
+        response = self.get(self.urls.streams_path())
+        if response.status_code >= 400:
+            raise ClientError(_("Could not load organisation streams"))
+        etree = parse_xml(response)
+        for stream in etree.iter('stream'):
+            if stream.find('title').text == self.org:
+                return stream.find('slug').text
+        # Create stream
+        stream = self.create_stream(self.org, self.VISIBILITY_VISIBLE)
+        return stream.find('slug').text
+
     def ensure_stream_exists(self, title, parent_stream=None):
         """
         Make sure the stream with the given title exists.
@@ -138,20 +154,24 @@ class LibcastAccountVerifierMixin(object):
 
         Args:
             title (str): stream title
-            parent_stream (str): parent stream title.
+            parent_stream (str): parent stream slug.
         """
         stream_slug = slugify(title)
         response = self.get("stream/{}".format(stream_slug))
         if response.status_code >= 400:
-            params = {
-                "title": title,
-                "visibility": self.VISIBILITY_HIDDEN
-            }
-            if parent_stream:
-                params["parent_stream"] = slugify(parent_stream)
-            response = self.post(self.urls.streams_path(), params=params)
-            if response.status_code >= 400:
-                raise ClientError(_("Could not create stream {}").format(title))
+            return self.create_stream(title, self.VISIBILITY_HIDDEN, parent_stream)
+
+    def create_stream(self, title, visibility, parent_stream=None):
+        params = {
+            "title": title,
+            "visibility": visibility
+        }
+        if parent_stream:
+            params["parent_stream"] = parent_stream
+        response = self.post(self.urls.streams_path(), params=params)
+        if response.status_code >= 400:
+            raise ClientError(_("Could not create stream {}").format(title))
+        return parse_xml(response)
 
 
 class Client(BaseClient, LibcastAccountVerifierMixin):
