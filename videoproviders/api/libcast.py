@@ -88,23 +88,23 @@ class LibcastAccountVerifierMixin(object):
     verified when the key expires.
     """
 
-    CACHE = get_cache("libcast")
-    # The libcast account will be verified with this periodicity, in seconds
-    LIBCAST_CONFIG_CHECK_PERIOD = 24*60*60
-
+    # The libcast account will be verified with this periodicity
+    LIBCAST_CONFIG_CHECK_PERIOD_SECONDS = 24*60*60
+    CACHE_NAME = 'libcast'
 
     def ensure_course_is_configured(self):
         """
         Make sure that everything is ready in the Libcast account for upload.
 
-        This should run on every CMS instance every LIBCAST_CONFIG_CHECK_PERIOD seconds.
+        This will run on every CMS instance every LIBCAST_CONFIG_CHECK_PERIOD_SECONDS.
         """
-        if not self.CACHE.get(self.course_key_string):
+        cache = get_cache(self.CACHE_NAME)
+        if not cache.get(self.course_key_string):
             self.ensure_course_directory_exists()
             self.ensure_stream_exists(self.org)
             self.ensure_stream_exists(self.course_key_string,
                                       parent_stream=self.org)
-            self.CACHE.set(self.course_key_string, self.LIBCAST_CONFIG_CHECK_PERIOD)
+            cache.set(self.course_key_string, self.LIBCAST_CONFIG_CHECK_PERIOD_SECONDS)
 
     def ensure_course_directory_exists(self):
         """Check for the existence of a folder (possibly in a subdirectory) and create it if necessary.
