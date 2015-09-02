@@ -7,7 +7,15 @@ pycaption==0.4.6
 unicodecsv==0.9.4
 raven==5.1.0
 django-pure-pagination==0.2.1
-django-bower==5.0.4
+
+# Django Bower - forked by FUN.
+# The forked django-bower brings support for old-style external statfiles module.
+# The standard finder class provided by django-bower uses the standard
+# `django.contrib.staticfiles`. There is an issue with that, because edX expects
+# a finder class that extends the external staticfiles module - not the standard
+# module form contrib. We've modified the finder class to extends the external
+# staticfiles module.
+git+https://github.com/openfun/django-bower.git@openfun/old-style-staticfiles
 
 # DMCloud XBlock 
 -e git+https://github.com/openfun/dmcloud.git@1.2#egg=dmcloud-xblock
