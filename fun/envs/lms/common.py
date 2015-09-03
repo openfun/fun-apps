@@ -6,6 +6,7 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 INSTALLED_APPS += (
     'backoffice',
     'fun',
+    'funsite',
     'fun_certificates',
     'fun_instructor',
     'contact',
