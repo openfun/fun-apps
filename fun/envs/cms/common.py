@@ -78,5 +78,4 @@ def IS_VIDEOUPLOAD_DASHBOARD_ENABLED(course_id):
     Args:
         course_id (CourseKey)
     """
-    return False
-    # return course_id.org in ['FUN', 'Org']
+    return True
