@@ -152,15 +152,18 @@ class Client(BaseClient):
             raise ClientError(_("Could not fetch video"))
         return parse_xml(response)
 
-    def convert_resource_to_video(self, resource, file_obj):
+    def convert_resource_to_video(self, resource, file_obj=None):
+        """
+        Args:
+            resource (etree)
+            file_obj (etree)
+        """
         visibility = resource.find('visibility').text
-        encoding_status = file_obj.find('encoding_status').text
-        if encoding_status != 'finished':
-            status = 'processing'
-        elif visibility == 'visible':
-            status = 'published'
-        else:
-            status = 'ready'
+        status = 'published' if visibility == 'visible' else 'ready'
+        if file_obj is not None:
+            encoding_status = file_obj.find('encoding_status').text
+            if encoding_status != 'finished':
+                status = 'processing'
         slug = resource.find('slug').text
         if status == "processing":
             video_sources = []
@@ -342,25 +345,42 @@ class Client(BaseClient):
         only way we have found to keep the video folder and the playlist in
         sync.
         """
-        # Iterate on course playlist
+        # Find course resources
         resources = parse_xml(
             self.safe_get(self.urls.stream_resources_path(self.stream_slug),
             message=_("Could not list videos")
         ))
+        # file href -> resource dict
         resources = {
             resource.find('file').attrib['href']: resource for resource in resources.iter('resource')
         }
 
         # Iterate on folder and create associated resources if necessary
-        files = parse_xml(self.get(self.urls.directory_path(self.directory_slug)))
+        files = parse_xml(self.safe_get(
+            self.urls.directory_path(self.directory_slug),
+            message=_("Could not list directory content {}".format(self.directory_slug))
+        ))
+        file_hrefs = set()
         for file_obj in files.iter('file'):
             file_href = file_obj.attrib['href']
             file_slug = file_obj.find('slug').text
             file_name = file_obj.find('name').text
             resource = resources.get(file_href)
+            file_hrefs.add(file_href)
             if not resource:
                 resource = self.create_resource(file_slug, file_name)
             yield self.convert_resource_to_video(resource, file_obj)
+
+        # Iterate on course playlist
+        for file_href, resource in resources.iteritems():
+            if file_href not in file_hrefs:
+                # Note that at this point the file object is not available. We
+                # *could* fetch the corresponding file from the API, but that
+                # would require one API call per file, which would be
+                # prohibitive. In practice, this means that we do not have
+                # access to the encoding status of files that do not belong to
+                # the course folder.
+                yield self.convert_resource_to_video(resource)
 
     def get_video(self, video_id):
         resource = self.get_resource(video_id)
