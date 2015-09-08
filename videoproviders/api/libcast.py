@@ -65,11 +65,11 @@ class LibcastUrls(object):
         # Note that the download url for subtitles is not a file path, but a resource path.
         return self.libcast_url(self.resource_path(video_id) + "/subtitles/{}".format(subtitle_id))
 
-    def subtitle_path(self, video_id, subtitle_id):
-        return "file/{}/subtitles/{}".format(video_id, subtitle_id)
+    def subtitle_path(self, file_slug, subtitle_id):
+        return "file/{}/subtitles/{}".format(file_slug, subtitle_id)
 
-    def subtitles_path(self, video_id):
-        return "file/{}/subtitles".format(video_id)
+    def subtitles_path(self, file_slug):
+        return "file/{}/subtitles".format(file_slug)
 
     def flavor_url(self, video_id, label):
         path = self.resource_path(video_id) + "/flavor/video/fun-{}.mp4".format(slugify(label))
@@ -465,8 +465,10 @@ class Client(BaseClient):
         ]
 
     def upload_subtitle(self, video_id, file_object, language):
+        resource = self.get_resource(video_id)
+        file_slug = self.get_resource_file_slug(resource)
         self.safe_post(
-            self.urls.subtitles_path(video_id),
+            self.urls.subtitles_path(file_slug),
             files={'subtitle': file_object},
             params={'language': language},
             message=_("Could not upload subtitle")
