@@ -44,7 +44,7 @@ def get_videos(course):
     videos = []
     for item in modulestore().get_items(course.id):
         if item.category in ['video', 'dmcloud']:
-            if item.id_video:
+            if getattr(item, 'id_video', None):
                 videos.append({
                     "dmcloud_id": item.id_video,
                     "display_name": item.display_name
