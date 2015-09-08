@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.conf import global_settings
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, ugettext_lazy
 
 
 class VideoForm(forms.Form):
@@ -20,7 +20,9 @@ class VideoForm(forms.Form):
 
 class SubtitleForm(VideoForm):
     # We don't support language variations such as 'en-gb'
-    SUPPORTED_LANGUAGES = [lang for lang in global_settings.LANGUAGES if len(lang[0]) == 2]
+    SUPPORTED_LANGUAGES = [
+        (code, ugettext_lazy(lang)) for code, lang in global_settings.LANGUAGES if len(code) == 2
+    ]
 
     # Other formats supported by Dailymotion are 'STL', 'TT', but we don't support them for now.
     uploaded_file = forms.FileField(label=_("Subtitle file (SRT files only)"))
