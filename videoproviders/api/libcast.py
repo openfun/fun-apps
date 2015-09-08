@@ -77,9 +77,6 @@ class LibcastUrls(object):
         path = self.resource_path(video_id) + "/flavor/video/fun-{}.mp4".format(slugify(label))
         return self.fun_libcast_url(path)
 
-    def thumbnail_url(self, video_id):
-        return self.libcast_url(self.resource_path(video_id) + "/thumbnail/thumb.jpg")
-
 
 class LibcastAccountVerifierMixin(object):
     """
@@ -253,7 +250,7 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
             'title':  resource.find('title').text,
             'subtitles': self.get_resource_subtitles(resource),
             'status': status,
-            'thumbnail_url': resource.find('thumbnail').text,
+            'thumbnail_url': self.get_resource_thumbnail_url(resource),
             'video_sources': video_sources,
             'external_link': external_link
         }
@@ -401,6 +398,9 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
     def get_video_subtitles(self, video_id):
         resource = self.get_resource(video_id)
         return self.get_resource_subtitles(resource)
+
+    def get_resource_thumbnail_url(self, resource):
+        return resource.find('thumbnail').text
 
     def get_resource_subtitles(self, resource):
         """Get the subtitles associated to a resource
