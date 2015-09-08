@@ -29,5 +29,9 @@ class CourseSerializer(serializers.ModelSerializer):
             'level',
             'subjects',
             'image_url',
+            'is_new',
+            'on_demand',
+            'start_date',
+            'end_date',
             'score',
         )

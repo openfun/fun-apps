@@ -22,7 +22,15 @@ class Course(models.Model):
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
         choices=courses_choices.COURSE_LEVEL_CHOICES, blank=True, db_index=True)
+    is_new = models.BooleanField(verbose_name=_('new course'), db_index=True,
+        default=False)
+    on_demand = models.BooleanField(verbose_name=_('on demand'), db_index=True,
+        default=False)
     score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
+    start_date = models.DateTimeField(verbose_name=_('start date'), db_index=True,
+        null=True, blank=True)
+    end_date = models.DateTimeField(verbose_name=_('end date'), db_index=True,
+        null=True, blank=True)
 
     class Meta:
         ordering = ('-score',)
