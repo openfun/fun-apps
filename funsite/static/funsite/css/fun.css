@@ -1,6 +1,9 @@
 
 /** Site wide CSS **/
 
+body {
+    background-color: #edeeef
+}
 
 .main-width {
     margin-left: auto;
@@ -122,14 +125,17 @@ ul..footer-links.right {
 .all-items-button {
     background-color: white;
     border: 1px solid #3877BC;
+    text-align: center;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     color: #3877BC;
-    padding: 12px 48px 12px 48px;
+    padding: 12px;
     margin-top: 20px;
     margin-bottom: 20px;
     display: inline-block;
+    cursor: pointer;
+    width: 232px;
 
 }
 .all-items-button a:hover {
@@ -159,8 +165,8 @@ ul..footer-links.right {
     }
 
     .criteria-overlay {
-        left: -302px;
-        width: 1486px
+        left: -307px;
+        width: 1479px
     }
     .criteria-overlay ul {
         -moz-column-count: 5;
@@ -215,8 +221,8 @@ ul..footer-links.right {
     }
 
     .criteria-overlay {
-        left: -96px;
-        width: 955px;
+        left: -100px;
+        width: 925px;
     }
     .criteria-overlay ul {
         -moz-column-count: 3;
@@ -258,8 +264,8 @@ ul..footer-links.right {
         width: 600px;
     }
     .criteria-overlay {
-        left: 11px;
-        width: 634px;
+        left: 7px;
+        width: 622px;
     }
     .criteria-overlay ul {
         -moz-column-count: 2;
@@ -493,11 +499,25 @@ ul.universities-list {
 }
 */
 .criteria-overlay {
+    border-left: 1px solid #B6BDC5;
     padding-top: 0px;
     padding-right: 20px;
+    padding-left: 20px;
     display: none;
     position: absolute;
+
     background-color: #08223C;
+}
+.criteria-block.criteria-overlay h2 {
+    color: white;
+    font-weight: 400;
+    font-size: 24px;
+    padding-left: 6px;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    width: 100%;
+    border: none;
 }
 
 .criteria-overlay ul {
@@ -516,8 +536,9 @@ ul.universities-list {
 .criteria-block h2 {
     color: white;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 20px;
     padding-left: 6px;
+    margin-top: 40px;
     margin-bottom: 0;
     padding-bottom: 8px;
     border-bottom-color: #aaa;
@@ -541,6 +562,7 @@ ul.universities-list {
     padding-top: 8px;
     padding-bottom: 8px;
     width: 232px;
+    cursor: pointer;
 }
 .criteria-block ul.criteria li .badge {
     font-size: 11px;

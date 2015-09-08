@@ -21,15 +21,27 @@ universities_by_name = University.objects.by_name()
 
 <%block name="js_extra">
 <script>
-    $('#show-all-themes').on('click', function(event) {
+    var filter = {};
+    $('.all-items-button').on('click', function(event) {
         console.log(event);
-        $('#all-themes-overlay').show();
+        $('.hide-on-escake-key').hide();
+        var overlay_id = $(this).data('overlay_id')
+        $(overlay_id).show();
 
-        var posy =  $(this).prev().prev().offset().top - $('.filters').offset().top;
-        $('#all-themes-overlay').css('top', posy + 'px');
+        /* Calculate vertical overlay's position regarding clicked button */
+        var posy =  $(this).prev().prev().offset().top - $('.filters').offset().top - 40;
+        $(overlay_id).css('top', posy + 'px');
 
+        /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
+        var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
+        $(overlay_id).find('ul').css('height', (height * $('li.criterion').outerHeight(true)) + 'px');
+    });
 
-
+    $('.criterion').on('click', function(event) {
+        $('.hide-on-escake-key').hide();
+        var criterion_type = $(this).parent().data('criterion_type');
+        filter[criterion_type] = $(this).data('criterion');
+        console.log(filter);
     });
 
 
@@ -82,55 +94,48 @@ universities_by_name = University.objects.by_name()
 
     <div class="row">
 
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12">
             <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
                 <h1>Recherche</h1>
                 <h2>Disponibilité</h2>
-                <ul class="criteria">
-                    <li>Nouveau cours<span class="badge pull-right">22</span></li>
-                    <li>Fin d'inscription imminente<span class="badge pull-right">5</span></li>
-                    <li>Démarre bientôt<span class="badge pull-right">99</span></li>
-                    <li>A la demande<span class="badge pull-right">27</span></li>
+                <ul class="criteria" data-criterion_type="state">
+                    <li class="criterion" data-criterion="new">Nouveau cours<span class="badge pull-right">22</span></li>
+                    <li class="criterion" data-criterion="near-end">Fin d'inscription imminente<span class="badge pull-right">5</span></li>
+                    <li class="criterion" data-criterion="near-start">Démarre bientôt<span class="badge pull-right">99</span></li>
+                    <li class="criterion" data-criterion="demand">A la demande<span class="badge pull-right">27</span></li>
                 </ul>
                 <h2>Thèmes</h2>
-                <ul class="criteria">
+                <ul class="criteria" data-criterion_type="subject">
                     %for course_subject in course_subjects_by_score[:8]:
-                    <li>
+                    <li class="criterion" data-criterion="${ course_subject.slug }">
                         ${ course_subject.short_name or course_subject.name }
                         <span class="badge pull-right">${ course_subject.courses.count() }</span>
                     </li>
                     %endfor
                 </ul>
-                <span class="all-items-button" id="show-all-themes"><a href="">Toutes les thèmes</a></span>
+                <span class="all-items-button" data-overlay_id="#all-themes-overlay">Toutes les thèmes</span>
                 <h2>Établissements</h2>
-                <ul class="criteria">
+                <ul class="criteria" data-criterion_type="university">
                     %for university in universities_by_score[:10]:
-                    <li>
+                    <li class="criterion" data-criterion="${ university.slug }">
                         ${ university.short_name or university.name }
                         <span class="badge pull-right">${ university.courses.count() }</span>
                     </li>
                     %endfor
                 </ul>
-                <br />Touts les établissements:
-                    %for university in universities_by_name:
-                    <li>
-                        ${ university.short_name or university.name }
-                        <span class="badge pull-right">${ university.courses.count() }</span>
-                    </li>
-                    %endfor
-                </ul>
+                <span class="all-items-button" data-overlay_id="#all-universities-overlay">Tous les établissements</span>
 
             </div>
         </div>
 
-        <div class="col-md-24">
+        <div class="col-md-24 col-sm-24">
             <div class="pagination">
 
             </div>
             <div class="list">
                 <ul>
-                    %for a in range(30):  ## mutliple of 5, 3, 2 and 1
+                    %for a in range(30):  ## multiple of 5, 3, 2 and 1
                     <li>
                         <%include file="/funsite/parts/small-course-block.html" args="id=1" />
                     </li>
@@ -141,9 +146,9 @@ universities_by_name = University.objects.by_name()
 
             <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escake-key">
                 <h2>Tous les tèmes</h2>
-                <ul class="criteria">
+                <ul class="criteria" data-criterion_type="subject">
                     %for course_subject in course_subjects_by_name:
-                    <li>
+                    <li class="criterion" data-criterion="${ course_subject.slug }">
                         ${ course_subject.short_name or course_subject.name }
                         <span class="badge pull-right">${ course_subject.courses.count() }</span>
                     </li>
@@ -151,6 +156,20 @@ universities_by_name = University.objects.by_name()
                 </ul>
 
             </div>
+
+
+
+            <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escake-key">
+                <h2>Tous les établissements</h2>
+                <ul class="criteria" data-criterion_type="university">
+
+                    %for university in universities_by_name:
+                    <li class="criterion" data-criterion="${ university.slug }">
+                        ${ university.short_name or university.name }
+                        <span class="badge pull-right">${ university.courses.count() }</span>
+                    </li>
+                    %endfor
+                </ul>
 
 
         </div>
