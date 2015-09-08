@@ -113,18 +113,21 @@ class Client(BaseClient):
             return None
         if self._settings is None:
             try:
-                self._settings = models.LibcastCourseSettings.objects.get(course=self.course_key_string)
+                settings = models.LibcastCourseSettings.objects.get(
+                    course=self.course_key_string
+                )
+                if not settings.directory_slug or not settings.stream_slug:
+                    raise models.LibcastCourseSettings.DoesNotExist()
             except models.LibcastCourseSettings.DoesNotExist:
                 directory_slug, stream_slug = self.ensure_course_is_configured()
                 # Try to retrieve object in order to avoid a race condition
-                settings, created = models.LibcastCourseSettings.objects.get_or_create(
+                settings, _created = models.LibcastCourseSettings.objects.get_or_create(
                     course=self.course_key_string
                 )
-                if created or not settings.directory_slug or not settings.stream_slug:
-                    self._settings = settings
-                    self._settings.directory_slug = directory_slug
-                    self._settings.stream_slug = stream_slug
-                    self._settings.save()
+                settings.directory_slug = directory_slug
+                settings.stream_slug = stream_slug
+                settings.save()
+            self._settings = settings
         return self._settings
 
     @property
