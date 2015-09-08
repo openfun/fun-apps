@@ -14,8 +14,8 @@ class CourseUniversityRelationInline(admin.TabularInline):
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('key', 'level', 'score')
-    list_filter = ('level', 'subjects', 'universities')
+    list_display = ('key', 'level', 'score', 'is_new', 'on_demand')
+    list_filter = ('level', 'subjects', 'universities', 'is_new', 'on_demand')
     search_fields = ('key', 'certificateteacher_related__teacher__full_name',
         'courseteacher_related__teacher__full_name')
     filter_horizontal = ('subjects',)
@@ -32,6 +32,13 @@ class CourseAdmin(admin.ModelAdmin):
                 'level',
                 'subjects',
                 'score',
+            )
+        }),
+        (_('Availability'), {
+            'fields': (
+                ('start_date', 'end_date'),
+                'is_new',
+                'on_demand',
             )
         }),
     )

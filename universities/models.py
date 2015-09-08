@@ -53,3 +53,7 @@ class University(models.Model):
     def get_name(self):
         """Return university's parent name if this one has a parent."""
         return self.name if not self.parent else self.parent.name
+
+    @property
+    def count_courses(self):
+        return self.related_courses.count()
