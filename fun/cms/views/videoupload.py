@@ -214,6 +214,6 @@ def video_update_thumbnail(request, course_key_string, video_id):
 
 def json_error_response(title, message):
     return JsonResponse({
-        "error": "{} {}".format(title, message)
+        "error": title + " " + message
     })
 
