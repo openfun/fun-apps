@@ -116,11 +116,11 @@ class Client(BaseClient):
                 self._settings = models.LibcastCourseSettings.objects.get(course=self.course_key_string)
             except models.LibcastCourseSettings.DoesNotExist:
                 directory_slug, stream_slug = self.ensure_course_is_configured()
-                self._settings = models.LibcastCourseSettings.objects.create(
-                    course=self.course_key_string,
-                    directory_slug=directory_slug,
-                    stream_slug=stream_slug
-                )
+                # Try to retrieve object in order to avoid a race condition
+                self._settings = models.LibcastCourseSettings.objects.get_or_create(course=self.course_key_string)
+                self._settings.directory_slug = directory_slug
+                self._settings.stream_slug = stream_slug
+                self._settings.save()
         return self._settings
 
     @property
