@@ -95,8 +95,6 @@ class Client(BaseClient):
         super(Client, self).__init__(*args, **kwargs)
         self.urls = LibcastUrls(self.course_key_string)
         self._settings = None
-        if self.course_key_string:
-            self.ensure_course_is_configured()
 
     @property
     def course_key_string(self):
