@@ -5,7 +5,6 @@ import os
 import requests
 import requests.auth
 
-from django.core.cache import get_cache
 from django.utils.translation import gettext as _
 
 from fun.utils.i18n import language_name
@@ -38,30 +37,29 @@ class LibcastUrls(object):
         path = endpoint.strip("/")
         return pattern.format(path)
 
-    @property
-    def slug(self):
-        return slugify(self.course_key_string)
-
     def streams_path(self):
         return "media/{}/streams".format(self.MEDIA_NAME)
 
-    def stream_resources_path(self):
-        return 'stream/{}/resources'.format(self.slug)
+    def stream_resources_path(self, slug):
+        return 'stream/{}/resources'.format(slug)
 
     def file_path(self, file_slug):
         return 'file/{}'.format(file_slug)
 
-    def directory_url(self):
-        return self.libcast_url(self.directory_path())
+    def directory_url(self, directory_slug):
+        return self.libcast_url(self.directory_path(directory_slug))
 
-    def directory_path(self):
-        return 'files/{}'.format(slugify(self.course_key_string))
+    def root_directory_path(self):
+        return "files"
+
+    def directory_path(self, directory_slug):
+        return 'files/{}'.format(directory_slug)
 
     def resource_path(self, slug):
         return 'resource/{}'.format(slug)
 
-    def upload_links_path(self):
-        return "files/{}/upload_links".format(self.slug)
+    def upload_links_path(self, directory_slug):
+        return "files/{}/upload_links".format(directory_slug)
 
     def subtitle_href(self, video_id, subtitle_id):
         # Note that the download url for subtitles is not a file path, but a resource path.
@@ -78,100 +76,7 @@ class LibcastUrls(object):
         return self.fun_libcast_url(path)
 
 
-class LibcastAccountVerifierMixin(object):
-    """
-    We need to make sure that the Libcast account is properly configured at
-    runtime; so we store a cache key with an expiry date, and the account is
-    verified when the key expires.
-    """
-
-    # The libcast account will be verified with this periodicity
-    LIBCAST_CONFIG_CHECK_PERIOD_SECONDS = 24*60*60
-    CACHE_NAME = 'libcast'
-
-    def ensure_course_is_configured(self):
-        """
-        Make sure that everything is ready in the Libcast account for upload.
-
-        This will run on every CMS instance every LIBCAST_CONFIG_CHECK_PERIOD_SECONDS.
-        """
-        cache = get_cache(self.CACHE_NAME)
-        if not cache.get(self.course_key_string):
-            self.ensure_course_directory_exists()
-            parent_stream_slug = self.get_or_create_parent_stream()
-            self.ensure_stream_exists(self.course_key_string, parent_stream_slug)
-            cache.set(self.course_key_string, self.LIBCAST_CONFIG_CHECK_PERIOD_SECONDS)
-
-    def ensure_course_directory_exists(self):
-        """Check for the existence of a folder (possibly in a subdirectory) and create it if necessary.
-
-        Raise a ClientError if the directory could not be created. The obtained
-        folder will be checked to verify we have the correct href. If not, it
-        probably means the course name contains some special, unexpected
-        characters.
-        """
-        response = self.get("files/{}".format(self.directory_slug))
-        if response.status_code >= 400:
-            # Create all subdirectories starting from the bottom.
-            # If any directory cannot be created, this will raise a ClientError.
-            response = self.post("files", params={"name": self.course_key_string})
-            if response.status_code >= 400:
-                raise ClientError(_("Could not create folder {}").format(self.course_key_string))
-            # Check obtained href is what we expect
-            etree = parse_xml(response)
-            folder_href = etree.attrib['href']
-            expected_href = self.urls.directory_url()
-            if folder_href != expected_href:
-                logger.error("Libcast folder slug is not the one expected. Bad"
-                             "things will follow! Expected %s, got %s for course %s",
-                             expected_href, folder_href, self.course_key_string)
-
-    def get_or_create_parent_stream(self):
-        """Get or create the parent stream of the course stream.
-
-        Returns:
-            stream_slug (str): slug of the parent stream
-        """
-        response = self.get(self.urls.streams_path())
-        if response.status_code >= 400:
-            raise ClientError(_("Could not load organisation streams"))
-        etree = parse_xml(response)
-        for stream in etree.iter('stream'):
-            if stream.find('title').text == self.org:
-                return stream.find('slug').text
-        # Create stream
-        stream = self.create_stream(self.org, self.VISIBILITY_VISIBLE)
-        return stream.find('slug').text
-
-    def ensure_stream_exists(self, title, parent_stream=None):
-        """
-        Make sure the stream with the given title exists.
-
-        If the stream does not exist, it will be created as a child of the given parent.
-
-        Args:
-            title (str): stream title
-            parent_stream (str): parent stream slug.
-        """
-        stream_slug = slugify(title)
-        response = self.get("stream/{}".format(stream_slug))
-        if response.status_code >= 400:
-            return self.create_stream(title, self.VISIBILITY_HIDDEN, parent_stream)
-
-    def create_stream(self, title, visibility, parent_stream=None):
-        params = {
-            "title": title,
-            "visibility": visibility
-        }
-        if parent_stream:
-            params["parent_stream"] = parent_stream
-        response = self.post(self.urls.streams_path(), params=params)
-        if response.status_code >= 400:
-            raise ClientError(_("Could not create stream {}").format(title))
-        return parse_xml(response)
-
-
-class Client(BaseClient, LibcastAccountVerifierMixin):
+class Client(BaseClient):
     """Client for the Libcast API
 
     The API is documented here: https://developers.libcast.com/api/03-api/
@@ -189,17 +94,46 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
     def __init__(self, *args, **kwargs):
         super(Client, self).__init__(*args, **kwargs)
         self.urls = LibcastUrls(self.course_key_string)
+        self._settings = None
         if self.course_key_string:
             self.ensure_course_is_configured()
 
     @property
-    def directory_slug(self):
-        """Directory that stores the video files"""
-        return slugify(self.course_key_string)
-
-    @property
     def course_key_string(self):
         return unicode(self.course_id)
+
+    @property
+    def settings(self):
+        """Libcast course settings
+
+        Returns:
+            _settings (LibcastCourseSettings): if the settings object does not
+                exist, the course configuration will be checked and the settings
+                object will be created afterwards.
+        """
+        if not self.course_key_string:
+            return None
+        if self._settings is None:
+            try:
+                self._settings = models.LibcastCourseSettings.objects.get(course=self.course_key_string)
+            except models.LibcastCourseSettings.DoesNotExist:
+                directory_slug, stream_slug = self.ensure_course_is_configured()
+                self._settings = models.LibcastCourseSettings.objects.create(
+                    course=self.course_key_string,
+                    directory_slug=directory_slug,
+                    stream_slug=stream_slug
+                )
+        return self._settings
+
+    @property
+    def stream_slug(self):
+        """Stream that stores the course resources"""
+        return self.settings.stream_slug
+
+    @property
+    def directory_slug(self):
+        """Directory that stores the course video files"""
+        return self.settings.directory_slug
 
     def get_resource_file(self, resource):
         file_slug = self.get_resource_file_slug(resource)
@@ -218,15 +152,8 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
             raise ClientError(_("Could not fetch video"))
         return parse_xml(response)
 
-    def request(self, endpoint, method='GET', params=None, files=None):
-        return http_request(
-            self.urls.libcast_url(endpoint), method=method, params=params,
-            files=files, auth=self.auth
-        )
-
     def convert_resource_to_video(self, resource, file_obj):
         visibility = resource.find('visibility').text
-        # TODO we could take into account the "encoding_progress" integer value of the file object
         encoding_status = file_obj.find('encoding_status').text
         if encoding_status != 'finished':
             status = 'processing'
@@ -283,7 +210,7 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
 
 
     def create_resource(self, file_slug, title):
-        response = self.post(self.urls.stream_resources_path(), {
+        response = self.post(self.urls.stream_resources_path(self.stream_slug), {
             "title": title,
             "file": file_slug,
             "visibility": self.VISIBILITY_HIDDEN,
@@ -303,9 +230,98 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
             'url': subtitle_href,
         }
 
+    ##############################
+    # Ensure account is configured
+    # We need to make sure that the Libcast account is properly configured at
+    # runtime. We check:
+    # 1) The existence of the parent university stream
+    # 2) The existence of the course stream
+    # 3) The existence of the course folder
+    ##############################
+
+    def ensure_course_is_configured(self):
+        """
+        Make sure that everything is ready in the Libcast account for upload.
+
+        Returns:
+            directory_slug (str)
+            stream_slug (str)
+        """
+        directory_slug = self.ensure_course_directory_exists()
+        parent_stream_slug = self.get_or_create_stream(self.org)
+        stream_slug = self.get_or_create_stream(self.course_key_string, parent_stream=parent_stream_slug)
+        return directory_slug, stream_slug
+
+    def ensure_course_directory_exists(self):
+        """Check for the existence of a folder and create it if necessary.
+
+        Raise a ClientError if the directory could not be created.
+
+        Returns:
+            directory_slug (str)
+        """
+        files = parse_xml(self.safe_get(
+            self.urls.root_directory_path(),
+            message=_("Could not list course files")
+        ))
+        for directory in files.iter('directory'):
+            directory_slug = os.path.basename(directory.attrib['href'])
+            directory = parse_xml(self.safe_get(
+                self.urls.directory_path(directory_slug),
+                message=_("Could not list contents of directory {}").format(directory_slug)
+            ))
+            if directory.find('name').text == self.course_key_string:
+                return directory_slug
+
+        # Directory does not exist, let's create it
+        directory = parse_xml(self.safe_post(
+            self.urls.root_directory_path(),
+            params={"name": self.course_key_string},
+            message=_("Could not create folder {}").format(self.course_key_string)
+        ))
+        directory_slug = os.path.basename(directory.attrib['href'])
+        return directory_slug
+
+    def get_or_create_stream(self, title, parent_stream=None):
+        """Find a stream and create it if it was not found.
+
+        Note that the stream will be created as visible by default.
+
+        Args:
+            parent_stream (str): slug of the parent stream
+
+        Returns:
+            stream_slug (str)
+        """
+        streams = parse_xml(self.safe_get(
+            self.urls.streams_path(), message=_("Could not load organisation streams")
+        ))
+        for stream in streams.iter('stream'):
+            if stream.find('title').text == title:
+                return stream.find('slug').text
+        # Stream was not found, create it
+        params = {
+            "title": title,
+            "visibility": self.VISIBILITY_VISIBLE
+        }
+        if parent_stream:
+            params["parent_stream"] = parent_stream
+        stream = parse_xml(self.safe_post(
+            self.urls.streams_path(), params=params,
+            message=_("Could not create stream {}").format(title)
+        ))
+        return stream.find('slug').text
+
+
     ####################
     # Overridden methods
     ####################
+
+    def request(self, endpoint, method='GET', params=None, files=None):
+        return http_request(
+            self.urls.libcast_url(endpoint), method=method, params=params,
+            files=files, auth=self.auth
+        )
 
     def get_auth(self):
         """Libcast API uses HTTP Digest authentication"""
@@ -327,14 +343,17 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         sync.
         """
         # Iterate on course playlist
-        etree = parse_xml(self.get(self.urls.stream_resources_path()))
+        resources = parse_xml(
+            self.safe_get(self.urls.stream_resources_path(self.stream_slug),
+            message=_("Could not list videos")
+        ))
         resources = {
-            resource.find('file').attrib['href']: resource for resource in etree.iter('resource')
+            resource.find('file').attrib['href']: resource for resource in resources.iter('resource')
         }
 
         # Iterate on folder and create associated resources if necessary
-        etree = parse_xml(self.get(self.urls.directory_path()))
-        for file_obj in etree.iter('file'):
+        files = parse_xml(self.get(self.urls.directory_path(self.directory_slug)))
+        for file_obj in files.iter('file'):
             file_href = file_obj.attrib['href']
             file_slug = file_obj.find('slug').text
             file_name = file_obj.find('name').text
@@ -354,21 +373,23 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         # resources will be deleted.
         resource = self.get_resource(video_id)
         file_slug = self.get_resource_file_slug(resource)
-        response = self.delete(self.urls.file_path(file_slug))
-        if response.status_code >= 400:
-            raise ClientError(_("Could not delete video"))
+        self.safe_delete(
+            self.urls.file_path(file_slug),
+            message=_("Could not delete video")
+        )
 
     def update_video_title(self, video_id, title):
-        response = self.put(self.urls.resource_path(video_id), {"title": title})
-        if response.status_code >= 400:
-            raise ClientError(_("Could not change video title"))
+        self.safe_put(
+            self.urls.resource_path(video_id), {"title": title},
+            message=_("Could not change video title")
+        )
         return {}
 
     def get_upload_url(self):
-        response = self.post(self.urls.upload_links_path())
-        if response.status_code >= 400:
-            raise ClientError(_("Could not fetch upload url"))
-        etree = parse_xml(response)
+        etree = parse_xml(self.safe_post(
+            self.urls.upload_links_path(self.directory_slug),
+            _("Could not fetch upload url")
+        ))
         return {
             "url": etree.find("link[@rel='json']").attrib["href"],
             "file_parameter_name": "file[path]"
@@ -390,9 +411,11 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         return self.set_video_visibility(video_id, self.VISIBILITY_HIDDEN)
 
     def set_video_visibility(self, video_id, visibility):
-        response = self.put(self.urls.resource_path(video_id), {'visibility': visibility})
-        if response.status_code >= 400:
-            raise ClientError(_("Could not change video visibility"))
+        self.safe_put(
+            self.urls.resource_path(video_id),
+            {'visibility': visibility},
+            message=_("Could not change video visibility")
+        )
         return {}
 
     def get_video_subtitles(self, video_id):
@@ -417,16 +440,18 @@ class Client(BaseClient, LibcastAccountVerifierMixin):
         ]
 
     def upload_subtitle(self, video_id, file_object, language):
-        response = self.post(self.urls.subtitles_path(video_id),
-                             files={'subtitle': file_object},
-                             params={'language': language})
-        if response.status_code >= 400:
-            raise ClientError(_("Could not upload subtitle"))
+        self.safe_post(
+            self.urls.subtitles_path(video_id),
+            files={'subtitle': file_object},
+            params={'language': language},
+            message=_("Could not upload subtitle")
+        )
 
     def delete_video_subtitle(self, video_id, subtitle_id):
-        response = self.delete(self.urls.subtitle_path(video_id, subtitle_id))
-        if response.status_code >= 400:
-            raise ClientError(_("Could not delete subtitle"))
+        self.safe_delete(
+            self.urls.subtitle_path(video_id, subtitle_id),
+            message=_("Could not delete subtitle")
+        )
 
     def set_thumbnail(self, video_id, url):
         # TODO
