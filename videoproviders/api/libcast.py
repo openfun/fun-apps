@@ -276,7 +276,7 @@ class Client(BaseClient):
             directory_slug = os.path.basename(directory.attrib['href'])
             directory = parse_xml(self.safe_get(
                 self.urls.directory_path(directory_slug),
-                message=_("Could not list contents of directory {}").format(directory_slug)
+                message=_("Could not list directory content {}").format(directory_slug)
             ))
             if directory.find('name').text == self.course_key_string:
                 return directory_slug

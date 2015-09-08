@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 4\n"
+"Project-Id-Version: France Université Numérique 9\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-08-26 14:56+0200\n"
-"PO-Revision-Date: 2015-08-26 14:56+0000\n"
+"POT-Creation-Date: 2015-09-08 20:51+0200\n"
+"PO-Revision-Date: 2015-09-08 20:51+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -31,56 +31,87 @@ msgstr "Token d'accès"
 msgid "Associated university"
 msgstr "Etablissement associé"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:330
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:409
 msgid "Could not change video title"
 msgstr "Impossible de changer le titre de la vidéo"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:359
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:442
 msgid "Could not change video visibility"
 msgstr "Impossible de changer la visibilité de la vidéo"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:127
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:288
 msgid "Could not create folder {}"
 msgstr "Impossible de créer le répertoire {}"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:259
-#, fuzzy
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:227
 msgid "Could not create resource"
-msgstr "Impossible de créer le stream {}"
+msgstr "Impossible de créer la resource"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:158
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:319
 msgid "Could not create stream {}"
 msgstr "Impossible de créer le stream {}"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:382
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:478
 msgid "Could not delete subtitle"
 msgstr "Impossible de supprimer le sous-titre"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:325
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:403
 msgid "Could not delete video"
 msgstr "Impossible de supprimer la vidéo"
 
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:147
+msgid "Could not fetch file"
+msgstr "Impossible de récupérer le fichier"
+
 #: /edx/app/edxapp/fun-apps/videoproviders/api/dm.py:72
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:336
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:416
 msgid "Could not fetch upload url"
 msgstr "Impossible de récupérer une url de téléversement"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:198
-#, fuzzy
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:157
 msgid "Could not fetch video"
-msgstr "Impossible de supprimer la vidéo"
+msgstr "Impossible de récupérer la vidéo"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:404
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:273
+msgid "Could not list course files"
+msgstr "Impossible de lister les fichiers du cours"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:279
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:366
+msgid "Could not list directory content {}"
+msgstr "Impossible de lister le contenu du répertoire {}"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:356
+msgid "Could not list videos"
+msgstr "Impossible de lister les vidéos"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:305
+msgid "Could not load organisation streams"
+msgstr "Impossible de charger les streams de l'organisation"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:501
 msgid "Could not parse response"
 msgstr "Impossible d'analyser la réponse"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:377
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:472
 msgid "Could not upload subtitle"
 msgstr "Impossible de téléverser le sous-titre"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:246
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:214
 msgid "High Definition (720p)"
 msgstr "Haute définition (720p)"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:65
+msgid "Libcast course settings"
+msgstr "Settings de cours Libcast"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:59
+msgid "Libcast directory slug"
+msgstr "Slug de répertoire Libcast"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:62
+msgid "Libcast stream slug"
+msgstr "Slug de stream Libcast"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/api/dm.py:115
 msgid "Missing url parameter"
@@ -90,23 +121,33 @@ msgstr "Paramètre url manquant"
 msgid "Refresh token"
 msgstr "Rafraîchir le token"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:248
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:216
 msgid "Smartphone (320p)"
 msgstr "Smartphone (320p)"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:247
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:215
 msgid "Standard (512p)"
 msgstr "Standard (512p)"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/forms.py:26
+#: /edx/app/edxapp/fun-apps/videoproviders/forms.py:28
 msgid "Subtitle file (SRT files only)"
 msgstr "Fichier de sous-titres (fichiers SRT uniquement)"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/forms.py:27
+#: /edx/app/edxapp/fun-apps/videoproviders/forms.py:29
 msgid "Subtitle language"
 msgstr "Langue de sous-titres"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/forms.py:31
+#: /edx/app/edxapp/fun-apps/videoproviders/api/base.py:15
+msgid ""
+"There is no video storage credentials defined for this account. Please "
+"get in touch with your administrator or support team to setup the "
+"credentials for university '{}'"
+msgstr ""
+"Il n'y a pas d'identifiants définis pour le stockage de vidéos de ce "
+"compte. Veuillez contacter votre administrateur ou votre équipe de "
+"support pour définir les identifiants de l'université '{}'"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/forms.py:33
 msgid "Thumbnail file"
 msgstr "Fichier vignette"
 
@@ -114,7 +155,7 @@ msgstr "Fichier vignette"
 msgid "Token expiry time"
 msgstr "Date d'expiration du token"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:347
+#: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:427
 msgid "Undefined file slug"
 msgstr "Slug de fichier indéfini"
 
@@ -125,4 +166,3 @@ msgstr "Nom d'utilisateur (adresse email)"
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:45
 msgid "Username (not the email address)"
 msgstr "Nom d'utilisateur (pas l'adresse email)"
-
