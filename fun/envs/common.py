@@ -148,7 +148,7 @@ PASSWORD_COMPLEXITY = {
 
 
 # Set this to either 'dmcloud', 'libcast_xblock' or None.
-FUN_DEFAULT_VIDEO_PLAYER = 'dmcloud'
+FUN_DEFAULT_VIDEO_PLAYER = 'libcast_xblock'
 
 def prefer_fun_xmodules(identifier, entry_points):
     """
