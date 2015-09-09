@@ -192,8 +192,9 @@ ul..footer-links.right {
         height: 450px;
     }
     div.page-image.home-page {
-        background-image: url('/static/funsite/images/homepage1900_draft.png')
+        background-image: url('/static/funsite/images/homepage1900_draft.png');
     }
+
     div.page-image.courses-page {
         background-image: url('/static/funsite/images/homepage1900_draft.png')
     }
@@ -244,6 +245,11 @@ ul..footer-links.right {
         width: 1280px;
         height: 360px;
     }
+    div.page-image.home-page span.logo-fun {
+        top: 40px;
+        left: 548px;
+    }
+
     div.page-image.home-page {
         background-image: url('/static/funsite/images/homepage1280_draft.png')
     }
@@ -351,6 +357,34 @@ ul..footer-links.right {
     }
 
 }
+div.page-image.home-page {
+    margin-bottom: 60px;
+}
+
+div.page-image.home-page h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 90px;
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+}
+div.page-image.home-page h2 {
+    margin-top: 2px;
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+}
+div.page-image.home-page span.logo-fun {
+    width: 195px;
+    height: 180px;
+    display: inline-block;
+    position: relative;
+    background-image: url('/static/funsite/images/logos/fun195.png');
+}
+
 
 /* Courses */
 ul.primary-highlight {
