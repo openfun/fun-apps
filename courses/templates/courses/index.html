@@ -21,10 +21,11 @@ universities_by_name = University.objects.by_name()
 
 <%block name="js_extra">
 <script>
+
     var filter = {};
     $('.all-items-button').on('click', function(event) {
         console.log(event);
-        $('.hide-on-escake-key').hide();
+        $('.hide-on-escape-key').hide();
         var overlay_id = $(this).data('overlay_id')
         $(overlay_id).show();
 
@@ -38,8 +39,9 @@ universities_by_name = University.objects.by_name()
     });
 
     $('.criterion').on('click', function(event) {
-        $('.hide-on-escake-key').hide();
+        $('.hide-on-escape-key').hide();
         var criterion_type = $(this).parent().data('criterion_type');
+
         if ($(this).hasClass('filter-checkbox')) {
             $(this).toggleClass('checked');
             filter[criterion_type] = $(this).hasClass('checked');
@@ -179,7 +181,7 @@ universities_by_name = University.objects.by_name()
 
             </div>
 
-            <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escake-key">
+            <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
                 <h2>Tous les tèmes</h2>
                 <ul class="criteria" data-criterion_type="subject">
                     %for course_subject in course_subjects_by_name:
@@ -194,7 +196,7 @@ universities_by_name = University.objects.by_name()
 
 
 
-            <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escake-key">
+            <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
                 <h2>Tous les établissements</h2>
                 <ul class="criteria" data-criterion_type="university">
 
