@@ -22,6 +22,44 @@ universities_by_name = University.objects.by_name()
 
 <%block name="js_extra">
 <script>
+        console.log('require')
+
+require(["jquery", "underscore", "backbone", ],
+    function ($, _, Backbone, gettext, TemplateUtils, BaseModal, NotificationView) {
+
+        var AppView = Backbone.View.extend({
+            events: {'click': 'onClickUpdate'},
+            initialize: function() {
+                var courselist = new CourseList();
+                courselist.fetch();
+
+            },
+            onClickUpdate: function() {
+                console.log('test')
+            },
+
+        });
+
+        var Course = Backbone.Model.extend({
+
+        });
+        var CourseView = Backbone.View.extend({
+
+        });
+
+        var CourseList = Backbone.Collection.extend({
+            url: '/cours/api/',
+            parse: function(data) {
+                return data.courses;
+            },
+        });
+
+        console.log('start')
+        var appview = new AppView({el: $('.courses-page')});
+
+
+    });
+
 
     var filter = {};
     $('.all-items-button').on('click', function(event) {
