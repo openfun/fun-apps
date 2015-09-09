@@ -572,11 +572,37 @@ ul.universities-list {
     border-radius: 20px; */
     font-weight: 200;
 }
-
 .filters .all-items-button {
     margin-top: 6px;
     background-color: transparent;
 }
+.criteria li.icon {
+    padding-left: 36px !important;
+    height: 36px;
+}
+.criteria li.icon.french-flag {
+    background: url('/static/funsite/images/icones/french-flag.png') 6px 2px no-repeat;
+}
+.criteria li.icon.english-flag {
+    background: url('/static/funsite/images/icones/english-flag.png') 6px 2px no-repeat;
+}
+.criteria li.icon.german-flag {
+    background: url('/static/funsite/images/icones/german-flag.png') 6px 2px no-repeat;
+}
+.criteria li.icon.spanish-flag {
+    background: url('/static/funsite/images/icones/spanish-flag.png') 6px 2px no-repeat;
+}
+
+.criteria li.filter-checkbox {
+    padding-left: 36px !important;
+    height: 36px;
+    background: url('/static/funsite/images/icones/filter-checkbox.png') 6px 2px no-repeat;
+
+}
+.criteria li.filter-checkbox.checked {
+    background: url('/static/funsite/images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
+    }
+
 
 /* static content pages */
 .simple-content {
