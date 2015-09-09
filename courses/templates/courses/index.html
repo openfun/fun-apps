@@ -40,7 +40,12 @@ universities_by_name = University.objects.by_name()
     $('.criterion').on('click', function(event) {
         $('.hide-on-escake-key').hide();
         var criterion_type = $(this).parent().data('criterion_type');
-        filter[criterion_type] = $(this).data('criterion');
+        if ($(this).hasClass('filter-checkbox')) {
+            $(this).toggleClass('checked');
+            filter[criterion_type] = $(this).hasClass('checked');
+        } else {
+            filter[criterion_type] = $(this).data('criterion');
+        }
         console.log(filter);
     });
 
@@ -105,6 +110,7 @@ universities_by_name = University.objects.by_name()
                     <li class="criterion" data-criterion="near-start">Démarre bientôt<span class="badge pull-right">99</span></li>
                     <li class="criterion" data-criterion="demand">A la demande<span class="badge pull-right">27</span></li>
                 </ul>
+
                 <h2>Thèmes</h2>
                 <ul class="criteria" data-criterion_type="subject">
                     %for course_subject in course_subjects_by_score[:8]:
@@ -115,6 +121,7 @@ universities_by_name = University.objects.by_name()
                     %endfor
                 </ul>
                 <span class="all-items-button" data-overlay_id="#all-themes-overlay">Toutes les thèmes</span>
+
                 <h2>Établissements</h2>
                 <ul class="criteria" data-criterion_type="university">
                     %for university in universities_by_score[:10]:
@@ -125,6 +132,34 @@ universities_by_name = University.objects.by_name()
                     %endfor
                 </ul>
                 <span class="all-items-button" data-overlay_id="#all-universities-overlay">Tous les établissements</span>
+
+                <h2>Formation certifiante</h2>
+                <ul class="criteria" data-criterion_type="certificate">
+                    <li class="criterion filter-checkbox" data-criterion="">
+                        Certificat
+                        <span class="badge pull-right">50</span>
+                    </li>
+                </ul>
+                <h2>Langue</h2>
+                <ul class="criteria" data-criterion_type="language">
+                    <li class="criterion icon french-flag" data-criterion="fr">
+                        Français
+                        <span class="badge pull-right">103</span>
+                    </li>
+                    <li class="criterion icon english-flag" data-criterion="en">
+                        English
+                        <span class="badge pull-right">5</span>
+                    </li>
+                    <li class="criterion icon german-flag" data-criterion="de">
+                        Deutsche
+                        <span class="badge pull-right">2</span>
+                    </li>
+                    <li class="criterion icon spanish-flag" data-criterion="es">
+                        Español
+                        <span class="badge pull-right">1</span>
+                    </li>
+                </ul>
+
 
             </div>
         </div>
