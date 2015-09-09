@@ -10,21 +10,25 @@ from django.utils.translation import ugettext as _
 
             <div class="col-sm-12">
                 <div class="pull-left">
-                    <span id="sandwich-menu">sandwich</span>
+                    <span id="sandwich-menu"></span>
                 </div>
             </div>
 
             <div class="col-sm-12">
 
                 <div class="text-center">
-                    logo FUN
+
                 </div>
             </div>
 
             <div class="col-sm-12">
 
-                <div class="pull-right">
-                    connexion
+                <div class="pull-right connection">
+                    %if request.user.is_authenticated():
+                        <a href="${reverse('dashboard')}">${request.user.profile.name}</a>
+                    %else:
+                        ${_(u"Connection")}
+                    %endif
                 </div>
             </div>
         </div>
