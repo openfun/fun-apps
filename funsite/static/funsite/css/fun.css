@@ -35,6 +35,36 @@ body {
 
 
 /* Sandwich menu */
+
+#top-menu .connection {
+    color: white;
+    background: #F72C30 url('/static/funsite/images/icones/user.png') 14px 14px no-repeat;
+    height: 60px;
+    width: 170px;
+    cursor: pointer;
+    padding-top: 20px;
+    padding-left: 60px;
+}
+#top-menu .connection a, a:hover, a:visited {
+    text-decoration: none;
+    color: white;
+}
+#sandwich-menu {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: url('/static/funsite/images/icones/sandwich.png') 14px 14px no-repeat;
+    cursor: pointer;
+}
+
+#close-sandwich-overlay {
+    color: white;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
 #sandwich-overlay {
     width: 100%;
     position: absolute;
@@ -42,6 +72,7 @@ body {
     left: 0;
     display: none;
     background-color: #3D79BE;
+    z-index: 2000;
 }
 #sandwich-overlay ul {
     list-style-type: none;
