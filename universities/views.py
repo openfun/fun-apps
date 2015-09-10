@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from fun.utils import mako
 
 from universities.models import University
-from universities.courses import get_university_courses
+from universities.courses_utils import get_university_courses
 
 
 class UniversityLandingView(mako.MakoTemplateMixin, ListView):
