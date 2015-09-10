@@ -31,5 +31,4 @@ class CourseListTest(ModuleStoreTestCase):
 
     def test_form_error(self):
         response = self.client.get(self.url, {'university': 'nope'})
-        import ipdb ; ipdb.set_trace()
         self.assertEqual(302, response.status_code)
