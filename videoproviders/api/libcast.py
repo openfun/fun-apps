@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class LibcastUrls(object):
     # Note that these settings will probably have to be different in microsites
     MEDIA_NAME = 'fun-libcast-com'
-    API_URL_PATTERN = 'https://console.libcast.com/services/{}'
+    API_URL_PATTERN = 'https://api.libcast.com/{}'
     FUN_LIBCAST_URL_PATTERN = 'https://fun.libcast.com/{}'
 
     def __init__(self, course_key_string):
