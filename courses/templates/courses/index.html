@@ -3,6 +3,7 @@
 import random
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django.db import models
 from courseware.courses import course_image_url, get_course_about_section
 
 from courses.models import CourseSubject
@@ -118,7 +119,7 @@ universities_by_name = University.objects.by_name()
                     %for course_subject in course_subjects_by_score[:8]:
                     <li class="criterion" data-criterion="${ course_subject.slug }">
                         ${ course_subject.short_name or course_subject.name }
-                        <span class="badge pull-right">${ course_subject.courses.count() }</span>
+                        <span class="badge pull-right">${ course_subject.courses_count }</span>
                     </li>
                     %endfor
                 </ul>
@@ -129,7 +130,7 @@ universities_by_name = University.objects.by_name()
                     %for university in universities_by_score[:10]:
                     <li class="criterion" data-criterion="${ university.slug }">
                         ${ university.short_name or university.name }
-                        <span class="badge pull-right">${ university.courses.count() }</span>
+                        <span class="badge pull-right">${ university.courses_count }</span>
                     </li>
                     %endfor
                 </ul>
@@ -187,7 +188,7 @@ universities_by_name = University.objects.by_name()
                     %for course_subject in course_subjects_by_name:
                     <li class="criterion" data-criterion="${ course_subject.slug }">
                         ${ course_subject.short_name or course_subject.name }
-                        <span class="badge pull-right">${ course_subject.courses.count() }</span>
+                        <span class="badge pull-right">${ course_subject.courses_count }</span>
                     </li>
                     %endfor
                 </ul>
@@ -203,7 +204,7 @@ universities_by_name = University.objects.by_name()
                     %for university in universities_by_name:
                     <li class="criterion" data-criterion="${ university.slug }">
                         ${ university.short_name or university.name }
-                        <span class="badge pull-right">${ university.courses.count() }</span>
+                        <span class="badge pull-right">${ university.courses_count }</span>
                     </li>
                     %endfor
                 </ul>
