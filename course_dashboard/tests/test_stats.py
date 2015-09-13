@@ -70,6 +70,15 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         course_population = stats.population_by_country(self.get_course_id(course))
         self.assertEqual({'FR': 1}, course_population)
 
+    def test_add_days_with_no_enrollments(self):
+        enrollments_per_day = [(datetime(year=2015, month=2, day=1), 5),
+                               (datetime(year=2015, month=2, day=3), 5),
+                               (datetime(year=2015, month=2, day=5), 5)]
+        enrollments_per_day = stats.add_days_with_no_enrollments(enrollments_per_day)
+        self.assertEqual(enrollments_per_day[1], (datetime(year=2015, month=2, day=2), 0))
+        self.assertEqual(enrollments_per_day[3], (datetime(year=2015, month=2, day=4), 0))
+        self.assertEqual(enrollments_per_day[4], (datetime(year=2015, month=2, day=5), 5))
+
     def test_inactive_enrollments_are_not_included(self):
         course = CourseFactory.create()
         self.enroll_student(course, user__profile__country='FR', user__is_active=False)

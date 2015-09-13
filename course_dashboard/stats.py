@@ -1,5 +1,6 @@
 from collections import defaultdict
 from datetime import datetime
+from datetime import timedelta
 
 from django.conf import settings
 from django.db import connection
@@ -43,8 +44,19 @@ def enrollments_per_day(course_key_string=None, since=None):
             return date
         return datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
 
-    return [(dateify(result[period_name]), result['enrollment_count']) for result in query]
+    enrollments_per_day = [(dateify(result[period_name]), result['enrollment_count']) for result in query]
+    return add_days_with_no_enrollments(enrollments_per_day)
 
+def add_days_with_no_enrollments(enrollments_per_day):
+    if not enrollments_per_day:
+        return []
+    start_day = enrollments_per_day[0][0]
+    result_length = (enrollments_per_day[-1][0] - start_day).days + 1
+    result = [(start_day + timedelta(days=d), 0) for d in xrange(0, result_length)]
+    for day in enrollments_per_day:
+        index = (day[0] - start_day).days
+        result[index] = day
+    return result
 
 def population_by_country(course_key_string=None):
     """Get geographical stats for a given course.
