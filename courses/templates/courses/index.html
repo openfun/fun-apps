@@ -63,13 +63,13 @@ require(["jquery", "underscore", "backbone"],
                 {value: 'near-start', title: "Démarre bientôt", count: 12},
                 {value: 'demand', title: "A la demande", count: 12},
             ]},
-            {title: "Thèmes", name: 'subject', type: 'select', values: [
-                %for course_subject in course_subjects_by_score[:8]:
+            {title: "Thèmes", name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
+                %for course_subject in course_subjects_by_score:
                 {value: "${ course_subject.slug }", title: "${ course_subject.short_name or course_subject.name }", count: ${ course_subject.courses.count() }},
                 %endfor
             ]},
-            {title: "Etablissements", name: 'university', type: 'select', values: [
-                %for university in universities_by_score[:10]:
+            {title: "Etablissements", name: 'university', type: 'select', max: 10, all_button: "Tous les établissments", overlay: '#all-universities-overlay', values: [
+                %for university in universities_by_score:
                 {value: "${ university.slug }", title: "${ university.short_name or university.name }", count: ${ university.courses.count() }},
                 %endfor
             ]},
@@ -105,7 +105,6 @@ require(["jquery", "underscore", "backbone"],
                 if (image) {
                     this.$el.addClass('icon ' + image);
                 } else if (this.model.collection.parent.get('type') == 'checkbox') {
-
                     this.$el.addClass('filter-checkbox');
                 }
 
@@ -120,23 +119,41 @@ require(["jquery", "underscore", "backbone"],
             }
 
         });
-        var ValueCollectionView = Backbone.View.extend({
+        // only display `max` items in filter columns (others will be displayed when `all` button clicked)
+        var ShortValueCollectionView = Backbone.View.extend({
             tagName: 'ul',
             className: "criteria",
 
-            initialize: function() {
+            initialize: function(options) {
                 this.listenTo(this.collection, 'add', this.addOne);
+                this.max = options.max;
+                this.count = 0;
             },
 
             addOne: function(item) {
-                console.log('value addone');
+                if (this.count < this.max) {
+                    var view = new ValueView({model: item});
+                    this.$el.append(view.render().el);
+                    this.count += 1;
+                }
+            },
+
+        })
+        var LongValueCollectionView = Backbone.View.extend({
+            initialize: function() {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            addOne: function(item) {
                 var view = new ValueView({model: item});
                 this.$el.append(view.render().el);
             },
 
+
         })
 
         var Criterion = Backbone.Model.extend({
+            defaults: {  // if no max value, we use a big one to display all items (and save JS LOC)
+                "max":  100},
             initialize: function() {
                 this.valuecollection = new ValueCollection;
                 this.valuecollection.parent = this;
@@ -146,10 +163,15 @@ require(["jquery", "underscore", "backbone"],
         var CriterionView = Backbone.View.extend({
             tagName: 'div',
             //template: loadTemplate("li"),
-            events: {},
+
             initialize: function() {
-                //debugger
-                this.valuecollectionview = new ValueCollectionView({collection: this.model.valuecollection});
+                this.valuecollectionview = new ShortValueCollectionView(
+                        {collection: this.model.valuecollection, max: this.model.get('max')});
+
+                if (this.model.get('all_button')) {
+                    this.longvaluecollectionview = new LongValueCollectionView(
+                            {el: this.model.get('overlay') + ' ul', collection: this.model.valuecollection});
+                };
 
                 this.model.valuecollection.add(this.model.get("values"))
             },
@@ -158,12 +180,32 @@ require(["jquery", "underscore", "backbone"],
                 // on utilise pas de template ici
                 this.$el.html($('<h2>').text(this.model.get('title')));
                 this.$el.append(this.valuecollectionview.render().el);
+                if (this.model.get('all_button')) {
+                    this.$el.append($('<span>').attr(
+                            {'class': 'all-items-button'}).text(this.model.get('all_button')))
+                }
 
                 return this;
             },
 
-            events: {"click": "onClick"},
+            events: {
+                'click': 'onClick',
+                'click span.all-items-button': 'showAllItemsOverlay'},
 
+            showAllItemsOverlay: function(event) {
+                $('.hide-on-escape-key').hide();
+                var overlay_id = this.model.get('overlay');
+                $(overlay_id).show();
+
+                /* Calculate vertical overlay's position regarding clicked button */
+                var posy =  $(event.toElement).prev().prev().offset().top - $('.filters').offset().top - 40;
+                $(overlay_id).css('top', posy + 'px');
+
+                /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
+                var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
+                $(overlay_id).find('ul').css('height', (height * $('li.criterion').outerHeight(true)) + 'px');
+
+            },
             onClick: function(event) {
 
                 console.log(this.model.toJSON());
@@ -195,7 +237,6 @@ require(["jquery", "underscore", "backbone"],
         var AppView = Backbone.View.extend({
 
             el: $('#item-app'),
-            events: {},
             initialize: function(data) {
                 console.log('init');
                 var criterioncollection = new CriterionCollection;
@@ -218,20 +259,7 @@ require(["jquery", "underscore", "backbone"],
 
 
     var filter = {};
-    $('.all-items-button').on('click', function(event) {
-        console.log(event);
-        $('.hide-on-escape-key').hide();
-        var overlay_id = $(this).data('overlay_id')
-        $(overlay_id).show();
 
-        /* Calculate vertical overlay's position regarding clicked button */
-        var posy =  $(this).prev().prev().offset().top - $('.filters').offset().top - 40;
-        $(overlay_id).css('top', posy + 'px');
-
-        /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
-        var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
-        $(overlay_id).find('ul').css('height', (height * $('li.criterion').outerHeight(true)) + 'px');
-    });
 
     $('.criterion').on('click', function(event) {
         $('.hide-on-escape-key').hide();
@@ -323,32 +351,15 @@ require(["jquery", "underscore", "backbone"],
             </div>
 
             <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
-                <h2>Tous les tèmes</h2>
-                <ul class="criteria" data-criterion_type="subject">
-                    %for course_subject in course_subjects_by_name:
-                    <li class="criterion" data-criterion="${ course_subject.slug }">
-                        ${ course_subject.short_name or course_subject.name }
-                        <span class="badge pull-right">${ course_subject.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-
+                <h2>Tous les thèmes</h2>
+                <ul class="criteria"></ul>
             </div>
-
 
 
             <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
                 <h2>Tous les établissements</h2>
-                <ul class="criteria" data-criterion_type="university">
-
-                    %for university in universities_by_name:
-                    <li class="criterion" data-criterion="${ university.slug }">
-                        ${ university.short_name or university.name }
-                        <span class="badge pull-right">${ university.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-
+                <ul class="criteria"></ul>
+            </div>
 
         </div>
 
