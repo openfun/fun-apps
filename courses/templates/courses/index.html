@@ -31,7 +31,7 @@ universities_by_name = University.objects.by_name()
 </%def>
 
 
-% for template_name in ['li']:
+% for template_name in ['li', 'li2']:
 <script type="text/template" id="${template_name}-tpl">
   ${static_include("funsite/js/" + template_name + ".underscore")}
 </script>
@@ -41,7 +41,6 @@ universities_by_name = University.objects.by_name()
 <script>
 
 
-        console.log('require')
 
 require(["jquery", "underscore", "backbone"],
     function ($, _, Backbone) {
@@ -58,26 +57,80 @@ require(["jquery", "underscore", "backbone"],
 
 
         var filters = [
-            {name: 'criterion1', type: 'type1', values: ['a', 'b', 'c']},
-            {name: 'criterion2', type: 'type1', values: ['d', 'e', 'v']},
+            {name: 'criterion1', type: 'type1', values: [{value: 'a', title: 'A'}, {value: 'b', title: 'B'}, {value: 'c', title: 'C'}]},
+            {name: 'criterion2', type: 'type1', values: [{value: 'd', title: 'D'}, {value: 'e', title: 'E'}, {value: 'f', title: 'F'}]},
             ];
 
         var Value = Backbone.Model.extend({});
-        var Criterion = Backbone.Model.extend({});
-        var CriterionView = Backbone.View.extend({
+        var ValueCollection = Backbone.Collection.extend({
+            model: Value
+        });
+        var ValueView = Backbone.View.extend({
             tagName: 'li',
-            className: "criterion",
-            template: loadTemplate("li"),
+            className: "value",
+            template: loadTemplate("li2"),
+
             events: {"click": "onClick"},
+
             initialize: function() {},
 
             render: function() {
                 this.$el.html(this.template(this.model.toJSON()));
                 return this;
             },
-            onClick: function() {
-                this.model.trigger('selected', this.model);
+            onClick: function(event) {
+                console.log(this.model.toJSON());
             }
+
+        });
+        var ValueCollectionView = Backbone.View.extend({
+            tagName: 'ul',
+            initialize: function() {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+
+            addOne: function(item) {
+                console.log('value addone');
+                var view = new ValueView({model: item});
+                this.$el.append(view.render().el);
+            },
+
+        })
+
+        var Criterion = Backbone.Model.extend({
+            initialize: function() {
+                this.valuecollection = new ValueCollection;
+                this.valuecollectionview = new ValueCollectionView({collection: this.valuecollection});
+                for (var i = this.toJSON().values.length - 1; i >= 0; i--) {
+                    this.valuecollection.add(this.toJSON().values[i])
+                };
+            },
+
+        });
+        var CriterionView = Backbone.View.extend({
+            tagName: 'li',
+            className: "criterion",
+            template: loadTemplate("li"),
+            events: {},
+            initialize: function() {
+                this.$el.append(this.model.valuecollectionview.render().el);
+            },
+
+
+            render: function() {
+                var data = this.model.toJSON();
+                var children = this.$el.children();
+                this.$el.html(this.template(data)).append(children);
+                return this;
+            },
+
+            events: {"click": "onClick"},
+
+            onClick: function(event) {
+
+                console.log(this.model.toJSON());
+            }
+
         })
 
 
@@ -92,7 +145,7 @@ require(["jquery", "underscore", "backbone"],
             },
 
             addOne: function(item) {
-                console.log('addone');
+                console.log('criterion addone');
                 var view = new CriterionView({model: item});
                 this.$el.append(view.render().el);
             },
@@ -113,8 +166,6 @@ require(["jquery", "underscore", "backbone"],
                 this.$el.append(criterioncollectionview.render().el);
 
 
-                this.listenTo(criterioncollection, "selected", this.clickItem)
-
                 for (var i = data.filters.length - 1; i >= 0; i--) {
                     console.log('iteration');
                     criterioncollection.add(data.filters[i])
@@ -131,40 +182,6 @@ require(["jquery", "underscore", "backbone"],
 
 
 
-
-/*
-
-
-        var AppView = Backbone.View.extend({
-            events: {'click': 'onClickUpdate'},
-            initialize: function() {
-                var courselist = new CourseList();
-                courselist.fetch();
-
-            },
-            onClickUpdate: function() {
-                console.log('test')
-            },
-
-        });
-
-        var Course = Backbone.Model.extend({
-
-        });
-        var CourseView = Backbone.View.extend({
-
-        });
-
-        var CourseList = Backbone.Collection.extend({
-            //url: '/cours/api/',
-            parse: function(data) {
-                return data.courses;
-            },
-        });
-
-        console.log('start');
-        var appview = new AppView({el: $('.courses-page')});
-*/
 
     });
 
