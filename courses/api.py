@@ -45,6 +45,7 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
+        queryset = queryset.filter(is_active=True)
         queryset = queryset.prefetch_related('subjects', 'universities')
         queryset = self.filter_queryset(queryset)
         return queryset
