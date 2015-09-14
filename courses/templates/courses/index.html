@@ -117,11 +117,8 @@ require(["jquery", "underscore", "backbone"],
                 this.$el.append(this.valuecollectionview.render().el);
             },
 
-
             render: function() {
-                var data = this.model.toJSON();
-                var children = this.$el.children();
-                this.$el.html(this.template(data)).append(children);
+                this.$el.prepend(this.template(this.model.toJSON()));
                 return this;
             },
 
@@ -169,9 +166,6 @@ require(["jquery", "underscore", "backbone"],
                 criterioncollection.add(data.filters)
 
             },
-            clickItem: function(item) {
-                console.log(item);
-            }
         });
 
 
