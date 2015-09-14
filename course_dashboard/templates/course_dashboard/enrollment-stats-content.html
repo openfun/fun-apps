@@ -8,26 +8,19 @@
 </div>
 
 <div class="row">
-    <div class="thumbnail col-md-3 key-stats">
+    <div class="thumbnail col-md-4 key-stats">
         <h2>&nbsp;</h2>
         <h1>${total_population}</h1>
         <h2>${_("students enrolled over %d days") % day_span}</h2>
     </div>
     %if best_day:
-    <div class="thumbnail col-md-3 key-stats">
+    <div class="thumbnail col-md-4 key-stats">
         <h2>${_("Day with most enrollments:")}</h2>
         <h1>${best_day[0]}</h1>
         <h2>${_("%d enrollments") % best_day[1]}</h2>
     </div>
     %endif
-    %if worst_day:
-    <div class="thumbnail col-md-3 key-stats">
-        <h2>${_("Day with least enrollments:")}</h2>
-        <h1>${worst_day[0]}</h1>
-        <h2>${_("%d enrollments") % worst_day[1]}</h2>
-    </div>
-    %endif
-    <div class="thumbnail col-md-3 key-stats">
+    <div class="thumbnail col-md-4 key-stats">
         <h2>&nbsp;</h2>
         <h2>${_("An average of")}</h2>
         <h1>${"%.2f" % average_enrollments_per_day}</h1>

@@ -43,10 +43,8 @@ def enrollment_stats_response(request, enrollments, template):
 def enrollment_stats_context(enrollments):
     enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments.per_date)
     best_day = None
-    worst_day = None
     if enrollments_per_day:
         best_day = max(enrollments_per_day, key=lambda e: e[1])
-        worst_day = min(enrollments_per_day, key=lambda e: e[1])
 
     return {
         "active_tab": "enrollment_stats",
@@ -55,7 +53,6 @@ def enrollment_stats_context(enrollments):
         "enrollments_per_timestamp": enrollments_per_timestamp,
         "average_enrollments_per_day": enrollments.daily_average(),
         "best_day": best_day,
-        "worst_day": worst_day,
         "total_population": enrollments.total(),
         "day_span": enrollments.day_span(),
     }
