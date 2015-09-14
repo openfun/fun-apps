@@ -14,6 +14,7 @@ from .managers import CourseSubjectManager
 
 
 class Course(models.Model):
+    modification_date = models.DateTimeField(_('modification date'), auto_now=True)
     key = models.CharField(max_length=200, verbose_name=_(u'Course key'),
         unique=True)
     universities = models.ManyToManyField('universities.University',
@@ -22,6 +23,9 @@ class Course(models.Model):
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
         choices=courses_choices.COURSE_LEVEL_CHOICES, blank=True, db_index=True)
+    is_active = models.BooleanField(verbose_name=_('is active'), default=False)
+    prevent_auto_update = models.BooleanField(
+        verbose_name=_('prevent automatic update'), default=False)
     is_new = models.BooleanField(verbose_name=_('new course'), db_index=True,
         default=False)
     on_demand = models.BooleanField(verbose_name=_('on demand'), db_index=True,
