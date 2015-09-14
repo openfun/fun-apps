@@ -31,7 +31,7 @@ universities_by_name = University.objects.by_name()
 </%def>
 
 
-% for template_name in ['criterion', 'li', 'li2']:
+% for template_name in ['li', 'li2']:
 <script type="text/template" id="${template_name}-tpl">
   ${static_include("funsite/js/" + template_name + ".underscore")}
 </script>
@@ -100,10 +100,22 @@ require(["jquery", "underscore", "backbone"],
             initialize: function() {},
 
             render: function() {
+                // if an image is provided we add some CSS classes
+                var image = this.model.get('image');
+                if (image) {
+                    this.$el.addClass('icon ' + image);
+                } else if (this.model.collection.parent.get('type') == 'checkbox') {
+
+                    this.$el.addClass('filter-checkbox');
+                }
+
                 this.$el.html(this.template(this.model.toJSON()));
                 return this;
             },
             onClick: function(event) {
+                if (this.model.collection.parent.get('type') == 'checkbox') {
+                    this.$el.toggleClass('checked');
+                }
                 console.log(this.model.toJSON());
             }
 
@@ -127,6 +139,7 @@ require(["jquery", "underscore", "backbone"],
         var Criterion = Backbone.Model.extend({
             initialize: function() {
                 this.valuecollection = new ValueCollection;
+                this.valuecollection.parent = this;
             },
 
         });
@@ -271,11 +284,6 @@ require(["jquery", "underscore", "backbone"],
 </div>
 
 
-    <div id="item-app">
-
-    </div>
-
-
     %for course in courses:
         <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
             ${get_course_about_section(course, 'title')}<br>
@@ -291,72 +299,9 @@ require(["jquery", "underscore", "backbone"],
             <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
                 <h1>Recherche</h1>
-                <div>
-                <h2>Disponibilité</h2>
-                <ul class="criteria" data-criterion_type="state">
-                    <li class="criterion" data-criterion="new">Nouveau cours<span class="badge pull-right">22</span></li>
-                    <li class="criterion" data-criterion="near-end">Fin d'inscription imminente<span class="badge pull-right">5</span></li>
-                    <li class="criterion" data-criterion="near-start">Démarre bientôt<span class="badge pull-right">99</span></li>
-                    <li class="criterion" data-criterion="demand">A la demande<span class="badge pull-right">27</span></li>
-                </ul>
-                </div>
 
-                <div>
-                <h2>Thèmes</h2>
-                <ul class="criteria" data-criterion_type="subject">
-                    %for course_subject in course_subjects_by_score[:8]:
-                    <li class="criterion" data-criterion="${ course_subject.slug }">
-                        ${ course_subject.short_name or course_subject.name }
-                        <span class="badge pull-right">${ course_subject.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-                <span class="all-items-button" data-overlay_id="#all-themes-overlay">Toutes les thèmes</span>
-                </div>
+                <div id="item-app">
 
-                <div>
-                <h2>Établissements</h2>
-                <ul class="criteria" data-criterion_type="university">
-                    %for university in universities_by_score[:10]:
-                    <li class="criterion" data-criterion="${ university.slug }">
-                        ${ university.short_name or university.name }
-                        <span class="badge pull-right">${ university.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-                <span class="all-items-button" data-overlay_id="#all-universities-overlay">Tous les établissements</span>
-                </div>
-
-                <div>
-                <h2>Formation certifiante</h2>
-                <ul class="criteria" data-criterion_type="certificate">
-                    <li class="criterion filter-checkbox" data-criterion="">
-                        Certificat
-                        <span class="badge pull-right">50</span>
-                    </li>
-                </ul>
-                </div>
-
-                <div>
-                <h2>Langue</h2>
-                <ul class="criteria" data-criterion_type="language">
-                    <li class="criterion icon french-flag" data-criterion="fr">
-                        Français
-                        <span class="badge pull-right">103</span>
-                    </li>
-                    <li class="criterion icon english-flag" data-criterion="en">
-                        English
-                        <span class="badge pull-right">5</span>
-                    </li>
-                    <li class="criterion icon german-flag" data-criterion="de">
-                        Deutsche
-                        <span class="badge pull-right">2</span>
-                    </li>
-                    <li class="criterion icon spanish-flag" data-criterion="es">
-                        Español
-                        <span class="badge pull-right">1</span>
-                    </li>
-                </ul>
                 </div>
 
             </div>
