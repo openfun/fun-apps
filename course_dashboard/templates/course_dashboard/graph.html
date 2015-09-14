@@ -47,7 +47,8 @@
         $("#${figure_id}").bind("plothover", function (event, pos, item) {
             if (item) {
                 var count = item.datapoint[1];
-                $("#figure-tooltip").html(count)
+                var date = new Date(item.datapoint[0]).toLocaleDateString();
+                $("#figure-tooltip").html(count + " - " + date)
                     .css({top: item.pageY-30, left: item.pageX+5})
                     .fadeIn(200);
             } else {
