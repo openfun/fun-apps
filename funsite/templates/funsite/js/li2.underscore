@@ -1,1 +1,2 @@
 <%= title %>
+<span class="badge pull-right"><%= count %></span>

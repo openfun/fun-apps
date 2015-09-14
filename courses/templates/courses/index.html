@@ -31,7 +31,7 @@ universities_by_name = University.objects.by_name()
 </%def>
 
 
-% for template_name in ['li', 'li2']:
+% for template_name in ['criterion', 'li', 'li2']:
 <script type="text/template" id="${template_name}-tpl">
   ${static_include("funsite/js/" + template_name + ".underscore")}
 </script>
@@ -57,9 +57,34 @@ require(["jquery", "underscore", "backbone"],
 
 
         var filters = [
-            {name: 'criterion1', type: 'type1', values: [{value: 'a', title: 'A'}, {value: 'b', title: 'B'}, {value: 'c', title: 'C'}]},
-            {name: 'criterion2', type: 'type1', values: [{value: 'd', title: 'D'}, {value: 'e', title: 'E'}, {value: 'f', title: 'F'}]},
-            ];
+            {title: "Disponibilité", name: 'state', type: 'select', values: [
+                {value: 'new', title: "Nouveau", count: 12},
+                {value: 'nead-end', title: "Fin d'inscription imminente", count: 12},
+                {value: 'near-start', title: "Démarre bientôt", count: 12},
+                {value: 'demand', title: "A la demande", count: 12},
+            ]},
+            {title: "Thèmes", name: 'subject', type: 'select', values: [
+                %for course_subject in course_subjects_by_score[:8]:
+                {value: "${ course_subject.slug }", title: "${ course_subject.short_name or course_subject.name }", count: ${ course_subject.courses.count() }},
+                %endfor
+            ]},
+            {title: "Etablissements", name: 'university', type: 'select', values: [
+                %for university in universities_by_score[:10]:
+                {value: "${ university.slug }", title: "${ university.short_name or university.name }", count: ${ university.courses.count() }},
+                %endfor
+            ]},
+            {title: "Formation certifiante", name: 'certificate', type: 'checkbox', values: [
+                {value: "certificat", title: "Certificate", count: 50 },
+            ]},
+            {title: "Langue", name: 'language', type: 'select', values: [
+                {value: 'fr', title: "Français", image: 'french-flag', count: 12},
+                {value: 'en', title: "English", image: 'english-flag', count: 12},
+                {value: 'de', title: "Deutsche", image: 'german-flag', count: 12},
+                {value: 'es', title: "Español", image: 'spanish-flag', count: 12},
+            ]},
+
+
+        ];
 
         var Value = Backbone.Model.extend({});
         var ValueCollection = Backbone.Collection.extend({
@@ -67,7 +92,7 @@ require(["jquery", "underscore", "backbone"],
         });
         var ValueView = Backbone.View.extend({
             tagName: 'li',
-            className: "value",
+            className: "criterion",
             template: loadTemplate("li2"),
 
             events: {"click": "onClick"},
@@ -85,6 +110,8 @@ require(["jquery", "underscore", "backbone"],
         });
         var ValueCollectionView = Backbone.View.extend({
             tagName: 'ul',
+            className: "criteria",
+
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
             },
@@ -104,21 +131,21 @@ require(["jquery", "underscore", "backbone"],
 
         });
         var CriterionView = Backbone.View.extend({
-            tagName: 'li',
-            className: "criterion",
-            template: loadTemplate("li"),
+            tagName: 'div',
+            //template: loadTemplate("li"),
             events: {},
             initialize: function() {
                 //debugger
                 this.valuecollectionview = new ValueCollectionView({collection: this.model.valuecollection});
 
                 this.model.valuecollection.add(this.model.get("values"))
-
-                this.$el.append(this.valuecollectionview.render().el);
             },
 
             render: function() {
-                this.$el.prepend(this.template(this.model.toJSON()));
+                // on utilise pas de template ici
+                this.$el.html($('<h2>').text(this.model.get('title')));
+                this.$el.append(this.valuecollectionview.render().el);
+
                 return this;
             },
 
@@ -137,7 +164,7 @@ require(["jquery", "underscore", "backbone"],
         });
 
         var CriterionCollectionView = Backbone.View.extend({
-            tagName: 'ul',
+
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
             },
@@ -250,7 +277,7 @@ require(["jquery", "underscore", "backbone"],
 
 
     %for course in courses:
-          <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+        <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
             ${get_course_about_section(course, 'title')}<br>
         </a>
     %endfor
@@ -264,6 +291,7 @@ require(["jquery", "underscore", "backbone"],
             <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
                 <h1>Recherche</h1>
+                <div>
                 <h2>Disponibilité</h2>
                 <ul class="criteria" data-criterion_type="state">
                     <li class="criterion" data-criterion="new">Nouveau cours<span class="badge pull-right">22</span></li>
@@ -271,7 +299,9 @@ require(["jquery", "underscore", "backbone"],
                     <li class="criterion" data-criterion="near-start">Démarre bientôt<span class="badge pull-right">99</span></li>
                     <li class="criterion" data-criterion="demand">A la demande<span class="badge pull-right">27</span></li>
                 </ul>
+                </div>
 
+                <div>
                 <h2>Thèmes</h2>
                 <ul class="criteria" data-criterion_type="subject">
                     %for course_subject in course_subjects_by_score[:8]:
@@ -282,7 +312,9 @@ require(["jquery", "underscore", "backbone"],
                     %endfor
                 </ul>
                 <span class="all-items-button" data-overlay_id="#all-themes-overlay">Toutes les thèmes</span>
+                </div>
 
+                <div>
                 <h2>Établissements</h2>
                 <ul class="criteria" data-criterion_type="university">
                     %for university in universities_by_score[:10]:
@@ -293,7 +325,9 @@ require(["jquery", "underscore", "backbone"],
                     %endfor
                 </ul>
                 <span class="all-items-button" data-overlay_id="#all-universities-overlay">Tous les établissements</span>
+                </div>
 
+                <div>
                 <h2>Formation certifiante</h2>
                 <ul class="criteria" data-criterion_type="certificate">
                     <li class="criterion filter-checkbox" data-criterion="">
@@ -301,6 +335,9 @@ require(["jquery", "underscore", "backbone"],
                         <span class="badge pull-right">50</span>
                     </li>
                 </ul>
+                </div>
+
+                <div>
                 <h2>Langue</h2>
                 <ul class="criteria" data-criterion_type="language">
                     <li class="criterion icon french-flag" data-criterion="fr">
@@ -320,7 +357,7 @@ require(["jquery", "underscore", "backbone"],
                         <span class="badge pull-right">1</span>
                     </li>
                 </ul>
-
+                </div>
 
             </div>
         </div>
