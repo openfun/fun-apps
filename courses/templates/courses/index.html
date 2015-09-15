@@ -114,6 +114,7 @@ require(["jquery", "underscore", "backbone"],
             onClick: function(event) {
                 if (this.model.collection.parent.get('type') == 'checkbox') {
                     this.$el.toggleClass('checked');
+                    this.model.set('value', this.$el.hasClass('checked') ? 'certificate' : '');
                 }
                 this.model.collection.trigger('valueSelected', this.model);
             }
@@ -131,6 +132,8 @@ require(["jquery", "underscore", "backbone"],
                 this.count = 0;
             },
             valueSelected: function(item) {
+                // ShortValueCollectionView and LongValueCollectionView use the same collection,
+                // so this event will be triggered for both display
                 this.collection.parent.collection.trigger('criterionSelected', item)
             },
             addOne: function(item) {
@@ -165,7 +168,6 @@ require(["jquery", "underscore", "backbone"],
 
         var CriterionView = Backbone.View.extend({
             tagName: 'div',
-            //template: loadTemplate("li"),
 
             initialize: function() {
                 this.valuecollectionview = new ShortValueCollectionView(
@@ -235,7 +237,7 @@ require(["jquery", "underscore", "backbone"],
             criterionSelected: function(item) {
                 var value = item.get('value')
                 var criterion = item.collection.parent.get('name')
-                console.log(criterion +': ' + value )
+                console.log(criterion +': ' + value)
             }
 
         })
@@ -243,7 +245,7 @@ require(["jquery", "underscore", "backbone"],
 
 
         var AppView = Backbone.View.extend({
-
+            filter: {},
             el: $('#item-app'),
             initialize: function(data) {
                 var criterioncollection = new CriterionCollection;
