@@ -95,9 +95,9 @@ require(["jquery", "underscore", "backbone"],
             className: "criterion",
             template: loadTemplate("li2"),
 
-            events: {"click": "onClick"},
-
             initialize: function() {},
+
+            events: {"click": "onClick"},
 
             render: function() {
                 // if an image is provided we add some CSS classes
@@ -115,7 +115,7 @@ require(["jquery", "underscore", "backbone"],
                 if (this.model.collection.parent.get('type') == 'checkbox') {
                     this.$el.toggleClass('checked');
                 }
-                console.log(this.model.toJSON());
+                this.model.collection.trigger('valueSelected', this.model);
             }
 
         });
@@ -126,10 +126,13 @@ require(["jquery", "underscore", "backbone"],
 
             initialize: function(options) {
                 this.listenTo(this.collection, 'add', this.addOne);
+                this.listenTo(this.collection, 'valueSelected', this.valueSelected);
                 this.max = options.max;
                 this.count = 0;
             },
-
+            valueSelected: function(item) {
+                this.collection.parent.collection.trigger('criterionSelected', item)
+            },
             addOne: function(item) {
                 if (this.count < this.max) {
                     var view = new ValueView({model: item});
@@ -158,8 +161,8 @@ require(["jquery", "underscore", "backbone"],
                 this.valuecollection = new ValueCollection;
                 this.valuecollection.parent = this;
             },
-
         });
+
         var CriterionView = Backbone.View.extend({
             tagName: 'div',
             //template: loadTemplate("li"),
@@ -172,8 +175,8 @@ require(["jquery", "underscore", "backbone"],
                     this.longvaluecollectionview = new LongValueCollectionView(
                             {el: this.model.get('overlay') + ' ul', collection: this.model.valuecollection});
                 };
-
                 this.model.valuecollection.add(this.model.get("values"))
+
             },
 
             render: function() {
@@ -189,7 +192,6 @@ require(["jquery", "underscore", "backbone"],
             },
 
             events: {
-                'click': 'onClick',
                 'click span.all-items-button': 'showAllItemsOverlay'},
 
             showAllItemsOverlay: function(event) {
@@ -220,15 +222,21 @@ require(["jquery", "underscore", "backbone"],
 
         var CriterionCollectionView = Backbone.View.extend({
 
+            events: {'click li.criterion': 'valueSelected'},
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
+                this.listenTo(this.collection, 'criterionSelected', this.criterionSelected)
             },
 
             addOne: function(item) {
-                console.log('criterion addone');
                 var view = new CriterionView({model: item});
                 this.$el.append(view.render().el);
             },
+            criterionSelected: function(item) {
+                var value = item.get('value')
+                var criterion = item.collection.parent.get('name')
+                console.log(criterion +': ' + value )
+            }
 
         })
 
@@ -238,21 +246,17 @@ require(["jquery", "underscore", "backbone"],
 
             el: $('#item-app'),
             initialize: function(data) {
-                console.log('init');
                 var criterioncollection = new CriterionCollection;
                 var criterioncollectionview = new CriterionCollectionView({collection: criterioncollection});
 
                 this.$el.append(criterioncollectionview.render().el);
 
                 criterioncollection.add(data.filters)
-
             },
+
         });
 
-
         var App = new AppView({filters: filters});
-
-
 
 
     });
