@@ -668,6 +668,36 @@ ul.universities-list {
     background: url('/static/funsite/images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
     }
 
+#display-filter {
+
+}
+#display-filter h3 {
+    margin: 0;
+    display: inline-block;
+    color: #3877BC;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 6px;
+}
+#display-filter ul {
+    list-style: none;
+    padding-left: 12px;
+    padding-right: 0;
+    display: inline-block;
+}
+#display-filter li {
+    float: left;
+    padding-right: 0;
+}
+#display-filter ul>li>ul {
+}
+#display-filter ul>li>ul>li {
+    color: white;
+    background-color: #08223C;
+    padding: 3px 6px 3px 6px;
+    font-size: 12px;
+}
+
 
 /* static content pages */
 .simple-content {

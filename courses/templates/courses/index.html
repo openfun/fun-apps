@@ -247,24 +247,29 @@ require(["jquery", "underscore", "backbone"],
 
         });
         FilterView = Backbone.View.extend({
-            el: $('#display-filter'),
+            el: $('#display-filter span'),
 
             initialize: function(){
                 this.listenTo(this.model, 'change', this.render)
             },
 
             render: function() {
-                var $ul = $('<ul>').addClass('filter-criteria')
-                // iterate on model's properties to dynamicaly create appropriate DOM element
+                var $ul = $('<ul>')
+                // iterate on model's properties to dynamicaly create appropriate DOM element and bind remove criterion function
                 _.each(this.model.toJSON(), function(value, key, obj) {
-                    var $li = $('<li>').text(key).append('<ul>');
+                    var $li = $('<li>').append('<ul>');
                     _.each(value, function(value) {  // ready for not yet implemented multiple values criterion
-                        $li.find('ul').append($('<li>').text(value.title));
-                    });
+                         var element = $('<li>').text(value.title).append($('<span>').addClass('glyphicon glyphicon-remove'))
+                         element.on('click', function() {
+                            this.model.set(key, [])  // remove
+                         }.bind(this))
+                         $li.find('ul').append(element);
+
+                    }.bind(this));
                     if (value.length) {
                         $ul.append($li);
                     };
-                });
+                }.bind(this));
                 this.$el.html($ul);
                 return this;
             },
@@ -363,9 +368,6 @@ require(["jquery", "underscore", "backbone"],
         </a>
     %endfor
 
-<div id="display-filter">
-</div>
-
 
 <div class="course-list">
 
@@ -374,7 +376,8 @@ require(["jquery", "underscore", "backbone"],
         <div class="col-md-12 col-sm-12">
             <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
-                <h1>Recherche</h1>
+
+                <h1>${_(u"Refile search results")}</h1>
 
                 <div id="item-app">
 
@@ -385,9 +388,21 @@ require(["jquery", "underscore", "backbone"],
 
         <div class="col-md-24 col-sm-24">
             <div class="pagination">
-
             </div>
+
+
             <div class="list">
+            <div id="display-filter">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h3>Votre recherche</h3>
+                    </div>
+                    <div class="col-md-31">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
                 <ul>
                     %for a in range(30):  ## multiple of 5, 3, 2 and 1
                     <li>
