@@ -139,6 +139,7 @@ require(["jquery", "underscore", "backbone"],
                 // ShortValueCollectionView and LongValueCollectionView use the same collection,
                 // so this event will be triggered for both display
                 this.collection.parent.collection.trigger('criterionSelected', item)
+                $('.hide-on-escape-key').hide();
             },
             addOne: function(item) {
                 if (this.count < this.max) {
@@ -228,60 +229,87 @@ require(["jquery", "underscore", "backbone"],
 
         var CriterionCollectionView = Backbone.View.extend({
 
-            events: {'click li.criterion': 'valueSelected'},
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
-                this.listenTo(this.collection, 'criterionSelected', this.criterionSelected)
             },
 
             addOne: function(item) {
                 var view = new CriterionView({model: item});
                 this.$el.append(view.render().el);
             },
-            criterionSelected: function(item) {
-                var value = item.get('value')
-                var criterion = item.collection.parent.get('name')
-                console.log(criterion +': ' + value)
-            }
+
+        })
+
+        Filter = Backbone.Model.extend({
+            defaults: {
+                // we use lists here because we could have several values for the same criterion
+                state: [],
+                language: [],
+                subject: [],
+                university: [],
+                certificate: [],
+            },
+
+        });
+        FilterView = Backbone.View.extend({
+            el: $('#display-filter span'),
+
+            initialize: function(){
+                this.listenTo(this.model, 'change', this.render)
+            },
+
+            render: function() {
+                var $ul = $('<ul>')
+                // iterate on model's properties to dynamicaly create appropriate DOM element and bind remove criterion function
+                _.each(this.model.toJSON(), function(value, key, obj) {
+                    var $li = $('<li>').append('<ul>');
+                    _.each(value, function(value) {  // ready for not yet implemented multiple values criterion
+                         var element = $('<li>').text(value.title).append($('<span>').addClass('glyphicon glyphicon-remove'))
+                         element.on('click', function() {
+                            this.model.set(key, [])  // remove
+                         }.bind(this))
+                         $li.find('ul').append(element);
+
+                    }.bind(this));
+                    if (value.length) {
+                        $ul.append($li);
+                    };
+                }.bind(this));
+                this.$el.html($ul);
+                return this;
+            },
 
         })
 
 
-
         var AppView = Backbone.View.extend({
-            filter: {},
             el: $('#item-app'),
             initialize: function(data) {
                 var criterioncollection = new CriterionCollection;
                 var criterioncollectionview = new CriterionCollectionView({collection: criterioncollection});
 
+                this.listenTo(criterioncollection, 'criterionSelected', this.criterionSelected)
                 this.$el.append(criterioncollectionview.render().el);
-
                 criterioncollection.add(data.filters)
+
+                this.filter = new Filter;
+                this.filterview = new FilterView({model: this.filter});
+
             },
+            criterionSelected: function(item) {
+                var criterion = item.collection.parent.get('name');
+                var value = {value: item.get('value'), title: item.get('title')};
+
+                this.filter.set(criterion, [value]);
+
+                console.log(this.filter.toJSON());
+            }
 
         });
 
         var App = new AppView({filters: filters});
 
 
-    });
-
-
-    var filter = {};
-
-
-    $('.criterion').on('click', function(event) {
-        $('.hide-on-escape-key').hide();
-        var criterion_type = $(this).parent().data('criterion_type');
-
-        if ($(this).hasClass('filter-checkbox')) {
-            $(this).toggleClass('checked');
-            filter[criterion_type] = $(this).hasClass('checked');
-        } else {
-            filter[criterion_type] = $(this).data('criterion');
-        }
-        console.log(filter);
     });
 
 
@@ -336,7 +364,8 @@ require(["jquery", "underscore", "backbone"],
         <div class="col-md-12 col-sm-12">
             <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
-                <h1>Recherche</h1>
+
+                <h1>${_(u"Refile search results")}</h1>
 
                 <div id="item-app">
 
@@ -347,9 +376,21 @@ require(["jquery", "underscore", "backbone"],
 
         <div class="col-md-24 col-sm-24">
             <div class="pagination">
-
             </div>
+
+
             <div class="list">
+                <div id="display-filter">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h3>Votre recherche</h3>
+                        </div>
+                        <div class="col-md-31">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+
                 <ul>
                     %for a in range(30):  ## multiple of 5, 3, 2 and 1
                     <li>
