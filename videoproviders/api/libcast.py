@@ -475,8 +475,10 @@ class Client(BaseClient):
         )
 
     def delete_video_subtitle(self, video_id, subtitle_id):
+        resource = self.get_resource(video_id)
+        file_slug = self.get_resource_file_slug(resource)
         self.safe_delete(
-            self.urls.subtitle_path(video_id, subtitle_id),
+            self.urls.subtitle_path(file_slug, subtitle_id),
             message=_("Could not delete subtitle")
         )
 
