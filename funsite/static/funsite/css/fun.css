@@ -402,18 +402,12 @@ div.page-image.home-page h1 {
     margin-top: 0;
     margin-bottom: 0;
     padding-top: 90px;
-    font-size: 36px;
-    font-weight: 600;
-    text-align: center;
-    color: white;
-}
-div.page-image.home-page h2 {
-    margin-top: 2px;
     font-size: 50px;
-    font-weight: 600;
+    font-weight: 500;
     text-align: center;
     color: white;
 }
+
 div.page-image.home-page span.logo-fun {
     width: 195px;
     height: 180px;
@@ -463,16 +457,88 @@ ul.secondary-highlight li {
     margin: 16px;
 }
 
+/* Small course block */
 .small-course {
     width: 270px;
     height: 340px;
     background-color: white;
+    margin-bottom: 30px;
 }
 
+.small-course div.top {
+    text-align: center;
+    height: 172px;
+}
 .small-course img.main {
+    position: relative;
+    top: -32px;
     margin: 0px;
+    width: 270px;
+    height: 152px;
+    margin-bottom: 20px;
+}
+.small-course div.type {
+    position: relative;
+    top: 128px;
+    left: 60px;
+    background-color: #CBCCCD;
+    color: #08223B;
+    width: 150px;
+    height: 32px;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 1000;
+    text-transform: uppercase;
 }
 
+.small-course div.middle {
+    text-align: center;
+    height: 120px;
+}
+
+.small-course div.bottom {
+}
+
+.small-course div.title {
+    position relative
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    color: #08223B;
+    margin-bottom: 8px;
+}
+.small-course div.universities {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #656667;
+}
+.small-course div.footer {
+    margin-left: 0;
+    position: relative;
+    width: 270px;
+    border-top: 1px solid #CBCCCD;
+}
+.small-course div.footer .date {
+    padding-left: 46px;
+    padding-top: 4px;
+    background: url('/static/funsite/images/icones/calendar.png') 10px 8px no-repeat;
+    font-weith: 500;
+    color: #656667;
+}
+.small-course div.footer .register {
+    padding-top: 12px;
+    background-color: #3877BC;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    height: 47px;
+    font-weight: 600;
+}
 /** Page specific CSS **/
 
 
