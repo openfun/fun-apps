@@ -73,7 +73,7 @@ class ContactTest(TestCase):
         """
         response = self.client.post('/contact/', self.post_vars)
 
-        self.assertRedirects(response, reverse('contact_form_sent'))
+        self.assertRedirects(response, reverse('contact:contact_form_sent'))
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn('Contact', mail.outbox[0].subject)
         self.assertIn('FUN', mail.outbox[0].subject)
