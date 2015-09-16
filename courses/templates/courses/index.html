@@ -135,6 +135,7 @@ require(["jquery", "underscore", "backbone"],
                 // ShortValueCollectionView and LongValueCollectionView use the same collection,
                 // so this event will be triggered for both display
                 this.collection.parent.collection.trigger('criterionSelected', item)
+                $('.hide-on-escape-key').hide();
             },
             addOne: function(item) {
                 if (this.count < this.max) {
@@ -308,23 +309,6 @@ require(["jquery", "underscore", "backbone"],
     });
 
 
-    var filter = {};
-
-
-    $('.criterion').on('click', function(event) {
-        $('.hide-on-escape-key').hide();
-        var criterion_type = $(this).parent().data('criterion_type');
-
-        if ($(this).hasClass('filter-checkbox')) {
-            $(this).toggleClass('checked');
-            filter[criterion_type] = $(this).hasClass('checked');
-        } else {
-            filter[criterion_type] = $(this).data('criterion');
-        }
-        console.log(filter);
-    });
-
-
 </script>
 </%block>
 
@@ -392,16 +376,16 @@ require(["jquery", "underscore", "backbone"],
 
 
             <div class="list">
-            <div id="display-filter">
-                <div class="row">
-                    <div class="col-md-5">
-                        <h3>Votre recherche</h3>
-                    </div>
-                    <div class="col-md-31">
-                        <span></span>
+                <div id="display-filter">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h3>Votre recherche</h3>
+                        </div>
+                        <div class="col-md-31">
+                            <span></span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 <ul>
                     %for a in range(30):  ## multiple of 5, 3, 2 and 1

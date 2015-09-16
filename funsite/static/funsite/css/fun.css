@@ -189,8 +189,6 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        border: 1px solid red;
-        position: relative;
         left: -280px;
         width: 1500px;
     }
@@ -246,8 +244,6 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        border: 1px solid red;
-        position: relative;
         left: -80px;
         width: 900px;
     }
@@ -295,9 +291,7 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        border: 1px solid red;
-        position: relative;
-        left: 24px;
+        left: 60px;
         width: 600px;
     }
     .criteria-overlay {
@@ -349,6 +343,11 @@ ul..footer-links.right {
         display: block !important;
     }
 
+    .course-list .list {
+        left: 24px;
+        width: 600px;
+    }
+
     div.page-image {
         width: 768px;
         height: 260px;
@@ -373,6 +372,13 @@ ul..footer-links.right {
     .visible-320 {
         display: block !important;
     }
+
+    .course-list .list {
+        left: 24px;
+        width: 320px;
+    }
+
+
     .footer-links {
         width: 100%;
     }
@@ -531,6 +537,9 @@ ul.universities-list {
 /* Courses filtering and searching courses/index.html */
 
 .course-list {
+    border: 1px solid red;
+    position: relative;
+
 }
 
 .course-list .list ul {
