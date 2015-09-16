@@ -26,6 +26,8 @@ class CourseSerializer(serializers.ModelSerializer):
             'id',
             'key',
             'universities',
+            'title',
+            'short_description',
             'level',
             'subjects',
             'image_url',
