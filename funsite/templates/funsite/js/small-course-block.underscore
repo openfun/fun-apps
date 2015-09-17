@@ -1,0 +1,4 @@
+<div class="small-course center-block">
+    <img class="main img-responsive" src="<%= image_url %>">
+    <%= title %>
+</div>
