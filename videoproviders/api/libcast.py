@@ -63,7 +63,7 @@ class LibcastUrls(object):
 
     def subtitle_href(self, video_id, subtitle_id):
         # Note that the download url for subtitles is not a file path, but a resource path.
-        return self.libcast_url(self.resource_path(video_id) + "/subtitles/{}".format(subtitle_id))
+        return self.fun_libcast_url(self.resource_path(video_id) + "/subtitles/{}".format(subtitle_id))
 
     def subtitle_path(self, file_slug, subtitle_id):
         return "file/{}/subtitles/{}".format(file_slug, subtitle_id)
