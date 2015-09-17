@@ -10,9 +10,9 @@ from courses.models import CourseSubject
 from universities.models import University
 
 course_subjects_by_score = CourseSubject.objects.by_score()
-course_subjects_by_name = CourseSubject.objects.by_name()
+#course_subjects_by_name = CourseSubject.objects.by_name()
 universities_by_score = University.objects.by_score()
-universities_by_name = University.objects.by_name()
+#universities_by_name = University.objects.by_name()
 %>
 
 <%inherit file="/funsite/parts/base.html" />
@@ -31,7 +31,7 @@ universities_by_name = University.objects.by_name()
 </%def>
 
 
-% for template_name in ['li', 'li2']:
+% for template_name in ['small-course-block', 'li2']:
 <script type="text/template" id="${template_name}-tpl">
   ${static_include("funsite/js/" + template_name + ".underscore")}
 </script>
@@ -245,42 +245,121 @@ require(["jquery", "underscore", "backbone"],
                 university: [],
                 certificate: [],
             },
+            getQuery: function() {
+                // build parameters query
+                var that = this;
+                var queryset = '';
+                _.each(this.attributes, function(value, key, obj){
+
+                    if (value.length) {
+                        queryset += key + '=' + that.get(key)[0].value + '&';
+                    }
+                })
+                if (queryset) {
+                    queryset = '?' + queryset;
+                }
+                return queryset;
+            }
 
         });
         FilterView = Backbone.View.extend({
             el: $('#display-filter span'),
-
             initialize: function(){
                 this.listenTo(this.model, 'change', this.render)
             },
-
             render: function() {
                 var $ul = $('<ul>')
+                var that = this;
                 // iterate on model's properties to dynamicaly create appropriate DOM element and bind remove criterion function
-                _.each(this.model.toJSON(), function(value, key, obj) {
+                _.each(this.model.attributes, function(value, key, obj) {
                     var $li = $('<li>').append('<ul>');
                     _.each(value, function(value) {  // ready for not yet implemented multiple values criterion
                          var element = $('<li>').text(value.title).append($('<span>').addClass('glyphicon glyphicon-remove'))
                          element.on('click', function() {
-                            this.model.set(key, [])  // remove
-                         }.bind(this))
+                            that.model.set(key, []);  // remove
+                         })
                          $li.find('ul').append(element);
 
-                    }.bind(this));
+                    });
                     if (value.length) {
                         $ul.append($li);
                     };
-                }.bind(this));
+                });
                 this.$el.html($ul);
                 return this;
             },
 
         })
 
+        var Course = Backbone.Model.extend({});
+        var CourseView = Backbone.View.extend({
+            tagName: 'li',
+            template: loadTemplate("small-course-block"),
+            initialize: function() {
+                // Listening to this event do not work !!
+                // When calling reset on CourseCollection, I can't figure out what is the backbonish way to remove views from DOM
+                // See FIXME on CourseViewCollection
+                this.listenTo(this.model, "destroy", this.remove);
+            },
+            render: function() {
+                var context = this.model.toJSON(),
+                    course_type = '';
+                if (this.model.get('is_new')) {
+                    course_type = gettext('NEW COURSE');
+                } else if (this.model.get('on_demand')) {
+                    course_type = gettext('ON DEMAND');
+                } else {
+                    // TODO: we need to retrieve a proper number of session to build i18nable string like
+                    // "SESSION 5"
+                    course_type = this.model.get('key').split('/')[2];
+                }
+                context.course_type = course_type;
+                context.course_about = '/courses/'+ context.key;
+                this.$el.html(this.template(context));
+                return this;
+            },
+        });
+        var CourseCollection = Backbone.Collection.extend({
+            model: Course,
+            url: function() {
+                var queryset = this.filter.getQuery();
+                return '/cours/api/' + queryset;
+            },
+            parse: function (response) {
+               return response.courses;
+            },
+        });
+        var CourseCollectionView = Backbone.View.extend({
+            el: $('#course-filtering-results'),
+            saveCourseViewsBecauseNoOtherWayToDestroyThem: [],
+            initialize: function(data) {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            render: function(){
+                return this;
+            },
+            addOne: function(item) {
+                var view = new CourseView({model: item});
+                this.saveCourseViewsBecauseNoOtherWayToDestroyThem.push(view);
+                this.$el.append(view.render().el);
+                this.render()
+            },
+            destroyCourseViews: function() {
+                // FIXME !!!!
+                _.each(this.saveCourseViewsBecauseNoOtherWayToDestroyThem, function(view) {
+                    view.remove();
+                });
+                saveCourseViewsBecauseNoOtherWayToDestroyThem = [];
+                this.render();
+            }
+
+        });
+
 
         var AppView = Backbone.View.extend({
             el: $('#item-app'),
             initialize: function(data) {
+                // filtering criteria
                 var criterioncollection = new CriterionCollection;
                 var criterioncollectionview = new CriterionCollectionView({collection: criterioncollection});
 
@@ -288,8 +367,18 @@ require(["jquery", "underscore", "backbone"],
                 this.$el.append(criterioncollectionview.render().el);
                 criterioncollection.add(data.filters)
 
+                // selected filter
                 this.filter = new Filter;
                 this.filterview = new FilterView({model: this.filter});
+                this.listenTo(this.filter, 'change', this.refreshCourses)
+
+                // course list
+                this.coursecollection = new CourseCollection;
+                this.coursecollection.filter = this.filter;
+                this.coursecollectionview = new CourseCollectionView({collection: this.coursecollection});
+                this.listenTo(this.coursecollection, 'sync', this.courseCollectionSynced)
+
+                this.refreshCourses();
 
             },
             criterionSelected: function(item) {
@@ -298,8 +387,18 @@ require(["jquery", "underscore", "backbone"],
 
                 this.filter.set(criterion, [value]);
 
-                console.log(this.filter.toJSON());
+            },
+
+            refreshCourses: function(){
+                this.coursecollection.reset();  // clear CourseCollection
+                this.coursecollectionview.destroyCourseViews();  //  remove CourseViews from DOM
+                this.coursecollection.fetch();   // get new Courses
+
+            },
+            courseCollectionSynced: function(){
+                this.coursecollectionview.render()
             }
+
 
         });
 
@@ -316,41 +415,11 @@ require(["jquery", "underscore", "backbone"],
 
 <div class="page-image courses-page"></div>
 
-
 <div class="row">
     <div class="col-lg-36 big-title text-center">
         <h2>Les cours à la une</h2>
     </div>
 </div>
-
-
-<div class="highlighted-courses">
-
-    <div class="row">
-        <!-- haute def > 1350: 4 mises en avant principales -->
-        <ul class="primary-highlight">
-            <li>
-                <%include file="/funsite/parts/big-course-block.html" args="id=1"/>
-            </li>
-            <li>
-                <%include file="/funsite/parts/big-course-block.html" args="id=2" />
-            </li>
-            <li class="hidden-960">
-                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
-            </li>
-            <li class="hidden-1280">
-                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
-            </li>
-        </ul>
-    </div>
-</div>
-
-
-    %for course in courses:
-        <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
-            ${get_course_about_section(course, 'title')}<br>
-        </a>
-    %endfor
 
 
 <div class="course-list">
@@ -387,12 +456,7 @@ require(["jquery", "underscore", "backbone"],
                     </div>
                 </div>
 
-                <ul>
-                    %for a in range(30):  ## multiple of 5, 3, 2 and 1
-                    <li>
-                        <%include file="/funsite/parts/small-course-block.html" args="id=1" />
-                    </li>
-                    %endfor
+                <ul id="course-filtering-results">
                 </ul>
 
             </div>
