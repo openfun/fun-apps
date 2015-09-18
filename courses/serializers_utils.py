@@ -1,6 +1,3 @@
-from rest_framework import serializers
-
-
 class CoursesCountSerializerMixin(object):
 
     def get_courses_count(self, obj):
