@@ -10,9 +10,9 @@ from courses.models import CourseSubject
 from universities.models import University
 
 course_subjects_by_score = CourseSubject.objects.by_score()
-course_subjects_by_name = CourseSubject.objects.by_name()
+#course_subjects_by_name = CourseSubject.objects.by_name()
 universities_by_score = University.objects.by_score()
-universities_by_name = University.objects.by_name()
+#universities_by_name = University.objects.by_name()
 %>
 
 <%inherit file="/funsite/parts/base.html" />
@@ -302,7 +302,20 @@ require(["jquery", "underscore", "backbone"],
                 this.listenTo(this.model, "destroy", this.remove);
             },
             render: function() {
-                this.$el.html(this.template(this.model.toJSON()));
+                var context = this.model.toJSON(),
+                    course_type = '';
+                if (this.model.get('is_new')) {
+                    course_type = gettext('NEW COURSE');
+                } else if (this.model.get('on_demand')) {
+                    course_type = gettext('ON DEMAND');
+                } else {
+                    // TODO: we need to retrieve a proper number of session to build i18nable string like
+                    // "SESSION 5"
+                    course_type = this.model.get('key').split('/')[2];
+                }
+                context.course_type = course_type;
+                context.course_about = '/courses/'+ context.key;
+                this.$el.html(this.template(context));
                 return this;
             },
         });
@@ -378,7 +391,7 @@ require(["jquery", "underscore", "backbone"],
 
             refreshCourses: function(){
                 this.coursecollection.reset();  // clear CourseCollection
-                this.coursecollectionview.destroyCourseViews();  //  remove CoureView from DOM
+                this.coursecollectionview.destroyCourseViews();  //  remove CourseViews from DOM
                 this.coursecollection.fetch();   // get new Courses
 
             },
@@ -401,6 +414,12 @@ require(["jquery", "underscore", "backbone"],
 <%block name="content">
 
 <div class="page-image courses-page"></div>
+
+<div class="row">
+    <div class="col-lg-36 big-title text-center">
+        <h2>Les cours à la une</h2>
+    </div>
+</div>
 
 
 <div class="course-list">
