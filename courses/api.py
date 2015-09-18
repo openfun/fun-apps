@@ -38,6 +38,8 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     * By universities: /api/?university=CNAM&university=CentraleParis
     * By course subjects: /api/?subject=philosophy&subject=science
     * By course level: /api/?level=advanced
+    * By availability: 'new', 'on-demand', 'start-soon', 'end-soon'
+        * /api/?availability=new
 
     '''
     filter_backends = (CourseFilter,)
