@@ -189,8 +189,10 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        left: -280px;
         width: 1500px;
+    }
+    .course-list .offset {
+        left: -26px;
     }
 
     .criteria-overlay {
@@ -244,8 +246,10 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        left: -80px;
         width: 900px;
+    }
+    .course-list .offset {
+        left: -56px;
     }
 
     .criteria-overlay {
@@ -291,8 +295,10 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        left: 60px;
         width: 600px;
+    }
+    .course-list .offset {
+        left: 40px;
     }
     .criteria-overlay {
         left: 7px;
@@ -344,8 +350,10 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        left: 24px;
-        width: 600px;
+        width: 400px;
+    }
+    .course-list .offset {
+        left: 150px;
     }
 
     div.page-image {
@@ -374,8 +382,10 @@ ul..footer-links.right {
     }
 
     .course-list .list {
-        left: 24px;
         width: 320px;
+    }
+    .course-list .offset {
+        left: 26px;
     }
 
 
