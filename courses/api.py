@@ -55,14 +55,14 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
         return serializer.data
 
     def get_serialized_universities(self, course_id_list):
-        queryset = University.with_related()
+        queryset = University.objects.with_related()
         queryset = queryset.filter(courses__id__in=course_id_list)
         serializer = UniversitySerializer(queryset)
         return serializer.data
 
     def get_serialized_course_subjects(self, course_id_list):
-        queryset = CourseSubject.with_related()
-        queryset = queryset.objects.filter(courses__id__in=course_id_list)
+        queryset = CourseSubject.objects.with_related()
+        queryset = queryset.filter(courses__id__in=course_id_list)
         queryset = queryset.annotate(courses_count=Count('courses'))
         serializer = CourseSubjectSerializer(queryset)
         return serializer.data
