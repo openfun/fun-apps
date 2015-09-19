@@ -10,7 +10,7 @@ from opaque_keys.edx.locator import CourseLocator
 from xmodule.contentstore.content import StaticContent
 
 from . import choices as courses_choices
-from .managers import CourseSubjectManager
+from .managers import CourseSubjectManager, CourseManager
 
 
 class Course(models.Model):
@@ -35,6 +35,8 @@ class Course(models.Model):
         null=True, blank=True)
     end_date = models.DateTimeField(verbose_name=_('end date'), db_index=True,
         null=True, blank=True)
+
+    objects = CourseManager()
 
     class Meta:
         ordering = ('-score',)
