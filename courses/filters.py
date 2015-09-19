@@ -1,5 +1,3 @@
-from django.utils.timezone import now, timedelta
-
 from rest_framework import filters
 
 
@@ -17,12 +15,11 @@ class CourseFilter(filters.BaseFilterBackend):
         if levels:
             queryset = queryset.filter(level__in=levels)
         if 'new' in availability:
-            queryset = queryset.filter(is_new=True)
+            queryset = queryset.new()
         if 'on-demand' in availability:
-            queryset = queryset.filter(on_demand=True)
-        too_late = now() + timedelta(days=7)  # TODO: Move in settings.
+            queryset = queryset.on_demand()
         if 'start-soon' in availability :
-            queryset = queryset.filter(start_date__range=(now(), too_late))
+            queryset = queryset.start_soon()
         if 'end-soon' in availability:
-            queryset = queryset.filter(end_date__range=(now(), too_late))
+            queryset = queryset.end_soon()
         return queryset

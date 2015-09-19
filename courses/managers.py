@@ -1,4 +1,9 @@
 from django.db import models
+from django.utils.timezone import now, timedelta
+
+from fun.utils.managers import ChainableManager
+
+from . import settings as courses_settings
 
 
 class CourseSubjectManager(models.Manager):
@@ -19,3 +24,33 @@ class CourseSubjectManager(models.Manager):
 
     def random_featured(self):
         return self.featured().order_by('?')
+
+
+class CourseQuerySet(models.query.QuerySet):
+
+    @property
+    def too_late(self):
+        return now() + timedelta(days=courses_settings.NUMBER_DAYS_TOO_LATE)
+
+    def with_related(self):
+        queryset = self.prefetch_related('subjects', 'universities')
+        return queryset
+
+    def active(self):
+        return self.filter(is_active=True)
+
+    def new(self):
+        return self.filter(is_new=True)
+
+    def on_demand(self):
+        return self.filter(on_demand=True)
+
+    def start_soon(self):
+        return self.filter(start_date__range=(now(), self.too_late))
+
+    def end_soon(self):
+        return self.filter(end_date__range=(now(), self.too_late))
+
+
+class CourseManager(ChainableManager):
+    queryset_class = CourseQuerySet
