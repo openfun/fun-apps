@@ -5,11 +5,12 @@ from django.utils.translation import ugettext as _
 
 from staticfiles.storage import staticfiles_storage
 
-from courses.models import CourseSubject
+from courses.models import CourseSubject, Course
 from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
 universities = University.objects.have_page()
+featured_courses = Course.random_featured()
 %>
 
 <%inherit file="funsite/parts/base.html" />
@@ -66,6 +67,9 @@ universities = University.objects.have_page()
 <div class="row">
     <div class="col-lg-36 big-title text-center">
         <h2>Les cours à la une</h2>
+        % for featured_course in featured_courses:
+        <br />${ featured_course.title } - ${ featured_course.key }
+        % endfor
     </div>
 </div>
 
