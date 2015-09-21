@@ -10,7 +10,7 @@ from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
 universities = University.objects.have_page()
-featured_courses = Course.random_featured()
+featured_courses = Course.random_featured(9)
 %>
 
 <%inherit file="funsite/parts/base.html" />
@@ -66,9 +66,6 @@ featured_courses = Course.random_featured()
 <div class="row">
     <div class="col-lg-36 big-title text-center">
         <h2>Les cours à la une</h2>
-        % for featured_course in featured_courses:
-        <br />${ featured_course.title } - ${ featured_course.key }
-        % endfor
     </div>
 </div>
 
@@ -79,16 +76,16 @@ featured_courses = Course.random_featured()
         <!-- haute def > 1350: 4 mises en avant principales -->
         <ul class="primary-highlight">
             <li>
-                <%include file="/funsite/parts/big-course-block.html" args="id=1"/>
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[0]"/>
             </li>
             <li class="hidden-768">
-                <%include file="/funsite/parts/big-course-block.html" args="id=2" />
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[1]" />
             </li>
             <li class="hidden-960">
-                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[2]" />
             </li>
             <li class="hidden-1280">
-                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[3]" />
             </li>
         </ul>
     </div>
@@ -97,13 +94,13 @@ featured_courses = Course.random_featured()
         <!-- en 320, les primary s'affichent en petit -->
         <ul class="secondary-highlight">
             <li>
-                <%include file="/funsite/parts/small-course-block.html" args="id=1" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[0]" />
             </li>
             <li>
-                <%include file="/funsite/parts/small-course-block.html" args="id=2" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[1]" />
             </li>
             <li>
-                <%include file="/funsite/parts/small-course-block.html" args="id=3" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[2]" />
             </li>
         </ul>
     </div>
@@ -113,22 +110,22 @@ featured_courses = Course.random_featured()
         <ul class="secondary-highlight">
 
             <li>
-                <%include file="/funsite/parts/small-course-block.html" args="id=4" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[3]" />
             </li>
             <li>
-                <%include file="/funsite/parts/small-course-block.html" args="id=5" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[4]" />
             </li>
             <li>
-                <%include file="/funsite/parts/small-course-block.html" args="id=6" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[5]" />
             </li>
             <li class="hidden-960">
-                <%include file="/funsite/parts/small-course-block.html" args="id=7" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[6]" />
             </li>
             <li class="hidden-1280">
-                <%include file="/funsite/parts/small-course-block.html" args="id=8" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[7]" />
             </li>
             <li class="hidden-1280">
-                <%include file="/funsite/parts/small-course-block.html" args="id=9" />
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[8]" />
             </li>
 
 
