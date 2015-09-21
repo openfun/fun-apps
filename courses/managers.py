@@ -51,6 +51,9 @@ class CourseQuerySet(models.query.QuerySet):
     def end_soon(self):
         return self.filter(end_date__range=(now(), self.too_late))
 
+    def by_score(self):
+        return self.active().order_by('-score')
+
 
 class CourseManager(ChainableManager):
     queryset_class = CourseQuerySet
