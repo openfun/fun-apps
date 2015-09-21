@@ -21,12 +21,12 @@
 
         <div class="footer row">
             <div class="date col-sm-20">
-                Débute le
+                <%- gettext("Starts") %>
                 <br>
                 14 Déc. 2015
             </div>
             <a href="<%= course_about %>"><div class="register col-sm-16">
-                S'inscrire
+                <%- gettext("Register") %>
             </div></a>
         </div>
     </div>
