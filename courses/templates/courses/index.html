@@ -188,7 +188,7 @@ require(["jquery", "underscore", "backbone"],
                 this.$el.append(this.valuecollectionview.render().el);
                 if (this.model.get('all_button')) {
                     this.$el.append($('<span>').attr(
-                            {'class': 'all-items-button'}).text(this.model.get('all_button')))
+                            {'class': 'all-items-button transparent'}).text(this.model.get('all_button')))
                 }
 
                 return this;
@@ -370,7 +370,7 @@ require(["jquery", "underscore", "backbone"],
                 // selected filter
                 this.filter = new Filter;
                 this.filterview = new FilterView({model: this.filter});
-                this.listenTo(this.filter, 'change', this.refreshCourses)
+                this.listenTo(this.filter, 'change', this.refreshCourses);
 
                 // course list
                 this.coursecollection = new CourseCollection;

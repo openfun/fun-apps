@@ -36,7 +36,7 @@ body {
 
 /* Sandwich menu */
 
-#top-menu .connection {
+#top-menu .connexion {
     color: white;
     background: #F72C30 url('/static/funsite/images/icones/user.png') 14px 14px no-repeat;
     height: 60px;
@@ -45,10 +45,60 @@ body {
     padding-top: 20px;
     padding-left: 60px;
 }
-#top-menu .connection a, a:hover, a:visited {
+#top-menu .connexion>a,>a:hover,>a:visited {
     text-decoration: none;
     color: white;
 }
+
+#login-overlay {
+    margin-left: 5px;
+    margin-right: 5px;
+    position: absolute;
+    max-width: 430px;
+    min-width: 320px;
+    height: 400px;
+    background: white;
+    display: none;
+    top: 60px;
+    right: 0;
+    z-index: 2000;
+}
+#login-overlay div.content {
+    width: 240px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+#login-overlay div.content .all-items-button {
+    margin-top: 10px;
+}
+
+#login-overlay div.parts {
+    display: table-row;
+    text-align: center;
+}
+#login-overlay h3 {
+    color: #0C3D72;
+    font-size: 16px;
+    font-weight: 600;
+}
+#login-overlay .forgotten-password {
+    text-align: right !important;
+    font-size: 12px;
+}
+#login-overlay .forgotten-password a {
+    color: #CBCCCD;
+}
+#login-overlay input {
+    width: 234px;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    background-color: #F1F2F3;
+    border: 0;
+    padding: 8px 8px 8px 40px ;
+}
+
+
 #sandwich-menu {
     display: inline-block;
     width: 40px;
@@ -57,12 +107,16 @@ body {
     cursor: pointer;
 }
 
-#close-sandwich-overlay {
+.close-overlay {
     color: white;
     margin-left: 20px;
     margin-top: 20px;
     font-size: 30px;
     cursor: pointer;
+}
+.close-overlay.blue {
+    color: #0C3D72;
+    font-size: 16px;
 }
 
 #sandwich-overlay {
@@ -167,14 +221,22 @@ ul..footer-links.right {
     display: inline-block;
     cursor: pointer;
     width: 232px;
-
 }
 .all-items-button a:hover {
     text-decoration: none;
     color: #3877BC;   /* TODO: find out if we have a rollover effect */
 }
-
-
+.all-items-button.blue {
+    color: white;
+    background-color: #3877BC;
+}
+.all-items-button.blue a {
+    text-decoration: none;
+    color: white;
+}
+.all-items-button.transparent {
+    background-color: transparent;
+}
 /* Responsive */
 @media (min-width: 1900px) {
     .main-width {
@@ -277,7 +339,7 @@ ul..footer-links.right {
         height: 360px;
     }
     div.page-image.home-page span.logo-fun {
-        top: 40px;
+        top: 90px;
         left: 548px;
     }
 
@@ -499,7 +561,7 @@ ul.secondary-highlight li {
     text-align: center;
     font-size: 13px;
     font-weight: 600;
-    z-index: 1000;
+    z-index: 10;
     text-transform: uppercase;
 }
 
@@ -655,8 +717,8 @@ ul.universities-list {
     padding-left: 20px;
     display: none;
     position: absolute;
-
     background-color: #08223C;
+    z-index: 20;
 }
 .criteria-block.criteria-overlay h2 {
     color: white;
@@ -724,7 +786,6 @@ ul.universities-list {
 }
 .filters .all-items-button {
     margin-top: 6px;
-    background-color: transparent;
 }
 .criteria li.icon {
     padding-left: 36px !important;

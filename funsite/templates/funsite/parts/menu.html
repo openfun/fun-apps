@@ -23,14 +23,26 @@ from django.utils.translation import ugettext as _
 
             <div class="col-sm-12">
 
-                <div class="pull-right connection">
+                <div class="pull-right connexion
+                %if request.user.is_authenticated():
+                    connected
+                %else:
+                    not-connected
+                %endif
+                ">
                     %if request.user.is_authenticated():
                         <a href="${reverse('dashboard')}">${request.user.profile.name}</a>
                     %else:
-                        ${_(u"Connection")}
+                        ${_(u"Connexion")}
                     %endif
                 </div>
+
+                <%include file="login-overlay.html" />
+
             </div>
+
+
+
         </div>
     </div>
 </nav>
