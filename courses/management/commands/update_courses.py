@@ -32,10 +32,12 @@ class Command(BaseCommand):
         for mongo_course in self.courses:
             key = unicode(mongo_course.id)
             self.stdout.write('\n Updating data for course {}'.format(key))
-            course,_ =  Course.objects.get_or_create(key=key)
+            course, was_created =  Course.objects.get_or_create(key=key)
             if course.prevent_auto_update:
                 self.stdout.write('\n Skipping updates for {}'.format(key))
                 continue
+            if was_created:
+                course.is_active = True
             course.score = self.get_course_score()
             course.start_date = mongo_course.start
             course.end_date = mongo_course.end
