@@ -1,6 +1,42 @@
-<%page args="id"/>
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
 
-    <div class="small-course center-block">
-        <img class="main img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=20&txt=270x154&w=270&h=154">
-        normal course ${ id }
+<%page args="course"/>
+<div class="small-course center-block">
+
+    <div class="top">
+        <div class="type">
+            course.get_course_type
+        </div>
+        <img class="main img-responsive" src="">
+
     </div>
+    <div class="middle">
+        <div class="title">
+            ${ course.title }
+        </div>
+        <div class="universities">
+            %for university in course.universities.all():
+                <span>${ university.name }</span>
+            %endfor
+        </div>
+    </div>
+    <div class="bottom">
+
+        <div class="footer row">
+            <div class="date col-sm-20">
+                Débute le
+                <br>
+                14 Déc. 2015
+            </div>
+
+            <a href="${reverse('about_course', args=[course.key])}"><div class="register col-sm-16">
+                S'inscrire
+            </div></a>
+        </div>
+    </div>
+
+</div>
