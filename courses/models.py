@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -82,6 +83,13 @@ class Course(models.Model):
             self.course_descriptor, 'short_description'
         )
         return description
+
+    @staticmethod
+    def random_featured(limit_to=7):
+        courses = Course.objects.by_score()[:limit_to]
+        courses = list(courses)
+        random.shuffle(courses)
+        return courses
 
     def __unicode__(self):
         return _('Course {}').format(self.key)
