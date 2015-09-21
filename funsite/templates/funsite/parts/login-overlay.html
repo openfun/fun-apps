@@ -1,0 +1,43 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
+<div id="login-overlay" class="hide-on-escape-key">
+    <span class="close-overlay blue glyphicon glyphicon-remove"></span>
+
+    <div class="content">
+        <div class="parts">
+            <h3>${_(u"You have an account")}</h3>
+        </div>
+        <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
+           <div style="display:none">
+              <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/>
+           </div>
+
+            <div class="parts">
+                <input name="email" type="text" placeholder="${_(u"Login")}"><br>
+            </div>
+            <div class="parts">
+                <input name="password" type="password" placeholder="${_(u"Password")}"><br>
+            </div>
+        <div class="parts forgotten-password">
+            <a href="">${_(u"Forgotten password ?")}</a>
+        </div>
+        <div class="parts error">
+
+        </div>
+
+        <div class="parts">
+            <button name="submit" type="submit" id="submit" class="all-items-button blue" aria-disabled="false">${_(u"Login")}</button>
+        </div>
+        <div class="parts">
+            <h3>${_(u"You don't have an account")}</h3>
+        </div>
+        <div class="parts">
+            <span class="all-items-button"><a href="${reverse('register_user')}">${_(u"Create an account")}</a></span>
+        </div>
+
+    </div>
+
+</div>
