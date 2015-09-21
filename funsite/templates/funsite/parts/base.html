@@ -82,24 +82,66 @@ from staticfiles.storage import staticfiles_storage
 
     <script>
     (function() {
-        /* Sandwich menu handler */
         $(document).keydown(function(event) {
             if (event.keyCode == 27) { // ESC key
-                $('.hide-on-escape-key').hide();
-                console.log('close by keyboard');
+                $('.hide-on-escape-key:visible').hide();
             }
         });
 
-        $('#close-sandwich-overlay').on('click', function(event) {
-            $('#sandwich-overlay').hide();
-            console.log('close by button');
+        /* Sandwich menu handler */
+        $('.close-overlay').on('click', function(event) {
+            $(this).parent().hide()
         });
 
         $('#sandwich-menu').on('click', function(event) {
-            console.log('clicked');
             $('#sandwich-overlay').show();
+        });
 
+        /* login overlay */
+        $('#top-menu .connexion.not-connected').on('click', function(event) {
+            $('#login-overlay').show();
+        });
+
+        $('#login-form').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '/login_ajax',
+                method: 'POST',
+                data: $(this).serialize(),
+                success: function(json){
+                    if (json.success) {
+                        var u = decodeURI(window.location.search);
+                        var next = u.split("next=")[1];
+                        if (next != undefined) {
+                            // if next is undefined, decodeURI returns "undefined" causing a bad redirect.
+                            next = decodeURIComponent(next);
+                        }
+                        if (next && !isExternal(next)) {
+                            location.href=next;
+                        }  else if (json.redirect_url) {
+                            location.href=json.redirect_url;
+                        } else {
+                            location.href="${reverse('dashboard')}";
+                        }
+                    } else if (json.hasOwnProperty('redirect')) {
+                        var u = decodeURI(window.location.search);
+                        if (!isExternal(json.redirect)) { // a paranoid check.  Our server is the one providing json.redirect
+                            location.href=json.redirect+u;
+                        } // else we just remain on this page, which is fine since this particular path implies a login failure
+                    // that has been generated via packet tampering (json.redirect has been messed with).
+                    } else {
+                        $('#login-overlay').find('input').addClass('loginerror');
+                        $('#login-overlay').find('.error').html(json.value)
+                    }
+
+                },
+                error: function(response) {
+                    $('#login-overlay').find('input').addClass('loginerror');
+                    $('#login-overlay').find('.error').html(gettext("Your request could not be completed. Please try again"));
+                }
+            });
         })
+
     })();
 
     </script>
