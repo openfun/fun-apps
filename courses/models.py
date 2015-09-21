@@ -55,6 +55,7 @@ class Course(models.Model):
 
     @property
     def image_url(self):
+        return 'TODO - Fix this URL'
         if not self.course_descriptor:
             return ''
         location = StaticContent.compute_location(
@@ -64,6 +65,7 @@ class Course(models.Model):
 
     @property
     def title(self):
+        return 'TODO - Fix this title'
         if not self.course_descriptor:
             return ''
         title = get_course_about_section(self.course_descriptor, 'title')
@@ -71,6 +73,7 @@ class Course(models.Model):
 
     @property
     def short_description(self):
+        return 'TODO - Fix this description'
         if not self.course_descriptor:
             return ''
         description = get_course_about_section(
