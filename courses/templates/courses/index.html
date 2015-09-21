@@ -6,13 +6,17 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from courseware.courses import course_image_url, get_course_about_section
 
-from courses.models import CourseSubject
+from courses.models import CourseSubject, Course
 from universities.models import University
 
 course_subjects_by_score = CourseSubject.objects.by_score()
 course_subjects_by_name = CourseSubject.objects.by_name()
 universities_by_score = University.objects.by_score()
 universities_by_name = University.objects.by_name()
+courses_count_new = Course.objects.new().count()
+courses_count_on_demand = Course.objects.on_demand().count()
+courses_count_start_soon = Course.objects.start_soon().count()
+courses_count_end_soon = Course.objects.end_soon().count()
 %>
 
 <%inherit file="/funsite/parts/base.html" />
@@ -108,10 +112,10 @@ universities_by_name = University.objects.by_name()
                 <h1>Recherche</h1>
                 <h2>Disponibilité</h2>
                 <ul class="criteria" data-criterion_type="state">
-                    <li class="criterion" data-criterion="new">Nouveau cours<span class="badge pull-right">22</span></li>
-                    <li class="criterion" data-criterion="near-end">Fin d'inscription imminente<span class="badge pull-right">5</span></li>
-                    <li class="criterion" data-criterion="near-start">Démarre bientôt<span class="badge pull-right">99</span></li>
-                    <li class="criterion" data-criterion="demand">A la demande<span class="badge pull-right">27</span></li>
+                    <li class="criterion" data-criterion="new">Nouveau cours<span class="badge pull-right">${ courses_count_new }</span></li>
+                    <li class="criterion" data-criterion="near-end">Fin d'inscription imminente<span class="badge pull-right">${ courses_count_end_soon }</span></li>
+                    <li class="criterion" data-criterion="near-start">Démarre bientôt<span class="badge pull-right">${ courses_count_start_soon }</span></li>
+                    <li class="criterion" data-criterion="demand">A la demande<span class="badge pull-right">${ courses_count_on_demand }</span></li>
                 </ul>
 
                 <h2>Thèmes</h2>
