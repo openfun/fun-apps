@@ -81,6 +81,8 @@ body {
     color: #0C3D72;
     font-size: 16px;
     font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 8px;
 }
 #login-overlay .forgotten-password {
     text-align: right !important;
@@ -89,13 +91,23 @@ body {
 #login-overlay .forgotten-password a {
     color: #CBCCCD;
 }
+#login-overlay .error {
+    vertical-align: middle;
+    height: 22px;
+    color: #F72B2F;
+    font-size: 12px;
+}
 #login-overlay input {
     width: 234px;
     margin-top: 12px;
     margin-bottom: 5px;
     background-color: #F1F2F3;
-    border: 0;
+    border: 1px solid #F1F2F3;
     padding: 8px 8px 8px 40px ;
+}
+
+#login-overlay input.loginerror {
+    border-color: #F72B2F;
 }
 
 
@@ -115,6 +127,7 @@ body {
     cursor: pointer;
 }
 .close-overlay.blue {
+    margin-top: 4px;
     color: #0C3D72;
     font-size: 16px;
 }

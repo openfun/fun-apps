@@ -109,7 +109,6 @@ from staticfiles.storage import staticfiles_storage
                 method: 'POST',
                 data: $(this).serialize(),
                 success: function(json){
-                    console.log('success event')
                     if (json.success) {
                         var u = decodeURI(window.location.search);
                         var next = u.split("next=")[1];
@@ -131,20 +130,16 @@ from staticfiles.storage import staticfiles_storage
                         } // else we just remain on this page, which is fine since this particular path implies a login failure
                     // that has been generated via packet tampering (json.redirect has been messed with).
                     } else {
-                        console.log(json);
-                        console.log('loginerror');
+                        $('#login-overlay').find('input').addClass('loginerror');
+                        $('#login-overlay').find('.error').html(json.value)
                     }
 
                 },
                 error: function(response) {
-                    console.log('error event')
-                    if (response.status === 403) {
-                        console.log(response.responseText);
-                    } else {
-                        console.log(' unknown error')
-                    }
+                    $('#login-overlay').find('input').addClass('loginerror');
+                    $('#login-overlay').find('.error').html(gettext("Your request could not be completed. Please try again"));
                 }
-            })
+            });
         })
 
     })();

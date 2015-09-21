@@ -16,15 +16,18 @@ from django.utils.translation import ugettext as _
            </div>
 
             <div class="parts">
-                <input name="login" type="text" placeholder="${_(u"Login")}"><br>
+                <input name="email" type="text" placeholder="${_(u"Login")}"><br>
             </div>
             <div class="parts">
                 <input name="password" type="password" placeholder="${_(u"Password")}"><br>
             </div>
         <div class="parts forgotten-password">
-
             <a href="">${_(u"Forgotten password ?")}</a>
         </div>
+        <div class="parts error">
+
+        </div>
+
         <div class="parts">
             <button name="submit" type="submit" id="submit" class="all-items-button blue" aria-disabled="false">${_(u"Login")}</button>
         </div>
