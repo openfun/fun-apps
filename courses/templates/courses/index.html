@@ -10,9 +10,9 @@ from courses.models import CourseSubject
 from universities.models import University
 
 course_subjects_by_score = CourseSubject.objects.by_score()
-course_subjects_by_name = CourseSubject.objects.by_name()
+#course_subjects_by_name = CourseSubject.objects.by_name()
 universities_by_score = University.objects.by_score()
-universities_by_name = University.objects.by_name()
+#universities_by_name = University.objects.by_name()
 %>
 
 <%inherit file="/funsite/parts/base.html" />
@@ -21,35 +21,390 @@ universities_by_name = University.objects.by_name()
 
 
 <%block name="js_extra">
+
+<%def name="static_include(path)">
+    <%
+    from django.template.loaders.app_directories import _loader
+    source, template_path = _loader.load_template_source(path)
+    %>
+    ${source}
+</%def>
+
+
+% for template_name in ['small-course-block', 'li2']:
+<script type="text/template" id="${template_name}-tpl">
+  ${static_include("funsite/js/" + template_name + ".underscore")}
+</script>
+% endfor
+
+
 <script>
 
-    var filter = {};
-    $('.all-items-button').on('click', function(event) {
-        console.log(event);
-        $('.hide-on-escape-key').hide();
-        var overlay_id = $(this).data('overlay_id')
-        $(overlay_id).show();
 
-        /* Calculate vertical overlay's position regarding clicked button */
-        var posy =  $(this).prev().prev().offset().top - $('.filters').offset().top - 40;
-        $(overlay_id).css('top', posy + 'px');
 
-        /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
-        var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
-        $(overlay_id).find('ul').css('height', (height * $('li.criterion').outerHeight(true)) + 'px');
-    });
+require(["jquery", "underscore", "backbone"],
+    function ($, _, Backbone) {
 
-    $('.criterion').on('click', function(event) {
-        $('.hide-on-escape-key').hide();
-        var criterion_type = $(this).parent().data('criterion_type');
 
-        if ($(this).hasClass('filter-checkbox')) {
-            $(this).toggleClass('checked');
-            filter[criterion_type] = $(this).hasClass('checked');
-        } else {
-            filter[criterion_type] = $(this).data('criterion');
-        }
-        console.log(filter);
+        var loadTemplate = function(name) {
+            var templateSelector = '#' + name + '-tpl',
+                templateText = $(templateSelector).text();
+            if (!templateText) {
+                console.error('Failed to load ' + name + ' template');
+            }
+            return _.template(templateText);
+        };
+
+
+        var filters = [
+            {title: "Disponibilité", name: 'state', type: 'select', values: [
+                {value: 'new', title: "Nouveau", count: 12},
+                {value: 'nead-end', title: "Fin d'inscription imminente", count: 12},
+                {value: 'near-start', title: "Démarre bientôt", count: 12},
+                {value: 'demand', title: "A la demande", count: 12},
+            ]},
+            {title: "Thèmes", name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
+                %for course_subject in course_subjects_by_score:
+                {value: "${ course_subject.slug }", title: "${ course_subject.short_name or course_subject.name }", count: ${ course_subject.courses.count() }},
+                %endfor
+            ]},
+            {title: "Etablissements", name: 'university', type: 'select', max: 10, all_button: "Tous les établissments", overlay: '#all-universities-overlay', values: [
+                %for university in universities_by_score:
+                {value: "${ university.slug }", title: "${ university.short_name or university.name }", count: ${ university.courses.count() }},
+                %endfor
+            ]},
+            {title: "Formation certifiante", name: 'certificate', type: 'checkbox', values: [
+                {value: "certificat", title: "Certificate", count: 50 },
+            ]},
+            {title: "Langue", name: 'language', type: 'select', values: [
+                {value: 'fr', title: "Français", image: 'french-flag', count: 12},
+                {value: 'en', title: "English", image: 'english-flag', count: 12},
+                {value: 'de', title: "Deutsche", image: 'german-flag', count: 12},
+                {value: 'es', title: "Español", image: 'spanish-flag', count: 12},
+            ]},
+
+
+        ];
+
+        var Value = Backbone.Model.extend({});
+        var ValueCollection = Backbone.Collection.extend({
+            model: Value
+        });
+        var ValueView = Backbone.View.extend({
+            tagName: 'li',
+            className: "criterion",
+            template: loadTemplate("li2"),
+
+            initialize: function() {},
+
+            events: {"click": "onClick"},
+
+            render: function() {
+                // if an image is provided we add some CSS classes
+                var image = this.model.get('image');
+                if (image) {
+                    this.$el.addClass('icon ' + image);
+                } else if (this.model.collection.parent.get('type') == 'checkbox') {
+                    this.$el.addClass('filter-checkbox');
+                }
+
+                this.$el.html(this.template(this.model.toJSON()));
+                return this;
+            },
+            onClick: function(event) {
+                if (this.model.collection.parent.get('type') == 'checkbox') {
+                    this.$el.toggleClass('checked');
+                    this.model.set('value', this.$el.hasClass('checked') ? 'certificate' : '');
+                }
+                this.model.collection.trigger('valueSelected', this.model);
+            }
+
+        });
+        // only display `max` items in filter columns (others will be displayed when `all` button clicked)
+        var ShortValueCollectionView = Backbone.View.extend({
+            tagName: 'ul',
+            className: "criteria",
+
+            initialize: function(options) {
+                this.listenTo(this.collection, 'add', this.addOne);
+                this.listenTo(this.collection, 'valueSelected', this.valueSelected);
+                this.max = options.max;
+                this.count = 0;
+            },
+            valueSelected: function(item) {
+                // ShortValueCollectionView and LongValueCollectionView use the same collection,
+                // so this event will be triggered for both display
+                this.collection.parent.collection.trigger('criterionSelected', item)
+                $('.hide-on-escape-key').hide();
+            },
+            addOne: function(item) {
+                if (this.count < this.max) {
+                    var view = new ValueView({model: item});
+                    this.$el.append(view.render().el);
+                    this.count += 1;
+                }
+            },
+
+        })
+        var LongValueCollectionView = Backbone.View.extend({
+            initialize: function() {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            addOne: function(item) {
+                var view = new ValueView({model: item});
+                this.$el.append(view.render().el);
+            },
+
+
+        })
+
+        var Criterion = Backbone.Model.extend({
+            defaults: {  // if no max value, we use a big one to display all items (and save JS LOC)
+                "max":  100},
+            initialize: function() {
+                this.valuecollection = new ValueCollection;
+                this.valuecollection.parent = this;
+            },
+        });
+
+        var CriterionView = Backbone.View.extend({
+            tagName: 'div',
+
+            initialize: function() {
+                this.valuecollectionview = new ShortValueCollectionView(
+                        {collection: this.model.valuecollection, max: this.model.get('max')});
+
+                if (this.model.get('all_button')) {
+                    this.longvaluecollectionview = new LongValueCollectionView(
+                            {el: this.model.get('overlay') + ' ul', collection: this.model.valuecollection});
+                };
+                this.model.valuecollection.add(this.model.get("values"))
+
+            },
+
+            render: function() {
+                // on utilise pas de template ici
+                this.$el.html($('<h2>').text(this.model.get('title')));
+                this.$el.append(this.valuecollectionview.render().el);
+                if (this.model.get('all_button')) {
+                    this.$el.append($('<span>').attr(
+                            {'class': 'all-items-button transparent'}).text(this.model.get('all_button')))
+                }
+
+                return this;
+            },
+
+            events: {
+                'click span.all-items-button': 'showAllItemsOverlay'},
+
+            showAllItemsOverlay: function(event) {
+                $('.hide-on-escape-key').hide();
+                var overlay_id = this.model.get('overlay');
+                $(overlay_id).show();
+
+                /* Calculate vertical overlay's position regarding clicked button */
+                var posy =  $(event.toElement).prev().prev().offset().top - $('.filters').offset().top - 40;
+                $(overlay_id).css('top', posy + 'px');
+
+                /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
+                var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
+                $(overlay_id).find('ul').css('height', (height * $('li.criterion').outerHeight(true)) + 'px');
+
+            },
+            onClick: function(event) {
+
+                console.log(this.model.toJSON());
+            }
+
+        })
+
+
+        var CriterionCollection = Backbone.Collection.extend({
+            model: Criterion,
+        });
+
+        var CriterionCollectionView = Backbone.View.extend({
+
+            initialize: function() {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+
+            addOne: function(item) {
+                var view = new CriterionView({model: item});
+                this.$el.append(view.render().el);
+            },
+
+        })
+
+        Filter = Backbone.Model.extend({
+            defaults: {
+                // we use lists here because we could have several values for the same criterion
+                state: [],
+                language: [],
+                subject: [],
+                university: [],
+                certificate: [],
+            },
+            getQuery: function() {
+                // build query parameters
+                var that = this;
+                var queryset = '';
+                _.each(this.attributes, function(value, key, obj){
+
+                    if (value.length) {
+                        queryset += key + '=' + that.get(key)[0].value + '&';
+                    }
+                })
+                if (queryset) {
+                    queryset = '?' + queryset;
+                }
+                return queryset;
+            }
+
+        });
+        FilterView = Backbone.View.extend({
+            el: $('#display-filter span'),
+            initialize: function(){
+                this.listenTo(this.model, 'change', this.render)
+            },
+            render: function() {
+                var $ul = $('<ul>')
+                var that = this;
+                // iterate on model's properties to dynamicaly create appropriate DOM element and bind remove criterion function
+                _.each(this.model.attributes, function(value, key, obj) {
+                    var $li = $('<li>').append('<ul>');
+                    _.each(value, function(value) {  // ready for not yet implemented multiple values criterion
+                         var element = $('<li>').text(value.title).append($('<span>').addClass('glyphicon glyphicon-remove'))
+                         element.on('click', function() {
+                            that.model.set(key, []);  // remove
+                         })
+                         $li.find('ul').append(element);
+
+                    });
+                    if (value.length) {
+                        $ul.append($li);
+                    };
+                });
+                this.$el.html($ul);
+                return this;
+            },
+
+        })
+
+        var Course = Backbone.Model.extend({});
+        var CourseView = Backbone.View.extend({
+            tagName: 'li',
+            template: loadTemplate("small-course-block"),
+            initialize: function() {
+                // Listening to this event do not work !!
+                // When calling reset on CourseCollection, I can't figure out what is the backbonish way to remove views from DOM
+                // See FIXME on CourseViewCollection
+                this.listenTo(this.model, "destroy", this.remove);
+            },
+            render: function() {
+                var context = this.model.toJSON(),
+                    course_type = '';
+                if (this.model.get('is_new')) {
+                    course_type = gettext('NEW COURSE');
+                } else if (this.model.get('on_demand')) {
+                    course_type = gettext('ON DEMAND');
+                } else {
+                    // TODO: we need to retrieve a proper number of session to build i18nable string like
+                    // "SESSION 5"
+                    course_type = this.model.get('key').split('/')[2];
+                }
+                context.course_type = course_type;
+                context.course_about = '/courses/'+ context.key;
+                this.$el.html(this.template(context));
+                return this;
+            },
+        });
+        var CourseCollection = Backbone.Collection.extend({
+            model: Course,
+            url: function() {
+                var queryset = this.filter.getQuery();
+                return '/cours/api/' + queryset;
+            },
+            parse: function (response) {
+               return response.courses;
+            },
+        });
+        var CourseCollectionView = Backbone.View.extend({
+            el: $('#course-filtering-results'),
+            saveCourseViewsBecauseNoOtherWayToDestroyThem: [],
+            initialize: function(data) {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            render: function(){
+                return this;
+            },
+            addOne: function(item) {
+                var view = new CourseView({model: item});
+                this.saveCourseViewsBecauseNoOtherWayToDestroyThem.push(view);
+                this.$el.append(view.render().el);
+                this.render()
+            },
+            destroyCourseViews: function() {
+                // FIXME !!!!
+                _.each(this.saveCourseViewsBecauseNoOtherWayToDestroyThem, function(view) {
+                    view.remove();
+                });
+                saveCourseViewsBecauseNoOtherWayToDestroyThem = [];
+                this.render();
+            }
+
+        });
+
+
+        var AppView = Backbone.View.extend({
+            el: $('#item-app'),
+            initialize: function(data) {
+                // filtering criteria
+                var criterioncollection = new CriterionCollection;
+                var criterioncollectionview = new CriterionCollectionView({collection: criterioncollection});
+
+                this.listenTo(criterioncollection, 'criterionSelected', this.criterionSelected)
+                this.$el.append(criterioncollectionview.render().el);
+                criterioncollection.add(data.filters)
+
+                // selected filter
+                this.filter = new Filter;
+                this.filterview = new FilterView({model: this.filter});
+                this.listenTo(this.filter, 'change', this.refreshCourses);
+
+                // course list
+                this.coursecollection = new CourseCollection;
+                this.coursecollection.filter = this.filter;
+                this.coursecollectionview = new CourseCollectionView({collection: this.coursecollection});
+                this.listenTo(this.coursecollection, 'sync', this.courseCollectionSynced)
+
+                this.refreshCourses();
+
+            },
+            criterionSelected: function(item) {
+                var criterion = item.collection.parent.get('name');
+                var value = {value: item.get('value'), title: item.get('title')};
+
+                this.filter.set(criterion, [value]);
+
+            },
+
+            refreshCourses: function(){
+                this.coursecollection.reset();  // clear CourseCollection
+                this.coursecollectionview.destroyCourseViews();  //  remove CourseViews from DOM
+                this.coursecollection.fetch();   // get new Courses
+
+            },
+            courseCollectionSynced: function(){
+                this.coursecollectionview.render()
+            }
+
+
+        });
+
+        var App = new AppView({filters: filters});
+
+
     });
 
 
@@ -60,7 +415,6 @@ universities_by_name = University.objects.by_name()
 
 <div class="page-image courses-page"></div>
 
-
 <div class="row">
     <div class="col-lg-36 big-title text-center">
         <h2>Les cours à la une</h2>
@@ -68,147 +422,55 @@ universities_by_name = University.objects.by_name()
 </div>
 
 
-<div class="highlighted-courses">
-
-    <div class="row">
-        <!-- haute def > 1350: 4 mises en avant principales -->
-        <ul class="primary-highlight">
-            <li>
-                <%include file="/funsite/parts/big-course-block.html" args="id=1"/>
-            </li>
-            <li>
-                <%include file="/funsite/parts/big-course-block.html" args="id=2" />
-            </li>
-            <li class="hidden-960">
-                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
-            </li>
-            <li class="hidden-1280">
-                <%include file="/funsite/parts/big-course-block.html" args="id=3" />
-            </li>
-        </ul>
-    </div>
-</div>
-
-
-
-    %for course in courses:
-          <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
-            ${get_course_about_section(course, 'title')}<br>
-        </a>
-    %endfor
-
-
 <div class="course-list">
 
     <div class="row">
 
-        <div class="col-md-12 col-sm-12">
+        <div class="col-lg-8 col-md-12 col-sm-12">
             <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
-                <h1>Recherche</h1>
-                <h2>Disponibilité</h2>
-                <ul class="criteria" data-criterion_type="state">
-                    <li class="criterion" data-criterion="new">Nouveau cours<span class="badge pull-right">22</span></li>
-                    <li class="criterion" data-criterion="near-end">Fin d'inscription imminente<span class="badge pull-right">5</span></li>
-                    <li class="criterion" data-criterion="near-start">Démarre bientôt<span class="badge pull-right">99</span></li>
-                    <li class="criterion" data-criterion="demand">A la demande<span class="badge pull-right">27</span></li>
-                </ul>
 
-                <h2>Thèmes</h2>
-                <ul class="criteria" data-criterion_type="subject">
-                    %for course_subject in course_subjects_by_score[:8]:
-                    <li class="criterion" data-criterion="${ course_subject.slug }">
-                        ${ course_subject.short_name or course_subject.name }
-                        <span class="badge pull-right">${ course_subject.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-                <span class="all-items-button" data-overlay_id="#all-themes-overlay">Toutes les thèmes</span>
+                <h1>${_(u"Refile search results")}</h1>
 
-                <h2>Établissements</h2>
-                <ul class="criteria" data-criterion_type="university">
-                    %for university in universities_by_score[:10]:
-                    <li class="criterion" data-criterion="${ university.slug }">
-                        ${ university.short_name or university.name }
-                        <span class="badge pull-right">${ university.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-                <span class="all-items-button" data-overlay_id="#all-universities-overlay">Tous les établissements</span>
+                <div id="item-app">
 
-                <h2>Formation certifiante</h2>
-                <ul class="criteria" data-criterion_type="certificate">
-                    <li class="criterion filter-checkbox" data-criterion="">
-                        Certificat
-                        <span class="badge pull-right">50</span>
-                    </li>
-                </ul>
-                <h2>Langue</h2>
-                <ul class="criteria" data-criterion_type="language">
-                    <li class="criterion icon french-flag" data-criterion="fr">
-                        Français
-                        <span class="badge pull-right">103</span>
-                    </li>
-                    <li class="criterion icon english-flag" data-criterion="en">
-                        English
-                        <span class="badge pull-right">5</span>
-                    </li>
-                    <li class="criterion icon german-flag" data-criterion="de">
-                        Deutsche
-                        <span class="badge pull-right">2</span>
-                    </li>
-                    <li class="criterion icon spanish-flag" data-criterion="es">
-                        Español
-                        <span class="badge pull-right">1</span>
-                    </li>
-                </ul>
-
+                </div>
 
             </div>
         </div>
 
-        <div class="col-md-24 col-sm-24">
+        <div class="col-lg-28 col-md-24 col-sm-24 offset">
             <div class="pagination">
-
             </div>
+
+
             <div class="list">
-                <ul>
-                    %for a in range(30):  ## multiple of 5, 3, 2 and 1
-                    <li>
-                        <%include file="/funsite/parts/small-course-block.html" args="id=1" />
-                    </li>
-                    %endfor
+                <div id="display-filter">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h3>Votre recherche</h3>
+                        </div>
+                        <div class="col-md-31">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <ul id="course-filtering-results">
                 </ul>
 
             </div>
 
             <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
-                <h2>Tous les tèmes</h2>
-                <ul class="criteria" data-criterion_type="subject">
-                    %for course_subject in course_subjects_by_name:
-                    <li class="criterion" data-criterion="${ course_subject.slug }">
-                        ${ course_subject.short_name or course_subject.name }
-                        <span class="badge pull-right">${ course_subject.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-
+                <h2>Tous les thèmes</h2>
+                <ul class="criteria"></ul>
             </div>
-
 
 
             <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
                 <h2>Tous les établissements</h2>
-                <ul class="criteria" data-criterion_type="university">
-
-                    %for university in universities_by_name:
-                    <li class="criterion" data-criterion="${ university.slug }">
-                        ${ university.short_name or university.name }
-                        <span class="badge pull-right">${ university.courses_count }</span>
-                    </li>
-                    %endfor
-                </ul>
-
+                <ul class="criteria"></ul>
+            </div>
 
         </div>
 
