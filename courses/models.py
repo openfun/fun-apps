@@ -47,6 +47,14 @@ class Course(models.Model):
         verbose_name = _('course')
         verbose_name_plural = _('courses')
 
+    @property
+    def availability_status(self):
+        if self.is_new:
+            return 'new'
+        if self.on_demand:
+            return 'on-demand'
+
+
     @staticmethod
     def random_featured(limit_to=7):
         courses = Course.objects.by_score()[:limit_to]
