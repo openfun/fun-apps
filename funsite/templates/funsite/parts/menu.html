@@ -8,34 +8,32 @@ from django.utils.translation import ugettext as _
 
         <div class="row ">
 
-            <div class="col-sm-12">
+            <div class="col-xs-12">
                 <div class="pull-left">
                     <span id="sandwich-menu"></span>
                 </div>
             </div>
 
-            <div class="col-sm-12">
+            <div class="col-xs-12">
 
                 <div class="text-center">
 
                 </div>
             </div>
 
-            <div class="col-sm-12">
+            <div class="col-xs-12">
 
-                <div class="pull-right connexion
                 %if request.user.is_authenticated():
-                    connected
+                    <a href="${reverse('dashboard')}">
+                        <div class="pull-right connexion connected">
+                            <span>${request.user.profile.name}</span>
+                        </div>
+                    </a>
                 %else:
-                    not-connected
+                    <div class="pull-right connexion not-connected">
+                        <span>${_(u"Connexion")}</span>
+                    </div>
                 %endif
-                ">
-                    %if request.user.is_authenticated():
-                        <a href="${reverse('dashboard')}">${request.user.profile.name}</a>
-                    %else:
-                        ${_(u"Connexion")}
-                    %endif
-                </div>
 
                 <%include file="login-overlay.html" />
 

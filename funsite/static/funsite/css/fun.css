@@ -45,7 +45,7 @@ body {
     padding-top: 20px;
     padding-left: 60px;
 }
-#top-menu .connexion>a,>a:hover,>a:visited {
+#top-menu .connexion>a,#top-menu .connexion>a:hover,#top-menu .connexion>a:visited {
     text-decoration: none;
     color: white;
 }
@@ -109,7 +109,7 @@ body {
 
 }
 #login-overlay input[name="password"] {
-    background: url('/static/funsite/images/icones/login-pasword.png') 8px 8px no-repeat #F1F2F3;
+    background: url('/static/funsite/images/icones/login-password.png') 8px 8px no-repeat #F1F2F3;
 }
 
 #login-overlay input.loginerror {
@@ -311,6 +311,11 @@ ul..footer-links.right {
         background-image: url('/static/funsite/images/homepage1900_draft.png')
     }
 
+    div.page-image.home-page h1 {
+        padding-top: 200px;
+        font-size: 50px;
+        margin-bottom: 70px;
+    }
 }
 
 
@@ -357,16 +362,22 @@ ul..footer-links.right {
         width: 1280px;
         height: 360px;
     }
-    div.page-image.home-page span.logo-fun {
-        top: 90px;
-        left: 548px;
-    }
 
     div.page-image.home-page {
         background-image: url('/static/funsite/images/homepage1280_draft.png')
     }
     div.page-image.courses-page {
         background-image: url('/static/funsite/images/homepage1280_draft.png')
+    }
+
+    div.page-image.home-page h1 {
+        padding-top: 140px;
+        font-size: 44px;
+        margin-bottom: 50px;
+    }
+    div.page-image.home-page img.logo-fun {
+        width: 195px;
+        height: 180px;
     }
 
 }
@@ -416,6 +427,15 @@ ul..footer-links.right {
     div.page-image.courses-page {
         background-image: url('/static/funsite/images/homepage960_draft.png')
     }
+    div.page-image.home-page h1 {
+        padding-top: 140px;
+        font-size: 40px;
+        margin-bottom: 36px;
+    }
+    div.page-image.home-page img.logo-fun {
+        width: 156px;
+        height: 144px;
+    }
 
 }
 
@@ -446,6 +466,15 @@ ul..footer-links.right {
     }
     div.page-image.courses-page {
         background-image: url('/static/funsite/images/homepage768_draft.png')
+    }
+    div.page-image.home-page h1 {
+        padding-top: 110px;
+        font-size: 36px;
+        margin-bottom: 28px;
+    }
+    div.page-image.home-page img.logo-fun {
+        width: 137px;
+        height: 126px;
     }
 
 }
@@ -484,27 +513,37 @@ ul..footer-links.right {
         background-image: url('/static/funsite/images/homepage320_draft.png')
     }
 
+    div.page-image.home-page h1 {
+        padding-top: 110px;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+    div.page-image.home-page img.logo-fun {
+        width: 98px;
+        height: 90px;
+    }
+
+    #top-menu .connexion {
+        width: 60px;
+    }
+    #top-menu .connexion>span {
+        display: none;
+    }
 }
+
 div.page-image.home-page {
     margin-bottom: 60px;
+    text-align: center;
 }
 
 div.page-image.home-page h1 {
     margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 90px;
-    font-size: 50px;
     font-weight: 500;
-    text-align: center;
     color: white;
 }
 
-div.page-image.home-page span.logo-fun {
-    width: 195px;
-    height: 180px;
+div.page-image.home-page img.logo-fun {
     display: inline-block;
-    position: relative;
-    background-image: url('/static/funsite/images/logos/fun195.png');
 }
 
 
