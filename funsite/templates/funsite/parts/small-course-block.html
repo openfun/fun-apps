@@ -2,6 +2,7 @@
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from util.date_utils import strftime_localized
 %>
 
 <%page args="course"/>
@@ -28,13 +29,13 @@ from django.utils.translation import ugettext as _
 
         <div class="footer row">
             <div class="date col-sm-20">
-                Débute le
+                ${_(u"Starts")}
                 <br>
-                14 Déc. 2015
+                ${ strftime_localized(course.start_date, 'SHORT_DATE')}
             </div>
 
             <a href="${reverse('about_course', args=[course.key])}"><div class="register col-sm-16">
-                S'inscrire
+                ${_(u"Register")}
             </div></a>
         </div>
     </div>
