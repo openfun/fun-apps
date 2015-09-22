@@ -18,6 +18,9 @@ class Course(models.Model):
     modification_date = models.DateTimeField(_('modification date'), auto_now=True)
     key = models.CharField(max_length=200, verbose_name=_(u'Course key'),
         unique=True)
+    title = models.CharField(_(u'title'), max_length=255, blank=True)
+    short_description = models.TextField(_('short description'), blank=True)
+    image_url = models.CharField(_(u'image url'), max_length=255, blank=True)
     universities = models.ManyToManyField('universities.University',
         through='CourseUniversityRelation', related_name='courses')
     subjects = models.ManyToManyField('CourseSubject', related_name='courses',
@@ -43,46 +46,6 @@ class Course(models.Model):
         ordering = ('-score',)
         verbose_name = _('course')
         verbose_name_plural = _('courses')
-
-    @property
-    def course_locator(self):
-        return CourseLocator.from_string(self.key)
-
-    @property
-    def course_descriptor(self):
-        try:
-            course = get_course(self.course_locator)
-        except ValueError:
-            course = None
-        return course
-
-    @property
-    def image_url(self):
-        return 'TODO - Fix this URL'
-        if not self.course_descriptor:
-            return ''
-        location = StaticContent.compute_location(
-            self.course_locator, self.course_descriptor.course_image
-        )
-        return location.to_deprecated_string()
-
-    @property
-    def title(self):
-        return 'TODO - Fix this title'
-        if not self.course_descriptor:
-            return ''
-        title = get_course_about_section(self.course_descriptor, 'title')
-        return title
-
-    @property
-    def short_description(self):
-        return 'TODO - Fix this description'
-        if not self.course_descriptor:
-            return ''
-        description = get_course_about_section(
-            self.course_descriptor, 'short_description'
-        )
-        return description
 
     @staticmethod
     def random_featured(limit_to=7):

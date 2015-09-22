@@ -16,9 +16,6 @@ class CourseSubjectSerializer(CoursesCountSerializerMixin, serializers.ModelSeri
 class CourseSerializer(serializers.ModelSerializer):
     universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
-    image_url = serializers.CharField(source='image_url')
-    short_description = serializers.CharField(source='short_description')
-    title = serializers.CharField(source='title')
 
     class Meta:
         model = Course
