@@ -101,9 +101,15 @@ body {
     width: 234px;
     margin-top: 12px;
     margin-bottom: 5px;
-    background-color: #F1F2F3;
     border: 1px solid #F1F2F3;
     padding: 8px 8px 8px 40px ;
+}
+#login-overlay input[name="email"] {
+    background: url('/static/funsite/images/icones/login-email.png') 8px 8px no-repeat #F1F2F3;
+
+}
+#login-overlay input[name="password"] {
+    background: url('/static/funsite/images/icones/login-pasword.png') 8px 8px no-repeat #F1F2F3;
 }
 
 #login-overlay input.loginerror {
