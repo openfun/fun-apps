@@ -1,0 +1,173 @@
+- fields: {description: '', featured: false, image: '', name: ' Agronomie et agriculture',
+    score: 0, short_name: '', slug: agronomie-et-agriculture}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Chimie, score: 0, short_name: '',
+    slug: chimie}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Communication, score: 0,
+    short_name: '', slug: communication}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "Cr\xE9ation, arts et\
+      \ design", score: 0, short_name: '', slug: creation-arts-et-design}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Cultures et civilisations,
+    score: 0, short_name: '', slug: cultures-et-civilisations}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "D\xE9couverte de l'Univers",
+    score: 0, short_name: '', slug: decouverte-de-lunivers}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: Droit, score: 0, short_name: '',
+    slug: droit}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Droit et juridique,
+    score: 0, short_name: '', slug: droit-et-juridique}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "\xC9conomie et finance",
+    score: 0, short_name: '', slug: economie-et-finance}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: 'Economie, finance',
+    score: 0, short_name: '', slug: economie-finance}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: 'Education, formation',
+    score: 0, short_name: '', slug: education-formation}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "Enjeux de soci\xE9\
+      t\xE9", score: 0, short_name: '', slug: enjeux-de-societe}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Enseignement et formation,
+    score: 0, short_name: '', slug: enseignement-et-formation}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Entrepreneuriat, score: 0,
+    short_name: '', slug: entrepreneuriat}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Environnement, score: 0,
+    short_name: '', slug: environnement}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: "Environnement, d\xE9\
+      veloppement durable", score: 0, short_name: "Environnement, d\xE9v. durable",
+    slug: environnement-developpement-durable}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "G\xE9ographie", score: 0,
+    short_name: '', slug: geographie}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Histoire, score: 0,
+    short_name: '', slug: histoire}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: Informatique, score: 0,
+    short_name: '', slug: informatique}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: 'Informatique, programmation',
+    score: 0, short_name: '', slug: informatique-programmation}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Innovation, score: 0,
+    short_name: '', slug: innovation}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: Langues, score: 0, short_name: '',
+    slug: langues}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Lettres, score: 0, short_name: '',
+    slug: lettres}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Management, score: 0,
+    short_name: '', slug: management}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: 'management, entrepreunariat',
+    score: 0, short_name: '', slug: management-entrepreunariat}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "Math\xE9matiques et\
+      \ statistiques", score: 0, short_name: '', slug: mathematiques-et-statistiques}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "M\xE9dias", score: 0,
+    short_name: '', slug: medias}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "Num\xE9rique, technologie",
+    score: 0, short_name: '', slug: numerique-technologie}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Outils pour la recherche,
+    score: 0, short_name: '', slug: outils-pour-la-recherche}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Philosophie, score: 0,
+    short_name: '', slug: philosophie}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Physique, score: 0,
+    short_name: '', slug: physique}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Politique, score: 0,
+    short_name: '', slug: politique}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Relations internationales,
+    score: 0, short_name: '', slug: relations-internationales}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "R\xE9seaux et t\xE9\
+      l\xE9com.", score: 0, short_name: '', slug: reseaux-et-telecommunications}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: "Sant\xE9", score: 0,
+    short_name: '', slug: sante}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: '', name: Sciences, score: 0, short_name: '',
+    slug: sciences}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Sciences cognitives,
+    score: 0, short_name: '', slug: sciences-cognitives}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Sciences de la Terre
+      et de l'Univers, score: 0, short_name: '', slug: sciences-de-la-terre-et-de-lunivers}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Sciences de la vie,
+    score: 0, short_name: '', slug: sciences-de-la-vie}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: true, image: courses/theme0_draft_XGCv0ul.png,
+    name: Sciences humaines et sociales, score: 0, short_name: '', slug: sciences-humaines-et-sociales}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "Sciences pour l'ing\xE9\
+      nieur", score: 0, short_name: '', slug: sciences-pour-lingenieur}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: Sport, score: 0, short_name: '',
+    slug: sport}
+  model: courses.coursesubject
+  pk: null
+- fields: {description: '', featured: false, image: '', name: "Vie de l\u2019entreprise",
+    score: 0, short_name: '', slug: vie-de-lentreprise}
+  model: courses.coursesubject
+  pk: null
