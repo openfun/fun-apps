@@ -10,7 +10,13 @@ from util.date_utils import strftime_localized
 
     <div class="top">
         <div class="type">
-            course.get_course_type
+            %if course.availability_status == 'new':
+                ${_(u"New course")}
+            %elif course.availability_status == 'on-demand':
+                ${_(u"On demand")}
+            %else:
+                ${_(u"New session")}  # TODO session should be numbered
+            %endif
         </div>
         <img class="main img-responsive" src="">
 
@@ -41,3 +47,4 @@ from util.date_utils import strftime_localized
     </div>
 
 </div>
+`
