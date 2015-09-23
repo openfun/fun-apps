@@ -14,6 +14,21 @@ from . import choices as courses_choices
 from .managers import CourseSubjectManager, CourseManager
 
 
+course_subject_images_mapping = {
+    'philosophie': 'brain.png',
+    'economie-et-finance': 'money.png',
+    'physique': 'physique.png',
+    'informatique-programmation': 'screen.png',
+    'droit': 'justice.png',
+    'education-formation': 'teacher.png',
+    'environnement-developpement-durable': 'earth.png',
+    'langues': 'bubbles.png',
+    'management-entrepreunariat': 'bulding.png',
+    'sante' 'caduce'
+    'sciences-humaines-et-sociales': 'book.png',
+    'sciences': 'microscope.png',
+}
+
 class Course(models.Model):
     modification_date = models.DateTimeField(_('modification date'), auto_now=True)
     key = models.CharField(max_length=200, verbose_name=_(u'Course key'),
@@ -79,6 +94,9 @@ class CourseSubject(models.Model):
 
     objects = CourseSubjectManager()
 
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         ordering = ('-score', 'name', 'id',)
         verbose_name = _('Course Subject')
@@ -87,8 +105,15 @@ class CourseSubject(models.Model):
     def get_absolute_url(self):
         return '/TODO/'
 
-    def __unicode__(self):
-        return self.name
+    def get_image_url(self):
+        if self.featured:
+            if self.image:
+                return self.image.url
+            else:
+                try:
+                    return '/static/funsite/images/icones/themes/%s' % course_subject_images_mapping[self.slug]
+                except KeyError:
+                    return ''
 
 
 class CourseUniversityRelation(models.Model):
