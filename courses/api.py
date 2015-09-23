@@ -44,6 +44,7 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     '''
     filter_backends = (CourseFilter,)
     model = Course
+    authentication_classes = ()  # Disable auth - works with nginx.
 
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
