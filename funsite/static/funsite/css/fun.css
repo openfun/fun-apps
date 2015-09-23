@@ -578,15 +578,6 @@ ul.secondary-highlight li {
 
 }
 
-.highlighted-courses .big-course {
-    border: 1px solid black;
-    width: 370px;
-    height: 385px;
-}
-.highlighted-courses .big-course img.main {
-    margin: 16px;
-}
-
 /* Small course block */
 .small-course {
     width: 270px;
@@ -669,6 +660,99 @@ ul.secondary-highlight li {
     height: 47px;
     font-weight: 600;
 }
+
+
+/* Big course block */
+
+.big-course {
+    width: 370px;
+    height: 386px;
+    background-color: white;
+    margin-bottom: 36px;
+}
+
+.big-course div.top {
+    text-align: center;
+    height: 232px;
+}
+.big-course img.main {
+    margin: 16px 16px 20px 16px;
+    position: relative;
+    top: -40px;
+    width: 338px;
+    height: 192px;
+}
+.big-course div.type {
+    position: relative;
+    top: 184px;
+    left: 100px;
+    background-color: #CBCCCD;
+    color: #08223B;
+    width: 170px;
+    height: 40px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 10;
+    text-transform: uppercase;
+}
+
+.big-course div.middle {
+    text-align: center;
+    height: 90px;
+}
+
+.big-course div.bottom {
+}
+
+.big-course div.title {
+    position relative
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    color: #08223B;
+    margin-bottom: 8px;
+}
+.big-course div.universities {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #656667;
+}
+.big-course div.footer {
+    margin-left: 0;
+    position: relative;
+    width: 370px;
+    border-top: 1px solid #CBCCCD;
+}
+.big-course div.footer .date {
+    padding-left: 48px;
+    padding-top: 16px;
+    background: url('/static/funsite/images/icones/calendar.png') 12px 14px no-repeat;
+    font-weight: 600;
+    color: #656667;
+    line-height: 24px;
+}
+.big-course div.footer .register {
+    padding-top: 16px;
+    background-color: #3877BC;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    height: 54px;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+
 /** Page specific CSS **/
 
 
