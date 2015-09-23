@@ -30,12 +30,8 @@
     score: 0, short_name: '', slug: droit-et-juridique}
   model: courses.coursesubject
   pk: null
-- fields: {description: '', featured: false, image: '', name: "\xC9conomie et finance",
+- fields: {description: '', featured: true, image: '', name: "\xC9conomie et finance",
     score: 0, short_name: '', slug: economie-et-finance}
-  model: courses.coursesubject
-  pk: null
-- fields: {description: '', featured: true, image: '', name: 'Economie, finance',
-    score: 0, short_name: '', slug: economie-finance}
   model: courses.coursesubject
   pk: null
 - fields: {description: '', featured: true, image: '', name: 'Education, formation',
@@ -71,11 +67,11 @@
     short_name: '', slug: histoire}
   model: courses.coursesubject
   pk: null
-- fields: {description: '', featured: true, image: '', name: Informatique, score: 0,
+- fields: {description: '', featured: false, image: '', name: Informatique, score: 0,
     short_name: '', slug: informatique}
   model: courses.coursesubject
   pk: null
-- fields: {description: '', featured: false, image: '', name: 'Informatique, programmation',
+- fields: {description: '', featured: true, image: '', name: 'Informatique, programmation',
     score: 0, short_name: '', slug: informatique-programmation}
   model: courses.coursesubject
   pk: null
@@ -155,7 +151,7 @@
     score: 0, short_name: '', slug: sciences-de-la-vie}
   model: courses.coursesubject
   pk: null
-- fields: {description: '', featured: true, image: courses/theme0_draft_XGCv0ul.png,
+- fields: {description: '', featured: true, image: '',
     name: Sciences humaines et sociales, score: 0, short_name: '', slug: sciences-humaines-et-sociales}
   model: courses.coursesubject
   pk: null
