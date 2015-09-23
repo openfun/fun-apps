@@ -23,8 +23,8 @@ course_subject_images_mapping = {
     'education-formation': 'teacher.png',
     'environnement-developpement-durable': 'earth.png',
     'langues': 'bubbles.png',
-    'management-entrepreunariat': 'bulding.png',
-    'sante' 'caduce'
+    'management-entrepreunariat': 'building.png',
+    'sante': 'caduce.png',
     'sciences-humaines-et-sociales': 'book.png',
     'sciences': 'microscope.png',
 }
