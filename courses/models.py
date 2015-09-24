@@ -46,10 +46,6 @@ class Course(models.Model):
     prevent_auto_update = models.BooleanField(
         verbose_name=_('prevent automatic update'), default=False)
     session_number = models.PositiveIntegerField(_('session'), default=1)
-    is_new = models.BooleanField(verbose_name=_('new course'), db_index=True,
-        default=False)
-    on_demand = models.BooleanField(verbose_name=_('on demand'), db_index=True,
-        default=False)
     score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
     start_date = models.DateTimeField(verbose_name=_('start date'), db_index=True,
         null=True, blank=True)
