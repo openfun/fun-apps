@@ -2,12 +2,12 @@ import random
 
 from django.core.management.base import BaseCommand
 
+from courseware.courses import get_course_about_section
 from opaque_keys.edx.locator import CourseLocator
 from xmodule.contentstore.content import StaticContent
 from xmodule.modulestore.django import modulestore
 
 from courses.models import Course
-from courses.utils import get_about_section
 
 
 class Command(BaseCommand):
@@ -22,14 +22,8 @@ class Command(BaseCommand):
         return random.randint(1, 100)
 
     def get_course_title(self, course_descriptor):
-        title = get_about_section(course_descriptor, 'title')
+        title = get_course_about_section(course_descriptor, 'title')
         return title or ''
-
-    def get_course_description(self, course_descriptor):
-        description = get_about_section(
-            course_descriptor, 'short_description'
-        )
-        return description or ''
 
     def get_course_image_url(self, course_descriptor):
         key = unicode(course_descriptor.id)
@@ -37,7 +31,7 @@ class Command(BaseCommand):
         location = StaticContent.compute_location(
             course_locator, course_descriptor.course_image
         )
-        return location.to_deprecated_string()
+        return unicode(location)
 
     def update_course_data(self):
         '''
@@ -54,7 +48,6 @@ class Command(BaseCommand):
             if was_created:
                 course.is_active = True
             course.title = self.get_course_title(mongo_course)
-            course.short_description = self.get_course_description(mongo_course)
             course.image_url = self.get_course_image_url(mongo_course)
             course.score = self.get_course_score()
             course.start_date = mongo_course.start
