@@ -45,7 +45,8 @@ class Course(models.Model):
     is_active = models.BooleanField(verbose_name=_('is active'), default=False)
     prevent_auto_update = models.BooleanField(
         verbose_name=_('prevent automatic update'), default=False)
-    session_number = models.PositiveIntegerField(_('session'), default=1)
+    session_number = models.PositiveIntegerField(_('session'), default=1,
+        help_text=_("Set 0 if session doesn't make sense for this course."))
     score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
     start_date = models.DateTimeField(verbose_name=_('start date'), db_index=True,
         null=True, blank=True)
