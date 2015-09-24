@@ -32,7 +32,10 @@ body {
             box-shadow: 0 6px 6px -6px #aaa;
 }
 
-
+.space-40px {
+    clear: both;
+    height: 40px;
+}
 
 /* Sandwich menu */
 
@@ -766,9 +769,18 @@ ul.secondary-highlight li {
     background-color: white;
 }
 
+.universities-page .introduction {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 ul.universities-list {
     list-style-type: none;
 }
+.universities-page .universities-list li {
+    margin: 12px;
+}
+
 .universities-list li {
     float: left;
     margin: 4px;
