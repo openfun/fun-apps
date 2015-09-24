@@ -16,7 +16,6 @@ class CourseSubjectSerializer(CoursesCountSerializerMixin, serializers.ModelSeri
 class CourseSerializer(serializers.ModelSerializer):
     universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
-    availability_status = serializers.CharField(source='availability_status')
 
     class Meta:
         model = Course
@@ -34,5 +33,5 @@ class CourseSerializer(serializers.ModelSerializer):
             'start_date',
             'end_date',
             'score',
-            'availability_status',
+            'session_number',
         )
