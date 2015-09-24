@@ -39,12 +39,6 @@ class CourseQuerySet(models.query.QuerySet):
     def active(self):
         return self.filter(is_active=True)
 
-    def new(self):
-        return self.filter(is_new=True)
-
-    def on_demand(self):
-        return self.filter(on_demand=True)
-
     def start_soon(self):
         return self.filter(start_date__range=(now(), self.too_late))
 

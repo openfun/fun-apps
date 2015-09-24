@@ -21,12 +21,6 @@ class Command(BaseCommand):
     def get_course_score(self):
         return random.randint(1, 100)
 
-    def find_out_if_course_is_new(self):
-        return random.choice([True, False])
-
-    def find_out_if_course_is_on_demand(self):
-        return random.choice([True, False])
-
     def get_course_title(self, course_descriptor):
         title = get_about_section(course_descriptor, 'title')
         return title or ''
@@ -65,8 +59,6 @@ class Command(BaseCommand):
             course.score = self.get_course_score()
             course.start_date = mongo_course.start
             course.end_date = mongo_course.end
-            course.is_new = self.find_out_if_course_is_new()
-            course.on_demand = self.find_out_if_course_is_on_demand()
             course.save()
         return None
 
