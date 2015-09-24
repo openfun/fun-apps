@@ -1,40 +1,62 @@
 ## mako
 <%!
 from django.utils.translation import ugettext as _
+
 %>
 
 <%inherit file="/funsite/parts/base.html" />
-
 
 <%block name="title">${_("Institutions")}</%block>
 
 
 <%block name="content">
 
-<section class="university-list">
-  <header>
-    <h1>${_("The universities and schools")}</h1>
-    <h2>${_("Offer courses and trainings on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h2>
-  </header>
-</section>
+<div class="full-content">
 
-  <section class="university-list container">
-  <p>${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}</p>
+    <div class="row ">
+        <div class="col-md-36">
 
-    <ul>
-    % for university in universities:
-          <li>
-            % if university.detail_page_enabled:
-              <a href="${ university.get_absolute_url()}">
-            % endif
-              <img src="${ university.logo.url }" alt="${ university.name }" title="${ university.name }" />
-            % if university.detail_page_enabled:
-              </a>
-          </li>
-        % endif
-    % endfor
-    </ul>
-  </section>
-</section>
+
+
+<div class="universities universities-page">
+
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-30 col-md-36">
+
+            <div class="introduction">
+                <h1>${_("The universities and schools")}</h1>
+                <h3>${_("Offer courses and trainings on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h3>
+
+                <p>
+                    ${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}
+                  </p>
+            </div>
+
+            <div class="space-40px"></div>
+
+            <ul class="universities-list">
+
+            % for university in universities:
+                <li>
+                    <a href="${ university.get_absolute_url()}">
+                        <div class="university-logo center-block">
+                            <img src="${ university.get_logo_thumbnail() }" alt="${ university.name }" title="${ university.name }" />
+                        </div>
+                    </a>
+                </li>
+            % endfor
+
+            </ul>
+
+            <div class="space-40px"></div>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+
 
 </%block>

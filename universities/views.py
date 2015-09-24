@@ -11,7 +11,7 @@ class UniversityLandingView(mako.MakoTemplateMixin, ListView):
     context_object_name = 'universities'
 
     def get_queryset(self):
-        return University.objects.all()
+        return University.objects.have_page()
 
 
 class UniversityDetailView(mako.MakoTemplateMixin, DetailView):

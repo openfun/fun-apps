@@ -65,7 +65,7 @@ featured_courses = Course.random_featured(9)
 
 <div class="row">
     <div class="col-lg-36 big-title text-center">
-        <h2>Les cours à la une</h2>
+        <h2>${ _(u"Highlighted courses") }</h2>
     </div>
 </div>
 
@@ -136,7 +136,7 @@ featured_courses = Course.random_featured(9)
 
     <div class="row">
         <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="${reverse('fun-courses-index')}">Tous les cours</a></span>
+            <span class="all-items-button"><a href="${reverse('fun-courses-index')}">${ _(u"All courses") }</a></span>
         </div>
     </div>
 
@@ -148,7 +148,7 @@ featured_courses = Course.random_featured(9)
 <div class="universities">
     <div class="row ">
         <div class="col-lg-36 big-title text-center">
-            <h2>Les établissements</h2>
+            <h2>${ _(u"Institutions") }</h2>
         </div>
     </div>
 
@@ -179,7 +179,7 @@ featured_courses = Course.random_featured(9)
 
     <div class="row">
         <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="">Tous les établissements</a></span>
+            <span class="all-items-button"><a href="${ reverse('universities-landing') }">${ _(u"All institutions") }</a></span>
         </div>
     </div>
 
@@ -189,7 +189,7 @@ featured_courses = Course.random_featured(9)
 <div class="fun-news">
     <div class="row ">
         <div class="col-lg-36 big-title white text-center">
-            <h2>Les actualités</h2>
+            <h2>${ _(u"News") }</h2>
         </div>
     </div>
 
@@ -213,7 +213,7 @@ featured_courses = Course.random_featured(9)
 
     <div class="row">
         <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="">Toutes les actus</a></span>
+            <span class="all-items-button"><a href="">${ _(u"All news") }</a></span>
         </div>
     </div>
 </div>
@@ -222,7 +222,7 @@ featured_courses = Course.random_featured(9)
 <div class="fun-themes">
     <div class="row ">
         <div class="col-lg-36 big-title text-center">
-            <h2>Les thématiques</h2>
+            <h2>${ _(u"Thematics") }</h2>
         </div>
     </div>
 
