@@ -772,8 +772,17 @@ ul.universities-list {
     width: 185px;
     height: 105px;
     border: 1px solid #E6E6E6;
+    position: relative;
 }
-
+.university-logo img {
+    /*verticaly centered in parent div */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
 .fun-news {
     background-color: #2B2B2B;
 

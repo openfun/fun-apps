@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext
 
+from easy_thumbnails.files import get_thumbnailer
 from ckeditor.fields import RichTextField
 
 from .managers import UniversityManager
@@ -48,8 +49,15 @@ class University(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('universities-detail', (self.slug,))
+        if self.slug:
+            return ('universities-detail', (self.slug,))
 
     def get_name(self):
         """Return university's parent name if this one has a parent."""
         return self.name if not self.parent else self.parent.name
+
+    def get_logo_thumbnail(self):
+        options = {'size': (180, 100), }
+        thumbnail = get_thumbnailer(self.logo).get_thumbnail(options)
+        return thumbnail.url
+
