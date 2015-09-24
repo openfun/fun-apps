@@ -69,6 +69,8 @@ class Course(models.Model):
     @property
     def session_display(self):
         display_text = ''
+        if self.session_number == 1:
+            display_text = _('new course')
         if self.session_number > 1:
             display_text = _('session {}'.format(self.session_number))
         return display_text
