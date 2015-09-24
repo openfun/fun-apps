@@ -6,13 +6,17 @@ from util.date_utils import strftime_localized
 %>
 
 <%page args="course"/>
-<div class="big-course center-block">
+<div class="course-block big-course center-block">
 
     <div class="top">
-        <div class="type">
-            ${ course.session_display }
+        % if course.session_display:
+            <div class="type">
+                ${ course.session_display }
+        % else:
+            <div class="type empty">
+        % endif
         </div>
-        <img class="main img-responsive" src="https://placeholdit.imgix.net/~text?txtsize=50&txt=338x190&w=338&h=190">
+        <img class="main img-responsive" src="${ course.image_url }">
 
     </div>
     <div class="middle">
@@ -39,4 +43,3 @@ from util.date_utils import strftime_localized
     </div>
 
 </div>
-`
