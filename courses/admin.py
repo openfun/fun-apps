@@ -14,8 +14,8 @@ class CourseUniversityRelationInline(admin.TabularInline):
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('key', 'title', 'level', 'score', 'is_new',
-        'on_demand', 'is_active', 'prevent_auto_update',
+    list_display = ('key', 'title', 'level', 'score', 'session_number',
+        'is_new', 'on_demand', 'is_active', 'prevent_auto_update',
         'modification_date')
     list_filter = ('is_active', 'prevent_auto_update', 'is_new',
         'on_demand','level', 'subjects', 'universities')
@@ -37,6 +37,7 @@ class CourseAdmin(admin.ModelAdmin):
                 'short_description',
                 'level',
                 'subjects',
+                'session_number',
                 'score',
             )
         }),
