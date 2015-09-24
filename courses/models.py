@@ -70,7 +70,7 @@ class Course(models.Model):
     def session_display(self):
         display_text = ''
         if self.session_number == 1:
-            display_text = _('new course')
+            display_text = ugettext('new course')
         if self.session_number > 1:
             display_text = ugettext('session {}'.format(self.session_number))
         return display_text
