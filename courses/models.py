@@ -64,10 +64,14 @@ class Course(models.Model):
 
     @property
     def availability_status(self):
+        status = {}
         if self.is_new:
-            return 'new'
+            status['status'] = 'new'
+            status['status_display'] = _('New')
         if self.on_demand:
-            return 'on-demand'
+            status['status'] = 'on-demand'
+            status['status_display'] = _('On demand')
+        return status
 
 
     @staticmethod
