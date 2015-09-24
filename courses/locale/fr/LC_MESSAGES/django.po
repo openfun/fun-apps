@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 2\n"
+"Project-Id-Version: France Université Numérique 3\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-09-24 17:11+0200\n"
-"PO-Revision-Date: 2015-09-24 17:11+0000\n"
+"POT-Creation-Date: 2015-09-24 17:24+0200\n"
+"PO-Revision-Date: 2015-09-24 17:24+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -27,11 +27,11 @@ msgstr "Tous"
 msgid "Availability"
 msgstr "Disponibilité"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:98
+#: /edx/app/edxapp/fun-apps/courses/models.py:100
 msgid "Course Subject"
 msgstr "Thème de cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:99
+#: /edx/app/edxapp/fun-apps/courses/models.py:101
 msgid "Course Subjects"
 msgstr "Thèmes de cours"
 
@@ -39,7 +39,7 @@ msgstr "Thèmes de cours"
 msgid "Course key"
 msgstr "Clé du cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:77
+#: /edx/app/edxapp/fun-apps/courses/models.py:79
 msgid "Course {}"
 msgstr "cours {}"
 
@@ -52,7 +52,7 @@ msgstr "Les cours"
 msgid "Current"
 msgstr "En cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:83
+#: /edx/app/edxapp/fun-apps/courses/models.py:85
 msgid "Displayed where space is rare - on side panel for instance."
 msgstr "Affiché dans le panneau latéral où l'espace est réduit."
 
@@ -111,8 +111,8 @@ msgstr "Établissement"
 msgid "course"
 msgstr "cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:124
-#: /edx/app/edxapp/fun-apps/courses/models.py:125
+#: /edx/app/edxapp/fun-apps/courses/models.py:126
+#: /edx/app/edxapp/fun-apps/courses/models.py:127
 msgid "course-university relation"
 msgstr ""
 
@@ -120,7 +120,7 @@ msgstr ""
 msgid "courses"
 msgstr "cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:85
+#: /edx/app/edxapp/fun-apps/courses/models.py:87
 msgid "description"
 msgstr "description"
 
@@ -128,7 +128,7 @@ msgstr "description"
 msgid "end date"
 msgstr "date de fin"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:86
+#: /edx/app/edxapp/fun-apps/courses/models.py:88
 msgid "featured"
 msgstr "mise en avant"
 
@@ -148,7 +148,11 @@ msgstr "niveau"
 msgid "modification date"
 msgstr "date de modification"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:120
+#: /edx/app/edxapp/fun-apps/courses/models.py:73
+msgid "new course"
+msgstr "nouveau cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:122
 msgid "order"
 msgstr "ordre"
 
@@ -161,7 +165,7 @@ msgid "preview"
 msgstr "visualiser"
 
 #: /edx/app/edxapp/fun-apps/courses/models.py:49
-#: /edx/app/edxapp/fun-apps/courses/models.py:89
+#: /edx/app/edxapp/fun-apps/courses/models.py:91
 msgid "score"
 msgstr "score"
 
@@ -169,7 +173,7 @@ msgstr "score"
 msgid "session"
 msgstr "session"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:73
+#: /edx/app/edxapp/fun-apps/courses/models.py:75
 msgid "session {}"
 msgstr "session {}"
 
@@ -177,7 +181,7 @@ msgstr "session {}"
 msgid "short description"
 msgstr "description courte"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:82
+#: /edx/app/edxapp/fun-apps/courses/models.py:84
 msgid "short name"
 msgstr "nom court"
 
@@ -188,3 +192,4 @@ msgstr "Date de début :"
 #: /edx/app/edxapp/fun-apps/courses/models.py:36
 msgid "title"
 msgstr "titre"
+
