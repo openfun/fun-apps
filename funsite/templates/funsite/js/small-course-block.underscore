@@ -1,9 +1,13 @@
-<div class="small-course center-block">
+<div class="course-block small-course center-block">
 
     <div class="top">
-        <div class="type">
-            <%= course_type %>
-        </div>
+        <% if (session_display) { %>
+            <div class="type">
+                <%= session_display %>
+        <% } else { %>
+            <div class="type empty">
+        <%} %>
+            </div>
         <img class="main img-responsive" src="<%= image_url %>">
 
     </div>

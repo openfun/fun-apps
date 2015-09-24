@@ -2,7 +2,7 @@
 import random
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
 
@@ -72,7 +72,7 @@ class Course(models.Model):
         if self.session_number == 1:
             display_text = _('new course')
         if self.session_number > 1:
-            display_text = _('session {}'.format(self.session_number))
+            display_text = ugettext('session {}'.format(self.session_number))
         return display_text
 
     def __unicode__(self):
