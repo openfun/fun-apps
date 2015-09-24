@@ -45,6 +45,7 @@ class Course(models.Model):
     is_active = models.BooleanField(verbose_name=_('is active'), default=False)
     prevent_auto_update = models.BooleanField(
         verbose_name=_('prevent automatic update'), default=False)
+    session_number = models.PositiveIntegerField(_('session'), default=1)
     is_new = models.BooleanField(verbose_name=_('new course'), db_index=True,
         default=False)
     on_demand = models.BooleanField(verbose_name=_('on demand'), db_index=True,
@@ -62,24 +63,19 @@ class Course(models.Model):
         verbose_name = _('course')
         verbose_name_plural = _('courses')
 
-    @property
-    def availability_status(self):
-        status = {}
-        if self.is_new:
-            status['status'] = 'new'
-            status['status_display'] = _('New')
-        if self.on_demand:
-            status['status'] = 'on-demand'
-            status['status_display'] = _('On demand')
-        return status
-
-
     @staticmethod
     def random_featured(limit_to=7):
         courses = Course.objects.by_score()[:limit_to]
         courses = list(courses)
         random.shuffle(courses)
         return courses
+
+    @property
+    def session_display(self):
+        display_text = ''
+        if self.session_number > 1:
+            display_text = _('session {}'.format(self.session_number))
+        return display_text
 
     def __unicode__(self):
         return _('Course {}').format(self.key)
