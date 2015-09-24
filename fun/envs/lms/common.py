@@ -16,14 +16,17 @@ INSTALLED_APPS += (
     'universities',
     'videoproviders',
 
+    'easy_thumbnails',
     'adminsortable',
     'bootstrapform',
     'forum_contributors',
     'ckeditor',
     'raven.contrib.django.raven_compat',
+    'pure_pagination',
+
+    'forum_contributors',
     'selftest',
     'password_container', # this is an xblock we had to applications to allow syncdb of its models
-    'pure_pagination',
     'teachers',
     'faq',
     'edx_gea',
@@ -147,4 +150,13 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 10,
 }
 
+# Default visibility of student's profile to other students
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
+
+# easy-thumbnails
+SOUTH_MIGRATION_MODULES = {
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+}
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_EXTENSION = 'png'
+

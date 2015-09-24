@@ -165,7 +165,11 @@ featured_courses = Course.random_featured(9)
                 % else:
                     <li>
                 % endif
-                <div class="university-logo center-block">${ university.name }</div>
+                    <a href="${university.get_absolute_url()}">
+                        <div class="university-logo center-block">
+                            <img src="${university.get_logo_thumbnail()}" alt="${ university.name }" title="${ university.name }">
+                        </div>
+                    </a>
                     </li>
             % endfor
             </ul>
