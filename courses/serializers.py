@@ -16,6 +16,7 @@ class CourseSubjectSerializer(CoursesCountSerializerMixin, serializers.ModelSeri
 class CourseSerializer(serializers.ModelSerializer):
     universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
+    session_display = serializers.CharField(source='session_display')
 
     class Meta:
         model = Course
@@ -34,4 +35,5 @@ class CourseSerializer(serializers.ModelSerializer):
             'end_date',
             'score',
             'session_number',
+            'session_display',
         )
