@@ -579,6 +579,11 @@ ul.secondary-highlight li {
 }
 
 /* Small course block */
+
+.course-block div.type.empty {
+    background-color: transparent;
+}
+
 .small-course {
     width: 270px;
     height: 340px;
