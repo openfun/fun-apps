@@ -757,8 +757,23 @@ ul.secondary-highlight li {
 
 
 
+.university-page .university {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-color: white;
+    padding: 40px;
+}
+.university-page .university h1 {
+    text-align: center;
+}
+.university-page .university .description {
 
+}
+.university-page .courses {
 
+}
 
 
 /** Page specific CSS **/
@@ -769,6 +784,7 @@ ul.secondary-highlight li {
     background-color: white;
 }
 
+/* special modifier for universities page */
 .universities-page .introduction {
     padding-left: 20px;
     padding-right: 20px;
