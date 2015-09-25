@@ -57,6 +57,15 @@ class University(models.Model):
         """Return university's parent name if this one has a parent."""
         return self.name if not self.parent else self.parent.name
 
+    def get_banner(self):
+        options = {'size': (1030, 410), }
+        try:
+            thumbnail = get_thumbnailer(self.banner).get_thumbnail(options)
+            return thumbnail.url
+        except InvalidImageFormatError:
+            return '' # we could return a nice grey image
+
+
     def get_logo_thumbnail(self):
         options = {'size': (180, 100), }
         try:
