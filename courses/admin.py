@@ -19,8 +19,9 @@ class CourseAdmin(admin.ModelAdmin):
         'modification_date')
     list_filter = ('is_active', 'prevent_auto_update',
         'level', 'subjects', 'universities')
-    search_fields = ('key', 'certificateteacher_related__teacher__full_name',
-        'courseteacher_related__teacher__full_name')
+    search_fields = ('key', 'title', 'short_description',
+        'certificateteacher_related__teacher__full_name',
+        'courseteacher_related__teacher__full_name', )
     filter_horizontal = ('subjects',)
     inlines = (
         CourseUniversityRelationInline,
