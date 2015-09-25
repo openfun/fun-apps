@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext
 
 from easy_thumbnails.files import get_thumbnailer
+from easy_thumbnails.exceptions import InvalidImageFormatError
 from ckeditor.fields import RichTextField
 
 from .managers import UniversityManager
@@ -58,6 +59,9 @@ class University(models.Model):
 
     def get_logo_thumbnail(self):
         options = {'size': (180, 100), }
-        thumbnail = get_thumbnailer(self.logo).get_thumbnail(options)
-        return thumbnail.url
+        try:
+            thumbnail = get_thumbnailer(self.logo).get_thumbnail(options)
+            return thumbnail.url
+        except InvalidImageFormatError:
+            return '' # we could return a nice grey image
 
