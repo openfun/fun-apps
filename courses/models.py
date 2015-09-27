@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import random
+
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
+from jsonfield.fields import JSONField
 
 from . import choices as courses_choices
 from .managers import CourseSubjectManager, CourseManager
@@ -22,6 +25,7 @@ course_subject_images_mapping = {
     'sciences-humaines-et-sociales': 'book.png',
     'sciences': 'microscope.png',
 }
+
 
 class Course(models.Model):
     modification_date = models.DateTimeField(_('modification date'), auto_now=True)
@@ -46,6 +50,7 @@ class Course(models.Model):
         null=True, blank=True)
     end_date = models.DateTimeField(verbose_name=_('end date'), db_index=True,
         null=True, blank=True)
+    thumbnails_info = JSONField(_('thumbnails info'), blank=True, null=True)
 
     objects = CourseManager()
 
@@ -53,6 +58,21 @@ class Course(models.Model):
         ordering = ('-score',)
         verbose_name = _('course')
         verbose_name_plural = _('courses')
+
+    @staticmethod
+    def random_featured(limit_to=7):
+        courses = Course.objects.by_score()[:limit_to]
+        courses = list(courses)
+        random.shuffle(courses)
+        return courses
+
+    def get_thumbnail_url(self, thumbnail_alias):
+        url = ''
+        try:
+            url = self.thumbnails_info[thumbnail_alias]
+        except KeyError:
+            pass
+        return url
 
     @property
     def session_display(self):
