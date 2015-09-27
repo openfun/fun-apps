@@ -17,6 +17,7 @@ class CourseSerializer(serializers.ModelSerializer):
     universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
     session_display = serializers.CharField(source='session_display')
+    thumbnails = serializers.CharField(source='thumbnails_info')
 
     class Meta:
         model = Course
@@ -34,4 +35,5 @@ class CourseSerializer(serializers.ModelSerializer):
             'score',
             'session_number',
             'session_display',
+            'thumbnails',
         )
