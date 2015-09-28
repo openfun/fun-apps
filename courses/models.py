@@ -6,10 +6,6 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
 
-from courseware.courses import get_course, get_course_about_section
-from opaque_keys.edx.locator import CourseLocator
-from xmodule.contentstore.content import StaticContent
-
 from . import choices as courses_choices
 from .managers import CourseSubjectManager, CourseManager
 
