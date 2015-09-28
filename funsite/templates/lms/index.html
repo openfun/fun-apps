@@ -1,0 +1,262 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+
+from staticfiles.storage import staticfiles_storage
+
+from courses.models import CourseSubject, Course
+from universities.models import University
+
+course_subjects = CourseSubject.objects.random_featured()
+universities = University.objects.have_page()
+featured_courses = Course.random_featured(9)
+%>
+
+<%inherit file="funsite/parts/base.html" />
+
+<%block name="title">Index</%block>
+
+
+<%block name="js_extra">
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        nav: false,
+        responsive: {
+          0: {
+            items: 1,
+          },
+          768: {
+            items: 3,
+          },
+          960: {
+            items: 4,
+            margin: 20
+          },
+          1280: {
+            items: 5,
+            margin: 20
+          },
+          1900: {
+            items: 8,
+            margin: 20
+          }
+        }
+          })
+</script>
+</%block>
+
+<%block name="content">
+
+<style>
+
+
+</style>
+
+
+<div class="page-image home-page">
+    <h1>Découvrir, se former et réussir</h1>
+    <img class="logo-fun" src="/static/funsite/images/logos/fun195.png"></img>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-36 big-title text-center">
+        <h2>${ _(u"Highlighted courses") }</h2>
+    </div>
+</div>
+
+% if len(featured_courses) >= 8:
+<div class="highlighted-courses">
+    
+    <div class="row hidden-320">
+        <!-- haute def > 1350: 4 mises en avant principales -->
+
+        <ul class="primary-highlight">
+            <li>
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[0]"/>
+            </li>
+            <li class="hidden-768">
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[1]" />
+            </li>
+            <li class="hidden-960">
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[2]" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[3]" />
+            </li>
+        </ul>
+    </div>
+
+    <div class="row hidden-768 hidden-960 hidden-1280 hidden-1900 visible-320">
+        <!-- en 320, les primary s'affichent en petit -->
+        <ul class="secondary-highlight">
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[0]" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[1]" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[2]" />
+            </li>
+        </ul>
+    </div>
+
+    <div class="row hidden-320">
+        <!-- haute def > 1350: 6 mises en avant secondaires -->
+        <ul class="secondary-highlight">
+
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[3]" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[4]" />
+            </li>
+            <li>
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[5]" />
+            </li>
+            <li class="hidden-960">
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[6]" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[7]" />
+            </li>
+            <li class="hidden-1280">
+                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[8]" />
+            </li>
+
+
+        </ul>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <span class="all-items-button"><a href="${reverse('fun-courses-index')}">${ _(u"All courses") }</a></span>
+        </div>
+    </div>
+
+</div>
+% endif
+
+
+
+<div class="universities">
+    <div class="row ">
+        <div class="col-lg-36 big-title text-center">
+            <h2>${ _(u"Institutions") }</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-36">
+            <ul class="universities-list">
+            % for university in universities:
+                % if (loop.index > 11):
+                    <li class="hidden-1280">
+                % elif (loop.index > 7):
+                    <li class="hidden-960">
+                % elif (loop.index > 5):
+                    <li class="hidden-768">
+                % else:
+                    <li>
+                % endif
+                    <a href="${university.get_absolute_url()}">
+                        <div class="university-logo center-block">
+                            <img src="${university.get_logo_thumbnail()}" alt="${ university.name }" title="${ university.name }">
+                        </div>
+                    </a>
+                    </li>
+            % endfor
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <span class="all-items-button"><a href="${ reverse('universities-landing') }">${ _(u"All institutions") }</a></span>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="fun-news">
+    <div class="row ">
+        <div class="col-lg-36 big-title white text-center">
+            <h2>${ _(u"News") }</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-18 text-center">
+            <div class="primary">
+            </div>
+        </div>
+        <div class="col-lg-18 text-center">
+            <div class="secondary">
+
+            </div>
+
+            <div class="secondary">
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <span class="all-items-button"><a href="">${ _(u"All news") }</a></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="fun-themes">
+    <div class="row ">
+        <div class="col-lg-36 big-title text-center">
+            <h2>${ _(u"Thematics") }</h2>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-md-36">
+            <div class="owl-carousel owl-theme">
+
+                %for idx, subject in enumerate(course_subjects):
+                <div class="item">
+                    <a href="${'{}?theme={}'.format(reverse('fun-courses-index'), subject.slug)}">
+                        <div>
+                            <h3>${subject.name}</h3>
+                            <img src="${subject.get_image_url()}" alt="${subject.name}">
+                        </div>
+                    </a>
+
+                </div>
+                %endfor
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<div class="row">
+    <div class="col-lg-36 text-center">
+        <span class="all-items-button"><a href="">Toutes les thématiques</a></span>
+    </div>
+</div>
+
+
+</%block>

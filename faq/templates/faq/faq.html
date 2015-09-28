@@ -3,65 +3,15 @@
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.utils.formats import date_format
+from staticfiles.storage import staticfiles_storage
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/simple-content.html" />
 
-<%block name="bodyclass">view-course-list</%block>
-<%block name="title"><title>${_("Courses")}</title></%block>
-
-<%inherit file="../main.html" />
-
-<%block name="headextra">
-
-<style>
-
-ul.faq-categories > li {
-    list-style-type: none;
-}
-ul.faq-sections > li {
-    list-style-type: none;
-}
-ul.faq-articles > li {
-    list-style-type: disc;
-    line-height: 24px;
-}
-
-.fun-faq h1 {
-    text-align: left;
-    font-size: 28px;
-    color: #555;
-    text-transform: uppercase;
-    line-height: 20px;
-    margin-top: 32px;
-}
-
-.fun-faq h2 {
-    font-size: 22px;
-    color: #888;
-    line-height: 18px;
-    margin-top: 26px;
-}
-
-.fun-faq a.article {
-    color: black;
-}
-
-.faq-last-update {
-    text-align: right
-}
-.faq-last-update label {
-    font-size: 12px;
-    color: #888;
-}
-.faq-last-update span {
-    font-size: 12px;
-    color: #666;
-}
-</style>
-</%block>
+<%block name="title">${_("Help")}</%block>
 
 
+<%block name="page_content">
 <section class="fun-faq">
     <section class="courses-container">
         % if article_tree:
@@ -97,3 +47,5 @@ ul.faq-articles > li {
     </section>
 
 </section>
+
+</%block>

@@ -1,31 +1,16 @@
 ## mako
 <%!
-from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from staticfiles.storage import staticfiles_storage
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/simple-content.html" />
 
-<%block name="bodyclass">view-course-list</%block>
-<%block name="title"><title>${_("Courses")}</title></%block>
+<%block name="title">${article['name']}</%block>
 
-<%inherit file="../main.html" />
 
-<%block name="headextra">
-
-<style>
-ul.faq-breadcrumb li {
-    list-style-type: none;
-    float: left;
-    font-size: 14px;
-}
-
-div.article {
-    margin-top: 44px;
-    clear: both;
-}
-</style>
-</%block>
+<%block name="page_content">
 
 
 <section class="faq-article">
@@ -47,3 +32,5 @@ div.article {
 
     </section>
 </section>
+
+</%block>

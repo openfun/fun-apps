@@ -1,0 +1,76 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from staticfiles.storage import staticfiles_storage
+%>
+
+<div class="fun-footer">
+
+    <div class="row">
+        <div class="col-xs-36">
+
+            <ul class="footer-links left">
+                <li>
+                    <a href="${reverse('site:render_static_template', args=['about'])}">
+                        ${_("About...")}
+                    </a>
+                </li>
+                <li>
+                    <a href="${reverse('faq:index')}">
+                        ${_("Help")}
+                    </a>
+                </li>
+                <li>
+                    <a href="${reverse('site:render_static_template', args=['honor'])}">
+                        ${_("Terms and conditions")}
+                    </a>
+                </li>
+                <li>
+                    <a href="${reverse('site:render_static_template', args=['tos'])}">
+                        ${_("Terms of use")}
+                    </a>
+                </li>
+            </ul>
+            <ul class="footer-links right">
+                <li>
+                    <a href="${reverse('site:render_static_template', args=['honor'])}">
+                        ${_("Usage policy")}
+                    </a>
+                </li>
+                <li>
+                    <a href="${reverse('site:render_static_template', args=['privacy'])}">
+                        ${_("Privacy policy")}
+                    </a>
+                </li>
+                <li>
+                    <a href="${reverse('site:render_static_template', args=['legal'])}">
+                        ${_("Terms and conditions")}
+                    </a>
+                </li>
+
+                <li>
+                    <a href="${reverse('contact:contact')}">
+                        ${_("Contact")}
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="row bottom-footer">
+        <div class="col-xs-18 left">
+            <a href="/">
+                <img src="${staticfiles_storage.url('funsite/images/logos/fun45.png')}" alt="Logo France Université Numérique">
+            </a>
+        </div>
+        <div class="col-xs-18 right">
+            <a href="https://www.facebook.com/france.universite.numerique" target="_blank">
+                <img src="${staticfiles_storage.url('funsite/images/logos/facebook32.png')}" alt="Facebook">
+            </a>
+            <a href="https://twitter.com/universite_num" target="_blank">
+                <img src="${staticfiles_storage.url('funsite/images/logos/twitter32.png')}" alt="Twitter">
+            </a>
+        </div>
+    </div>
+</div>

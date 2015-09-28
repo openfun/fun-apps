@@ -22,7 +22,7 @@ require(["jquery", "underscore", "backbone", "gettext",
       // to send with every ajax call. Also, ajax request errors activate a popup
       // on the bottom of the screen. We need to disable additional headers for
       // CORS requests, and errors are handled by each VideoView.
-      
+
       function resetHeaders() {
         if(_.size(headers) > 0 && (!$.ajaxSettings.headers || _.size($.ajaxSettings.headers) == 0)) {
           $.ajaxSettings.headers = headers;
@@ -173,7 +173,7 @@ require(["jquery", "underscore", "backbone", "gettext",
       },
 
       render: function() {
-        values = this.model.toJSON();
+        var values = this.model.toJSON();
         if (!values.id) {
             values.id = "";
         }
@@ -490,7 +490,7 @@ require(["jquery", "underscore", "backbone", "gettext",
         modalSize: "med",
         viewSpecificClasses: 'videoupload-parameters view-uploads'
       }),
-      
+
       initialize: function() {
         // this.model is the current video
         ParameterView.__super__.initialize.apply(this);

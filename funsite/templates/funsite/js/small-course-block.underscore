@@ -1,0 +1,38 @@
+<div class="course-block small-course center-block">
+
+    <div class="top">
+        <% if (session_display) { %>
+            <div class="type">
+                <%= session_display %>
+        <% } else { %>
+            <div class="type empty">
+        <%} %>
+            </div>
+        <img class="main img-responsive" src="<%= image_url %>">
+
+    </div>
+    <div class="middle">
+        <div class="title">
+            <%= title %>
+        </div>
+        <div class="universities">
+            <% _.each(universities, function(university) { %>
+                <span><%- university.name %></span>
+            <% }) %>
+        </div>
+    </div>
+    <div class="bottom">
+
+        <div class="footer row">
+            <div class="date col-sm-20">
+                <%- gettext("Starts") %>
+                <br>
+                14 Déc. 2015
+            </div>
+            <a href="<%= course_about %>"><div class="register col-sm-16">
+                <%- gettext("Register") %>
+            </div></a>
+        </div>
+    </div>
+
+</div>

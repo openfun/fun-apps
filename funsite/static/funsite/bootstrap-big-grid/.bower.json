@@ -1,0 +1,32 @@
+{
+  "name": "bootstrap-big-grid",
+  "version": "0.2.0",
+  "authors": [
+    "Ben Whitehead <benjamin.r.whitehead@gmail.com>",
+    "İsmail Demirbilek <ce.demirbilek@gmail.com>"
+  ],
+  "description": "A set of larger grid options for Bootstrap.",
+  "license": "Apache-2.0",
+  "main": "./dist/css/bootstrap-big-grid.css",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.0"
+  },
+  "homepage": "https://github.com/BenWhitehead/bootstrap-big-grid",
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.0",
+    "commit": "e198fc7900dde9d6d9f8fca916e63fb4cd713f14"
+  },
+  "_source": "git://github.com/BenWhitehead/bootstrap-big-grid.git",
+  "_target": "~0.2.0",
+  "_originalSource": "bootstrap-big-grid",
+  "_direct": true
+}

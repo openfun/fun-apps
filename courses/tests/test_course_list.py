@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
-
 from django.core.urlresolvers import reverse
 
 from xmodule.modulestore.tests.factories import CourseFactory
@@ -23,13 +21,13 @@ class CourseListTest(ModuleStoreTestCase):
 
     def test_list(self):
         response = self.client.get(self.url)
-        soup = BeautifulSoup(response.content)
-        self.assertEqual(2, len(soup.find_all('article')))
+        self.assertContains(response, 'Course1')
+        self.assertContains(response, 'Course2')
 
     def test_filtered_list(self):
         response = self.client.get(self.url, {'university': 'univ1'})
-        soup = BeautifulSoup(response.content)
-        self.assertEqual(1, len(soup.find_all('article')))
+        self.assertContains(response, 'Course1')
+        self.assertNotContains(response, 'Course2')
 
     def test_form_error(self):
         response = self.client.get(self.url, {'university': 'nope'})

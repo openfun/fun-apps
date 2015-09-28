@@ -1,0 +1,46 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
+<nav id="top-menu" class="navbar navbar-default navbar-fixed-top light-shadow">
+    <div class="container-fluid">
+
+        <div class="row ">
+
+            <div class="col-xs-12">
+                <div class="pull-left">
+                    <span id="sandwich-menu"></span>
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+
+                <div class="text-center">
+
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+
+                %if request.user.is_authenticated():
+                    <a href="${reverse('dashboard')}">
+                        <div class="pull-right connexion connected">
+                            <span>${request.user.profile.name}</span>
+                        </div>
+                    </a>
+                %else:
+                    <div class="pull-right connexion not-connected">
+                        <span>${_(u"Connexion")}</span>
+                    </div>
+                %endif
+
+                <%include file="login-overlay.html" />
+
+            </div>
+
+
+
+        </div>
+    </div>
+</nav>

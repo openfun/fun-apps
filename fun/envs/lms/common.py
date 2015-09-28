@@ -6,6 +6,7 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 INSTALLED_APPS += (
     'backoffice',
     'fun',
+    'funsite',
     'fun_certificates',
     'fun_instructor',
     'contact',
@@ -15,18 +16,21 @@ INSTALLED_APPS += (
     'universities',
     'videoproviders',
 
+    'easy_thumbnails',
     'adminsortable',
     'bootstrapform',
     'forum_contributors',
     'ckeditor',
     'raven.contrib.django.raven_compat',
+    'pure_pagination',
+
+    'forum_contributors',
     'selftest',
     'password_container', # this is an xblock we had to applications to allow syncdb of its models
-    'pure_pagination',
     'teachers',
     'faq',
     'edx_gea',
-)
+    )
 
 ROOT_URLCONF = 'fun.lms.urls'
 
@@ -37,8 +41,8 @@ del DEFAULT_FILE_STORAGE
 
 # those values also have to be in env.json file,
 # because pavlib.utils.envs reads it to build asset's preprocessing commands
-THEME_NAME = "fun"
-FEATURES['USE_CUSTOM_THEME'] = True
+#THEME_NAME = "fun"
+#FEATURES['USE_CUSTOM_THEME'] = True
 FEATURES['ENABLE_MKTG_SITE'] = False
 
 SITE_NAME = LMS_BASE
@@ -90,6 +94,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
 # add application templates directory to MAKO template finder
 MAKO_TEMPLATES['main'] = [
+    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
+    FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'courses/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
@@ -144,4 +150,10 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 10,
 }
 
+# Default visibility of student's profile to other students
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
+
+# easy-thumbnails
+SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_EXTENSION = 'png'

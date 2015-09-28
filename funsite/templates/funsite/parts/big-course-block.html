@@ -1,0 +1,45 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from util.date_utils import strftime_localized
+%>
+
+<%page args="course"/>
+<div class="course-block big-course center-block">
+
+    <div class="top">
+        % if course.session_display:
+            <div class="type">
+                ${ course.session_display }
+        % else:
+            <div class="type empty">
+        % endif
+        </div>
+        <img class="main img-responsive" src="${ course.image_url }">
+
+    </div>
+    <div class="middle">
+        <div class="title">
+            ${ course.title }
+        </div>
+        <div class="universities">
+            %for university in course.universities.all():
+                <span>${ university.name }</span>
+            %endfor
+        </div>
+    </div>
+    <div class="bottom">
+
+        <div class="footer row">
+            <div class="date col-sm-22">
+                ${_(u"Starts")} ${ strftime_localized(course.start_date, 'SHORT_DATE')}
+            </div>
+
+            <a href="${reverse('about_course', args=[course.key])}"><div class="register col-sm-14">
+                ${_(u"Register")}
+            </div></a>
+        </div>
+    </div>
+
+</div>

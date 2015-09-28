@@ -22,4 +22,4 @@ class ContactFormView(FormView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('contact_form_sent')
+        return reverse('contact:contact_form_sent')

@@ -1,10 +1,13 @@
 ## mako
-<%inherit file="../../main.html" />
+<%inherit file="/funsite/parts/base.html" />
+
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils.formats import date_format %>
 <%! from django.utils.translation import ugettext_lazy as _ %>
 <%! from django.template.defaultfilters import truncatechars %>
 <%! from fun.utils.html import truncate_first_paragraph %>
+
+<%block name="content">
 
 <section class="container">
     <section class="featured-articles">
@@ -44,7 +47,7 @@
                 </section>
             </section>
             % endfor
-            
+
         % endif
     </section>
     <section class="recent-articles">
@@ -71,3 +74,5 @@
 <%def name="background_style(image_url)">background: url('${image_url}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;</%def>
 
 <%def name="article_url(article)">${reverse('newsfeed-article', kwargs={'slug': article.slug})}</%def>
+
+</%block>
