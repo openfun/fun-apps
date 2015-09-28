@@ -11,8 +11,9 @@ urlpatterns = patterns('',
     url(r'^feed/$', CoursesFeed(), name='fun-courses-feed'),
 )
 
-from .api import CourseAPIView
+from .api import CourseAPIViewV1, CourseAPIView
 
 router = CourseAPIRouter()
-router.register(r'api', CourseAPIView)
+router.register(r'api', CourseAPIViewV1)
+router.register(r'api-v2', CourseAPIView)
 urlpatterns += router.urls
