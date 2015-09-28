@@ -39,6 +39,19 @@ body {
 
 /* Sandwich menu */
 
+#top-menu img.logo {
+    vertical-align: top;
+    margin-left: 20px;
+    margin-right: 16px
+}
+#top-menu span.slogan {
+    font-size: 17px;
+    font-weight: 600;
+    color: #3877BC;
+    display: inline-block;
+}
+
+
 #top-menu .connexion {
     color: white;
     background: #F72C30 url('/static/funsite/images/icones/user.png') 14px 14px no-repeat;
@@ -123,7 +136,7 @@ body {
 #sandwich-menu {
     display: inline-block;
     width: 40px;
-    height: 40px;
+    height: 36px;
     background: url('/static/funsite/images/icones/sandwich.png') 14px 14px no-repeat;
     cursor: pointer;
 }
@@ -530,6 +543,9 @@ ul.footer-links.right {
         width: 60px;
     }
     #top-menu .connexion>span {
+        display: none;
+    }
+    #top-menu span.slogan {
         display: none;
     }
 }

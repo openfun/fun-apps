@@ -18,6 +18,14 @@ featured_courses = Course.random_featured(9)
 <%block name="title">Index</%block>
 
 
+<%block name="css_extra">
+<style>
+    #top-menu img.logo, #top-menu span.slogan {
+        display: none;
+    }
+</style>
+</%block>
+
 <%block name="js_extra">
 <script>
     $('.owl-carousel').owlCarousel({
@@ -45,7 +53,12 @@ featured_courses = Course.random_featured(9)
             margin: 20
           }
         }
-          })
+          });
+
+$(window).on("scroll", function () {
+    $('#top-menu .slogan,.logo').toggle(($('body').scrollTop() > 419))
+});
+
 </script>
 </%block>
 
