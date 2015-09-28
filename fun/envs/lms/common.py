@@ -154,8 +154,6 @@ PAGINATION_SETTINGS = {
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 
 # easy-thumbnails
-SOUTH_MIGRATION_MODULES = {
-    'easy_thumbnails': 'easy_thumbnails.south_migrations',
-}
+SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 THUMBNAIL_PRESERVE_EXTENSIONS = True
 THUMBNAIL_EXTENSION = 'png'
