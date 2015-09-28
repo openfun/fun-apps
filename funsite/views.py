@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 
 def render_static_template(request, page):

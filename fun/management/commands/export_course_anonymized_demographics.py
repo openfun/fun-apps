@@ -9,28 +9,27 @@ from xmodule.modulestore.django import modulestore
 import hashlib
 import hmac
 import json
-import sys
-import logging
 
-#pour ques les anonymized_username soient les meme que dans les tracking log, il faudra utiliser la même ANONYMIZATION_KEY que pour ceux-ci
 
 class Command(BaseCommand):
-    help= """Gather demographics from a course_id, anonymize users and prints the result as a JSON """
-    option_list = BaseCommand.option_list + ( make_option('--course_id', action = 'store', dest = 'COURSE_ID', type = 'string' ) , )
+    help = """Gather demographics from a course_id, anonymize users and prints the result as a JSON"""
+    option_list = BaseCommand.option_list + (
+        make_option('--course_id', action='store', dest='COURSE_ID', type='string'),
+    )
 
     def handle(self, *args, **options):
         if not options['COURSE_ID']:
             raise CommandError('--course_id mandatory')
         try:
             course_key = CourseKey.from_string(options['COURSE_ID'])
-            if not modulestore().get_course(course_key, depth = 2):
+            if not modulestore().get_course(course_key, depth=2):
                 raise ValueError()
         except InvalidKeyError:
             raise CommandError("Course id {} could not be parsed as a CourseKey;".format(options['COURSE_ID']))
         except ValueError:
             raise CommandError("\n Course {} not found.".format(options['COURSE_ID']))
         # gathers demographic data for course students
-        demographics = UserProfile.objects.filter(user__courseenrollment__course_id = course_key)
+        demographics = UserProfile.objects.filter(user__courseenrollment__course_id=course_key)
         json_data = {
             "demographic": [self.profile_demographics(profile) for profile in demographics]
         }
