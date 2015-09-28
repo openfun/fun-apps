@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+import random
+
 from django.db import models
 from django.utils.timezone import now, timedelta
 
@@ -51,3 +54,9 @@ class CourseQuerySet(models.query.QuerySet):
 
 class CourseManager(ChainableManager):
     queryset_class = CourseQuerySet
+
+    def random_featured(self, limit_to=7):
+        courses = self.by_score()[:limit_to]
+        courses = list(courses)
+        random.shuffle(courses)
+        return courses

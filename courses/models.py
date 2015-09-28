@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
-
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -59,13 +57,6 @@ class Course(models.Model):
         ordering = ('-score',)
         verbose_name = _('course')
         verbose_name_plural = _('courses')
-
-    @staticmethod
-    def random_featured(limit_to=7):
-        courses = Course.objects.by_score()[:limit_to]
-        courses = list(courses)
-        random.shuffle(courses)
-        return courses
 
     @property
     def session_display(self):

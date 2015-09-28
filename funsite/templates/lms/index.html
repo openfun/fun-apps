@@ -10,7 +10,7 @@ from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
 universities = University.objects.have_page()
-featured_courses = Course.random_featured(9)
+featured_courses = Course.objects.random_featured(9)
 %>
 
 <%inherit file="funsite/parts/base.html" />
@@ -69,70 +69,56 @@ featured_courses = Course.random_featured(9)
     </div>
 </div>
 
-% if len(featured_courses) >= 8:
 <div class="highlighted-courses">
+
+    <%def name="include_course_block(size, featured_courses, index, classes)">
+        %if len(featured_courses) > index:
+        <li class="${classes}">
+            %if size == 'big':
+            <%include file="/funsite/parts/course-block/big.html" args="course=featured_courses[index]"/>
+            %else:
+            <%include file="/funsite/parts/course-block/small.html" args="course=featured_courses[index]"/>
+            %endif
+        </li>
+        %endif
+    </%def>
+    <%def name="include_big_course_block(featured_courses, index, classes)">
+        ${include_course_block("big", featured_courses, index, classes)}
+    </%def>
+    <%def name="include_small_course_block(featured_courses, index, classes)">
+        ${include_course_block("small", featured_courses, index, classes)}
+    </%def>
 
     <div class="row hidden-320">
         <!-- haute def > 1350: 4 mises en avant principales -->
         <ul class="primary-highlight">
-            <li>
-                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[0]"/>
-            </li>
-            <li class="hidden-768">
-                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[1]" />
-            </li>
-            <li class="hidden-960">
-                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[2]" />
-            </li>
-            <li class="hidden-1280">
-                <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[3]" />
-            </li>
+            ${include_big_course_block(featured_courses, 0, "")}
+            ${include_big_course_block(featured_courses, 1, "hidden-768")}
+            ${include_big_course_block(featured_courses, 2, "hidden-960")}
+            ${include_big_course_block(featured_courses, 3, "hidden-1280")}
         </ul>
     </div>
 
     <div class="row hidden-768 hidden-960 hidden-1280 hidden-1900 visible-320">
         <!-- en 320, les primary s'affichent en petit -->
         <ul class="secondary-highlight">
-            <li>
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[0]" />
-            </li>
-            <li>
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[1]" />
-            </li>
-            <li>
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[2]" />
-            </li>
+            ${include_small_course_block(featured_courses, 0, "")}
+            ${include_small_course_block(featured_courses, 1, "")}
+            ${include_small_course_block(featured_courses, 2, "")}
         </ul>
     </div>
 
     <div class="row hidden-320">
         <!-- haute def > 1350: 6 mises en avant secondaires -->
         <ul class="secondary-highlight">
-
-            <li>
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[3]" />
-            </li>
-            <li>
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[4]" />
-            </li>
-            <li>
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[5]" />
-            </li>
-            <li class="hidden-960">
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[6]" />
-            </li>
-            <li class="hidden-1280">
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[7]" />
-            </li>
-            <li class="hidden-1280">
-                <%include file="/funsite/parts/small-course-block.html" args="course=featured_courses[8]" />
-            </li>
-
-
+            ${include_small_course_block(featured_courses, 3, "")}
+            ${include_small_course_block(featured_courses, 4, "")}
+            ${include_small_course_block(featured_courses, 5, "")}
+            ${include_small_course_block(featured_courses, 6, "hidden-960")}
+            ${include_small_course_block(featured_courses, 7, "hidden-1280")}
+            ${include_small_course_block(featured_courses, 8, "hidden-1280")}
         </ul>
-
     </div>
-
 
     <div class="row">
         <div class="col-lg-36 text-center">
@@ -141,8 +127,6 @@ featured_courses = Course.random_featured(9)
     </div>
 
 </div>
-% endif
-
 
 
 <div class="universities">
