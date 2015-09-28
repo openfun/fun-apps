@@ -69,11 +69,12 @@ featured_courses = Course.random_featured(9)
     </div>
 </div>
 
-
+% if len(featured_courses) >= 8:
 <div class="highlighted-courses">
-
+    
     <div class="row hidden-320">
         <!-- haute def > 1350: 4 mises en avant principales -->
+
         <ul class="primary-highlight">
             <li>
                 <%include file="/funsite/parts/big-course-block.html" args="course=featured_courses[0]"/>
@@ -141,7 +142,7 @@ featured_courses = Course.random_featured(9)
     </div>
 
 </div>
-
+% endif
 
 
 
