@@ -13,6 +13,41 @@ from .filters import CourseFilter
 
 class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     '''
+    ## Filtering
+
+    The API allows for filtering the list of courses.
+
+    * By universities: /api/?university=CNAM&university=CentraleParis
+    * By course subjects: /api/?subject=philosophy&subject=science
+    * By course level: /api/?level=advanced
+    * By availability: 'start-soon', 'end-soon'
+        * /api/?availability=start-soon
+
+    ## Pagination
+
+    You can limit the number of Results Per Page using the rrp API parameter.
+
+    /api/locations/?rpp=6
+
+    By default, pagination is set to 10 
+
+    '''
+    filter_backends = (CourseFilter,)
+    model = Course
+    authentication_classes = ()  # Disable auth - works with nginx.
+    paginate_by = 10
+    paginate_by_param = 'rpp'
+    serializer_class = CourseSerializer
+
+    def get_queryset(self):
+        queryset = super(CourseAPIView, self).get_queryset()
+        queryset = queryset.with_related().active()
+        queryset = self.filter_queryset(queryset)
+        return queryset
+
+
+class CourseAPIViewV1(viewsets.ReadOnlyModelViewSet):
+    '''
     Returns list of courses.
 
     ## API Response
@@ -46,7 +81,7 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     authentication_classes = ()  # Disable auth - works with nginx.
 
     def get_queryset(self):
-        queryset = super(CourseAPIView, self).get_queryset()
+        queryset = super(CourseAPIViewV1, self).get_queryset()
         queryset = queryset.with_related().active()
         queryset = self.filter_queryset(queryset)
         return queryset
