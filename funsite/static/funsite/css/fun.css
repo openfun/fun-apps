@@ -1014,9 +1014,6 @@ ul.universities-list {
     background: url('/static/funsite/images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
     }
 
-#display-filter {
-
-}
 #display-filter h3 {
     margin: 0;
     display: inline-block;
@@ -1026,11 +1023,7 @@ ul.universities-list {
     margin-top: 6px;
 }
 .blue-cell {
-    /*padding-left: 12px;*/
-    /*padding-right: 0;*/
     display: inline-block;
-    /*float: left;*/
-    /*padding-right: 0;*/
     background-color: #08223C;
     padding: 3px 6px 3px 18px;
     font-size: 12px;
