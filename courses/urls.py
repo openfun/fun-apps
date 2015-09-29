@@ -4,6 +4,7 @@ from django.conf.urls import patterns, url
 
 from .routers import CourseAPIRouter
 from .views import courses_index, CoursesFeed
+from .api import CourseAPIView
 
 
 urlpatterns = patterns('',
@@ -11,9 +12,6 @@ urlpatterns = patterns('',
     url(r'^feed/$', CoursesFeed(), name='fun-courses-feed'),
 )
 
-from .api import CourseAPIViewV1, CourseAPIView
-
 router = CourseAPIRouter()
-router.register(r'api', CourseAPIViewV1)
-router.register(r'api-v2', CourseAPIView)
+router.register(r'api', CourseAPIView)
 urlpatterns += router.urls
