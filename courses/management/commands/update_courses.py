@@ -9,6 +9,7 @@ from easy_thumbnails.files import get_thumbnailer
 
 from courseware.courses import get_course_about_section
 from opaque_keys.edx.locator import CourseLocator
+from opaque_keys import InvalidKeyError
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
@@ -29,10 +30,10 @@ class CourseHandler(object):
 
     @property
     def memory_image_file(self):
-        asset_location = StaticContent.get_location_from_path(self.image_url)
         try:
+            asset_location = StaticContent.get_location_from_path(self.image_url)
             content = contentstore().find(asset_location, as_stream=True)
-        except NotFoundError:
+        except (NotFoundError, InvalidKeyError):
             return None
         image_file = StringIO.StringIO(content.copy_to_in_mem().data)
         return image_file
