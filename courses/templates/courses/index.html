@@ -269,7 +269,7 @@ require(["jquery", "underscore", "backbone"],
                 var selected = this.model.get("selected");
                 var content = $("<div>");
                 if (selected) {
-                    content.addClass("white blue-cell")
+                    content.addClass("white blue-cell");
                     content.html(selected.get('title') + "<span class='glyphicon glyphicon-remove'></span>");
                 }
                 this.$el.html(content);
@@ -283,10 +283,8 @@ require(["jquery", "underscore", "backbone"],
             tagName: 'li',
             template: loadTemplate("small-course-block"),
             initialize: function() {
-                // Listening to this event do not work !!
-                // When calling reset on CourseCollection, I can't figure out what is the backbonish way to remove views from DOM
-                // See FIXME on CourseViewCollection
                 this.listenTo(this.model, "destroy", this.remove);
+                this.listenTo(this.model, "remove", this.remove);
             },
             render: function() {
                 var context = this.model.toJSON(),
@@ -328,30 +326,14 @@ require(["jquery", "underscore", "backbone"],
             },
         });
         var CourseCollectionView = Backbone.View.extend({
-            saveCourseViewsBecauseNoOtherWayToDestroyThem: [],
             initialize: function(data) {
                 this.listenTo(this.collection, 'add', this.addOne);
             },
-            render: function(){
-                return this;
-            },
             addOne: function(item) {
                 var view = new CourseView({model: item});
-                this.saveCourseViewsBecauseNoOtherWayToDestroyThem.push(view);
                 this.$el.append(view.render().el);
-                this.render()
             },
-            destroyCourseViews: function() {
-                // FIXME !!!!
-                _.each(this.saveCourseViewsBecauseNoOtherWayToDestroyThem, function(view) {
-                    view.remove();
-                });
-                saveCourseViewsBecauseNoOtherWayToDestroyThem = [];
-                this.render();
-            }
-
         });
-
 
         var AppView = Backbone.View.extend({
             initialize: function(data) {
@@ -389,10 +371,12 @@ require(["jquery", "underscore", "backbone"],
             },
 
             refreshCourses: function(){
-                // TODO simplify this
-                this.coursecollection.reset();  // clear CourseCollection
-                this.coursecollectionview.destroyCourseViews();  //  remove CourseViews from DOM
-                this.coursecollection.fetch();   // get new Courses
+                // Empty collection
+                while (this.coursecollection.length > 0) {
+                    this.coursecollection.pop();
+                }
+                // Fill collection
+                this.coursecollection.fetch();
             },
             courseCollectionSynced: function(){
                 this.coursecollectionview.render()
