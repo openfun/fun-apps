@@ -237,7 +237,7 @@ ul.footer-links.right {
     font-size: 50px;
     color: #2B2B2B;
 }
-.big-title.white h2 {
+.white {
     color: white;
 }
 
@@ -1025,22 +1025,14 @@ ul.universities-list {
     font-weight: 600;
     margin-top: 6px;
 }
-#display-filter ul {
-    list-style: none;
-    padding-left: 12px;
-    padding-right: 0;
+.blue-cell {
+    /*padding-left: 12px;*/
+    /*padding-right: 0;*/
     display: inline-block;
-}
-#display-filter li {
-    float: left;
-    padding-right: 0;
-}
-#display-filter ul>li>ul {
-}
-#display-filter ul>li>ul>li {
-    color: white;
+    /*float: left;*/
+    /*padding-right: 0;*/
     background-color: #08223C;
-    padding: 3px 6px 3px 6px;
+    padding: 3px 6px 3px 18px;
     font-size: 12px;
 }
 

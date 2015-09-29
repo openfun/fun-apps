@@ -82,16 +82,23 @@ require(["jquery", "underscore", "backbone"],
             {title: "Langue", name: 'language', type: 'select', values: [
                 {value: 'fr', title: "Français", image: 'french-flag', count: 12},
                 {value: 'en', title: "English", image: 'english-flag', count: 12},
-                {value: 'de', title: "Deutsche", image: 'german-flag', count: 12},
+                {value: 'de', title: "Deutsch", image: 'german-flag', count: 12},
                 {value: 'es', title: "Español", image: 'spanish-flag', count: 12},
             ]},
 
 
         ];
 
-        var Value = Backbone.Model.extend({});
+        var Value = Backbone.Model.extend({
+            criterionName: function() {
+                return this.collection.criterion.get("name");
+            }
+        });
         var ValueCollection = Backbone.Collection.extend({
-            model: Value
+            model: Value,
+            initialize: function(models, options) {
+                this.criterion = options.criterion;
+            },
         });
         var ValueView = Backbone.View.extend({
             tagName: 'li',
@@ -102,12 +109,15 @@ require(["jquery", "underscore", "backbone"],
 
             events: {"click": "onClick"},
 
+            isCheckbox: function() {
+                return this.model.collection.criterion.get('type') === 'checkbox';
+            },
             render: function() {
                 // if an image is provided we add some CSS classes
                 var image = this.model.get('image');
                 if (image) {
                     this.$el.addClass('icon ' + image);
-                } else if (this.model.collection.parent.get('type') == 'checkbox') {
+                } else if (this.isCheckbox()) {
                     this.$el.addClass('filter-checkbox');
                 }
 
@@ -115,7 +125,7 @@ require(["jquery", "underscore", "backbone"],
                 return this;
             },
             onClick: function(event) {
-                if (this.model.collection.parent.get('type') == 'checkbox') {
+                if (this.isCheckbox()) {
                     this.$el.toggleClass('checked');
                     this.model.set('value', this.$el.hasClass('checked') ? 'certificate' : '');
                 }
@@ -134,10 +144,10 @@ require(["jquery", "underscore", "backbone"],
                 this.max = options.max;
                 this.count = 0;
             },
-            valueSelected: function(item) {
+            valueSelected: function(value) {
                 // ShortValueCollectionView and LongValueCollectionView use the same collection,
                 // so this event will be triggered for both display
-                this.collection.parent.collection.trigger('criterionSelected', item)
+                this.collection.criterion.collection.trigger('criterionSelected', value)
                 $('.hide-on-escape-key').hide();
             },
             addOne: function(item) {
@@ -148,7 +158,8 @@ require(["jquery", "underscore", "backbone"],
                 }
             },
 
-        })
+        });
+
         var LongValueCollectionView = Backbone.View.extend({
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
@@ -157,16 +168,15 @@ require(["jquery", "underscore", "backbone"],
                 var view = new ValueView({model: item});
                 this.$el.append(view.render().el);
             },
-
-
-        })
+        });
 
         var Criterion = Backbone.Model.extend({
-            defaults: {  // if no max value, we use a big one to display all items (and save JS LOC)
-                "max":  100},
+            defaults: {
+                // if no max value, we use a big one to display all items (and save JS LOC)
+                "max":  100
+            },
             initialize: function() {
-                this.valuecollection = new ValueCollection;
-                this.valuecollection.parent = this;
+                this.valuecollection = new ValueCollection([], {criterion: this});
             },
         });
 
@@ -186,7 +196,7 @@ require(["jquery", "underscore", "backbone"],
             },
 
             render: function() {
-                // on utilise pas de template ici
+                // We don't use a template here
                 this.$el.html($('<h2>').text(this.model.get('title')));
                 this.$el.append(this.valuecollectionview.render().el);
                 if (this.model.get('all_button')) {
@@ -198,7 +208,8 @@ require(["jquery", "underscore", "backbone"],
             },
 
             events: {
-                'click span.all-items-button': 'showAllItemsOverlay'},
+                'click span.all-items-button': 'showAllItemsOverlay'
+            },
 
             showAllItemsOverlay: function(event) {
                 $('.hide-on-escape-key').hide();
@@ -227,68 +238,41 @@ require(["jquery", "underscore", "backbone"],
         });
 
         var CriterionCollectionView = Backbone.View.extend({
-
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
             },
-
             addOne: function(item) {
                 var view = new CriterionView({model: item});
                 this.$el.append(view.render().el);
             },
-
         })
 
-        Filter = Backbone.Model.extend({
+        var Filter = Backbone.Model.extend({
             defaults: {
-                // we use lists here because we could have several values for the same criterion
-                state: [],
-                language: [],
-                subject: [],
-                university: [],
-                certificate: [],
+                selected: null
             },
-            getQuery: function() {
-                // build query parameters
-                var that = this;
-                var queryset = '';
-                _.each(this.attributes, function(value, key, obj){
-
-                    if (value.length) {
-                        queryset += key + '=' + that.get(key)[0].value + '&';
-                    }
-                })
-                if (queryset) {
-                    queryset = '?' + queryset;
-                }
-                return queryset;
+            reset: function() {
+                this.set("selected", null);
             }
-
         });
-        FilterView = Backbone.View.extend({
-            el: $('#display-filter span'),
-            initialize: function(){
-                this.listenTo(this.model, 'change', this.render)
+        var FilterView = Backbone.View.extend({
+            initialize: function() {
+                this.listenTo(this.model, 'change:selected', this.render)
+            },
+            events: {
+                "click .glyphicon-remove": "reset"
+            },
+            reset: function() {
+                this.model.reset();
             },
             render: function() {
-                var $ul = $('<ul>')
-                var that = this;
-                // iterate on model's properties to dynamicaly create appropriate DOM element and bind remove criterion function
-                _.each(this.model.attributes, function(value, key, obj) {
-                    var $li = $('<li>').append('<ul>');
-                    _.each(value, function(value) {  // ready for not yet implemented multiple values criterion
-                         var element = $('<li>').text(value.title).append($('<span>').addClass('glyphicon glyphicon-remove'))
-                         element.on('click', function() {
-                            that.model.set(key, []);  // remove
-                         })
-                         $li.find('ul').append(element);
-
-                    });
-                    if (value.length) {
-                        $ul.append($li);
-                    };
-                });
-                this.$el.html($ul);
+                var selected = this.model.get("selected");
+                var content = $("<div>");
+                if (selected) {
+                    content.addClass("white blue-cell")
+                    content.html(selected.get('title') + "<span class='glyphicon glyphicon-remove'></span>");
+                }
+                this.$el.html(content);
                 return this;
             },
 
@@ -324,16 +308,26 @@ require(["jquery", "underscore", "backbone"],
         });
         var CourseCollection = Backbone.Collection.extend({
             model: Course,
+            initialize: function(models, options) {
+                this.filter = options.filter;
+            },
             url: function() {
-                var queryset = this.filter.getQuery();
-                return '/cours/api/' + queryset;
+                // build query parameters
+                var parameters = [];
+                var selectedValue = this.filter.get("selected");
+                if (selectedValue) {
+                    parameters.push({
+                        name: selectedValue.criterionName(),
+                        value: selectedValue.get("value")
+                    });
+                }
+                return '/cours/api/?' + $.param(parameters);
             },
             parse: function (response) {
                return response.courses;
             },
         });
         var CourseCollectionView = Backbone.View.extend({
-            el: $('#course-filtering-results'),
             saveCourseViewsBecauseNoOtherWayToDestroyThem: [],
             initialize: function(data) {
                 this.listenTo(this.collection, 'add', this.addOne);
@@ -360,43 +354,45 @@ require(["jquery", "underscore", "backbone"],
 
 
         var AppView = Backbone.View.extend({
-            el: $('#item-app'),
             initialize: function(data) {
                 // filtering criteria
                 var criterioncollection = new CriterionCollection;
-                var criterioncollectionview = new CriterionCollectionView({collection: criterioncollection});
+                var criterioncollectionview = new CriterionCollectionView({
+                    el: this.$(".criterions"),
+                    collection: criterioncollection
+                });
 
                 this.listenTo(criterioncollection, 'criterionSelected', this.criterionSelected)
-                this.$el.append(criterioncollectionview.render().el);
                 criterioncollection.add(data.filters)
 
                 // selected filter
                 this.filter = new Filter;
-                this.filterview = new FilterView({model: this.filter});
+                this.filterview = new FilterView({
+                    model: this.filter,
+                    el: this.$('.active-filter'),
+                });
                 this.listenTo(this.filter, 'change', this.refreshCourses);
 
                 // course list
-                this.coursecollection = new CourseCollection;
-                this.coursecollection.filter = this.filter;
-                this.coursecollectionview = new CourseCollectionView({collection: this.coursecollection});
+                this.coursecollection = new CourseCollection([], {filter: this.filter});
+                this.coursecollectionview = new CourseCollectionView({
+                    el: this.$('#course-filtering-results'),
+                    collection: this.coursecollection
+                });
                 this.listenTo(this.coursecollection, 'sync', this.courseCollectionSynced)
 
                 this.refreshCourses();
 
             },
-            criterionSelected: function(item) {
-                var criterion = item.collection.parent.get('name');
-                var value = {value: item.get('value'), title: item.get('title')};
-
-                this.filter.set(criterion, [value]);
-
+            criterionSelected: function(value) {
+                this.filter.set("selected", value);
             },
 
             refreshCourses: function(){
+                // TODO simplify this
                 this.coursecollection.reset();  // clear CourseCollection
                 this.coursecollectionview.destroyCourseViews();  //  remove CourseViews from DOM
                 this.coursecollection.fetch();   // get new Courses
-
             },
             courseCollectionSynced: function(){
                 this.coursecollectionview.render()
@@ -405,9 +401,10 @@ require(["jquery", "underscore", "backbone"],
 
         });
 
-        var App = new AppView({filters: filters});
-
-
+        var App = new AppView({
+            el: $('#course-search'),
+            filters: filters
+        });
     });
 
 
@@ -425,26 +422,20 @@ require(["jquery", "underscore", "backbone"],
 </div>
 
 
-<div class="course-list">
+<div id="course-search" class="course-list">
 
     <div class="row">
 
         <div class="col-lg-8 col-md-12 col-sm-12">
             <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
-
                 <h1>${_(u"Refile search results")}</h1>
-
-                <div id="item-app">
-
-                </div>
-
+                <div class="criterions"></div>
             </div>
         </div>
 
         <div class="col-lg-28 col-md-24 col-sm-24 offset">
-            <div class="pagination">
-            </div>
+            <div class="pagination"></div>
 
 
             <div class="list">
@@ -454,13 +445,12 @@ require(["jquery", "underscore", "backbone"],
                             <h3>Votre recherche</h3>
                         </div>
                         <div class="col-md-31">
-                            <span></span>
+                            <div class="active-filter"></div>
                         </div>
                     </div>
                 </div>
 
-                <ul id="course-filtering-results">
-                </ul>
+                <ul id="course-filtering-results"></ul>
 
             </div>
 
