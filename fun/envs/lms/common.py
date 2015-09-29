@@ -19,14 +19,13 @@ INSTALLED_APPS += (
     'easy_thumbnails',
     'adminsortable',
     'bootstrapform',
-    'forum_contributors',
     'ckeditor',
     'raven.contrib.django.raven_compat',
     'pure_pagination',
 
     'forum_contributors',
     'selftest',
-    'password_container', # this is an xblock we had to applications to allow syncdb of its models
+    'password_container', # this is an xblock we add to applications to allow syncdb of its models
     'teachers',
     'faq',
     'edx_gea',
@@ -112,10 +111,11 @@ XITI_XTSD = 'https://logs1279'
 # Enable legal page
 MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
-ENABLE_SYSADMIN_DASHBOARD = True
-
 # Allow sending bulk e-mails for all courses
 FEATURES['REQUIRE_COURSE_EMAIL_AUTH'] = False
+
+# Access to sysadmin view (users, courses information. User has to be staff, see navigation.html)
+FEATURES['ENABLE_SYSADMIN_DASHBOARD'] = False
 
 # Registration form fields ('required', 'optional', 'hidden')
 REGISTRATION_EXTRA_FIELDS = {
@@ -157,3 +157,8 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 THUMBNAIL_PRESERVE_EXTENSIONS = True
 THUMBNAIL_EXTENSION = 'png'
+
+
+# Add our v3 CSS to the assets compilation pipeline
+PIPELINE_CSS['style-course']['source_filenames'].append('funsite/css/fun.css')
+
