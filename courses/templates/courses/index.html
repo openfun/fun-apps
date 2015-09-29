@@ -35,7 +35,7 @@ courses_count_end_soon = Course.objects.end_soon().count()
 </%def>
 
 
-% for template_name in ['small-course-block', 'li2']:
+% for template_name in ['small-course-block', 'li2', 'filter']:
 <script type="text/template" id="${template_name}-tpl">
   ${static_include("funsite/js/" + template_name + ".underscore")}
 </script>
@@ -246,38 +246,59 @@ require(["jquery", "underscore", "backbone"],
                 var view = new CriterionView({model: item});
                 this.$el.append(view.render().el);
             },
-        })
+        });
 
         var Filter = Backbone.Model.extend({
             defaults: {
-                selected: null
+                selected: null,
+                resultsPerPage: 50,
+                resultsPerPageChoices: [20, 50, 100, -1],
+                currentPage: 1,
             },
-            reset: function() {
-                this.set("selected", null);
+            startNewSearch: function(value) {
+                if (value !== this.get("selected")) {
+                    this.set({
+                        selected: value,
+                        currentPage: 1,
+                    });
+                }
+            }
+        });
+        var ResultStats = Backbone.Model.extend({
+            defaults: {
+                totalCount: null,
             }
         });
         var FilterView = Backbone.View.extend({
-            initialize: function() {
-                this.listenTo(this.model, 'change:selected', this.render)
+            initialize: function(options) {
+                this.resultstats = options.resultstats;
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.resultstats, 'change', this.render);
             },
             events: {
-                "click .glyphicon-remove": "reset"
+                "click .glyphicon-remove": "clearSelectedValue",
+                "change .results-per-page": "changeResultsPerPage",
+                "click .result-page": "changeCurrentPage",
             },
-            reset: function() {
-                this.model.reset();
+            template: loadTemplate("filter"),
+            clearSelectedValue: function() {
+                this.model.startNewSearch(null);
+            },
+            changeResultsPerPage: function(e) {
+                var resultsPerPage = parseInt(e.target.selectedOptions[0].value);
+                this.model.set("resultsPerPage", resultsPerPage);
+            },
+            changeCurrentPage: function(e) {
+                this.model.set("currentPage", parseInt($(e.target).attr("data-page")));
             },
             render: function() {
-                var selected = this.model.get("selected");
-                var content = $("<div>");
-                if (selected) {
-                    content.addClass("white blue-cell");
-                    content.html(selected.get('title') + "<span class='glyphicon glyphicon-remove'></span>");
-                }
-                this.$el.html(content);
+                var context = this.model.toJSON();
+                context.totalCount = this.resultstats.get("totalCount");
+                context.totalPageCount = Math.ceil(context.totalCount / context.resultsPerPage);
+                this.$el.html(this.template(context));
                 return this;
-            },
-
-        })
+            }
+        });
 
         var Course = Backbone.Model.extend({});
         var CourseView = Backbone.View.extend({
@@ -309,6 +330,7 @@ require(["jquery", "underscore", "backbone"],
             model: Course,
             initialize: function(models, options) {
                 this.filter = options.filter;
+                this.resultstats = options.resultstats;
             },
             url: function() {
                 // build query parameters
@@ -320,9 +342,20 @@ require(["jquery", "underscore", "backbone"],
                         value: selectedValue.get("value")
                     });
                 }
+                if (this.filter.get("resultsPerPage") >= 0) {
+                    parameters.push({
+                        name: "rpp",
+                        value: this.filter.get("resultsPerPage"),
+                    })
+                }
+                parameters.push({
+                    name: "page",
+                    value: this.filter.get("currentPage"),
+                })
                 return "${reverse(CourseAPIRouter.BASENAME + '-list')}" + '?' + $.param(parameters);
             },
             parse: function (response) {
+               this.resultstats.set("totalCount", response.count);
                return response.results;
             },
         });
@@ -348,16 +381,20 @@ require(["jquery", "underscore", "backbone"],
                 this.listenTo(criterioncollection, 'criterionSelected', this.criterionSelected)
                 criterioncollection.add(data.filters)
 
+                // result stats
+                var resultstats = new ResultStats;
+
                 // selected filter
                 this.filter = new Filter;
                 this.filterview = new FilterView({
                     model: this.filter,
-                    el: this.$('.active-filter'),
+                    el: this.$('.result-navigation'),
+                    resultstats: resultstats,
                 });
                 this.listenTo(this.filter, 'change', this.refreshCourses);
 
                 // course list
-                this.coursecollection = new CourseCollection([], {filter: this.filter});
+                this.coursecollection = new CourseCollection([], {filter: this.filter, resultstats: resultstats});
                 this.coursecollectionview = new CourseCollectionView({
                     el: this.$('#course-filtering-results'),
                     collection: this.coursecollection
@@ -368,7 +405,7 @@ require(["jquery", "underscore", "backbone"],
 
             },
             criterionSelected: function(value) {
-                this.filter.set("selected", value);
+                this.filter.startNewSearch(value);
             },
 
             refreshCourses: function(){
@@ -420,24 +457,13 @@ require(["jquery", "underscore", "backbone"],
         </div>
 
         <div class="col-lg-28 col-md-24 col-sm-24 offset">
-            <div class="pagination"></div>
-
+            <div class="result-navigation"></div>
 
             <div class="list">
-                <div id="display-filter">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <h3>Votre recherche</h3>
-                        </div>
-                        <div class="col-md-31">
-                            <div class="active-filter"></div>
-                        </div>
-                    </div>
-                </div>
-
                 <ul id="course-filtering-results"></ul>
-
             </div>
+
+            <div class="result-navigation hide-search-filter"></div>
 
             <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
                 <h2>Tous les thèmes</h2>

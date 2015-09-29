@@ -29,9 +29,10 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     filter_backends = (CourseFilter,)
     model = Course
     authentication_classes = ()  # Disable auth - works with nginx.
-    paginate_by = 10
-    paginate_by_param = 'rpp'
     serializer_class = CourseSerializer
+    paginate_by = 100
+    paginate_by_param = 'rpp'
+    max_paginate_by = None
 
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()

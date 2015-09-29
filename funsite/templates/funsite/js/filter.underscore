@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-26">
+        <% if (totalCount !== null) { %>
+            <%= totalCount %> <%= gettext("results") %>
+        <% } %>
+    </div>
+
+    <div class="col-md-4 text-right">
+        <% if (totalPageCount > 1)  { %>
+            <% for (var p = 1; p <= totalPageCount; p++) { %>
+                <% if (p === currentPage) { %>
+                    <span><strong><%= p %></strong></span>
+                <% } else if (p === 1 || p === totalPageCount || Math.abs(p - currentPage) <= 1) { %>
+                    <span class="result-page clickable" data-page="<%= p %>"><%= p %></span>
+                <% } else if (p === 2 || p === totalPageCount - 1) { %>
+                    <span>...<span>
+                <% } %>
+            <% } %>
+            <% if (currentPage < totalPageCount) { %>
+                <span class="result-page clickable" data-page="<%= currentPage + 1 %>">&gt;</span>
+            <% } %>
+        <% } %>
+    </div>
+
+    <div class="col-md-6 text-right">
+        <select class="results-per-page">
+            <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
+                <option value="<%= resultsPerPageChoices[c] %>" <% if (resultsPerPageChoices[c] === resultsPerPage) { %>selected="selected"<% } %>>
+                    <% if (resultsPerPageChoices[c] >= 0) { %>
+                        <%= resultsPerPageChoices[c] %> per page
+                    <% } else { %>
+                        <%= gettext("all") %>
+                    <% } %>
+                </option>
+            <% } %>
+        </select>
+    </div>
+</div>
+<% if (selected) { %>
+    <div class="row search-filter">
+        <div class="col-md-6">
+            <h3><%= gettext("Votre recherche") %></h3>
+        </div>
+        <div class="col-md-30">
+                <div class="white blue-cell">
+                    <%= selected.get("title") %>
+                    <span class='glyphicon glyphicon-remove clickable'></span>
+                </div>
+        </div>
+    </div>
+<% } %>

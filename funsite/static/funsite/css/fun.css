@@ -26,6 +26,7 @@ body {
     background-color: white;
     height: 60px;
 }
+
 .light-shadow {
     -webkit-box-shadow: 0 6px 6px -6px #aaa;
        -moz-box-shadow: 0 6px 6px -6px #aaa;
@@ -35,6 +36,21 @@ body {
 .space-40px {
     clear: both;
     height: 40px;
+}
+
+.blue-cell {
+    display: inline-block;
+    background-color: #08223C;
+    padding: 3px 6px 3px 18px;
+    font-size: 12px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.white {
+    color: white;
 }
 
 /* Sandwich menu */
@@ -236,9 +252,6 @@ ul.footer-links.right {
     font-weight: 600;
     font-size: 50px;
     color: #2B2B2B;
-}
-.white {
-    color: white;
 }
 
 /* big button */
@@ -1014,7 +1027,11 @@ ul.universities-list {
     background: url('/static/funsite/images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
     }
 
-#display-filter h3 {
+.result-navigation.hide-search-filter .search-filter{
+    display: none;
+}
+
+.result-navigation h3 {
     margin: 0;
     display: inline-block;
     color: #3877BC;
@@ -1022,13 +1039,6 @@ ul.universities-list {
     font-weight: 600;
     margin-top: 6px;
 }
-.blue-cell {
-    display: inline-block;
-    background-color: #08223C;
-    padding: 3px 6px 3px 18px;
-    font-size: 12px;
-}
-
 
 /* static content pages */
 .simple-content {
