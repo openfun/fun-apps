@@ -7,6 +7,7 @@ from django.db import models
 from courseware.courses import course_image_url, get_course_about_section
 
 from courses.models import CourseSubject, Course
+from courses.routers import CourseAPIRouter
 from universities.models import University
 
 course_subjects_by_score = CourseSubject.objects.by_score()
@@ -319,10 +320,10 @@ require(["jquery", "underscore", "backbone"],
                         value: selectedValue.get("value")
                     });
                 }
-                return '/cours/api/?' + $.param(parameters);
+                return "${reverse(CourseAPIRouter.BASENAME + '-list')}" + '?' + $.param(parameters);
             },
             parse: function (response) {
-               return response.courses;
+               return response.results;
             },
         });
         var CourseCollectionView = Backbone.View.extend({
