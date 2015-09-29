@@ -7,7 +7,6 @@ from util.date_utils import strftime_localized
 
 <%page args="course"/>
 <div class="course-block small-course center-block">
-    % if course:
     <div class="top">
         % if course.session_display:
             <div class="type">
@@ -43,5 +42,4 @@ from util.date_utils import strftime_localized
             </div></a>
         </div>
     </div>
-    % endif
 </div>
