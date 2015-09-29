@@ -15,9 +15,6 @@ class University(models.Model):
     """
     A university or a school that provides online courses.
     """
-    parent = models.ForeignKey('University', blank=True, null=True,
-            related_name='children', verbose_name=_(u"Parent university"),
-            help_text=_(u"An university with parent will be grouped with it in university filtering"))
     name = models.CharField(_('name'), max_length=255, db_index=True)
     short_name = models.CharField(_('short name'), max_length=255, blank=True,
         help_text=_('Displayed where space is rare - on side panel for instance.'))
@@ -52,10 +49,6 @@ class University(models.Model):
     def get_absolute_url(self):
         if self.slug:
             return ('universities-detail', (self.slug,))
-
-    def get_name(self):
-        """Return university's parent name if this one has a parent."""
-        return self.name if not self.parent else self.parent.name
 
     def get_banner(self):
         options = {'size': (1030, 410), }
