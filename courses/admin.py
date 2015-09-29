@@ -53,6 +53,11 @@ class CourseAdmin(admin.ModelAdmin):
                 ('start_date', 'end_date'),
             )
         }),
+        (_('Advanced'), {
+            'fields': (
+                'thumbnails_info',
+            )
+        }),
     )
 
 
