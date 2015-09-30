@@ -59,7 +59,7 @@ from courseware.courses import course_image_url, get_course_about_section
             <ul class="primary-highlight">
             % for course in university.courses.all():
                 <li>
-                    <%include file="/funsite/parts/big-course-block.html" args="course=course"/>
+                    <%include file="/funsite/parts/course-block/big.html" args="course=course"/>
                 </li>
             % endfor
             </ul>
