@@ -1111,3 +1111,74 @@ div.article {
     margin-top: 44px;
     clear: both;
 }
+
+
+/* Courseware header customization */
+
+header.global {
+    padding-top: 0 !important;
+    height: 60px;
+    border-bottom-color: #CBCCCD;
+}
+header.global nav {
+    padding-top: 0 !important;
+}
+
+header.global .user {
+    margin-top: 0 !important;
+    padding-left: 36px;
+    background: #F72C30 url('/static/funsite/images/icones/user.png') 14px 14px no-repeat;
+    color: white;
+    height: 60px;
+    min-width: 170px;
+}
+header.global .user>.primary {
+    margin-top: 14px;
+}
+header.global .primary>a {
+    color: white;
+    text-shadow: none;
+    font-weight: 400 !important;
+}
+header.global .user a.user-link, header.global .user a.dropdown {
+    border: none;
+    box-shadow: none;
+}
+header.global .user a.user-link i.icon.fa-home {
+    display: none;
+}
+header.global h1.logo img {
+    height: 36px;
+    margin-top: 10px;
+}
+header.global .nav-global {
+    margin-top: 18px;
+}
+
+/* Slim header */
+header.global.slim .user {
+    height: 50px;
+}
+header.global.slim .user>.primary {
+    margin-top: 10px;
+}
+
+header.global .primary>a:hover, header.global .primary>a:focus, header.global .primary>a:active {
+    background: none;
+}
+header.global .user .dropdown-menu {
+    left: -130px;
+    min-width: 200px;
+}
+
+header.global.slim h1.logo img {
+    height: 36px !important;
+    margin-top: 5px !important;
+}
+
+header.global.slim h1.logo:before {
+    background: none !important;
+}
+header.global.slim h2 {
+    padding-top: 9px !important;
+}
