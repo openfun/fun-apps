@@ -37,18 +37,14 @@ courses_count_end_soon = Course.objects.end_soon().count()
 
 % for template_name in ['small-course-block', 'li2', 'filter']:
 <script type="text/template" id="${template_name}-tpl">
-  ${static_include("funsite/js/" + template_name + ".underscore")}
+  ${static_include("courses/js/" + template_name + ".underscore")}
 </script>
 % endfor
 
-
 <script>
-
-
 
 require(["jquery", "underscore", "backbone"],
     function ($, _, Backbone) {
-
 
         var loadTemplate = function(name) {
             var templateSelector = '#' + name + '-tpl',
@@ -227,12 +223,10 @@ require(["jquery", "underscore", "backbone"],
 
             },
             onClick: function(event) {
-
                 console.log(this.model.toJSON());
             }
 
         })
-
 
         var CriterionCollection = Backbone.Collection.extend({
             model: Criterion,
@@ -443,7 +437,6 @@ require(["jquery", "underscore", "backbone"],
     </div>
 </div>
 
-
 <div id="course-search" class="course-list">
 
     <div class="row">
@@ -470,17 +463,11 @@ require(["jquery", "underscore", "backbone"],
                 <ul class="criteria"></ul>
             </div>
 
-
             <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
                 <h2>Tous les établissements</h2>
                 <ul class="criteria"></ul>
             </div>
-
         </div>
-
-
-
     </div>
-
 </div>
 </%block>
