@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import json
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -14,5 +16,6 @@ class CourseAPITest(TestCase):
 
     def test_list(self):
         response = self.client.get(self.api_url)
-        self.assertContains(response, 'results')
+        data = json.loads(response.content)
+        self.assertIn('results', data)
 
