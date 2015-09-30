@@ -84,6 +84,7 @@ from staticfiles.storage import staticfiles_storage
     </script>
 
     <script type="text/javascript" src="/jsi18n/"></script>
+    <script type="text/javascript" src="${staticfiles_storage.url('js/src/utility.js')}"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/fun.js')}"></script>
     <%block name="js_extra" />
 
