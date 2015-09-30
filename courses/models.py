@@ -70,7 +70,7 @@ class Course(models.Model):
         url = ''
         try:
             url = self.thumbnails_info[thumbnail_alias]
-        except KeyError:
+        except (KeyError, TypeError):
             pass
         return url
 
