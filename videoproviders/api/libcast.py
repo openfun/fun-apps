@@ -142,20 +142,20 @@ class Client(BaseClient):
 
     def get_resource_file(self, resource):
         file_slug = self.get_resource_file_slug(resource)
-        response = self.get(self.urls.file_path(file_slug))
-        if response.status_code >= 400:
-            raise ClientError(_("Could not fetch file"))
-        return parse_xml(response)
+        return parse_xml(self.safe_get(
+            self.urls.file_path(file_slug),
+            message=_("Could not fetch file"))
+        )
 
     def get_resource_file_slug(self, resource):
         file_href = resource.find("file").attrib['href']
         return os.path.basename(file_href)
 
     def get_resource(self, slug):
-        response = self.get(self.urls.resource_path(slug))
-        if response.status_code >= 400:
-            raise ClientError(_("Could not fetch video"))
-        return parse_xml(response)
+        return parse_xml(self.safe_get(
+            self.urls.resource_path(slug),
+            message=_("Could not fetch video")
+        ))
 
     def convert_resource_to_video(self, resource, file_obj=None):
         """
@@ -216,16 +216,15 @@ class Client(BaseClient):
             downloadable_file(self.urls.flavor_url(video_id, 'ld'), _("Smartphone (320p)")),
         ]
 
-
     def create_resource(self, file_slug, title):
-        response = self.post(self.urls.stream_resources_path(self.stream_slug), {
-            "title": title,
-            "file": file_slug,
-            "visibility": self.VISIBILITY_HIDDEN,
-        })
-        if response.status_code >= 400:
-            raise ClientError(_("Could not create resource"))
-        return parse_xml(response)
+        return parse_xml(self.safe_post(
+            self.urls.stream_resources_path(self.stream_slug), {
+                "title": title,
+                "file": file_slug,
+                "visibility": self.VISIBILITY_HIDDEN,
+            },
+            message=_("Could not create resource")
+        ))
 
     def convert_subtitle_to_dict(self, subtitle):
         subtitle_href = subtitle.attrib['href']
@@ -512,6 +511,7 @@ def slugify(string):
     """
     return string.lower().replace('/', '-')
 
+#pylint: disable=too-many-arguments
 def http_request(url, method='GET', params=None, files=None, auth=None):
     func = getattr(requests, method.lower())
     kwargs = {
