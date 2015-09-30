@@ -90,6 +90,7 @@ class Client(BaseClient):
 
     VISIBILITY_HIDDEN = 'hidden'
     VISIBILITY_VISIBLE = 'visible'
+    DEFAULT_TIMEOUT_SECONDS = 10
 
     def __init__(self, *args, **kwargs):
         super(Client, self).__init__(*args, **kwargs)
@@ -327,7 +328,7 @@ class Client(BaseClient):
     def request(self, endpoint, method='GET', params=None, files=None):
         return http_request(
             self.urls.libcast_url(endpoint), method=method, params=params,
-            files=files, auth=self.auth
+            files=files, auth=self.auth, timeout=self.DEFAULT_TIMEOUT_SECONDS
         )
 
     def get_auth(self):
@@ -512,17 +513,21 @@ def slugify(string):
     return string.lower().replace('/', '-')
 
 #pylint: disable=too-many-arguments
-def http_request(url, method='GET', params=None, files=None, auth=None):
+def http_request(url, method='GET', params=None, files=None, auth=None, timeout=None):
     func = getattr(requests, method.lower())
     kwargs = {
         'auth': auth,
+        'timeout': timeout,
     }
     if method.upper() == 'GET':
         kwargs['params'] = params
     else:
         kwargs['data'] = params
         kwargs['files'] = files
-    response = func(url, **kwargs)
+    try:
+        response = func(url, **kwargs)
+    except requests.Timeout:
+        raise ClientError(u"Libcast timeout url=%s, method=%s, params=%s" % (url, method, params))
     if response.status_code >= 400:
         logger.error(u"Libcast client error url=%s, method=%s, params=%s, response:\n%s",
                      url, method, params, response.content.decode('utf-8'))
