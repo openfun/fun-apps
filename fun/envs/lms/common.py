@@ -150,6 +150,8 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 10,
 }
 
+NUMBER_DAYS_TOO_LATE = 7
+
 # Default visibility of student's profile to other students
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 
@@ -157,6 +159,14 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 THUMBNAIL_PRESERVE_EXTENSIONS = True
 THUMBNAIL_EXTENSION = 'png'
+
+# Course image thumbnail sizes
+FUN_THUMBNAIL_OPTIONS = {
+    'small': {'size': (270, 152), 'crop': 'smart'},
+    'big': {'size': (337, 191), 'crop': 'smart'},
+    'about': {'size': (50, 50), 'crop': 'smart'},  # todo
+    'facebook': {'size': (470, 250), 'crop': 'smart'},
+}
 
 # Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded by funsite/templates/funsite/parts/base.html
