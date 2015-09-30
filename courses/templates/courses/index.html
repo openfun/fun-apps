@@ -55,28 +55,27 @@ require(["jquery", "underscore", "backbone"],
             return _.template(templateText);
         };
 
-
         var filters = [
-            {title: "Disponibilité", name: 'state', type: 'select', values: [
+            {title: '${_("Availability")}', name: 'state', type: 'select', values: [
                 {value: 'new', title: "Nouveau", count: 12},
                 {value: 'nead-end', title: "Fin d'inscription imminente", count: 12},
                 {value: 'near-start', title: "Démarre bientôt", count: 12},
                 {value: 'demand', title: "A la demande", count: 12},
             ]},
-            {title: "Thèmes", name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
+            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
                 %for course_subject in course_subjects_by_score:
                 {value: "${ course_subject.slug }", title: "${ course_subject.short_name or course_subject.name }", count: ${ course_subject.courses.count() }},
                 %endfor
             ]},
-            {title: "Etablissements", name: 'university', type: 'select', max: 10, all_button: "Tous les établissments", overlay: '#all-universities-overlay', values: [
+            {title: '${_("Universities")}', name: 'university', type: 'select', max: 10, all_button: "Tous les établissments", overlay: '#all-universities-overlay', values: [
                 %for university in universities_by_score:
                 {value: "${ university.slug }", title: "${ university.short_name or university.name }", count: ${ university.courses.count() }},
                 %endfor
             ]},
-            {title: "Formation certifiante", name: 'certificate', type: 'checkbox', values: [
+            {title: '${_("Certified training")}', name: 'certificate', type: 'checkbox', values: [
                 {value: "certificat", title: "Certificate", count: 50 },
             ]},
-            {title: "Langue", name: 'language', type: 'select', values: [
+            {title: '${_("Language")}', name: 'language', type: 'select', values: [
                 {value: 'fr', title: "Français", image: 'french-flag', count: 12},
                 {value: 'en', title: "English", image: 'english-flag', count: 12},
                 {value: 'de', title: "Deutsch", image: 'german-flag', count: 12},
@@ -433,7 +432,7 @@ require(["jquery", "underscore", "backbone"],
 
 <div class="row">
     <div class="col-lg-36 big-title text-center">
-        <h2>Les cours à la une</h2>
+        <h2>${_("Highlighted courses")}</h2>
     </div>
 </div>
 
@@ -442,9 +441,8 @@ require(["jquery", "underscore", "backbone"],
     <div class="row">
 
         <div class="col-lg-8 col-md-12 col-sm-12">
-            <!-- <div class="filters" data-spy="affix" data-offset-top="820" data-offset-bottom="90"> -->
             <div class="filters criteria-block">
-                <h1>${_(u"Refile search results")}</h1>
+                <h1>${_("Refine search results")}</h1>
                 <div class="criterions"></div>
             </div>
         </div>
@@ -459,12 +457,12 @@ require(["jquery", "underscore", "backbone"],
             <div class="result-navigation hide-search-filter"></div>
 
             <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
-                <h2>Tous les thèmes</h2>
+                <h2>${_("All themes")}</h2>
                 <ul class="criteria"></ul>
             </div>
 
             <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
-                <h2>Tous les établissements</h2>
+                <h2>${_("All universities")}</h2>
                 <ul class="criteria"></ul>
             </div>
         </div>
