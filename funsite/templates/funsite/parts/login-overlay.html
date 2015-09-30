@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
         <div class="parts">
             <h3>${_(u"You have an account")}</h3>
         </div>
-        <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
+        <form role="form" class="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
            <div style="display:none">
               <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/>
            </div>

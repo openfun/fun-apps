@@ -1,5 +1,5 @@
 (function() {
-
+    var form_origin_position;
     // Handle FUN overlays closing by hiting escape
     $(document).keydown(function(event) {
         if (event.keyCode == 27) { // ESC key
@@ -24,7 +24,13 @@
         $('#login-overlay').toggle();
     });
 
-    $('#login-form').on('submit', function(event) {
+    $('.login-form').on('submit', function(event) {
+	if ($(this).hasClass("login-form-page")) {
+	    form_origin_position = "login-page";
+	}
+	else {
+	    form_origin_position = "overlay";
+	}
         event.preventDefault();
         $.ajax({
             url: '/login_ajax',
@@ -52,10 +58,17 @@
                     } // else we just remain on this page, which is fine since this particular path implies a login failure
                 // that has been generated via packet tampering (json.redirect has been messed with).
                 } else {
-                    $('#login-overlay').find('input').addClass('loginerror');
-                    $('#login-overlay').find('.error').html(json.value)
+		    if (form_origin_position == "overlay") {
+			$('#login-overlay').find('input').addClass('loginerror');
+			$('#login-overlay').find('.error').html(json.value);
+		    }
+		    else {
+			$('.login-row').find('.form-group').addClass('has-error');
+			var error_div = $('.login-form-page').find('.error-login-page');
+			error_div.html(json.value);
+			error_div.addClass('alert alert-danger');
+		    }
                 }
-
             },
             error: function(response) {
                 $('#login-overlay').find('input').addClass('loginerror');

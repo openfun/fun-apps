@@ -133,11 +133,15 @@ body {
 #login-overlay .forgotten-password a {
     color: #CBCCCD;
 }
-#login-overlay .error {
+.login-form .error {
     vertical-align: middle;
     height: 22px;
     color: #F72B2F;
     font-size: 12px;
+}
+
+.borderme {
+    border : solid black 1px;;
 }
 #login-overlay input {
     width: 234px;
@@ -1126,6 +1130,182 @@ ul.universities-list {
     font-weight: 600;
 }
 
+
+/* login page */
+
+        .login-row {
+          margin-top : 20px;
+          background-color: white;
+          padding : 20px 25px;
+          margin-bottom: 20px;
+        }
+        
+        .login-row h4 {
+          text-align : center;
+          color : #004170;
+          margin-bottom: 20px;
+        }
+        
+        .login-row label {
+          font-weight: 300;
+        }
+
+        .login-row button {
+          width : 270px;
+          margin-left : auto;
+          margin-right : auto;
+          display : block;
+        }
+        @media (min-width: 768px) {
+        .login-row {
+          width: 610px;
+          margin-left : auto;
+          margin-right : auto;
+        }
+        .login-row button {
+           width : 560px;
+         }
+        }
+
+
+/* Register page */
+    .global-row {
+        text-align : center;
+        background-color: white;
+        margin-top : 40px;
+        padding-top: 10px;
+        margin-bottom: 40px;
+     }
+
+   .register-row {
+       display:inline-block;
+       vertical-align : top;
+       text-align : left;
+       padding-left: 20px;
+       padding-right: 20px;
+       margin-left : auto;
+       margin-right : auto
+       padding : 20px 10px 25px 10px;
+       background-color: white;
+     }
+
+   .tos-row {
+       display:inline-block;
+       text-align : left;
+       margin-left : auto;
+       padding-left: 20px;
+       padding-right: 20px;
+
+       margin-right : auto
+       padding : 20px 25px;
+       background-color: #08223C;
+       color: white;
+     }
+
+     .register-row #field-yob, .register-row #field-gender {
+         display: inline-block;         
+     }
+
+    .register-row button {
+        margin-left : auto;
+        margin-right : auto;
+        display : block;
+     }
+
+     #field-field-tos input {
+         vertical-align : top;
+     }
+     
+    .global-row h4.register-title {
+        color : #004170;
+        margin-bottom: 20px;
+        padding-left : 20px;
+        padding-right : 20px;
+     }
+
+   .register-row .form-inline {
+      margin-bottom: 15px;   
+     }
+     
+   .submission-error {
+         padding : 20px 25px;
+         margin-left : auto;
+         margin-right : auto;
+         margin-top : 20px;
+         display: none;
+     }
+
+    label.required:after {
+        content:" *";
+        color:red;
+     }
+
+     @media (max-width: 767px) {
+         .register-row button {
+             width : 280px;
+         }
+         .register-row #field-yob, .register-row #field-gender {
+             display:block;
+         }
+         #field-field-tos label {
+             width: 240px;
+         }
+     }
+
+     @media (min-width: 768px) {
+         .register-row, .submission-error {
+             width: 512px;
+         }
+         .tos-row {
+             width: 250px;
+         }
+         #field-field-tos lapbel {
+             width: 240px;
+         }
+         .register-row button {
+             width : 270px;
+         }
+         
+         .register-row #field-yob, .register-row #field-gender {
+             width : 230px;
+         }
+         #field-field-tos label {
+             width: 360px;
+         }
+     }
+     @media (min-width: 960px) {
+         .register-row, .submission-error {
+             width: 640px;
+         }
+         .tos-row {
+             width: 314px;
+        }
+         .register-row button {
+             width : 600px;
+         }
+         
+         .register-row #field-yob, .register-row #field-gender {
+             width : 298px;
+         }
+     }
+     @media (min-width: 1280px) {
+         .register-row, .submission-error {
+             width: 840px;
+         }
+         .tos-row {
+             width: 416px;
+        }
+         .register-row button {
+             width : 800px;
+         }
+         
+         .register-row #field-yob, .register-row #field-gender {
+             width : 398px;
+         }
+     }
+
+
+	
 /* static content pages */
 .simple-content {
     background-color: #EDEEEF;
