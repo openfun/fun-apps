@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import json
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.timezone import now, timedelta
@@ -47,7 +49,8 @@ class CourseAPITest(TestCase):
 
     def test_course_list_api_response_loads(self):
         response = self.client.get(self.api_url)
-        self.assertContains(response, 'results')
+        data = json.loads(response.content)
+        self.assertIn('results', data)
 
     def test_response_contains_on_active_courses(self):
         response = self.client.get(self.api_url)
