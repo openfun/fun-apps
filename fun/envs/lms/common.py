@@ -158,7 +158,10 @@ SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 THUMBNAIL_PRESERVE_EXTENSIONS = True
 THUMBNAIL_EXTENSION = 'png'
 
-
-# Add our v3 CSS to the assets compilation pipeline
-PIPELINE_CSS['style-course']['source_filenames'].append('funsite/css/fun.css')
-
+# Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
+# On FUN v3 frontend, which do not use edX's templates, those files are loaded by funsite/templates/funsite/parts/base.html
+# css/lms-main.css
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/css/bootstrap.min.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/fun.css')
+# js/lms-application.js
+PIPELINE_JS['application']['source_filenames'].append('funsite/js/fun.js')
