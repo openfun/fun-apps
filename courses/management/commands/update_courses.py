@@ -87,10 +87,10 @@ class Command(BaseCommand):
         for mongo_course in self.courses:
             course_handler = CourseHandler(mongo_course)
             key = course_handler.key
-            self.stdout.write('\n Updating data for course {}'.format(key))
-            course, was_created =  Course.objects.get_or_create(key=key)
+            self.stdout.write('Updating data for course {}\n'.format(key))
+            course, _was_created = Course.objects.get_or_create(key=key)
             if course.prevent_auto_update:
-                self.stdout.write('\n Skipping updates for {}'.format(key))
+                self.stdout.write(' Skipping updates for {}\n'.format(key))
                 continue
             course.is_active = True
             course.title = course_handler.title
@@ -115,7 +115,7 @@ class Command(BaseCommand):
         '''
         orphan_courses = Course.objects.exclude(key__in=self.courses_keys)
         orphan_courses.update(is_active=False)
-        self.stdout.write('\n Deactivated {} orphan courses'.format(orphan_courses.count()))
+        self.stdout.write('Deactivated {} orphan courses\n'.format(orphan_courses.count()))
         return None
 
     def handle(self, *args, **options):
