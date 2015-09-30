@@ -5,6 +5,7 @@ from django.test import TestCase
 from fun.tests.utils import skipUnlessLms
 
 
+@skipUnlessLms
 class TestHomepage(TestCase):
 
     def setUp(self):
