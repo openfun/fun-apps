@@ -52,6 +52,10 @@ body {
 .white {
     color: white;
 }
+.no-padding {
+    padding: 0;
+}
+
 
 /* Sandwich menu */
 
@@ -888,7 +892,6 @@ ul.universities-list {
 /* Courses filtering and searching courses/index.html */
 
 .course-list {
-    border: 1px solid red;
     position: relative;
 
 }
@@ -954,6 +957,8 @@ ul.universities-list {
 }
 
 .filters h1 {
+    margin-top: 0;
+    padding-top: 16px;
     color: #3976BC;
     font-size: 32px;
     font-weight: 200;
@@ -1027,17 +1032,24 @@ ul.universities-list {
     background: url('/static/funsite/images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
     }
 
+
+.result-navigation {
+    border: 1px solid #CBCCCD;
+    margin-top: 0;
+    margin-bottom: 24px;
+    padding: 16px;
+}
+
 .result-navigation.hide-search-filter .search-filter{
     display: none;
 }
 
 .result-navigation h3 {
-    margin: 0;
+    margin: 0 16px;
     display: inline-block;
     color: #3877BC;
     font-size: 14px;
     font-weight: 600;
-    margin-top: 6px;
 }
 
 /* static content pages */
@@ -1065,6 +1077,8 @@ ul.universities-list {
 .no-gutter-left {
     padding-left: 0 !important;
 }
+
+
 
 /* FAQ */
 
