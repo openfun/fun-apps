@@ -41,7 +41,7 @@
                     }  else if (json.redirect_url) {
                         location.href=json.redirect_url;
                     } else {
-                        location.href="${reverse('dashboard')}";
+                        location.href="/dashboard";
                     }
                 } else if (json.hasOwnProperty('redirect')) {
                     var u = decodeURI(window.location.search);
