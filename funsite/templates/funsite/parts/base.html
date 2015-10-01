@@ -40,10 +40,14 @@ from staticfiles.storage import staticfiles_storage
 </head>
 <body>
 
+<div class="container-fluid">
+
+    <%include file="menu.html" />
+
+</div>
 
 <div class="main-width">
 
-    <%include file="menu.html" />
 
     <div class="container-fluid drop-down">
 
@@ -51,13 +55,18 @@ from staticfiles.storage import staticfiles_storage
     <%block name="content"></%block>
 
 
-    <%include file="footer.html" />
-
 
 
     </div> <!-- bootstrape container -->
 
 </div>  <!-- main-width -->
+
+
+<div class="container-fluid">
+
+    <%include file="footer.html" />
+
+</div>
 
 <%include file="sandwich-overlay.html" />
 

@@ -176,7 +176,7 @@ body {
 
 #sandwich-overlay {
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     display: none;
@@ -232,7 +232,7 @@ ul.footer-links li a {
     color: white;
 }
 ul.footer-links.right {
-    padding-left: 0;
+    padding-left: 16px;
 }
 .fun-footer .bottom-footer {
     margin: 20px 20px 0 20px;
