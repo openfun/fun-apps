@@ -121,4 +121,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.update_course_data()
         self.deactivate_orphan_courses()
-        self.stdout.write('\n Updated courses {}'.format(len(self.courses)))
+        self.stdout.write('\n Updated courses {}\n'.format(len(self.courses)))

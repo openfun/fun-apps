@@ -3,6 +3,9 @@
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
+
+from fun.utils import get_fun_course
+
 %>
 
 <%inherit file="/funsite/parts/base.html" />
@@ -20,5 +23,66 @@ from courseware.courses import course_image_url, get_course_about_section
 <%block name="title">${get_course_about_section(course, 'title')}</%block>
 
 
+<%block name="content">
 
-<h1>${get_course_about_section(course, 'title')}</h1>
+<% fun_course = get_fun_course(course) %>
+
+<div class="course-about main-content">
+
+    <div class="row">
+
+        <div class="col-lg-21 col-sm-24 no-gutter-right">
+            <div class="left">
+
+
+                <h1>${get_course_about_section(course, 'title')}</h1>
+
+
+                <div class="course-image hidden-1900">
+                    <img src="${ fun_course.get_thumbnail_url('about') }">
+                </div>
+
+
+                <div class="description">
+
+                    ${get_course_about_section(course, 'overview')}
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-15 col-sm-12 no-gutter-left no-padding">
+            <div class="right">
+            <div class="university-logo">
+                <img src="${ fun_course.universities.all()[0].get_logo_thumbnail()}">
+            </div>
+
+            <div class="course-image hidden-1280">
+                <img src="${ fun_course.get_thumbnail_url('about') }">
+            </div>
+
+            <a href="">
+            <div class="register-button">
+                <span>${_(u"Register")}</span>
+            </div>
+            </a>
+
+            <div class="blue-zone">
+
+            </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+</%block>
