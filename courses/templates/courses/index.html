@@ -302,18 +302,7 @@ require(["jquery", "underscore", "backbone"],
                 this.listenTo(this.model, "remove", this.remove);
             },
             render: function() {
-                var context = this.model.toJSON(),
-                    course_type = '';
-                if (this.model.get('is_new')) {
-                    course_type = gettext('NEW COURSE');
-                } else if (this.model.get('on_demand')) {
-                    course_type = gettext('ON DEMAND');
-                } else {
-                    // TODO: we need to retrieve a proper number of session to build i18nable string like
-                    // "SESSION 5"
-                    course_type = this.model.get('key').split('/')[2];
-                }
-                context.course_type = course_type;
+                var context = this.model.toJSON();
                 context.course_about = '/courses/'+ context.key;
                 this.$el.html(this.template(context));
                 return this;
