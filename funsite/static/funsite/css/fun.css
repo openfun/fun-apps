@@ -834,10 +834,12 @@ ul.universities-list {
     float: left;
     margin: 4px;
 }
+.universities-list .university-logo {
+    border: 1px solid #E6E6E6;
+}
 .university-logo {
     width: 185px;
     height: 105px;
-    border: 1px solid #E6E6E6;
     position: relative;
 }
 .university-logo img {
@@ -1069,6 +1071,7 @@ ul.universities-list {
     background-color: #08223C;
     color: white;
     padding: 24px 8px 24px 8px;
+    margin-right: 60px;
 }
 
 .no-gutter-right {
@@ -1078,6 +1081,73 @@ ul.universities-list {
     padding-left: 0 !important;
 }
 
+/* Course about */
+.main-content {
+    background-color: #EDEEEF;
+    padding-top: 60px;
+}
+
+.main-content .left {
+    padding-top: 24px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 70px;
+    margin-left: 60px;
+    background-color: white;
+}
+.main-content .right {
+    background-color: white;
+    color: white;
+    padding: 24px 8px 24px 8px;
+    margin-right: 60px;
+    padding: 0;
+    width: 730px;
+}
+
+
+.course-about .right .university-logo {
+    height: 140px;
+    width: 100%;
+    text-align: center;
+}
+.course-about .right .university-logo img {
+    margin: auto;
+}
+
+.course-about .right .course-image {
+    text-align: center;
+}
+.course-about .right .course-image img {
+    margin: auto;
+}
+
+.course-about .right .register-button {
+    background-color: #3877BC;
+    color: white;
+    height: 68px;
+    font-size: 20px;
+    font-weight: 600;
+    position: relative;
+
+}
+.course-about .right .register-button span {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+    padding-top: 4px;
+    padding-left: 30px;
+    background: url('/static/funsite/images/icones/register.png') 0px 0px no-repeat;
+}
+.course-about .right .register-button:hover {
+    background-color: #F72D30;
+}
+.course-about .right .register-button:hover>span {
+    background: url('/static/funsite/images/icones/register-hover.png') 0px 0px no-repeat;
+}
+
+.course-about .right .blue-zone {
+    background-color: #08223C;
+}
 
 
 /* FAQ */

@@ -164,7 +164,7 @@ THUMBNAIL_EXTENSION = 'png'
 FUN_THUMBNAIL_OPTIONS = {
     'small': {'size': (270, 152), 'crop': 'smart'},
     'big': {'size': (337, 191), 'crop': 'smart'},
-    'about': {'size': (50, 50), 'crop': 'smart'},  # todo
+    'about': {'size': (730, 412), 'crop': 'smart'},
     'facebook': {'size': (470, 250), 'crop': 'smart'},
 }
 

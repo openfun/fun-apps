@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
 
 from opaque_keys.edx.keys import CourseKey
@@ -16,3 +18,8 @@ def get_course(course_key_string):
     """Return the course module associated to a string ID."""
     course_key = CourseKey.from_string(course_key_string)
     return modulestore().get_course(course_key)
+
+def get_fun_course(course):
+    """Return the fun-app.courses.models.Course from edX course key."""
+    from courses.models import Course
+    return Course.objects.get(key=course.id.to_deprecated_string())

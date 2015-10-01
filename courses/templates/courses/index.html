@@ -303,7 +303,7 @@ require(["jquery", "underscore", "backbone"],
             },
             render: function() {
                 var context = this.model.toJSON();
-                context.course_about = '/courses/'+ context.key;
+                context.course_about = '/courses/'+ context.key + '/about';
                 this.$el.html(this.template(context));
                 return this;
             },
