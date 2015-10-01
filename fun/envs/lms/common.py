@@ -173,5 +173,6 @@ FUN_THUMBNAIL_OPTIONS = {
 # css/lms-main.css
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/css/bootstrap.min.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/fun.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 # js/lms-application.js
 PIPELINE_JS['application']['source_filenames'].append('funsite/js/fun.js')
