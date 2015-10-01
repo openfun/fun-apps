@@ -9,15 +9,18 @@ One dash for yellow hightlight and two for blue.
     --blue highlight--
 
 
-The modifications to original Editor consists of: 
+Modifications to original Editor consist of: 
 	- Changing the 3 images for toolbar buttons
 	- Adding some functions in 3 js files, and shift icons toolbar 40px right to make room for 2 new buttons. 
-    -Override some CSS to use our image, see `themes/fun/static/sass/_fun.scss``
+    - Override some CSS to use our image
+        + highlight.scss is compiled using command: `scss highlight.scss --update`
+        + then added to CSS pipeline in our settings
+
 
 See:
 
-	diff edx-platform/lms/static/js/Markdown.Editor.js themes/fun/static/highlight/js/Markdown.Editor.js
-    diff edx-platform/lms/static/js/Markdown.Converter.js themes/fun/static/highlight/js/Markdown.Converter.js
-    diff edx-platform/lms/static/js/Markdown.Sanitizer.js themes/fun/static/highlight/js/Markdown.Sanitizer.js
+	diff ~/edx-platform/lms/static/js/Markdown.Editor.js ~/fun-apps/forum_contributors/static/forum_contributors/highlight/js/Markdown.Editor.js
+    diff ~/edx-platform/lms/static/js/Markdown.Converter.js ~/fun-apps/forum_contributors/static/forum_contributors/highlight/js/Markdown.Converter.js
+    diff ~/edx-platform/lms/static/js/Markdown.Sanitizer.js ~/fun-apps/forum_contributors/static/forum_contributors/highlight/js/Markdown.Sanitizer.js
     
 

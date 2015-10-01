@@ -1,0 +1,75 @@
+/* Override lms forum rich editor buttons */
+body.discussion {
+  /* Enlarge action button zone in response header to allow french transalation which is wider than english*/ }
+  body.discussion .wmd-spacer1 {
+    left: 100px; }
+  body.discussion .wmd-spacer2 {
+    left: 225px; }
+  body.discussion .wmd-spacer3 {
+    left: 350px; }
+  body.discussion .container .discussion-body {
+    /* Reply to a comment */ }
+    body.discussion .container .discussion-body .wmd-button span {
+      background-image: url(/static/forum_contributors/highlight/images/wmd-buttons-transparent.png); }
+  body.discussion .discussion-response .response-header-content {
+    width: 65%; }
+  body.discussion .discussion-response .response-header-actions {
+    width: 35%; }
+  body.discussion .new-post-body {
+    /* New comment  */ }
+    body.discussion .new-post-body .wmd-button > span {
+      background-image: url(/static/forum_contributors/highlight/images/new-post-icons-full.png); }
+  body.discussion .new-post-article .wmd-button > span {
+    background-image: url(/static/forum_contributors/highlight/images/new-post-icons-full.png); }
+
+/* course embeded forum topic */
+.discussion-module .new-post-body {
+  /* new comment */ }
+  .discussion-module .new-post-body .wmd-spacer1 {
+    left: 100px; }
+  .discussion-module .new-post-body .wmd-spacer2 {
+    left: 225px; }
+  .discussion-module .new-post-body .wmd-spacer3 {
+    left: 350px; }
+  .discussion-module .new-post-body .wmd-button > span {
+    background-image: url(/static/forum_contributors/highlight/images/wmd-buttons-transparent.png); }
+.discussion-module .wmd-spacer1 {
+  left: 100px; }
+.discussion-module .wmd-spacer2 {
+  left: 225px; }
+.discussion-module .wmd-spacer3 {
+  left: 350px; }
+.discussion-module .wmd-button span {
+  /* reply to a comment */
+  background-image: url(/static/forum_contributors/highlight/images/wmd-buttons.png); }
+
+/* forum special users colors */
+.user-label-active {
+  font-size: 12px;
+  vertical-align: middle;
+  border-radius: 2px;
+  padding: 0;
+  background: #98b3ff;
+  font-style: normal;
+  text-transform: uppercase;
+  color: white; }
+
+.user-label-recommended {
+  font-size: 12px;
+  vertical-align: middle;
+  border-radius: 2px;
+  padding: 0;
+  background: #618aff;
+  font-style: normal;
+  text-transform: uppercase;
+  color: white; }
+
+.user-label-official {
+  font-size: 12px;
+  vertical-align: middle;
+  border-radius: 2px;
+  padding: 0;
+  background: #0747ff;
+  font-style: normal;
+  text-transform: uppercase;
+  color: white; }
