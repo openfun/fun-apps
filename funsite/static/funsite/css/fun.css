@@ -72,7 +72,7 @@ body {
 }
 
 
-#top-menu .connexion {
+#top-menu .login {
     color: white;
     background: #F72C30 url('/static/funsite/images/icones/user.png') 14px 14px no-repeat;
     height: 60px;
@@ -81,7 +81,7 @@ body {
     padding-top: 20px;
     padding-left: 60px;
 }
-#top-menu .connexion>a,#top-menu .connexion>a:hover,#top-menu .connexion>a:visited {
+#top-menu .login>a,#top-menu .login>a:hover,#top-menu .login>a:visited {
     text-decoration: none;
     color: white;
 }
@@ -556,10 +556,10 @@ ul.footer-links.right {
         height: 90px;
     }
 
-    #top-menu .connexion {
+    #top-menu .login {
         width: 60px;
     }
-    #top-menu .connexion>span {
+    #top-menu .login>span {
         display: none;
     }
     #top-menu span.slogan {

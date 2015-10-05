@@ -18,7 +18,7 @@
     });
 
     /* Login overlay */
-    $('#top-menu .connexion.not-connected').on('click', function(event) {
+    $('#top-menu .login.not-connected').on('click', function(event) {
         $('#login-overlay').show();
     });
 
