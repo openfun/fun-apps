@@ -25,6 +25,9 @@ STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc
 BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
 FAVICON_PATH = "themes/fun/images/favicon.ico"
 
+PLATFORM_FACEBOOK_ACCOUNT = 'https://www.facebook.com/france.universite.numerique'
+PLATFORM_TWITTER_ACCOUNT = '@universite_num'
+
 # those 2 constants are used in code to describe certificate, they are not i18ned, you could do it
 CERT_NAME_SHORT = u"Attestation"
 CERT_NAME_LONG = u"Attestation de réussite"
