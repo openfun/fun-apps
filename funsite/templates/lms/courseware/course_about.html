@@ -13,12 +13,13 @@ from fun.utils import get_fun_course
 <%inherit file="/funsite/parts/base.html" />
 
 <%block name="meta_extra">
-    ## OG (Open Graph) title and description added below to give social media info to display
-    ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
-    ## TODO Add at least image tag with correct format.
 
+    <meta property="og:site_name" content="France Université Numérique"/>
+    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${reverse('about_course', args=[course.key])}" />
     <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
     <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:image" content="//www.france-universite-numerique-mooc.fr${ fun_course.get_thumbnail_url('facebook') }" />
 
 </%block>
 
@@ -99,6 +100,7 @@ from fun.utils import get_fun_course
                 </div>
 
                 <div class="course-image hidden-1900">
+
                     <img src="${ fun_course.get_thumbnail_url('about') }">
                 </div>
 

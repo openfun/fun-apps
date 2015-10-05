@@ -165,7 +165,7 @@ FUN_THUMBNAIL_OPTIONS = {
     'small': {'size': (270, 152), 'crop': 'smart'},
     'big': {'size': (337, 191), 'crop': 'smart'},
     'about': {'size': (730, 412), 'crop': 'scale'},
-    'facebook': {'size': (470, 250), 'crop': 'smart'},
+    'facebook': {'size': (600, 315), 'crop': 'smart'},  # https://developers.facebook.com/docs/sharing/best-practices
 }
 
 # Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
