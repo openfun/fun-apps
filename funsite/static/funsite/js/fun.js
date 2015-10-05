@@ -19,7 +19,7 @@
 
     /* Login overlay */
     $('#top-menu .login.not-connected').on('click', function(event) {
-        $('#login-overlay').show();
+        $('#login-overlay').toggle();
     });
 
     $('#login-form').on('submit', function(event) {
