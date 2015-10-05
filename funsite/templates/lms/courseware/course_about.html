@@ -14,9 +14,19 @@ from fun.utils import get_fun_course, get_teaser
 
 <%block name="js_extra">
 <script>
-$('.video-button').on('click', function() {
-    $('#video-modal').modal('show');
-})
+(function() {
+    $('.video-button').on('click', function() {
+        $('#video-modal').modal('show');
+    })
+    $('#video-modal').on('shown.bs.modal', function () {
+        $('iframe#course-teaser')[0].contentWindow.postMessage('play', '*');
+    })
+    $('#video-modal').on('hide.bs.modal', function () {
+        $('iframe#course-teaser')[0].contentWindow.postMessage('pause', '*');
+        $('iframe#course-teaser')[0].contentWindow.postMessage('seek=0', '*');
+    })
+})();
+
 </script>
 
 </%block>

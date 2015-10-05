@@ -26,7 +26,7 @@ def get_fun_course(course):
     from courses.models import Course
     return Course.objects.get(key=course.id.to_deprecated_string())
 
-def get_teaser(course, video_id, autoplay=True):
+def get_teaser(course, video_id):
     """Build the DailyMotion url from the video_id and return the html snippet"""
     if len(video_id) > 20:
         # Studio saves in mongo youtube urls with dmcloud id, we have to extract dmclouid to build correct url
@@ -37,6 +37,6 @@ def get_teaser(course, video_id, autoplay=True):
     else:
         # FUN v1 did the stuff right
         dm_id = video_id
-    html = '<iframe frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/%s/?autoplay=%d"></iframe>' % (
-            dm_id, int(autoplay))
+    html = '<iframe id="course-teaser" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/%s/?&api=postMessage"></iframe>' % (
+            dm_id)
     return html
