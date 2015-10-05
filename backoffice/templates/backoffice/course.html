@@ -58,8 +58,8 @@
         </div>
         <div class="col-md-3 text-center">
           {% if university %}
-            <img src="{{ university.logo.url }}" alt="{{ university.name }}" title="{{ university.name }}" />
-            <h4>{{ university.name }}</h4>
+            <img src="{{ university.logo.url }}" alt="{{ university.get_name }}" title="{{ university.get_name }}" />
+            <h4>{{ university.get_name }}</h4>
           {% else %}
             {% trans "This course does not belong to any university" %}
           {% endif %}

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 <img src="http://www.france-universite-numerique-mooc.fr${image_url}">
 <p>
 % if university:
-    ${ _(u"Proposed by")}: ${university.name()}
+    ${ _(u"Proposed by")}: ${university.get_name()}
 % endif
 </p>
 <p>
