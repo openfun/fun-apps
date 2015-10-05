@@ -58,8 +58,8 @@ require(["jquery", "underscore", "backbone"],
         var filters = [
             {title: '${_("Availability")}', name: 'state', type: 'select', values: [
                 {value: 'new', title: "Nouveau", count: 12},
-                {value: 'nead-end', title: "Fin d'inscription imminente", count: 12},
-                {value: 'near-start', title: "Démarre bientôt", count: 12},
+                {value: 'nead-end', title: "Fin d'inscription imminente", count: ${ courses_count_end_soon }},
+                {value: 'near-start', title: "Démarre bientôt", count: ${courses_count_start_soon }},
                 {value: 'demand', title: "A la demande", count: 12},
             ]},
             {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
