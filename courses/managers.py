@@ -43,10 +43,10 @@ class CourseQuerySet(models.query.QuerySet):
         return self.filter(is_active=True)
 
     def start_soon(self):
-        return self.filter(start_date__range=(now(), self.too_late))
+        return self.active().filter(start_date__range=(now(), self.too_late))
 
     def end_soon(self):
-        return self.filter(end_date__range=(now(), self.too_late))
+        return self.active().filter(end_date__range=(now(), self.too_late))
 
     def by_score(self):
         return self.active().order_by('-score')
