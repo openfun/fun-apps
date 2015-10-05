@@ -10,6 +10,7 @@ class UniversityAdmin(admin.ModelAdmin):
     list_display = ('name', 'short_name', 'preview', 'code', 'slug',
         'detail_page_enabled', 'score')
     list_editable = ('score',)
+    search_fields = ('name', 'code', 'short_name', 'slug', 'description')
     list_filter = ('detail_page_enabled',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
