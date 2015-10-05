@@ -20,6 +20,7 @@ class CourseAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'prevent_auto_update',
         'level', 'subjects', 'universities')
     search_fields = ('key', 'title', 'short_description',
+        'university_display_name',
         'certificateteacher_related__teacher__full_name',
         'courseteacher_related__teacher__full_name', )
     filter_horizontal = ('subjects',)
@@ -34,6 +35,7 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': (
                 'key',
                 'title',
+                'university_display_name',
                 'image_url',
                 'short_description',
                 'level',

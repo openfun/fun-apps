@@ -32,6 +32,10 @@ class Course(models.Model):
     key = models.CharField(max_length=200, verbose_name=_(u'Course key'),
         unique=True)
     title = models.CharField(_(u'title'), max_length=255, blank=True)
+    university_display_name = models.CharField(_(u'university display name'),
+        max_length=255, blank=True, help_text=_('Displayed in place of the '
+        'university name. If not set, use the name of the first associated '
+        'university.'))
     short_description = models.TextField(_('short description'), blank=True)
     image_url = models.CharField(_(u'image url'), max_length=255, blank=True)
     universities = models.ManyToManyField('universities.University',
@@ -73,6 +77,14 @@ class Course(models.Model):
         except (KeyError, TypeError):
             pass
         return url
+
+    @property
+    def first_university(self):
+        try:
+            first = self.related_universities.order_by('order')[0].university
+        except IndexError:
+            first = None
+        return first
 
     @property
     def session_display(self):
