@@ -11,7 +11,6 @@ class UniversityAdmin(admin.ModelAdmin):
         'detail_page_enabled', 'score')
     list_editable = ('score',)
     list_filter = ('detail_page_enabled',)
-    search_fields = ('name', 'code', 'short_name', 'slug', 'description')
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         (None, {
@@ -19,7 +18,7 @@ class UniversityAdmin(admin.ModelAdmin):
                 ('name', 'short_name', 'code'),
                 ('logo',),
                 ('certificate_logo',),
-                'score',
+                ('parent', 'score'),
             )
         }),
         (_('Dailymotion Cloud'), {
