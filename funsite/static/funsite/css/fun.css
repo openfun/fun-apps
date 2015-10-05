@@ -41,8 +41,14 @@ body {
 .blue-cell {
     display: inline-block;
     background-color: #08223C;
-    padding: 3px 6px 3px 18px;
+    padding: 4px 8px 2px 8px;
     font-size: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
+    font-weight: 300;
+}
+.blue-cell.closable {
+    padding-left: 18px;
 }
 
 .clickable {
@@ -251,11 +257,28 @@ ul.footer-links.right {
 
 
 /* Big title */
+.big-title h1 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 50px;
+    color: #2B2B2B;
+}
+
 .big-title h2 {
     font-style: normal;
     font-weight: 600;
     font-size: 50px;
     color: #2B2B2B;
+}
+
+.line {
+}
+.line span {
+    display: inline-block;
+    width: 136px;
+    height: 5px;
+    border-bottom: 1px solid #C0C1C2;
+    margin-bottom: 20px;
 }
 
 /* big button */
@@ -289,6 +312,30 @@ ul.footer-links.right {
 .all-items-button.transparent {
     background-color: transparent;
 }
+
+.social-networks span {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin-top: 30px;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-bottom: 30px;
+    background: url('/static/funsite/images/icones/social-networks.png') 0px 0px no-repeat;
+}
+.social-networks span:hover {
+    background: url('/static/funsite/images/icones/social-networks-hover.png') 0px 0px no-repeat;
+}
+.social-networks span.facebook {
+}
+.social-networks span.twitter {
+    background-position: -44px 0;
+}
+.social-networks span.email {
+    background-position: -88px 0;
+}
+
+
 /* Responsive */
 @media (min-width: 1900px) {
     .main-width {
@@ -349,6 +396,20 @@ ul.footer-links.right {
         font-size: 50px;
         margin-bottom: 70px;
     }
+    .main-content .right {
+        width: 730px;
+    }
+
+    .course-about .right .register-course-button {
+        height: 68px;
+        padding-top: 20px;
+        cursor: pointer;
+    }
+    .course-about .right .course-image img {
+        width: 730px;
+        height: 412px;
+    }
+
 }
 
 
@@ -411,6 +472,18 @@ ul.footer-links.right {
     div.page-image.home-page img.logo-fun {
         width: 195px;
         height: 180px;
+    }
+    .main-content .right {
+        width: 354px;
+    }
+
+    .course-about .right .register-course-button {
+        height: 58px;
+        padding-top: 14px;
+    }
+    .course-about .left .course-image img {
+        width: 730px;
+        height: 412px;
     }
 
 }
@@ -1095,53 +1168,49 @@ ul.universities-list {
     margin-left: 60px;
     background-color: white;
 }
+
 .main-content .right {
     background-color: white;
     color: white;
     padding: 24px 8px 24px 8px;
     margin-right: 60px;
     padding: 0;
-    width: 730px;
 }
 
 
 .course-about .right .university-logo {
-    height: 140px;
+    height: 180px;
     width: 100%;
     text-align: center;
+    border-left: 1px solid #E6E7E8;
 }
 .course-about .right .university-logo img {
     margin: auto;
+    height: 120px;
 }
 
 .course-about .right .course-image {
     text-align: center;
 }
-.course-about .right .course-image img {
-    margin: auto;
-}
 
-.course-about .right .register-button {
+.course-about .right .register-course-button {
     background-color: #3877BC;
     color: white;
-    height: 68px;
     font-size: 20px;
     font-weight: 600;
-    position: relative;
-
+    text-align: center;
 }
-.course-about .right .register-button span {
-    position: absolute;
+.course-about .right .register-course-button span {
     top: 25%;
     left: 45%;
     padding-top: 4px;
     padding-left: 30px;
     background: url('/static/funsite/images/icones/register.png') 0px 0px no-repeat;
 }
-.course-about .right .register-button:hover {
+.course-about .right .register-course-button:hover {
     background-color: #F72D30;
 }
-.course-about .right .register-button:hover>span {
+.course-about .right .register-course-button:hover>span {
     background: url('/static/funsite/images/icones/register-hover.png') 0px 0px no-repeat;
 }
 
@@ -1149,7 +1218,64 @@ ul.universities-list {
     background-color: #08223C;
 }
 
+.course-about .right .social-networks {
+    text-align: center;
+}
+.course-about .right .course-info {
+    font-weight: 400;
+    margin-left: auto;
+    margin-right: auto;
+    width: 252px;
+    border-top: 1px solid #9BA4AB;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.course-about .right .course-info.exclamation {
+    background: url('/static/funsite/images/icones/exclamation-red.png') 0px 20px no-repeat;
+}
+.course-about .right .course-info.calendar {
+    background: url('/static/funsite/images/icones/calendar-red.png') 0px 20px no-repeat;
+}
+.course-about .right .course-info.clock{
+    background: url('/static/funsite/images/icones/clock-red.png') 0px 20px no-repeat;
+}
+.course-about .right .course-info.diploma {
+    background: url('/static/funsite/images/icones/diploma-red.png') 0px 20px no-repeat;
+}
+.course-about .right .course-info.accessibility {
+    background: url('/static/funsite/images/icones/accessibility-red.png') 0px 20px no-repeat;
+}
+.course-about .right .course-info.buble {
+    background: url('/static/funsite/images/icones/bubble-red.png') 0px 20px no-repeat;
+}
+.course-about .right .course-info.letter {
+    background: url('/static/funsite/images/icones/letter-red.png') 0px 20px no-repeat;
+}
 
+.course-about .left .subjects {
+    height: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.course-about .right .course-info ul {
+    list-style: none;
+    padding-left: 0;
+}
+.course-about .subjects ul {
+    list-style: none;
+    padding-left: 0;
+}
+.course-about .subjects ul li:first-child {
+    padding-top: 3px;
+    margin-right: 20px;
+    font-size: 14px
+
+}
+.course-about .subjects ul li {
+    float: left;
+}
 /* FAQ */
 
 ul.faq-categories > li {

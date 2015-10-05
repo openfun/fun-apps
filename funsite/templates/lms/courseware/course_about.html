@@ -2,7 +2,9 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+
 from courseware.courses import course_image_url, get_course_about_section
+from microsite_configuration import microsite
 
 from fun.utils import get_fun_course
 
@@ -25,18 +27,76 @@ from fun.utils import get_fun_course
 
 <%block name="content">
 
-<% fun_course = get_fun_course(course) %>
+<%
+    fun_course = get_fun_course(course)
+
+    # FUN: from themes/fun/templates/courseware/course_about.html
+    # TODO: improve
+    site_domain = microsite.get_value('site_domain', settings.SITE_NAME)
+    platform_name = microsite.get_value('platform_name', settings.PLATFORM_NAME)
+
+    # Translators: This text will be automatically posted to the student's
+    # Twitter account. {url} should appear at the end of the text.
+    tweet_text = _("I just registered for {number} {title} through {account}: {url}").format(
+        number=course.number,
+        title=get_course_about_section(course, 'title'),
+        account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
+        url=u"http://{domain}{path}".format(
+            domain=site_domain,
+            path=reverse('about_course', args=[course.id.to_deprecated_string()])
+        )
+    ).replace(u" ", u"+")
+    tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
+
+    facebook_link = microsite.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
+
+    email_subject = u"mailto:?subject={subject}&body={body}".format(
+        subject=_("Take a course with {platform} online").format(platform=platform_name),
+        body=_("I just registered for {number} {title} through {platform} {url}").format(
+            number=course.number,
+            title=get_course_about_section(course, 'title'),
+            platform=platform_name,
+            url=u"http://{domain}{path}".format(
+                domain=site_domain,
+                path=reverse('about_course', args=[course.id.to_deprecated_string()]),
+            )
+        )
+    ).replace(u" ", u"%20")
+
+
+
+%>
 
 <div class="course-about main-content">
 
     <div class="row">
 
-        <div class="col-lg-21 col-sm-24 no-gutter-right">
+        <div class="col-lg-21 col-sm-26 no-gutter-right">
             <div class="left">
 
+                <div class="big-title text-center">
+                    <h1>
+                        ${get_course_about_section(course, 'title')}
+                    </h1>
+                </div>
+                <div class="line text-center">
+                    <span></span>
+                </div>
 
-                <h1>${get_course_about_section(course, 'title')}</h1>
-
+                <div class="subjects">
+                    <ul>
+                        <li>
+                            ${_(u"Thematics")}
+                        </li>
+                        % for theme in fun_course.subjects.all():
+                        <li>
+                            <a hre=""><span class="white blue-cell">
+                                ${theme.name}
+                            </span></a>
+                        </li>
+                        % endfor
+                    </ul>
+                </div>
 
                 <div class="course-image hidden-1900">
                     <img src="${ fun_course.get_thumbnail_url('about') }">
@@ -55,30 +115,127 @@ from fun.utils import get_fun_course
 
 
 
-        <div class="col-lg-15 col-sm-12 no-gutter-left no-padding">
+        <div class="col-lg-15 col-sm-10 no-gutter-left no-padding">
             <div class="right">
-            <div class="university-logo">
-                <img src="${ fun_course.universities.all()[0].get_logo_thumbnail()}">
-            </div>
+                <div class="university-logo">
+                    % if fun_course.universities.exists():
+                    <img src="${ fun_course.universities.all()[0].get_logo_thumbnail()}">
+                    % endif
+                </div>
 
-            <div class="course-image hidden-1280">
-                <img src="${ fun_course.get_thumbnail_url('about') }">
-            </div>
+                <div class="course-image hidden-1280">
+                    <img src="${ fun_course.get_thumbnail_url('about') }">
+                </div>
 
-            <a href="">
-            <div class="register-button">
-                <span>${_(u"Register")}</span>
-            </div>
-            </a>
 
-            <div class="blue-zone">
+                <div class="register-course-button">
+                    <span>${_(u"Register")}</span>
+                </div>
 
-            </div>
 
+                <div class="blue-zone">
+                    <div class="row">
+                        <div class="col-sm-36 social-networks">
+                            <a href="${facebook_link}" target="_blank">
+                                <span class="facebook"></span>
+                            </a>
+                            <a href="${tweet_action}" target="_blank">
+                                <span class="twitter"></span>
+                            </a>
+                            <a href="${email_subject}" target="_blank">
+                                <span class="email"></span>
+                            </a>
+                        </div>
+                        <div class="col-sm-36 col-lg-18">
+                            <div class="course-info exclamation">
+                                <ul>
+                                <li>
+                                    <strong>Date de fin d'inscription</strong>
+                                </li>
+                                <li>
+                                    14 décémbre 2015
+                                </li>
+                                </ul>
+                            </div>
+
+                            <div class="course-info calendar">
+                                <ul>
+                                <li>
+                                    <strong>Date de fin d'inscription</strong>
+                                </li>
+                                <li>
+                                    14 décémbre 2015
+                                </li>
+                                </ul>
+                            </div>
+
+                            <div class="course-info clock">
+                                <ul>
+                                <li>
+                                    <strong>Date de fin d'inscription</strong>
+                                </li>
+                                <li>
+                                    14 décémbre 2015
+                                </li>
+                                </ul>
+                            </div>
+
+                            <div class="course-info diploma">
+                                <ul>
+                                <li>
+                                    <strong>Date de fin d'inscription</strong>
+                                </li>
+                                <li>
+                                    14 décémbre 2015
+                                </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-36 col-lg-18">
+
+                            <div class="course-info accessibility">
+                                <ul>
+                                <li>
+                                    <strong>Date de fin d'inscription</strong>
+                                </li>
+                                <li>
+                                    14 décémbre 2015
+                                </li>
+                                </ul>
+                            </div>
+
+                            <div class="course-info buble">
+                                <ul>
+                                <li>
+                                    <strong>Date de fin d'inscription</strong>
+                                </li>
+                                <li>
+                                    14 décémbre 2015
+                                </li>
+                                </ul>
+                            </div>
+
+                            <div class="course-info letter">
+                                <ul>
+                                <li>
+                                    <strong>Date de fin d'inscription</strong>
+                                </li>
+                                <li>
+                                    14 décémbre 2015
+                                </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
         </div>
-
 
 
     </div>
