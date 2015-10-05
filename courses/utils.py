@@ -76,22 +76,6 @@ def sort_courses(courses):
     return sort_by_announcement(courses)  # sorted(courses, _sort_by_novelty)
 
 
-def get_dmcloud_url(course, video_id):
-    '''Build the dmcloud url from the video_id and return the html snippet'''
-    if len(video_id) > 20:
-        # Studio saves in mongo youtube urls with dmcloud id, we have to extract dmclouid to build correct url
-        try:
-            dmcloud = re.compile(r'/([\d\w]+)\?').search(video_id).groups()[0]
-        except AttributeError:
-            dmcloud = ''
-    else:
-        # FUN v1 did the stuff write
-        dmcloud = video_id
-    html = ('<iframe width="560" height="315" frameborder="0" '
-            'scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/') + dmcloud + '"></iframe>'
-    return html
-
-
 def course_image_url(course, image_name=None):
     """Return url for image_name or default course image in given course assets.
     It allows us to override default course image in templates when this function is

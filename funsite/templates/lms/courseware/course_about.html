@@ -6,16 +6,27 @@ from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
 from microsite_configuration import microsite
 
-from fun.utils import get_fun_course
+from fun.utils import get_fun_course, get_teaser
 
 %>
 
 <%inherit file="/funsite/parts/base.html" />
 
-<%block name="meta_extra">
+<%block name="js_extra">
+<script>
+$('.video-button').on('click', function() {
+    $('#video-modal').modal('show');
+})
+</script>
 
+</%block>
+
+<%block name="meta_extra">
+    <%
+    fun_course = get_fun_course(course)
+    %>
     <meta property="og:site_name" content="France Université Numérique"/>
-    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${reverse('about_course', args=[course.key])}" />
+    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${reverse('about_course', args=[fun_course.key])}" />
     <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
     <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
     <meta property="og:locale" content="fr_FR" />
@@ -63,9 +74,6 @@ from fun.utils import get_fun_course
             )
         )
     ).replace(u" ", u"%20")
-
-
-
 %>
 
 <div class="course-about main-content">
@@ -100,7 +108,7 @@ from fun.utils import get_fun_course
                 </div>
 
                 <div class="course-image hidden-1900">
-
+                    <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }">
                 </div>
 
@@ -126,6 +134,7 @@ from fun.utils import get_fun_course
                 </div>
 
                 <div class="course-image hidden-1280">
+                    <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }">
                 </div>
 
@@ -238,10 +247,19 @@ from fun.utils import get_fun_course
 
             </div>
         </div>
-
-
     </div>
+</div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="video-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="inner-wrapper">
+                ${get_teaser(course, get_course_about_section(course, "video"))}
+            </div>
+        </div>
+    </div>
 </div>
 
 </%block>

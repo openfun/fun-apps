@@ -388,7 +388,7 @@ ul.footer-links.right {
     }
 
     div.page-image.courses-page {
-        background-image: url('/static/funsite/images/homepage1900_draft.png')
+        background-image: url('/static/funsite/images/homepage1900_draft.png');
     }
 
     div.page-image.home-page h1 {
@@ -409,7 +409,6 @@ ul.footer-links.right {
         width: 730px;
         height: 412px;
     }
-
 }
 
 
@@ -1221,6 +1220,45 @@ ul.universities-list {
 .course-about .right .social-networks {
     text-align: center;
 }
+
+.course-about .course-image {
+    position: relative;
+}
+.course-about .course-image .video-button {
+    position: absolute;
+    width: 100%;
+    height: 128px;
+    background-image: url('/static/funsite/images/icones/video-play-button.png');
+    background-position: center;
+    top: 40%;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+}
+.course-about .course-image .video-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#video-modal .modal-dialog {
+    width: 60%;
+}
+#video-modal .modal-content {
+    background-color: #4F4F4F;
+    padding: 14px;
+}
+#video-modal .inner-wrapper {
+    border: 1px solid black;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+#video-modal iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .course-about .right .course-info {
     font-weight: 400;
     margin-left: auto;
@@ -1276,6 +1314,16 @@ ul.universities-list {
 .course-about .subjects ul li {
     float: left;
 }
+
+
+
+
+
+
+
+
+
+
 /* FAQ */
 
 ul.faq-categories > li {
