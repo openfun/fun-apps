@@ -3,20 +3,22 @@
     // Handle FUN overlays closing by hiting escape
     $(document).keydown(function(event) {
         if (event.keyCode == 27) { // ESC key
+            $('div.sequence-nav').css('z-index', 'auto');
             $('.hide-on-escape-key:visible').hide();
         }
     });
 
     /* Handle FUN overlays closing by clicking X */
     $('.close-overlay').on('click', function(event) {
+        $('div.sequence-nav').css('z-index', 'auto');
         $(this).parent().hide()
     });
 
     /* Sandwich menu overlay */
     $('#sandwich-menu').on('click', function(event) {
+        $('div.sequence-nav').css('z-index', 1);
         $('#sandwich-overlay').show();
     });
-
     /* Login overlay */
     $('#top-menu .login.not-connected').on('click', function(event) {
         $('#login-overlay').toggle();
