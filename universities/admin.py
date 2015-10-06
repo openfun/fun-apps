@@ -8,10 +8,10 @@ import videoproviders.admin
 
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ('name', 'short_name', 'preview', 'code', 'slug',
-        'detail_page_enabled', 'score')
+        'detail_page_enabled', 'is_obsolete', 'score')
     list_editable = ('score',)
+    list_filter = ('detail_page_enabled', 'is_obsolete')
     search_fields = ('name', 'code', 'short_name', 'slug', 'description')
-    list_filter = ('detail_page_enabled',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         (None, {
@@ -19,7 +19,7 @@ class UniversityAdmin(admin.ModelAdmin):
                 ('name', 'short_name', 'code'),
                 ('logo',),
                 ('certificate_logo',),
-                ('parent', 'score'),
+                'score',
             )
         }),
         (_('Dailymotion Cloud'), {
@@ -31,6 +31,7 @@ class UniversityAdmin(admin.ModelAdmin):
         (_('Displayed On Site | Banner | Description'), {
             'fields': (
                 ('detail_page_enabled',),
+                ('is_obsolete',),
                 ('slug',),
                 ('banner',),
                 ('description',),
