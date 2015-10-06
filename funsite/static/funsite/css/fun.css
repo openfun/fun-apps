@@ -1316,9 +1316,72 @@ ul.universities-list {
 }
 
 
+.course-about .description h1 {
+}
+.course-about .description h2 {
+}
+.course-about .description h3 {
+}
+.course-about .description p {
+}
+
+.course-about .description p {
+    font-size: 15px;
+}
+.course-about .description section.about {
+}
+.course-about .description section.prerequisites {
+}
+
+.course-about .description section.course-staff {
+    background-color: #EDEEEF;
+    padding: 20px 30px 20px 30px;
+    display: block;
+}
+    .course-about .description section.course-staff article.teacher {
+        width: 100%;
+        display: inline-block;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    .course-about .description section.course-staff article.teacher h3 {
+        text-transform: uppercase;
+        color: #4381C4;
+        font-size: 18px;
+    }
+    .course-about .description section.course-staff article.teacher div.teacher-image {
+
+    }
+
+    .course-about .description section.course-staff article.teacher div.teacher-image>img {
+        width: 120px;
+        height: 120px;
+        margin-right: 20px;
+    }
 
 
+.course-about .description section.faq {
+}
+.course-about .description section.plan {
+    background-color: #3877BC;
+    color: white;
+    padding: 40px 70px 40px 70px;
+    margin-left: -70px;
+    margin-right: -70px;
+}
+.course-about .description section.plan h2 {
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
 
+
+.course-about .description section.plan {
+
+.course-about .description section.social-network {
+}
+.course-about .description section.license {
+}
 
 
 
