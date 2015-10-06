@@ -145,6 +145,7 @@ class CourseUniversityRelation(models.Model):
         ordering = ('order', 'id',)
         verbose_name = _('course-university relation')
         verbose_name_plural = _('course-university relation')
+        unique_together = ('university', 'course')
 
     def __unicode__(self):
         return u'{} - {}'.format(self.university, self.course)

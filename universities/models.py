@@ -15,9 +15,6 @@ class University(models.Model):
     """
     A university or a school that provides online courses.
     """
-    parent = models.ForeignKey('University', blank=True, null=True,
-            related_name='children', verbose_name=_(u"Parent university"),
-            help_text=_(u"An university with parent will be grouped with it in university filtering"))
     name = models.CharField(_('name'), max_length=255, db_index=True)
     short_name = models.CharField(_('short name'), max_length=255, blank=True,
         help_text=_('Displayed where space is rare - on side panel for instance.'))
@@ -29,6 +26,9 @@ class University(models.Model):
     detail_page_enabled = models.BooleanField(_('detail page enabled'),
         default=False, db_index=True,
         help_text=_('Enables the university detail page.'))
+    is_obsolete = models.BooleanField(_('is obsolete'),
+        default=False, db_index=True,
+        help_text=_('Obsolete universities are not displayed on the site.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True, blank=True,
         help_text=_('Only used if detail page is enabled'))
     banner = models.ImageField(_('banner'), upload_to='universities', null=True,
@@ -52,10 +52,6 @@ class University(models.Model):
     def get_absolute_url(self):
         if self.slug:
             return ('universities-detail', (self.slug,))
-
-    def get_name(self):
-        """Return university's parent name if this one has a parent."""
-        return self.name if not self.parent else self.parent.name
 
     def get_banner(self):
         options = {'size': (1030, 410), }
