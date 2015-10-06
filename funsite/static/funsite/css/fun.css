@@ -1317,12 +1317,20 @@ ul.universities-list {
 
 
 .course-about .description h1 {
+    font-weight: 600;
+    font-size: 28px;
 }
 .course-about .description h2 {
+    font-weight: 600;
+    font-size: 28px;
 }
 .course-about .description h3 {
+    font-weight: 400;
+    font-size: 20px;
 }
 .course-about .description p {
+    font-weight: 600;
+    font-size: 28px;
 }
 
 .course-about .description p {
@@ -1352,7 +1360,6 @@ ul.universities-list {
     .course-about .description section.course-staff article.teacher div.teacher-image {
 
     }
-
     .course-about .description section.course-staff article.teacher div.teacher-image>img {
         width: 120px;
         height: 120px;
@@ -1362,6 +1369,7 @@ ul.universities-list {
 
 .course-about .description section.faq {
 }
+
 .course-about .description section.plan {
     background-color: #3877BC;
     color: white;
@@ -1369,24 +1377,74 @@ ul.universities-list {
     margin-left: -70px;
     margin-right: -70px;
 }
-.course-about .description section.plan h2 {
-    color: black;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    .course-about .description section.plan h2 {
+        color: black;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+
+.course-about .description section.social-networks {
+    border-bottom: 1px solid #CBCCCD;
+    width: 80%;
+    margin-top: 30px;
+    padding-bottom: 8px;
+    margin-bottom: 30px;
 }
+    .course-about .description section.social-networks h3 {
+        border-bottom: 1px solid #CBCCCD;
+        font-size: 16px;
+        padding-bottom: 12px;
+        margin-bottom: 18px
+
+    }
+    .course-about .description section.social-networks div {
+        margin: 8px 0 8px 0;
+    }
+    .course-about .description section.social-networks div a {
+        color: #F83336;
+        text-decoration: none;
+    }
+    .course-about .description section.social-networks div.facebook {
+        padding-left: 34px;
+        background: url('/static/funsite/images/icones/small-facebook.png') 0px 0px no-repeat;
+    }
+    .course-about .description section.social-networks div.twitter {
+        padding-left: 34px;
+        background: url('/static/funsite/images/icones/small-twitter.png') 0px 0px no-repeat;
+    }
 
 
-.course-about .description section.plan {
-
-.course-about .description section.social-network {
+.course-about .description section.licence {
 }
-.course-about .description section.license {
-}
+    .course-about .description section.licence article {
+        padding-bottom: 40px;
+        margin-bottom: 26px;
+    }
+    .course-about .description section.licence article.cc-by-nc {
+        background: url('/static/funsite/images/icones/by-nc.eu.png') 0px 0px no-repeat;
+        background-position: bottom left;
+    }
+    .course-about .description section.licence article.cc-by-nc-sa {
+        background: url('/static/funsite/images/icones/by-nc-sa.eu.png') 0px 0px no-repeat;
+        background-position: bottom left;
+    }
+    .course-about .description section.licence article.cc-by-nc-nd {
+        background: url('/static/funsite/images/icones/by-nc-nd.eu.png') 0px 0px no-repeat;
+        background-position: bottom left;
+    }
 
-
-
-
-
+    .course-about .description section.licence h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .course-about .description section.licence h3 {
+        font-size: 16px;
+        color: #3877BB;
+    }
+    .course-about .description section.licence p {
+        font-weight: 300;
+    }
 /* FAQ */
 
 ul.faq-categories > li {
