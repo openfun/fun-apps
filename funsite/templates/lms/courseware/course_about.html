@@ -18,13 +18,14 @@ from fun.utils import get_fun_course, get_teaser
     $('.video-button').on('click', function() {
         $('#video-modal').modal('show');
     })
-    $('#video-modal').on('shown.bs.modal', function () {
+    $('#video-modal').on('shown.bs.modal', function() {
         $('iframe#course-teaser')[0].contentWindow.postMessage('play', '*');
     })
-    $('#video-modal').on('hide.bs.modal', function () {
+    $('#video-modal').on('hide.bs.modal', function() {
         $('iframe#course-teaser')[0].contentWindow.postMessage('pause', '*');
         $('iframe#course-teaser')[0].contentWindow.postMessage('seek=0', '*');
     })
+    $('div.teacher-image img').addClass('img-circle')
 })();
 
 </script>
@@ -103,6 +104,7 @@ from fun.utils import get_fun_course, get_teaser
                 </div>
 
                 <div class="subjects">
+                    % if fun_course.subjects.all():
                     <ul>
                         <li>
                             ${_(u"Thematics")}
@@ -115,6 +117,7 @@ from fun.utils import get_fun_course, get_teaser
                         </li>
                         % endfor
                     </ul>
+                    % endif
                 </div>
 
                 <div class="course-image hidden-1900">
