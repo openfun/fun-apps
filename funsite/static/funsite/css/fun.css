@@ -562,7 +562,9 @@ ul.footer-links.right {
     .course-list .list ul li {
         margin-left: 55px;
     }
-
+    #top-menu span.slogan {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -836,15 +838,16 @@ ul.secondary-highlight li {
 }
 
 
-
-
-.university-page .university {
+.simple-content-page {
     padding-top: 20px;
     padding-bottom: 20px;
     margin-top: 40px;
     margin-bottom: 40px;
     background-color: white;
     padding: 40px;
+}
+
+.university-page .university {
 }
 .university-page .university h1 {
     text-align: center;
@@ -1116,13 +1119,13 @@ ul.universities-list {
           padding : 20px 25px;
           margin-bottom: 20px;
         }
-        
+
         .login-row h4 {
           text-align : center;
           color : #004170;
           margin-bottom: 20px;
         }
-        
+
         .login-row label {
           font-weight: 300;
         }
@@ -1180,7 +1183,7 @@ ul.universities-list {
      }
 
      .register-row #field-yob, .register-row #field-gender {
-         display: inline-block;         
+         display: inline-block;
      }
 
     .register-row button {
@@ -1192,7 +1195,7 @@ ul.universities-list {
      #field-field-tos input {
          vertical-align : top;
      }
-     
+
     .global-row h4.register-title {
         color : #004170;
         margin-bottom: 20px;
@@ -1201,9 +1204,9 @@ ul.universities-list {
      }
 
    .register-row .form-inline {
-      margin-bottom: 15px;   
+      margin-bottom: 15px;
      }
-     
+
    .submission-error {
          padding : 20px 25px;
          margin-left : auto;
@@ -1242,7 +1245,7 @@ ul.universities-list {
          .register-row button {
              width : 270px;
          }
-         
+
          .register-row #field-yob, .register-row #field-gender {
              width : 230px;
          }
@@ -1260,7 +1263,7 @@ ul.universities-list {
          .register-row button {
              width : 600px;
          }
-         
+
          .register-row #field-yob, .register-row #field-gender {
              width : 298px;
          }
@@ -1275,14 +1278,14 @@ ul.universities-list {
          .register-row button {
              width : 800px;
          }
-         
+
          .register-row #field-yob, .register-row #field-gender {
              width : 398px;
          }
      }
 
 
-	
+
 /* static content pages */
 .simple-content {
     background-color: #EDEEEF;
