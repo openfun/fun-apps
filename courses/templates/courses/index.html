@@ -214,12 +214,15 @@ require(["jquery", "underscore", "backbone"],
                 $(overlay_id).show();
 
                 /* Calculate vertical overlay's position regarding clicked button */
-                var posy =  $(event.toElement).prev().prev().offset().top - $('.filters').offset().top - 40;
-                $(overlay_id).css('top', posy + 'px');
+                var top =  $(event.currentTarget).prev().prev().offset().top - $('.filters').offset().top - 68;
+                $(overlay_id).css('top', top + 'px');
 
                 /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
                 var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
-                $(overlay_id).find('ul').css('height', (height * $('li.criterion').outerHeight(true)) + 'px');
+                var li_height = $('li.criterion').outerHeight(true);
+                li_height +=3;  // quick fix to compensate university names which use 2 lines... We have to use shorter name
+                $(overlay_id).find('ul').css('height', (height * li_height) + 'px');
+                console.log(li_height)
 
             },
             onClick: function(event) {
@@ -418,8 +421,6 @@ require(["jquery", "underscore", "backbone"],
 
 <%block name="content">
 
-<div class="page-image courses-page"></div>
-
 <div class="row">
     <div class="col-lg-36 big-title text-center">
         <h2>${_("Courses")}</h2>
@@ -428,16 +429,17 @@ require(["jquery", "underscore", "backbone"],
 
 <div id="course-search" class="course-list">
 
-    <div class="row">
+    <div class="row course-list-table">
 
-        <div class="col-lg-8 col-md-12 col-sm-12">
+        <div class="left">
             <div class="filters criteria-block">
                 <h1>${_("Refine search results")}</h1>
                 <div class="criterions"></div>
             </div>
+
         </div>
 
-        <div class="col-lg-28 col-md-24 col-sm-24 offset no-padding">
+        <div class="right">
             <div class="result-navigation"></div>
 
             <div class="list">
@@ -456,6 +458,7 @@ require(["jquery", "underscore", "backbone"],
                 <ul class="criteria"></ul>
             </div>
         </div>
+
     </div>
 </div>
 </%block>
