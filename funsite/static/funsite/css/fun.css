@@ -1592,20 +1592,22 @@ ul.universities-list {
 .course-about .description section.licence {
 }
     .course-about .description section.licence article {
-        padding-bottom: 40px;
         margin-bottom: 26px;
     }
     .course-about .description section.licence article.cc-by-nc {
         background: url('/static/funsite/images/icones/by-nc.eu.png') 0px 0px no-repeat;
         background-position: bottom left;
+        padding-bottom: 40px;
     }
     .course-about .description section.licence article.cc-by-nc-sa {
         background: url('/static/funsite/images/icones/by-nc-sa.eu.png') 0px 0px no-repeat;
         background-position: bottom left;
+        padding-bottom: 40px;
     }
     .course-about .description section.licence article.cc-by-nc-nd {
         background: url('/static/funsite/images/icones/by-nc-nd.eu.png') 0px 0px no-repeat;
         background-position: bottom left;
+        padding-bottom: 40px;
     }
 
     .course-about .description section.licence h2 {
@@ -1613,11 +1615,16 @@ ul.universities-list {
         font-weight: 600;
     }
     .course-about .description section.licence h3 {
-        font-size: 16px;
+        font-size: 18px;
         color: #3877BB;
+    }
+    .course-about .description section.licence h4 {
+        font-size: 16px;
+        margin-left: 20px;
     }
     .course-about .description section.licence p {
         font-weight: 300;
+        margin-left: 20px;
     }
 /* FAQ */
 
