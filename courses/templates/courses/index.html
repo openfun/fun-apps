@@ -14,7 +14,7 @@ course_subjects_by_score = CourseSubject.objects.by_score()
 #course_subjects_by_name = CourseSubject.objects.by_name()
 universities_by_score = University.objects.by_score()
 
-universities_by_name = University.objects.by_name()
+#universities_by_name = University.objects.by_name()
 courses_count_start_soon = Course.objects.start_soon().count()
 courses_count_end_soon = Course.objects.end_soon().count()
 %>
@@ -57,10 +57,10 @@ require(["jquery", "underscore", "backbone"],
 
         var filters = [
             {title: '${_("Availability")}', name: 'state', type: 'select', values: [
-                {value: 'new', title: "Nouveau", count: 12},
+            //    {value: 'new', title: "Nouveau", count: 12},
                 {value: 'nead-end', title: "Fin d'inscription imminente", count: ${ courses_count_end_soon }},
                 {value: 'near-start', title: "Démarre bientôt", count: ${courses_count_start_soon }},
-                {value: 'demand', title: "A la demande", count: 12},
+             //   {value: 'demand', title: "A la demande", count: 12},
             ]},
             {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
                 %for course_subject in course_subjects_by_score:
@@ -72,6 +72,7 @@ require(["jquery", "underscore", "backbone"],
                 {value: "${ university.code }", title: "${ university.short_name or university.name }", count: ${ university.courses.active().count() }},
                 %endfor
             ]},
+            /*
             {title: '${_("Certified training")}', name: 'certificate', type: 'checkbox', values: [
                 {value: "certificat", title: "Certificate", count: 50 },
             ]},
@@ -81,7 +82,7 @@ require(["jquery", "underscore", "backbone"],
                 {value: 'de', title: "Deutsch", image: 'german-flag', count: 12},
                 {value: 'es', title: "Español", image: 'spanish-flag', count: 12},
             ]},
-
+            */
 
         ];
 
