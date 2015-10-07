@@ -552,6 +552,9 @@ ul.footer-links.right {
     .main-width {
         width: 768px;
     }
+    .slogan {
+        display: none;
+    }
     .hidden-768 {
         display: none !important;
     }
@@ -591,6 +594,9 @@ ul.footer-links.right {
 @media (max-width: 767px) {
     .main-width {
         width: 320px;
+    }
+    .slogan {
+        display: none;
     }
 
     .hidden-320 {
