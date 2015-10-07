@@ -261,14 +261,14 @@ ul.footer-links.right {
 
 
 /* Big title */
-.big-title h1 {
+.big-title h1, h1.big-title {
     font-style: normal;
     font-weight: 600;
     font-size: 50px;
     color: #2B2B2B;
 }
 
-.big-title h2 {
+.big-title h2, h2.big-title {
     font-style: normal;
     font-weight: 600;
     font-size: 50px;
@@ -353,17 +353,6 @@ ul.footer-links.right {
         display: block !important;
     }
 
-    .course-list .list {
-        width: 1500px;
-    }
-    .course-list .offset {
-        left: -26px;
-    }
-
-    .criteria-overlay {
-        left: -307px;
-        width: 1479px
-    }
     .criteria-overlay ul {
         -moz-column-count: 5;
         -webkit-column-count: 5;
@@ -404,6 +393,10 @@ ul.footer-links.right {
         width: 730px;
     }
 
+    .course-list .list ul li {
+        margin-right: 39px;
+    }
+
     .course-about .right .register-course-button {
         height: 68px;
         padding-top: 20px;
@@ -428,17 +421,7 @@ ul.footer-links.right {
         display: block !important;
     }
 
-    .course-list .list {
-        width: 900px;
-    }
-    .course-list .offset {
-        left: -56px;
-    }
 
-    .criteria-overlay {
-        left: -100px;
-        width: 925px;
-    }
     .criteria-overlay ul {
         -moz-column-count: 3;
         -webkit-column-count: 3;
@@ -480,6 +463,10 @@ ul.footer-links.right {
         width: 354px;
     }
 
+    .course-list .list ul li {
+        margin-right: 39px;
+    }
+
     .course-about .right .register-course-button {
         height: 58px;
         padding-top: 14px;
@@ -495,16 +482,6 @@ ul.footer-links.right {
         width: 960px;
     }
 
-    .course-list .list {
-        width: 600px;
-    }
-    .course-list .offset {
-        left: 40px;
-    }
-    .criteria-overlay {
-        left: 7px;
-        width: 622px;
-    }
     .criteria-overlay ul {
         -moz-column-count: 2;
         -webkit-column-count: 2;
@@ -546,6 +523,11 @@ ul.footer-links.right {
         height: 144px;
     }
 
+    .course-list .list ul li {
+        margin-right: 28px;
+    }
+
+
 }
 
 @media (max-width: 959px) {
@@ -562,17 +544,6 @@ ul.footer-links.right {
         display: block !important;
     }
 
-    .course-list .list {
-        width: 400px;
-    }
-    .course-list .offset {
-        left: 150px;
-    }
-
-    div.page-image {
-        width: 768px;
-        height: 260px;
-    }
     div.page-image.home-page {
         background-image: url('/static/funsite/images/homepage768_draft.png')
     }
@@ -587,6 +558,9 @@ ul.footer-links.right {
     div.page-image.home-page img.logo-fun {
         width: 137px;
         height: 126px;
+    }
+    .course-list .list ul li {
+        margin-left: 55px;
     }
 
 }
@@ -605,14 +579,6 @@ ul.footer-links.right {
     .visible-320 {
         display: block !important;
     }
-
-    .course-list .list {
-        width: 320px;
-    }
-    .course-list .offset {
-        left: 26px;
-    }
-
 
     .footer-links {
         width: 100%;
@@ -979,7 +945,9 @@ ul.universities-list {
     position: relative;
 
 }
-
+.course-list .list {
+    margin-left: 38px;
+}
 .course-list .list ul {
     list-style-type: none;
     margin: 0 auto;
@@ -989,7 +957,6 @@ ul.universities-list {
 .course-list .list ul li {
     float: left;
     display: inline-block;
-    padding-right: 24px
 }
 
 .filters {
@@ -1031,7 +998,10 @@ ul.universities-list {
     width: 100%;
     border: none;
 }
-
+.criteria-block-bottom {
+    background-color: red;
+    rop
+}
 .criteria-overlay ul {
 }
 .criteria-overlay ul li {
@@ -1040,9 +1010,7 @@ ul.universities-list {
     padding-bottom: 8px;
 }
 
-.filters h1 {
-    margin-top: 0;
-    padding-top: 16px;
+.filters div.title {
     color: #3976BC;
     font-size: 32px;
     font-weight: 200;
@@ -1078,6 +1046,10 @@ ul.universities-list {
     width: 232px;
     cursor: pointer;
 }
+.criteria-overlay  ul.criteria li {
+    width: auto;
+}
+
 .criteria-block ul.criteria li .badge {
     font-size: 11px;
     background-color: #F32A2E;
@@ -1119,8 +1091,7 @@ ul.universities-list {
 
 .result-navigation {
     border: 1px solid #CBCCCD;
-    margin-top: 0;
-    margin-bottom: 24px;
+    margin: 0 38px 24px 38px;
     padding: 16px;
 }
 
@@ -1756,4 +1727,21 @@ header.global.slim h1.logo:before {
 }
 header.global.slim h2 {
     padding-top: 9px !important;
+}
+
+
+.course-list-table {
+    display: table;
+}
+
+.course-list-table .left {
+    display: table-cell;
+    vertical-align: top;
+    width: 325px;
+}
+
+.course-list-table .right {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
 }

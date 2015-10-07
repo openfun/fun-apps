@@ -427,38 +427,43 @@ require(["jquery", "underscore", "backbone"],
     </div>
 </div>
 
-<div id="course-search" class="course-list">
 
-    <div class="row course-list-table">
+<div class="row">
 
-        <div class="left">
-            <div class="filters criteria-block">
-                <h1>${_("Refine search results")}</h1>
-                <div class="criterions"></div>
+    <div id="course-search" class="course-list">
+
+        <div class="course-list-table">
+
+            <div class="left">
+                <div class="filters criteria-block">
+                    <div class="title">${_("Refine search results")}</div>
+                    <div class="criterions"></div>
+                </div>
+
+            </div>
+
+            <div class="right">
+                <div class="result-navigation"></div>
+
+                <div class="list">
+                    <ul id="course-filtering-results"></ul>
+                </div>
+
+                <div class="result-navigation hide-search-filter"></div>
+
+                <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
+                    <h2>${_("All themes")}</h2>
+                    <ul class="criteria"></ul>
+                </div>
+
+                <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
+                    <h2>${_("All universities")}</h2>
+                    <ul class="criteria"></ul>
+                </div>
             </div>
 
         </div>
-
-        <div class="right">
-            <div class="result-navigation"></div>
-
-            <div class="list">
-                <ul id="course-filtering-results"></ul>
-            </div>
-
-            <div class="result-navigation hide-search-filter"></div>
-
-            <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
-                <h2>${_("All themes")}</h2>
-                <ul class="criteria"></ul>
-            </div>
-
-            <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
-                <h2>${_("All universities")}</h2>
-                <ul class="criteria"></ul>
-            </div>
-        </div>
-
     </div>
+
 </div>
 </%block>

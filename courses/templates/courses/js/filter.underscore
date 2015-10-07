@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-md-8 text-left">
+    <div class="col-sm-12 text-left">
 
 
         <% if (totalCount !== null) { %>
@@ -31,7 +31,7 @@
         <% } %>
     </div>
 
-    <div class="col-md-20">
+    <div class="col-sm-12">
         <% if (selected) { %>
             <h3><%= gettext("Your search") %></h3>
             <div class="white blue-cell">
@@ -43,7 +43,7 @@
 
 
 
-    <div class="col-md-8 text-right">
+    <div class="col-sm-12 text-right">
         <select class="results-per-page">
             <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
                 <option value="<%= resultsPerPageChoices[c] %>" <% if (resultsPerPageChoices[c] === resultsPerPage) { %>selected="selected"<% } %>>
