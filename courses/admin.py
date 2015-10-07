@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from teachers.admin import CourseTeacherInline, CertificateTeacherInline
 
 from .models import Course, CourseSubject, CourseUniversityRelation
+from . import settings as courses_settings
 
 
 class CourseUniversityRelationInline(admin.TabularInline):
@@ -23,6 +24,7 @@ class CourseAdmin(admin.ModelAdmin):
         'university_display_name',
         'certificateteacher_related__teacher__full_name',
         'courseteacher_related__teacher__full_name', )
+    readonly_fields = courses_settings.COURSE_ADMIN_READ_ONLY_FIELDS
     filter_horizontal = ('subjects',)
     inlines = (
         CourseUniversityRelationInline,
@@ -31,33 +33,32 @@ class CourseAdmin(admin.ModelAdmin):
     )
     list_editable = ('score',)
     fieldsets = (
-        (None, {
+        (_('Course Info'), {
             'fields': (
-                'key',
-                'title',
-                'university_display_name',
-                'image_url',
-                'short_description',
-                'level',
                 'subjects',
                 'session_number',
                 'score',
             )
         }),
-        (None, {
+        (_('Advanced'), {
             'fields': (
-                'is_active',
                 'prevent_auto_update',
             )
         }),
-        (_('Availability'), {
+        (_('Course Info - Automatically Updated'), {
             'fields': (
+                'key',
+                'title',
+                'university_display_name',
+                'image_url',
                 ('start_date', 'end_date'),
             )
         }),
-        (_('Advanced'), {
+        (_('Developer'), {
+            'classes': ('collapse',),
             'fields': (
                 'thumbnails_info',
+                'is_active',
             )
         }),
     )
