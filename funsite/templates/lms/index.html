@@ -15,15 +15,10 @@ featured_courses = Course.objects.random_featured(9)
 
 <%inherit file="funsite/parts/base.html" />
 
-<%block name="title">Index</%block>
+<%block name="title">${_(u"Let's learn, get trained and succeed!")}</%block>
 
 
 <%block name="css_extra">
-<style>
-    #top-menu img.logo, #top-menu span.slogan {
-        display: none;
-    }
-</style>
 </%block>
 
 <%block name="js_extra">
