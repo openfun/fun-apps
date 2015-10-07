@@ -1525,6 +1525,11 @@ ul.universities-list {
         height: 120px;
         margin-right: 20px;
     }
+    .course-about .description section.course-staff article.teacher div.partner-image>img {
+        width: 120px;
+        height: 120px;
+        margin-right: 20px;
+    }
 
 .course-about .description section.faq {
     margin-top: 40px;
