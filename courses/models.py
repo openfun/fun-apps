@@ -95,6 +95,14 @@ class Course(models.Model):
             display_text = ugettext('session {}'.format(self.session_number))
         return display_text
 
+    @property
+    def university_name(self):
+        if self.university_display_name:
+            return self.university_display_name
+        if self.first_university:
+            return self.first_university.name
+        return ''
+
     def __unicode__(self):
         return _('Course {}').format(self.key)
 

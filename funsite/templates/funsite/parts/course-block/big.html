@@ -23,9 +23,7 @@ from util.date_utils import strftime_localized
             ${ course.title }
         </div>
         <div class="universities">
-            %for university in course.universities.all():
-                <span>${ university.name }</span>
-            %endfor
+                <span>${ course.university_name }</span>
         </div>
     </div>
     <div class="bottom">
