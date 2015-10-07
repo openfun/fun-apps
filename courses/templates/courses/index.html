@@ -69,7 +69,7 @@ require(["jquery", "underscore", "backbone"],
             ]},
             {title: '${_("Universities")}', name: 'university', type: 'select', max: 10, all_button: "Tous les établissments", overlay: '#all-universities-overlay', values: [
                 %for university in universities_by_score:
-                {value: "${ university.slug }", title: "${ university.short_name or university.name }", count: ${ university.courses.active().count() }},
+                {value: "${ university.code }", title: "${ university.short_name or university.name }", count: ${ university.courses.active().count() }},
                 %endfor
             ]},
             {title: '${_("Certified training")}', name: 'certificate', type: 'checkbox', values: [
