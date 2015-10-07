@@ -59,7 +59,7 @@ MKTG_URL_LINK_MAP = {
     "UNSUPPORTED-BROWSER": "unsupported-browser",
     "LICENSES": "licenses",
     "LEGAL": "legal",
-    "COPYRIGHTS": "copyrights",
+    "COPYRIGHTS": None,
     "ROOT": 'root',
     'COURSES': 'fun-courses-index',
 }
