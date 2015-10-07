@@ -40,11 +40,6 @@ class CourseAdmin(admin.ModelAdmin):
                 'score',
             )
         }),
-        (_('Advanced'), {
-            'fields': (
-                'prevent_auto_update',
-            )
-        }),
         (_('Course Info - Automatically Updated'), {
             'fields': (
                 'key',
@@ -54,11 +49,16 @@ class CourseAdmin(admin.ModelAdmin):
                 ('start_date', 'end_date'),
             )
         }),
+        (_('Advanced'), {
+            'fields': (
+                'prevent_auto_update',
+                'is_active',
+            )
+        }),
         (_('Developer'), {
             'classes': ('collapse',),
             'fields': (
                 'thumbnails_info',
-                'is_active',
             )
         }),
     )
