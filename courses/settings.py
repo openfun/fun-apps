@@ -9,3 +9,7 @@ FUN_THUMBNAIL_OPTIONS = getattr(settings, 'FUN_THUMBNAIL_OPTIONS', {
     'small': { 'size': (150, 100), 'crop': 'smart' },
     'mini': { 'size': (50, 50), 'crop': 'smart' },
 })
+
+COURSE_ADMIN_READ_ONLY_FIELDS = getattr(settings, 'COURSE_ADMIN_READ_ONLY_FIELDS',
+    ('key', 'title', 'image_url', 'university_display_name', 'start_date', 'end_date')
+)
