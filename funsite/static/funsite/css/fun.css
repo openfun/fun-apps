@@ -1526,9 +1526,23 @@ ul.universities-list {
         margin-right: 20px;
     }
 
-
 .course-about .description section.faq {
+    margin-top: 40px;
+    padding: 10px 20px 10px 20px;
+    border: 1px solid #EFF0F1;
+    margin-bottom: 20px;
+
 }
+    .course-about .description section.faq article h3 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .course-about .description section.faq article p {
+        margin-left: 20px;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
 
 .course-about .description section.plan {
     background-color: #3877BC;
