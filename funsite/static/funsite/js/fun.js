@@ -22,6 +22,10 @@
     /* Login overlay */
     $('#top-menu .login.not-connected').on('click', function(event) {
         $('#login-overlay').toggle();
+        if ($('#login-overlay').is(':visible')) {
+            $('#login-overlay input[name="email"]').focus();
+        }
+
     });
 
     $('.login-form').on('submit', function(event) {
