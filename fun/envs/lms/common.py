@@ -176,8 +176,11 @@ FUN_THUMBNAIL_OPTIONS = {
 # Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded by funsite/templates/funsite/parts/base.html
 # css/lms-main.css
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/css/bootstrap.min.css')
+
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/fun.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
+# Also embed a tiny version of bootstrap (grid-only)
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/grid-only/css/bootstrap.min.css')
+
 # js/lms-application.js
 PIPELINE_JS['application']['source_filenames'].append('funsite/js/fun.js')
