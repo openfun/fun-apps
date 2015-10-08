@@ -80,7 +80,7 @@ body {
 
 #top-menu .login {
     color: white;
-    background: #F72C30 url('/static/funsite/images/icones/user.png') 14px 14px no-repeat;
+    background: #F72C30 url('../images/icones/user.png') 14px 14px no-repeat;
     height: 60px;
     width: 170px;
     cursor: pointer;
@@ -151,11 +151,11 @@ body {
     padding: 8px 8px 8px 40px ;
 }
 #login-overlay input[name="email"] {
-    background: url('/static/funsite/images/icones/login-email.png') 8px 8px no-repeat #F1F2F3;
+    background: url('../images/icones/login-email.png') 8px 8px no-repeat #F1F2F3;
 
 }
 #login-overlay input[name="password"] {
-    background: url('/static/funsite/images/icones/login-password.png') 8px 8px no-repeat #F1F2F3;
+    background: url('../images/icones/login-password.png') 8px 8px no-repeat #F1F2F3;
 }
 
 #login-overlay input.loginerror {
@@ -167,7 +167,7 @@ body {
     display: inline-block;
     width: 40px;
     height: 36px;
-    background: url('/static/funsite/images/icones/sandwich.png') 14px 14px no-repeat;
+    background: url('../images/icones/sandwich.png') 14px 14px no-repeat;
     cursor: pointer;
 }
 
@@ -378,11 +378,11 @@ ul.footer-links.right {
         height: 450px;
     }
     div.page-image.home-page {
-        background-image: url('/static/funsite/images/homepage1900_draft.png');
+        background-image: url('../images/homepage1900_draft.png');
     }
 
     div.page-image.courses-page {
-        background-image: url('/static/funsite/images/homepage1900_draft.png');
+        background-image: url('../images/homepage1900_draft.png')
     }
 
     div.page-image.home-page h1 {
@@ -448,10 +448,10 @@ ul.footer-links.right {
     }
 
     div.page-image.home-page {
-        background-image: url('/static/funsite/images/homepage1280_draft.png')
+        background-image: url('../images/homepage1280_draft.png')
     }
     div.page-image.courses-page {
-        background-image: url('/static/funsite/images/homepage1280_draft.png')
+        background-image: url('../images/homepage1280_draft.png')
     }
 
     div.page-image.home-page h1 {
@@ -517,10 +517,10 @@ ul.footer-links.right {
         height: 320px;
     }
     div.page-image.home-page {
-        background-image: url('/static/funsite/images/homepage960_draft.png')
+        background-image: url('../images/homepage960_draft.png')
     }
     div.page-image.courses-page {
-        background-image: url('/static/funsite/images/homepage960_draft.png')
+        background-image: url('../images/homepage960_draft.png')
     }
     div.page-image.home-page h1 {
         padding-top: 140px;
@@ -554,10 +554,10 @@ ul.footer-links.right {
     }
 
     div.page-image.home-page {
-        background-image: url('/static/funsite/images/homepage768_draft.png')
+        background-image: url('../images/homepage768_draft.png')
     }
     div.page-image.courses-page {
-        background-image: url('/static/funsite/images/homepage768_draft.png')
+        background-image: url('../images/homepage768_draft.png')
     }
     div.page-image.home-page h1 {
         padding-top: 110px;
@@ -599,10 +599,10 @@ ul.footer-links.right {
         height: 260px;
     }
     div.page-image.home-page {
-        background-image: url('/static/funsite/images/homepage320_draft.png')
+        background-image: url('../images/homepage320_draft.png')
     }
     div.page-image.courses-page {
-        background-image: url('/static/funsite/images/homepage320_draft.png')
+        background-image: url('../images/homepage320_draft.png')
     }
 
     div.page-image.home-page h1 {
@@ -747,7 +747,7 @@ ul.secondary-highlight li {
 .small-course div.footer .date {
     padding-left: 46px;
     padding-top: 4px;
-    background: url('/static/funsite/images/icones/calendar.png') 10px 8px no-repeat;
+    background: url('../images/icones/calendar.png') 10px 8px no-repeat;
     font-weith: 500;
     color: #656667;
 }
@@ -831,7 +831,7 @@ ul.secondary-highlight li {
 .big-course div.footer .date {
     padding-left: 48px;
     padding-top: 16px;
-    background: url('/static/funsite/images/icones/calendar.png') 12px 14px no-repeat;
+    background: url('../images/icones/calendar.png') 12px 14px no-repeat;
     font-weight: 600;
     color: #656667;
     line-height: 24px;
@@ -1078,26 +1078,26 @@ ul.universities-list {
     height: 36px;
 }
 .criteria li.icon.french-flag {
-    background: url('/static/funsite/images/icones/french-flag.png') 6px 2px no-repeat;
+    background: url('../images/icones/french-flag.png') 6px 2px no-repeat;
 }
 .criteria li.icon.english-flag {
-    background: url('/static/funsite/images/icones/english-flag.png') 6px 2px no-repeat;
+    background: url('../images/icones/english-flag.png') 6px 2px no-repeat;
 }
 .criteria li.icon.german-flag {
-    background: url('/static/funsite/images/icones/german-flag.png') 6px 2px no-repeat;
+    background: url('../images/icones/german-flag.png') 6px 2px no-repeat;
 }
 .criteria li.icon.spanish-flag {
-    background: url('/static/funsite/images/icones/spanish-flag.png') 6px 2px no-repeat;
+    background: url('../images/icones/spanish-flag.png') 6px 2px no-repeat;
 }
 
 .criteria li.filter-checkbox {
     padding-left: 36px !important;
     height: 36px;
-    background: url('/static/funsite/images/icones/filter-checkbox.png') 6px 2px no-repeat;
+    background: url('../images/icones/filter-checkbox.png') 6px 2px no-repeat;
 
 }
 .criteria li.filter-checkbox.checked {
-    background: url('/static/funsite/images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
+    background: url('../images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
     }
 
 
@@ -1418,13 +1418,13 @@ ul.universities-list {
     left: 45%;
     padding-top: 4px;
     padding-left: 30px;
-    background: url('/static/funsite/images/icones/register.png') 0px 0px no-repeat;
+    background: url('../images/icones/register.png') 0px 0px no-repeat;
 }
 .course-about .right .register-course-button:hover {
     background-color: #F72D30;
 }
 .course-about .right .register-course-button:hover span {
-    background: url('/static/funsite/images/icones/register-hover.png') 0px 0px no-repeat;
+    background: url('../images/icones/register-hover.png') 0px 0px no-repeat;
 }
 .course-about .right .register-course-button.registration-closed,
 .course-about .right .register-course-button.registration-closed:hover {
@@ -1778,7 +1778,7 @@ header.global nav {
 header.global .user {
     margin-top: 0 !important;
     padding-left: 36px;
-    background: #F72C30 url('/static/funsite/images/icones/user.png') 14px 14px no-repeat;
+    background: #F72C30 url('../images/icones/user.png') 14px 14px no-repeat;
     color: white;
     height: 60px;
     min-width: 170px;

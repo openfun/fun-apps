@@ -10,7 +10,7 @@ body.discussion {
   body.discussion .container .discussion-body {
     /* Reply to a comment */ }
     body.discussion .container .discussion-body .wmd-button span {
-      background-image: url(/static/forum_contributors/highlight/images/wmd-buttons-transparent.png); }
+      background-image: url("../images/wmd-buttons-transparent.png"); }
   body.discussion .discussion-response .response-header-content {
     width: 65%; }
   body.discussion .discussion-response .response-header-actions {
@@ -18,9 +18,9 @@ body.discussion {
   body.discussion .new-post-body {
     /* New comment  */ }
     body.discussion .new-post-body .wmd-button > span {
-      background-image: url(/static/forum_contributors/highlight/images/new-post-icons-full.png); }
+      background-image: url("../images/new-post-icons-full.png"); }
   body.discussion .new-post-article .wmd-button > span {
-    background-image: url(/static/forum_contributors/highlight/images/new-post-icons-full.png); }
+    background-image: url("../images/new-post-icons-full.png"); }
 
 /* course embeded forum topic */
 .discussion-module .new-post-body {
@@ -32,7 +32,7 @@ body.discussion {
   .discussion-module .new-post-body .wmd-spacer3 {
     left: 350px; }
   .discussion-module .new-post-body .wmd-button > span {
-    background-image: url(/static/forum_contributors/highlight/images/wmd-buttons-transparent.png); }
+    background-image: url("../images/wmd-buttons-transparent.png"); }
 .discussion-module .wmd-spacer1 {
   left: 100px; }
 .discussion-module .wmd-spacer2 {
@@ -41,7 +41,7 @@ body.discussion {
   left: 350px; }
 .discussion-module .wmd-button span {
   /* reply to a comment */
-  background-image: url(/static/forum_contributors/highlight/images/wmd-buttons.png); }
+  background-image: url("../images/wmd-buttons.png"); }
 
 /* forum special users colors */
 .user-label-active {
