@@ -103,7 +103,7 @@ class Course(models.Model):
         if self.university_display_name:
             return self.university_display_name
         if self.first_university:
-            return self.first_university.name
+            return self.first_university.display_name
         return ''
 
     def __unicode__(self):
@@ -133,6 +133,10 @@ class CourseSubject(models.Model):
 
     def get_absolute_url(self):
         return '/TODO/'
+
+    @property
+    def display_name(self):
+        return self.short_name or self.name
 
     def get_image_url(self):
         if self.featured:
