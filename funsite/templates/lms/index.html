@@ -9,7 +9,7 @@ from courses.models import CourseSubject, Course
 from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
-universities = University.objects.have_page()
+universities = University.objects.random_featured(18)
 featured_courses = Course.objects.random_featured(9)
 %>
 
