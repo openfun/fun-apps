@@ -1,12 +1,13 @@
 ## mako
 <%!
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
 from courseware.courses import course_image_url, get_course_about_section
 from microsite_configuration import microsite
 
-from fun.utils import get_fun_course, get_teaser
+from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
 %>
 
@@ -44,10 +45,10 @@ from fun.utils import get_fun_course, get_teaser
             success: function(response) {
                 if (response == "") {
                   location.href = "${reverse('dashboard')}";
-                }
+                };
                 else {
                   location.href = response;  // !! ??
-                }
+                };
             },
             error: function(data) {
                 if (response.status == 403) {
@@ -56,15 +57,11 @@ from fun.utils import get_fun_course, get_teaser
                     $('.register-error').html(
                         (response ? response : "${_('An error occurred. Please try again later.')}")
                     ).css("display", "block");
-                }
-            }
-        })
+                };
+            };
+        });
         event.preventDefault();
     });
-
-
-
-
 })();
 
 </script>
@@ -228,89 +225,80 @@ from fun.utils import get_fun_course, get_teaser
                             </a>
                         </div>
                         <div class="col-sm-36 col-lg-18">
-                            <div class="course-info exclamation">
-                                <ul>
-                                <li>
-                                    <strong>Date de fin d'inscription</strong>
-                                </li>
-                                <li>
-                                    14 décémbre 2015
-                                </li>
-                                </ul>
-                            </div>
-
+                        <!- exclamation calendar clock diploma accessibility bubble letter->
                             <div class="course-info calendar">
                                 <ul>
                                 <li>
-                                    <strong>Date de fin d'inscription</strong>
+                                    <strong>${_("End of Registration")}</strong>
                                 </li>
                                 <li>
-                                    14 décémbre 2015
+                                    % if course.enrollment_end:
+                                        % if course.enrollment_end < timezone.now():
+                                            ${_("Registration closed")}
+                                        %else:
+                                            ${registration_datetime_text(course, course.enrollment_end)}
+                                        % endif
+                                    % endif
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="course-info calendar">
+                                <ul>
+                                <li>
+                                    <strong>${_("Classes Start")}</strong>
+                                </li>
+                                <li>
+                                    ${course.start_datetime_text()}
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="course-info calendar">
+                                <ul>
+                                <li>
+                                    <strong>${_("Classes End")}</strong>
+                                </li>
+                                <li>
+                                    % if get_course_about_section(course, "end_date") or course.end:
+                                         % if get_course_about_section(course, "end_date"):
+                                            ${get_course_about_section(course, "end_date")}
+                                        % else:
+                                            ${course.end_datetime_text()}
+                                        % endif
+                                    % endif
                                 </li>
                                 </ul>
                             </div>
 
-                            <div class="course-info clock">
-                                <ul>
-                                <li>
-                                    <strong>Date de fin d'inscription</strong>
-                                </li>
-                                <li>
-                                    14 décémbre 2015
-                                </li>
-                                </ul>
-                            </div>
-
-                            <div class="course-info diploma">
-                                <ul>
-                                <li>
-                                    <strong>Date de fin d'inscription</strong>
-                                </li>
-                                <li>
-                                    14 décémbre 2015
-                                </li>
-                                </ul>
-                            </div>
 
                         </div>
                         <div class="col-sm-36 col-lg-18">
 
-                            <div class="course-info accessibility">
-                                <ul>
-                                <li>
-                                    <strong>Date de fin d'inscription</strong>
-                                </li>
-                                <li>
-                                    14 décémbre 2015
-                                </li>
-                                </ul>
-                            </div>
-
-                            <div class="course-info buble">
-                                <ul>
-                                <li>
-                                    <strong>Date de fin d'inscription</strong>
-                                </li>
-                                <li>
-                                    14 décémbre 2015
-                                </li>
-                                </ul>
-                            </div>
-
+                            % if get_course_about_section(course, "effort"):
                             <div class="course-info letter">
                                 <ul>
                                 <li>
-                                    <strong>Date de fin d'inscription</strong>
+                                    <strong>${_("Estimated Effort")}</strong>
                                 </li>
                                 <li>
-                                    14 décémbre 2015
+                                    ${get_course_about_section(course, "effort")} ${_("h/week")}
                                 </li>
                                 </ul>
                             </div>
+                            % endif
 
-
+                            % if get_course_about_section(course, "prerequisites"):
+                            <div class="course-info letter">
+                                <ul>
+                                <li>
+                                    <strong>${_("Prerequisites")}</strong>
+                                </li>
+                                <li>
+                                    ${get_course_about_section(course, "prerequisites")}
+                                </li>
+                                </ul>
+                            </div>
+                            % endif
                         </div>
-
                     </div>
 
                 </div>
