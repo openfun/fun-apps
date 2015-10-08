@@ -1,7 +1,8 @@
+import optparse
 import StringIO
-import random
 
 from django.core.management.base import BaseCommand
+from django.db.utils import IntegrityError
 from django.template.defaultfilters import slugify
 
 from easy_thumbnails.exceptions import InvalidImageFormatError
@@ -15,8 +16,9 @@ from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
 from xmodule.modulestore.django import modulestore
 
-from courses.models import Course
 from courses import settings as courses_settings
+from courses.models import Course, CourseUniversityRelation
+from universities.models import University
 
 
 class CourseHandler(object):
@@ -24,9 +26,6 @@ class CourseHandler(object):
     def __init__(self, course_descriptor):
         self.course_descriptor = course_descriptor
         self.key = unicode(course_descriptor.id)
-
-    def get_course_score(self):
-        return random.randint(1, 100)
 
     @property
     def memory_image_file(self):
@@ -77,20 +76,50 @@ class CourseHandler(object):
             thumbnail = None
         return thumbnail
 
+    def get_university(self):
+        try:
+            university = University.objects.get(code=self.course_descriptor.org)
+        except University.DoesNotExist:
+            university = None
+        return university
+
+    def assign_university(self, course):
+        university = self.get_university()
+        assigned = False
+        if university:
+            try:
+                CourseUniversityRelation.objects.create(
+                    course=course,
+                    university=university
+                )
+                assigned = True
+            except IntegrityError:
+                pass
+        return assigned
+
 
 class Command(BaseCommand):
     help = "Update FUN's course data."
+    option_list = BaseCommand.option_list + (
+        optparse.make_option('--force-universities-assignment',
+            action='store_true',
+            dest='assign_universities',
+            default=False,
+            help='Force university assignment on existing courses.'),
+    )
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
         self.courses = modulestore().get_courses()
         self.courses_keys = [unicode(c.id) for c in self.courses]
 
-    def update_course_data(self):
+
+    def update_course_data(self, *args, **options):
         '''
         For each course found in Mongo database, we create or update
         the corresponding course in SQL Course table.
         '''
+        assign_universities = options['assign_universities']
         for mongo_course in self.courses:
             course_handler = CourseHandler(mongo_course)
             key = course_handler.key
@@ -99,24 +128,32 @@ class Command(BaseCommand):
             if course.prevent_auto_update:
                 self.stdout.write('\n Skipping updates for {}'.format(key))
                 continue
+            if was_created or assign_universities:
+                university = course_handler.assign_university(course)
+                if university:
+                    self.stdout.write('\n\t University assigned '
+                    'to "{}"'.format(key))
+                else:
+                    self.stdout.write('\n\t No university assigned '
+                    'to {}'.format(key))
             course.is_active = True
             course.show_in_catalog = bool(mongo_course.ispublic)
             course.university_display_name = course_handler.university_name
             course.title = course_handler.title
             course.image_url = course_handler.image_url
             thumbnails_info = {}
-            for thumbnail_alias, options in courses_settings.FUN_THUMBNAIL_OPTIONS.items():
-                thumbnail = course_handler.make_thumbnail(options)
+            for thumbnail_alias, thumbnails_options in \
+                    courses_settings.FUN_THUMBNAIL_OPTIONS.items():
+                thumbnail = course_handler.make_thumbnail(thumbnails_options)
                 if thumbnail:
                     thumbnails_info[thumbnail_alias] = thumbnail.url
             course.thumbnails_info = thumbnails_info
-            course.score = course_handler.get_course_score()
             course.start_date = mongo_course.start
             course.end_date = mongo_course.end
             course.save()
         return None
 
-    def deactivate_orphan_courses(self):
+    def deactivate_orphan_courses(self, *args, **options):
         '''
         Orphan courses are entries that exist in SQL Course table while the
         corresponding Mongo courses are not listed anymore. This method deactivate
@@ -128,6 +165,6 @@ class Command(BaseCommand):
         return None
 
     def handle(self, *args, **options):
-        self.update_course_data()
-        self.deactivate_orphan_courses()
+        self.update_course_data(*args, **options)
+        self.deactivate_orphan_courses(*args, **options)
         self.stdout.write('\n Updated courses {}\n'.format(len(self.courses)))
