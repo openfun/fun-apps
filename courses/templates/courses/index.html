@@ -64,7 +64,7 @@ require(["jquery", "underscore", "backbone"],
             ]},
             {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
                 %for course_subject in course_subjects_by_score:
-                {value: "${ course_subject.slug }", title: "${ course_subject.display_name }", count: ${ course_subject.courses.count() }},
+                {value: "${ course_subject.slug }", title: "${ course_subject.display_name }", count: ${ course_subject.courses.public().count() }},
                 %endfor
             ]},
             {title: '${_("Universities")}', name: 'university', type: 'select', max: 10, all_button: "Tous les établissments", overlay: '#all-universities-overlay', values: [
