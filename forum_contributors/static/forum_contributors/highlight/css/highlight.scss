@@ -13,7 +13,7 @@ body.discussion {
     .container .discussion-body {  /* Reply to a comment */
         .wmd-button {
           span {
-            background-image: url(/static/forum_contributors/highlight/images/wmd-buttons-transparent.png);
+            background-image: url("../images/wmd-buttons-transparent.png");
           }
         }
     }
@@ -28,12 +28,12 @@ body.discussion {
     }
     .new-post-body {  /* New comment  */
         .wmd-button > span {
-            background-image: url(/static/forum_contributors/highlight/images/new-post-icons-full.png);
+            background-image: url("../images/new-post-icons-full.png");
         }
     }
     .new-post-article {
         .wmd-button > span {
-            background-image: url(/static/forum_contributors/highlight/images/new-post-icons-full.png);
+            background-image: url("../images/new-post-icons-full.png");
         }
     }
 
@@ -52,7 +52,7 @@ body.discussion {
           left: 350px;
         }
         .wmd-button > span {
-            background-image: url(/static/forum_contributors/highlight/images/wmd-buttons-transparent.png);
+            background-image: url("../images/wmd-buttons-transparent.png");
         }
     }
     .wmd-spacer1 {
@@ -65,7 +65,7 @@ body.discussion {
       left: 350px;
     }
     .wmd-button span { /* reply to a comment */
-        background-image: url(/static/forum_contributors/highlight/images/wmd-buttons.png);
+        background-image: url("../images/wmd-buttons.png");
     }
 }
 
