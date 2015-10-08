@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+import random
+
 from django.db import models
 
 from fun.utils.managers import ChainableManager
@@ -25,3 +29,9 @@ class UniversityQuerySet(models.query.QuerySet):
 
 class UniversityManager(ChainableManager):
     queryset_class = UniversityQuerySet
+
+    def random_featured(self, limit_to=7):
+        universities = self.by_score()[:limit_to]
+        universities = list(universities)
+        random.shuffle(universities)
+        return universities
