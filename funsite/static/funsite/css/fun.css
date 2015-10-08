@@ -326,10 +326,10 @@ ul.footer-links.right {
     margin-left: 6px;
     margin-right: 6px;
     margin-bottom: 30px;
-    background: url('/static/funsite/images/icones/social-networks.png') 0px 0px no-repeat;
+    background: url('../images/icones/social-networks.png') 0px 0px no-repeat;
 }
 .social-networks span:hover {
-    background: url('/static/funsite/images/icones/social-networks-hover.png') 0px 0px no-repeat;
+    background: url('../images/icones/social-networks-hover.png') 0px 0px no-repeat;
 }
 .social-networks span.facebook {
 }
@@ -1452,7 +1452,7 @@ ul.universities-list {
     position: absolute;
     width: 100%;
     height: 128px;
-    background-image: url('/static/funsite/images/icones/video-play-button.png');
+    background-image: url('../images/icones/video-play-button.png');
     background-position: center;
     top: 40%;
     background-repeat: no-repeat;
@@ -1506,25 +1506,25 @@ ul.universities-list {
     padding-bottom: 20px;
 }
 .course-about .right .course-info.exclamation {
-    background: url('/static/funsite/images/icones/exclamation-red.png') 0px 20px no-repeat;
+    background: url('../images/icones/exclamation-red.png') 0px 20px no-repeat;
 }
 .course-about .right .course-info.calendar {
-    background: url('/static/funsite/images/icones/calendar-red.png') 0px 20px no-repeat;
+    background: url('../images/icones/calendar-red.png') 0px 20px no-repeat;
 }
 .course-about .right .course-info.clock{
-    background: url('/static/funsite/images/icones/clock-red.png') 0px 20px no-repeat;
+    background: url('../images/icones/clock-red.png') 0px 20px no-repeat;
 }
 .course-about .right .course-info.diploma {
-    background: url('/static/funsite/images/icones/diploma-red.png') 0px 20px no-repeat;
+    background: url('../images/icones/diploma-red.png') 0px 20px no-repeat;
 }
 .course-about .right .course-info.accessibility {
-    background: url('/static/funsite/images/icones/accessibility-red.png') 0px 20px no-repeat;
+    background: url('../images/icones/accessibility-red.png') 0px 20px no-repeat;
 }
 .course-about .right .course-info.bubble {
-    background: url('/static/funsite/images/icones/bubble-red.png') 0px 20px no-repeat;
+    background: url('../images/icones/bubble-red.png') 0px 20px no-repeat;
 }
 .course-about .right .course-info.letter {
-    background: url('/static/funsite/images/icones/letter-red.png') 0px 20px no-repeat;
+    background: url('../images/icones/letter-red.png') 0px 20px no-repeat;
 }
 
 .course-about .left .subjects {
@@ -1662,11 +1662,11 @@ ul.universities-list {
     }
     .course-about .description section.social-networks div.facebook {
         padding-left: 34px;
-        background: url('/static/funsite/images/icones/small-facebook.png') 0px 0px no-repeat;
+        background: url('../images/icones/small-facebook.png') 0px 0px no-repeat;
     }
     .course-about .description section.social-networks div.twitter {
         padding-left: 34px;
-        background: url('/static/funsite/images/icones/small-twitter.png') 0px 0px no-repeat;
+        background: url('../images/icones/small-twitter.png') 0px 0px no-repeat;
     }
 
 
@@ -1676,17 +1676,17 @@ ul.universities-list {
         margin-bottom: 26px;
     }
     .course-about .description section.licence article.cc-by-nc {
-        background: url('/static/funsite/images/icones/by-nc.eu.png') 0px 0px no-repeat;
+        background: url('../images/icones/by-nc.eu.png') 0px 0px no-repeat;
         background-position: bottom left;
         padding-bottom: 40px;
     }
     .course-about .description section.licence article.cc-by-nc-sa {
-        background: url('/static/funsite/images/icones/by-nc-sa.eu.png') 0px 0px no-repeat;
+        background: url('../images/icones/by-nc-sa.eu.png') 0px 0px no-repeat;
         background-position: bottom left;
         padding-bottom: 40px;
     }
     .course-about .description section.licence article.cc-by-nc-nd {
-        background: url('/static/funsite/images/icones/by-nc-nd.eu.png') 0px 0px no-repeat;
+        background: url('../images/icones/by-nc-nd.eu.png') 0px 0px no-repeat;
         background-position: bottom left;
         padding-bottom: 40px;
     }
