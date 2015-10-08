@@ -271,7 +271,7 @@ ul.footer-links.right {
 .big-title h2, h2.big-title {
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
+    font-size: 40px;
     color: #2B2B2B;
 }
 
@@ -402,6 +402,9 @@ ul.footer-links.right {
         padding-top: 20px;
         cursor: pointer;
     }
+    .course-about .right .register-course-button.already-registered {
+            padding-top: 4px;
+    }
     .course-about .right .course-image img {
         width: 730px;
         height: 412px;
@@ -471,6 +474,11 @@ ul.footer-links.right {
         height: 58px;
         padding-top: 14px;
     }
+    .course-about .right .register-course-button.already-registered {
+            height: 68px;
+            padding-top: 4px;
+    }
+
     .course-about .left .course-image img {
         width: 730px;
         height: 412px;
@@ -1359,7 +1367,18 @@ ul.universities-list {
     font-weight: 600;
     text-align: center;
 }
+.course-about .right .register-course-button.already-registered div {
+    font-size: 13px;
+    font-weight: 300;
+    padding: 4px;
+}
+.course-about .right .register-course-button a {
+    color: white;
+    text-decoration: none;
+}
+
 .course-about .right .register-course-button span {
+    cursor: pointer;
     top: 25%;
     left: 45%;
     padding-top: 4px;
@@ -1369,9 +1388,19 @@ ul.universities-list {
 .course-about .right .register-course-button:hover {
     background-color: #F72D30;
 }
-.course-about .right .register-course-button:hover>span {
+.course-about .right .register-course-button:hover span {
     background: url('/static/funsite/images/icones/register-hover.png') 0px 0px no-repeat;
 }
+.course-about .right .register-course-button.registration-closed,
+.course-about .right .register-course-button.registration-closed:hover {
+    background-color: #ccccce;
+    color: #052E4D;
+}
+.course-about .right .register-course-button.registration-closed span,
+.course-about .right .register-course-button.registration-closed:hover span {
+    background: none;
+}
+
 
 .course-about .right .blue-zone {
     background-color: #08223C;
@@ -1398,6 +1427,18 @@ ul.universities-list {
     opacity: 0.8;
     cursor: pointer;
 }
+.course-about .register-error {
+    display: none;
+    padding: 8px;
+    border: 1px solid red;
+    background-color: #fee9ea;
+    color: red;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
 
 #video-modal .modal-dialog {
     width: 60%;
