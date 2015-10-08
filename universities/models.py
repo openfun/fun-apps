@@ -61,8 +61,7 @@ class University(models.Model):
         except InvalidImageFormatError:
             return '' # we could return a nice grey image
 
-    @property
-    def display_name(self):
+    def get_short_name(self):
         return self.short_name or self.name
 
     def get_logo_thumbnail(self):
