@@ -30,6 +30,3 @@ FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 MAKO_MODULE_DIR = None   # this will prevent Mako to cache generated files
 # To totaly deactivate cache we also have de deactivate edx cache on anonymous views
 # by commenting line 79 (cache.set(cache_key, response, 60 * 3)) in file common/djangoapps/util/cache.py@cache_if_anonymous
-
-# Our new home page is so shiny and chrome that users must see it more often
-FEATURES['ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER'] = False

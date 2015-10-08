@@ -224,7 +224,7 @@ $(window).on("scroll", function () {
 
                 %for idx, subject in enumerate(course_subjects):
                 <div class="item">
-                    <a href="${'{}?theme={}'.format(reverse('fun-courses-index'), subject.slug)}">
+                    <a href="${'{}#filter/subject/{}'.format(reverse('fun-courses-index'), subject.slug)}">
                         <div>
                             <h3>${subject.name}</h3>
                             <img src="${subject.get_image_url()}" alt="${subject.name}">
