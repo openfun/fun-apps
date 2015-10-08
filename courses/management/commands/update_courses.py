@@ -44,6 +44,13 @@ class CourseHandler(object):
         return title or ''
 
     @property
+    def university_name(self):
+        name = ''
+        if self.course_descriptor.display_organization:
+            name = unicode(self.course_descriptor.display_organization)
+        return name
+
+    @property
     def image_location(self):
         course_locator = CourseLocator.from_string(self.key)
         location = StaticContent.compute_location(
@@ -94,6 +101,7 @@ class Command(BaseCommand):
                 continue
             course.is_active = True
             course.show_in_catalog = bool(mongo_course.ispublic)
+            course.university_display_name = course_handler.university_name
             course.title = course_handler.title
             course.image_url = course_handler.image_url
             thumbnails_info = {}
