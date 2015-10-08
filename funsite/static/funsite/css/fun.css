@@ -1122,41 +1122,22 @@ ul.universities-list {
 
 /* login page */
 
-<<<<<<< HEAD
-        .login-row {
-          margin-top : 20px;
-          background-color: white;
-          padding : 20px 25px;
-          margin-bottom: 20px;
-        }
-
-        .login-row h4 {
-          text-align : center;
-          color : #004170;
-          margin-bottom: 20px;
-        }
-
-        .login-row label {
-          font-weight: 300;
-        }
-=======
 .login-row {
     margin-top : 20px;
     background-color: white;
     padding : 20px 25px;
     margin-bottom: 20px;
 }
-        
+
 .login-row h4 {
     text-align : center;
     color : #004170;
     margin-bottom: 20px;
 }
-        
+
 .login-row label  {
     font-weight: 300;
 }
->>>>>>> Add forget password modal.
 
 .login-row button {
     width : 270px;
