@@ -16,9 +16,9 @@ class CourseUniversityRelationInline(admin.TabularInline):
 
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('key', 'title', 'level', 'score', 'session_number',
-        'is_active', 'prevent_auto_update',
+        'show_in_catalog', 'is_active', 'prevent_auto_update',
         'modification_date')
-    list_filter = ('is_active', 'prevent_auto_update',
+    list_filter = ('is_active', 'show_in_catalog', 'prevent_auto_update',
         'level', 'subjects', 'universities')
     search_fields = ('key', 'title', 'short_description',
         'university_display_name',
@@ -43,6 +43,7 @@ class CourseAdmin(admin.ModelAdmin):
         (_('Course Info - Automatically Updated'), {
             'fields': (
                 'key',
+                'show_in_catalog',
                 'title',
                 'university_display_name',
                 'image_url',

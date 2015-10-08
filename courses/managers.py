@@ -39,17 +39,17 @@ class CourseQuerySet(models.query.QuerySet):
         queryset = self.prefetch_related('subjects', 'universities')
         return queryset
 
-    def active(self):
-        return self.filter(is_active=True)
+    def public(self):
+        return self.filter(is_active=True, show_in_catalog=True)
 
     def start_soon(self):
-        return self.active().filter(start_date__range=(now(), self.too_late))
+        return self.public().filter(start_date__range=(now(), self.too_late))
 
     def end_soon(self):
-        return self.active().filter(end_date__range=(now(), self.too_late))
+        return self.public().filter(end_date__range=(now(), self.too_late))
 
     def by_score(self):
-        return self.active().order_by('-score')
+        return self.public().order_by('-score')
 
 
 class CourseManager(ChainableManager):
