@@ -299,8 +299,9 @@ ul.footer-links.right {
     margin-bottom: 20px;
     display: inline-block;
     cursor: pointer;
-    width: 232px;
+    max-width: 232px;
 }
+
 .all-items-button a:hover {
     text-decoration: none;
     color: #3877BC;   /* TODO: find out if we have a rollover effect */
@@ -1121,6 +1122,7 @@ ul.universities-list {
 
 /* login page */
 
+<<<<<<< HEAD
         .login-row {
           margin-top : 20px;
           background-color: white;
@@ -1137,23 +1139,75 @@ ul.universities-list {
         .login-row label {
           font-weight: 300;
         }
+=======
+.login-row {
+    margin-top : 20px;
+    background-color: white;
+    padding : 20px 25px;
+    margin-bottom: 20px;
+}
+        
+.login-row h4 {
+    text-align : center;
+    color : #004170;
+    margin-bottom: 20px;
+}
+        
+.login-row label  {
+    font-weight: 300;
+}
+>>>>>>> Add forget password modal.
 
-        .login-row button {
-          width : 270px;
-          margin-left : auto;
-          margin-right : auto;
-          display : block;
-        }
-        @media (min-width: 768px) {
-        .login-row {
-          width: 610px;
-          margin-left : auto;
-          margin-right : auto;
-        }
-        .login-row button {
-           width : 560px;
-         }
-        }
+.login-row button {
+    width : 270px;
+    margin-left : auto;
+    margin-right : auto;
+    display : block;
+}
+
+.login-row .forgotten-password a {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .login-row {
+        width: 610px;
+        margin-left : auto;
+        margin-right : auto;
+    }
+    .login-row button {
+        width : 560px;
+    }
+}
+
+
+/* Modal */
+
+.modal .modal-dialog h4 {
+    color : #004170;
+}
+
+.modal .modal-body button {
+    border: 1px solid #3877BC;
+    background-color: #3877BC;
+    text-align: center;
+    font-style: normal;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    border-radius:0px;
+}
+
+.modal .modal-header {
+    padding-bottom : 5px;
+    padding-top : 5px;
+}
+
+.modal .glyphicon-remove {
+    color: #0C3D72;
+    margin-left: 5px;
+    margin-top: 5px;
+}
 
 
 /* Register page */
