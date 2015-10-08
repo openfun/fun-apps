@@ -40,3 +40,10 @@ def get_teaser(course, video_id):
     html = '<iframe id="course-teaser" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/%s/?&api=postMessage"></iframe>' % (
             dm_id)
     return html
+
+def registration_datetime_text(course, date):
+    """Returns the registration date for the course formatted as a string."""
+
+    strftime = course.runtime.service(course, "i18n").strftime
+    date_time = strftime(date, "SHORT_DATE")
+    return date_time

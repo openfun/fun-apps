@@ -89,11 +89,3 @@ def course_image_url(course, image_name=None):
         loc = StaticContent.compute_location(course.location.course_key, course.course_image)
 
     return loc.to_deprecated_string()
-
-
-def registration_datetime_text(course, date):
-    """Returns the registration date for the course formatted as a string."""
-
-    strftime = course.runtime.service(course, "i18n").strftime
-    date_time = strftime(date, "SHORT_DATE")
-    return date_time
