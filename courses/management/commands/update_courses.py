@@ -93,6 +93,7 @@ class Command(BaseCommand):
                 self.stdout.write('\n Skipping updates for {}'.format(key))
                 continue
             course.is_active = True
+            course.show_in_catalog = bool(mongo_course.ispublic)
             course.title = course_handler.title
             course.image_url = course_handler.image_url
             thumbnails_info = {}

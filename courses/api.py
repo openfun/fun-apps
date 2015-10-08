@@ -36,6 +36,6 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
-        queryset = queryset.with_related().active()
+        queryset = queryset.with_related().public()
         queryset = self.filter_queryset(queryset)
         return queryset
