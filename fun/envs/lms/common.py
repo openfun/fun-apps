@@ -145,6 +145,11 @@ GRADES_DOWNLOAD = {
 }
 GRADES_DOWNLOAD_ROUTING_KEY = None
 
+
+# Our new home page is so shiny and chrome that users must see it more often
+FEATURES['ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER'] = False
+
+# ??
 PAGINATION_SETTINGS = {
     'PAGE_RANGE_DISPLAYED': 10,
     'MARGIN_PAGES_DISPLAYED': 10,

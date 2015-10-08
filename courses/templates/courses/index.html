@@ -43,6 +43,7 @@ courses_count_end_soon = Course.objects.end_soon().count()
 
 <script>
 
+
 require(["jquery", "underscore", "backbone"],
     function ($, _, Backbone) {
 
@@ -58,8 +59,8 @@ require(["jquery", "underscore", "backbone"],
         var filters = [
             {title: '${_("Availability")}', name: 'state', type: 'select', values: [
             //    {value: 'new', title: "Nouveau", count: 12},
-                {value: 'nead-end', title: "Fin d'inscription imminente", count: ${ courses_count_end_soon }},
-                {value: 'near-start', title: "Démarre bientôt", count: ${courses_count_start_soon }},
+                {value: 'end-soon', title: "Fin d'inscription imminente", count: ${ courses_count_end_soon }},
+                {value: 'start-soon', title: "Démarre bientôt", count: ${courses_count_start_soon }},
              //   {value: 'demand', title: "A la demande", count: 12},
             ]},
             {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
@@ -85,6 +86,25 @@ require(["jquery", "underscore", "backbone"],
             */
 
         ];
+
+        var AppRouter = Backbone.Router.extend({
+            routes: {
+                "filter/:name/:slug": "filterByCriterion",
+            },
+            initialize: function(options) {
+                this.criterioncollection = options.criterioncollection;
+                this.filter = options.filter;
+            },
+            filterByCriterion: function(name, slug) {
+                var criterion = this.criterioncollection.findWhere({'name': name});
+                var value = criterion.getValue(slug);
+                this.filter.set('selected', value);
+                if ((!criterion) || (!value)) {
+                    Backbone.history.navigate('', {trigger: false});
+                }
+            },
+        });
+
 
         var Value = Backbone.Model.extend({
             criterionName: function() {
@@ -146,6 +166,10 @@ require(["jquery", "underscore", "backbone"],
                 // so this event will be triggered for both display
                 this.collection.criterion.collection.trigger('criterionSelected', value)
                 $('.hide-on-escape-key').hide();
+                Backbone.history.navigate('filter' +
+                        '/' + value.criterionName() +
+                        '/' + value.get('value'), {trigger: false});
+
             },
             addOne: function(item) {
                 if (this.count < this.max) {
@@ -175,6 +199,9 @@ require(["jquery", "underscore", "backbone"],
             initialize: function() {
                 this.valuecollection = new ValueCollection([], {criterion: this});
             },
+            getValue: function(value) {
+                return this.valuecollection.findWhere({value: value});
+            }
         });
 
         var CriterionView = Backbone.View.extend({
@@ -239,10 +266,11 @@ require(["jquery", "underscore", "backbone"],
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
             },
-            addOne: function(item) {
-                var view = new CriterionView({model: item});
+            addOne: function(criterion) {
+                var view = new CriterionView({model: criterion});
                 this.$el.append(view.render().el);
             },
+
         });
 
         var Filter = Backbone.Model.extend({
@@ -280,6 +308,7 @@ require(["jquery", "underscore", "backbone"],
             template: loadTemplate("filter"),
             clearSelectedValue: function() {
                 this.model.startNewSearch(null);
+                Backbone.history.navigate('', {trigger: false});
             },
             changeResultsPerPage: function(e) {
                 var resultsPerPage = parseInt(e.target.selectedOptions[0].value);
@@ -379,6 +408,13 @@ require(["jquery", "underscore", "backbone"],
                 });
                 this.listenTo(this.filter, 'change', this.refreshCourses);
 
+
+
+                var approuter = new AppRouter({
+                    criterioncollection: criterioncollection,
+                    filter: this.filter
+                });
+
                 // course list
                 this.coursecollection = new CourseCollection([], {filter: this.filter, resultstats: resultstats});
                 this.coursecollectionview = new CourseCollectionView({
@@ -388,6 +424,8 @@ require(["jquery", "underscore", "backbone"],
                 this.listenTo(this.coursecollection, 'sync', this.courseCollectionSynced)
 
                 this.refreshCourses();
+
+
 
             },
             criterionSelected: function(value) {
@@ -413,6 +451,9 @@ require(["jquery", "underscore", "backbone"],
             el: $('#course-search'),
             filters: filters
         });
+
+        Backbone.history.start();
+
     });
 
 
