@@ -4,6 +4,7 @@
     $(document).keydown(function(event) {
         if (event.keyCode == 27) { // ESC key
             $('div.sequence-nav').css('z-index', 'auto');
+            $('nav.sequence-bottom').css('z-index', 'auto');
             $('.hide-on-escape-key:visible').hide();
         }
     });
@@ -17,6 +18,7 @@
     /* Sandwich menu overlay */
     $('#sandwich-menu').on('click', function(event) {
         $('div.sequence-nav').css('z-index', 1);
+        $('nav.sequence-bottom').css('z-index', 1);
         $('#sandwich-overlay').show();
     });
     /* Login overlay */
@@ -25,7 +27,6 @@
         if ($('#login-overlay').is(':visible')) {
             $('#login-overlay input[name="email"]').focus();
         }
-
     });
 
     $('.login-form').on('submit', function(event) {
