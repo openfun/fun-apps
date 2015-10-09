@@ -2,10 +2,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 1\n"
+"Project-Id-Version: France Université Numérique 2\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-06 11:31+0200\n"
-"PO-Revision-Date: 2015-10-06 11:31+0000\n"
+"POT-Creation-Date: 2015-10-09 17:31+0200\n"
+"PO-Revision-Date: 2015-10-09 17:31+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -18,27 +18,37 @@ msgstr ""
 msgid "About..."
 msgstr "A propos de FUN"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:138
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:22
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:133
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:244
 msgid "All courses"
 msgstr "Tous les cours"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:179
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:174
 msgid "All institutions"
 msgstr "Tous les établissements"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:213
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:208
 msgid "All news"
 msgstr "Toutes les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:38
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:157
+msgid "Confidentiality"
+msgstr "Confidentialité"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:39
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:25
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:232
+msgid "End of Registration"
+msgstr "Fin d'inscription"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:26
 msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:81
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:76
 msgid "Highlighted courses"
 msgstr "Les cours à la une"
 
@@ -46,36 +56,38 @@ msgstr "Les cours à la une"
 msgid "Home"
 msgstr "Accueil"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:148
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:143
 msgid "Institutions"
 msgstr "Les établissements"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:74
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:18
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:18
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:69
 msgid "Let's learn, get trained and succeed!"
 msgstr "Venez apprendre, vous former et réussir !"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:62
-msgid "Log into your FUN Account"
-msgstr "Connectez-vous à votre compte FUN"
-
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:19
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:32
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:20
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:33
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:33
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:47
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:52
 msgid "Login"
 msgstr "Se connecter"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:33
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:38
 msgid "Logout"
 msgstr "Se deconnecter"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:67
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:17
 msgid "PLEASE LOG IN to access your account and courses"
 msgstr "Connectez vous pour acceder à vos cours"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:43
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:237
+msgid "Registration closed"
+msgstr "Inscription close"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:26
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:48
@@ -86,8 +98,8 @@ msgstr "Mentions légales"
 msgid "Terms of use"
 msgstr "Conditions générales d'utilisation"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:222
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:108
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:217
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:146
 msgid "Thematics"
 msgstr "Les thématiques"
 
@@ -99,11 +111,23 @@ msgstr "Les établissements"
 msgid "Usage policy"
 msgstr "Charte utilisateurs"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:35
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:36
 msgid "You don't have an account"
 msgstr "Vous n'avez pas de compte ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:11
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:12
 msgid "You have an account"
 msgstr "Vous avez un compte ?"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:33
+#, fuzzy
+msgid "Your courses"
+msgstr "Tous les cours"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:283
+msgid "h/week"
+msgstr "h/semaine"
+
+#~ msgid "Log into your FUN Account"
+#~ msgstr "Connectez-vous à votre compte FUN"
 
