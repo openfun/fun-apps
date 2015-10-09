@@ -27,7 +27,7 @@
             <div class="date col-sm-20">
                 <%- gettext("Starts") %>
                 <br>
-                14 Déc. 2015
+                <%- start_date_display %>
             </div>
             <a href="<%= course_about %>"><div class="register col-sm-16">
                 <%- gettext("Register") %>

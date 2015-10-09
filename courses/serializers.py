@@ -1,4 +1,10 @@
+# -*- coding: utf-8 -*-
+
+import locale
+
 from rest_framework import serializers
+
+from django.utils.translation import ugettext as _
 
 from universities.serializers import UniversitySerializer
 from .models import Course, CourseSubject
@@ -18,6 +24,10 @@ class CourseSerializer(serializers.ModelSerializer):
     subjects = CourseSubjectSerializer()
     session_display = serializers.CharField(source='session_display')
     thumbnails = serializers.CharField(source='thumbnails_info')
+    start_date_display = serializers.SerializerMethodField('get_start_date_display')
+
+    def get_start_date_display(self, obj):
+        return obj.start_date.strftime(_(u'%b %d %Y'))
 
     class Meta:
         model = Course
@@ -31,6 +41,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'subjects',
             'image_url',
             'start_date',
+            'start_date_display',
             'end_date',
             'score',
             'session_number',
