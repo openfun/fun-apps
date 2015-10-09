@@ -216,6 +216,7 @@ body {
 }
 #sandwich-overlay li a {
     color: white;
+    text-decoration: none;
 }
 
 
