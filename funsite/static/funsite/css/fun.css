@@ -131,6 +131,7 @@ body {
     font-size: 12px;
 }
 #login-overlay .forgotten-password a {
+    cursor: pointer;
     color: #CBCCCD;
 }
 .login-form .error {

@@ -82,4 +82,17 @@
         });
     })
 
+    $('#pwd_reset_form').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({ url: 'password_reset/',
+                 method: 'POST',
+                 data: $(this).serialize(),
+                 success: onSuccessPasswordReset,
+               });
+    });
+
+    function onSuccessPasswordReset(html) {
+        $('#modal-forget-password .modal-header .modal-title').html($('.modal-header').data().success);
+	$('#modal-forget-password .modal-body').html($('.modal-body').data().success);
+    }
 })();
