@@ -19,6 +19,11 @@
         $(this).parent().hide()
     });
 
+    /* Theme overlay */
+    $('.close-themes-overlay').on('click', function(event) {
+        $('div.sequence-nav').css('z-index', 'auto');
+        $(this).parent().parent().hide()
+    });
     /* Sandwich menu overlay */
     $('#sandwich-menu').on('click', function(event) {
         // change z-index of courseware elements which have it set to 'auto'
