@@ -7,27 +7,32 @@ from django.utils.translation import ugettext as _
     <span class="close-overlay glyphicon glyphicon-remove"></span>
     <ul class="">
         <li>
-            <a class="selected" href="/">
+            <a href="/" data-location="">
                 ${_("Home")}
             </a>
         </li>
         <li>
-            <a href="${reverse('newsfeed-landing')}">
+            <a href="${reverse('newsfeed-landing')}" data-location="news">
                 ${_("News")}
             </a>
         </li>
 
         <li>
-            <a href="${reverse('fun-courses-index')}">
-                ${_("Courses")}
+            <a href="${reverse('fun-courses-index')}" data-location="cours">
+                ${_("All courses")}
             </a>
         </li>
         <li>
-            <a href="${reverse('universities-landing')}">
+            <a href="${reverse('universities-landing')}" data-location="universities">
                 ${_("Universities")}
             </a>
         </li>
         %if request.user.is_authenticated():
+        <li>
+            <a href="${reverse('dashboard')}" data-location="dashboard">
+                ${_("Your courses")}
+            </a>
+        </li>
         <li>
             <a href="${reverse('logout')}">
                 ${_("Logout")}
@@ -37,13 +42,13 @@ from django.utils.translation import ugettext as _
         %else:
 
         <li>
-            <a href="${reverse('register_user')}">
+            <a href="${reverse('register_user')}" data-location="register">
                 ${_("Register")}
             </a>
         </li>
 
         <li>
-            <a href="${reverse('signin_user')}">
+            <a href="${reverse('signin_user')}" data-location="login">
                 ${_("Login")}
             </a>
         </li>

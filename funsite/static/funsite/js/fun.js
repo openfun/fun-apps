@@ -9,6 +9,10 @@
         }
     });
 
+    // select current page menu item
+    var page = window.location.pathname.split('/')[1];
+    $('#sandwich-overlay [data-location="'+ page +'"]').addClass('selected');
+
     /* Handle FUN overlays closing by clicking X */
     $('.close-overlay').on('click', function(event) {
         $('div.sequence-nav').css('z-index', 'auto');
@@ -17,6 +21,7 @@
 
     /* Sandwich menu overlay */
     $('#sandwich-menu').on('click', function(event) {
+        // change z-index of courseware elements which have it set to 'auto'
         $('div.sequence-nav').css('z-index', 1);
         $('nav.sequence-bottom').css('z-index', 1);
         $('#sandwich-overlay').show();
