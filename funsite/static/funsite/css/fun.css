@@ -299,7 +299,7 @@ ul.footer-links.right {
     margin-bottom: 20px;
     display: inline-block;
     cursor: pointer;
-    max-width: 232px;
+    min-width: 232px;
 }
 
 .all-items-button a:hover {
