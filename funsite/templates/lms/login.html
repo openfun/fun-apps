@@ -3,29 +3,10 @@
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
-from microsite_configuration import microsite
 from staticfiles.storage import staticfiles_storage
 %>
 
 <%inherit file="funsite/parts/base.html" />
-
-<%block name="js_extra">
-    <script>
-     $('#pwd_reset_form').on('submit', function(event) {
-         event.preventDefault();
-         $.ajax({ url: 'password_reset/',
-                         method: 'POST',
-                         data: $(this).serialize(),
-                         success: onSuccess,
-                         });
-     });
-
-     function onSuccess(html) {
-         $('#modal-forget-password .modal-header').html("${_("Password reset successful")}");
-         $('#modal-forget-password .modal-body').html("${_("We've e-mailed you instructions for setting your password to the e-mail address you submitted. You should be receiving it shortly.")}");
-     }
-    </script>
-</%block>
 
 <%block name="title">
     ${_("Log into your {platform_name} Account").format(platform_name=platform_name)}
@@ -56,29 +37,4 @@ from staticfiles.storage import staticfiles_storage
         <h4>${_("Not Enrolled?")}</h4>
         <button class="all-items-button"><a href="${reverse('register_user')}">${_("Sign up for {platform_name} today!").format(platform_name=settings.PLATFORM_NAME)}</a></button>
     </div>
-
-<div id="modal-forget-password" class="modal fade" tabindex="-1">
-  <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-          <div type="button" class="glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></div>
-      <div class="modal-header">
-          <h4 class="modal-title">${_("Password Reset")}</h4>
-      </div>
-      <div class="modal-body">
-          <p>${_("Please enter your e-mail address below, and we will e-mail instructions for setting a new password.")}</p>
-          <form id="pwd_reset_form" action="${reverse('password_reset')}" method="post">
-              <fieldset>
-                  <div class="form-group" id="forgot-password-modal-field-email">
-                      <label for="pwd_reset_email">${_("Your E-mail Address")}</label>
-                      <input  class="form-control" id="pwd_reset_email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}"/>
-                      <p class="help-block">${_("This is the e-mail address you used to register with {platform}").format(platform=microsite.get_value('platform_name', settings.PLATFORM_NAME))}</p>
-                  </div>
-              </fieldset>
-              <button name="submit" type="submit" id="pwd_reset_button" class="btn btn-block ">${_("Reset My Password")}</button>
-          </form>
-      </div>
-    </div><!-- - /.modal-content -->
-  </div><!-- - /.modal-dialog -->
-</div><!-- - /.modal -->
-
 </%block>
