@@ -1000,6 +1000,8 @@ ul.universities-list {
     background-color: #08223C;
     z-index: 20;
 }
+
+
 .criteria-block.criteria-overlay h2 {
     color: white;
     font-weight: 400;
@@ -1011,6 +1013,22 @@ ul.universities-list {
     width: 100%;
     border: none;
 }
+
+#all-themes-overlay.criteria-overlay h2 {
+    margin-top: 20px;
+    width : 200px;
+}
+
+#all-themes-overlay  .close-themes-overlay-container {
+    text-align :right;
+}
+
+#all-themes-overlay  .close-themes-overlay{
+    color : white;
+    font-size: 16px;
+    margin-top : 20px;
+}
+
 .criteria-block-bottom {
     background-color: red;
     rop
@@ -1851,3 +1869,4 @@ header.global.slim h2 {
     vertical-align: top;
     width: 100%;
 }
+
