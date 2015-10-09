@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 7\n"
+"Project-Id-Version: France Université Numérique 8\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-09-30 13:18+0200\n"
-"PO-Revision-Date: 2015-09-30 13:18+0000\n"
+"POT-Creation-Date: 2015-10-09 16:57+0200\n"
+"PO-Revision-Date: 2015-10-09 16:57+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -21,19 +21,19 @@ msgstr "S'inscrire"
 msgid "Starts"
 msgstr "Débute"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:42
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:36
 msgid "Your search"
 msgstr "Votre recherche"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:32
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:53
 msgid "all"
 msgstr "tous"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:30
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:51
 msgid "per page"
 msgstr "par page"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:4
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:7
 msgid "result"
 msgid_plural "results"
 msgstr[0] "résultat"
