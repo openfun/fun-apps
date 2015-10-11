@@ -178,7 +178,9 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
             <div class="right">
                 <div class="university-logo">
                     % if fun_course.universities.exists():
-                    <img src="${ fun_course.universities.all()[0].get_logo_thumbnail()}">
+                    <a href="${fun_course.universities.all()[0].get_absolute_url()}">
+                        <img src="${ fun_course.universities.all()[0].get_logo_thumbnail()}">
+                    </a>
                     % endif
                 </div>
 
