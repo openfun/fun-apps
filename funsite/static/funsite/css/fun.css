@@ -38,6 +38,15 @@ body {
     height: 40px;
 }
 
+.big-margin {
+    margin-top: 80px; /* SQLI values are 100 and 70*/
+    margin-bottom: 40px;
+}
+.small-margin {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
 .blue-cell {
     display: inline-block;
     background-color: #08223C;
@@ -56,7 +65,7 @@ body {
 }
 
 .white {
-    color: white;
+    color: white !important;
 }
 .no-padding {
     padding: 0;
@@ -276,8 +285,7 @@ ul.footer-links.right {
     color: #2B2B2B;
 }
 
-.line {
-}
+
 .line span {
     display: inline-block;
     width: 136px;
@@ -296,16 +304,19 @@ ul.footer-links.right {
     font-size: 16px;
     color: #3877BC;
     padding: 12px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
     display: inline-block;
     cursor: pointer;
     min-width: 232px;
 }
-
-.all-items-button a:hover {
+.all-items-button:hover {
+    border-color: #FB453E;
+}
+.all-items-button a:hover,
+.all-items-button:hover a {
     text-decoration: none;
-    color: #3877BC;   /* TODO: find out if we have a rollover effect */
+    color: #FB453E;   /* TODO: find out if we have a rollover effect */
 }
 .all-items-button.blue {
     color: white;
@@ -914,24 +925,56 @@ ul.universities-list {
 }
 .fun-news {
     background-color: #2B2B2B;
+    background: url('../images/news-background.png');
+    width: 1280px;
+    height: 740px;
 
 }
 .fun-news .primary {
+    position: relative;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 12px;
     width: 575px;
     height: 335px;
-    border: 1px solid white;
     margin-bottom: 30px;
 }
+.fun-news .primary>img {
+
+}
+.fun-news .primary>div {
+    position: absolute;
+    background-color: white;
+    text-align: center;
+    width: 540px;
+    margin-left: 17px;
+    margin-right: auto;
+    bottom: 0
+}
+
 .fun-news .secondary {
-    margin-left: auto;
+    position: relative;
+    margin-left: 12px;
     margin-right: auto;
     width: 575px;
     height: 152px;
-    border: 1px solid white;
     margin-bottom: 30px;
+    text-align: left;
 }
+.fun-news .secondary>img {
+    width: 275px;
+    height: 152px;
+}
+.fun-news .secondary>div {
+    position: absolute;
+    background-color: white;
+    width: 300px;
+    right: 0;
+    top: 0;
+    height: 100%;
+    text-align: center;
+}
+
+
 
 .fun-themes .item h3 {
     position: absolute;

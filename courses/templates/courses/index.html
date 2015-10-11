@@ -1,9 +1,11 @@
 ## mako
 <%!
 import random
+
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.db import models
+
 from courseware.courses import course_image_url, get_course_about_section
 
 from courses.models import CourseSubject, Course
