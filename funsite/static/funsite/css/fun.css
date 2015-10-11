@@ -314,6 +314,7 @@ ul.footer-links.right {
     border-color: #FB453E;
 }
 .all-items-button a:hover,
+.all-items-button a:active,
 .all-items-button:hover a {
     text-decoration: none;
     color: #FB453E;   /* TODO: find out if we have a rollover effect */
@@ -1135,6 +1136,10 @@ ul.universities-list {
 .filters .all-items-button {
     margin-top: 6px;
 }
+.filters .all-items-button:hover {
+    color: white;
+    border-color: white;
+}
 .criteria li.icon {
     padding-left: 36px !important;
     height: 36px;
@@ -1905,6 +1910,7 @@ header.global.slim h2 {
     display: table-cell;
     vertical-align: top;
     width: 325px;
+    background-color: #06213B;
 }
 
 .course-list-table .right {
