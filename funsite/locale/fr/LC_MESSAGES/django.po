@@ -1,11 +1,9 @@
-
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 2\n"
+"Project-Id-Version: France Université Numérique 3\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-09 17:31+0200\n"
-"PO-Revision-Date: 2015-10-09 17:31+0000\n"
+"POT-Creation-Date: 2015-10-11 11:03+0200\n"
+"PO-Revision-Date: 2015-10-11 11:03+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -97,6 +95,10 @@ msgstr "Mentions légales"
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:31
 msgid "Terms of use"
 msgstr "Conditions générales d'utilisation"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:184
+msgid "The news"
+msgstr "Les actus"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:217
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:146

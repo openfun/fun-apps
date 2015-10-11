@@ -61,19 +61,18 @@ $(window).on("scroll", function () {
 
 <style>
 
-
 </style>
 
 
 <div class="page-image home-page">
     <h1>${_(u"Let's learn, get trained and succeed!")}</h1>
-    <img class="logo-fun" src="/static/funsite/images/logos/fun195.png"></img>
+    <img class="logo-fun" src="${staticfiles_storage.url('funsite/images/logos/fun195.png')}"></img>
 </div>
 
 
 <div class="row">
     <div class="col-lg-36 big-title text-center">
-        <h2>${ _(u"Highlighted courses") }</h2>
+        <h2 class="small-margin">${ _(u"Highlighted courses") }</h2>
     </div>
 </div>
 
@@ -140,7 +139,7 @@ $(window).on("scroll", function () {
 <div class="universities">
     <div class="row ">
         <div class="col-lg-36 big-title text-center">
-            <h2>${ _(u"Institutions") }</h2>
+            <h2 class="big-margin">${ _(u"Institutions") }</h2>
         </div>
     </div>
 
@@ -180,22 +179,44 @@ $(window).on("scroll", function () {
 
 <div class="fun-news">
     <div class="row ">
-        <div class="col-lg-36 big-title white text-center">
-            <h2>${ _(u"News") }</h2>
+        <div class="col-lg-36 big-title text-center">
+            <h2 class="white big-margin">${ _(u"The news") }</h2>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-lg-18 text-center">
+        <div class="col-sm-18 text-center">
             <div class="primary">
+                <img src="${staticfiles_storage.url('funsite/images/fake-news1.png')}">
+                <div>
+                    <h3>Les MOOC 2 ans après</h3>
+                    <p>
+                        FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="col-lg-18 text-center">
+
+        <div class="col-sm-18 text-center">
             <div class="secondary">
+                <img src="${staticfiles_storage.url('funsite/images/fake-news2.png')}">
+                <div>
+                    <h3>Les MOOC 2 ans après</h3>
+                    <p>
+                        FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
+                    </p>
+                </div>
 
             </div>
 
             <div class="secondary">
+                <img src="${staticfiles_storage.url('funsite/images/fake-news3.png')}">
+                <div>
+                    <h3>Les MOOC 2 ans après</h3>
+                    <p>
+                        FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
+                    </p>
+                </div>
 
             </div>
 
@@ -214,7 +235,7 @@ $(window).on("scroll", function () {
 <div class="fun-themes">
     <div class="row ">
         <div class="col-lg-36 big-title text-center">
-            <h2>${ _(u"Thematics") }</h2>
+            <h2 class="big-margin">${ _(u"Thematics") }</h2>
         </div>
     </div>
 
