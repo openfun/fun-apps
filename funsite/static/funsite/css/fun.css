@@ -107,7 +107,7 @@ body {
     position: absolute;
     max-width: 430px;
     min-width: 320px;
-    height: 400px;
+    height: 420px;
     background: white;
     display: none;
     top: 60px;
@@ -115,6 +115,7 @@ body {
     z-index: 2000;
 }
 #login-overlay div.content {
+    clear: both;
     width: 240px;
     display: table;
     margin-left: auto;
@@ -148,6 +149,11 @@ body {
     height: 22px;
     color: #F72B2F;
     font-size: 12px;
+}
+#login-overlay span.close-overlay  {
+    float: right;
+    margin-right: 12px;
+    margin-top: 6px;
 }
 
 .borderme {
@@ -319,9 +325,11 @@ ul.footer-links.right {
     text-decoration: none;
     color: #FB453E;   /* TODO: find out if we have a rollover effect */
 }
-.all-items-button.blue {
+.all-items-button.blue,
+.all-items-button.blue:hover {
     color: white;
     background-color: #3877BC;
+    border: 1px solid #3877BC;
 }
 .all-items-button.blue a {
     text-decoration: none;
@@ -1058,16 +1066,8 @@ ul.universities-list {
     border: none;
 }
 
-#all-themes-overlay.criteria-overlay h2 {
-    margin-top: 20px;
-    width : 200px;
-}
 
-#all-themes-overlay  .close-themes-overlay-container {
-    text-align :right;
-}
-
-#all-themes-overlay  .close-themes-overlay{
+.criteria-overlay .close-overlay {
     color : white;
     font-size: 16px;
     margin-top : 20px;
@@ -1075,7 +1075,6 @@ ul.universities-list {
 
 .criteria-block-bottom {
     background-color: red;
-    rop
 }
 .criteria-overlay ul {
 }
