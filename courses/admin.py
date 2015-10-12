@@ -31,7 +31,7 @@ class CourseAdmin(admin.ModelAdmin):
         CourseTeacherInline,
         CertificateTeacherInline,
     )
-    list_editable = ('score',)
+    list_editable = ('score', 'session_number')
     fieldsets = (
         (_('Course Info'), {
             'fields': (
