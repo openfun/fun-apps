@@ -16,14 +16,9 @@
     /* Handle FUN overlays closing by clicking X */
     $('.close-overlay').on('click', function(event) {
         $('div.sequence-nav').css('z-index', 'auto');
-        $(this).parent().hide()
+        $(this).closest('.overlay').hide()
     });
 
-    /* Theme overlay */
-    $('.close-themes-overlay').on('click', function(event) {
-        $('div.sequence-nav').css('z-index', 'auto');
-        $(this).parent().parent().hide()
-    });
     /* Sandwich menu overlay */
     $('#sandwich-menu').on('click', function(event) {
         // change z-index of courseware elements which have it set to 'auto'
@@ -40,12 +35,12 @@
     });
 
     $('.login-form').on('submit', function(event) {
-	if ($(this).hasClass("login-form-page")) {
-	    form_origin_position = "login-page";
-	}
-	else {
-	    form_origin_position = "overlay";
-	}
+        if ($(this).hasClass("login-form-page")) {
+            form_origin_position = "login-page";
+        }
+        else {
+            form_origin_position = "overlay";
+        }
         event.preventDefault();
         $.ajax({
             url: '/login_ajax',
@@ -73,16 +68,16 @@
                     } // else we just remain on this page, which is fine since this particular path implies a login failure
                 // that has been generated via packet tampering (json.redirect has been messed with).
                 } else {
-		    if (form_origin_position == "overlay") {
-			$('#login-overlay').find('input').addClass('loginerror');
-			$('#login-overlay').find('.error').html(json.value);
-		    }
-		    else {
-			$('.login-row').find('.form-group').addClass('has-error');
-			var error_div = $('.login-form-page').find('.error-login-page');
-			error_div.html(json.value);
-			error_div.addClass('alert alert-danger');
-		    }
+                    if (form_origin_position == "overlay") {
+                        $('#login-overlay').find('input').addClass('loginerror');
+                        $('#login-overlay').find('.error').html(json.value);
+                    }
+                    else {
+                        $('.login-row').find('.form-group').addClass('has-error');
+                        var error_div = $('.login-form-page').find('.error-login-page');
+                        error_div.html(json.value);
+                        error_div.addClass('alert alert-danger');
+                    }
                 }
             },
             error: function(response) {
@@ -95,14 +90,14 @@
     $('#pwd_reset_form').on('submit', function(event) {
         event.preventDefault();
         $.ajax({ url: 'password_reset/',
-                 method: 'POST',
-                 data: $(this).serialize(),
-                 success: onSuccessPasswordReset,
-               });
+            method: 'POST',
+            data: $(this).serialize(),
+            success: onSuccessPasswordReset,
+        });
     });
 
     function onSuccessPasswordReset(html) {
         $('#modal-forget-password .modal-header .modal-title').html($('.modal-header').data().success);
-	$('#modal-forget-password .modal-body').html($('.modal-body').data().success);
+        $('#modal-forget-password .modal-body').html($('.modal-body').data().success);
     }
 })();

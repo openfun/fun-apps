@@ -494,18 +494,18 @@ require(["jquery", "underscore", "backbone"],
 
                 <div class="result-navigation hide-search-filter"></div>
 
-                <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
-                    <div class="close-themes-overlay-container">
-                        <span class="close-themes-overlay glyphicon glyphicon-remove"></span>
+                <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
+                    <div class="pull-right">
+                        <span class="close-overlay glyphicon glyphicon-remove"></span>
                     </div>
                     <h2>${_("All themes")}</h2>
-
                     <ul class="criteria"></ul>
-
-                    
                 </div>
 
-                <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key">
+                <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
+                    <div class="pull-right">
+                        <span class="close-overlay glyphicon glyphicon-remove"></span>
+                    </div>
                     <h2>${_("All universities")}</h2>
                     <ul class="criteria"></ul>
                 </div>
