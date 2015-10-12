@@ -67,6 +67,11 @@ body {
 .white {
     color: white !important;
 }
+
+.wide {
+    width: 100%;
+}
+
 .no-padding {
     padding: 0;
 }
@@ -431,6 +436,10 @@ ul.footer-links.right {
         width: 730px;
         height: 412px;
     }
+    .register-page .right {
+        right: -36px; /* stick column to border */
+    }
+
 }
 
 
@@ -500,13 +509,16 @@ ul.footer-links.right {
             height: 68px;
             padding-top: 4px;
     }
-
     .course-about .left .course-image img {
         width: 730px;
         height: 412px;
     }
+    .register-page .right {
+        right: -36px; /* stick column to border */
+    }
 
 }
+
 @media (max-width: 1279px) {
     .main-width {
         width: 960px;
@@ -555,6 +567,10 @@ ul.footer-links.right {
 
     .course-list .list ul li {
         margin-right: 28px;
+    }
+
+    .register-page .right {
+        right: inherit;
     }
 
 
@@ -1257,143 +1273,6 @@ ul.universities-list {
 }
 
 
-/* Register page */
-    .global-row {
-        text-align : center;
-        background-color: white;
-        margin-top : 40px;
-        padding-top: 10px;
-        margin-bottom: 40px;
-     }
-
-   .register-row {
-       display:inline-block;
-       vertical-align : top;
-       text-align : left;
-       padding-left: 20px;
-       padding-right: 20px;
-       margin-left : auto;
-       margin-right : auto
-       padding : 20px 10px 25px 10px;
-       background-color: white;
-     }
-
-   .tos-row {
-       display:inline-block;
-       text-align : left;
-       margin-left : auto;
-       padding-left: 20px;
-       padding-right: 20px;
-
-       margin-right : auto
-       padding : 20px 25px;
-       background-color: #08223C;
-       color: white;
-     }
-
-     .register-row #field-yob, .register-row #field-gender {
-         display: inline-block;
-     }
-
-    .register-row button {
-        margin-left : auto;
-        margin-right : auto;
-        display : block;
-     }
-
-     #field-field-tos input {
-         vertical-align : top;
-     }
-
-    .global-row h4.register-title {
-        color : #004170;
-        margin-bottom: 20px;
-        padding-left : 20px;
-        padding-right : 20px;
-     }
-
-   .register-row .form-inline {
-      margin-bottom: 15px;
-     }
-
-   .submission-error {
-         padding : 20px 25px;
-         margin-left : auto;
-         margin-right : auto;
-         margin-top : 20px;
-         display: none;
-     }
-
-    label.required:after {
-        content:" *";
-        color:red;
-     }
-
-     @media (max-width: 767px) {
-         .register-row button {
-             width : 280px;
-         }
-         .register-row #field-yob, .register-row #field-gender {
-             display:block;
-         }
-         #field-field-tos label {
-             width: 240px;
-         }
-     }
-
-     @media (min-width: 768px) {
-         .register-row, .submission-error {
-             width: 512px;
-         }
-         .tos-row {
-             width: 250px;
-         }
-         #field-field-tos lapbel {
-             width: 240px;
-         }
-         .register-row button {
-             width : 270px;
-         }
-
-         .register-row #field-yob, .register-row #field-gender {
-             width : 230px;
-         }
-         #field-field-tos label {
-             width: 360px;
-         }
-     }
-     @media (min-width: 960px) {
-         .register-row, .submission-error {
-             width: 640px;
-         }
-         .tos-row {
-             width: 314px;
-        }
-         .register-row button {
-             width : 600px;
-         }
-
-         .register-row #field-yob, .register-row #field-gender {
-             width : 298px;
-         }
-     }
-     @media (min-width: 1280px) {
-         .register-row, .submission-error {
-             width: 840px;
-         }
-         .tos-row {
-             width: 416px;
-        }
-         .register-row button {
-             width : 800px;
-         }
-
-         .register-row #field-yob, .register-row #field-gender {
-             width : 398px;
-         }
-     }
-
-
 
 /* static content pages */
 .simple-content {
@@ -1918,3 +1797,76 @@ header.global.slim h2 {
     width: 100%;
 }
 
+
+/* Register page */
+.register-page {
+
+}
+
+.register-page .big-title {
+    margin-top: 30px;
+    margin-bottom: 60px;
+
+}
+
+ .register-page #field-yob, .register-page #field-gender {
+     display: inline-block;
+ }
+
+.register-page button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+ }
+
+#field-field-tos input {
+     vertical-align : top;
+}
+
+.register-page .form-inline {
+  margin-bottom: 15px;
+ }
+
+.submission-error {
+     padding : 20px 25px;
+     margin-left : auto;
+     margin-right : auto;
+     margin-top : 20px;
+     display: none;
+ }
+
+.register-page label.required:after {
+    content:" *";
+    color:red;
+}
+
+.register-page .submission-error {
+    width: 80%;
+}
+.register-page .left {
+
+}
+.register-page .right {
+    background-color: #06213D;
+    padding: 12px 24px 40px 24px;
+    color: white;
+}
+.register-page .right p {
+    line-height: 22px;
+    font-size: 14px;
+    font-weight: 300;
+}
+.register-page .right address {
+    margin: 24px;
+    padding: 12px;
+    border: 1px solid #364C62;
+    text-align: center;
+    line-height: 24px
+}
+.register-page .right address .org {
+    font-weight: 600;
+
+.register-page .row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
