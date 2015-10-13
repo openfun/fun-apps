@@ -31,6 +31,22 @@ from django.utils.formats import date_format
     </section>
 
     <p>${article.text}</p>
+
+    <p>Related Articles:</p>
+    % for related_article in article.related():
+    <br />${ related_article.title } - ${ related_article.published }
+    % endfor
+
+    <p>Related Courses:</p>
+    % for related_course in article.courses.public():
+    <br />${ related_course.title }
+    % endfor
+
+    <p>Links:</p>
+    % for link in article.links.all():
+    <br />${ link.name } | ${ link.url }
+    % endfor
+
 </section>
 
 </%block>
