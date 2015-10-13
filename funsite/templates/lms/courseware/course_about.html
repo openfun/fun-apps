@@ -58,7 +58,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                         (response ? response : "${_('An error occurred. Please try again later.')}")
                     ).css("display", "block");
                 };
-            } // !
+            }
         });
         event.preventDefault();
     });
@@ -158,7 +158,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
                 <div class="course-image hidden-1900">
                     <div class="video-button"></div>
-                    <img src="${ fun_course.get_thumbnail_url('about') }">
+                    <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
 
 
