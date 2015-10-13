@@ -64,12 +64,43 @@ class FeaturedSection(SingletonModel):
         verbose_name_plural = _("Featured Section")
 
 
-class Article(models.Model):
+class ArticleCategory(models.Model):
+    name = models.CharField(_('name'), max_length=255)
+    order = models.PositiveIntegerField(_('order'), default=0)
 
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('order', 'id')
+        verbose_name = _('Article Category')
+        verbose_name_plural = _('Article Categories')
+
+
+class ArticleLink(models.Model):
+    name = models.CharField(_('name'), max_length=255)
+    url = models.CharField(_('name'), max_length=255)
+    article = models.ForeignKey('Article', verbose_name=_('article'),
+        related_name='links')
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Article Link')
+        verbose_name_plural = _('Article Links')
+
+
+class Article(models.Model):
     title = models.CharField(verbose_name=_("title"),
             max_length=256, blank=False)
     slug = models.SlugField(verbose_name=_("slug"),
             max_length=50, unique=True, blank=False, validators=[validate_slug])
+    category = models.ForeignKey('ArticleCategory', verbose_name=_('category'),
+        null=True, blank=True, related_name='articles')
+    courses = models.ManyToManyField('courses.Course', verbose_name=_('courses'),
+        related_name='articles', null=True, blank=True,
+        limit_choices_to={'is_active': True})
     thumbnail = models.ImageField(_('thumnail'),
         upload_to='newsfeed', null=True, blank=True,
         help_text=_('Displayed on the news list page.'))
@@ -77,6 +108,8 @@ class Article(models.Model):
             max_length=256, blank=True)
     text = ckeditor.fields.RichTextField(verbose_name=_("text"),
             config_name='news', blank=True)
+    event_date = models.DateTimeField(verbose_name=_("event date"),
+        null=True, blank=True)
     language = models.CharField(verbose_name=_("language"),
             max_length=8, choices=settings.LANGUAGES, default='fr')
     created_at = models.DateTimeField(verbose_name=_("created at"),
@@ -93,6 +126,14 @@ class Article(models.Model):
 
     class Meta:
         ordering = ["order", "-created_at"]
+
+    def related(self):
+        """
+        Return article that share the same category.
+        """
+        queryset = Article.objects.published()
+        queryset = queryset.filter(category=self.category)
+        return queryset
 
     def __unicode__(self):
         return self.title
