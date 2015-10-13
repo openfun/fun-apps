@@ -1021,7 +1021,13 @@ ul.universities-list {
 
 
 /* Courses filtering and searching courses/index.html */
+.courses-page {
 
+}
+.courses-page .big-title {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
 .course-list {
     position: relative;
 
@@ -1101,6 +1107,7 @@ ul.universities-list {
 }
 
 .filters div.title {
+    margin-top: 20px;
     color: #3976BC;
     font-size: 32px;
     font-weight: 200;
@@ -1186,15 +1193,19 @@ ul.universities-list {
 .result-navigation {
     border: 1px solid #CBCCCD;
     margin: 0 38px 24px 38px;
-    padding: 16px;
+    padding: 8px;
 }
-
+.result-navigation>div.row>div {
+    padding: 4px 12px 4px;
+    padding-bottom: 4px;
+}
 .result-navigation.hide-search-filter .search-filter{
     display: none;
 }
 
 .result-navigation h3 {
-    margin: 0 16px;
+    margin: 0 12px 0 0;
+
     display: inline-block;
     color: #3877BC;
     font-size: 14px;
