@@ -1,14 +1,9 @@
 <div class="row">
 
-    <div class="col-sm-12 text-left">
-
-
+    <div class="col-md-8 col-sm-36 text-left">
         <% if (totalCount !== null) { %>
             <%= totalCount %> <%= ngettext("result", "results", totalCount) %>
         <% } %>
-
-
-
         <% if (totalPageCount > 1)  { %>
             <% if (currentPage > 1) { %>
                 <span class="result-page clickable" data-page="<%= currentPage - 1 %>">&lt;</span>
@@ -31,7 +26,7 @@
         <% } %>
     </div>
 
-    <div class="col-sm-12">
+    <div class="col-md-20 col-sm-36">
         <% if (selected) { %>
             <h3><%= gettext("Your search") %></h3>
             <div class="white blue-cell">
@@ -41,9 +36,7 @@
         <% } %>
     </div>
 
-
-
-    <div class="col-sm-12 text-right">
+    <div class="col-md-8 text-right hidden-960">
         <select class="results-per-page">
             <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
                 <option value="<%= resultsPerPageChoices[c] %>" <% if (resultsPerPageChoices[c] === resultsPerPage) { %>selected="selected"<% } %>>

@@ -464,56 +464,58 @@ require(["jquery", "underscore", "backbone"],
 
 <%block name="content">
 
-<div class="row">
-    <div class="col-lg-36 big-title text-center">
-        <h2>${_("Courses")}</h2>
-    </div>
-</div>
-
-
-<div class="row">
-
-    <div id="course-search" class="course-list">
-
-        <div class="course-list-table">
-
-            <div class="left">
-                <div class="filters criteria-block">
-                    <div class="title">${_("Refine search results")}</div>
-                    <div class="criterions"></div>
-                </div>
-
-            </div>
-
-            <div class="right">
-                <div class="result-navigation"></div>
-
-                <div class="list">
-                    <ul id="course-filtering-results"></ul>
-                </div>
-
-                <div class="result-navigation hide-search-filter"></div>
-
-                <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
-                    <div class="pull-right">
-                        <span class="close-overlay glyphicon glyphicon-remove"></span>
-                    </div>
-                    <h2>${_("All themes")}</h2>
-                    <ul class="criteria"></ul>
-                </div>
-
-                <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
-                    <div class="pull-right">
-                        <span class="close-overlay glyphicon glyphicon-remove"></span>
-                    </div>
-                    <h2>${_("All universities")}</h2>
-                    <ul class="criteria"></ul>
-                </div>
-            </div>
-
-
+<div class="courses-page">
+    <div class="row">
+        <div class="col-lg-36 big-title text-center">
+            <h2>${_("Courses")}</h2>
         </div>
     </div>
 
+
+    <div class="row">
+
+        <div id="course-search" class="course-list">
+
+            <div class="course-list-table">
+
+                <div class="left">
+                    <div class="filters criteria-block">
+                        <div class="title">${_("Refine search results")}</div>
+                        <div class="criterions"></div>
+                    </div>
+
+                </div>
+
+                <div class="right">
+                    <div class="result-navigation">
+                    </div>
+
+                    <div class="list">
+                        <ul id="course-filtering-results"></ul>
+                    </div>
+
+                    <div class="result-navigation hide-search-filter"></div>
+
+                    <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
+                        <div class="pull-right">
+                            <span class="close-overlay glyphicon glyphicon-remove"></span>
+                        </div>
+                        <h2>${_("All themes")}</h2>
+                        <ul class="criteria"></ul>
+                    </div>
+
+                    <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
+                        <div class="pull-right">
+                            <span class="close-overlay glyphicon glyphicon-remove"></span>
+                        </div>
+                        <h2>${_("All universities")}</h2>
+                        <ul class="criteria"></ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 </div>
 </%block>
