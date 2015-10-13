@@ -1,9 +1,10 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 3\n"
+"Project-Id-Version: France Université Numérique 4\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-11 11:03+0200\n"
-"PO-Revision-Date: 2015-10-11 11:03+0000\n"
+"POT-Creation-Date: 2015-10-13 17:16+0200\n"
+"PO-Revision-Date: 2015-10-13 17:16+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -17,20 +18,20 @@ msgid "About..."
 msgstr "A propos de FUN"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:22
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:133
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:244
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:132
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:265
 msgid "All courses"
 msgstr "Tous les cours"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:174
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:173
 msgid "All institutions"
 msgstr "Tous les établissements"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:208
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:229
 msgid "All news"
 msgstr "Toutes les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:157
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:172
 msgid "Confidentiality"
 msgstr "Confidentialité"
 
@@ -38,7 +39,7 @@ msgstr "Confidentialité"
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:232
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:234
 msgid "End of Registration"
 msgstr "Fin d'inscription"
 
@@ -46,7 +47,7 @@ msgstr "Fin d'inscription"
 msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:76
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:75
 msgid "Highlighted courses"
 msgstr "Les cours à la une"
 
@@ -54,13 +55,13 @@ msgstr "Les cours à la une"
 msgid "Home"
 msgstr "Accueil"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:143
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:142
 msgid "Institutions"
 msgstr "Les établissements"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:18
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:18
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:69
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:68
 msgid "Let's learn, get trained and succeed!"
 msgstr "Venez apprendre, vous former et réussir !"
 
@@ -83,7 +84,7 @@ msgstr "Connectez vous pour acceder à vos cours"
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:237
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:239
 msgid "Registration closed"
 msgstr "Inscription close"
 
@@ -96,11 +97,11 @@ msgstr "Mentions légales"
 msgid "Terms of use"
 msgstr "Conditions générales d'utilisation"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:184
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:183
 msgid "The news"
 msgstr "Les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:217
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:238
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:146
 msgid "Thematics"
 msgstr "Les thématiques"
@@ -122,11 +123,10 @@ msgid "You have an account"
 msgstr "Vous avez un compte ?"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:33
-#, fuzzy
 msgid "Your courses"
-msgstr "Tous les cours"
+msgstr "Vos cours"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:283
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:285
 msgid "h/week"
 msgstr "h/semaine"
 
