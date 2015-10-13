@@ -37,7 +37,7 @@ courses_count_end_soon = Course.objects.end_soon().count()
 </%def>
 
 
-% for template_name in ['small-course-block', 'li2', 'filter']:
+% for template_name in ['small-course-block', 'criterion-value', 'filter']:
 <script type="text/template" id="${template_name}-tpl">
   ${static_include("courses/js/" + template_name + ".underscore")}
 </script>
@@ -122,7 +122,7 @@ require(["jquery", "underscore", "backbone"],
         var ValueView = Backbone.View.extend({
             tagName: 'li',
             className: "criterion",
-            template: loadTemplate("li2"),
+            template: loadTemplate("criterion-value"),
 
             initialize: function() {},
 
