@@ -76,6 +76,11 @@ body {
     padding: 0;
 }
 
+a,
+a:active,
+a:focus {
+    text-decoration: none;
+}
 
 /* Sandwich menu */
 
