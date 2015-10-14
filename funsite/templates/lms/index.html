@@ -217,7 +217,7 @@ featured_courses = Course.objects.random_featured(9)
 
     <div class="row">
         <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="">${ _(u"All news") }</a></span>
+            <span class="all-items-button"><a href="${reverse('newsfeed-landing')}">${ _(u"All news") }</a></span>
         </div>
     </div>
 </div>

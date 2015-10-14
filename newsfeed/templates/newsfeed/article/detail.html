@@ -1,8 +1,26 @@
 ## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
+from django.utils.formats import date_format
+%>
+
+
 <%inherit file="/funsite/parts/base.html" />
-<%! from django.core.urlresolvers import reverse %>
-<%! from django.utils.translation import ugettext_lazy as _ %>
-<%! from django.utils.formats import date_format %>
+
+
+<%block name="meta_extra">
+    <meta property="og:site_name" content="France Université Numérique"/>
+    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${reverse('newsfeed-article', args=[article.slug])}" />
+    <meta property="og:title" content="${article.title}" />
+    <meta property="og:description" content="${article.get_lead_paragraph()}" />
+    <meta property="og:locale" content="${article.language}" />
+</%block>
+
+
+<%block name="title">${article.title}</%block>
+
+
 
 <%block name="content">
 
@@ -16,3 +34,7 @@
 </section>
 
 </%block>
+
+
+
+
