@@ -1058,6 +1058,7 @@ ul.universities-list {
     margin-bottom: 30px;
     text-align: left;
 }
+
 .fun-news .secondary.left {
     margin-right: 15px;
     margin-left: auto;
@@ -1080,6 +1081,11 @@ ul.universities-list {
     top: 0;
     height: 150px;
     text-align: center;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.fun-news .secondary>div h3 {
+    font-size: 18px;
 }
 
 
