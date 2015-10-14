@@ -24,10 +24,7 @@ class CourseSerializer(serializers.ModelSerializer):
     subjects = CourseSubjectSerializer()
     session_display = serializers.CharField(source='session_display')
     thumbnails = serializers.CharField(source='thumbnails_info')
-    start_date_display = serializers.SerializerMethodField('get_start_date_display')
-
-    def get_start_date_display(self, obj):
-        return obj.start_date.strftime(_(u'%b %d %Y'))
+    start_date_display = serializers.CharField(source='start_date_display')
 
     class Meta:
         model = Course
