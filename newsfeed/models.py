@@ -73,6 +73,8 @@ class Article(models.Model):
     thumbnail = models.ImageField(_('thumnail'),
         upload_to='newsfeed', null=True, blank=True,
         help_text=_('Displayed on the news list page.'))
+    lead_paragraph = models.CharField(verbose_name=_("Lead paragraph"),
+            max_length=256, blank=True)
     text = ckeditor.fields.RichTextField(verbose_name=_("text"),
             config_name='news', blank=True)
     language = models.CharField(verbose_name=_("language"),
@@ -94,3 +96,11 @@ class Article(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_lead_paragraph(self):
+        LEADING_WORDS = 30
+        if self.lead_paragraph:
+            return self.lead_paragraph
+        else:
+            lead_paragraph = ' '.join(self.text.split(' ')[:LEADING_WORDS])
+            return lead_paragraph
