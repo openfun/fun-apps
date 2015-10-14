@@ -104,8 +104,8 @@ class Article(models.Model):
     thumbnail = models.ImageField(_('thumnail'),
         upload_to='newsfeed', null=True, blank=True,
         help_text=_('Displayed on the news list page.'))
-    lead_paragraph = models.CharField(verbose_name=_("Lead paragraph"),
-            max_length=256, blank=True)
+    #lead_paragraph = models.CharField(verbose_name=_("Lead paragraph"),
+    #        max_length=256, blank=True)
     text = ckeditor.fields.RichTextField(verbose_name=_("text"),
             config_name='news', blank=True)
     event_date = models.DateTimeField(verbose_name=_("event date"),

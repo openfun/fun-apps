@@ -6,11 +6,13 @@ from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
 
 from courses.models import CourseSubject, Course
+from newsfeed.models import Article
 from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
 universities = University.objects.random_featured(18)
 featured_courses = Course.objects.random_featured(9)
+news = Article.objects.all()[:3]
 %>
 
 <%inherit file="funsite/parts/base.html" />
@@ -60,17 +62,24 @@ featured_courses = Course.objects.random_featured(9)
 
 ## TODO: Find out how to make mako import this function from newsfeed/article/list.html
 ## should be <%namespace name="newsfeed" file="newsfeed/article/list.html"/>
-<%def name="news_block(type, classes='')">
+<%def name="news_block(article, type, classes='')">
     <article class="${type} ${classes}">
-        <img src="${staticfiles_storage.url('funsite/images/fake-news2.png')}">
+        <img src="/media/${article.thumbnail}">
         <div>
-            <h3><a href="">Les MOOC 3 ans après</a></h3>
+            <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${article.title}</a></h3>
             <p>
                 FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
             </p>
             %if not 'home' in classes and type != 'primary':
                 <div class="footer">
-                FOOTER !
+                    <div class="row">
+                        <div class="col-sm-18">
+                            <span class="tag">tag/type</span>
+                        </div>
+                        <div class="col-sm-18">
+                            <span class="date">date</span>
+                        </div>
+                    </div>
                 </div>
             % endif
         </div>
@@ -201,15 +210,15 @@ featured_courses = Course.objects.random_featured(9)
     <div class="row">
         <div class="col-sm-18 text-center">
 
-            ${news_block('primary', 'home')}
+            ${news_block(news[0], 'primary', 'home')}
 
         </div>
 
         <div class="col-sm-18 text-center">
 
-            ${news_block('secondary', 'home')}
+            ${news_block(news[1], 'secondary', 'home')}
 
-            ${news_block('secondary', 'home')}
+            ${news_block(news[2], 'secondary', 'home')}
 
         </div>
     </div>

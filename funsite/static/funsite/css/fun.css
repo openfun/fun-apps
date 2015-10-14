@@ -1400,7 +1400,9 @@ ul.universities-list {
     background-color: #EDEEEF;
     padding-top: 60px;
 }
-
+.main-content .header {
+    background-color: white;
+}
 .main-content .left {
     padding-top: 24px;
     padding-left: 70px;
@@ -1413,6 +1415,13 @@ ul.universities-list {
     background-color: white;
     color: white;
     padding: 0;
+}
+.main-content .right .blue-zone {
+    background-color: #08223C;
+}
+
+.main-content .right .social-networks {
+    text-align: center;
 }
 
 
@@ -1473,13 +1482,6 @@ ul.universities-list {
 }
 
 
-.course-about .right .blue-zone {
-    background-color: #08223C;
-}
-
-.course-about .right .social-networks {
-    text-align: center;
-}
 
 .course-about .course-image {
     position: relative;
