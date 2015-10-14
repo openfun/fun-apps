@@ -1,78 +1,94 @@
 ## mako
+
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.formats import date_format
+from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import truncatechars
+
+from staticfiles.storage import staticfiles_storage
+
+from fun.utils.html import truncate_first_paragraph
+%>
+
 <%inherit file="/funsite/parts/base.html" />
 
-<%! from django.core.urlresolvers import reverse %>
-<%! from django.utils.formats import date_format %>
-<%! from django.utils.translation import ugettext_lazy as _ %>
-<%! from django.template.defaultfilters import truncatechars %>
-<%! from fun.utils.html import truncate_first_paragraph %>
+
+<%block name="title">${_(u"Let's learn, get trained and succeed!")}</%block>
+
 
 <%block name="content">
 
-<section class="container">
-    <section class="featured-articles">
-        % if featured_section and featured_section.image:
-            % if featured_section.article:
-                <a href="${article_url(featured_section.article)}">
+    <%def name="news_block(type, classes='')">
+        <article class="${type} ${classes}">
+            <img src="${staticfiles_storage.url('funsite/images/fake-news2.png')}">
+            <div>
+                <h3><a href="">Les MOOC 3 ans après</a></h3>
+                <p>
+                    FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
+                </p>
+                %if not 'home' in classes and type != 'primary':
+                    <div class="footer">
+                        <div class="row">
+                            <div class="col-sm-18">
+                                <span class="tag">tag/type</span>
+                            </div>
+                            <div class="col-sm-18">
+                                <span class="date">date</span>
+                            </div>
+
+                        </div>
+                    </div>
                 % endif
-                    <section class="top-article" style="${background_style(featured_section.image.url)}">
-                        <section class="article-preview">
-                            <section class="article-title">
-                                % if featured_section.title:
-                                <h2>${featured_section.title}</h2>
-                                % elif featured_section.article:
-                                <h2>${featured_section.article.title}</h2>
-                                % else:
-                                <h2>${_("News Section")}</h2>
-                                % endif
-
-                            </section>
-                        </section>
-                    </section>
-                % if featured_section.article:
-                </a>
-            % endif
-        % endif
-
-        % if articles:
-            % for article in articles[:3]:
-            <section class="featured-article">
-                <a href="${article_url(article)}">
-                    % if article.thumbnail:
-                    <section class="featured-article-image" style="${background_style(article.thumbnail.url)}"></section>
-                    % endif
-                </a>
-                <section class="article-title">
-                    <a href="${article_url(article)}"><h2>${truncatechars(article.title, 75)}</h2></a>
-                </section>
-            </section>
-            % endfor
-
-        % endif
-    </section>
-    <section class="recent-articles">
-        % for article in articles[3:]:
-        <section class="recent-article">
-            <section class="article-content">
-                <section class="article-preview">
-                    <section class="article-title">
-                        <a href="${article_url(article)}"><h2>${truncatechars(article.title, 75)}</h2></a>
-                        <p class="subtitle">${_("Posted on")} ${date_format(article.created_at)}</p>
-                    </section>
-                    <p>${truncate_first_paragraph(article.text, 380)} <a href="${article_url(article)}" class="read-more">${_("Read More")}</a></p>
-                </section>
-                % if article.thumbnail:
-                <section class="recent-article-image" style="${background_style(article.thumbnail.url)}"></section>
-                % endif
-            </section>
-        </section>
-        % endfor
-    </section>
-</section>
+            </div>
+        </article>
+    </%def>
 
 
-<%def name="background_style(image_url)">background: url('${image_url}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;</%def>
+<h1 class="big-title big-margin text-center">
+    ${_(u"All FUN news")}
+</h1>
 
-<%def name="article_url(article)">${reverse('newsfeed-article', kwargs={'slug': article.slug})}</%def>
+<div class="fun-news">
+
+## featured news (only one, displayed regarding resolution)
+
+    <div class="row hidden-960">
+
+        <div class="col-md-36">
+
+            ${news_block('big')}
+
+        </div>
+
+    </div>
+
+    <div class="row hidden-1280 hidden-1900 visible-960">
+
+        <div class="col-sm-36">
+            ${news_block('primary')}
+        </div>
+
+
+    </div>
+
+
+## chronologicaly displayed news
+    <div class="row">
+
+        <div class="col-sm-36 col-md-18 no-padding">
+            ${news_block('secondary', 'left')}
+        </div>
+
+        <div class="col-sm-36 col-md-18 no-padding">
+            ${news_block('secondary', 'right')}
+        </div>
+
+    </div>
+
+
+
+</div>
+
 
 </%block>
