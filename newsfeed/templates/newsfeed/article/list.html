@@ -8,7 +8,10 @@ from django.template.defaultfilters import truncatechars
 
 from staticfiles.storage import staticfiles_storage
 
-from fun.utils.html import truncate_first_paragraph
+from newsfeed.models import Article
+
+newsfeed = Article.objects.all()
+
 %>
 
 <%inherit file="/funsite/parts/base.html" />
@@ -19,30 +22,29 @@ from fun.utils.html import truncate_first_paragraph
 
 <%block name="content">
 
-    <%def name="news_block(type, classes='')">
-        <article class="${type} ${classes}">
-            <img src="${staticfiles_storage.url('funsite/images/fake-news2.png')}">
-            <div>
-                <h3><a href="">Les MOOC 3 ans après</a></h3>
-                <p>
-                    FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
-                </p>
-                %if not 'home' in classes and type != 'primary':
-                    <div class="footer">
-                        <div class="row">
-                            <div class="col-sm-18">
-                                <span class="tag">tag/type</span>
-                            </div>
-                            <div class="col-sm-18">
-                                <span class="date">date</span>
-                            </div>
-
+<%def name="news_block(article, size, classes='')">
+    <article class="${size} ${classes}">
+        <img src="/media/${article.get_thumbnail(size)}">
+        <div>
+            <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${article.title}</a></h3>
+            <p>
+                ${article.get_lead_paragraph()}
+            </p>
+            %if not 'home' in classes and size != 'primary':
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-sm-18">
+                            <span class="tag">tag/type</span>
+                        </div>
+                        <div class="col-sm-18">
+                            <span class="date">date</span>
                         </div>
                     </div>
-                % endif
-            </div>
-        </article>
-    </%def>
+                </div>
+            % endif
+        </div>
+    </article>
+</%def>
 
 
 <h1 class="big-title big-margin text-center">
@@ -57,7 +59,7 @@ from fun.utils.html import truncate_first_paragraph
 
         <div class="col-md-36">
 
-            ${news_block('big')}
+            ${news_block(newsfeed[0], 'big')}
 
         </div>
 
@@ -66,22 +68,26 @@ from fun.utils.html import truncate_first_paragraph
     <div class="row hidden-1280 hidden-1900 visible-960">
 
         <div class="col-sm-36">
-            ${news_block('primary')}
+            ${news_block(newsfeed[0], 'primary')}
         </div>
 
 
     </div>
 
 
-## chronologicaly displayed news
+## chronologicaly displayed news (on 2 columns)
     <div class="row">
 
         <div class="col-sm-36 col-md-18 no-padding">
-            ${news_block('secondary', 'left')}
+            % for article in newsfeed[1::2]:
+                ${news_block(article, 'secondary', 'left')}
+            % endfor
         </div>
 
         <div class="col-sm-36 col-md-18 no-padding">
-            ${news_block('secondary', 'right')}
+            % for article in newsfeed[2::2]:
+                ${news_block(article, 'secondary', 'right')}
+            % endfor
         </div>
 
     </div>

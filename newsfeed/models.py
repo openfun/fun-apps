@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 
 from solo.models import SingletonModel
+from easy_thumbnails.files import get_thumbnailer
 
 
 class ArticleManager(models.Manager):
@@ -104,8 +105,8 @@ class Article(models.Model):
     thumbnail = models.ImageField(_('thumnail'),
         upload_to='newsfeed', null=True, blank=True,
         help_text=_('Displayed on the news list page.'))
-    #lead_paragraph = models.CharField(verbose_name=_("Lead paragraph"),
-    #        max_length=256, blank=True)
+    lead_paragraph = models.CharField(verbose_name=_("Lead paragraph"),
+            max_length=256, blank=True)
     text = ckeditor.fields.RichTextField(verbose_name=_("text"),
             config_name='news', blank=True)
     event_date = models.DateTimeField(verbose_name=_("event date"),
@@ -145,3 +146,11 @@ class Article(models.Model):
         else:
             lead_paragraph = ' '.join(self.text.split(' ')[:LEADING_WORDS])
             return lead_paragraph
+
+
+    def get_thumbnail(self, size):
+
+        thumbnailer = get_thumbnailer(self.thumbnail)
+        sizes = {'big': (570, 325), 'primary': (570, 325), 'secondary': (275, 150)}
+        thumbnail_options = {'crop': 'smart', 'size': sizes[size]}
+        return thumbnailer.get_thumbnail(thumbnail_options)

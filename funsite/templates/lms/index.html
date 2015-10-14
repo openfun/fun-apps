@@ -62,15 +62,15 @@ news = Article.objects.all()[:3]
 
 ## TODO: Find out how to make mako import this function from newsfeed/article/list.html
 ## should be <%namespace name="newsfeed" file="newsfeed/article/list.html"/>
-<%def name="news_block(article, type, classes='')">
-    <article class="${type} ${classes}">
-        <img src="/media/${article.thumbnail}">
+<%def name="news_block(article, size, classes='')">
+    <article class="${size} ${classes}">
+        <img src="/media/${article.get_thumbnail(size)}">
         <div>
             <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${article.title}</a></h3>
             <p>
-                FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
+                ${article.get_lead_paragraph()}
             </p>
-            %if not 'home' in classes and type != 'primary':
+            %if not 'home' in classes and size != 'primary':
                 <div class="footer">
                     <div class="row">
                         <div class="col-sm-18">
