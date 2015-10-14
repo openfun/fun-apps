@@ -106,6 +106,12 @@ class Course(models.Model):
             return self.first_university.get_short_name()
         return ''
 
+    @property
+    def start_date_display(self):
+        if not self.start_date:
+            return ''
+        return self.start_date.strftime(ugettext(u'%b %d %Y'))
+
     def __unicode__(self):
         return _('Course {}').format(self.key)
 
