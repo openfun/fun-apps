@@ -17,9 +17,7 @@ featured_courses = Course.objects.random_featured(9)
 
 <%block name="title">${_(u"Let's learn, get trained and succeed!")}</%block>
 
-
-<%block name="css_extra">
-</%block>
+<%block name="css_extra"></%block>
 
 <%block name="js_extra">
 <script>
@@ -48,20 +46,36 @@ featured_courses = Course.objects.random_featured(9)
             margin: 20
           }
         }
-          });
+    });
 
-$(window).on("scroll", function () {
-    $('#top-menu .slogan,.logo').toggle(($('body').scrollTop() > 419))
-});
-
+    $(window).on("scroll", function () {
+        $('#top-menu .slogan,.logo').toggle(($('body').scrollTop() > 419))
+    });
 </script>
 </%block>
 
 <%block name="content">
 
-<style>
 
-</style>
+
+## TODO: Find out how to make mako import this function from newsfeed/article/list.html
+## should be <%namespace name="newsfeed" file="newsfeed/article/list.html"/>
+<%def name="news_block(type, classes='')">
+    <article class="${type} ${classes}">
+        <img src="${staticfiles_storage.url('funsite/images/fake-news2.png')}">
+        <div>
+            <h3><a href="">Les MOOC 3 ans après</a></h3>
+            <p>
+                FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
+            </p>
+            %if not 'home' in classes and type != 'primary':
+                <div class="footer">
+                FOOTER !
+                </div>
+            % endif
+        </div>
+    </article>
+</%def>
 
 
 <div class="page-image home-page">
@@ -177,8 +191,8 @@ $(window).on("scroll", function () {
 </div>
 
 
-<div class="fun-news">
-    <div class="row ">
+<div class="fun-news background">
+    <div class="row">
         <div class="col-lg-36 big-title text-center">
             <h2 class="white big-margin">${ _(u"The news") }</h2>
         </div>
@@ -186,39 +200,16 @@ $(window).on("scroll", function () {
 
     <div class="row">
         <div class="col-sm-18 text-center">
-            <div class="primary">
-                <img src="${staticfiles_storage.url('funsite/images/fake-news1.png')}">
-                <div>
-                    <h3>Les MOOC 2 ans après</h3>
-                    <p>
-                        FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
-                    </p>
-                </div>
-            </div>
+
+            ${news_block('primary', 'home')}
+
         </div>
 
         <div class="col-sm-18 text-center">
-            <div class="secondary">
-                <img src="${staticfiles_storage.url('funsite/images/fake-news2.png')}">
-                <div>
-                    <h3>Les MOOC 2 ans après</h3>
-                    <p>
-                        FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
-                    </p>
-                </div>
 
-            </div>
+            ${news_block('secondary', 'home')}
 
-            <div class="secondary">
-                <img src="${staticfiles_storage.url('funsite/images/fake-news3.png')}">
-                <div>
-                    <h3>Les MOOC 2 ans après</h3>
-                    <p>
-                        FUN tire un premier bilan de ses 2 ans d'activité avec plus de 40 établissements.
-                    </p>
-                </div>
-
-            </div>
+            ${news_block('secondary', 'home')}
 
         </div>
     </div>
