@@ -34,10 +34,12 @@ newsfeed = Article.objects.all()
                 <div class="footer">
                     <div class="row">
                         <div class="col-sm-18">
-                            <span class="tag">tag/type</span>
+                            % if article.category:
+                                <span class="tag">${article.category.name}</span>
+                            % endif
                         </div>
                         <div class="col-sm-18">
-                            <span class="date">date</span>
+                            <span class="date">${date_format(article.created_at, 'SHORT_DATE_FORMAT')}</span>
                         </div>
                     </div>
                 </div>

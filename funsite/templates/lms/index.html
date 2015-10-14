@@ -1,6 +1,7 @@
 ## mako
 <%!
 from django.core.urlresolvers import reverse
+from django.utils.formats import date_format
 from django.utils.translation import ugettext as _
 
 from staticfiles.storage import staticfiles_storage
@@ -74,10 +75,12 @@ news = Article.objects.all()[:3]
                 <div class="footer">
                     <div class="row">
                         <div class="col-sm-18">
-                            <span class="tag">tag/type</span>
+                            % if article.category:
+                                <span class="tag">${article.category.name}</span>
+                            % endif
                         </div>
                         <div class="col-sm-18">
-                            <span class="date">date</span>
+                            <span class="date">${date_format(article.created_at, 'SHORT_DATE_FORMAT')}</span>
                         </div>
                     </div>
                 </div>
