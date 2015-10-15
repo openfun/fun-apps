@@ -81,7 +81,7 @@ class ArticleCategory(models.Model):
 
 class ArticleLink(models.Model):
     name = models.CharField(_('name'), max_length=255)
-    url = models.CharField(_('name'), max_length=255)
+    url = models.CharField(_('url'), max_length=255)
     article = models.ForeignKey('Article', verbose_name=_('article'),
         related_name='links')
 
