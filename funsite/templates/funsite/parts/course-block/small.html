@@ -37,7 +37,7 @@ from util.date_utils import strftime_localized
                 % endif
             </div>
 
-            <a href="${reverse('about_course', args=[course.key])}"><div class="register col-sm-16">
+            <a href="${course.get_absolute_url()}"><div class="register col-sm-16">
                 ${_(u"Register")}
             </div></a>
         </div>
