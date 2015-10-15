@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 
 from solo.models import SingletonModel
+from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 
 
@@ -149,8 +150,10 @@ class Article(models.Model):
 
 
     def get_thumbnail(self, size):
-
-        thumbnailer = get_thumbnailer(self.thumbnail)
-        sizes = {'big': (570, 325), 'primary': (570, 325), 'secondary': (275, 150)}
-        thumbnail_options = {'crop': 'smart', 'size': sizes[size]}
-        return thumbnailer.get_thumbnail(thumbnail_options)
+        try:
+            thumbnailer = get_thumbnailer(self.thumbnail)
+            sizes = {'big': (570, 325), 'primary': (570, 325), 'secondary': (275, 150)}
+            thumbnail_options = {'crop': 'smart', 'size': sizes[size]}
+            return thumbnailer.get_thumbnail(thumbnail_options)
+        except InvalidImageFormatError:
+            return ''  ## todo: generic image
