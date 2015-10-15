@@ -2,6 +2,7 @@
 import random
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
@@ -66,6 +67,12 @@ class Course(models.Model):
         verbose_name = _('course')
         verbose_name_plural = _('courses')
 
+    def __unicode__(self):
+        return _('Course {}').format(self.key)
+
+    def get_absolute_url(self):
+        return reverse('about_course', args=[self.key])
+
     @staticmethod
     def random_featured(limit_to=7):
         courses = Course.objects.by_score()[:limit_to]
@@ -111,9 +118,6 @@ class Course(models.Model):
         if not self.start_date:
             return ''
         return self.start_date.strftime(ugettext(u'%b %d %Y'))
-
-    def __unicode__(self):
-        return _('Course {}').format(self.key)
 
 
 class CourseSubject(models.Model):

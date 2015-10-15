@@ -116,6 +116,21 @@ newsfeed = Article.objects.all()
                             </div>
                             % endif
 
+                            % if article.courses.all().count():
+                            <div class="course-info diploma">
+                                <ul>
+                                <li>
+                                    <strong>${_("Courses")}</strong>
+                                </li>
+                                % for course in article.courses.all():
+                                <li>
+                                     <a href="${course.get_absolute_url()}">${course.title}</a>
+                                </li>
+                                % endfor
+                                </ul>
+                            </div>
+                            % endif
+
 
                             % if article.links.count():
                             <div class="course-info link">
@@ -125,12 +140,29 @@ newsfeed = Article.objects.all()
                                 </li>
                                 % for link in article.links.all():
                                 <li>
-                                     <a href="${link.url}" target="_blanck">${link.name}</a>
+                                     <a href="${link.url}" target="_blank">${link.name}</a>
                                 </li>
                                 % endfor
                                 </ul>
                             </div>
                             % endif
+
+                            % if article.category and Article.objects.filter(category__slug=article.category.slug).count():
+                            <div class="course-info folder">
+                                <ul>
+                                <li>
+                                    <strong>${_("In the same category")}</strong>
+                                </li>
+                                % for news in Article.objects.filter(category__slug=article.category.slug)[:3]:
+                                <li>
+                                     <a href="${news.get_absolute_url()}">${news.title}</a>
+                                </li>
+                                % endfor
+                                </ul>
+                            </div>
+                            % endif
+
+
 
                         </div>
                         <div class="col-sm-36 col-lg-18">
