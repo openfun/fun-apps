@@ -70,7 +70,7 @@ require(["jquery", "underscore", "backbone"],
                 {value: "${ course_subject.slug }", title: "${ course_subject.get_short_name() }", count: ${ course_subject.courses.public().count() }},
                 %endfor
             ]},
-            {title: '${_("Universities")}', name: 'university', type: 'select', max: 10, all_button: "Tous les établissments", overlay: '#all-universities-overlay', values: [
+            {title: '${_("Universities")}', name: 'university', type: 'select', max: 10, all_button: "Tous les établissements", overlay: '#all-universities-overlay', values: [
                 %for university in universities_by_score:
                 {value: "${ university.code }", title: "${ university.get_short_name() }", count: ${ university.courses.public().count() }},
                 %endfor
