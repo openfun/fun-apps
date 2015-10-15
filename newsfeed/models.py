@@ -3,6 +3,7 @@
 import ckeditor.fields
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.core.validators import validate_slug
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -148,12 +149,14 @@ class Article(models.Model):
             lead_paragraph = ' '.join(self.text.split(' ')[:LEADING_WORDS])
             return lead_paragraph
 
-
     def get_thumbnail(self, size):
         try:
             thumbnailer = get_thumbnailer(self.thumbnail)
-            sizes = {'big': (570, 325), 'primary': (570, 325), 'secondary': (275, 150)}
+            sizes = {'very-big': (1030, 625), 'big': (570, 325), 'primary': (570, 325), 'secondary': (275, 150)}
             thumbnail_options = {'crop': 'smart', 'size': sizes[size]}
             return thumbnailer.get_thumbnail(thumbnail_options)
         except InvalidImageFormatError:
             return ''  ## todo: generic image
+
+    def get_absolute_url(self):
+        return reverse('newsfeed-article', args=[self.slug])

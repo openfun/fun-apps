@@ -1,8 +1,12 @@
 ## mako
 <%!
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.formats import date_format
+
+from newsfeed.models import Article
+
+newsfeed = Article.objects.all()
+
 %>
 
 
@@ -11,7 +15,7 @@ from django.utils.formats import date_format
 
 <%block name="meta_extra">
     <meta property="og:site_name" content="France Université Numérique"/>
-    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${reverse('newsfeed-article', args=[article.slug])}" />
+    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${article.get_absolute_url()}" />
     <meta property="og:title" content="${article.title}" />
     <meta property="og:description" content="${article.get_lead_paragraph()}" />
     <meta property="og:locale" content="${article.language}" />
@@ -47,7 +51,10 @@ from django.utils.formats import date_format
                 <div class="line text-center">
                     <span></span>
                 </div>
-
+                <div class="author">
+                    ${date_format(article.created_at, 'DATE_FORMAT')}
+                </div>
+                <img src="/media/${article.get_thumbnail('very-big')}" class="img-responsive">
             </div>
         </div>
 
@@ -60,9 +67,9 @@ from django.utils.formats import date_format
         <div class="col-lg-21 col-sm-26 no-gutter-right">
             <div class="left">
 
-
+                <div class="lead-paragraph">
                     ${article.get_lead_paragraph()}
-
+                </div>
 
 
                 <div class="description">
@@ -95,31 +102,49 @@ from django.utils.formats import date_format
                             </a>
                         </div>
                         <div class="col-sm-36 col-lg-18">
-                        <!- exclamation calendar clock diploma accessibility bubble letter->
-
+                        <!- exclamation calendar clock diploma accessibility bubble letter folder star link->
+                            % if article.event_date:
                             <div class="course-info calendar">
                                 <ul>
                                 <li>
-                                    <strong>${_("blah")}</strong>
+                                    <strong>${_("Event date")}</strong>
                                 </li>
                                 <li>
-                                     blah
+                                     ${date_format(article.event_date, 'DATE_FORMAT')}
                                 </li>
                                 </ul>
                             </div>
+                            % endif
 
+
+                            % if article.links.count():
+                            <div class="course-info link">
+                                <ul>
+                                <li>
+                                    <strong>${_("Usefull links")}</strong>
+                                </li>
+                                % for link in article.links.all():
+                                <li>
+                                     <a href="${link.url}" target="_blanck">${link.name}</a>
+                                </li>
+                                % endfor
+                                </ul>
+                            </div>
+                            % endif
 
                         </div>
                         <div class="col-sm-36 col-lg-18">
 
-                            <div class="course-info letter">
+                            <div class="course-info star">
                                 <ul>
-                                <li>
-                                    blah
-                                </li>
-                                <li>
-                                    blah
-                                </li>
+                                    <li>
+                                        <strong>${_("Featured news")}</strong>
+                                    </li>
+                                    % for news in newsfeed[:3]:
+                                    <li>
+                                        <a href="${news.get_absolute_url()}">${news.title}</a>
+                                    </li>
+                                    % endfor
                                 </ul>
                             </div>
 
