@@ -33,8 +33,8 @@ from staticfiles.storage import staticfiles_storage
         </br>
     </div>
 
-    <div class="login-row">
+    <div class="login-row center-text">
         <h4>${_("Not Enrolled?")}</h4>
-        <button class="all-items-button"><a href="${reverse('register_user')}">${_("Sign up for {platform_name} today!").format(platform_name=settings.PLATFORM_NAME)}</a></button>
+        <div class="all-items-button"><a href="${reverse('register_user')}">${_("Sign up for {platform_name} today!").format(platform_name=settings.PLATFORM_NAME)}</a></div>
     </div>
 </%block>
