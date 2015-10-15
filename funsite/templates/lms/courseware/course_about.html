@@ -139,8 +139,8 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                     <span></span>
                 </div>
 
+                % if fun_course.subjects.all():
                 <div class="subjects">
-                    % if fun_course.subjects.all():
                     <ul>
                         <li>
                             ${_(u"Thematics")}
@@ -153,8 +153,8 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                         </li>
                         % endfor
                     </ul>
-                    % endif
                 </div>
+                % endif
 
                 <div class="course-image hidden-1900">
                     <div class="video-button"></div>
