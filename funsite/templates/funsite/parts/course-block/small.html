@@ -1,7 +1,7 @@
 ## mako
 <%!
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import pgettext, ugettext as _
 from util.date_utils import strftime_localized
 %>
 
@@ -30,7 +30,7 @@ from util.date_utils import strftime_localized
 
         <div class="footer row">
             <div class="date col-sm-20">
-                ${_(u"Starts")}
+                ${pgettext('course-block', u"Starts")}
                 <br>
                 % if course.start_date:
                     ${ strftime_localized(course.start_date, 'SHORT_DATE')}

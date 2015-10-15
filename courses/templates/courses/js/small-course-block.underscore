@@ -25,7 +25,7 @@
 
         <div class="footer row">
             <div class="date col-sm-20">
-                <%- gettext("Starts") %>
+                <%- pgettext("course-block", "Starts") %>
                 <br>
                 <%- start_date_display %>
             </div>
