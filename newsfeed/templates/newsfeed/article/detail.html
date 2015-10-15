@@ -24,30 +24,6 @@ from django.utils.formats import date_format
 
 <%block name="content">
 
-<section class="container news-article">
-    <a href="${reverse('newsfeed-article', kwargs={'slug': article.slug})}"><h2>${article.title}</h2></a>
-    <section class="subtitle">
-        ${_("Posted on")} ${date_format(article.created_at)}
-    </section>
-
-    <p>${article.text}</p>
-
-    <p>Related Articles:</p>
-    % for related_article in article.related():
-    <br />${ related_article.title } - ${ related_article.published }
-    % endfor
-
-    <p>Related Courses:</p>
-    % for related_course in article.courses.public():
-    <br />${ related_course.title }
-    % endfor
-
-    <p>Links:</p>
-    % for link in article.links.all():
-    <br />${ link.name } | ${ link.url }
-    % endfor
-
-</section>
 
 <%
     facebook_link, tweet_action, email_subject = 'a', 'b', 'c'
@@ -70,7 +46,6 @@ from django.utils.formats import date_format
                 </div>
                 <div class="line text-center">
                     <span></span>
-                    ${_("Posted on")} ${date_format(article.created_at)}
                 </div>
 
             </div>
