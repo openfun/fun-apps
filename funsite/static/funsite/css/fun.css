@@ -267,8 +267,9 @@ ul.footer-links li {
 ul.footer-links li a {
     color: white;
 }
-ul.footer-links.right {
-    padding-left: 16px;
+.footer-links.right {
+    padding-left: 4px;
+
 }
 .fun-footer .bottom-footer {
     margin: 20px 20px 0 20px;
@@ -391,11 +392,6 @@ ul.footer-links.right {
         column-count: 5;
     }
 
-    ul.primary-highlight li {
-        margin-left: 47px;
-        margin-right: 47px;
-    }
-
     ul.secondary-highlight li {
         margin-left: 16px;
         margin-right: 16px;
@@ -465,10 +461,6 @@ ul.footer-links.right {
         -webkit-column-count: 3;
         column-count: 3;
 
-    }
-    ul.primary-highlight li {
-        margin-left: 16px;
-        margin-right: 16px;
     }
 
     ul.secondary-highlight li {
@@ -541,9 +533,6 @@ ul.footer-links.right {
     }
     .footer-links li {
         width: 100%;
-    }
-    .footer-links.right {
-        padding-left: 16px;
     }
     div.page-image {
         width: 960px;
@@ -671,6 +660,10 @@ ul.footer-links.right {
     #top-menu span.slogan {
         display: none;
     }
+    .footer-links.right {
+        padding-left: 40px;
+    }
+
 }
 
 div.page-image.home-page {
@@ -691,11 +684,17 @@ div.page-image.home-page img.logo-fun {
 
 /* Courses */
 ul.primary-highlight {
+    margin-left: 0;
+    margin-right 0;
     list-style-type: none;
     margin: 0 auto;
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
+}
+ul.primary-highlight li {
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
 ul.secondary-highlight {
