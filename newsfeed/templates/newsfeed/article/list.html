@@ -81,13 +81,13 @@ newsfeed = Article.objects.all()
     <div class="row">
 
         <div class="col-sm-36 col-md-18 no-padding">
-            % for article in newsfeed[1::2]:
+            % for article in newsfeed[1:12:2]:
                 ${news_block(article, 'secondary', 'left')}
             % endfor
         </div>
 
         <div class="col-sm-36 col-md-18 no-padding">
-            % for article in newsfeed[2::2]:
+            % for article in newsfeed[2:12:2]:
                 ${news_block(article, 'secondary', 'right')}
             % endfor
         </div>
