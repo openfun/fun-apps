@@ -148,14 +148,10 @@ class CourseSubject(models.Model):
         return self.short_name or self.name
 
     def get_image_url(self):
-        if self.featured:
-            if self.image:
-                return self.image.url
-            else:
-                try:
-                    return '/static/funsite/images/icones/themes/%s' % course_subject_images_mapping[self.slug]
-                except KeyError:
-                    return ''
+        try:
+            return '/static/funsite/images/icones/themes/%s' % course_subject_images_mapping[self.slug]
+        except KeyError:
+            return ''
 
 
 class CourseUniversityRelation(models.Model):
