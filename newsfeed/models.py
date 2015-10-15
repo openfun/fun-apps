@@ -69,6 +69,7 @@ class FeaturedSection(SingletonModel):
 
 class ArticleCategory(models.Model):
     name = models.CharField(_('name'), max_length=255)
+    slug = models.SlugField(_('slug'), max_length=255, unique=True)
     order = models.PositiveIntegerField(_('order'), default=0)
 
     def __unicode__(self):

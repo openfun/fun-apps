@@ -35,7 +35,8 @@ class FeaturedSectionAdmin(SingletonModelAdmin):
 
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'order')
+    list_display = ('name', 'slug', 'order')
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
