@@ -23,7 +23,7 @@ class CourseSubjectManager(models.Manager):
         return self.with_related().order_by('name')
 
     def featured(self):
-        return self.filter(featured=True, image__isnull=False)
+        return self.filter(featured=True)
 
     def random_featured(self):
         return self.featured().order_by('?')

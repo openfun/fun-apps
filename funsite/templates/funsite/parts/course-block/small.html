@@ -37,9 +37,11 @@ from util.date_utils import strftime_localized
                 % endif
             </div>
 
-            <a href="${course.get_absolute_url()}"><div class="register col-sm-16">
-                ${_(u"Register")}
-            </div></a>
+            <a href="${course.get_absolute_url()}">
+                <div class="register col-sm-16">
+                    ${_(u"Register")}
+                </div>
+            </a>
         </div>
     </div>
 </div>
