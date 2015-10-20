@@ -98,6 +98,7 @@ MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'courses/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
+    FUN_BASE_ROOT / 'newsfeed/templates',
 ] + MAKO_TEMPLATES['main']
 
 # Xiti
