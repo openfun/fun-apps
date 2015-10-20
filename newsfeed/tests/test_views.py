@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 from student.tests.factories import UserFactory
 
-from fun.tests.utils import skipUnlessLms
+from fun.tests.utils import skipUnlessLms, ROOT_PAGE_NUM_QUERIES
 from . import factories
 
 
@@ -16,6 +16,11 @@ class ViewArticlesTest(TestCase):
     def create_user_and_login(self, as_staff=False):
         user = UserFactory(is_staff=as_staff)
         self.client.login(username=user.username, password='test')
+
+    def test_empty_article_list(self):
+        url = reverse("newsfeed-landing")
+        with self.assertNumQueries(ROOT_PAGE_NUM_QUERIES):
+            self.client.get(url)
 
     def test_article_list(self):
         published_article = factories.ArticleFactory.create(published=True)

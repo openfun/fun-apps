@@ -54,41 +54,33 @@ newsfeed = Article.objects.all()
 
 ## featured news (only one, displayed regarding resolution)
 
+    % if len(newsfeed) > 0:
     <div class="row hidden-960">
-
         <div class="col-md-36">
-
             ${news_block(newsfeed[0], 'big')}
-
         </div>
-
     </div>
 
     <div class="row hidden-1280 hidden-1900 visible-960">
-
         <div class="col-sm-36">
             ${news_block(newsfeed[0], 'primary')}
         </div>
-
-
     </div>
+    % endif
 
 
-## chronologicaly displayed news (on 2 columns)
+## chronologically displayed news (on 2 columns)
     <div class="row">
-
         <div class="col-sm-36 col-md-18 no-padding">
             % for article in newsfeed[1:12:2]:
                 ${news_block(article, 'secondary', 'left')}
             % endfor
         </div>
-
         <div class="col-sm-36 col-md-18 no-padding">
             % for article in newsfeed[2:12:2]:
                 ${news_block(article, 'secondary', 'right')}
             % endfor
         </div>
-
     </div>
 
 
