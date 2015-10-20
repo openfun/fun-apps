@@ -213,15 +213,21 @@ news = Article.objects.all()[:3]
     <div class="row">
         <div class="col-sm-18 text-center">
 
+            % if len(news) > 0:
             ${news_block(news[0], 'primary', 'home')}
+            % endif
 
         </div>
 
         <div class="col-sm-18 text-center">
 
+            % if len(news) > 1:
             ${news_block(news[1], 'secondary', 'home')}
+            % endif
 
+            % if len(news) > 2:
             ${news_block(news[2], 'secondary', 'home')}
+            % endif
 
         </div>
     </div>
