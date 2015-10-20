@@ -16,12 +16,6 @@ newsfeed = Article.objects.all()
 
 <%inherit file="/funsite/parts/base.html" />
 
-
-<%block name="title">${_(u"Let's learn, get trained and succeed!")}</%block>
-
-
-<%block name="content">
-
 <%def name="news_block(article, size, classes='')">
     <article class="${size} ${classes}">
         <img src="/media/${article.get_thumbnail(size)}">
@@ -48,6 +42,9 @@ newsfeed = Article.objects.all()
     </article>
 </%def>
 
+<%block name="title">${_(u"Let's learn, get trained and succeed!")}</%block>
+
+<%block name="content">
 
 <h1 class="big-title big-margin text-center">
     ${_(u"All FUN news")}

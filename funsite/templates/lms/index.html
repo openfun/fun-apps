@@ -59,36 +59,7 @@ news = Article.objects.all()[:3]
 
 <%block name="content">
 
-
-
-## TODO: Find out how to make mako import this function from newsfeed/article/list.html
-## should be <%namespace name="newsfeed" file="newsfeed/article/list.html"/>
-<%def name="news_block(article, size, classes='')">
-    <article class="${size} ${classes}">
-        <img src="/media/${article.get_thumbnail(size)}">
-        <div>
-            <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${article.title}</a></h3>
-            <p>
-                ${article.get_lead_paragraph()}
-            </p>
-            %if not 'home' in classes and size != 'primary':
-                <div class="footer">
-                    <div class="row">
-                        <div class="col-sm-18">
-                            % if article.category:
-                                <span class="tag">${article.category.name}</span>
-                            % endif
-                        </div>
-                        <div class="col-sm-18">
-                            <span class="date">${date_format(article.created_at, 'SHORT_DATE_FORMAT')}</span>
-                        </div>
-                    </div>
-                </div>
-            % endif
-        </div>
-    </article>
-</%def>
-
+<%namespace name="newsfeed" file="/newsfeed/article/list.html"/>
 
 <div class="page-image home-page">
     <h1>${_(u"Let's learn, get trained and succeed!")}</h1>
@@ -214,7 +185,7 @@ news = Article.objects.all()[:3]
         <div class="col-sm-18 text-center">
 
             % if len(news) > 0:
-            ${news_block(news[0], 'primary', 'home')}
+            ${newsfeed.news_block(news[0], 'primary', 'home')}
             % endif
 
         </div>
@@ -222,11 +193,11 @@ news = Article.objects.all()[:3]
         <div class="col-sm-18 text-center">
 
             % if len(news) > 1:
-            ${news_block(news[1], 'secondary', 'home')}
+            ${newsfeed.news_block(news[1], 'secondary', 'home')}
             % endif
 
             % if len(news) > 2:
-            ${news_block(news[2], 'secondary', 'home')}
+            ${newsfeed.news_block(news[2], 'secondary', 'home')}
             % endif
 
         </div>
