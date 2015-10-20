@@ -6,6 +6,11 @@ import unittest
 from django.conf import settings
 import fun.utils
 
+
+# Number of queries required to render the root page
+ROOT_PAGE_NUM_QUERIES = 7
+
+
 def skipUnlessCms(func):
     return unittest.skipUnless(fun.utils.is_cms_running(), 'Test only valid in cms')(func)
 
