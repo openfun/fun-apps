@@ -1,4 +1,4 @@
-- fields: {description: '', featured: false, image: '', name: ' Agronomie et agriculture',
+- fields: {description: '', featured: false, image: '', name: 'Agronomie et agriculture',
     score: 0, short_name: '', slug: agronomie-et-agriculture}
   model: courses.coursesubject
   pk: null
