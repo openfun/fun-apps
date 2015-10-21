@@ -7,13 +7,13 @@ from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
 
 from courses.models import CourseSubject, Course
-from newsfeed.models import Article
+from newsfeed.views import top_news
 from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
 universities = University.objects.random_featured(18)
 featured_courses = Course.objects.random_featured(9)
-news = Article.objects.all()[:3]
+news = top_news()[:3]
 %>
 
 <%inherit file="funsite/parts/base.html" />

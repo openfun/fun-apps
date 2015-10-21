@@ -11,6 +11,9 @@ from fun.utils import mako
 from . import models
 
 
+def top_news():
+    return ArticleListView().get_queryset_for_site()
+
 class StaffOnlyView(object):
     def dispatch(self, request, *args, **kwargs):
         if not request.user or not request.user.is_staff:
@@ -34,10 +37,9 @@ class ArticleListView(mako.MakoTemplateMixin, ListView, MicrositeArticleMixin):
         return context
 
     def get_queryset(self):
-        # Display all published articles. We might want to filter on language
-        # and limit the queryset to the first n results in the future (see the
-        # .featured() method).
-        queryset = self.filter_queryset_for_site(self.get_viewable_queryset())
+        # Note: We might want to filter on language and limit the queryset to
+        # the first n results in the future (see the .featured() method).
+        queryset = self.get_queryset_for_site()
 
         # We exclude the article that's selected in the featured section.
         featured_section = models.FeaturedSection.get_solo()
@@ -45,6 +47,9 @@ class ArticleListView(mako.MakoTemplateMixin, ListView, MicrositeArticleMixin):
             queryset = queryset.exclude(id=featured_section.article.id)
 
         return queryset
+
+    def get_queryset_for_site(self):
+        return self.filter_queryset_for_site(self.get_viewable_queryset())
 
     def get_viewable_queryset(self):
         return models.Article.objects.viewable()
