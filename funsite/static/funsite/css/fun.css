@@ -374,6 +374,12 @@ ul.footer-links li a {
 
 
 /* Responsive */
+/*
+ * Breakpoints:
+ * [----- 768 ---- 960 ---- 1280 ---- 1900 ----]
+ *         xs       sm       md        lg
+*/
+
 @media (min-width: 1900px) {
     .main-width {
         width: 1900px;
@@ -392,10 +398,6 @@ ul.footer-links li a {
         column-count: 5;
     }
 
-    ul.secondary-highlight li {
-        margin-left: 16px;
-        margin-right: 16px;
-    }
     .no-gutter-right-1900 {
         padding-right: 0 !important;
     }
@@ -442,8 +444,6 @@ ul.footer-links li a {
 
 }
 
-
-
 @media (max-width: 1900px) {
     .main-width {
         width: 1280px;
@@ -461,11 +461,6 @@ ul.footer-links li a {
         -webkit-column-count: 3;
         column-count: 3;
 
-    }
-
-    ul.secondary-highlight li {
-        margin-left: 18px;
-        margin-right: 18px;
     }
 
     div.page-image {
@@ -681,43 +676,6 @@ div.page-image.home-page img.logo-fun {
     display: inline-block;
 }
 
-
-/* Courses */
-ul.primary-highlight {
-    margin-left: 0;
-    margin-right 0;
-    list-style-type: none;
-    margin: 0 auto;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-}
-ul.primary-highlight li {
-    margin-left: 16px;
-    margin-right: 16px;
-}
-
-ul.secondary-highlight {
-    list-style-type: none;
-    margin: 0 auto;
-    display: inline-block;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-
-
-}
-ul.primary-highlight li {
-    float: left;
-    display: inline-block;
-
-}
-
-ul.secondary-highlight li {
-    float: left;
-    display: inline-block;
-
-}
 
 /* Small course block */
 
