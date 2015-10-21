@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 from student.tests.factories import UserFactory
 
-from fun.tests.utils import skipUnlessLms, ROOT_PAGE_NUM_QUERIES
+from fun.tests.utils import skipUnlessLms
 from . import factories
 
 
@@ -19,8 +19,7 @@ class ViewArticlesTest(TestCase):
 
     def test_empty_article_list(self):
         url = reverse("newsfeed-landing")
-        with self.assertNumQueries(ROOT_PAGE_NUM_QUERIES):
-            self.client.get(url)
+        self.client.get(url)
 
     def test_article_list(self):
         published_article = factories.ArticleFactory.create(published=True)
@@ -57,15 +56,13 @@ class ViewArticlesTest(TestCase):
 
     def test_preview_landing(self):
         self.create_user_and_login(True)
-        article = factories.ArticleFactory.create(published=False)
+        article = factories.ArticleFactory.create(published=False, title="Unpublished article")
         featured_section = factories.FeaturedSectionFactory.create(article=article)
         url = reverse('newsfeed-landing-preview', kwargs={'slug': article.slug})
         response = self.client.get(url)
 
         self.assertTrue(str(article.slug) in response.content)
-        self.assertTrue("\"top-article\"" in response.content)
         self.assertTrue(str(featured_section.title) in response.content)
-        self.assertFalse("\"featured-article\"" in response.content)
 
     def test_admin_upload_url(self):
         upload_url = reverse('news-ckeditor-upload')

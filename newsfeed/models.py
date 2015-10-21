@@ -66,6 +66,14 @@ class FeaturedSection(SingletonModel):
         verbose_name = _("Featured Section")
         verbose_name_plural = _("Featured Section")
 
+    @property
+    def displayed_title(self):
+        """Title to display
+
+        Will fallback to the article title if the model title is not defined.
+        """
+        return self.title or self.article.title
+
 
 class ArticleCategory(models.Model):
     name = models.CharField(_('name'), max_length=255)

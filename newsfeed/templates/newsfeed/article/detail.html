@@ -25,21 +25,17 @@ newsfeed = Article.objects.all()
 <%block name="title">${article.title}</%block>
 
 
-
 <%block name="content">
 
-
 <%
+    # TODO
     facebook_link, tweet_action, email_subject = 'a', 'b', 'c'
-
 %>
 
 
 <div class="news-detail main-content">
 
-
     <div class="row">
-
         <div class="col-sm-36">
             <div class="header">
 
@@ -57,32 +53,20 @@ newsfeed = Article.objects.all()
                 <img src="/media/${article.get_thumbnail('very-big')}" class="img-responsive">
             </div>
         </div>
-
-
     </div>
 
-
     <div class="row">
-
         <div class="col-lg-21 col-sm-26 no-gutter-right">
             <div class="left">
-
                 <div class="lead-paragraph">
                     ${article.get_lead_paragraph()}
                 </div>
 
-
                 <div class="description">
-
                     ${article.text}
-
                 </div>
-
-
             </div>
         </div>
-
-
 
         <div class="col-lg-15 col-sm-10 no-gutter-left no-padding">
             <div class="right">

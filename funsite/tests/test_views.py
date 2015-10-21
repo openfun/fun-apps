@@ -3,7 +3,7 @@ import random
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from fun.tests.utils import skipUnlessLms, ROOT_PAGE_NUM_QUERIES
+from fun.tests.utils import skipUnlessLms
 import newsfeed.tests.factories as newsfactories
 
 
@@ -17,14 +17,12 @@ class TestHomepage(TestCase):
         return self.client.get(reverse("root"))
 
     def test_no_course(self):
-        with self.assertNumQueries(ROOT_PAGE_NUM_QUERIES):
-            self.get_root_page()
+        self.get_root_page()
 
-    def test_news_do_not_require_additional_queries(self):
+    def test_with_news(self):
         category = newsfactories.ArticleCategoryFactory.create()
         newsfactories.ArticleFactory.create(category=category)
         newsfactories.ArticleFactory.create(category=category)
         newsfactories.ArticleFactory.create(category=category)
 
-        with self.assertNumQueries(ROOT_PAGE_NUM_QUERIES):
-            self.get_root_page()
+        self.get_root_page()
