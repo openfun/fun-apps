@@ -126,7 +126,7 @@ news = Article.objects.all()[:3]
 
     <div class="row">
         <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="${reverse('fun-courses-index')}">${ _(u"All courses") }</a></span>
+            <span class="all-items-button"><a href="${reverse('fun-courses-index')}">${_(u"All courses")}</a></span>
         </div>
     </div>
 
@@ -136,7 +136,7 @@ news = Article.objects.all()[:3]
 <div class="universities">
     <div class="row ">
         <div class="col-lg-36 big-title text-center">
-            <h2 class="big-margin">${ _(u"Institutions") }</h2>
+            <h2 class="big-margin">${_(u"Institutions")}</h2>
         </div>
     </div>
 
@@ -153,11 +153,11 @@ news = Article.objects.all()[:3]
                 % else:
                     <li>
                 % endif
-                    <a href="${university.get_absolute_url()}">
-                        <div class="university-logo center-block">
-                            <img src="${university.get_logo_thumbnail()}" alt="${ university.name }" title="${ university.name }">
-                        </div>
-                    </a>
+                        <a href="${university.get_absolute_url()}">
+                            <div class="university-logo center-block">
+                                <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}">
+                            </div>
+                        </a>
                     </li>
             % endfor
             </ul>
@@ -167,7 +167,7 @@ news = Article.objects.all()[:3]
 
     <div class="row">
         <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="${ reverse('universities-landing') }">${ _(u"All institutions") }</a></span>
+            <span class="all-items-button"><a href="${reverse('universities-landing')}">${_(u"All institutions")}</a></span>
         </div>
     </div>
 
@@ -177,36 +177,31 @@ news = Article.objects.all()[:3]
 <div class="fun-news background">
     <div class="row">
         <div class="col-lg-36 big-title text-center">
-            <h2 class="white big-margin">${ _(u"The news") }</h2>
+            <h2 class="white big-margin">${_(u"The news")}</h2>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-18 text-center">
-
             % if len(news) > 0:
-            ${newsfeed.news_block(news[0], 'primary', 'home')}
+                ${newsfeed.news_block(news[0], news[0].title, 'primary', 'home')}
             % endif
-
         </div>
 
         <div class="col-sm-18 text-center">
-
             % if len(news) > 1:
-            ${newsfeed.news_block(news[1], 'secondary', 'home')}
+                ${newsfeed.news_block(news[1], news[1].title, 'secondary', 'home')}
             % endif
 
             % if len(news) > 2:
-            ${newsfeed.news_block(news[2], 'secondary', 'home')}
+                ${newsfeed.news_block(news[2], news[2].title, 'secondary', 'home')}
             % endif
-
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-lg-36 text-center">
-            <span class="all-items-button"><a href="${reverse('newsfeed-landing')}">${ _(u"All news") }</a></span>
+            <span class="all-items-button"><a href="${reverse('newsfeed-landing')}">${_(u"All news")}</a></span>
         </div>
     </div>
 </div>
@@ -242,7 +237,7 @@ news = Article.objects.all()[:3]
 
 <div class="row">
     <div class="col-lg-36 text-center">
-        <span class="all-items-button"><a href="${reverse('fun-courses-index')}">${ _(u"All courses") }</a></span>
+        <span class="all-items-button"><a href="${reverse('fun-courses-index')}">${_(u"All courses")}</a></span>
     </div>
 </div>
 

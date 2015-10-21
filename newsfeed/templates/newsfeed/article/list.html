@@ -7,20 +7,15 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import truncatechars
 
 from staticfiles.storage import staticfiles_storage
-
-from newsfeed.models import Article
-
-newsfeed = Article.objects.all()
-
 %>
 
 <%inherit file="/funsite/parts/base.html" />
 
-<%def name="news_block(article, size, classes='')">
+<%def name="news_block(article, title, size, classes='')">
     <article class="${size} ${classes}">
         <img src="/media/${article.get_thumbnail(size)}">
         <div>
-            <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${article.title}</a></h3>
+            <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${title}</a></h3>
             <p>
                 ${article.get_lead_paragraph()}
             </p>
@@ -51,40 +46,34 @@ newsfeed = Article.objects.all()
 </h1>
 
 <div class="fun-news">
-
-## featured news (only one, displayed regarding resolution)
-
-    % if len(newsfeed) > 0:
+    ## featured news (only one, displayed regarding resolution)
+    % if featured_section and featured_section.article:
     <div class="row hidden-960">
         <div class="col-md-36">
-            ${news_block(newsfeed[0], 'big')}
+            ${news_block(featured_section.article, featured_section.displayed_title, 'big')}
         </div>
     </div>
 
     <div class="row hidden-1280 hidden-1900 visible-960">
         <div class="col-sm-36">
-            ${news_block(newsfeed[0], 'primary')}
+            ${news_block(featured_section.article, featured_section.displayed_title, 'primary')}
         </div>
     </div>
     % endif
 
-
-## chronologically displayed news (on 2 columns)
+    ## chronologically displayed news (on 2 columns)
     <div class="row">
         <div class="col-sm-36 col-md-18 no-padding">
-            % for article in newsfeed[1:12:2]:
-                ${news_block(article, 'secondary', 'left')}
+            % for article in articles[0:12:2]:
+                ${news_block(article, article.title, 'secondary', 'left')}
             % endfor
         </div>
         <div class="col-sm-36 col-md-18 no-padding">
-            % for article in newsfeed[2:12:2]:
-                ${news_block(article, 'secondary', 'right')}
+            % for article in articles[1:12:2]:
+                ${news_block(article, article.title, 'secondary', 'right')}
             % endfor
         </div>
     </div>
-
-
-
 </div>
 
 
