@@ -91,18 +91,44 @@ require(["jquery", "underscore", "backbone"],
 
         var AppRouter = Backbone.Router.extend({
             routes: {
-                "filter/:name/:slug": "filterByCriterion",
+                "": "emptyFilter",
+                "filter(/:name/:slug)(/page/:page)(?rpp=:rpp)": "filter",
             },
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
                 this.filter = options.filter;
+                this.listenTo(this.filter, 'change', this.updateUrl);
             },
-            filterByCriterion: function(name, slug) {
-                var criterion = this.criterioncollection.findWhere({'name': name});
-                var value = criterion.getValue(slug);
-                this.filter.set('selected', value);
-                if ((!criterion) || (!value)) {
-                    Backbone.history.navigate('', {trigger: false});
+            updateUrl: function() {
+                var url = "filter";
+                var selected = this.filter.get("selected");
+                var page = this.filter.get("currentPage");
+                if (selected) {
+                    url += '/' + selected.criterionName() +
+                           '/' + selected.get('value');
+                }
+                if (page && page != "1") {
+                    url += "/page/" + page;
+                }
+                if (this.filter.get("resultsPerPage")) {
+                    url += "?rpp=" + this.filter.get("resultsPerPage");
+                }
+                this.navigate(url, {trigger: false});
+            },
+            emptyFilter: function() {
+                this.filter.trigger("initialized")
+            },
+            filter: function(name, slug, rpp, page) {
+                if (name) {
+                    var criterion = this.criterioncollection.findWhere({'name': name});
+                    var value = criterion.getValue(slug);
+                    this.filter.set('selected', value);
+                }
+                if (rpp) {
+                    this.filter.set("resultsPerPage", parseInt(rpp));
+                }
+                if (page) {
+                    this.filter.set("currentPage", parseInt(page));
                 }
             },
         });
@@ -168,10 +194,6 @@ require(["jquery", "underscore", "backbone"],
                 // so this event will be triggered for both display
                 this.collection.criterion.collection.trigger('criterionSelected', value)
                 $('.hide-on-escape-key').hide();
-                Backbone.history.navigate('filter' +
-                        '/' + value.criterionName() +
-                        '/' + value.get('value'), {trigger: false});
-
             },
             addOne: function(item) {
                 if (this.count < this.max) {
@@ -310,7 +332,6 @@ require(["jquery", "underscore", "backbone"],
             template: loadTemplate("filter"),
             clearSelectedValue: function() {
                 this.model.startNewSearch(null);
-                Backbone.history.navigate('', {trigger: false});
             },
             changeResultsPerPage: function(e) {
                 var resultsPerPage = parseInt(e.target.selectedOptions[0].value);
@@ -409,8 +430,7 @@ require(["jquery", "underscore", "backbone"],
                     resultstats: resultstats,
                 });
                 this.listenTo(this.filter, 'change', this.refreshCourses);
-
-
+                this.listenTo(this.filter, 'initialized', this.refreshCourses);
 
                 var approuter = new AppRouter({
                     criterioncollection: criterioncollection,
@@ -425,10 +445,7 @@ require(["jquery", "underscore", "backbone"],
                 });
                 this.listenTo(this.coursecollection, 'sync', this.courseCollectionSynced)
 
-                this.refreshCourses();
-
-
-
+                Backbone.history.start();
             },
             criterionSelected: function(value) {
                 this.filter.startNewSearch(value);
@@ -445,17 +462,12 @@ require(["jquery", "underscore", "backbone"],
             courseCollectionSynced: function(){
                 this.coursecollectionview.render()
             }
-
-
         });
 
         var App = new AppView({
             el: $('#course-search'),
             filters: filters
         });
-
-        Backbone.history.start();
-
     });
 
 
