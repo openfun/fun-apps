@@ -12,7 +12,7 @@ from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
 universities = University.objects.random_featured(18)
-featured_courses = Course.objects.random_featured(9)
+featured_courses = Course.objects.random_featured(10)
 news = top_news()[:3]
 %>
 
@@ -104,24 +104,22 @@ news = top_news()[:3]
         <div class="row">
             ${include_small_course_block(featured_courses, 3, "hidden-lg col-md-9")}
 
-            ${include_small_course_block(featured_courses, 4, "col-md-9")}
-            ${include_small_course_block(featured_courses, 5, "col-md-9")}
-            ${include_small_course_block(featured_courses, 6, "col-md-9")}
+            ${include_small_course_block(featured_courses, 4, "col-lg-6 col-md-9")}
+            ${include_small_course_block(featured_courses, 5, "col-lg-6 col-md-9")}
+            ${include_small_course_block(featured_courses, 6, "col-lg-6 col-md-9")}
 
-            ${include_small_course_block(featured_courses, 7, "visible-lg col-md-9")}
+            ${include_small_course_block(featured_courses, 7, "visible-lg col-lg-6")}
+            ${include_small_course_block(featured_courses, 8, "visible-lg col-lg-6")}
+            ${include_small_course_block(featured_courses, 9, "visible-lg col-lg-6")}
         </div>
     </div>
 
     <div class="visible-xs">
+        % for i in range(0, 3):
         <div class="row">
-            ${include_small_course_block(featured_courses, 0, "col-sm-36")}
+            ${include_small_course_block(featured_courses, i, "col-xs-36")}
         </div>
-        <div class="row">
-            ${include_small_course_block(featured_courses, 1, "col-sm-36")}
-        </div>
-        <div class="row">
-            ${include_small_course_block(featured_courses, 2, "col-sm-36")}
-        </div>
+        % endfor
     </div>
 
     <div class="row">
