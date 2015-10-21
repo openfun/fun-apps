@@ -93,7 +93,7 @@ news = top_news()[:3]
         ${include_course_block("small", featured_courses, index, classes)}
     </%def>
 
-    <div class="hidden-xs">
+    <div class="hidden-xs hidden-sm">
         <div class="row">
             ${include_big_course_block(featured_courses, 0, "col-lg-9 col-md-12")}
             ${include_big_course_block(featured_courses, 1, "col-lg-9 col-md-12")}
@@ -111,6 +111,14 @@ news = top_news()[:3]
             ${include_small_course_block(featured_courses, 7, "visible-lg col-lg-6")}
             ${include_small_course_block(featured_courses, 8, "visible-lg col-lg-6")}
             ${include_small_course_block(featured_courses, 9, "visible-lg col-lg-6")}
+        </div>
+    </div>
+
+    <div class="visible-sm">
+        <div class="row">
+            % for i in range(0, 6):
+                ${include_small_course_block(featured_courses, i, "col-sm-18")}
+            % endfor
         </div>
     </div>
 
