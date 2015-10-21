@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 6\n"
+"Project-Id-Version: France Université Numérique 7\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-06 17:16+0200\n"
-"PO-Revision-Date: 2015-10-06 17:16+0000\n"
+"POT-Creation-Date: 2015-10-21 12:03+0200\n"
+"PO-Revision-Date: 2015-10-21 12:03+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -37,10 +37,6 @@ msgstr "Affiché dans le panneau latéral où l'espace est réduit."
 msgid "Enables the university detail page."
 msgstr "Active la page de detail de l'établissement."
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:9
-msgid "Institutions"
-msgstr "Établissements"
-
 #: /edx/app/edxapp/fun-apps/universities/models.py:24
 msgid "Logo to be displayed on the certificate document."
 msgstr "Logo à afficher sur le certificat"
@@ -49,7 +45,7 @@ msgstr "Logo à afficher sur le certificat"
 msgid "Obsolete universities are not displayed on the site."
 msgstr "Les établissements obsolètes ne sont pas affichés sur le site."
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:28
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:23
 msgid "Offer courses and trainings on {platform_name}"
 msgstr "Proposent des cours variés sur {platform_name}"
 
@@ -57,12 +53,17 @@ msgstr "Proposent des cours variés sur {platform_name}"
 msgid "Only used if detail page is enabled"
 msgstr "Utilisé seulement quand la page de détail est activée"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:27
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:22
 msgid "The universities and schools"
 msgstr "Les universités et écoles françaises"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:46
 msgctxt "University model"
+msgid "Universities"
+msgstr "Universités"
+
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:9
+#, fuzzy
 msgid "Universities"
 msgstr "Universités"
 
@@ -106,7 +107,7 @@ msgstr "score"
 msgid "short name"
 msgstr "nom court"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:31
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:26
 msgid ""
 "{platform_name}'s goal is to allow universities and schools to publish "
 "their courses online. The list of institutions proposing courses on "
@@ -117,4 +118,3 @@ msgstr ""
 "plateforme {platform_name}. Ces universités et écoles sont de plus en "
 "plus nombreuses à proposer une ou plusieurs formations sur "
 "{platform_name}. Les voici ci-dessous :"
-
