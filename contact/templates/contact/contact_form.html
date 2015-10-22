@@ -8,6 +8,7 @@ from django.template.defaultfilters import striptags
 
 <%block name="title">${_("Contact")}</%block>
 
+<%block name="content">
 <section class="contact container">
 
   <section role="main" class="content">
@@ -111,3 +112,4 @@ from django.template.defaultfilters import striptags
     </form>
   </section>
 </section>
+</%block>
