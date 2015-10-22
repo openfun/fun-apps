@@ -1,45 +1,54 @@
 ## mako
+
+<%page args="base_application"/>
+
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
 %>
-<nav id="top-menu" class="navbar navbar-default navbar-fixed-top light-shadow">
-    <div class="container-fluid">
 
-        <div class="row ">
+<%doc>
+    This file (menu.html) is included in two different templates:
+      - From fun-apps/funsite/templates/funsite/parts/base.html
+        base.html includes boostrap lib
+      - From edx-platform/lms/templates/main.html
+        Boostrap can't be included here because there are too many conflicts
+        with edx css classes.
 
-            <div class="col-xs-24">
-                <div class="pull-left">
-                    <span id="sandwich-menu"></span>
-                    <a href="${reverse('root')}">
-                        <img class="logo" src="${staticfiles_storage.url('funsite/images/logos/fun61.png')}" alt="Logo FUN">
-                    </a>
-                    <span class="slogan">${_(u"Let's learn, get trained and succeed!")}</span>
-                </div>
-            </div>
+    This is why unfortunately we can't use boostrap classes.
+</%doc>
 
+<%include file="sandwich-overlay.html" />
 
-            <div class="col-xs-12">
+<nav id="top-menu" class="light-shadow">
+    <div class="left-nav">
+        <span id="sandwich-menu"></span>
+        <a href="${reverse('root')}">
+            <img class="logo" src="${staticfiles_storage.url('funsite/images/logos/fun61.png')}" alt="Logo FUN">
+        </a>
+        <span class="slogan">${_(u"Let's learn, get trained and succeed!")}</span>
 
-                %if request.user.is_authenticated():
-                    <a href="${reverse('dashboard')}">
-                        <div class="pull-right login connected">
-                            <span>${request.user.profile.name}</span>
-                        </div>
-                    </a>
-                %else:
-                    <div class="pull-right login not-connected">
-                        <span>${_(u"Login")}</span>
-                    </div>
-                %endif
-
-                <%include file="login-overlay.html" />
-
-            </div>
-
-
-
-        </div>
     </div>
+    <div class="right-nav">
+        % if request.user.is_authenticated():
+            <a class="nav-link-block dashboard-user-link" href="${reverse('dashboard')}">
+                <img class="user-icon" src="${staticfiles_storage.url('funsite/images/icones/user.png')}" alt="User icon"><span class="username">${request.user.profile.name}</span>
+            </a>
+            <a href="#" class="nav-link-block toggle-dropdown-menu" aria-haspopup="true">
+                <span class="vertical-arrow">▾</span>
+            </a>
+            <ul class="fun-dropdown-menu hide-on-escape-key" aria-label="More Options" role="menu">
+                <li><a href="${reverse('account_settings')}">${_("Account Settings")}</a></li>
+                <li><a href="${reverse('learner_profile', kwargs={'username': request.user.profile.name})}">${_("My Profile")}</a></li>
+                <li><a href="${reverse('logout')}">${_("Sign Out")}</a></li>
+            </ul>
+        % else:
+            <a class="nav-link-block login-link" href="${'#' if base_application == 'funsite' else reverse('signin_user')}"> ${_(u"Login")}</a>
+        % endif
+    </div>
+
+    % if base_application == 'funsite':
+        <%include file="login-overlay.html" />
+    % endif
 </nav>

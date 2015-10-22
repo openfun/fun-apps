@@ -18,9 +18,8 @@ from staticfiles.storage import staticfiles_storage
 
     <link href="${staticfiles_storage.url('funsite/bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
     <link rel="stylesheet" href="${staticfiles_storage.url('funsite/owl.carousel/assets/owl.carousel.css')}">
-
+    <link href="${staticfiles_storage.url('funsite/css/header.css')}" rel="stylesheet">
     <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
-
     <%block name="css_extra" />
 
     <title>FUN - <%block name="title" /></title>
@@ -35,16 +34,11 @@ from staticfiles.storage import staticfiles_storage
     <![endif]-->
     <style>
     </style>
-
-</head>
+    
+  </head>
 <body>
 
-<div class="container-fluid">
-
-    <%include file="menu.html" />
-
-</div>
-
+<%include file="menu.html" args="base_application='funsite'"/>
 
 <div class="container-fluid">
 
@@ -89,9 +83,7 @@ from staticfiles.storage import staticfiles_storage
     <script type="text/javascript" src="/jsi18n/"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('js/src/utility.js')}"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/fun.js')}"></script>
-    <%block name="js_extra" />
-
-
-
+    <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/header.js')}"></script>
+    <%block name="js_extra"/>
   </body>
 </html>

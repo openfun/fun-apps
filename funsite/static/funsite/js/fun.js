@@ -19,15 +19,8 @@
         $(this).closest('.overlay').hide()
     });
 
-    /* Sandwich menu overlay */
-    $('#sandwich-menu').on('click', function(event) {
-        // change z-index of courseware elements which have it set to 'auto'
-        $('div.sequence-nav').css('z-index', 1);
-        $('nav.sequence-bottom').css('z-index', 1);
-        $('#sandwich-overlay').show();
-    });
     /* Login overlay */
-    $('#top-menu .login.not-connected').on('click', function(event) {
+    $('#top-menu .right-nav .login-link').on('click', function(event) {
         $('#login-overlay').toggle();
         if ($('#login-overlay').is(':visible')) {
             $('#login-overlay input[name="email"]').focus();
