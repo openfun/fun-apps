@@ -1,30 +1,14 @@
 ## mako
 <%!
-import random
-
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-from django.db import models
 
-from courseware.courses import course_image_url, get_course_about_section
-
-from courses.models import CourseSubject, Course
 from courses.routers import CourseAPIRouter
-from universities.models import University
-
-course_subjects_by_score = CourseSubject.objects.by_score()
-#course_subjects_by_name = CourseSubject.objects.by_name()
-universities_by_score = University.objects.by_score()
-
-#universities_by_name = University.objects.by_name()
-courses_count_start_soon = Course.objects.start_soon().count()
-courses_count_end_soon = Course.objects.end_soon().count()
 %>
 
 <%inherit file="/funsite/parts/base.html" />
 
 <%block name="title">${_("Courses")}</%block>
-
 
 <%block name="js_extra">
 
@@ -60,19 +44,17 @@ require(["jquery", "underscore", "backbone"],
 
         var filters = [
             {title: '${_("Availability")}', name: 'availability', type: 'select', values: [
-            //    {value: 'new', title: "Nouveau", count: 12},
                 {value: 'end-soon', title: "Fin d'inscription imminente", count: ${ courses_count_end_soon }},
                 {value: 'start-soon', title: "Démarre bientôt", count: ${courses_count_start_soon }},
-             //   {value: 'demand', title: "A la demande", count: 12},
             ]},
             {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
-                %for course_subject in course_subjects_by_score:
-                {value: "${ course_subject.slug }", title: "${ course_subject.get_short_name() }", count: ${ course_subject.courses.public().count() }},
+                %for course_subject in course_subjects:
+                {value: "${ course_subject.slug }", title: "${ course_subject.get_short_name() }", count: ${course_subject.public_courses_count}},
                 %endfor
             ]},
             {title: '${_("Universities")}', name: 'university', type: 'select', max: 10, all_button: "Tous les établissements", overlay: '#all-universities-overlay', values: [
-                %for university in universities_by_score:
-                {value: "${ university.code }", title: "${ university.get_short_name() }", count: ${ university.courses.public().count() }},
+                %for university in universities:
+                {value: "${ university.code }", title: "${ university.get_short_name() }", count: ${university.public_courses_count}},
                 %endfor
             ]},
             /*
