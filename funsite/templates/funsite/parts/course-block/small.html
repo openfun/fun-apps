@@ -23,7 +23,7 @@ from util.date_utils import strftime_localized
             ${ course.title }
         </div>
         <div class="universities">
-                <span>${ course.university_name }</span>
+            <span>${ course.university_name }</span>
         </div>
     </div>
     <div class="bottom">
@@ -38,9 +38,7 @@ from util.date_utils import strftime_localized
             </div>
 
             <a href="${course.get_absolute_url()}">
-                <div class="register col-sm-16">
-                    ${_(u"Register")}
-                </div>
+                <div class="register col-sm-16">${_(u"Register")}</div>
             </a>
         </div>
     </div>
