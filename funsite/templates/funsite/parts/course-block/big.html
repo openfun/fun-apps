@@ -31,14 +31,15 @@ from util.date_utils import strftime_localized
         <div class="footer row">
             <div class="date col-sm-22">
                 ${pgettext('course-block', u"Starts")}
+
                 % if course.start_date:
                     ${ strftime_localized(course.start_date, 'SHORT_DATE')}
                 % endif
             </div>
 
-            <a href="${course.get_absolute_url()}"><div class="register col-sm-14">
-                ${_(u"Register")}
-            </div></a>
+            <a href="${course.get_absolute_url()}">
+                <div class="register col-sm-14">${_(u"Register")}</div>
+            </a>
         </div>
     </div>
 </div>
