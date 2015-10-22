@@ -1,15 +1,7 @@
-
 /** Site wide CSS **/
 
 body {
     background-color: #edeeef
-}
-
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Raleway'), url(../fonts/Raleway.ttf) format('truetype');
 }
 
 .main-width {
@@ -25,13 +17,6 @@ body {
 
 .drop-down {
     margin-top: 60px;  /* top-menu's height */
-}
-
-#top-menu {
-    width: inherit;
-    margin: auto;
-    background-color: white;
-    height: 60px;
 }
 
 .light-shadow {
@@ -113,34 +98,7 @@ a.no-decoration:visited {
     color:red;
 }
 
-/* Sandwich menu */
-
-#top-menu img.logo {
-    vertical-align: top;
-    margin-left: 20px;
-    margin-right: 16px
-}
-#top-menu span.slogan {
-    font-size: 17px;
-    font-weight: 600;
-    color: #3877BC;
-    display: inline-block;
-}
-
-
-#top-menu .login {
-    color: white;
-    background: #F72C30 url('../images/icones/user.png') 14px 14px no-repeat;
-    height: 60px;
-    width: 170px;
-    cursor: pointer;
-    padding-top: 20px;
-    padding-left: 60px;
-}
-#top-menu .login>a,#top-menu .login>a:hover,#top-menu .login>a:visited {
-    text-decoration: none;
-    color: white;
-}
+/* Login overlay */
 
 #login-overlay {
     margin-left: 5px;
@@ -197,9 +155,6 @@ a.no-decoration:visited {
     margin-top: 6px;
 }
 
-.borderme {
-    border : solid #364C62 1px;;
-}
 #login-overlay input {
     width: 234px;
     margin-top: 12px;
@@ -219,65 +174,8 @@ a.no-decoration:visited {
     border-color: #F72B2F;
 }
 
-
-#sandwich-menu {
-    display: inline-block;
-    width: 40px;
-    height: 36px;
-    background: url('../images/icones/sandwich.png') 14px 14px no-repeat;
-    cursor: pointer;
-}
-
-.close-overlay {
-    color: white;
-    margin-left: 20px;
-    margin-top: 20px;
-    font-size: 30px;
-    cursor: pointer;
-}
-.close-overlay.blue {
-    margin-top: 4px;
-    color: #0C3D72;
-    font-size: 16px;
-}
-
-#sandwich-overlay {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: none;
-    background-color: #3D79BE;
-    z-index: 2000;
-}
-#sandwich-overlay ul {
-    list-style-type: none;
-    margin-top: 7%;
-    margin-bottom: 7%;
-    text-align: center;
-}
-#sandwich-overlay li {
-    font-size: 2.5em;
-    margin-bottom: 0.8em;
-}
-#sandwich-overlay li a:hover {
-    text-decoration: none;
-    color: #fff;
-    text-shadow: -1px 1px 8px #57A1E7, 1px -1px 8px #57A1E7; /* light blue glow */
-
-}
-#sandwich-overlay li a.selected {
-    border: 1px solid white;
-    padding: 16px;
-}
-#sandwich-overlay li a {
-    color: white;
-    text-decoration: none;
-}
-
-
-
 /* Page footer */
+
 .fun-footer {
     background-color: #08223C;
 }
@@ -319,6 +217,7 @@ ul.footer-links li a {
 
 
 /* Big title */
+
 h1.big-title {
     font-style: normal;
     font-weight: 600;
@@ -337,7 +236,6 @@ h3.big-title {
     font-size: 30px;
     color: #2B2B2B;
 }
-
 
 .line span {
     display: inline-block;
@@ -599,16 +497,6 @@ h3.big-title {
     .homepage-header img.logo-fun {
         width: 98px;
         height: 90px;
-    }
-
-    #top-menu .login {
-        width: 60px;
-    }
-    #top-menu .login>span {
-        display: none;
-    }
-    #top-menu span.slogan {
-        display: none;
     }
     .footer-links.right {
         padding-left: 40px;
@@ -1671,77 +1559,6 @@ div.article {
 }
 
 
-/* Courseware header customization */
-
-header.global {
-    padding-top: 0 !important;
-    height: 60px;
-    border-bottom-color: #CBCCCD;
-}
-header.global nav {
-    padding-top: 0 !important;
-}
-
-header.global .user {
-    margin-top: 0 !important;
-    padding-left: 36px;
-    background: #F72C30 url('../images/icones/user.png') 14px 14px no-repeat;
-    color: white;
-    height: 60px;
-    min-width: 170px;
-}
-header.global .user>.primary {
-    margin-top: 14px;
-}
-header.global .primary>a {
-    color: white;
-    text-shadow: none;
-    font-weight: 400 !important;
-}
-header.global .user a.user-link, header.global .user a.dropdown {
-    border: none;
-    box-shadow: none;
-}
-header.global .user a.user-link i.icon.fa-home {
-    display: none;
-}
-header.global h1.logo img {
-    height: 36px;
-    margin-top: 10px;
-}
-header.global .nav-global {
-    margin-top: 18px;
-}
-
-/* Slim header */
-header.global.slim .user {
-    height: 50px;
-}
-header.global.slim .user>.primary {
-    margin-top: 10px;
-}
-
-header.global .primary>a:hover, header.global .primary>a:focus, header.global .primary>a:active {
-    background: none;
-}
-header.global .user .dropdown-menu {
-    left: -130px;
-    min-width: 200px;
-}
-
-header.global.slim h1.logo img {
-    height: 36px !important;
-    margin-top: 5px !important;
-}
-
-header.global.slim h1.logo:before {
-    background: none !important;
-}
-header.global.slim h2 {
-    padding-top: 9px !important;
-}
-
-
 .course-list-table {
     display: table;
 }
@@ -1762,7 +1579,6 @@ header.global.slim h2 {
 
 /* Register page */
 .register-page {
-
 }
 
 .register-page .big-title {
