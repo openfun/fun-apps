@@ -17,8 +17,8 @@ class UniversityQuerySet(models.query.QuerySet):
         queryset = queryset.annotate(courses_count=models.Count('courses'))
         return queryset
 
-    def by_score(self):
-        return self.active().with_related().order_by('-score', 'name')
+    def active_by_score(self):
+        return self.active().order_by('-score', 'name')
 
     def by_name(self):
         return self.active().with_related().order_by('name')
@@ -31,7 +31,7 @@ class UniversityManager(ChainableManager):
     queryset_class = UniversityQuerySet
 
     def random_featured(self, limit_to=7):
-        universities = self.by_score()[:limit_to]
+        universities = self.active_by_score().with_related()[:limit_to]
         universities = list(universities)
         random.shuffle(universities)
         return universities

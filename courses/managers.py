@@ -9,18 +9,21 @@ from fun.utils.managers import ChainableManager
 from . import settings as courses_settings
 
 
+def annotate_with_public_courses(queryset):
+    """Annotate a querysets with a public_courses_count attribute.
+
+    queryset: refer to a model with a `courses` attribute.
+    """
+    return queryset.filter(
+        courses__is_active=True,
+        courses__show_in_catalog=True
+    ).annotate(public_courses_count=models.Count('courses'))
+
+
 class CourseSubjectManager(models.Manager):
 
-    def with_related(self):
-        queryset = self.prefetch_related('courses')
-        queryset = queryset.annotate(courses_count=models.Count('courses'))
-        return queryset
-
     def by_score(self):
-        return self.with_related().order_by('-score')
-
-    def by_name(self):
-        return self.with_related().order_by('name')
+        return self.order_by('-score')
 
     def featured(self):
         return self.filter(featured=True)
@@ -56,7 +59,7 @@ class CourseManager(ChainableManager):
     queryset_class = CourseQuerySet
 
     def random_featured(self, limit_to=7):
-        courses = self.by_score()[:limit_to]
+        courses = self.by_score().prefetch_related("related_universities__university")[:limit_to]
         courses = list(courses)
         random.shuffle(courses)
         return courses

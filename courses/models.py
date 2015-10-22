@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
-
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -73,13 +71,6 @@ class Course(models.Model):
     def get_absolute_url(self):
         return reverse('about_course', args=[self.key])
 
-    @staticmethod
-    def random_featured(limit_to=7):
-        courses = Course.objects.by_score()[:limit_to]
-        courses = list(courses)
-        random.shuffle(courses)
-        return courses
-
     def get_thumbnail_url(self, thumbnail_alias):
         url = ''
         try:
@@ -91,7 +82,7 @@ class Course(models.Model):
     @property
     def first_university(self):
         try:
-            first = self.related_universities.order_by('order')[0].university
+            first = self.related_universities.all()[0].university
         except IndexError:
             first = None
         return first
