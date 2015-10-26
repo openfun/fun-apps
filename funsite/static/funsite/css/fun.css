@@ -877,6 +877,10 @@ div.page-image.home-page img.logo-fun {
 
 
 /* FUN home page funsite/index.html */
+/*
+ * TODO is that really necessary? can we get rid of all properties that concern
+ * .universities?
+ * */
 .universities {
     background-color: white;
 }
