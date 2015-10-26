@@ -1,39 +1,40 @@
 ##mako
-
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
 %>
 
-<%inherit file="funsite/parts/base.html" />
+<%inherit file="funsite/parts/simple-content.html" />
 
 <%block name="title">
-    ${_("Log into your {platform_name} Account").format(platform_name=platform_name)}
+    ${_("Log in to your {platform_name} account").format(platform_name=platform_name)}
 </%block>
 
-<%block name="content">
-    <div class="login-row">
-        <h4>${_("Please log in to access your account and courses")}</h4>
-        <form role="form" class="login-form login-form-page" method="post" data-remote="true" action="/login_ajax" novalidate>
-            <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/></div>
-            <div class="error-login-page"></div>
-            <div class="form-group">
-                <label  for="email">${_('E-mail')}</label>
-                <input class="form-control" id="email"  name="email" type="text" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" >
-                <p class="help-block" >${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</p>
-            </div>
-            <div class="form-group">
-                <label  for="password">${_('Password')}</label>
-                <input class="form-control  id="password" name="password" type="password" placeholder="${_(u"Password")}">
-                <div class="forgotten-password"><a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" >${_(u"Forgot password?")}</a></div>
-            </div>
-            <button name="submit" type="submit" id="submit" class="all-items-button blue" aria-disabled="false">${_('Log into My {platform_name} Account').format(platform_name=platform_name)}</button>
-        </form>
+<%block name="page_content">
+<div class="login-row single-column">
+    <h2>${_("Please log in to access your account and courses")}</h2>
+    <form role="form" class="login-form login-form-page" method="post" data-remote="true" action="/login_ajax" novalidate>
+        <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/></div>
+        <div class="error-login-page"></div>
+        <div class="form-group">
+            <label  for="email">${_('E-mail')}</label>
+            <input class="form-control" id="email"  name="email" type="text" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" >
+            <p class="help-block" >${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</p>
+        </div>
+        <div class="form-group">
+            <label  for="password">${_('Password')}</label>
+            <input class="form-control  id="password" name="password" type="password" placeholder="${_(u"Password")}">
+            <div class="forgotten-password clickable"><a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" >${_(u"Forgot password?")}</a></div>
+        </div>
+        <button name="submit" type="submit" id="submit" class="btn btn-lg btn-primary btn-block" aria-disabled="false">${_('Log In')}</button>
+    </form>
 
-        <h4>${_("Don't have an account?")}</h4>
-        <a href="${reverse('register_user')}" class="btn btn-default btn-lg btn-block" role="button">
-            ${_("Sign up for {platform_name} today!").format(platform_name=settings.PLATFORM_NAME)}
-        </a>
-    </div>
+    <br>
+
+    <p class="text-center">${_("Don't have an account?")}</p>
+    <a href="${reverse('register_user')}" class="btn btn-default btn-lg btn-block" role="button">
+        ${_("Sign up for {platform_name} today!").format(platform_name=settings.PLATFORM_NAME)}
+    </a>
+</div>
 </%block>

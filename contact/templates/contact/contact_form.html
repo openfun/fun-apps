@@ -5,44 +5,42 @@ from django.template.defaultfilters import striptags
 from django.core.urlresolvers import reverse
 %>
 
-<%inherit file="/funsite/parts/base.html" />
+<%inherit file="/funsite/parts/simple-content.html" />
 
 <%block name="title">${_("Contact")}</%block>
 
-<%block name="content">
-<div class="simple-content-page">
-    <div class="row">
-        <h2>${_('Contact us')}</h2>
-        <p>${_("Do you already follow one or several courses on {platform_name}? If you have questions, suggestions or difficulties about a course in particular? Post a comment on the related forum.").format(platform_name=settings.PLATFORM_NAME)}</p>
+<%block name="page_content">
+<div class="single-column">
+    <h2>${_('Contact us')}</h2>
+    <p>${_("Do you already follow one or several courses on {platform_name}? If you have questions, suggestions or difficulties about a course in particular? Post a comment on the related forum.").format(platform_name=settings.PLATFORM_NAME)}</p>
 
-        <p>${_("Do you have a general question about {platform_name}? Visit our <a href='{faq_link}'>FAQ</a>. If you still need help, or if you would like to provide feedback about {platform_name} (which we encourage you to do), contact us using the form below.").format(platform_name=settings.PLATFORM_NAME, faq_link=reverse('faq:index'))}</p>
+    <p>${_("Do you have a general question about {platform_name}? Visit our <a href='{faq_link}'>FAQ</a>. If you still need help, or if you would like to provide feedback about {platform_name} (which we encourage you to do), contact us using the form below.").format(platform_name=settings.PLATFORM_NAME, faq_link=reverse('faq:index'))}</p>
 
-        <form action="#contact-form" method="post" onsubmit="document.getElementById('send_button').disabled = 1;" novalidate>
-            % if form.errors:
-            <div role="alert" class="alert alert-danger status message is-shown">
-                <p><strong>${_('The following errors are preventing the message from being sent:')}</strong></p>
-                <ul>
-                    ${ form.non_field_errors() }
-                    % for field in form:
-                        % if field.errors:
-                          <li>${field.label} : ${striptags(field.errors).lower()}</li>
-                        % endif
-                    % endfor
-              </ul>
+    <form action="#contact-form" method="post" onsubmit="document.getElementById('send_button').disabled = 1;" novalidate>
+        % if form.errors:
+        <div role="alert" class="alert alert-danger status message is-shown">
+            <p><strong>${_('The following errors are preventing the message from being sent:')}</strong></p>
+            <ul>
+                ${form.non_field_errors()}
+                % for field in form:
+                    % if field.errors:
+                      <li>${field.label} : ${striptags(field.errors).lower()}</li>
+                    % endif
+                % endfor
+          </ul>
+        </div>
+        % endif
+        <div style="display:none">
+            <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}"/>
+        </div>
+        % for field in form.sorted_fields():
+        <div class="form-group ${'required' if field.field.required else ''}">
+                ${field.label_tag()}
+                ${field}
             </div>
-            % endif
-            <div style="display:none">
-                <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}"/>
-            </div>
-            % for field in form.sorted_fields():
-                <div class="form-group">
-                    ${field.label_tag()}${'*' if field.field.required else ''}
-                    ${field}
-                </div>
-            % endfor
-            <button id='send_button' name="submit" type="submit" class="btn btn-block btn-lg btn-primary">${_("Send your message")}</button>
-            <p>${_("* Mandatory field")}</p>
-        </form>
-    </div>
+        % endfor
+        <button id='send_button' name="submit" type="submit" class="btn btn-block btn-lg btn-primary">${_("Send your message")}</button>
+        <p><label class="required"></label> ${_("Mandatory field")}</p>
+    </form>
 </div>
 </%block>

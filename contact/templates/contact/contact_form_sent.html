@@ -1,16 +1,13 @@
 ## mako
 <%! from django.utils.translation import ugettext as _ %>
 
-<%inherit file="/funsite/parts/base.html" />
+<%inherit file="/funsite/parts/simple-content.html" />
 
 <%block name="title">${_("Contact")}</%block>
 
-<%block name="content">
-<div class="simple-content-page">
-    <div class="row">
-        <h1 class="valid">${_("Message sent!")}</h1>
-        
-        <p>${_("Thank you for your message. It has been successfully recorded, we will answer you as soon as possible.")}</p>
-    </div>
+<%block name="page_content">
+<div class="single-column">
+    <h2>${_("Message sent!")}</h2>
+    <p>${_("Thank you for your message. It has been successfully recorded, we will answer you as soon as possible.")}</p>
 </div>
 </%block>

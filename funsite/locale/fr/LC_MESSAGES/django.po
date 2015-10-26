@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 7\n"
+"Project-Id-Version: France Université Numérique 11\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-26 11:39+0100\n"
-"PO-Revision-Date: 2015-10-26 11:39+0000\n"
+"POT-Creation-Date: 2015-10-26 16:16+0100\n"
+"PO-Revision-Date: 2015-10-26 16:16+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -31,7 +31,7 @@ msgstr "Tous les établissements"
 msgid "All news"
 msgstr "Toutes les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:172
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:171
 msgid "Confidentiality"
 msgstr "Confidentialité"
 
@@ -39,7 +39,11 @@ msgstr "Confidentialité"
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:34
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:152
+msgid "Create my {platform_name} account"
+msgstr "Créer mon compte {platform_name}"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:35
 msgid "Don't have an account?"
 msgstr "Vous n'avez pas de compte ?"
 
@@ -65,20 +69,24 @@ msgstr "Accueil"
 msgid "Let's learn, get trained and succeed!"
 msgstr "Venez apprendre, vous former et réussir !"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:11
+msgid "Log in to your {platform_name} account"
+msgstr "Connexion à votre compte {platform_name}"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:20
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:33
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:33
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:52
 msgid "Login"
-msgstr "Se connecter"
+msgstr "Connexion"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:38
 msgid "Logout"
-msgstr "Se deconnecter"
+msgstr "Déconnexion"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:17
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:16
 msgid "Please log in to access your account and courses"
-msgstr "Veuilez vous connecter pour acceder à votre compte et à vos cours"
+msgstr "Veuillez vous connecter pour accéder à votre compte et à vos cours"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:43
 msgid "Privacy policy"
@@ -87,6 +95,10 @@ msgstr "Politique de confidentialité"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:239
 msgid "Registration closed"
 msgstr "Inscription close"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:48
+msgid "Sign up to {platform_name}"
+msgstr "Inscription à {platform_name}"
 
 # Translated in edx by 'Commence'
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/course-block/big.html:33
