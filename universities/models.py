@@ -71,4 +71,3 @@ class University(models.Model):
             return thumbnail.url
         except InvalidImageFormatError:
             return '' # we could return a nice grey image
-

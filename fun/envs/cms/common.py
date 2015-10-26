@@ -8,6 +8,7 @@ INSTALLED_APPS += (
     'fun',
     'universities',
     'videoproviders',
+    'courses',
 
     'ckeditor',
     'adminsortable',
