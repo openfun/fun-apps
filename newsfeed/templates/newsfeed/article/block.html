@@ -7,12 +7,12 @@ from django.utils.formats import date_format
 
 <%def name="news_block(article, title, size, classes='')">
     <article class="${size} ${classes}">
-        <img src="/media/${article.get_thumbnail(size)}">
+        <a href="${reverse('newsfeed-article', args=[article.slug])}">
+            <img src="/media/${article.get_thumbnail(size)}">
+        </a>
         <div>
-            <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${title}</a></h3>
-            <p>
-                ${article.get_lead_paragraph()}
-            </p>
+            <h3><a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">${title}</a></h3>
+            <p><a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">${article.get_lead_paragraph()}</a></p>
             %if not 'home' in classes and size != 'primary':
                 <div class="footer">
                     <div class="row">

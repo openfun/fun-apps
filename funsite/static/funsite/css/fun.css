@@ -89,6 +89,11 @@ a:focus {
     text-decoration: none;
 }
 
+a.no-decoration, a.no-decoration:hover, a.no-decoration:focus, a.no-decoration:visited {
+    color: #052E4D;
+    text-decoration: none;
+}
+
 /* Forms */
 .form-group.required label:after, label.required:after {
     content:" *";
@@ -927,15 +932,6 @@ ul.universities-list {
 .fun-news-background {
     background: #2B2B2B url('../images/news-background.png') no-repeat;
 }
-.fun-news article,
-.fun-news article a,
-.fun-news article a:hover,
-.fun-news article a:focus,
-.fun-news article a:visited {
-    color: #052E4D;
-    text-decoration: none;
-}
-
 
 .fun-news .big {
     position: relative;
@@ -953,8 +949,8 @@ ul.universities-list {
     font-weight: 500;
 }
 
-.fun-news .big>img {
-    width: 570px;
+.fun-news .big img {
+    width: 100%;
     height: 325px;
 }
 .fun-news .big>div {
@@ -998,7 +994,7 @@ ul.universities-list {
     margin-right: 12px;
 }
 
-.fun-news .primary>img {
+.fun-news .primary img {
     width: 570px;
     height: 325px;
 }
@@ -1031,7 +1027,7 @@ ul.universities-list {
 }
 
 
-.fun-news .secondary>img {
+.fun-news .secondary img {
     width: 275px;
     height: 150px;
 }
@@ -1047,7 +1043,7 @@ ul.universities-list {
     padding-right: 4px;
     overflow: hidden;
 }
-.fun-news .secondary>div h3 {
+.fun-news .secondary h3 {
     margin-top: 14px;
     margin-bottom: 4px;
     font-size: 18px;
