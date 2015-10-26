@@ -59,7 +59,7 @@ news = top_news()[:3]
 
 <%block name="content">
 
-<%namespace name="newsfeed" file="/newsfeed/article/list.html"/>
+<%namespace name="newsfeed" file="/newsfeed/article/block.html"/>
 
 <div class="page-image home-page">
     <h1>${_(u"Let's learn, get trained and succeed!")}</h1>
@@ -180,7 +180,7 @@ news = top_news()[:3]
 </div>
 
 
-<div class="fun-news background">
+<div class="fun-news fun-news-background">
     <div class="row">
         <div class="col-lg-36 text-center">
             <h2 class="big-title white big-margin">${_(u"The news")}</h2>

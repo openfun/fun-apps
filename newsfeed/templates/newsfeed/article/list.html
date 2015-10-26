@@ -1,8 +1,6 @@
 ## mako
 
 <%!
-from django.core.urlresolvers import reverse
-from django.utils.formats import date_format
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import truncatechars
 
@@ -11,35 +9,10 @@ from staticfiles.storage import staticfiles_storage
 
 <%inherit file="/funsite/parts/base.html" />
 
-<%def name="news_block(article, title, size, classes='')">
-    <article class="${size} ${classes}">
-        <img src="/media/${article.get_thumbnail(size)}">
-        <div>
-            <h3><a href="${reverse('newsfeed-article', args=[article.slug])}">${title}</a></h3>
-            <p>
-                ${article.get_lead_paragraph()}
-            </p>
-            %if not 'home' in classes and size != 'primary':
-                <div class="footer">
-                    <div class="row">
-                        <div class="col-sm-18">
-                            % if article.category:
-                                <span class="tag">${article.category.name}</span>
-                            % endif
-                        </div>
-                        <div class="col-sm-18">
-                            <span class="date">${date_format(article.created_at, 'SHORT_DATE_FORMAT')}</span>
-                        </div>
-                    </div>
-                </div>
-            % endif
-        </div>
-    </article>
-</%def>
-
 <%block name="title">${_(u"Let's learn, get trained and succeed!")}</%block>
 
 <%block name="content">
+<%namespace name="newsfeed" file="./block.html"/>
 
 <h1 class="big-title big-margin text-center">
     ${_(u"All FUN news")}
@@ -50,13 +23,13 @@ from staticfiles.storage import staticfiles_storage
     % if featured_section and featured_section.article:
     <div class="row hidden-960">
         <div class="col-md-36">
-            ${news_block(featured_section.article, featured_section.displayed_title, 'big')}
+            ${newsfeed.news_block(featured_section.article, featured_section.displayed_title, 'big')}
         </div>
     </div>
 
     <div class="row hidden-1280 hidden-1900 visible-960">
         <div class="col-sm-36">
-            ${news_block(featured_section.article, featured_section.displayed_title, 'primary')}
+            ${newsfeed.news_block(featured_section.article, featured_section.displayed_title, 'primary')}
         </div>
     </div>
     % endif
@@ -65,12 +38,12 @@ from staticfiles.storage import staticfiles_storage
     <div class="row">
         <div class="col-sm-36 col-md-18 no-padding">
             % for article in articles[0:12:2]:
-                ${news_block(article, article.title, 'secondary', 'left')}
+                ${newsfeed.news_block(article, article.title, 'secondary', 'left')}
             % endfor
         </div>
         <div class="col-sm-36 col-md-18 no-padding">
             % for article in articles[1:12:2]:
-                ${news_block(article, article.title, 'secondary', 'right')}
+                ${newsfeed.news_block(article, article.title, 'secondary', 'right')}
             % endfor
         </div>
     </div>
