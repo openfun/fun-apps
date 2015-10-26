@@ -14,7 +14,7 @@ from staticfiles.storage import staticfiles_storage
 
 <%block name="content">
     <div class="login-row">
-        <h4>${_("PLEASE LOG IN to access your account and courses")}</h4>
+        <h4>${_("Please log in to access your account and courses")}</h4>
         <form role="form" class="login-form login-form-page" method="post" data-remote="true" action="/login_ajax" novalidate>
             <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/></div>
             <div class="error-login-page"></div>
@@ -28,19 +28,12 @@ from staticfiles.storage import staticfiles_storage
                 <input class="form-control  id="password" name="password" type="password" placeholder="${_(u"Password")}">
                 <div class="forgotten-password"><a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" >${_(u"Forgot password?")}</a></div>
             </div>
-        <button name="submit" type="submit" id="submit" class="all-items-button blue" aria-disabled="false">${_('Log into My {platform_name} Account').format(platform_name=platform_name)}</button>
+            <button name="submit" type="submit" id="submit" class="all-items-button blue" aria-disabled="false">${_('Log into My {platform_name} Account').format(platform_name=platform_name)}</button>
         </form>
-        </br>
-    </div>
 
-    <div class="login-row">
-        <h4>${_("Not Enrolled?")}</h4>
-        <div style="text-align: center;">
-            <div class="all-items-button">
-                <a href="${reverse('register_user')}">
-                    ${_("Sign up for {platform_name} today!").format(platform_name=settings.PLATFORM_NAME)}
-                </a>
-            </div>
-        </div>
+        <h4>${_("Don't have an account?")}</h4>
+        <a href="${reverse('register_user')}" class="btn btn-default btn-lg btn-block" role="button">
+            ${_("Sign up for {platform_name} today!").format(platform_name=settings.PLATFORM_NAME)}
+        </a>
     </div>
 </%block>
