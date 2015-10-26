@@ -231,14 +231,14 @@ require(["jquery", "underscore", "backbone"],
                 this.$el.append(this.valuecollectionview.render().el);
                 if (this.model.get('all_button')) {
                     this.$el.append($('<span>').attr(
-                            {'class': 'all-items-button transparent'}).text(this.model.get('all_button')))
+                            {'class': 'btn btn-transparent btn-dark-bg btn-block all-items'}).text(this.model.get('all_button')))
                 }
 
                 return this;
             },
 
             events: {
-                'click span.all-items-button': 'showAllItemsOverlay'
+                'click span.all-items': 'showAllItemsOverlay'
             },
 
             showAllItemsOverlay: function(event) {

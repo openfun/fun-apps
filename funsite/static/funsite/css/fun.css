@@ -130,7 +130,7 @@ a:focus {
     position: absolute;
     max-width: 430px;
     min-width: 320px;
-    height: 420px;
+    padding-bottom: 30px;
     background: white;
     display: none;
     top: 60px;
@@ -331,42 +331,37 @@ h3.big-title {
 
 /* big button */
 /* TODO use bootstrap button */
-.all-items-button {
-    background-color: white;
-    border: 1px solid #3877BC;
-    text-align: center;
-    font-style: normal;
+.btn {
     font-weight: 500;
     font-size: 16px;
+    border-radius: 0;
     color: #3877BC;
-    padding: 12px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    display: inline-block;
-    cursor: pointer;
-    min-width: 232px;
 }
-.all-items-button:hover {
-    border-color: #FB453E;
-}
-.all-items-button a:hover,
-.all-items-button a:active,
-.all-items-button:hover a {
-    text-decoration: none;
-    color: #FB453E;   /* TODO: find out if we have a rollover effect */
-}
-.all-items-button.blue,
-.all-items-button.blue:hover {
-    color: white;
-    background-color: #3877BC;
+.btn.btn-default {
+    background-color: white;
     border: 1px solid #3877BC;
 }
-.all-items-button.blue a {
-    text-decoration: none;
+.btn-transparent {
+    background-color: transparent;
+    border: 1px solid #3877BC;
+}
+.btn.btn-default:hover, .btn.btn-transparent:hover {
+    border-color: #FB453E;
+}
+.btn.btn-dark-bg.btn-transparent:hover {
+    border-color: white;
     color: white;
 }
-.all-items-button.transparent {
-    background-color: transparent;
+.btn.btn-primary {
+    background-color: #3877BC;
+    border: 1px solid #3877BC;
+    color: white;
+}
+.btn.btn-spaced {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    min-width: 232px;
+    padding: 12px;
 }
 
 .social-networks span {
@@ -1142,20 +1137,9 @@ ul.universities-list {
     background-color: #08223C;
     width: 325px;
     padding-left: 48px;
+    padding-right: 48px;
     overflow: visible;
 }
-/*
-.filters.affix {
-    position: fixed;
-    top: 0px;
-}
-.filters.affix-top {
-    position: static;
-}
-.filters.affix-bottom {
-    position: absolute;
-}
-*/
 .criteria-overlay {
     border-left: 1px solid #B6BDC5;
     padding-top: 0px;
