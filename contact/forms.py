@@ -46,7 +46,8 @@ class ContactForm(BaseContactForm):
         ),
         widget=forms.Select(attrs={"class": "form-control"})
     )
-    body = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control"}), label=_('Message'))
+    body = forms.CharField(label=_('Message'),
+                           widget=forms.Textarea(attrs={"class": "form-control"}))
 
     recipient_list = [settings.CONTACT_EMAIL]
     subject = _('Contact request - {}').format(settings.PLATFORM_NAME)

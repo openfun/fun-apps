@@ -82,6 +82,12 @@ a:focus {
     text-decoration: none;
 }
 
+/* Forms */
+.form-group.required label:after, label.required:after {
+    content:" *";
+    color:red;
+}
+
 /* Sandwich menu */
 
 #top-menu img.logo {
@@ -288,17 +294,22 @@ ul.footer-links li a {
 
 
 /* Big title */
-.big-title h1, h1.big-title {
+h1.big-title {
     font-style: normal;
     font-weight: 600;
     font-size: 50px;
     color: #2B2B2B;
 }
-
-.big-title h2, h2.big-title {
+h2.big-title {
     font-style: normal;
     font-weight: 600;
     font-size: 40px;
+    color: #2B2B2B;
+}
+h3.big-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
     color: #2B2B2B;
 }
 
@@ -312,6 +323,7 @@ ul.footer-links li a {
 }
 
 /* big button */
+/* TODO use bootstrap button */
 .all-items-button {
     background-color: white;
     border: 1px solid #3877BC;
@@ -885,19 +897,9 @@ div.page-image.home-page img.logo-fun {
     background-color: white;
 }
 
-/* special modifier for universities page */
-.universities-page .introduction {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
 ul.universities-list {
     list-style-type: none;
 }
-.universities-page .universities-list li {
-    margin: 12px;
-}
-
 .universities-list li {
     float: left;
     margin: 4px;
@@ -1296,47 +1298,12 @@ ul.universities-list {
 }
 
 
-/* login page */
-
-.login-row {
-    margin-top : 20px;
-    background-color: white;
-    padding : 20px 25px;
-    margin-bottom: 20px;
-}
-
-.login-row h4 {
-    text-align : center;
-    color : #004170;
-    margin-bottom: 20px;
-}
-
-.login-row label  {
-    font-weight: 300;
-}
-
-.login-row button {
-    width : 270px;
+/* Single-column content */
+.single-column {
+    max-width: 610px;
     margin-left : auto;
     margin-right : auto;
-    display : block;
 }
-
-.login-row .forgotten-password a {
-    cursor: pointer;
-}
-
-@media (min-width: 768px) {
-    .login-row {
-        width: 610px;
-        margin-left : auto;
-        margin-right : auto;
-    }
-    .login-row button {
-        width : 560px;
-    }
-}
-
 
 /* Modal */
 
@@ -1945,11 +1912,6 @@ header.global.slim h2 {
      margin-top : 20px;
      display: none;
  }
-
-.register-page label.required:after {
-    content:" *";
-    color:red;
-}
 
 .register-page .submission-error {
     width: 80%;

@@ -1,4 +1,4 @@
-<%inherit file="funsite/parts/base.html" />
+<%inherit file="funsite/parts/simple-content.html" />
 
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils import html %>
@@ -40,14 +40,13 @@
 </%block>
 
 
-<%block name="content">
-
-    <div class="register-page simple-content-page">
+<%block name="page_content">
+    <div class="register-page">
         <div class="row">
             <div class="col-sm-36 text-center">
-                <h1 class="big-title">
-                    ${_("Register below to create your {platform_name} account").format(platform_name=platform_name)}
-                </h1>
+                <h2 class="big-title">
+                    ${_("Sign up to {platform_name}").format(platform_name=platform_name)}
+                </h2>
             </div>
         </div>
 
@@ -150,7 +149,7 @@
                         % if email_opt_in:
                             <input type="hidden" name="email_opt_in" value="${email_opt_in | h }" />
                         % endif
-                        <button name="submit" type="submit" id="submit" class="all-items-button blue wide">${_('Register')} + ${_('Create My Account')}</button>
+                        <button name="submit" type="submit" id="submit" class="all-items-button blue wide">${_('Create my {platform_name} account').format(platform_name=platform_name)}</button>
                     </form>
                 </div>
 
@@ -198,6 +197,5 @@
             </div>
 
         </div>
-    </div>
 </%block>
 
