@@ -923,13 +923,10 @@ ul.universities-list {
     right: 0;
     margin: auto;
 }
-.fun-news.background {
-    background-color: #2B2B2B;
-    background: url('../images/news-background.png');
-    width: 1280px;
-    height: 740px;
-}
 
+.fun-news-background {
+    background: #2B2B2B url('../images/news-background.png') no-repeat;
+}
 .fun-news article,
 .fun-news article a,
 .fun-news article a:hover,
