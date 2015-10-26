@@ -5,6 +5,13 @@ body {
     background-color: #edeeef
 }
 
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(../fonts/Raleway.ttf) format('truetype');
+}
+
 .main-width {
     margin-left: auto;
     margin-right: auto;
