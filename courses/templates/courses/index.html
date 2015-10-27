@@ -43,18 +43,19 @@ require(["jquery", "underscore", "backbone"],
         };
 
         var filters = [
-            {title: '${_("Availability")}', name: 'availability', type: 'select', values: [
-                {value: 'end-soon', title: "Fin d'inscription imminente", count: ${ courses_count_end_soon }},
-                {value: 'start-soon', title: "Démarre bientôt", count: ${courses_count_start_soon }},
+            {title: "${_('Availability')}", name: 'availability', type: 'select', values: [
+                {value: 'end-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_end_soon}},
+                {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
+                {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
             ]},
-            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "Tous les thèmes", overlay: '#all-themes-overlay', values: [
+            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay', values: [
                 %for course_subject in course_subjects:
-                {value: "${ course_subject.slug }", title: "${ course_subject.get_short_name() }", count: ${course_subject.public_courses_count}},
+                {value: "${course_subject.slug}", title: "${course_subject.get_short_name()}", count: ${course_subject.public_courses_count}},
                 %endfor
             ]},
-            {title: '${_("Universities")}', name: 'university', type: 'select', max: 10, all_button: "Tous les établissements", overlay: '#all-universities-overlay', values: [
+            {title: "${_('Universities')}", name: 'university', type: 'select', max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay', values: [
                 %for university in universities:
-                {value: "${ university.code }", title: "${ university.get_short_name() }", count: ${university.public_courses_count}},
+                {value: "${university.code}", title: "${university.get_short_name()}", count: ${university.public_courses_count}},
                 %endfor
             ]},
             /*
