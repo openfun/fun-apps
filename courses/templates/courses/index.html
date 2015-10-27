@@ -75,7 +75,7 @@ require(["jquery", "underscore", "backbone"],
         var AppRouter = Backbone.Router.extend({
             routes: {
                 "": "emptyFilter",
-                "filter(/:name/:slug)(/page/:page)(?rpp=:rpp)": "filter",
+                "filter(/:name/:slug)(?(page=:page)(&)(rpp=:rpp))": "filter",
             },
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
@@ -86,23 +86,26 @@ require(["jquery", "underscore", "backbone"],
                 var url = "filter";
                 var selected = this.filter.get("selected");
                 var page = this.filter.get("currentPage");
+                var parameters = []
                 if (selected) {
                     url += '/' + selected.criterionName() +
                            '/' + selected.get('value');
                 }
                 if (page && page != "1") {
-                    url += "/page/" + page;
+                    parameters.push({name: "page", value: page});
                 }
                 if (this.filter.get("resultsPerPage")) {
-                    url += "?rpp=" + this.filter.get("resultsPerPage");
+                    parameters.push({name: "rpp", value: this.filter.get("resultsPerPage")});
                 }
+                url += parameters ? "?" : "";
+                url += $.param(parameters);
                 this.navigate(url, {trigger: false});
             },
             emptyFilter: function() {
                 this.filter.trigger("initialized")
             },
             filter: function(name, slug, rpp, page) {
-                if (name) {
+                if (name && name !== 'page') {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
                     this.filter.set('selected', value);
