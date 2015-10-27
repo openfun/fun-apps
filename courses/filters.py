@@ -14,8 +14,10 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.filter(subjects__slug__in=subject_slugs)
         if levels:
             queryset = queryset.filter(level__in=levels)
-        if 'start-soon' in availability :
+        if 'start-soon' in availability:
             queryset = queryset.start_soon()
         if 'end-soon' in availability:
             queryset = queryset.end_soon()
+        if 'new' in availability:
+            queryset = queryset.new()
         return queryset

@@ -51,6 +51,13 @@ class CourseQuerySet(models.query.QuerySet):
     def end_soon(self):
         return self.public().filter(end_date__range=(now(), self.too_late))
 
+    def new(self):
+        """
+        A new course is in its first session and that is not closed.
+        """
+        # TODO should we use the session_number attribute instead?
+        return self.filter(key__endswith="session01")
+
     def by_score(self):
         return self.public().order_by('-score')
 
