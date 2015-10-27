@@ -45,6 +45,9 @@ body {
     height: 40px;
 }
 
+.top-margin {
+    margin-top: 40px;
+}
 .bottom-margin {
     margin-bottom: 40px;
 }
@@ -648,7 +651,7 @@ h3.big-title {
     text-align: center;
 }
 .course-block .title {
-    position relative
+    position: relative;
     text-align: center;
     width: 100%;
     font-size: 16px;

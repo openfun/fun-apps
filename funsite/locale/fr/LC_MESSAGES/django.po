@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 12\n"
+"Project-Id-Version: France Université Numérique 14\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-27 16:21+0100\n"
-"PO-Revision-Date: 2015-10-27 16:21+0000\n"
+"POT-Creation-Date: 2015-10-27 18:23+0100\n"
+"PO-Revision-Date: 2015-10-27 18:23+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -39,15 +39,19 @@ msgstr "Confidentialité"
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:152
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:149
 msgid "Create my {platform_name} account"
 msgstr "Créer mon compte {platform_name}"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:154
+msgid "Do you already have an account?"
+msgstr "Avez-vous déjà un compte ?"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:35
 msgid "Don't have an account?"
 msgstr "Vous n'avez pas de compte ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:231
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:227
 msgid "End of Registration"
 msgstr "Fin d'inscription"
 
@@ -96,7 +100,7 @@ msgstr "Veuillez vous connecter pour accéder à votre compte et à vos cours"
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:236
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:232
 msgid "Registration closed"
 msgstr "Inscription close"
 
@@ -150,7 +154,7 @@ msgstr "Vous avez un compte ?"
 msgid "Your courses"
 msgstr "Vos cours"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:282
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:278
 msgid "h/week"
 msgstr "h/semaine"
 
