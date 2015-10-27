@@ -89,9 +89,16 @@ a:focus {
     text-decoration: none;
 }
 
-a.no-decoration, a.no-decoration:hover, a.no-decoration:focus, a.no-decoration:visited {
-    color: #052E4D;
+a.no-decoration,
+a.no-decoration:hover,
+a.no-decoration:focus,
+a.no-decoration:visited {
     text-decoration: none;
+    color: inherit;
+}
+
+.transparent {
+    background-color: transparent;
 }
 
 /* Forms */
@@ -550,8 +557,6 @@ h3.big-title {
         margin-right: auto !important;
         margin-left: auto !important;
     }
-
-
 }
 
 @media (max-width: 767px) {
@@ -617,56 +622,26 @@ h3.big-title {
 }
 
 
-/* Small course block */
-
-.course-block div.type.empty {
-    background-color: transparent;
-}
-
-.small-course {
-    width: 270px;
-    height: 340px;
+/* Course blocks */
+.course-block {
     background-color: white;
-    margin-bottom: 30px;
 }
-
-.small-course div.top {
+.course-block .top {
     text-align: center;
-    height: 172px;
 }
-.small-course img.main {
+.course-block .type {
     position: relative;
-    top: -32px;
-    margin: 0px;
-    width: 270px;
-    height: 152px;
-    margin-bottom: 20px;
-}
-.small-course div.type {
-    position: relative;
-    top: 128px;
-    left: 60px;
     background-color: #CBCCCD;
     color: #08223B;
-    width: 150px;
-    height: 32px;
-    padding-top: 8px;
     text-align: center;
-    font-size: 13px;
     font-weight: 600;
     z-index: 10;
     text-transform: uppercase;
 }
-
-.small-course div.middle {
+.course-block .middle {
     text-align: center;
-    height: 120px;
 }
-
-.small-course div.bottom {
-}
-
-.small-course div.title {
+.course-block .title {
     position relative
     text-align: center;
     width: 100%;
@@ -675,119 +650,116 @@ h3.big-title {
     color: #08223B;
     margin-bottom: 8px;
 }
-.small-course div.universities {
+.course-block .universities {
     width: 100%;
     text-align: center;
     font-size: 14px;
     font-weight: 400;
     color: #656667;
 }
-.small-course div.footer {
+.course-block .footer {
     margin-left: 0;
     position: relative;
-    width: 270px;
     border-top: 1px solid #CBCCCD;
 }
-.small-course div.footer .date {
-    padding-left: 46px;
-    padding-top: 4px;
-    background: url('../images/icones/calendar.png') 10px 8px no-repeat;
-    font-weith: 500;
+.course-block .footer .date .no-decoration {
     color: #656667;
 }
-.small-course div.footer .register {
-    padding-top: 12px;
+.course-block .footer .register {
     background-color: #3877BC;
     color: white;
     text-align: center;
-    font-size: 14px;
-    height: 47px;
     font-weight: 600;
 }
 
+/* Small course block */
+.small-course {
+    width: 270px;
+    height: 340px;
+    margin-bottom: 30px;
+}
+
+.small-course .top {
+    height: 172px;
+}
+.small-course img {
+    margin: 0px;
+    position: relative;
+    top: -32px;
+    width: 270px;
+    height: 152px;
+    margin-bottom: 20px;
+}
+.small-course .type {
+    top: 128px;
+    left: 60px;
+    width: 150px;
+    height: 32px;
+    padding-top: 8px;
+    font-size: 13px;
+}
+
+.small-course .middle {
+    height: 120px;
+}
+
+.small-course .footer {
+    width: 270px;
+}
+.small-course .footer .date {
+    padding-left: 46px;
+    padding-top: 4px;
+    background: url('../images/icones/calendar.png') 10px 8px no-repeat;
+    font-weight: 500;
+    color: #656667;
+}
+.small-course .footer .register {
+    padding-top: 12px;
+    font-size: 14px;
+    height: 47px;
+}
 
 /* Big course block */
-
 .big-course {
     width: 370px;
     height: 386px;
-    background-color: white;
     margin-bottom: 36px;
 }
-
-.big-course div.top {
-    text-align: center;
+.big-course .top {
     height: 232px;
 }
-.big-course img.main {
+.big-course img {
     margin: 16px 16px 20px 16px;
     position: relative;
     top: -40px;
     width: 338px;
     height: 192px;
 }
-.big-course div.type {
-    position: relative;
+.big-course .type {
     top: 184px;
     left: 100px;
-    background-color: #CBCCCD;
-    color: #08223B;
     width: 170px;
     height: 40px;
     padding-top: 10px;
-    text-align: center;
     font-size: 14px;
-    font-weight: 600;
-    z-index: 10;
-    text-transform: uppercase;
 }
-
-.big-course div.middle {
-    text-align: center;
+.big-course .middle {
     height: 99px;
 }
-
-.big-course div.bottom {
-}
-
-.big-course div.title {
-    position relative
-    text-align: center;
-    width: 100%;
-    font-size: 16px;
-    font-weight: 600;
-    color: #08223B;
-    margin-bottom: 8px;
-}
-.big-course div.universities {
-    width: 100%;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 400;
-    color: #656667;
-}
-.big-course div.footer {
-    margin-left: 0;
-    position: relative;
+.big-course .footer {
     width: 370px;
-    border-top: 1px solid #CBCCCD;
 }
-.big-course div.footer .date {
+.big-course .footer .date {
     padding-left: 48px;
     padding-top: 16px;
     background: url('../images/icones/calendar.png') 12px 14px no-repeat;
     font-weight: 600;
-    color: #656667;
     line-height: 28px;
 }
-.big-course div.footer .register {
+.big-course .footer .register {
     padding-top: 16px;
-    background-color: #3877BC;
-    color: white;
-    text-align: center;
     font-size: 16px;
     height: 54px;
-    font-weight: 600;
 }
 
 
