@@ -45,6 +45,9 @@ body {
     height: 40px;
 }
 
+.bottom-margin {
+    margin-bottom: 40px;
+}
 .big-margin {
     margin-top: 80px; /* SQLI values are 100 and 70*/
     margin-bottom: 40px;
@@ -156,7 +159,7 @@ a.no-decoration:visited {
     margin-left: auto;
     margin-right: auto;
 }
-#login-overlay div.content .all-items-button {
+#login-overlay .btn {
     margin-top: 10px;
 }
 
@@ -368,6 +371,9 @@ h3.big-title {
     background-color: #3877BC;
     border: 1px solid #3877BC;
     color: white;
+}
+.btn.btn-padded {
+    padding: 12px;
 }
 .btn.btn-spaced {
     margin-top: 40px;
@@ -1117,12 +1123,10 @@ ul.universities-list {
     border-radius: 20px; */
     font-weight: 200;
 }
-.filters .all-items-button {
+.filters .btn.all-items {
+    display: inline-block;
     margin-top: 6px;
-}
-.filters .all-items-button:hover {
-    color: white;
-    border-color: white;
+    margin-bottom: 40px;
 }
 .criteria li.icon {
     padding-left: 36px !important;
