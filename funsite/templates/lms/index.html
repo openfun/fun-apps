@@ -53,15 +53,16 @@ news = top_news()[:3]
 </script>
 </%block>
 
+<%block name="content_fullwidth">
+    <div class="homepage-header drop-down">
+        <h1>${_(u"Let's learn, get trained and succeed!")}</h1>
+        <img class="logo-fun" src="${staticfiles_storage.url('funsite/images/logos/fun195.png')}"></img>
+    </div>
+</%block>
+
 <%block name="content">
 
 <%namespace name="newsfeed" file="/newsfeed/article/block.html"/>
-
-<div class="page-image home-page">
-    <h1>${_(u"Let's learn, get trained and succeed!")}</h1>
-    <img class="logo-fun" src="${staticfiles_storage.url('funsite/images/logos/fun195.png')}"></img>
-</div>
-
 
 <div class="row">
     <div class="col-lg-36 text-center">
@@ -134,7 +135,6 @@ news = top_news()[:3]
 
 </div>
 
-
 <div class="universities">
     <div class="row ">
         <div class="col-lg-36 text-center">
@@ -164,7 +164,6 @@ news = top_news()[:3]
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-lg-36 text-center">
             <a href="${reverse('universities-landing')}" class="btn btn-default btn-spaced">${_(u"All institutions")}</a>
@@ -172,7 +171,6 @@ news = top_news()[:3]
     </div>
 
 </div>
-
 
 <div class="fun-news fun-news-background">
     <div class="row">
@@ -205,7 +203,6 @@ news = top_news()[:3]
         </div>
     </div>
 </div>
-
 
 <div class="fun-themes">
     <div class="row ">
@@ -240,6 +237,5 @@ news = top_news()[:3]
         <a href="${reverse('fun-courses-index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
     </div>
 </div>
-
 
 </%block>
