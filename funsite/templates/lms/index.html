@@ -36,10 +36,6 @@ news = top_news()[:3]
           768: {
             items: 3,
           },
-          960: {
-            items: 4,
-            margin: 20
-          },
           1280: {
             items: 5,
             margin: 20
@@ -151,11 +147,9 @@ news = top_news()[:3]
             <ul class="universities-list">
             % for university in universities:
                 % if (loop.index > 11):
-                    <li class="hidden-1280">
-                % elif (loop.index > 7):
-                    <li class="hidden-960">
+                    <li class="hidden-lg">
                 % elif (loop.index > 5):
-                    <li class="hidden-768">
+                    <li class="hidden-md">
                 % else:
                     <li>
                 % endif

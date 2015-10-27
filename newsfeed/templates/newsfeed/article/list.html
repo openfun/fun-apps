@@ -21,13 +21,13 @@ from staticfiles.storage import staticfiles_storage
 <div class="fun-news">
     ## featured news (only one, displayed regarding resolution)
     % if featured_section and featured_section.article:
-    <div class="row hidden-960">
+    <div class="row">
         <div class="col-md-36">
             ${newsfeed.news_block(featured_section.article, featured_section.displayed_title, 'big')}
         </div>
     </div>
 
-    <div class="row hidden-1280 hidden-1900 visible-960">
+    <div class="row hidden-md hidden-lg">
         <div class="col-sm-36">
             ${newsfeed.news_block(featured_section.article, featured_section.displayed_title, 'primary')}
         </div>
