@@ -10,35 +10,39 @@ from util.date_utils import strftime_localized
     <div class="top">
         % if course.session_display:
             <div class="type">
-                ${ course.session_display }
+                <a class="no-decoration" href="${course.get_absolute_url()}">${ course.session_display }</a>
+            </div>
         % else:
-            <div class="type empty">
+            <div class="type transparent"></div>
         % endif
-        </div>
-        <img class="main img-responsive" src="${ course.get_thumbnail_url('small') }">
-
+        <a href="${course.get_absolute_url()}">
+            <img class="img-responsive" src="${ course.get_thumbnail_url('small') }">
+        </a>
     </div>
     <div class="middle">
         <div class="title">
-            ${ course.title }
+            <a class="no-decoration" href="${course.get_absolute_url()}">${course.title}</a>
         </div>
         <div class="universities">
-            <span>${ course.university_name }</span>
+            <span>
+                <a class="no-decoration" href="${course.get_absolute_url()}">${course.university_name}</a>
+            </span>
         </div>
     </div>
     <div class="bottom">
-
         <div class="footer row">
             <div class="date col-sm-20">
-                ${pgettext('course-block', u"Starts")}
-                <br>
-                % if course.start_date:
-                    ${ strftime_localized(course.start_date, 'SHORT_DATE')}
-                % endif
+                <a class="no-decoration" href="${course.get_absolute_url()}">
+                    ${pgettext('course-block', u"Starts")}
+                    <br>
+                    % if course.start_date:
+                        ${ strftime_localized(course.start_date, 'SHORT_DATE')}
+                    % endif
+                </a>
             </div>
 
             <a href="${course.get_absolute_url()}">
-                <div class="register col-sm-16">${_(u"Register")}</div>
+                <div class="register col-sm-16">${_(u"Learn more")}</div>
             </a>
         </div>
     </div>

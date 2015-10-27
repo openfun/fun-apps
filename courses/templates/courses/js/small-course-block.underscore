@@ -1,37 +1,44 @@
 <div class="course-block small-course center-block">
-
     <div class="top">
         <% if (session_display) { %>
             <div class="type">
-                <%= session_display %>
+                <a class="no-decoration" href="<%= course_about %>"><%= session_display %></a>
         <% } else { %>
             <div class="type empty">
         <%} %>
             </div>
-        <img class="main img-responsive" src="<%= thumbnails.small %>">
-
+        <a class="no-decoration" href="<%= course_about %>">
+            <img class="main img-responsive" src="<%= thumbnails.small %>">
+        </a>
     </div>
     <div class="middle">
         <div class="title">
-            <%= title %>
+            <a class="no-decoration" href="<%= course_about %>"><%= title %></a>
         </div>
         <div class="universities">
             <% _.each(universities, function(university) { %>
-                <span><%- university.name %></span>
+                <span>
+                    <a class="no-decoration" href="<%= course_about %>">
+                        <%- university.name %>
+                    </a>
+                </span>
             <% }) %>
         </div>
     </div>
     <div class="bottom">
-
         <div class="footer row">
             <div class="date col-sm-20">
-                <%- pgettext("course-block", "Starts") %>
-                <br>
-                <%- start_date_display %>
+                <a class="no-decoration" href="<%= course_about %>">
+                    <%- pgettext("course-block", "Starts") %>
+                    <br>
+                    <%- start_date_display %>
+                </a>
             </div>
-            <a href="<%= course_about %>"><div class="register col-sm-16">
-                <%- gettext("Register") %>
-            </div></a>
+            <div class="register col-sm-16">
+                <a class="no-decoration" href="<%= course_about %>">
+                    <%- gettext("Register") %>
+                </a>
+            </div>
         </div>
     </div>
 
