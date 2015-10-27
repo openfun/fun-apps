@@ -184,12 +184,10 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                     % endif
                 </div>
 
-                <div class="course-image hidden-1280">
+                <div class="course-image hidden-md">
                     <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }">
                 </div>
-
-
 
                 %if user.is_authenticated() and registered:
                     <div class="register-course-button already-registered">

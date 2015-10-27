@@ -395,8 +395,8 @@ h3.big-title {
 /* Responsive */
 /*
  * Breakpoints:
- * [----- 768 ---- 960 ---- 1280 ---- 1900 ----]
- *         xs       sm       md        lg
+ * [320 ---- 768 ---- 1280 ---- 1900 ----]
+ *       xs       sm        md        lg
 */
 
 @media (min-width: 1900px) {
@@ -467,13 +467,6 @@ h3.big-title {
     .main-width {
         width: 1280px;
     }
-    .hidden-1280 {
-        display: none !important;
-    }
-    .visible-1280 {
-        display: block !important;
-    }
-
 
     .criteria-overlay ul {
         -moz-column-count: 3;
@@ -527,7 +520,7 @@ h3.big-title {
 
 @media (max-width: 1279px) {
     .main-width {
-        width: 960px;
+        width: 768px;
     }
 
     .criteria-overlay ul {
@@ -536,12 +529,6 @@ h3.big-title {
         column-count: 2;
     }
 
-    .hidden-960 {
-        display: none !important;
-    }
-    .visible-960 {
-        display: block !important;
-    }
     .footer-links {
         width: 50%;
     }
@@ -549,7 +536,7 @@ h3.big-title {
         width: 100%;
     }
     div.page-image {
-        width: 960px;
+        width: 768px;
         height: 320px;
     }
     div.page-image.home-page {
@@ -585,44 +572,6 @@ h3.big-title {
         margin-left: auto !important;
     }
 
-
-}
-
-@media (max-width: 959px) {
-    .main-width {
-        width: 768px;
-    }
-    .slogan {
-        display: none;
-    }
-    .hidden-768 {
-        display: none !important;
-    }
-    .visible-768 {
-        display: block !important;
-    }
-
-    div.page-image.home-page {
-        background-image: url('../images/homepage768_draft.png')
-    }
-    div.page-image.courses-page {
-        background-image: url('../images/homepage768_draft.png')
-    }
-    div.page-image.home-page h1 {
-        padding-top: 110px;
-        font-size: 36px;
-        margin-bottom: 28px;
-    }
-    div.page-image.home-page img.logo-fun {
-        width: 137px;
-        height: 126px;
-    }
-    .course-list .list ul li {
-        margin-left: 55px;
-    }
-    #top-menu span.slogan {
-        font-size: 14px;
-    }
 
 }
 
