@@ -50,7 +50,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                   location.href = response;  // !! ??
                 };
             },
-            error: function(data) {
+            error: function(response) {
                 if (response.status == 403) {
                     location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
                 } else {
@@ -194,7 +194,6 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                         <div>${_("You are registered for this course")}</div>
                         <a href="${course_target}"><span>${_("View Courseware")}</span></a>
                     </div>
-
                 %else:
                     %if can_enroll:
                         <div class="register-course-button">
@@ -207,9 +206,6 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                         </div>
                     %endif
                 %endif
-
-
-
 
                 <div class="blue-zone">
                     <div class="row">
