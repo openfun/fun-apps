@@ -23,7 +23,7 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
-.container-fluid.drop-down {
+.drop-down {
     margin-top: 60px;  /* top-menu's height */
 }
 
@@ -421,23 +421,16 @@ h3.big-title {
         padding-right: 0 !important;
     }
 
-    div.page-image {
-        width: 1900px;
+    .homepage-header {
         height: 450px;
+        background-image: url('../images/homepage2495.png');
     }
-    div.page-image.home-page {
-        background-image: url('../images/homepage1900_draft.png');
-    }
-
-    div.page-image.courses-page {
-        background-image: url('../images/homepage1900_draft.png')
-    }
-
-    div.page-image.home-page h1 {
+    .homepage-header h1 {
         padding-top: 200px;
         font-size: 50px;
         margin-bottom: 70px;
     }
+
     .main-content .right {
         width: 730px;
     }
@@ -472,30 +465,22 @@ h3.big-title {
         -moz-column-count: 3;
         -webkit-column-count: 3;
         column-count: 3;
-
     }
 
-    div.page-image {
-        width: 1280px;
+    .homepage-header {
         height: 360px;
+        background-image: url('../images/homepage1900.png')
     }
-
-    div.page-image.home-page {
-        background-image: url('../images/homepage1280_draft.png')
-    }
-    div.page-image.courses-page {
-        background-image: url('../images/homepage1280_draft.png')
-    }
-
-    div.page-image.home-page h1 {
+    .homepage-header h1 {
         padding-top: 140px;
         font-size: 44px;
         margin-bottom: 50px;
     }
-    div.page-image.home-page img.logo-fun {
+    .homepage-header img.logo-fun {
         width: 195px;
         height: 180px;
     }
+
     .main-content .right {
         width: 354px;
     }
@@ -535,22 +520,16 @@ h3.big-title {
     .footer-links li {
         width: 100%;
     }
-    div.page-image {
-        width: 768px;
+    .homepage-header {
         height: 320px;
+        background-image: url('../images/homepage1280.png')
     }
-    div.page-image.home-page {
-        background-image: url('../images/homepage960_draft.png')
-    }
-    div.page-image.courses-page {
-        background-image: url('../images/homepage960_draft.png')
-    }
-    div.page-image.home-page h1 {
+    .homepage-header h1 {
         padding-top: 140px;
         font-size: 40px;
         margin-bottom: 36px;
     }
-    div.page-image.home-page img.logo-fun {
+    .homepage-header img.logo-fun {
         width: 156px;
         height: 144px;
     }
@@ -593,23 +572,17 @@ h3.big-title {
     .footer-links {
         width: 100%;
     }
-    div.page-image {
-        width: 320px;
-        height: 260px;
-    }
-    div.page-image.home-page {
-        background-image: url('../images/homepage320_draft.png')
-    }
-    div.page-image.courses-page {
-        background-image: url('../images/homepage320_draft.png')
-    }
 
-    div.page-image.home-page h1 {
+    .homepage-header {
+        height: 260px;
+        background-image: url('../images/homepage768.png')
+    }
+    .homepage-header h1 {
         padding-top: 110px;
         font-size: 30px;
         margin-bottom: 20px;
     }
-    div.page-image.home-page img.logo-fun {
+    .homepage-header img.logo-fun {
         width: 98px;
         height: 90px;
     }
@@ -626,21 +599,20 @@ h3.big-title {
     .footer-links.right {
         padding-left: 40px;
     }
-
 }
 
-div.page-image.home-page {
-    margin-bottom: 60px;
+.homepage-header {
     text-align: center;
+    width: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
-
-div.page-image.home-page h1 {
+.homepage-header h1 {
     margin-top: 0;
     font-weight: 500;
     color: white;
 }
-
-div.page-image.home-page img.logo-fun {
+.homepage-header img.logo-fun {
     display: inline-block;
 }
 
