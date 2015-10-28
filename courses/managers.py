@@ -26,7 +26,7 @@ class CourseSubjectManager(models.Manager):
         return self.order_by('-score')
 
     def featured(self):
-        return self.filter(featured=True)
+        return self.filter(featured=True).exclude(image='')
 
     def random_featured(self):
         return self.featured().order_by('?')
