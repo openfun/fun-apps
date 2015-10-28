@@ -124,7 +124,7 @@ class Command(BaseCommand):
             course_handler = CourseHandler(mongo_course)
             key = course_handler.key
             self.stdout.write('Updating data for course {}\n'.format(key))
-            course, _was_created = Course.objects.get_or_create(key=key)
+            course, was_created = Course.objects.get_or_create(key=key)
             if course.prevent_auto_update:
                 self.stdout.write(' Skipping updates for {}\n'.format(key))
                 continue
