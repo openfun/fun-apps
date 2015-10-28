@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 14\n"
+"Project-Id-Version: France Université Numérique 15\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-27 18:23+0100\n"
-"PO-Revision-Date: 2015-10-27 18:23+0000\n"
+"POT-Creation-Date: 2015-10-28 16:24+0100\n"
+"PO-Revision-Date: 2015-10-28 16:25+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -67,12 +67,7 @@ msgstr "Les cours à la une"
 msgid "Home"
 msgstr "Accueil"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/course-block/big.html:45
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/course-block/small.html:45
-msgid "Learn more"
-msgstr "En savoir plus"
-
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:18
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:30
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:21
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:58
 msgid "Let's learn, get trained and succeed!"
@@ -83,7 +78,7 @@ msgid "Log in to your {platform_name} account"
 msgstr "Connexion à votre compte {platform_name}"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:33
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:33
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:47
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:52
 msgid "Login"
 msgstr "Connexion"
@@ -107,13 +102,6 @@ msgstr "Inscription close"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:48
 msgid "Sign up to {platform_name}"
 msgstr "Inscription à {platform_name}"
-
-# Translated in edx by 'Commence'
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/course-block/big.html:36
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/course-block/small.html:36
-msgctxt "course-block"
-msgid "Starts"
-msgstr "Débute"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:26
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:48

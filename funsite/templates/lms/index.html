@@ -76,9 +76,9 @@ news = top_news()[:3]
         %if len(featured_courses) > index:
         <div class="${classes}">
             %if size == 'big':
-            <%include file="/funsite/parts/course-block/big.html" args="course=featured_courses[index]"/>
+            <%include file="/courses/course-block/big.html" args="course=featured_courses[index]"/>
             %else:
-            <%include file="/funsite/parts/course-block/small.html" args="course=featured_courses[index]"/>
+            <%include file="/courses/course-block/small.html" args="course=featured_courses[index]"/>
             %endif
         </div>
         %endif

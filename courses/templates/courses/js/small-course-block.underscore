@@ -36,7 +36,7 @@
             </div>
             <div class="register col-sm-16">
                 <a class="no-decoration" href="<%= course_about %>">
-                    <%- gettext("Register") %>
+                    <%- gettext("Learn more") %>
                 </a>
             </div>
         </div>
