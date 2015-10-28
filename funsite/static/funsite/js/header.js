@@ -8,7 +8,7 @@
     /* Handle FUN overlays closing by clicking X */
     $('.close-overlay').on('click', function(event) {
         $('div.sequence-nav').css('z-index', 'auto');
-        $(this).closest('.overlay').hide()
+        $(this).closest('.overlay').slideUp();
     });
 
     /* Sandwich menu overlay */
@@ -16,11 +16,11 @@
         // change z-index of courseware elements which have it set to 'auto'
         $('div.sequence-nav').css('z-index', 1);
         $('nav.sequence-bottom').css('z-index', 1);
-        $('#sandwich-overlay').show();
+        $('#sandwich-overlay').slideDown();
     });
 
     /* Dropdown menu */
-    $('#top-menu .right-nav .toggle-dropdown-menu').on('click', toggleDropdown)
+    $('#top-menu .right-nav .toggle-dropdown-menu').on('click', toggleDropdown);
 
      $('body').click(function() {
      	if ($('#top-menu .fun-dropdown-menu').is(":visible")) {
@@ -44,7 +44,7 @@
 
     function toggleAccessiblePopUpAria(display) {
 	// aria-haspopup is used to improve accessibility.
-	$('#top-menu .right-nav .toggle-dropdown-menu').attr('aria-haspopup', display)
+	$('#top-menu .right-nav .toggle-dropdown-menu').attr('aria-haspopup', display);
     }
 
  })();
