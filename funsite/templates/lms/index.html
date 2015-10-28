@@ -220,7 +220,7 @@ news = top_news()[:3]
                     <a href="${'{}#filter/subject/{}'.format(reverse('fun-courses-index'), subject.slug)}">
                         <div>
                             <h3>${subject.name}</h3>
-                            <img src="${subject.get_image_url()}" alt="${subject.name}">
+                            <img src="${subject.image.url}" alt="${subject.name}">
                         </div>
                     </a>
 
