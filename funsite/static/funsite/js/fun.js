@@ -13,12 +13,6 @@
     var page = window.location.pathname.split('/')[1];
     $('#sandwich-overlay [data-location="'+ page +'"]').addClass('selected');
 
-    /* Handle FUN overlays closing by clicking X */
-    $('.close-overlay').on('click', function(event) {
-        $('div.sequence-nav').css('z-index', 'auto');
-        $(this).closest('.overlay').hide()
-    });
-
     /* Login overlay */
     $('#top-menu .right-nav .login-link').on('click', function(event) {
         $('#login-overlay').toggle();
