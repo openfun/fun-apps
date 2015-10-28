@@ -1,4 +1,4 @@
-/*This file is included both in funsite and edx-platorm/lms */
+/* This file is included both in funsite and edx-platorm/lms */
 
 (function() {
     /* select current page menu item */
@@ -18,7 +18,7 @@
         $('nav.sequence-bottom').css('z-index', 1);
         $('#sandwich-overlay').show();
     });
-    
+
     /* Dropdown menu */
     $('#top-menu .right-nav .toggle-dropdown-menu').on('click', toggleDropdown)
 
@@ -38,9 +38,10 @@
 	    $('#top-menu .fun-dropdown-menu').hide();
 	    toggleAccessiblePopUpAria(false);
 	}
+	event.preventDefault();
 	event.stopPropagation();
     }
-    
+
     function toggleAccessiblePopUpAria(display) {
 	// aria-haspopup is used to improve accessibility.
 	$('#top-menu .right-nav .toggle-dropdown-menu').attr('aria-haspopup', display)
