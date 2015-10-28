@@ -16,6 +16,7 @@
     height: 60px;
     z-index: 1030; /*z-index used by boostrap for fix headers*/
     background-color: white;
+    font-family: 'Raleway';
 }
 
 /* Left header */
