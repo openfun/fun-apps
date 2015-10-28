@@ -1,53 +1,49 @@
-<div class="row">
-
-    <div class="col-md-8 col-sm-36 text-left">
-        <% if (totalCount !== null) { %>
-            <%= totalCount %> <%= ngettext("result", "results", totalCount) %>
+<div class="col-md-8 col-sm-36 text-left">
+    <% if (totalCount !== null) { %>
+        <%= totalCount %> <%= ngettext("result", "results", totalCount) %>
+    <% } %>
+    <% if (totalPageCount > 1)  { %>
+        <% if (currentPage > 1) { %>
+            <span class="result-page clickable" data-page="<%= currentPage - 1 %>">&lt;</span>
+        <% } else { %>
+            &nbsp;
         <% } %>
-        <% if (totalPageCount > 1)  { %>
-            <% if (currentPage > 1) { %>
-                <span class="result-page clickable" data-page="<%= currentPage - 1 %>">&lt;</span>
-            <% } else { %>
-                &nbsp;
-            <% } %>
 
-            <% for (var p = 1; p <= totalPageCount; p++) { %>
-                <% if (p === currentPage) { %>
-                    <span><strong><%= p %></strong></span>
-                <% } else if (p === 1 || p === totalPageCount || Math.abs(p - currentPage) <= 1) { %>
-                    <span class="result-page clickable" data-page="<%= p %>"><%= p %></span>
-                <% } else if (p === 2 || p === totalPageCount - 1) { %>
-                    <span>...<span>
-                <% } %>
-            <% } %>
-            <% if (currentPage < totalPageCount) { %>
-                <span class="result-page clickable" data-page="<%= currentPage + 1 %>">&gt;</span>
+        <% for (var p = 1; p <= totalPageCount; p++) { %>
+            <% if (p === currentPage) { %>
+                <span><strong><%= p %></strong></span>
+            <% } else if (p === 1 || p === totalPageCount || Math.abs(p - currentPage) <= 1) { %>
+                <span class="result-page clickable" data-page="<%= p %>"><%= p %></span>
+            <% } else if (p === 2 || p === totalPageCount - 1) { %>
+                <span>...<span>
             <% } %>
         <% } %>
-    </div>
-
-    <div class="col-md-20 col-sm-36">
-        <% if (selected) { %>
-            <h3><%= gettext("Your search") %></h3>
-            <div class="white blue-cell">
-                <%= selected.get("title") %>
-                <span class='glyphicon glyphicon-remove clickable'></span>
-            </div>
+        <% if (currentPage < totalPageCount) { %>
+            <span class="result-page clickable" data-page="<%= currentPage + 1 %>">&gt;</span>
         <% } %>
-    </div>
-
-    <div class="col-md-8 col-sm-36 text-right">
-        <select class="results-per-page">
-            <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
-                <option value="<%= resultsPerPageChoices[c] %>" <% if (resultsPerPageChoices[c] === resultsPerPage) { %>selected="selected"<% } %>>
-                    <% if (resultsPerPageChoices[c] >= 0) { %>
-                        <%= resultsPerPageChoices[c] %> <%= gettext("per page") %>
-                    <% } else { %>
-                        <%= gettext("all") %>
-                    <% } %>
-                </option>
-            <% } %>
-        </select>
-    </div>
+    <% } %>
 </div>
 
+<div class="col-md-20 col-sm-36">
+    <% if (selected) { %>
+        <h3><%= gettext("Your search") %></h3>
+        <div class="white blue-cell">
+            <%= selected.get("title") %>
+            <span class='glyphicon glyphicon-remove clickable'></span>
+        </div>
+    <% } %>
+</div>
+
+<div class="col-md-8 col-sm-36 text-right">
+    <select class="results-per-page">
+        <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
+            <option value="<%= resultsPerPageChoices[c] %>" <% if (resultsPerPageChoices[c] === resultsPerPage) { %>selected="selected"<% } %>>
+                <% if (resultsPerPageChoices[c] >= 0) { %>
+                    <%= resultsPerPageChoices[c] %> <%= gettext("per page") %>
+                <% } else { %>
+                    <%= gettext("all") %>
+                <% } %>
+            </option>
+        <% } %>
+    </select>
+</div>

@@ -338,7 +338,8 @@ require(["jquery", "underscore", "backbone"],
 
         var Course = Backbone.Model.extend({});
         var CourseView = Backbone.View.extend({
-            tagName: 'li',
+            tagName: 'div',
+            className: "col-lg-9 col-md-12 col-sm-36 col-xs-36",
             template: loadTemplate("small-course-block"),
             initialize: function() {
                 this.listenTo(this.model, "destroy", this.remove);
@@ -470,7 +471,6 @@ require(["jquery", "underscore", "backbone"],
         </div>
     </div>
 
-
     <div class="row">
 
         <div id="course-search" class="course-list">
@@ -486,14 +486,13 @@ require(["jquery", "underscore", "backbone"],
                 </div>
 
                 <div class="right">
-                    <div class="result-navigation">
+                    <div class="result-navigation row"></div>
+
+                    <div class="list row">
+                        <div id="course-filtering-results"></div>
                     </div>
 
-                    <div class="list">
-                        <ul id="course-filtering-results"></ul>
-                    </div>
-
-                    <div class="result-navigation hide-search-filter"></div>
+                    <div class="result-navigation row hide-search-filter"></div>
 
                     <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
                         <div class="pull-right">
