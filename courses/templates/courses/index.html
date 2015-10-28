@@ -74,8 +74,8 @@ require(["jquery", "underscore", "backbone"],
 
         var AppRouter = Backbone.Router.extend({
             routes: {
-                "": "emptyFilter",
-                "filter(/:name/:slug)(?(page=:page)(&)(rpp=:rpp))": "filter",
+                "(filter)": "initializeFilter",
+                "filter(/:name/:slug)(?page=:page&rpp=:rpp)": "filter",
             },
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
@@ -83,28 +83,29 @@ require(["jquery", "underscore", "backbone"],
                 this.listenTo(this.filter, 'change', this.updateUrl);
             },
             updateUrl: function() {
-                var url = "filter";
+                var url = "";
                 var selected = this.filter.get("selected");
                 var page = this.filter.get("currentPage");
-                var parameters = []
+                var rpp = this.filter.get("resultsPerPage");
                 if (selected) {
                     url += '/' + selected.criterionName() +
                            '/' + selected.get('value');
                 }
-                if (page && page != "1") {
-                    parameters.push({name: "page", value: page});
+                if ((page && page != "1") || (rpp && rpp != "50")) {
+                    url += '?' + $.param([
+                        {name: "page", value: page},
+                        {name: "rpp", value: rpp}
+                    ]);
                 }
-                if (this.filter.get("resultsPerPage")) {
-                    parameters.push({name: "rpp", value: this.filter.get("resultsPerPage")});
+                if (url) {
+                    url = "filter" + url;
                 }
-                url += parameters ? "?" : "";
-                url += $.param(parameters);
                 this.navigate(url, {trigger: false});
             },
-            emptyFilter: function() {
+            initializeFilter: function() {
                 this.filter.trigger("initialized")
             },
-            filter: function(name, slug, rpp, page) {
+            filter: function(name, slug, page, rpp) {
                 if (name && name !== 'page') {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
