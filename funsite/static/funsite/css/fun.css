@@ -898,7 +898,27 @@ ul.universities-list {
 .course-list {
     position: relative;
 }
+@media (max-width: 767px) {
+    .course-list-table .left .title {
+        cursor: pointer;
+    }
+    .course-list-table .left .criterions {
+        display: none;
+    }
+    .course-list-table .right {
+        width: 325px;
+    }
+    .course-list-table .right .result-navigation {
+        margin-top: 30px;
+    }
+}
 @media (min-width: 768px) {
+    .course-list-table .left {
+        width: 325px;
+    }
+    .course-list-table .right {
+        width: 100%;
+    }
     .course-list-table {
         display: table;
     }
@@ -936,12 +956,12 @@ ul.universities-list {
 }
 .filters {
     background-color: #08223C;
-    width: 325px;
+    width: 100%;
     padding-left: 48px;
     padding-right: 48px;
     overflow: visible;
 }
-.filters div.title {
+.filters .title {
     margin-top: 20px;
     color: #3976BC;
     font-size: 32px;

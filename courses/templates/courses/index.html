@@ -28,8 +28,6 @@ from courses.routers import CourseAPIRouter
 % endfor
 
 <script>
-
-
 require(["jquery", "underscore", "backbone"],
     function ($, _, Backbone) {
 
@@ -71,6 +69,11 @@ require(["jquery", "underscore", "backbone"],
             */
 
         ];
+
+        // Display criterions on click
+        $(".left .filters .title").on("click", function() {
+            $(".left .filters .criterions").slideDown();
+        })
 
         var AppRouter = Backbone.Router.extend({
             routes: {
@@ -259,14 +262,11 @@ require(["jquery", "underscore", "backbone"],
                 var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
                 var li_height = $('li.criterion').outerHeight(true);
                 li_height +=3;  // quick fix to compensate university names which use 2 lines... We have to use shorter name
+                // TODO fixme
                 $(overlay_id).find('ul').css('height', (height * li_height) + 'px');
                 console.log(li_height)
 
-            },
-            onClick: function(event) {
-                console.log(this.model.toJSON());
             }
-
         })
 
         var CriterionCollection = Backbone.Collection.extend({
@@ -437,6 +437,10 @@ require(["jquery", "underscore", "backbone"],
             },
             criterionSelected: function(value) {
                 this.filter.startNewSearch(value);
+                // Scroll to results
+                $('html, body').animate({
+                    scrollTop: this.filterview.$el.offset().top - 80
+                }, 250);
             },
 
             refreshCourses: function(){
@@ -457,8 +461,6 @@ require(["jquery", "underscore", "backbone"],
             filters: filters
         });
     });
-
-
 </script>
 </%block>
 
@@ -486,13 +488,13 @@ require(["jquery", "underscore", "backbone"],
                 </div>
 
                 <div class="right">
-                    <div class="result-navigation row"></div>
+                    <div class="result-navigation"></div>
 
                     <div class="list row">
                         <div id="course-filtering-results"></div>
                     </div>
 
-                    <div class="result-navigation row hide-search-filter"></div>
+                    <div class="result-navigation hide-search-filter"></div>
 
                     <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
                         <div class="pull-right">
