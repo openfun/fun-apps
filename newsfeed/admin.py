@@ -9,6 +9,12 @@ from solo.admin import SingletonModelAdmin
 
 from . import models
 
+
+class ArticleLinkInline(admin.TabularInline):
+    model = models.ArticleLink
+    extra = 2
+
+
 class ArticleAdminForm(forms.ModelForm):
 
     class Meta:
@@ -28,18 +34,29 @@ class FeaturedSectionAdmin(SingletonModelAdmin):
     raw_id_fields = ('article',)
 
 
+class ArticleCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'order')
+    prepopulated_fields = {'slug': ('name',)}
+
+
 class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = ArticleAdminForm
     change_form_template = "newsfeed/change_form.html"
 
-    list_display = ("title", "preview", "published", "created_at", "microsite",)
+    list_display = ("title", "preview", "category", "language",
+        "published", "created_at", "microsite",)
+    list_filter = ("published", "category")
+    filter_horizontal = ('courses',)
     readonly_fields = ("edited_at",)  # TODO display that
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title", "text", "slug",)
+    inlines = (ArticleLinkInline,)
     fieldsets = (
         (None, {
             "fields": ("title", "slug", "language", "thumbnail",
-                ("published", "created_at"), "microsite", "text",
+                "category", "courses", "lead_paragraph",
+                "event_date", ("published", "created_at"),
+                "microsite", "text",
             )
         }),
     )
@@ -53,3 +70,4 @@ class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 admin.site.register(models.Article, ArticleAdmin)
 admin.site.register(models.FeaturedSection, FeaturedSectionAdmin)
+admin.site.register(models.ArticleCategory, ArticleCategoryAdmin)

@@ -65,6 +65,7 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 ########################### PIPELINE #################################
 
 PIPELINE_SASS_ARGUMENTS = '--debug-info --require {proj_dir}/static/sass/bourbon/lib/bourbon.rb'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 ########################### DEBUG #################################
 TEMPLATE_STRING_IS_INVALID = "__INVALID__"

@@ -1,0 +1,18 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
+
+<%inherit file="/funsite/parts/base.html" />
+
+<%block name="content">
+<div class="simple-content-page">
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-30 col-sm-36">
+            <%block name="page_content"></%block>
+        </div>
+    </div>
+</div>
+</%block>
+

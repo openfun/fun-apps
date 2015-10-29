@@ -9,7 +9,7 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
 from courses.utils import get_about_section
-from courses.views import get_dmcloud_url
+from fun.utils import get_teaser
 from fun.tests.utils import skipUnlessCms
 import fun.utils.html
 
@@ -21,7 +21,7 @@ class ParagraphText(TestCase):
 
     def test_first_paragraph_is_empty(self):
         html = """<p></p>
-        
+
         <p>1234567890</p>"""
         self.assertEqual("1234567890", fun.utils.html.first_paragraph_text(html))
 
@@ -32,12 +32,12 @@ class ParagraphText(TestCase):
 
 @skipUnlessCms
 class TestDmCloudVideoId(ModuleStoreTestCase):
-    def test_dmcloud_public_id(self):
+    def test_teaser_public_id(self):
         """
         Tests that we always get a correct dailmotion id from the about section.
         The public video id is store in Mongo surrounded by an iframe tag referencing youtube.
         As we use dailmotion we need to extract the id from the iframe and create a
-        new one referencing dailymotion (see function get_dmcloud_url).
+        new one referencing dailymotion (see function get_teaser).
         """
         from contentstore.views.course import settings_handler
 
@@ -55,4 +55,4 @@ class TestDmCloudVideoId(ModuleStoreTestCase):
         video_tag_youtube = get_about_section(course, 'video')
         self.assertIn(dm_code, video_tag_youtube)
         video_tag_dailymotion = '<iframe width="560" height="315" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + dm_code + '"></iframe>'
-        self.assertEqual(video_tag_dailymotion, get_dmcloud_url(course, video_tag_youtube))
+        self.assertEqual(video_tag_dailymotion, get_teaser(course, video_tag_youtube))

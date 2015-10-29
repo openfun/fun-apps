@@ -17,6 +17,10 @@ class ViewArticlesTest(TestCase):
         user = UserFactory(is_staff=as_staff)
         self.client.login(username=user.username, password='test')
 
+    def test_empty_article_list(self):
+        url = reverse("newsfeed-landing")
+        self.client.get(url)
+
     def test_article_list(self):
         published_article = factories.ArticleFactory.create(published=True)
         unpublished_article = factories.ArticleFactory.create(title="Work in progress", slug="work-in-progress",
@@ -52,15 +56,13 @@ class ViewArticlesTest(TestCase):
 
     def test_preview_landing(self):
         self.create_user_and_login(True)
-        article = factories.ArticleFactory.create(published=False)
+        article = factories.ArticleFactory.create(published=False, title="Unpublished article")
         featured_section = factories.FeaturedSectionFactory.create(article=article)
         url = reverse('newsfeed-landing-preview', kwargs={'slug': article.slug})
         response = self.client.get(url)
 
         self.assertTrue(str(article.slug) in response.content)
-        self.assertTrue("\"top-article\"" in response.content)
         self.assertTrue(str(featured_section.title) in response.content)
-        self.assertFalse("\"featured-article\"" in response.content)
 
     def test_admin_upload_url(self):
         upload_url = reverse('news-ckeditor-upload')

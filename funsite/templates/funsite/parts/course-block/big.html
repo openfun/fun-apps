@@ -1,0 +1,49 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import pgettext, ugettext as _
+from util.date_utils import strftime_localized
+%>
+
+<%page args="course"/>
+<div class="course-block big-course center-block">
+    <div class="top">
+        % if course.session_display:
+            <div class="type">
+                <a class="no-decoration" href="${course.get_absolute_url()}">${ course.session_display }</a>
+            </div>
+        % else:
+            <div class="type transparent"></div>
+        % endif
+        <a href="${course.get_absolute_url()}">
+            <img class="img-responsive" src="${ course.get_thumbnail_url('big') }">
+        </a>
+    </div>
+    <div class="middle">
+        <div class="title">
+            <a class="title no-decoration" href="${course.get_absolute_url()}">${course.title}</a>
+        </div>
+        <div class="universities">
+            <span>
+                <a class="no-decoration" href="${course.get_absolute_url()}">${course.university_name}</a>
+            </span>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="footer row">
+            <div class="date col-sm-22">
+                <a class="no-decoration" href="${course.get_absolute_url()}">
+                    ${pgettext('course-block', u"Starts")}
+
+                    % if course.start_date:
+                        ${ strftime_localized(course.start_date, 'SHORT_DATE')}
+                    % endif
+                </a>
+            </div>
+
+            <a href="${course.get_absolute_url()}">
+                <div class="register col-sm-14">${_(u"Learn more")}</div>
+            </a>
+        </div>
+    </div>
+</div>

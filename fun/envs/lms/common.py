@@ -6,6 +6,7 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 INSTALLED_APPS += (
     'backoffice',
     'fun',
+    'funsite',
     'fun_certificates',
     'fun_instructor',
     'contact',
@@ -15,18 +16,20 @@ INSTALLED_APPS += (
     'universities',
     'videoproviders',
 
+    'easy_thumbnails',
     'adminsortable',
     'bootstrapform',
-    'forum_contributors',
     'ckeditor',
     'raven.contrib.django.raven_compat',
-    'selftest',
-    'password_container', # this is an xblock we had to applications to allow syncdb of its models
     'pure_pagination',
+
+    'forum_contributors',
+    'selftest',
+    'password_container', # this is an xblock we add to applications to allow syncdb of its models
     'teachers',
     'faq',
     'edx_gea',
-)
+    )
 
 ROOT_URLCONF = 'fun.lms.urls'
 
@@ -37,8 +40,8 @@ del DEFAULT_FILE_STORAGE
 
 # those values also have to be in env.json file,
 # because pavlib.utils.envs reads it to build asset's preprocessing commands
-THEME_NAME = "fun"
-FEATURES['USE_CUSTOM_THEME'] = True
+#THEME_NAME = "fun"
+#FEATURES['USE_CUSTOM_THEME'] = True
 FEATURES['ENABLE_MKTG_SITE'] = False
 
 SITE_NAME = LMS_BASE
@@ -56,7 +59,7 @@ MKTG_URL_LINK_MAP = {
     "UNSUPPORTED-BROWSER": "unsupported-browser",
     "LICENSES": "licenses",
     "LEGAL": "legal",
-    "COPYRIGHTS": "copyrights",
+    "COPYRIGHTS": None,
     "ROOT": 'root',
     'COURSES': 'fun-courses-index',
 }
@@ -90,9 +93,12 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
 # add application templates directory to MAKO template finder
 MAKO_TEMPLATES['main'] = [
+    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
+    FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'courses/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
+    FUN_BASE_ROOT / 'newsfeed/templates',
 ] + MAKO_TEMPLATES['main']
 
 # Xiti
@@ -106,10 +112,11 @@ XITI_XTSD = 'https://logs1279'
 # Enable legal page
 MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
-ENABLE_SYSADMIN_DASHBOARD = True
-
 # Allow sending bulk e-mails for all courses
 FEATURES['REQUIRE_COURSE_EMAIL_AUTH'] = False
+
+# Access to sysadmin view (users, courses information. User has to be staff, see navigation.html)
+FEATURES['ENABLE_SYSADMIN_DASHBOARD'] = False
 
 # Registration form fields ('required', 'optional', 'hidden')
 REGISTRATION_EXTRA_FIELDS = {
@@ -139,9 +146,42 @@ GRADES_DOWNLOAD = {
 }
 GRADES_DOWNLOAD_ROUTING_KEY = None
 
+
+# Our new home page is so shiny and chrome that users must see it more often
+FEATURES['ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER'] = False
+
+# ??
 PAGINATION_SETTINGS = {
     'PAGE_RANGE_DISPLAYED': 10,
     'MARGIN_PAGES_DISPLAYED': 10,
 }
 
+NUMBER_DAYS_TOO_LATE = 7
+
+# Default visibility of student's profile to other students
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
+
+# easy-thumbnails
+SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_EXTENSION = 'png'
+
+# Course image thumbnail sizes
+FUN_THUMBNAIL_OPTIONS = {
+    'small': {'size': (270, 152), 'crop': 'smart'},
+    'big': {'size': (337, 191), 'crop': 'smart'},
+    'about': {'size': (730, 412), 'crop': 'scale'},
+    'facebook': {'size': (600, 315), 'crop': 'smart'},  # https://developers.facebook.com/docs/sharing/best-practices
+}
+
+# Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
+# On FUN v3 frontend, which do not use edX's templates, those files are loaded by funsite/templates/funsite/parts/base.html
+# css/lms-main.css
+
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
+# Also embed a tiny version of bootstrap (grid-only)
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/grid-only/css/bootstrap.min.css')
+
+# js/lms-application.js
+PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
