@@ -40,6 +40,10 @@ class Course(models.Model):
         null=True, blank=True)
     end_date = models.DateTimeField(verbose_name=_('end date'), db_index=True,
         null=True, blank=True)
+    enrollment_start_date = models.DateTimeField(verbose_name=_('enrollment start date'),
+        db_index=True, null=True, blank=True)
+    enrollment_end_date = models.DateTimeField(verbose_name=_('enrollment end date'),
+        db_index=True, null=True, blank=True)
     thumbnails_info = JSONField(_('thumbnails info'), blank=True, null=True)
 
     objects = CourseManager()

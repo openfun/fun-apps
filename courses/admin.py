@@ -48,6 +48,7 @@ class CourseAdmin(admin.ModelAdmin):
                 'university_display_name',
                 'image_url',
                 ('start_date', 'end_date'),
+                ('enrollment_start_date', 'enrollment_end_date'),
             )
         }),
         (_('Advanced'), {

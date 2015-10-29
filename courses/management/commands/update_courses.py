@@ -161,6 +161,8 @@ class Command(BaseCommand):
                 thumbnails_info[thumbnail_alias] = thumbnail.url
         course.thumbnails_info = thumbnails_info
         course.start_date = mongo_course.start
+        course.enrollment_start_date = mongo_course.enrollment_start
+        course.enrollment_end_date = mongo_course.enrollment_end
         course.end_date = mongo_course.end
         course.save()
         self.stdout.write('Updated course {}\n'.format(key))
