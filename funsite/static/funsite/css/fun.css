@@ -177,48 +177,6 @@ a.no-decoration:visited {
     border-color: #F72B2F;
 }
 
-/* Page footer */
-
-.fun-footer {
-    background-color: #08223C;
-}
-
-ul.footer-links {
-    list-style-type: none;
-    font-weight: 500;
-    background-color: #08223C;
-    float: left;
-    margin-bottom: 0;
-}
-ul.footer-links li {
-    float: left;
-    font-size: 16px;
-    margin-right: 20px;
-    line-height: 40px;
-}
-ul.footer-links li a {
-    color: white;
-}
-.footer-links.right {
-    padding-left: 4px;
-
-}
-.fun-footer .bottom-footer {
-    margin: 20px 20px 0 20px;
-    padding: 20px 0 20px 0;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: #374C61;
-}
-.fun-footer .bottom-footer div.left {
-    padding-left: 0;
-}
-.fun-footer .bottom-footer div.right {
-    text-align: right;
-    padding-right: 0;
-}
-
-
 /* Big title */
 
 h1.big-title {
@@ -423,19 +381,12 @@ h3.big-title {
     .main-width {
         width: 768px;
     }
-
     .criteria-overlay ul {
         -moz-column-count: 2;
         -webkit-column-count: 2;
         column-count: 2;
     }
 
-    .footer-links {
-        width: 50%;
-    }
-    .footer-links li {
-        width: 100%;
-    }
     .homepage-header {
         height: 320px;
         background-image: url('../images/homepage1280.png')
@@ -471,16 +422,11 @@ h3.big-title {
     .slogan {
         display: none;
     }
-
     .hidden-320 {
         display: none !important;
     }
     .visible-320 {
         display: block !important;
-    }
-
-    .footer-links {
-        width: 100%;
     }
 
     .homepage-header {
@@ -495,9 +441,6 @@ h3.big-title {
     .homepage-header img.logo-fun {
         width: 98px;
         height: 90px;
-    }
-    .footer-links.right {
-        padding-left: 40px;
     }
 }
 

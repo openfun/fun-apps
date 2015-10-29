@@ -179,7 +179,9 @@ FUN_THUMBNAIL_OPTIONS = {
 # css/lms-main.css
 
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
+
 # Also embed a tiny version of bootstrap (grid-only)
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/grid-only/css/bootstrap.min.css')
 

@@ -20,6 +20,7 @@ from staticfiles.storage import staticfiles_storage
     <link rel="stylesheet" href="${staticfiles_storage.url('funsite/owl.carousel/assets/owl.carousel.css')}">
     <link href="${staticfiles_storage.url('funsite/css/header.css')}" rel="stylesheet">
     <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
+    <link href="${staticfiles_storage.url('funsite/css/footer.css')}" rel="stylesheet">
     <%block name="css_extra" />
 
     <title>FUN - <%block name="title" /></title>
@@ -58,13 +59,8 @@ from staticfiles.storage import staticfiles_storage
     </div> <!-- bootstrape container -->
 
 </div>  <!-- main-width -->
+<%include file="footer.html" args="base_application='funsite'"/>
 
-
-<div class="container-fluid">
-
-    <%include file="footer.html" />
-
-</div>
 
 <%include file="sandwich-overlay.html" />
 

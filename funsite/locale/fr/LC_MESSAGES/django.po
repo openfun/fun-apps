@@ -15,7 +15,7 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:16
 msgid "About..."
-msgstr "A propos de FUN"
+msgstr "A propos"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:22
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:132

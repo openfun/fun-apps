@@ -5,12 +5,13 @@ from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
 %>
 
+<%page args="base_application"/>
+
 <div class="fun-footer">
-
-    <div class="row">
-        <div class="col-xs-36">
-
-            <ul class="footer-links left">
+    <div class="${'main-width' if base_application=='funsite' else 'courseware-width'}">
+        
+        <ul class="top-footer">
+            <div class="left-md-footer">
                 <li>
                     <a href="${reverse('site:render_static_template', args=['about'])}">
                         ${_("About...")}
@@ -22,8 +23,8 @@ from staticfiles.storage import staticfiles_storage
                     </a>
                 </li>
                 <li>
-                    <a href="${reverse('site:render_static_template', args=['honor'])}">
-                        ${_("Terms and conditions")}
+                    <a href="${reverse('contact:contact')}">
+                        ${_("Contact")}
                     </a>
                 </li>
                 <li>
@@ -31,8 +32,7 @@ from staticfiles.storage import staticfiles_storage
                         ${_("Terms of use")}
                     </a>
                 </li>
-            </ul>
-            <ul class="footer-links right">
+            </div><div class="right-md-footer">  
                 <li>
                     <a href="${reverse('site:render_static_template', args=['honor'])}">
                         ${_("Usage policy")}
@@ -48,29 +48,20 @@ from staticfiles.storage import staticfiles_storage
                         ${_("Terms and conditions")}
                     </a>
                 </li>
-
-                <li>
-                    <a href="${reverse('contact:contact')}">
-                        ${_("Contact")}
+            </div>
+        </ul>
+        <div class="bottom-footer">
+                <a class='logo-fun' href="/">
+                    <img  src="${staticfiles_storage.url('funsite/images/logos/fun45.png')}" alt="Logo France Université Numérique">
+                </a>
+                <div class="fun-social-networks">
+                    <a class='logo-facebook' href="https://www.facebook.com/france.universite.numerique" target="_blank">
+                        <img src="${staticfiles_storage.url('funsite/images/logos/facebook32.png')}" alt="Facebook">
                     </a>
-                </li>
-            </ul>
-
-        </div>
-    </div>
-    <div class="row bottom-footer">
-        <div class="col-xs-18 left">
-            <a href="/">
-                <img src="${staticfiles_storage.url('funsite/images/logos/fun45.png')}" alt="Logo France Université Numérique">
-            </a>
-        </div>
-        <div class="col-xs-18 right">
-            <a href="https://www.facebook.com/france.universite.numerique" target="_blank">
-                <img src="${staticfiles_storage.url('funsite/images/logos/facebook32.png')}" alt="Facebook">
-            </a>
-            <a href="https://twitter.com/universite_num" target="_blank">
-                <img src="${staticfiles_storage.url('funsite/images/logos/twitter32.png')}" alt="Twitter">
-            </a>
+                    <a  class='logo-twitter'href="https://twitter.com/universite_num" target="_blank">
+                        <img src="${staticfiles_storage.url('funsite/images/logos/twitter32.png')}" alt="Twitter">
+                    </a>
+                </div>
         </div>
     </div>
 </div>
