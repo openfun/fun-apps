@@ -3,8 +3,20 @@
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
-  font-weight: 400;
-  src: local('Raleway'), url(../fonts/Raleway.ttf) format('truetype');
+  font-weight: 300;
+  src: local('Raleway-Light'), url(../fonts/Raleway-Light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Raleway-Regular'), url(../fonts/Raleway-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Raleway-SemiBold'), url(../fonts/Raleway-SemiBold.ttf) format('truetype');
 }
 
 /***** HEADER *****/
@@ -144,7 +156,7 @@
     display: block;
     padding: 3px 5px 4px;
     margin: 5px 0px;
-    font-size: 15px; 
+    font-size: 15px;
 }
 
 #top-menu .fun-dropdown-menu li>a:hover {
