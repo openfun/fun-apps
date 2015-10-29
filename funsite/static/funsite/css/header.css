@@ -223,6 +223,11 @@
     font-size: 16px;
 }
 
+/* Main content positioning in courseware */
+.content-wrapper {
+    margin: 60px auto;
+}
+
 /** EXTRA **/
 
 .light-shadow {
