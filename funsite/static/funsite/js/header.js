@@ -24,27 +24,26 @@
 
      $('body').click(function() {
      	if ($('#top-menu .fun-dropdown-menu').is(":visible")) {
-     	    $('#top-menu .fun-dropdown-menu').hide();
+     	    $('#top-menu .fun-dropdown-menu').slideUp();
      	    toggleAccessiblePopUpAria(false);
      	}
      });
 
     function toggleDropdown(event) {
-	if ($('#top-menu .fun-dropdown-menu').is(":hidden")) {
-	    $('#top-menu .fun-dropdown-menu').show();
-	    toggleAccessiblePopUpAria(true);
-	}
-	else {
-	    $('#top-menu .fun-dropdown-menu').hide();
-	    toggleAccessiblePopUpAria(false);
-	}
-	event.preventDefault();
-	event.stopPropagation();
+        if ($('#top-menu .fun-dropdown-menu').is(":hidden")) {
+            $('#top-menu .fun-dropdown-menu').slideDown();
+            toggleAccessiblePopUpAria(true);
+        }
+        else {
+            $('#top-menu .fun-dropdown-menu').hide();
+            toggleAccessiblePopUpAria(false);
+        }
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     function toggleAccessiblePopUpAria(display) {
-	// aria-haspopup is used to improve accessibility.
-	$('#top-menu .right-nav .toggle-dropdown-menu').attr('aria-haspopup', display);
+        // aria-haspopup is used to improve accessibility.
+        $('#top-menu .right-nav .toggle-dropdown-menu').attr('aria-haspopup', display);
     }
-
  })();
