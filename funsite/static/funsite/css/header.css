@@ -68,6 +68,11 @@
     line-height: 22.4px;
 }
 
+#top-menu .right-nav img {
+    margin-top: -10px;
+    margin-right: 5px;
+}
+
 #top-menu .right-nav a.nav-link-block {
     display: inline-block;
     height: 60px;
@@ -101,7 +106,7 @@
 
 #top-menu .right-nav a.dashboard-user-link .username,
 #top-menu .right-nav a.toggle-dropdown-menu span.vertical-arrow,
-#top-menu .right-nav a.login-link {
+#top-menu .right-nav a.login-link span {
     color: white;
 }
 
@@ -173,12 +178,12 @@
 
 @media (max-width: 767px) {
     #top-menu .left-nav span.slogan {
-	display: none;
+	    display: none;
     }
 
     #top-menu .right-nav .dashboard-user-link span.username,
     #top-menu .right-nav .login-link span {
-	display: none;
+	    display: none;
     }
 }
 
