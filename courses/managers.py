@@ -2,6 +2,7 @@
 import random
 
 from django.db import models
+from django.db.models import Q
 from django.utils.timezone import now, timedelta
 
 from fun.utils.managers import ChainableManager
@@ -55,8 +56,10 @@ class CourseQuerySet(models.query.QuerySet):
         """
         A new course is in its first session and that is not closed.
         """
-        # TODO should we use the session_number attribute instead?
-        return self.filter(key__endswith="session01")
+        return self.filter(
+            Q(session_number=1),
+            Q(enrollment_end_date__lt=now()) | Q(enrollment_end_date__isnull=True)
+        )
 
     def by_score(self):
         return self.public().order_by('-score')

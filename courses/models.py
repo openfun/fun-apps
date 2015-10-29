@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.utils.timezone import now
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -79,7 +81,10 @@ class Course(models.Model):
     def session_display(self):
         display_text = ''
         if self.session_number == 1:
-            display_text = ugettext('new course')
+            if self.enrollment_end_date and self.enrollment_end_date > now():
+                display_text = ugettext('session 1')
+            else:
+                display_text = ugettext('new course')
         if self.session_number > 1:
             display_text = ugettext('session {}'.format(self.session_number))
         return display_text

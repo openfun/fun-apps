@@ -54,8 +54,8 @@ class TestCourseSubject(TestCase):
         self.assertEqual(1, subjects.get(slug='active-2').public_courses_count)
 
     def test_new_courses_filter(self):
-        factories.CourseFactory.create(key="org/num/session02")
-        course_new = factories.CourseFactory.create(key="org/num/session01")
+        factories.CourseFactory.create(session_number=2)
+        course_new = factories.CourseFactory.create(session_number=1)
         new_courses = list(models.Course.objects.new())
         self.assertEqual([course_new], new_courses)
 
