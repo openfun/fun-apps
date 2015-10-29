@@ -54,6 +54,7 @@
     float: right;
     background: #F72C30;
     cursor: pointer;
+    height: 100%;
     line-height: 22.4px;
 }
 
