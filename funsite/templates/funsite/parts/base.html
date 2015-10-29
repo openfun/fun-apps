@@ -2,11 +2,10 @@
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from microsite_configuration import microsite
 
 from staticfiles.storage import staticfiles_storage
-
 %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +15,7 @@ from staticfiles.storage import staticfiles_storage
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%block name="meta_extra" />
 
+    <link rel="icon" type="image/x-icon" href="${staticfiles_storage.url(microsite.get_value('favicon_path', settings.FAVICON_PATH))}" />
     <link href="${staticfiles_storage.url('funsite/bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
     <link rel="stylesheet" href="${staticfiles_storage.url('funsite/owl.carousel/assets/owl.carousel.css')}">
     <link href="${staticfiles_storage.url('funsite/css/header.css')}" rel="stylesheet">
