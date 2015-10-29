@@ -55,8 +55,7 @@ class CourseQuerySet(models.query.QuerySet):
         """
         A new course is in its first session and that is not closed.
         """
-        # TODO should we use the session_number attribute instead?
-        return self.filter(key__endswith="session01")
+        return self.filter(session_number=1)
 
     def by_score(self):
         return self.public().order_by('-score')

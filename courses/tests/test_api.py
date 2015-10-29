@@ -120,9 +120,9 @@ class CourseAPITest(TestCase):
         self.assertNotContains(response, self.active_2.title)
 
     def test_only_display_new_courses(self):
-        self.active_1.key = "org/num/session01"
+        self.active_1.session_number = 1
         self.active_1.save()
-        self.active_2.key = "org/num/session02"
+        self.active_2.session_number = 2
         self.active_2.save()
         filter_data = {'availability': 'new'}
         response = self.client.get(self.api_url, filter_data)
