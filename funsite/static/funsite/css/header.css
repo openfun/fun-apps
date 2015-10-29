@@ -31,6 +31,10 @@
     font-family: 'Raleway';
 }
 
+.slogan, .username {
+    font-family: 'Raleway';
+}
+
 /* Left header */
 
 #top-menu .left-nav {
