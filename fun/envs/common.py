@@ -23,7 +23,7 @@ PAYMENT_SUPPORT_EMAIL = "paiements@france-universite-numerique-mooc.fr"
 STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
 STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
 BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
-FAVICON_PATH = "themes/fun/images/favicon.ico"
+FAVICON_PATH = "fun/images/favicon.ico"
 
 PLATFORM_FACEBOOK_ACCOUNT = 'https://www.facebook.com/france.universite.numerique'
 PLATFORM_TWITTER_ACCOUNT = '@universite_num'
