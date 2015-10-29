@@ -78,8 +78,11 @@ a,
 a:active,
 a:focus {
     text-decoration: none;
+    color: #2579BE;
 }
-
+a:hover {
+    color: #FE3925;
+}
 a.no-decoration,
 a.no-decoration:hover,
 a.no-decoration:focus,
@@ -263,6 +266,7 @@ h3.big-title {
 }
 .btn.btn-default:hover, .btn.btn-transparent:hover {
     border-color: #FB453E;
+    color: #FB453E;
 }
 .btn.btn-dark-bg.btn-transparent:hover {
     border-color: white;
@@ -273,6 +277,11 @@ h3.big-title {
     border: 1px solid #3877BC;
     color: white;
 }
+.btn.btn-primary:hover {
+    background-color: #FE3925;
+    border-color:  #FE3925;
+}
+
 .btn.btn-padded {
     padding: 12px;
 }
@@ -557,6 +566,9 @@ h3.big-title {
     text-align: center;
     font-weight: 600;
 }
+.course-block .footer .register:hover {
+    background-color: #FE3925;
+}
 
 /* Small course block */
 .small-course {
@@ -692,6 +704,9 @@ ul.universities-list {
 }
 .universities-list .university-logo {
     border: 1px solid #E6E6E6;
+}
+.universities-list .university-logo:hover {
+    border-color: #2579BE;
 }
 .university-logo {
     width: 185px;
@@ -1547,8 +1562,11 @@ ul.faq-articles > li {
     margin-top: 26px;
 }
 
+.fun-faq a.faq-anchor {
+    color: inherited;
+    text-decoration: none;
+}
 .fun-faq a.article {
-    color: black;
 }
 
 .faq-last-update {

@@ -36,6 +36,9 @@
 #top-menu .left-nav {
     float : left;
 }
+#top-menu .left-nav a {
+    text-decoration: none;
+}
 
 #top-menu .left-nav #sandwich-menu {
     float: left;

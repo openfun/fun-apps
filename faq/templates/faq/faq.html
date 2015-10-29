@@ -18,10 +18,10 @@ from staticfiles.storage import staticfiles_storage
             <div class="">
                 <ul class="faq-categories">
                     % for category in article_tree:
-                        <li><a id="${category['id']}"><h1>${category['name']}</h1></a>
+                        <li><a id="${category['id']}" class="faq-anchor"><h1>${category['name']}</h1></a>
                             <ul class="faq-sections">
                             % for section in category['sections']:
-                                <li><a id="${section['id']}"><h2>${section['name']}</h2></a>
+                                <li><a id="${section['id']}" class="faq-anchor"><h2>${section['name']}</h2></a>
                                 <ul class="faq-articles">
                                     % for article in section['articles']:
                                         <li>
