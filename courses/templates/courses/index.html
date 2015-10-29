@@ -28,8 +28,6 @@ from courses.routers import CourseAPIRouter
 % endfor
 
 <script>
-
-
 require(["jquery", "underscore", "backbone"],
     function ($, _, Backbone) {
 
@@ -72,10 +70,15 @@ require(["jquery", "underscore", "backbone"],
 
         ];
 
+        // Display criterions on click
+        $(".left .filters .title").on("click", function() {
+            $(".left .filters .criterions").slideDown();
+        })
+
         var AppRouter = Backbone.Router.extend({
             routes: {
-                "": "emptyFilter",
-                "filter(/:name/:slug)(?(page=:page)(&)(rpp=:rpp))": "filter",
+                "(filter)": "initializeFilter",
+                "filter(/:name/:slug)(?page=:page&rpp=:rpp)": "filter",
             },
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
@@ -83,28 +86,29 @@ require(["jquery", "underscore", "backbone"],
                 this.listenTo(this.filter, 'change', this.updateUrl);
             },
             updateUrl: function() {
-                var url = "filter";
+                var url = "";
                 var selected = this.filter.get("selected");
                 var page = this.filter.get("currentPage");
-                var parameters = []
+                var rpp = this.filter.get("resultsPerPage");
                 if (selected) {
                     url += '/' + selected.criterionName() +
                            '/' + selected.get('value');
                 }
-                if (page && page != "1") {
-                    parameters.push({name: "page", value: page});
+                if ((page && page != "1") || (rpp && rpp != "50")) {
+                    url += '?' + $.param([
+                        {name: "page", value: page},
+                        {name: "rpp", value: rpp}
+                    ]);
                 }
-                if (this.filter.get("resultsPerPage")) {
-                    parameters.push({name: "rpp", value: this.filter.get("resultsPerPage")});
+                if (url) {
+                    url = "filter" + url;
                 }
-                url += parameters ? "?" : "";
-                url += $.param(parameters);
                 this.navigate(url, {trigger: false});
             },
-            emptyFilter: function() {
+            initializeFilter: function() {
                 this.filter.trigger("initialized")
             },
-            filter: function(name, slug, rpp, page) {
+            filter: function(name, slug, page, rpp) {
                 if (name && name !== 'page') {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
@@ -242,30 +246,31 @@ require(["jquery", "underscore", "backbone"],
             },
 
             events: {
-                'click span.all-items': 'showAllItemsOverlay'
+                'click span.all-items': 'toggleAllItemsOverlay'
             },
 
-            showAllItemsOverlay: function(event) {
+            toggleAllItemsOverlay: function(event) {
+                // Hide all overlays
                 $('.hide-on-escape-key').hide();
                 var overlay_id = this.model.get('overlay');
                 $(overlay_id).show();
 
                 /* Calculate vertical overlay's position regarding clicked button */
+                // TODO
+                $(overlay_id).css('top', this.$el.position().top + 'px');
+                /*debugger;
                 var top =  $(event.currentTarget).prev().prev().offset().top - $('.filters').offset().top - 68;
-                $(overlay_id).css('top', top + 'px');
+                $(overlay_id).css('top', top + 'px');*/
 
                 /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
-                var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
+                /*var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
                 var li_height = $('li.criterion').outerHeight(true);
                 li_height +=3;  // quick fix to compensate university names which use 2 lines... We have to use shorter name
+                // TODO fixme
                 $(overlay_id).find('ul').css('height', (height * li_height) + 'px');
-                console.log(li_height)
+                console.log(li_height)*/
 
-            },
-            onClick: function(event) {
-                console.log(this.model.toJSON());
             }
-
         })
 
         var CriterionCollection = Backbone.Collection.extend({
@@ -337,7 +342,8 @@ require(["jquery", "underscore", "backbone"],
 
         var Course = Backbone.Model.extend({});
         var CourseView = Backbone.View.extend({
-            tagName: 'li',
+            tagName: 'div',
+            className: "col-lg-9 col-md-12 col-sm-36 col-xs-36",
             template: loadTemplate("small-course-block"),
             initialize: function() {
                 this.listenTo(this.model, "destroy", this.remove);
@@ -435,6 +441,10 @@ require(["jquery", "underscore", "backbone"],
             },
             criterionSelected: function(value) {
                 this.filter.startNewSearch(value);
+                // Scroll to results
+                $('html, body').animate({
+                    scrollTop: this.filterview.$el.offset().top - 80
+                }, 250);
             },
 
             refreshCourses: function(){
@@ -455,8 +465,6 @@ require(["jquery", "underscore", "backbone"],
             filters: filters
         });
     });
-
-
 </script>
 </%block>
 
@@ -468,7 +476,6 @@ require(["jquery", "underscore", "backbone"],
             <h2 class="big-title">${_("Courses")}</h2>
         </div>
     </div>
-
 
     <div class="row">
 
@@ -485,11 +492,10 @@ require(["jquery", "underscore", "backbone"],
                 </div>
 
                 <div class="right">
-                    <div class="result-navigation">
-                    </div>
+                    <div class="result-navigation"></div>
 
-                    <div class="list">
-                        <ul id="course-filtering-results"></ul>
+                    <div class="list row">
+                        <div id="course-filtering-results"></div>
                     </div>
 
                     <div class="result-navigation hide-search-filter"></div>

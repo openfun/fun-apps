@@ -572,7 +572,7 @@ h3.big-title {
 /* Small course block */
 .small-course {
     width: 270px;
-    height: 340px;
+    height: 370px;
     margin-bottom: 30px;
 }
 
@@ -891,37 +891,86 @@ ul.universities-list {
 
 
 /* Courses filtering and searching courses/index.html */
-.courses-page {
-
-}
 .courses-page .big-title {
     margin-top: 40px;
     margin-bottom: 30px;
 }
 .course-list {
     position: relative;
-
 }
-.course-list .list {
+@media (max-width: 767px) {
+    .course-list-table .left .title {
+        cursor: pointer;
+    }
+    .course-list-table .left .criterions {
+        display: none;
+    }
+    .course-list-table .right {
+        width: 325px;
+    }
+    .course-list-table .right .result-navigation {
+        margin-top: 30px;
+    }
+}
+@media (min-width: 768px) {
+    .course-list-table .left {
+        width: 325px;
+    }
+    .course-list-table .right {
+        width: 100%;
+    }
+    .course-list-table {
+        display: table;
+    }
+    .course-list-table .left {
+        display: table-cell;
+        vertical-align: top;
+        width: 325px;
+        background-color: #06213B;
+    }
+    .course-list-table .right {
+        display: table-cell;
+        vertical-align: top;
+        width: 100%;
+        padding-left: 38px;
+    }
+}
+.course-list-table .right .result-navigation {
+    border: 1px solid #CBCCCD;
+    padding: 12px 20px 12px 20px;
+    margin-bottom: 24px;
+}
+.course-list-table .right .result-navigation.hide-search-filter .search-filter{
+    display: none;
+}
+.course-list-table .right .result-navigation h3 {
+    margin: 0 12px 0 0;
+
+    display: inline-block;
+    color: #3877BC;
+    font-size: 14px;
+    font-weight: 600;
+}
+.course-list-table .course-list .right .list {
     margin-left: 38px;
 }
-.course-list .list ul {
-    list-style-type: none;
-    margin: 0 auto;
-    display: inline-block;
-    padding-left: 0;
-}
-.course-list .list ul li {
-    float: left;
-    display: inline-block;
-}
-
 .filters {
     background-color: #08223C;
-    width: 325px;
+    width: 100%;
     padding-left: 48px;
     padding-right: 48px;
     overflow: visible;
+}
+.filters .title {
+    margin-top: 20px;
+    color: #3976BC;
+    font-size: 32px;
+    font-weight: 200;
+}
+.filters .btn.all-items {
+    display: inline-block;
+    margin-top: 6px;
+    margin-bottom: 40px;
 }
 .criteria-overlay {
     border-left: 1px solid #B6BDC5;
@@ -933,8 +982,6 @@ ul.universities-list {
     background-color: #08223C;
     z-index: 20;
 }
-
-
 .criteria-block.criteria-overlay h2 {
     color: white;
     font-weight: 400;
@@ -946,30 +993,18 @@ ul.universities-list {
     width: 100%;
     border: none;
 }
-
-
 .criteria-overlay .close-overlay {
     color : white;
     font-size: 16px;
     margin-top : 20px;
 }
-
 .criteria-block-bottom {
     background-color: red;
-}
-.criteria-overlay ul {
 }
 .criteria-overlay ul li {
     line-height: 20px;
     padding-top: 8px;
     padding-bottom: 8px;
-}
-
-.filters div.title {
-    margin-top: 20px;
-    color: #3976BC;
-    font-size: 32px;
-    font-weight: 200;
 }
 .criteria-block h2 {
     color: white;
@@ -984,12 +1019,10 @@ ul.universities-list {
     border-bottom-width: 1px;
     width: 232px;
 }
-
 .criteria-block ul.criteria {
     list-style-type: none;
     padding-left: 0;
 }
-
 .criteria-block ul.criteria li {
     font-size: 14px;
     color: #ccc;
@@ -1005,7 +1038,6 @@ ul.universities-list {
 .criteria-overlay  ul.criteria li {
     width: auto;
 }
-
 .criteria-block ul.criteria li .badge {
     font-size: 11px;
     background-color: #F32A2E;
@@ -1013,11 +1045,6 @@ ul.universities-list {
     /* line-height: 20px;
     border-radius: 20px; */
     font-weight: 200;
-}
-.filters .btn.all-items {
-    display: inline-block;
-    margin-top: 6px;
-    margin-bottom: 40px;
 }
 .criteria li.icon {
     padding-left: 36px !important;
@@ -1044,29 +1071,6 @@ ul.universities-list {
 }
 .criteria li.filter-checkbox.checked {
     background: url('../images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
-    }
-
-
-.result-navigation {
-    border: 1px solid #CBCCCD;
-    margin: 0 38px 24px 38px;
-    padding: 8px;
-}
-.result-navigation>div.row>div {
-    padding: 4px 12px 4px;
-    padding-bottom: 4px;
-}
-.result-navigation.hide-search-filter .search-filter{
-    display: none;
-}
-
-.result-navigation h3 {
-    margin: 0 12px 0 0;
-
-    display: inline-block;
-    color: #3877BC;
-    font-size: 14px;
-    font-weight: 600;
 }
 
 
@@ -1556,24 +1560,6 @@ ul.faq-breadcrumb li {
 div.article {
     margin-top: 44px;
     clear: both;
-}
-
-
-.course-list-table {
-    display: table;
-}
-
-.course-list-table .left {
-    display: table-cell;
-    vertical-align: top;
-    width: 325px;
-    background-color: #06213B;
-}
-
-.course-list-table .right {
-    display: table-cell;
-    vertical-align: top;
-    width: 100%;
 }
 
 

@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 29\n"
+"Project-Id-Version: France Université Numérique 34\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-27 11:02+0100\n"
-"PO-Revision-Date: 2015-10-27 11:02+0000\n"
+"POT-Creation-Date: 2015-10-28 16:28+0100\n"
+"PO-Revision-Date: 2015-10-28 16:28+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -19,12 +19,12 @@ msgid "%b %d %Y"
 msgstr "%d %b %Y"
 
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:51
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:498
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:501
 msgid "All themes"
 msgstr "Tous les thèmes"
 
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:56
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:506
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:509
 msgid "All universities"
 msgstr "Tous les établissements"
 
@@ -62,7 +62,7 @@ msgstr "cours {}"
 
 # Translated in edx by 'Cours'
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:11
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:465
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:468
 msgid "Courses"
 msgstr "Les cours"
 
@@ -103,6 +103,11 @@ msgstr "Introduction"
 msgid "Latests courses published on www.france-universite-numerique-mooc.fr"
 msgstr "Derniers cours publiés sur www.france-universite-numerique-mooc.fr"
 
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/big.html:45
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/small.html:45
+msgid "Learn more"
+msgstr "En savoir plus"
+
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:49
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/listing.html:13
 msgid "New"
@@ -112,7 +117,7 @@ msgstr "Nouveau"
 msgid "Proposed by"
 msgstr "Cours proposé par"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:478
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:481
 msgid "Refine search results"
 msgstr "Affiner les résultats"
 
@@ -123,6 +128,13 @@ msgstr "Mettre à 0 s'il n'y a pas de notion de session pour ce cours."
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/listing.html:31
 msgid "Start date:"
 msgstr "Date de début :"
+
+# Translated in edx by 'Commence'
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/big.html:36
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/small.html:36
+msgctxt "course-block"
+msgid "Starts"
+msgstr "Débute"
 
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:48
 msgid "Starts soon"

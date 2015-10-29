@@ -25,7 +25,7 @@
 /* Left header */
 
 #top-menu .left-nav #sandwich-menu {
-    float:left;
+    float: left;
     width: 40px;
     height: 36px;
     background: url('../images/icones/sandwich.png') 14px 14px no-repeat;
@@ -164,7 +164,8 @@
     top: 0;
     left: 0;
     display: none;
-    background-color: #3D79BE;
+    background-color: rgba(61, 121, 190, 0.95);
+    font-family: 'Raleway', sans-serif;
     z-index: 2000;
 }
 #sandwich-overlay ul {
