@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from courses.routers import CourseAPIRouter
 %>
 
-<%inherit file="/funsite/parts/base.html" />
+<%inherit file="/funsite/parts/base-fluid.html" />
 
 <%block name="title">${_("Courses")}</%block>
 
@@ -463,14 +463,14 @@ require(["jquery", "underscore", "backbone"],
 <%block name="content">
 
 <div class="courses-page">
-    <div class="row">
+    <div class="row-fluid">
         <div class="col-lg-36 text-center">
             <h2 class="big-title">${_("Courses")}</h2>
         </div>
     </div>
 
 
-    <div class="row">
+    <div class="row-fluid">
 
         <div id="course-search" class="course-list">
 
@@ -484,7 +484,7 @@ require(["jquery", "underscore", "backbone"],
 
                 </div>
 
-                <div class="right">
+                <div class="right row">
                     <div class="result-navigation">
                     </div>
 

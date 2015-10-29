@@ -348,9 +348,6 @@ h3.big-title {
     .main-content .right {
         width: 730px;
     }
-    .course-list .list ul li {
-        margin-right: 39px;
-    }
 
     .course-about .right .register-course-button {
         height: 68px;
@@ -399,10 +396,6 @@ h3.big-title {
         width: 354px;
     }
 
-    .course-list .list ul li {
-        margin-right: 39px;
-    }
-
     .course-about .right .register-course-button {
         height: 58px;
         padding-top: 14px;
@@ -446,10 +439,6 @@ h3.big-title {
     .homepage-header img.logo-fun {
         width: 156px;
         height: 144px;
-    }
-
-    .course-list .list ul li {
-        margin-right: 28px;
     }
 
     .register-page .right {
@@ -899,21 +888,69 @@ ul.universities-list {
     margin-bottom: 30px;
 }
 .course-list {
-    position: relative;
 
 }
+
+
+
 .course-list .list {
-    margin-left: 38px;
 }
 .course-list .list ul {
     list-style-type: none;
+    width: 100%;
     margin: 0 auto;
-    display: inline-block;
     padding-left: 0;
+
+   display: flex;
+   flex-flow: row wrap;
+   justify-content: space-around;
+
 }
 .course-list .list ul li {
-    float: left;
+    flex: auto;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.course-list-table {
+    display: table;
+}
+
+.course-list-table .left {
+    display: table-cell;
+    vertical-align: top;
+    width: 325px;
+    background-color: #06213B;
+}
+
+.course-list-table .right {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+    padding-left: 38px;
+    padding-right: 12px;
+}
+
+.result-navigation {
+    border: 1px solid #CBCCCD;
+    margin: 0 0 24px 0;
+    padding: 8px;
+}
+.result-navigation>div.row>div {
+    padding: 4px 12px 4px;
+    padding-bottom: 4px;
+}
+.result-navigation.hide-search-filter .search-filter{
+    display: none;
+}
+
+.result-navigation h3 {
+    margin: 0 12px 0 0;
+
     display: inline-block;
+    color: #3877BC;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .filters {
@@ -1046,28 +1083,6 @@ ul.universities-list {
     background: url('../images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
     }
 
-
-.result-navigation {
-    border: 1px solid #CBCCCD;
-    margin: 0 38px 24px 38px;
-    padding: 8px;
-}
-.result-navigation>div.row>div {
-    padding: 4px 12px 4px;
-    padding-bottom: 4px;
-}
-.result-navigation.hide-search-filter .search-filter{
-    display: none;
-}
-
-.result-navigation h3 {
-    margin: 0 12px 0 0;
-
-    display: inline-block;
-    color: #3877BC;
-    font-size: 14px;
-    font-weight: 600;
-}
 
 
 /* Single-column content */
@@ -1559,22 +1574,6 @@ div.article {
 }
 
 
-.course-list-table {
-    display: table;
-}
-
-.course-list-table .left {
-    display: table-cell;
-    vertical-align: top;
-    width: 325px;
-    background-color: #06213B;
-}
-
-.course-list-table .right {
-    display: table-cell;
-    vertical-align: top;
-    width: 100%;
-}
 
 
 /* Register page */
