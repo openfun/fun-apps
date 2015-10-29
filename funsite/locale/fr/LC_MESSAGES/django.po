@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 15\n"
+"Project-Id-Version: France Université Numérique 17\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-28 16:24+0100\n"
-"PO-Revision-Date: 2015-10-28 16:25+0000\n"
+"POT-Creation-Date: 2015-10-29 16:52+0100\n"
+"PO-Revision-Date: 2015-10-29 16:52+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -78,7 +78,7 @@ msgid "Log in to your {platform_name} account"
 msgstr "Connexion à votre compte {platform_name}"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:33
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:47
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:53
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:52
 msgid "Login"
 msgstr "Connexion"
@@ -98,6 +98,14 @@ msgstr "Politique de confidentialité"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:232
 msgid "Registration closed"
 msgstr "Inscription close"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/static_templates/server-error.html:4
+msgid "Server error"
+msgstr "Erreur serveur"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:49
+msgid "Sign up"
+msgstr "Inscription"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:48
 msgid "Sign up to {platform_name}"

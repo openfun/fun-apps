@@ -28,11 +28,11 @@
     height: 60px;
     z-index: 1030; /*z-index used by boostrap for fix headers*/
     background-color: white;
-    font-family: 'Raleway';
+    font-family: 'Raleway', sans-serif;
 }
 
 .slogan, .username {
-    font-family: 'Raleway';
+    font-family: 'Raleway', sans-serif;
 }
 
 /* Left header */
@@ -67,13 +67,29 @@
 
 #top-menu .right-nav {
     float: right;
-    background: #F72C30;
     cursor: pointer;
     height: 100%;
     line-height: 22.4px;
+    background: #F72C30;
 }
 
-#top-menu .right-nav img {
+#top-menu .right-nav .signup-link {
+    padding-right: 20px;
+    color: #3877BC;
+    background: white;
+}
+
+@media (min-width: 767px) {
+    #top-menu .right-nav .toggle-dropdown-menu,
+    #top-menu .right-nav .login-link {
+        padding-right: 40px;
+    }
+}
+
+#top-menu .right-nav .login-link {
+    background: #F72C30;
+}
+#top-menu .right-nav .login-link img {
     margin-top: -10px;
     margin-right: 5px;
 }
@@ -83,7 +99,6 @@
     height: 60px;
     padding-top: 17.5px;
     padding-bottom: 17.5px;
-    padding-right: 5px;
     text-decoration: none;
 }
 
@@ -99,13 +114,16 @@
     padding-left: 5px;
 }
 #top-menu .right-nav a.toggle-dropdown-menu {
-    padding-right: 10px;
     padding-left : 5px;
 }
 
+#top-menu .right-nav a.signup-link span {
+    color: #F72C30;
+}
+
+#top-menu .right-nav a.signup-link,
 #top-menu .right-nav a.login-link {
     font-weight: bold;
-    padding-right: 10px;
     padding-left : 10px;
 }
 
@@ -187,7 +205,8 @@
     }
 
     #top-menu .right-nav .dashboard-user-link span.username,
-    #top-menu .right-nav .login-link span {
+    #top-menu .right-nav .nav-link-block.signup-link,
+    #top-menu .right-nav .nav-link-block.login-link span {
 	    display: none;
     }
 }
@@ -238,7 +257,7 @@
     margin-left: 20px;
     margin-top: 20px;
     font-size: 30px;
-    color:white;
+    color: white;
     cursor: pointer;
 }
 
