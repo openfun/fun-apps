@@ -23,7 +23,7 @@ from courses.routers import CourseAPIRouter
 
 % for template_name in ['small-course-block', 'criterion-value', 'filter']:
 <script type="text/template" id="${template_name}-tpl">
-  ${static_include("courses/js/" + template_name + ".underscore")}
+    ${static_include("courses/js/" + template_name + ".underscore")}
 </script>
 % endfor
 
@@ -252,7 +252,7 @@ require(["jquery", "underscore", "backbone"],
                 $(overlay_id).show();
 
                 /* Calculate vertical overlay's position regarding clicked button */
-                var top =  $(event.currentTarget).prev().prev().offset().top - $('.filters').offset().top - 68;
+                var top =  $(event.currentTarget).prev().prev().offset().top - 68;
                 $(overlay_id).css('top', top + 'px');
 
                 /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */

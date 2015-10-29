@@ -961,6 +961,7 @@ ul.universities-list {
     overflow: visible;
 }
 .criteria-overlay {
+    left: 325px;
     border-left: 1px solid #B6BDC5;
     padding-top: 0px;
     padding-right: 20px;
