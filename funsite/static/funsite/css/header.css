@@ -197,8 +197,8 @@
 
 #sandwich-overlay ul {
     list-style-type: none;
-    margin-top: 7%;
-    margin-bottom: 7%;
+    margin: 7% 0 7% 0;
+    padding: 0;
     text-align: center;
 }
 
