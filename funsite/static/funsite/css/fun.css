@@ -442,6 +442,10 @@ h3.big-title {
         width: 98px;
         height: 90px;
     }
+    .course-list-table .right {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 }
 
 .homepage-header {
@@ -881,6 +885,43 @@ ul.universities-list {
     background-color: #06213B;
 }
 
+.small-device-filter {
+    background-color: #062644;
+    display: table-cell;
+    padding: 24px;
+    margin-bottom: 24px;
+    font-weight: 300;
+
+}
+.small-device-filter .title {
+    color: #2579BE;
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+
+
+.small-device-filter select {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519' style='fill: white;'/></svg>");
+  background-color: #062644;
+  background-repeat: no-repeat;
+  background-position: left 10px top 15px;
+  background-size: 16px 16px;
+  color: white;
+  padding: 12px;
+  padding-left: 30px;
+  font-size: 16px;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 0;
+  outline: 0;
+}
+
+
+
+
+
 .course-list-table .right {
     display: table-cell;
     vertical-align: top;
@@ -1041,6 +1082,7 @@ ul.universities-list {
 .criteria li.filter-checkbox.checked {
     background: url('../images/icones/filter-checkbox-checked.png') 6px 2px no-repeat;
     }
+
 
 
 

@@ -27,14 +27,14 @@
     </div>
     <div class="bottom">
         <div class="footer row">
-            <div class="date col-sm-20">
+            <div class="date col-xs-20">
                 <a class="no-decoration" href="<%= course_about %>">
                     <%- pgettext("course-block", "Starts") %>
                     <br>
                     <%- start_date_display %>
                 </a>
             </div>
-            <div class="register col-sm-16">
+            <div class="register col-xs-16">
                 <a class="no-decoration" href="<%= course_about %>">
                     <%- gettext("Learn more") %>
                 </a>
