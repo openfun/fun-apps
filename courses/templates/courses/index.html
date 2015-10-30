@@ -43,17 +43,17 @@ require(["jquery", "underscore", "backbone"],
         };
 
         var filters = [
-            {title: "${_('Availability')}", name: 'availability', type: 'select', values: [
+            {title: "${_('Availability')}", name: 'availability', type: 'select', select: '#availability-select', values: [
                 {value: 'end-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_end_soon}},
                 {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
                 {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
             ]},
-            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay', values: [
+            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay', select: '#themes-select', values: [
                 %for course_subject in course_subjects:
                 {value: "${course_subject.slug}", title: "${course_subject.get_short_name()}", count: ${course_subject.public_courses_count}},
                 %endfor
             ]},
-            {title: "${_('Universities')}", name: 'university', type: 'select', max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay', values: [
+            {title: "${_('Universities')}", name: 'university', type: 'select', max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay', select: '#universities-select', values: [
                 %for university in universities:
                 {value: "${university.code}", title: "${university.get_short_name()}", count: ${university.public_courses_count}},
                 %endfor
@@ -163,8 +163,18 @@ require(["jquery", "underscore", "backbone"],
                 }
                 this.model.collection.trigger('valueSelected', this.model);
             }
-
         });
+        var SelectValueView = ValueView.extend({
+            tagName: 'option',
+            className: '',
+            render: function() {
+                this.$el.attr('value', this.model.get('value'));
+                this.$el.text(this.model.get('title'))
+                return this;
+            }
+        })
+
+
         // only display `max` items in filter columns (others will be displayed when `all` button clicked)
         var ShortValueCollectionView = Backbone.View.extend({
             tagName: 'ul',
@@ -202,6 +212,25 @@ require(["jquery", "underscore", "backbone"],
             },
         });
 
+        var SelectValueCollectionView = Backbone.View.extend({
+            events: {"change": "onChange"},
+            initialize: function(options) {
+                this.$el.append($('<option>').text(options.title));
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            addOne: function(item) {
+                var view = new SelectValueView({model: item});
+                this.$el.append(view.render().el);
+            },
+            onChange: function(event) {
+                var model = this.collection.findWhere({value: event.target.value});
+                this.collection.criterion.collection.trigger('criterionSelected', model);
+                // reset other selects
+                $('.small-device-filter select').not('#' + this.$el.attr('id')).prop('selectedIndex', 0);
+            },
+
+        });
+
         var Criterion = Backbone.Model.extend({
             defaults: {
                 // if no max value, we use a big one to display all items (and save JS LOC)
@@ -219,12 +248,19 @@ require(["jquery", "underscore", "backbone"],
             tagName: 'div',
 
             initialize: function() {
-                this.valuecollectionview = new ShortValueCollectionView(
-                        {collection: this.model.valuecollection, max: this.model.get('max')});
+                this.valuecollectionview = new ShortValueCollectionView({
+                        collection: this.model.valuecollection,
+                        max: this.model.get('max')});
+
+                this.selectvaluecollectionview = new SelectValueCollectionView({
+                        el: this.model.get('select'),
+                        collection: this.model.valuecollection,
+                        title: this.model.get('title')});
 
                 if (this.model.get('all_button')) {
-                    this.longvaluecollectionview = new LongValueCollectionView(
-                            {el: this.model.get('overlay') + ' ul', collection: this.model.valuecollection});
+                    this.longvaluecollectionview = new LongValueCollectionView({
+                            el: this.model.get('overlay') + ' ul',
+                            collection: this.model.valuecollection});
                 };
                 this.model.valuecollection.add(this.model.get("values"))
 
@@ -319,6 +355,7 @@ require(["jquery", "underscore", "backbone"],
             template: loadTemplate("filter"),
             clearSelectedValue: function() {
                 this.model.startNewSearch(null);
+                $('.small-device-filter select').prop('selectedIndex', 0);  // reset selects
             },
             changeResultsPerPage: function(e) {
                 var resultsPerPage = parseInt(e.target.selectedOptions[0].value);
@@ -477,7 +514,7 @@ require(["jquery", "underscore", "backbone"],
 
             <div class="course-list-table">
 
-                <div class="left">
+                <div class="left hidden-xs">
                     <div class="filters criteria-block">
                         <div class="title">${_("Refine search results")}</div>
                         <div class="criterions"></div>
@@ -485,7 +522,20 @@ require(["jquery", "underscore", "backbone"],
 
                 </div>
 
+
+
                 <div class="right row">
+                    <div class="small-device-filter row visible-xs">
+                        <div class="title">${_("Refine search results")}</div>
+                        <select id="availability-select">
+                        </select>
+                        <select id="universities-select">
+                        </select>
+                        <select id="themes-select">
+                        </select>
+
+                    </div>
+
                     <div class="result-navigation">
                     </div>
 

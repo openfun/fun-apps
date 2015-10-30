@@ -15,10 +15,7 @@ def annotate_with_public_courses(queryset):
 
     queryset: refer to a model with a `courses` attribute.
     """
-    return queryset.filter(
-        courses__is_active=True,
-        courses__show_in_catalog=True
-    ).annotate(public_courses_count=models.Count('courses'))
+    return queryset.annotate(public_courses_count=models.Count('courses'))
 
 
 class CourseSubjectManager(models.Manager):

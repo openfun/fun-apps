@@ -26,7 +26,7 @@
         <% } %>
     </div>
 
-    <div class="col-md-20 col-sm-36">
+    <div class="col-md-20 col-sm-36 hidden-xs">
         <% if (selected) { %>
             <h3><%= gettext("Your search") %></h3>
             <div class="white blue-cell">
@@ -36,7 +36,7 @@
         <% } %>
     </div>
 
-    <div class="col-md-8 col-sm-36 text-right">
+    <div class="col-md-8 col-sm-36 text-right hidden-xs">
         <select class="results-per-page">
             <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
                 <option value="<%= resultsPerPageChoices[c] %>" <% if (resultsPerPageChoices[c] === resultsPerPage) { %>selected="selected"<% } %>>
