@@ -16,7 +16,7 @@ featured_courses = Course.objects.random_featured(10)
 news = top_news()[:3]
 %>
 
-<%inherit file="funsite/parts/base.html" />
+<%inherit file="funsite/parts/base-fixed-width.html" />
 
 <%block name="title">${_(u"Let's learn, get trained and succeed!")}</%block>
 
