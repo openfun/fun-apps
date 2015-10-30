@@ -63,7 +63,7 @@
                     </td>
 
                     <td>
-                        {% if course_info.fun.university %}{{ course_info.fun.university.get_name }}{% else %}<span class="no-university">{{ course_info.course.org }}</span>{% endif %}
+                        {% if course_info.fun.university %}{{ course_info.fun.university.name }}{% else %}<span class="no-university">{{ course_info.course.org }}</span>{% endif %}
                     </td>
                     <td>{{ course_info.course.display_name_with_default }}</td>
                     <td data-order="{{ course_info.course.start|date:'ymd' }}">{{ course_info.course.start|date:'d/m/y' }}</td>

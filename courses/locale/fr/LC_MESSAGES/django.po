@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 1\n"
+"Project-Id-Version: France Université Numérique 36\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-07-22 17:41+0200\n"
-"PO-Revision-Date: 2015-07-22 17:41+0000\n"
+"POT-Creation-Date: 2015-10-29 18:05+0100\n"
+"PO-Revision-Date: 2015-10-29 18:05+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,53 +13,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/courses/forms.py:21
-msgctxt "Course search form: All states"
-msgid "All"
-msgstr "Tous"
+#: /edx/app/edxapp/fun-apps/courses/models.py:99
+#, python-format
+msgid "%b %d %Y"
+msgstr "%d %b %Y"
 
-#: /edx/app/edxapp/fun-apps/courses/forms.py:34
-msgctxt "Course search form: All universities"
-msgid "All"
-msgstr "Tous"
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:51
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:502
+msgid "All themes"
+msgstr "Tous les thèmes"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:37
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:56
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:510
+msgid "All universities"
+msgstr "Tous les établissements"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:46
+msgid "Availability"
+msgstr "Disponibilité"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:62
+msgid "Certified training"
+msgstr "Formation certifiante"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:31
+msgid "Controls whether a course is listed in the courses catalog page"
+msgstr "Pour choisir si un cours est affiché dans la page de catalogue"
+
+#: /edx/app/edxapp/fun-apps/courses/admin.py:43
+msgid "Course Info - Automatically Updated"
+msgstr "Info Cours - Mise à jour automatique"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:120
 msgid "Course Subject"
-msgstr "Sujet de cours"
+msgstr "Thème de cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:38
+#: /edx/app/edxapp/fun-apps/courses/models.py:121
 msgid "Course Subjects"
-msgstr "sujets de cours"
+msgstr "Thèmes de cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:12
+#: /edx/app/edxapp/fun-apps/courses/models.py:15
 msgid "Course key"
 msgstr "Clé du cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:26
+#: /edx/app/edxapp/fun-apps/courses/models.py:57
 msgid "Course {}"
 msgstr "cours {}"
 
 # Translated in edx by 'Cours'
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:10
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:11
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:469
 msgid "Courses"
 msgstr "Les cours"
 
-#: /edx/app/edxapp/fun-apps/courses/forms.py:23
-msgid "Current"
-msgstr "En cours"
+#: /edx/app/edxapp/fun-apps/courses/admin.py:60
+msgid "Developer"
+msgstr "Développeur"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:113
-msgid "Filter"
-msgstr "Filtrer"
+#: /edx/app/edxapp/fun-apps/courses/models.py:19
+msgid ""
+"Displayed in place of the university name. If not set, use the name of "
+"the first associated university."
+msgstr ""
+"Affiché à la place du nom de l'établissement. Si ce champs est vide, le "
+"nom du premier établissement associé au cours est utilisé."
 
-#: /edx/app/edxapp/fun-apps/courses/views.py:155
+#: /edx/app/edxapp/fun-apps/courses/models.py:105
+msgid "Displayed where space is rare - on side panel for instance."
+msgstr "Affiché dans le panneau latéral où l'espace est réduit."
+
+#: /edx/app/edxapp/fun-apps/courses/views.py:29
 #: /edx/app/edxapp/fun-apps/courses/tests/test_feed.py:35
 msgid "Fun latest published courses"
 msgstr "Derniers cours publiés sur FUN"
 
-#: /edx/app/edxapp/fun-apps/courses/forms.py:22
-msgid "Incoming"
-msgstr "A venir"
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:47
+msgid "Imminent end of enrollment"
+msgstr "Fin d'inscription imminente"
 
 #: /edx/app/edxapp/fun-apps/courses/choices.py:10
 msgid "Intermediate"
@@ -69,67 +99,163 @@ msgstr "Intermédiaire"
 msgid "Introductory"
 msgstr "Introduction"
 
-#: /edx/app/edxapp/fun-apps/courses/views.py:157
+#: /edx/app/edxapp/fun-apps/courses/views.py:31
 msgid "Latests courses published on www.france-universite-numerique-mooc.fr"
 msgstr "Derniers cours publiés sur www.france-universite-numerique-mooc.fr"
 
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/big.html:45
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/small.html:45
+msgid "Learn more"
+msgstr "En savoir plus"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:49
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/listing.html:13
 msgid "New"
 msgstr "Nouveau"
-
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:123
-msgid "No result found."
-msgstr "Aucun résultat trouvé."
-
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:150
-#, python-format
-msgid "Page %d of %d"
-msgstr "Page %d sur %d"
-
-#: /edx/app/edxapp/fun-apps/courses/forms.py:24
-msgid "Past"
-msgstr "Terminé"
 
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/feed/feed.html:10
 msgid "Proposed by"
 msgstr "Cours proposé par"
 
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:482
+msgid "Refine search results"
+msgstr "Affiner les résultats"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:37
+msgid "Set 0 if session doesn't make sense for this course."
+msgstr "Mettre à 0 s'il n'y a pas de notion de session pour ce cours."
+
 #: /edx/app/edxapp/fun-apps/courses/templates/courses/listing.html:31
 msgid "Start date:"
 msgstr "Date de début :"
 
-# Translated in edx by 'État'
-#: /edx/app/edxapp/fun-apps/courses/forms.py:27
-msgid "State"
-msgstr "État"
+# Translated in edx by 'Commence'
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/big.html:36
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/small.html:36
+msgctxt "course-block"
+msgid "Starts"
+msgstr "Débute"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:48
+msgid "Starts soon"
+msgstr "Démarre bientôt"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:51
+msgid "Themes"
+msgstr "Thèmes"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:56
+msgid "Universities"
+msgstr "Etablissements"
 
 # Translated in edx by 'Université'
 #: /edx/app/edxapp/fun-apps/courses/forms.py:29
 msgid "University"
 msgstr "Établissement"
 
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:124
-msgid "View all courses"
-msgstr "Voir tous les cours"
-
-#: /edx/app/edxapp/fun-apps/courses/models.py:22
+#: /edx/app/edxapp/fun-apps/courses/models.py:53
 msgid "course"
 msgstr "cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:23
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:150
+#: /edx/app/edxapp/fun-apps/courses/models.py:141
+#: /edx/app/edxapp/fun-apps/courses/models.py:142
+msgid "course-university relation"
+msgstr "relation cours-établissement"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:54
 msgid "courses"
 msgstr "cours"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:32
+#: /edx/app/edxapp/fun-apps/courses/models.py:107
 msgid "description"
 msgstr "description"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:18
+#: /edx/app/edxapp/fun-apps/courses/models.py:41
+msgid "end date"
+msgstr "date de fin"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:45
+msgid "enrollment end date"
+msgstr "date fin des inscriptions"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:43
+msgid "enrollment start date"
+msgstr "date début des inscriptions"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:108
+msgid "featured"
+msgstr "mise en avant"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:23
+msgid "image url"
+msgstr "url image"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:33
+msgid "is active"
+msgstr "est activé"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:28
 msgid "level"
 msgstr "niveau"
 
-#: /edx/app/edxapp/fun-apps/courses/models.py:33
+#: /edx/app/edxapp/fun-apps/courses/models.py:14
+msgid "modification date"
+msgstr "date de modification"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:82
+msgid "new course"
+msgstr "nouveau cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:137
 msgid "order"
-msgstr "order"
+msgstr "ordre"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:35
+msgid "prevent automatic update"
+msgstr "pas de mise à jour automatique"
+
+#: /edx/app/edxapp/fun-apps/courses/admin.py:78
+msgid "preview"
+msgstr "visualiser"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:38
+#: /edx/app/edxapp/fun-apps/courses/models.py:111
+msgid "score"
+msgstr "score"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:36
+msgid "session"
+msgstr "session"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:84
+msgid "session {}"
+msgstr "session {}"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:22
+msgid "short description"
+msgstr "description courte"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:104
+msgid "short name"
+msgstr "nom court"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:30
+msgid "show in catalog"
+msgstr "affiché dans le catalogue"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:39
+msgid "start date"
+msgstr "Date de début :"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:47
+msgid "thumbnails info"
+msgstr "infos de vignette"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:17
+msgid "title"
+msgstr "titre"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:18
+msgid "university display name"
+msgstr "nom d'affichage de l'établissement"
 

@@ -205,7 +205,7 @@ def check_catalog(catalog):
     if missing_translations:
         print "{} missing translations:".format(len(missing_translations))
         for missing_translation in missing_translations:
-            print "    - {}".format(missing_translation)
+            print u"    - {}".format(missing_translation)
 
 def fix_catalog_properties(catalog):
     """Set FUn-compliant catalog properties"""

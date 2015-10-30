@@ -1,0 +1,318 @@
+## mako
+<%!
+from django.utils import timezone
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+
+from courseware.courses import course_image_url, get_course_about_section
+from microsite_configuration import microsite
+
+from fun.utils import get_fun_course, get_teaser, registration_datetime_text
+
+%>
+
+<%inherit file="/funsite/parts/base.html" />
+
+<%block name="js_extra">
+<script>
+(function() {
+    $('.video-button').on('click', function() {
+        $('#video-modal').modal('show');
+    })
+    $('#video-modal').on('shown.bs.modal', function() {
+        $('iframe#course-teaser')[0].contentWindow.postMessage('play', '*');
+    })
+    $('#video-modal').on('hide.bs.modal', function() {
+        $('iframe#course-teaser')[0].contentWindow.postMessage('pause', '*');
+        $('iframe#course-teaser')[0].contentWindow.postMessage('seek=0', '*');
+    })
+    $('div.teacher-image img').addClass('img-circle')
+    $('.social-networks div>a').attr('target', '_blank');
+
+
+    $(".register").click(function(event) {
+        var url = '${reverse("change_enrollment")}',
+            course_id = '${course.id | h}',
+            csrf_token = '${ csrf_token }';
+        $.ajax({
+            method: 'POST',
+            url: url,
+            data: {
+                'course_id': course_id,
+                'enrollment_action': 'enroll',
+                'csrfmiddlewaretoken': csrf_token
+                },
+            success: function(response) {
+                if (response == "") {
+                  location.href = "${reverse('dashboard')}";
+                }
+                else {
+                  location.href = response;  // !! ??
+                };
+            },
+            error: function(response) {
+                if (response.status == 403) {
+                    location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
+                } else {
+                    $('.register-error').html(
+                        (response ? response : "${_('An error occurred. Please try again later.')}")
+                    ).css("display", "block");
+                };
+            }
+        });
+        event.preventDefault();
+    });
+})();
+
+</script>
+
+</%block>
+
+<%block name="meta_extra">
+    <%
+    fun_course = get_fun_course(course)
+    %>
+    <meta property="og:site_name" content="France Université Numérique"/>
+    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${reverse('about_course', args=[fun_course.key])}" />
+    <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
+    <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:image" content="//www.france-universite-numerique-mooc.fr${ fun_course.get_thumbnail_url('facebook') }" />
+
+</%block>
+
+<%block name="title">${get_course_about_section(course, 'title')}</%block>
+
+
+<%block name="content">
+
+<%
+    fun_course = get_fun_course(course)
+
+    # FUN: from themes/fun/templates/courseware/course_about.html
+    # TODO: improve
+    site_domain = microsite.get_value('site_domain', settings.SITE_NAME)
+    platform_name = microsite.get_value('platform_name', settings.PLATFORM_NAME)
+
+    # Translators: This text will be automatically posted to the student's
+    # Twitter account. {url} should appear at the end of the text.
+    tweet_text = _("I just registered for {number} {title} through {account}: {url}").format(
+        number=course.number,
+        title=get_course_about_section(course, 'title'),
+        account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
+        url=u"http://{domain}{path}".format(
+            domain=site_domain,
+            path=reverse('about_course', args=[course.id.to_deprecated_string()])
+        )
+    ).replace(u" ", u"+")
+    tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
+
+    facebook_link = microsite.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
+
+    email_subject = u"mailto:?subject={subject}&body={body}".format(
+        subject=_("Take a course with {platform} online").format(platform=platform_name),
+        body=_("I just registered for {number} {title} through {platform} {url}").format(
+            number=course.number,
+            title=get_course_about_section(course, 'title'),
+            platform=platform_name,
+            url=u"http://{domain}{path}".format(
+                domain=site_domain,
+                path=reverse('about_course', args=[course.id.to_deprecated_string()]),
+            )
+        )
+    ).replace(u" ", u"%20")
+%>
+
+<div class="course-about main-content">
+
+    <div class="row">
+
+        <div class="col-lg-21 col-sm-26 no-gutter-right">
+            <div class="left">
+
+                <div class="text-center">
+                    <h1 class="big-title">
+                        ${get_course_about_section(course, 'title')}
+                    </h1>
+                </div>
+                <div class="line text-center">
+                    <span></span>
+                </div>
+
+                % if fun_course.subjects.all():
+                <div class="subjects">
+                    <ul>
+                        <li>
+                            ${_(u"Thematics")}
+                        </li>
+                        % for theme in fun_course.subjects.all():
+                        <li>
+                            <a href=""><span class="white blue-cell">
+                                ${theme.name}
+                            </span></a>
+                        </li>
+                        % endfor
+                    </ul>
+                </div>
+                % endif
+
+                <div class="course-image hidden-1900">
+                    <div class="video-button"></div>
+                    <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
+                </div>
+
+
+                <div class="description">
+
+                    ${get_course_about_section(course, 'overview')}
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-15 col-sm-10 no-gutter-left no-padding">
+            <div class="right">
+                <div class="university-logo">
+                    % if fun_course.universities.exists():
+                    <a href="${fun_course.universities.all()[0].get_absolute_url()}">
+                        <img src="${ fun_course.universities.all()[0].get_logo_thumbnail()}">
+                    </a>
+                    % endif
+                </div>
+
+                <div class="course-image hidden-md">
+                    <div class="video-button"></div>
+                    <img src="${ fun_course.get_thumbnail_url('about') }">
+                </div>
+
+                %if user.is_authenticated() and registered:
+                    <div class="register-course-button already-registered">
+                        <div>${_("You are registered for this course")}</div>
+                        <a href="${course_target}"><span>${_("View Courseware")}</span></a>
+                    </div>
+                %else:
+                    %if can_enroll:
+                        <div class="register-course-button">
+                            <a href="#" class="register"><span>${_("Register")}</span></a>
+                        </div>
+                        <div class="register-error"></div>
+                    %else:
+                        <div class="register-course-button registration-closed">
+                            <span>${_("Enrollment is Closed")}</span>
+                        </div>
+                    %endif
+                %endif
+
+                <div class="blue-zone">
+                    <div class="row">
+                        <div class="col-sm-36 social-networks">
+                            <a href="${facebook_link}" target="_blank">
+                                <span class="facebook"></span>
+                            </a>
+                            <a href="${tweet_action}" target="_blank">
+                                <span class="twitter"></span>
+                            </a>
+                            <a href="${email_subject}" target="_blank">
+                                <span class="email"></span>
+                            </a>
+                        </div>
+                        <div class="col-sm-36 col-lg-18">
+                            <div class="course-info calendar">
+                                <ul>
+                                <li>
+                                    <strong>${_("End of Registration")}</strong>
+                                </li>
+                                <li>
+                                    % if course.enrollment_end:
+                                        % if course.enrollment_end < timezone.now():
+                                            ${_("Registration closed")}
+                                        %else:
+                                            ${registration_datetime_text(course, course.enrollment_end)}
+                                        % endif
+                                    % endif
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="course-info calendar">
+                                <ul>
+                                <li>
+                                    <strong>${_("Classes Start")}</strong>
+                                </li>
+                                <li>
+                                    ${course.start_datetime_text()}
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="course-info calendar">
+                                <ul>
+                                <li>
+                                    <strong>${_("Classes End")}</strong>
+                                </li>
+                                <li>
+                                    % if get_course_about_section(course, "end_date") or course.end:
+                                         % if get_course_about_section(course, "end_date"):
+                                            ${get_course_about_section(course, "end_date")}
+                                        % else:
+                                            ${course.end_datetime_text()}
+                                        % endif
+                                    % endif
+                                </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-36 col-lg-18">
+
+                            % if get_course_about_section(course, "effort"):
+                            <div class="course-info letter">
+                                <ul>
+                                <li>
+                                    <strong>${_("Estimated Effort")}</strong>
+                                </li>
+                                <li>
+                                    ${get_course_about_section(course, "effort")} ${_("h/week")}
+                                </li>
+                                </ul>
+                            </div>
+                            % endif
+
+                            % if get_course_about_section(course, "prerequisites"):
+                            <div class="course-info letter">
+                                <ul>
+                                <li>
+                                    <strong>${_("Prerequisites")}</strong>
+                                </li>
+                                <li>
+                                    ${get_course_about_section(course, "prerequisites")}
+                                </li>
+                                </ul>
+                            </div>
+                            % endif
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="video-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="inner-wrapper">
+                ${get_teaser(course, get_course_about_section(course, "video"))}
+            </div>
+        </div>
+    </div>
+</div>
+
+</%block>

@@ -3,7 +3,7 @@ from functools import wraps
 import json
 
 from django.shortcuts import Http404
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from edxmako.shortcuts import render_to_response

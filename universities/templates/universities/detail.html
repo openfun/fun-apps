@@ -5,40 +5,62 @@ from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
 %>
 
-<%namespace name='static' file='../static_content.html'/>
 
-<%block name="bodyclass">view-university-detail</%block>
-<%block name="title"><title>${ university.name }</title></%block>
+<%inherit file="/funsite/parts/base.html" />
 
-<%inherit file="../main.html" />
+<%block name="title">${ university.name }</%block>
 
-<%block name="body">
 
-  <section class="university-courses">
-    <section class="introduction container">
-      % if university.banner:
-      <img class="illustration" src="${ university.banner.url }" />
-      % endif
-      <header>
-      % if university.logo:
-        <img class="logo" src="${ university.logo.url }" />
-      % endif
-      </header>
-    </section>
+<%block name="content">
+<div class="university-page simple-content-page">
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-30 col-sm-36">
 
-    <section class="courses-list container">
-      <%block name="university_description">
-      ${ university.description }
-      </%block>
-    </section>
+            <section class="university">
 
-    <section class="find-courses">
+                <section class="header">
+                    <h1>${ university.name }</h1>
 
-        <section id="courses-list" class="courses-container">
-            <section class="courses">
-                <%include file="/courses/listing.html"/>
+
+                    <div class="logo">
+                        <img src="${ university.get_logo_thumbnail() }" class="center-block">
+                    </div>
+
+                    <div class="space-40px"></div>
+
+                    <div class="banner">
+                        <img src="${ university.get_banner() }" class="img-responsive center-block">
+                    </div>
+
+                    <div class="space-40px"></div>
+
+                </section>
+
+                <section class="description">
+                    <p>
+                        ${ university.description }
+                    </p>
+                </section>
+
             </section>
-        </section>
-    </section>
-</%block>
+        </div>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-30 col-sm-36">
+        <section class="courses">
+            <div class="col-lg-36 text-center">
+                <h2 class="big-title">${ _(u"Courses") }</h2>
+            </div>
+            <ul class="primary-highlight">
+            % for course in university.courses.all():
+                <li>
+                    <%include file="/funsite/parts/course-block/big.html" args="course=course"/>
+                </li>
+            % endfor
+            </ul>
+        </section>
+    </div>
+</div>
+</%block>

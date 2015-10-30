@@ -2,153 +2,569 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+
+from courses.routers import CourseAPIRouter
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/base-fluid.html" />
 
-<%block name="bodyclass">view-course-list</%block>
-<%block name="title"><title>${_("Courses")}</title></%block>
+<%block name="title">${_("Courses")}</%block>
 
-<%inherit file="../main.html" />
+<%block name="js_extra">
 
-<%block name="headextra">
+<%def name="static_include(path)">
+    <%
+    from django.template.loaders.app_directories import _loader
+    source, template_path = _loader.load_template_source(path)
+    %>
+    ${source}
+</%def>
 
-<style>
 
-.courses-list-filter {
-    text-align: right;
-    margin: 0 auto 0 auto;
-}
+% for template_name in ['small-course-block', 'criterion-value', 'filter']:
+<script type="text/template" id="${template_name}-tpl">
+    ${static_include("courses/js/" + template_name + ".underscore")}
+</script>
+% endfor
 
-.courses-list-filter ul {
-    display: block;
-    float: right;
-    list-style: none;
-}
-.courses-list-filter li {
-    margin-left: 20px;
-    float: left;
-}
+<script>
 
-.courses {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-}
-.courses .no-result {
-    width: 100%;
-    text-align: center;
-    margin: 80px auto 80px auto;
-    font-size: 18px;
-}
-.courses .no-result a {
-    line-height: 30px;
-    font-size: 13px;
-    color: #3a76bb;
-    font-weight: bold;
-}
 
-/* form */
-.fun-courses-filter-button {
-    text-transform: none !important;
-    padding: 8px !important;
-    font: none !important;
-    font-size: 0.8em !important;
-    line-height: 1em !important;
-    margin-top: -4px;
-    background-image: none !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    border: none !important;
-    border-radius: 3px !important;
-}
+require(["jquery", "underscore", "backbone"],
+    function ($, _, Backbone) {
 
-.courses-listing-item .start-date-label {
-}
-.courses-listing-item .start-date-date {
-    font-weight: bold;
-}
+        var loadTemplate = function(name) {
+            var templateSelector = '#' + name + '-tpl',
+                templateText = $(templateSelector).text();
+            if (!templateText) {
+                console.error('Failed to load ' + name + ' template');
+            }
+            return _.template(templateText);
+        };
 
-/* Pagination bar */
-div.pagination {
-    width: 100%;
-    border: 1px solid #aaa;
-    text-align: center;
-}
+        var filters = [
+            {title: "${_('Availability')}", name: 'availability', type: 'select', select: '#availability-select', values: [
+                {value: 'end-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_end_soon}},
+                {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
+                {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
+            ]},
+            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay', select: '#themes-select', values: [
+                %for course_subject in course_subjects:
+                {value: "${course_subject.slug}", title: "${course_subject.get_short_name()}", count: ${course_subject.public_courses_count}},
+                %endfor
+            ]},
+            {title: "${_('Universities')}", name: 'university', type: 'select', max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay', select: '#universities-select', values: [
+                %for university in universities:
+                {value: "${university.code}", title: "${university.get_short_name()}", count: ${university.public_courses_count}},
+                %endfor
+            ]},
+            /*
+            {title: '${_("Certified training")}', name: 'certificate', type: 'checkbox', values: [
+                {value: "certificat", title: "Certificate", count: 50 },
+            ]},
+            {title: '${_("Language")}', name: 'language', type: 'select', values: [
+                {value: 'fr', title: "Français", image: 'french-flag', count: 12},
+                {value: 'en', title: "English", image: 'english-flag', count: 12},
+                {value: 'de', title: "Deutsch", image: 'german-flag', count: 12},
+                {value: 'es', title: "Español", image: 'spanish-flag', count: 12},
+            ]},
+            */
 
-div.pagination span.step {
-}
-div.pagination span.previous {
-    float: left;
-    width: 200px;
-    min-height: 5px;
-}
-div.pagination span.next {
-    float: right;
-    width: 200px;
-    min-height: 5px;
+        ];
 
-}
-div.pagination span.previous a, span.next a {
-    color: #555;
-}
-div.pagination span.current {
-    margin: 0 auto;
-    width: 200px;
-    display: inline-block;
-    color: #777;
-}
+        var AppRouter = Backbone.Router.extend({
+            routes: {
+                "(filter)": "initializeFilter",
+                "filter(/:name/:slug)(?page=:page&rpp=:rpp)": "filter",
+            },
+            initialize: function(options) {
+                this.criterioncollection = options.criterioncollection;
+                this.filter = options.filter;
+                this.listenTo(this.filter, 'change', this.updateUrl);
+            },
+            updateUrl: function() {
+                var url = "";
+                var selected = this.filter.get("selected");
+                var page = this.filter.get("currentPage");
+                var rpp = this.filter.get("resultsPerPage");
+                if (selected) {
+                    url += '/' + selected.criterionName() +
+                           '/' + selected.get('value');
+                }
+                if ((page && page != "1") || (rpp && rpp != "50")) {
+                    url += '?' + $.param([
+                        {name: "page", value: page},
+                        {name: "rpp", value: rpp}
+                    ]);
+                }
+                if (url) {
+                    url = "filter" + url;
+                }
+                this.navigate(url, {trigger: false});
+            },
+            initializeFilter: function() {
+                this.filter.trigger("initialized")
+            },
+            filter: function(name, slug, page, rpp) {
+                if (name && name !== 'page') {
+                    var criterion = this.criterioncollection.findWhere({'name': name});
+                    var value = criterion.getValue(slug);
+                    this.filter.set('selected', value);
+                }
+                if (rpp) {
+                    this.filter.set("resultsPerPage", parseInt(rpp));
+                }
+                if (page) {
+                    this.filter.set("currentPage", parseInt(page));
+                }
+            },
+        });
 
-</style>
+
+        var Value = Backbone.Model.extend({
+            criterionName: function() {
+                return this.collection.criterion.get("name");
+            }
+        });
+        var ValueCollection = Backbone.Collection.extend({
+            model: Value,
+            initialize: function(models, options) {
+                this.criterion = options.criterion;
+            },
+        });
+        var ValueView = Backbone.View.extend({
+            tagName: 'li',
+            className: "criterion",
+            template: loadTemplate("criterion-value"),
+
+            initialize: function() {},
+
+            events: {"click": "onClick"},
+
+            isCheckbox: function() {
+                return this.model.collection.criterion.get('type') === 'checkbox';
+            },
+            render: function() {
+                // if an image is provided we add some CSS classes
+                var image = this.model.get('image');
+                if (image) {
+                    this.$el.addClass('icon ' + image);
+                } else if (this.isCheckbox()) {
+                    this.$el.addClass('filter-checkbox');
+                }
+
+                this.$el.html(this.template(this.model.toJSON()));
+                return this;
+            },
+            onClick: function(event) {
+                if (this.isCheckbox()) {
+                    this.$el.toggleClass('checked');
+                    this.model.set('value', this.$el.hasClass('checked') ? 'certificate' : '');
+                }
+                this.model.collection.trigger('valueSelected', this.model);
+            }
+        });
+        var SelectValueView = ValueView.extend({
+            tagName: 'option',
+            className: '',
+            render: function() {
+                this.$el.attr('value', this.model.get('value'));
+                this.$el.text(this.model.get('title'))
+                return this;
+            }
+        })
+
+
+        // only display `max` items in filter columns (others will be displayed when `all` button clicked)
+        var ShortValueCollectionView = Backbone.View.extend({
+            tagName: 'ul',
+            className: "criteria",
+
+            initialize: function(options) {
+                this.listenTo(this.collection, 'add', this.addOne);
+                this.listenTo(this.collection, 'valueSelected', this.valueSelected);
+                this.max = options.max;
+                this.count = 0;
+            },
+            valueSelected: function(value) {
+                // ShortValueCollectionView and LongValueCollectionView use the same collection,
+                // so this event will be triggered for both display
+                this.collection.criterion.collection.trigger('criterionSelected', value)
+                $('.hide-on-escape-key').hide();
+            },
+            addOne: function(item) {
+                if (this.count < this.max) {
+                    var view = new ValueView({model: item});
+                    this.$el.append(view.render().el);
+                    this.count += 1;
+                }
+            },
+
+        });
+
+        var LongValueCollectionView = Backbone.View.extend({
+            initialize: function() {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            addOne: function(item) {
+                var view = new ValueView({model: item});
+                this.$el.append(view.render().el);
+            },
+        });
+
+        var SelectValueCollectionView = Backbone.View.extend({
+            events: {"change": "onChange"},
+            initialize: function(options) {
+                this.$el.append($('<option>').text(options.title));
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            addOne: function(item) {
+                var view = new SelectValueView({model: item});
+                this.$el.append(view.render().el);
+            },
+            onChange: function(event) {
+                var model = this.collection.findWhere({value: event.target.value});
+                this.collection.criterion.collection.trigger('criterionSelected', model);
+                // reset other selects
+                $('.small-device-filter select').not('#' + this.$el.attr('id')).prop('selectedIndex', 0);
+            },
+
+        });
+
+        var Criterion = Backbone.Model.extend({
+            defaults: {
+                // if no max value, we use a big one to display all items (and save JS LOC)
+                "max":  100
+            },
+            initialize: function() {
+                this.valuecollection = new ValueCollection([], {criterion: this});
+            },
+            getValue: function(value) {
+                return this.valuecollection.findWhere({value: value});
+            }
+        });
+
+        var CriterionView = Backbone.View.extend({
+            tagName: 'div',
+
+            initialize: function() {
+                this.valuecollectionview = new ShortValueCollectionView({
+                        collection: this.model.valuecollection,
+                        max: this.model.get('max')});
+
+                this.selectvaluecollectionview = new SelectValueCollectionView({
+                        el: this.model.get('select'),
+                        collection: this.model.valuecollection,
+                        title: this.model.get('title')});
+
+                if (this.model.get('all_button')) {
+                    this.longvaluecollectionview = new LongValueCollectionView({
+                            el: this.model.get('overlay') + ' ul',
+                            collection: this.model.valuecollection});
+                };
+                this.model.valuecollection.add(this.model.get("values"))
+
+            },
+
+            render: function() {
+                // We don't use a template here
+                this.$el.html($('<h2>').text(this.model.get('title')));
+                this.$el.append(this.valuecollectionview.render().el);
+                if (this.model.get('all_button')) {
+                    this.$el.append($('<span>').attr(
+                            {'class': 'btn btn-transparent btn-dark-bg btn-block btn-padded all-items'}).text(this.model.get('all_button')))
+                }
+
+                return this;
+            },
+
+            events: {
+                'click span.all-items': 'showAllItemsOverlay'
+            },
+
+            showAllItemsOverlay: function(event) {
+                $('.hide-on-escape-key').hide();
+                var overlay_id = this.model.get('overlay');
+                $(overlay_id).show();
+
+                /* Calculate vertical overlay's position regarding clicked button */
+                var top =  $(event.currentTarget).prev().prev().offset().top - 68;
+                $(overlay_id).css('top', top + 'px');
+
+                /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
+                var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
+                var li_height = $('li.criterion').outerHeight(true);
+                li_height +=3;  // quick fix to compensate university names which use 2 lines... We have to use shorter name
+                $(overlay_id).find('ul').css('height', (height * li_height) + 'px');
+                console.log(li_height)
+
+            },
+            onClick: function(event) {
+                console.log(this.model.toJSON());
+            }
+
+        })
+
+        var CriterionCollection = Backbone.Collection.extend({
+            model: Criterion,
+        });
+
+        var CriterionCollectionView = Backbone.View.extend({
+            initialize: function() {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            addOne: function(criterion) {
+                var view = new CriterionView({model: criterion});
+                this.$el.append(view.render().el);
+            },
+
+        });
+
+        var Filter = Backbone.Model.extend({
+            defaults: {
+                selected: null,
+                resultsPerPage: 50,
+                resultsPerPageChoices: [20, 50, 100, -1],
+                currentPage: 1,
+            },
+            startNewSearch: function(value) {
+                if (value !== this.get("selected")) {
+                    this.set({
+                        selected: value,
+                        currentPage: 1,
+                    });
+                }
+            }
+        });
+        var ResultStats = Backbone.Model.extend({
+            defaults: {
+                totalCount: null,
+            }
+        });
+        var FilterView = Backbone.View.extend({
+            initialize: function(options) {
+                this.resultstats = options.resultstats;
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.resultstats, 'change', this.render);
+            },
+            events: {
+                "click .glyphicon-remove": "clearSelectedValue",
+                "change .results-per-page": "changeResultsPerPage",
+                "click .result-page": "changeCurrentPage",
+            },
+            template: loadTemplate("filter"),
+            clearSelectedValue: function() {
+                this.model.startNewSearch(null);
+                $('.small-device-filter select').prop('selectedIndex', 0);  // reset selects
+            },
+            changeResultsPerPage: function(e) {
+                var resultsPerPage = parseInt(e.target.selectedOptions[0].value);
+                this.model.set("resultsPerPage", resultsPerPage);
+            },
+            changeCurrentPage: function(e) {
+                this.model.set("currentPage", parseInt($(e.target).attr("data-page")));
+            },
+            render: function() {
+                var context = this.model.toJSON();
+                context.totalCount = this.resultstats.get("totalCount");
+                context.totalPageCount = Math.ceil(context.totalCount / context.resultsPerPage);
+                this.$el.html(this.template(context));
+                return this;
+            }
+        });
+
+        var Course = Backbone.Model.extend({});
+        var CourseView = Backbone.View.extend({
+            tagName: 'li',
+            template: loadTemplate("small-course-block"),
+            initialize: function() {
+                this.listenTo(this.model, "destroy", this.remove);
+                this.listenTo(this.model, "remove", this.remove);
+            },
+            render: function() {
+                var context = this.model.toJSON();
+                context.course_about = '/courses/'+ context.key + '/about';
+                this.$el.html(this.template(context));
+                return this;
+            },
+        });
+        var CourseCollection = Backbone.Collection.extend({
+            model: Course,
+            initialize: function(models, options) {
+                this.filter = options.filter;
+                this.resultstats = options.resultstats;
+            },
+            url: function() {
+                // build query parameters
+                var parameters = [];
+                var selectedValue = this.filter.get("selected");
+                if (selectedValue) {
+                    parameters.push({
+                        name: selectedValue.criterionName(),
+                        value: selectedValue.get("value")
+                    });
+                }
+                if (this.filter.get("resultsPerPage") >= 0) {
+                    parameters.push({
+                        name: "rpp",
+                        value: this.filter.get("resultsPerPage"),
+                    })
+                }
+                parameters.push({
+                    name: "page",
+                    value: this.filter.get("currentPage"),
+                })
+                return "${reverse(CourseAPIRouter.BASENAME + '-list')}" + '?' + $.param(parameters);
+            },
+            parse: function (response) {
+               this.resultstats.set("totalCount", response.count);
+               return response.results;
+            },
+        });
+        var CourseCollectionView = Backbone.View.extend({
+            initialize: function(data) {
+                this.listenTo(this.collection, 'add', this.addOne);
+            },
+            addOne: function(item) {
+                var view = new CourseView({model: item});
+                this.$el.append(view.render().el);
+            },
+        });
+
+        var AppView = Backbone.View.extend({
+            initialize: function(data) {
+                // filtering criteria
+                var criterioncollection = new CriterionCollection;
+                var criterioncollectionview = new CriterionCollectionView({
+                    el: this.$(".criterions"),
+                    collection: criterioncollection
+                });
+
+                this.listenTo(criterioncollection, 'criterionSelected', this.criterionSelected)
+                criterioncollection.add(data.filters)
+
+                // result stats
+                var resultstats = new ResultStats;
+
+                // selected filter
+                this.filter = new Filter;
+                this.filterview = new FilterView({
+                    model: this.filter,
+                    el: this.$('.result-navigation'),
+                    resultstats: resultstats,
+                });
+                this.listenTo(this.filter, 'change', this.refreshCourses);
+                this.listenTo(this.filter, 'initialized', this.refreshCourses);
+
+                var approuter = new AppRouter({
+                    criterioncollection: criterioncollection,
+                    filter: this.filter
+                });
+
+                // course list
+                this.coursecollection = new CourseCollection([], {filter: this.filter, resultstats: resultstats});
+                this.coursecollectionview = new CourseCollectionView({
+                    el: this.$('#course-filtering-results'),
+                    collection: this.coursecollection
+                });
+                this.listenTo(this.coursecollection, 'sync', this.courseCollectionSynced)
+
+                Backbone.history.start();
+            },
+            criterionSelected: function(value) {
+                this.filter.startNewSearch(value);
+            },
+
+            refreshCourses: function(){
+                // Empty collection
+                while (this.coursecollection.length > 0) {
+                    this.coursecollection.pop();
+                }
+                // Fill collection
+                this.coursecollection.fetch();
+            },
+            courseCollectionSynced: function(){
+                this.coursecollectionview.render()
+            }
+        });
+
+        var App = new AppView({
+            el: $('#course-search'),
+            filters: filters
+        });
+    });
+
+
+</script>
 </%block>
 
+<%block name="content">
 
-<section class="find-courses">
-    <section class="courses-container">
-
-        <section class="courses">
-            <section class="courses-list-filter">
-                <form action="." method="GET">
-                    <ul>
-                        ${form.as_ul()}
-                        <li><input type="submit" value="${_('Filter')}" class="fun-courses-filter-button"></li>
-                    </ul>
-                </form>
-            </section>
-
-            <div style="clear: both"></div>
-            % if courses:
-                <%include file="listing.html"/>
-            % else:
-                <div class="no-result">
-                    ${_("No result found.")}<br>
-                    <a href="${reverse('fun-courses-index')}">${_("View all courses")}</a>
-                </div>
-            % endif
-        </section>
-
-        <div class="pagination">
-            <%
-                params = ''
-                if request.GET.get('by'):
-                    params += '&by=' + request.GET['by']
-                if request.GET.get('university'):
-                    params += '&university=' + request.GET['university']
-                if request.GET.get('state'):
-                    params += '&state=' + request.GET['state']
-            %>
-            <span class="step previous">
-                % if courses.has_previous():
-                <a href="?page=${ courses.previous_page_number() }${ params }">${_("Previous page")}</a>
-                % endif
-            </span>
-            <span class="step next">
-                % if courses.has_next():
-                <a href="?page=${ courses.next_page_number() }${ params }">${_("Next page")}</a>
-                % endif
-            </span>
-            <span class="step current">
-                ${ courses.paginator.count } ${_("courses")} - ${_("Page %d of %d") % (courses.number, courses.paginator.num_pages)}
-            </span>
+<div class="courses-page">
+    <div class="row-fluid">
+        <div class="col-lg-36 text-center">
+            <h2 class="big-title">${_("Courses")}</h2>
         </div>
-    </section>
-</section>
+    </div>
+
+
+    <div class="row-fluid">
+
+        <div id="course-search" class="course-list">
+
+            <div class="course-list-table">
+
+                <div class="left hidden-xs">
+                    <div class="filters criteria-block">
+                        <div class="title">${_("Refine search results")}</div>
+                        <div class="criterions"></div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="right row">
+                    <div class="small-device-filter row visible-xs">
+                        <div class="title">${_("Refine search results")}</div>
+                        <select id="availability-select">
+                        </select>
+                        <select id="universities-select">
+                        </select>
+                        <select id="themes-select">
+                        </select>
+
+                    </div>
+
+                    <div class="result-navigation">
+                    </div>
+
+                    <div class="list">
+                        <ul id="course-filtering-results"></ul>
+                    </div>
+
+                    <div class="result-navigation hide-search-filter"></div>
+
+                    <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
+                        <div class="pull-right">
+                            <span class="close-overlay glyphicon glyphicon-remove"></span>
+                        </div>
+                        <h2>${_("All themes")}</h2>
+                        <ul class="criteria"></ul>
+                    </div>
+
+                    <div id="all-universities-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
+                        <div class="pull-right">
+                            <span class="close-overlay glyphicon glyphicon-remove"></span>
+                        </div>
+                        <h2>${_("All universities")}</h2>
+                        <ul class="criteria"></ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</%block>

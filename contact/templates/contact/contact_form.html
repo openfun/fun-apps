@@ -2,115 +2,45 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import striptags
+from django.core.urlresolvers import reverse
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/simple-content.html" />
 
-<%inherit file="../main.html" />
+<%block name="title">${_("Contact")}</%block>
 
-<%block name="title"><title>${_("Contact")}</title></%block>
-
-<section class="contact container">
-  <img class="illustration" src="${static.url('themes/fun/images/illustrations/contact.jpg')}" />
-
-  <section role="main" class="content">
+<%block name="page_content">
+<div class="single-column">
     <h2>${_('Contact us')}</h2>
+    <p>${_("Do you already follow one or several courses on {platform_name}? If you have questions, suggestions or difficulties about a course in particular? Post a comment on the related forum.").format(platform_name=settings.PLATFORM_NAME)}</p>
 
-    <a name="contact-form"></a>
-    <form role="form" action="/contact/#contact-form" method="post" onsubmit="document.getElementById('send_button').disabled = 1;" novalidate>
-      % if form.errors:
-      <div role="alert" class="status message submission-error is-shown">
-        <h3 class="message-title">${_('The following errors are preventing the message from being sent:')}</h3>
-        <ul class="message-copy">
-          ${ form.non_field_errors() }
-          % for field in form:
-            % if field.errors:
-              <li>${field.label} : ${ striptags(field.errors).lower() }</li>
-            % endif
-          % endfor
-        </ul
-      </div>
-      % endif
+    <p>${_("Do you have a general question about {platform_name}? Visit our <a href='{faq_link}'>FAQ</a>. If you still need help, or if you would like to provide feedback about {platform_name} (which we encourage you to do), contact us using the form below.").format(platform_name=settings.PLATFORM_NAME, faq_link=reverse('faq:index'))}</p>
 
-      <div style="display:none">
-        <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/>
-      </div>
-
-      <p>${_("Do you already follow one or several courses on {platform_name}? If you have questions, suggestions or difficulties about a course in particular? Post a comment on the related forum.").format(platform_name=settings.PLATFORM_NAME)}</p>
-
-      <p>${_("Do you have a general question about {platform_name}? Visit our <a href='{faq_link}'>FAQ</a>. If you still need help, or if you would like to provide feedback about {platform_name} (which we encourage you to do), contact us using the form below.").format(platform_name=settings.PLATFORM_NAME, faq_link="/help")}</p>
-
-      <div class="fields">
-        <fieldset class="group group-form group-form-requiredinformation">
-          <legend class="sr">${_("Information required")}</legend>
-
-          <ol class="list-input">
-            <li class="field required text" id="field-email">
-            <label for="id_email">${_("My email")}</label>
-            <input class="" id="id_email" type="email" name="email" maxlength="100" value="${ form['email'].value() or '' }" placeholder="${_('Example: john@example.com')}" required aria-required="true" />
-            </li>
-          </ol>
-        </fieldset>
-
-        <fieldset class="group group-form group-form-requiredinformation">
-          <legend class="sr">${_("Information required")}</legend>
-
-          <ol class="list-input">
-            <li class="field required text" id="field-name">
-            <label for="id_name">${_("My name")}</label>
-            <input class="" id="id_name" type="text" name="name" maxlength="100" value="${ form['name'].value() or '' }" placeholder="${_('Example: John Doe')}" required aria-required="true" />
-            </li>
-          </ol>
-        </fieldset>
-
-        <fieldset class="group group-form">
-          <ol class="list-input">
-            <li class="field text" id="field-phone">
-            <label for="id_phone">${_("Phone")}</label>
-            <input class="" id="id_phone" type="text" name="phone" maxlength="100" value="${ form['phone'].value() or '' }" placeholder="${_('Example: +33 6 24 01 19 82')}" />
-            </li>
-          </ol>
-        </fieldset>
-
-        <fieldset class="group group-form">
-          <ol class="list-input">
-            <li class="field select" id="field-function">
-            <label for="id_function">${_("I am a")}</label>
-            ${ form['function'] }
-            </li>
-          </ol>
-        </fieldset>
-
-        <fieldset class="group group-form group-form-requiredinformation">
-          <legend class="sr">${_("Information required")}</legend>
-
-          <ol class="list-input">
-            <li class="field required select" id="field-inquiry">
-            <label for="id_inquiry">${_("Inquiry type")}</label>
-            ${ form['inquiry'] }
-            </li>
-          </ol>
-        </fieldset>
-
-        <fieldset class="group group-form group-form-body">
-          <legend class="sr">${_("Information required")}</legend>
-
-          <ol class="list-input">
-            <li class="field required text" id="field-body">
-            <label for="id_body">${_("Message")}</label>
-              <textarea id="id_body" name="body" rows="10">${ form['body'].value() or '' }</textarea>
-            </li>
-          </ol>
-        </fieldset>
-      </div>
-
-      <div class="form-actions">
-        <button name="submit" type="submit" id="send_button" class="action action-primary action-update">${_("Send your message")}</button>
-      </div>
-
-      <div class="form-legend">
-        <p>${_("* Mandatory field")}</p>
-      </div>
+    <form action="#contact-form" method="post" onsubmit="document.getElementById('send_button').disabled = 1;" novalidate>
+        % if form.errors:
+        <div role="alert" class="alert alert-danger status message is-shown">
+            <p><strong>${_('The following errors are preventing the message from being sent:')}</strong></p>
+            <ul>
+                ${form.non_field_errors()}
+                % for field in form:
+                    % if field.errors:
+                      <li>${field.label} : ${striptags(field.errors).lower()}</li>
+                    % endif
+                % endfor
+          </ul>
+        </div>
+        % endif
+        <div style="display:none">
+            <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}"/>
+        </div>
+        % for field in form.sorted_fields():
+        <div class="form-group ${'required' if field.field.required else ''}">
+                ${field.label_tag()}
+                ${field}
+            </div>
+        % endfor
+        <button id='send_button' name="submit" type="submit" class="btn btn-block btn-lg btn-primary">${_("Send your message")}</button>
+        <p><label class="required"></label> ${_("Mandatory field")}</p>
     </form>
-  </section>
-</section>
+</div>
+</%block>

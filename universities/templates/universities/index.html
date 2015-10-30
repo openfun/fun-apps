@@ -1,37 +1,27 @@
 ## mako
 <%!
 from django.utils.translation import ugettext as _
+
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/simple-content.html" />
 
-<%block name="bodyclass">view-university-list</%block>
-<%block name="title"><title>${_("Institutions")}</title></%block>
+<%block name="title">${_("Universities")}</%block>
 
-<%inherit file="../main.html" />
+<%block name="page_content">
+<h1>${_("The universities and schools present on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h1>
 
+<p>${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}</p>
 
-<section class="university-list">
-  <header>
-    <img class="illustration" src="${static.url('themes/fun/images/illustrations/university.jpg')}" />
-    <h1>${_("The universities and schools")}</h1>
-    <h2>${_("Offer courses and trainings on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h2>
-  </header>
-</section>
-
-  <section class="university-list container">
-  <p>${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}</p>
-
-    <ul>
-      % for university in universities:
-      <li><a href="${ university.get_absolute_url()}">
-        % if university.logo:
-        <img src="${ university.logo.url }" alt="${ university.name }" title="${ university.name }" />
-        % endif
-      </a></li>
-      % endfor
-    </ul>
-  </section>
-</section>
-
-
+<ul>
+    % for university in universities:
+    <li>
+        <a href="${ university.get_absolute_url()}">
+            <div class="university-logo center-block">
+                <img src="${ university.get_logo_thumbnail() }" alt="${ university.name }" title="${ university.name }" />
+            </div>
+        </a>
+    </li>
+    % endfor
+</ul>
+</%block>
