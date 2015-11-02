@@ -92,8 +92,8 @@ class Client(BaseClient):
     VISIBILITY_VISIBLE = 'visible'
     DEFAULT_TIMEOUT_SECONDS = 10
 
-    def __init__(self, *args, **kwargs):
-        super(Client, self).__init__(*args, **kwargs)
+    def __init__(self, course_key_string):
+        super(Client, self).__init__(course_key_string)
         self.urls = LibcastUrls(self.course_key_string)
         self._settings = None
 
@@ -529,7 +529,7 @@ def http_request(url, method='GET', params=None, files=None, auth=None, timeout=
     except requests.Timeout:
         raise ClientError(u"Libcast timeout url=%s, method=%s, params=%s" % (url, method, params))
     if response.status_code >= 400:
-        logger.error(u"Libcast client error url=%s, method=%s, params=%s, response:\n%s",
-                     url, method, params, response.content.decode('utf-8'))
+        logger.error(u"Libcast client error url=%s, method=%s, params=%s, status code=%d",
+                     url, method, params, response.status_code)
     return response
 
