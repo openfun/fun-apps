@@ -68,7 +68,6 @@
 #top-menu .right-nav {
     float: right;
     cursor: pointer;
-    height: 100%;
     line-height: 22.4px;
     background: #F72C30;
 }
@@ -79,16 +78,19 @@
     background: white;
 }
 
-@media (min-width: 767px) {
+
+/*@media (min-width: 767px) {
     #top-menu .right-nav .toggle-dropdown-menu,
     #top-menu .right-nav .login-link {
         padding-right: 40px;
     }
 }
+*/
 
 #top-menu .right-nav .login-link {
-    background: #F72C30;
+    padding-right: 15px;
 }
+
 #top-menu .right-nav .login-link img {
     margin-top: -10px;
     margin-right: 5px;
@@ -110,11 +112,22 @@
     width: 30px;
     height: 25px;
 }
+
 #top-menu .right-nav a.dashboard-user-link .username {
     padding-left: 5px;
 }
+
 #top-menu .right-nav a.toggle-dropdown-menu {
-    padding-left : 5px;
+    /* Right padding of the arrow should be more or less equal to the left padding of the dropdown arrow
+       (see #top-menu .fun-dropdown-menu:before right)
+       |joe    ↓ (right-padding)|
+       ________↑__              |
+       | settings |             |
+       | profile  |             |
+       -----------              |
+     */
+    padding-right : 20px;
+    padding-left : 10px;
 }
 
 #top-menu .right-nav a.signup-link span {
@@ -165,7 +178,7 @@
     height: 12px;
 
     position: absolute;
-    right: 36px;
+    right: 17px;
     top: -7px;
 
     background: #fcfcfc;
@@ -201,13 +214,18 @@
 
 @media (max-width: 767px) {
     #top-menu .left-nav span.slogan {
-	    display: none;
+	display: none;
     }
 
     #top-menu .right-nav .dashboard-user-link span.username,
     #top-menu .right-nav .nav-link-block.signup-link,
     #top-menu .right-nav .nav-link-block.login-link span {
-	    display: none;
+	display: none;
+    }
+
+    #top-menu .right-nav .login-link {
+	padding-left: 15px;
+	padding-right: 8px;
     }
 }
 

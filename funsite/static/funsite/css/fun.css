@@ -117,6 +117,7 @@ a.no-decoration:visited {
     right: 0;
     z-index: 2000;
 }
+
 #login-overlay div.content {
     clear: both;
     width: 240px;
