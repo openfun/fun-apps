@@ -446,6 +446,10 @@ h3.big-title {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+    .course-list-table .right {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 }
 
 .homepage-header {
