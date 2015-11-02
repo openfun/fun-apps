@@ -5,29 +5,40 @@ from django.core.urlresolvers import reverse
 from django.utils.formats import date_format
 %>
 
-<%def name="news_block(article, title, size, classes='')">
-    <article class="${size} ${classes}">
-        <a href="${reverse('newsfeed-article', args=[article.slug])}">
-            <img src="/media/${article.get_thumbnail(size)}">
-        </a>
-        <div>
-            <h3><a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">${title}</a></h3>
-            <p><a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">${article.get_lead_paragraph()}</a></p>
-            %if not 'home' in classes and size != 'primary':
-                <div class="footer">
-                    <div class="row">
-                        <div class="col-sm-18">
-                            % if article.category:
-                                <span class="tag">${article.category.name}</span>
-                            % endif
-                        </div>
-                        <div class="col-sm-18">
-                            <span class="date">${date_format(article.created_at, 'SHORT_DATE_FORMAT')}</span>
+<%def name="news_block(article, size, classes='')">
+    % if article:
+        <article class="${size} ${classes}">
+            <a href="${reverse('newsfeed-article', args=[article.slug])}">
+                <img src="/media/${article.get_thumbnail(size)}" class="img-responsive">
+            </a>
+            <div>
+                <h3><a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">
+                        ${article.title}
+                    </a>
+                </h3>
+                <p>
+                    <a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">
+                        ${article.get_lead_paragraph()}
+                    </a>
+                </p>
+                %if not 'home' in classes and size != 'primary':
+                    <div class="footer">
+                        <div class="row">
+                            <div class="col-sm-18">
+                                % if article.category:
+                                    <span class="tag">${article.category.name}</span>
+                                % endif
+                            </div>
+                            <div class="col-sm-18">
+                                <span class="date">
+                                    ${date_format(article.created_at, 'SHORT_DATE_FORMAT')}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            % endif
-        </div>
-    </article>
+                % endif
+            </div>
+        </article>
+    % endif
 </%def>
 

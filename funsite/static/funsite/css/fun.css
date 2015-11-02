@@ -409,14 +409,19 @@ h3.big-title {
     .register-page .right {
         right: inherit;
     }
-
-    .fun-news .secondary.left {
-        margin-right: auto !important;
-        margin-left: auto !important;
+    .fun-news .primary>div {
+        width: 540px;
+        height: 120px;
+        margin-left: 17px;
+        margin-right: auto;
     }
+    .fun-news .primary.home,
+    .fun-news .secondary.home,
+    .fun-news .secondary.left,
     .fun-news .secondary.right {
         margin-right: auto !important;
         margin-left: auto !important;
+        margin-bottom: 24px;
     }
     .universities-list li {
         margin: 0 20px 12px 20px;
@@ -455,6 +460,7 @@ h3.big-title {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+
     .university-logo {
         width: 135px !important;
         height: 85px !important;
@@ -472,6 +478,17 @@ h3.big-title {
     .simple-content-page {
         padding: 20px !important;
         margin: 0 !important;
+    }
+    .fun-news .primary {
+        width: 290px;
+        height: 350px;
+        margin: 0 auto 30px auto;
+    }
+    .fun-news .primary>div {
+        width: inherit;
+        height: 230px;
+        width: 260px;
+        margin-left: 14px;
     }
 
 }
@@ -751,31 +768,33 @@ ul.universities-list {
     float: right;
     color: #9D9D9D;
 }
+
+
 .fun-news .primary {
     position: relative;
-    width: 570px;
-    height: 335px;
     margin: 0 auto 30px auto;
 }
 .fun-news .primary.home {
+    width: 570px;
+    height: 335px;
     margin-left: auto;
     margin-right: 12px;
 }
 
-.fun-news .primary img {
-    width: 570px;
-    height: 325px;
-}
 .fun-news .primary>div {
     position: absolute;
     background-color: white;
     text-align: center;
+    bottom: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-left: 15px;
     width: 540px;
-    margin-left: 17px;
-    margin-right: auto;
-    bottom: 0
 }
-
+.fun-news .primary>div h3,
+.fun-news .primary>div p {
+    color: #062644;
+}
 
 .fun-news .secondary {
     position: relative;
@@ -793,7 +812,6 @@ ul.universities-list {
     margin-right: auto;
     margin-left: 15px;
 }
-
 
 .fun-news .secondary img {
     width: 275px;
