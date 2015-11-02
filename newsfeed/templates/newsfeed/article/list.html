@@ -5,6 +5,8 @@ from django.utils.translation import ugettext as _
 from django.template.defaultfilters import truncatechars
 
 from staticfiles.storage import staticfiles_storage
+
+
 %>
 
 <%inherit file="/funsite/parts/base-fixed-width.html" />
@@ -20,30 +22,29 @@ from staticfiles.storage import staticfiles_storage
 
 <div class="fun-news">
     ## featured news (only one, displayed regarding resolution)
-    % if featured_section and featured_section.article:
+
     <div class="row">
         <div class="col-md-36">
-            ${newsfeed.news_block(featured_section.article, featured_section.displayed_title, 'big')}
+            ${newsfeed.news_block(articles[0], 'big')}
         </div>
     </div>
 
     <div class="row hidden-md hidden-lg">
         <div class="col-sm-36">
-            ${newsfeed.news_block(featured_section.article, featured_section.displayed_title, 'primary')}
+            ${newsfeed.news_block(articles[0], 'primary')}
         </div>
     </div>
-    % endif
 
     ## chronologically displayed news (on 2 columns)
     <div class="row">
         <div class="col-sm-36 col-md-18 no-padding">
-            % for article in articles[0:12:2]:
-                ${newsfeed.news_block(article, article.title, 'secondary', 'left')}
+            % for article in articles[1:12:2]:
+                ${newsfeed.news_block(article, 'secondary', 'left')}
             % endfor
         </div>
         <div class="col-sm-36 col-md-18 no-padding">
-            % for article in articles[1:12:2]:
-                ${newsfeed.news_block(article, article.title, 'secondary', 'right')}
+            % for article in articles[2:12:2]:
+                ${newsfeed.news_block(article, 'secondary', 'right')}
             % endfor
         </div>
     </div>
