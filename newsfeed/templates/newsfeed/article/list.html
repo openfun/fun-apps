@@ -20,23 +20,31 @@ from staticfiles.storage import staticfiles_storage
     ${_(u"All FUN news")}
 </h1>
 
-<div class="fun-news">
+<div class="fun-news news-list">
     ## featured news (only one, displayed regarding resolution)
 
     <div class="row">
-        <div class="col-md-36">
+        <div class="col-lg-36 hidden-sm hidden-xs">
             ${newsfeed.news_block(articles[0], 'big')}
         </div>
     </div>
 
     <div class="row hidden-md hidden-lg">
-        <div class="col-sm-36">
+        <div class="col-sm-36 text-center">
             ${newsfeed.news_block(articles[0], 'primary')}
+        </div>
+        <div class="col-xs-36 hidden-lg hidden-md hidden-sm text-center">
+
+            % for article in articles[1:]:
+                ${newsfeed.news_block(article, 'primary')}
+            % endfor
         </div>
     </div>
 
+
+
     ## chronologically displayed news (on 2 columns)
-    <div class="row">
+    <div class="row hidden-xs">
         <div class="col-sm-36 col-md-18 no-padding">
             % for article in articles[1:12:2]:
                 ${newsfeed.news_block(article, 'secondary', 'left')}
