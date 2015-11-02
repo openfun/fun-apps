@@ -326,10 +326,25 @@ class Client(BaseClient):
     ####################
 
     def request(self, endpoint, method='GET', params=None, files=None):
-        return http_request(
-            self.urls.libcast_url(endpoint), method=method, params=params,
-            files=files, auth=self.auth, timeout=self.DEFAULT_TIMEOUT_SECONDS
-        )
+        url = self.urls.libcast_url(endpoint)
+        func = getattr(requests, method.lower())
+        kwargs = {
+            'auth': self.auth,
+            'timeout': self.DEFAULT_TIMEOUT_SECONDS,
+        }
+        if method.upper() == 'GET':
+            kwargs['params'] = params
+        else:
+            kwargs['data'] = params
+            kwargs['files'] = files
+        try:
+            response = func(url, **kwargs)
+        except requests.Timeout:
+            raise ClientError(u"Libcast timeout url=%s, method=%s, params=%s" % (url, method, params))
+        if response.status_code >= 400:
+            logger.error(u"Libcast client error url=%s, method=%s, params=%s, status code=%d",
+                         url, method, params, response.status_code)
+        return response
 
     def get_auth(self):
         """Libcast API uses HTTP Digest authentication"""
@@ -511,25 +526,3 @@ def slugify(string):
         slug (str)
     """
     return string.lower().replace('/', '-')
-
-#pylint: disable=too-many-arguments
-def http_request(url, method='GET', params=None, files=None, auth=None, timeout=None):
-    func = getattr(requests, method.lower())
-    kwargs = {
-        'auth': auth,
-        'timeout': timeout,
-    }
-    if method.upper() == 'GET':
-        kwargs['params'] = params
-    else:
-        kwargs['data'] = params
-        kwargs['files'] = files
-    try:
-        response = func(url, **kwargs)
-    except requests.Timeout:
-        raise ClientError(u"Libcast timeout url=%s, method=%s, params=%s" % (url, method, params))
-    if response.status_code >= 400:
-        logger.error(u"Libcast client error url=%s, method=%s, params=%s, status code=%d",
-                     url, method, params, response.status_code)
-    return response
-
