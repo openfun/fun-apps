@@ -453,14 +453,14 @@ h3.big-title {
     }
 
     .fun-news .primary {
-        width: 290px;
-        height: 350px;
+        width: 290px !important;
+        height: 350px !important;
         margin: 0 auto 30px auto;
     }
     .fun-news .primary>div {
         width: inherit;
-        height: 230px;
-        width: 260px;
+        width: 260px !important;
+        height: 230px !important;
         margin-left: 14px;
     }
 
@@ -745,6 +745,7 @@ ul.universities-list {
 
 
 .fun-news .primary {
+    display: inline-block;
     position: relative;
     margin: 0 auto 30px auto;
 }
