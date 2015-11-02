@@ -13,7 +13,7 @@ from universities.models import University
 course_subjects = CourseSubject.objects.random_featured()
 universities = University.objects.random_featured(18)
 featured_courses = Course.objects.random_featured(10)
-news = top_news()[:3]
+news = top_news(5)
 %>
 
 <%inherit file="funsite/parts/base-fixed-width.html" />
@@ -24,7 +24,7 @@ news = top_news()[:3]
 
 <%block name="js_extra">
 <script>
-    $('.owl-carousel').owlCarousel({
+    $('.owl-theme').owlCarousel({
         loop: true,
         margin: 10,
         responsiveClass: true,
@@ -44,6 +44,17 @@ news = top_news()[:3]
             items: 8,
             margin: 20
           }
+        }
+    });
+    $('.owl-news-320').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        nav: false,
+        responsive: {
+          0: {
+            items: 1,
+          },
         }
     });
 
@@ -153,12 +164,12 @@ news = top_news()[:3]
                 % else:
                     <li>
                 % endif
-                        <a href="${university.get_absolute_url()}">
-                            <div class="university-logo center-block">
-                                <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}">
-                            </div>
-                        </a>
-                    </li>
+                    <a href="${university.get_absolute_url()}">
+                        <div class="university-logo center-block">
+                            <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}">
+                        </div>
+                    </a>
+                </li>
             % endfor
             </ul>
         </div>
@@ -180,22 +191,27 @@ news = top_news()[:3]
     </div>
 
     <div class="row">
-        <div class="col-sm-18 text-center">
-            % if len(news) > 0:
-                ${newsfeed.news_block(news[0], news[0].title, 'primary', 'home')}
-            % endif
+        <div class="col-md-18 col-sm-36 text-center hidden-xs">
+            ${newsfeed.news_block(news[0], 'primary', 'home')}
         </div>
 
-        <div class="col-sm-18 text-center">
-            % if len(news) > 1:
-                ${newsfeed.news_block(news[1], news[1].title, 'secondary', 'home')}
-            % endif
-
-            % if len(news) > 2:
-                ${newsfeed.news_block(news[2], news[2].title, 'secondary', 'home')}
-            % endif
+        <div class="col-md-18 col-sm-36 text-center hidden-xs">
+            ${newsfeed.news_block(news[1], 'secondary', 'home')}
+            ${newsfeed.news_block(news[2], 'secondary', 'home')}
         </div>
     </div>
+    <div class="col-xs-36 text-center hidden-sm hidden-md hidden-lg">
+        <div class="owl-carousel owl-news-320">
+            % for article in news:
+                % if article:
+                    <div class="item">
+                        ${newsfeed.news_block(article, 'primary', 'home')}
+                    </div>
+                % endif
+            % endfor
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col-lg-36 text-center">
@@ -215,7 +231,7 @@ news = top_news()[:3]
         <div class="col-md-36">
             <div class="owl-carousel owl-theme">
 
-                %for idx, subject in enumerate(course_subjects):
+                %for subject in course_subjects:
                 <div class="item">
                     <a href="${subject.get_absolute_url()}">
                         <div>
