@@ -11,8 +11,10 @@ from fun.utils import mako
 from . import models
 
 
-def top_news():
-    return ArticleListView().get_queryset_for_site()
+def top_news(count=5):
+    """Return Top count news if available or fill result list with None for further boolean evaluation."""
+    articles = ArticleListView().get_queryset_for_site()
+    return [articles[idx] if len(articles)>idx else None for idx in range(count)]
 
 class StaffOnlyView(object):
     def dispatch(self, request, *args, **kwargs):
