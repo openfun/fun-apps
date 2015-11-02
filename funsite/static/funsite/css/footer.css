@@ -1,5 +1,11 @@
 /***** This file is included both in funsite and edx-platform/lms base templates. *****/
 
+.funsite-footer-width {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .fun-footer {
     background-color: #08223C;
 }
@@ -52,12 +58,19 @@ ul.top-footer li a {
 
 /* Responsiveness */
 
-/* > 1280 top-footer is just one centered block of links. 
+/* > 1280 top-footer is just one centered block of links.
  */
 
-.top-footer {
-    text-align: center; 	
-}
+@media (max-width: 1900px) {
+
+    .top-footer {
+	text-align: center;
+    }
+
+    .top-footer .left-md-footer,
+    .top-footer .right-md-footer {
+	display: inline-block;
+    }
 
 .top-footer .left-md-footer,
 .top-footer .right-md-footer {
@@ -77,9 +90,9 @@ ul.top-footer li a {
 @media (max-width: 1279px) {
 
     .top-footer {
-	text-align: left; 	
+	text-align: left;
     }
-    
+
     .top-footer .left-md-footer,
     .top-footer .right-md-footer {
 	display: inline-block;
@@ -107,7 +120,7 @@ ul.top-footer li a {
 
 @media (max-width: 767px) {
     .top-footer {
-	text-align: left; 	
+	text-align: left;
     }
 
     .top-footer .left-md-footer,
@@ -119,7 +132,7 @@ ul.top-footer li a {
     .top-footer li {
 	display: block;
     }
-    
+
     .top-footer li:last-child {
 	margin-bottom: 25px;
     }

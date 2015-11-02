@@ -8,8 +8,8 @@ from staticfiles.storage import staticfiles_storage
 <%page args="base_application"/>
 
 <div class="fun-footer">
-    <div class="${'main-width' if base_application=='funsite' else 'courseware-width'}">
-        
+    <div class="${'funsite-footer-width' if base_application=='funsite' else 'courseware-width'}">
+
         <ul class="top-footer">
             <div class="left-md-footer">
                 <li>
@@ -32,7 +32,7 @@ from staticfiles.storage import staticfiles_storage
                         ${_("Terms of use")}
                     </a>
                 </li>
-            </div><div class="right-md-footer">  
+            </div><div class="right-md-footer">
                 <li>
                     <a href="${reverse('site:render_static_template', args=['honor'])}">
                         ${_("Usage policy")}
