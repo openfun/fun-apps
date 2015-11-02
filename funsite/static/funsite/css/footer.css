@@ -1,7 +1,7 @@
 /***** This file is included both in funsite and edx-platform/lms base templates. *****/
 
 .fun-footer {
- background-color: #08223C;
+    background-color: #08223C;
 }
 
 .courseware-width {
@@ -32,48 +32,42 @@ ul.top-footer li a {
 /* Bottom footer */
 
 .bottom-footer {
+    display:flex;
+    justify-content: space-between;
     padding-top: 15px;
     padding-bottom: 15px;
     border-top-style: solid;
     border-top-width: 1px;
     border-top-color: #374C61;
-    height: 70px;
 }
 
 .bottom-footer a.logo-fun,.bottom-footer .fun-social-networks {
-    display: inline;
+    display: inline-block;
 }
 
-.bottom-footer a.logo-fun {
-    float: left;
-}
-
-.bottom-footer .fun-social-networks {
-    float: right;
+.bottom-footer .fun-social-networks a {
+    display: inline-block;
+    padding-top: 5px;
 }
 
 /* Responsiveness */
 
-/* top-footer is just one centered block of links.
+/* > 1280 top-footer is just one centered block of links. 
  */
 
-@media (max-width: 1900px) {
-
-    .top-footer {
-	text-align: center; 	
-    }
-    
-    .top-footer .left-md-footer,
-    .top-footer .right-md-footer {
-	display: inline-block;
-    }
-
-    .top-footer li {
-	display: inline;
-        margin-right: 15px;
-    }
+.top-footer {
+    text-align: center; 	
 }
 
+.top-footer .left-md-footer,
+.top-footer .right-md-footer {
+    display: inline-block;
+}
+
+.top-footer li {
+    display: inline;
+    margin-right: 15px;
+}
 
 /* < 1280
    top-footer is composed of two columns.
@@ -105,14 +99,6 @@ ul.top-footer li a {
     .top-footer li:last-child {
 	margin-bottom: 0px;
     }
-
-    .bottom-footer {
-	height: 66px;
-    }
-
-    .bottom-footer .fun-social-networks {
-	float: right;
-    }
 }
 
 /* < 767
@@ -127,7 +113,7 @@ ul.top-footer li a {
     .top-footer .left-md-footer,
     .top-footer .right-md-footer {
 	display: block;
-	width:100%;
+	width: 100%;
     }
 
     .top-footer li {
