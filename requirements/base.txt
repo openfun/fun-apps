@@ -20,4 +20,4 @@ easy-thumbnails==2.2
 # Grade External Activitiy XBlock
 -e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
 
--e git+https://github.com/openfun/libcast-xblock.git@alpha#egg=libcast-xblock
+-e git+https://github.com/openfun/libcast-xblock.git@master#egg=libcast-xblock
