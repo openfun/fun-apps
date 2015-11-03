@@ -58,19 +58,16 @@ ul.top-footer li a {
 
 /* Responsiveness */
 
-/* > 1280 top-footer is just one centered block of links.
- */
+/* > 1280 top-footer is just one centered block of links. */
 
-@media (max-width: 1900px) {
-
-    .top-footer {
-	text-align: center;
+.top-footer {
+    text-align: center;
     }
 
-    .top-footer .left-md-footer,
-    .top-footer .right-md-footer {
-	display: inline-block;
-    }
+.top-footer .left-md-footer,
+.top-footer .right-md-footer {
+    display: inline-block;
+}
 
 .top-footer .left-md-footer,
 .top-footer .right-md-footer {
