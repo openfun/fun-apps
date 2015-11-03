@@ -56,9 +56,9 @@ class CourseQuerySet(models.query.QuerySet):
         """
         A new course is in its first session and that is not closed.
         """
-        return self.filter(
+        return self.public().filter(
             Q(session_number=1),
-            Q(enrollment_end_date__lt=now()) | Q(enrollment_end_date__isnull=True)
+            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True)
         )
 
     def by_score(self):
