@@ -103,6 +103,11 @@ class Course(models.Model):
             return ''
         return self.start_date.strftime(ugettext(u'%b %d %Y'))
 
+    @property
+    def enrollment_ended(self):
+        return now() > self.enrollment_end_date if self.enrollment_end_date else False
+
+
 
 class CourseSubject(models.Model):
     name = models.CharField(_('name'), max_length=255, db_index=True)

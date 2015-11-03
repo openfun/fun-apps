@@ -34,7 +34,7 @@
                     <%- start_date_display %>
                 </a>
             </div>
-            <div class="register col-xs-16">
+            <div class="register <% if (enrollment_ended) { %>closed <% } %>col-xs-16">
                 <a class="no-decoration" href="<%= course_about %>">
                     <%- gettext("Learn more") %>
                 </a>

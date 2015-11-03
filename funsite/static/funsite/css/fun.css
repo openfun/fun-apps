@@ -555,6 +555,9 @@ h3.big-title {
     text-align: center;
     font-weight: 600;
 }
+.course-block .footer .register.closed {
+    background-color: #CBCCCD;
+}
 .course-block .footer .register:hover {
     background-color: #FE3925;
 }

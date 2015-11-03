@@ -25,6 +25,7 @@ class CourseSerializer(serializers.ModelSerializer):
     session_display = serializers.CharField(source='session_display')
     thumbnails = serializers.CharField(source='thumbnails_info')
     start_date_display = serializers.CharField(source='start_date_display')
+    enrollment_ended = serializers.BooleanField(source='enrollment_ended')
 
     class Meta:
         model = Course
@@ -40,6 +41,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'start_date',
             'start_date_display',
             'end_date',
+            'enrollment_ended',
             'score',
             'session_number',
             'session_display',
