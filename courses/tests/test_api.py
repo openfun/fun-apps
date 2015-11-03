@@ -138,5 +138,5 @@ class CourseAPITest(TestCase):
         self.active_2.save()
         filter_data = {'availability': 'new'}
         response = self.client.get(self.api_url, filter_data)
-        self.assertContains(response, self.active_1.title)
-        self.assertNotContains(response, self.active_2.title)
+        self.assertNotContains(response, self.active_1.title)
+        self.assertContains(response, self.active_2.title)

@@ -81,7 +81,7 @@ class Course(models.Model):
     def session_display(self):
         display_text = ''
         if self.session_number == 1:
-            if self.enrollment_end_date and self.enrollment_end_date > now():
+            if self.enrollment_end_date and self.enrollment_end_date < now():
                 display_text = ugettext('session 1')
             else:
                 display_text = ugettext('new course')
