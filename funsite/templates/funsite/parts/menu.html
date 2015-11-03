@@ -58,3 +58,19 @@ from staticfiles.storage import staticfiles_storage
         <%include file="login-overlay.html" />
     % endif
 </nav>
+
+<div id="cookie-banner" style="display:none">
+    <div class="row">
+        <div class="left">
+            <div class="text">
+                ${_("By continuing browsing the france-universite-numerique-mooc.fr site, you accept the use of cookies to enhance your user experience")}.
+            </div>
+            <div class="link">
+                <a href="/privacy">&gt; ${_("Read more")}</a>
+            </div>
+        </div>
+        <div class="right">
+            <a href="#" class="cookie-banner-button">${_("I agree")}</a>
+        </div>
+    </div>
+</div>

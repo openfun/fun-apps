@@ -170,6 +170,7 @@ SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 
 # Also embed a tiny version of bootstrap (grid-only)
@@ -177,3 +178,4 @@ PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/grid-on
 
 # js/lms-application.js
 PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
+PIPELINE_JS['application']['source_filenames'].append('fun/js/cookie-banner.js')
