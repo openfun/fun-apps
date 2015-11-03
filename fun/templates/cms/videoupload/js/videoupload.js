@@ -316,10 +316,24 @@ require(["jquery", "underscore", "backbone", "gettext",
       template: TemplateUtils.loadTemplate("videoupload-list"),
 
       initialize: function() {
+        this.listenTo(Videos, 'request', this.syncing);
+        this.listenTo(Videos, 'sync', this.synced);
         this.listenTo(Videos, 'add', this.addOne);
         this.listenTo(Videos, 'syncError', this.syncError);
         this.render();
         Videos.fetch();
+      },
+
+      syncing: function() {
+        this.$(".syncing").show();
+        this.$(".synced").hide();
+        return this;
+      },
+
+      synced: function() {
+        this.$(".syncing").hide();
+        this.$(".synced").show();
+        return this;
       },
 
       render: function() {
@@ -506,8 +520,11 @@ require(["jquery", "underscore", "backbone", "gettext",
 
         // Fill subtitles
         this.subtitles = new SubtitleCollection([], {video: this.model});
+        this.listenTo(this.subtitles, 'request', this.subtitlesSyncing);
+        this.listenTo(this.subtitles, 'sync', this.subtitlesSynced);
         this.listenTo(this.subtitles, 'add', this.addSubtitle);
-        this.subtitles.fetch();
+
+        this.render();
       },
 
       cancel: function(event) {
@@ -515,9 +532,24 @@ require(["jquery", "underscore", "backbone", "gettext",
         this.remove();
       },
 
+      show: function() {
+          ParameterView.__super__.show.apply(this);
+          this.subtitles.fetch();
+      },
+
+      subtitlesSyncing: function() {
+        this.$(".subtitles .syncing").show();
+        this.$(".subtitles .synced").hide();
+      },
+
+      subtitlesSynced: function() {
+        this.$(".subtitles .syncing").hide();
+        this.$(".subtitles .synced").show();
+      },
+
       addSubtitle: function(subtitle) {
         var subtitleView = new SubtitleView({model: subtitle});
-        this.$('.subtitles').append(subtitleView.render().el);
+        this.$('.subtitles tbody').append(subtitleView.render().el);
       },
 
       addActionButtons: function() {
