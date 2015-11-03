@@ -9,19 +9,39 @@ from django.utils.translation import ugettext as _
 <%block name="title">${_("Universities")}</%block>
 
 <%block name="page_content">
-<h1>${_("The universities and schools present on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h1>
 
-<p>${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}</p>
+<div class="universities universities-page">
 
-<ul>
-    % for university in universities:
-    <li>
-        <a href="${ university.get_absolute_url()}">
-            <div class="university-logo center-block">
-                <img src="${ university.get_logo_thumbnail() }" alt="${ university.name }" title="${ university.name }" />
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-30 col-md-36">
+
+            <div class="introduction">
+
+
+                <h1>${_("The universities and schools present on {platform_name}").format(platform_name=settings.PLATFORM_NAME)}</h1>
+
+                <p>${_("{platform_name}'s goal is to allow universities and schools to publish their courses online. The list of institutions proposing courses on {platform_name} is continuously getting larger:").format(platform_name=settings.PLATFORM_NAME)}
+                </p>
             </div>
-        </a>
-    </li>
-    % endfor
-</ul>
+
+            <div class="space-40px"></div>
+
+            <ul class="universities-list">
+                % for university in universities:
+                <li>
+                    <a href="${ university.get_absolute_url()}">
+                        <div class="university-logo center-block">
+                            <img src="${ university.get_logo_thumbnail() }" alt="${ university.name }" title="${ university.name }" class="img-responsive"/>
+                        </div>
+                    </a>
+                </li>
+                % endfor
+            </ul>
+
+            <div class="space-40px"></div>
+
+        </div>
+    </div>
+</div>
+
 </%block>

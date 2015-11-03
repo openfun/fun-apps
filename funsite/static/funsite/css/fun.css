@@ -86,6 +86,7 @@ a:hover {
 a.no-decoration,
 a.no-decoration:hover,
 a.no-decoration:focus,
+a.no-decoration:active,
 a.no-decoration:visited {
     text-decoration: none;
     color: inherit;
@@ -374,6 +375,9 @@ h3.big-title {
     .register-page .right {
         right: -36px; /* stick column to border */
     }
+    .universities-list li {
+        margin: 0 6px 12px 6px;
+    }
 
 }
 
@@ -413,6 +417,10 @@ h3.big-title {
         margin-right: auto !important;
         margin-left: auto !important;
     }
+    .universities-list li {
+        margin: 0 20px 12px 20px;
+    }
+
 }
 
 @media (max-width: 767px) {
@@ -446,6 +454,25 @@ h3.big-title {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+    .university-logo {
+        width: 135px !important;
+        height: 85px !important;
+    }
+    .universities-page ul.universities-list {
+        /* compensate simple-content margins */
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+    .universities-list li {
+        margin: 0 3px 12px 15px;
+    }
+
+
+    .simple-content-page {
+        padding: 20px !important;
+        margin: 0 !important;
+    }
+
 }
 
 .homepage-header {
@@ -609,12 +636,10 @@ h3.big-title {
 
 
 .simple-content-page {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 40px 20px 40px;
     margin-top: 40px;
     margin-bottom: 40px;
     background-color: white;
-    padding: 40px;
 }
 
 .university-page .university {
@@ -644,10 +669,11 @@ h3.big-title {
 
 ul.universities-list {
     list-style-type: none;
+    padding: 0;
 }
+
 .universities-list li {
     float: left;
-    margin: 4px;
 }
 .universities-list .university-logo {
     border: 1px solid #E6E6E6;
