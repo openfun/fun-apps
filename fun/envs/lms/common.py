@@ -104,7 +104,7 @@ MAKO_TEMPLATES['main'] = [
 # Xiti
 XITI_ENABLED = True
 XITI_XTN2 = '100'
-XITI_JS_URL = '/static/themes/fun/js/vendor/xtcore.js'
+XITI_JS_URL = '/static/funsite/xiti/xtcore.js'
 XITI_XTSITE = '530632'
 XITI_XTSD = 'https://logs1279'
 
