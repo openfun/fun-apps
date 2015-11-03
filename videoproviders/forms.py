@@ -26,7 +26,7 @@ class SubtitleForm(VideoForm):
 
     # Other formats supported by Dailymotion are 'STL', 'TT', but we don't support them for now.
     uploaded_file = forms.FileField(label=_("Subtitle file (SRT files only)"))
-    language = forms.ChoiceField(label=_("Subtitle language"), choices=SUPPORTED_LANGUAGES)
+    language = forms.ChoiceField(label=_("Subtitle language"), choices=SUPPORTED_LANGUAGES, initial='fr')
 
 
 class ThumbnailForm(VideoForm):
