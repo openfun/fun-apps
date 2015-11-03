@@ -74,7 +74,7 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
 
 ## Load underscore templates for the various backbone views. These templates will be loaded via TemplateUtils.loadTemplate(name) calls.
 ## E.g: 'video' will be available as the 'videoupload-video' template.
-% for template_name in ['list', 'video', 'parameters', 'parameters-subtitle', 'parameters-thumbnail']:
+% for template_name in ['modal-button', 'list', 'video', 'parameters', 'parameters-subtitle', 'parameters-thumbnail']:
 <script type="text/template" id="videoupload-${template_name}-tpl">
   <%static:include path="videoupload/js/${template_name}.underscore" />
 </script>
