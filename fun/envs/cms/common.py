@@ -11,6 +11,7 @@ INSTALLED_APPS += (
     'videoproviders',
     'courses',
 
+    'easy_thumbnails',
     'ckeditor',
     'adminsortable',
     'selftest',
@@ -72,6 +73,9 @@ CC_PROCESSOR = {
         'PURCHASE_ENDPOINT': '',
     }
 }
+
+# easy-thumbnails
+SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 
 SITE_VARIANT = 'cms'
 
