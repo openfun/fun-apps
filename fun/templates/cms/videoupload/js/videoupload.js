@@ -521,6 +521,7 @@ require(["jquery", "underscore", "backbone", "gettext",
       initialize: function() {
         // this.model is the current video
         ParameterView.__super__.initialize.apply(this);
+        this.buttonTemplate = TemplateUtils.loadTemplate("videoupload-modal-button");
 
         // Fill subtitles
         this.subtitles = new SubtitleCollection([], {video: this.model});

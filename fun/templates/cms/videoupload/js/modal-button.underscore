@@ -1,0 +1,8 @@
+<%
+// Override button template in order to override the onclick event.
+// Otherwise, the page scrolls to the top every time the action button
+// is clicked.
+%>
+<li class='action-item'>
+    <a href='#' onclick='return false;' class="button <%= isPrimary ? 'action-primary' : '' %> action-<%= type %>"><%= name %></a>
+</li>
