@@ -201,6 +201,19 @@ CODE_JAIL = {
     "user": "sandbox"
 }
 
+# easy-thumbnails
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_EXTENSION = 'png'
+
+# Course image thumbnail sizes
+FUN_THUMBNAIL_OPTIONS = {
+    'small': {'size': (270, 152), 'crop': 'smart'},
+    'big': {'size': (337, 191), 'crop': 'smart'},
+    'about': {'size': (730, 412), 'crop': 'scale'},
+    'facebook': {'size': (600, 315), 'crop': 'smart'},  # https://developers.facebook.com/docs/sharing/best-practices
+}
+
+
 # ora2 fileupload
 ORA2_FILEUPLOAD_BACKEND = "filesystem"
 ORA2_FILEUPLOAD_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions")

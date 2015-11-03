@@ -163,16 +163,6 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 
 # easy-thumbnails
 SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
-THUMBNAIL_PRESERVE_EXTENSIONS = True
-THUMBNAIL_EXTENSION = 'png'
-
-# Course image thumbnail sizes
-FUN_THUMBNAIL_OPTIONS = {
-    'small': {'size': (270, 152), 'crop': 'smart'},
-    'big': {'size': (337, 191), 'crop': 'smart'},
-    'about': {'size': (730, 412), 'crop': 'scale'},
-    'facebook': {'size': (600, 315), 'crop': 'smart'},  # https://developers.facebook.com/docs/sharing/best-practices
-}
 
 # Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded by funsite/templates/funsite/parts/base.html
