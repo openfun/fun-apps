@@ -324,15 +324,19 @@ require(["jquery", "underscore", "backbone", "gettext",
         Videos.fetch();
       },
 
-      syncing: function() {
-        this.$(".syncing").show();
-        this.$(".synced").hide();
+      syncing: function(model_or_collection) {
+        if (model_or_collection === Videos) {
+            this.$(".syncing").show();
+            this.$(".synced").hide();
+        }
         return this;
       },
 
-      synced: function() {
-        this.$(".syncing").hide();
-        this.$(".synced").show();
+      synced: function(model_or_collection) {
+        if (model_or_collection === Videos) {
+            this.$(".syncing").hide();
+            this.$(".synced").show();
+        }
         return this;
       },
 
@@ -537,14 +541,18 @@ require(["jquery", "underscore", "backbone", "gettext",
           this.subtitles.fetch();
       },
 
-      subtitlesSyncing: function() {
-        this.$(".subtitles .syncing").show();
-        this.$(".subtitles .synced").hide();
+      subtitlesSyncing: function(model_or_collection) {
+        if (model_or_collection === this.subtitles) {
+            this.$(".subtitles .syncing").show();
+            this.$(".subtitles .synced").hide();
+        }
       },
 
-      subtitlesSynced: function() {
-        this.$(".subtitles .syncing").hide();
-        this.$(".subtitles .synced").show();
+      subtitlesSynced: function(model_or_collection) {
+        if (model_or_collection === this.subtitles) {
+            this.$(".subtitles .syncing").hide();
+            this.$(".subtitles .synced").show();
+        }
       },
 
       addSubtitle: function(subtitle) {
