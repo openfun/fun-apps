@@ -18,6 +18,7 @@ from staticfiles.storage import staticfiles_storage
     <link rel="icon" type="image/x-icon" href="${staticfiles_storage.url(microsite.get_value('favicon_path', settings.FAVICON_PATH))}" />
     <link href="${staticfiles_storage.url('funsite/bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
     <link rel="stylesheet" href="${staticfiles_storage.url('funsite/owl.carousel/assets/owl.carousel.css')}">
+    <link href="${staticfiles_storage.url('fun/css/cookie-banner.css')}" rel="stylesheet">
     <link href="${staticfiles_storage.url('funsite/css/header.css')}" rel="stylesheet">
     <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
     <link href="${staticfiles_storage.url('funsite/css/footer.css')}" rel="stylesheet">
@@ -81,6 +82,7 @@ from staticfiles.storage import staticfiles_storage
     <script type="text/javascript" src="${staticfiles_storage.url('js/src/utility.js')}"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/fun.js')}"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/header.js')}"></script>
+    <script type="text/javascript" src="${staticfiles_storage.url('fun/js/cookie-banner.js')}"></script>
     <%block name="js_extra"/>
   </body>
 </html>
