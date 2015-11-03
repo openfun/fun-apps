@@ -5,6 +5,7 @@ import os
 import requests
 import requests.auth
 
+from django.core.cache import get_cache
 from django.utils.translation import gettext as _
 
 from fun.utils.i18n import language_name
@@ -255,15 +256,20 @@ class Client(BaseClient):
     def ensure_course_is_configured(self):
         """
         Make sure that everything is ready in the Libcast account for upload.
+        This should be thread-safe, so we make use of a lock.
 
         Returns:
             directory_slug (str)
             stream_slug (str)
         """
-        directory_slug = self.ensure_course_directory_exists()
-        parent_stream_slug = self.get_or_create_stream(self.org)
-        stream_slug = self.get_or_create_stream(self.course_key_string, parent_stream=parent_stream_slug)
-        return directory_slug, stream_slug
+        lock = "libcast-course-configuration: {}".format(self.course_key_string)
+        lock_timeout_in_seconds = 20
+
+        with SelfExpiringLock(lock, lock_timeout_in_seconds):
+            directory_slug = self.ensure_course_directory_exists()
+            parent_stream_slug = self.get_or_create_stream(self.org)
+            stream_slug = self.get_or_create_stream(self.course_key_string, parent_stream=parent_stream_slug)
+            return directory_slug, stream_slug
 
     def ensure_course_directory_exists(self):
         """Check for the existence of a folder and create it if necessary.
@@ -531,3 +537,28 @@ def slugify(string):
         slug (str)
     """
     return string.lower().replace('/', '-')
+
+
+class SelfExpiringLock(object):
+    """
+    Lock based on a cache value. The lock will expire on exit.
+
+    Usage:
+        with SelfExpiringLock("mykey"):
+            # non thread-safe code
+            ...
+    """
+
+    def __init__(self, name, timeout=None):
+        self.name = name
+        self.timeout = timeout
+        self.cache = get_cache('default')
+
+    def __enter__(self):
+        while self.cache.get(self.name):
+            pass
+        self.cache.set(self.name, 1, timeout=self.timeout)
+
+    def __exit__(self, _type, value, traceback):
+        self.cache.delete(self.name)
+
