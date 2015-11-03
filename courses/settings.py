@@ -15,10 +15,3 @@ COURSE_ADMIN_READ_ONLY_FIELDS = getattr(settings, 'COURSE_ADMIN_READ_ONLY_FIELDS
     'start_date', 'end_date', 'enrollment_start_date', 'enrollment_end_date',
     'thumbnails_info')
 )
-
-# This is celery crontab expression.
-# For instance: crontab(hour="*", minute="*", day_of_week="*")
-# It's used to trigger the command that updates course metadata.
-COURSES_META_DATA_UPDATE_CRONTAB = getattr(settings, 'COURSES_META_DATA_UPDATE_CRONTAB', {
-    'minute' : '*/30',
-})
