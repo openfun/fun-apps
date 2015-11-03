@@ -166,10 +166,14 @@ class Client(BaseClient):
         """
         visibility = resource.find('visibility').text
         status = 'published' if visibility == 'visible' else 'ready'
+        encoding_progress = None
         if file_obj is not None:
             encoding_status = file_obj.find('encoding_status').text
             if encoding_status != 'finished':
                 status = 'processing'
+                encoding_progress = file_obj.find('encoding_progress')
+                if encoding_progress is not None:
+                    encoding_progress = "%.2f" % float(encoding_progress.text)
         slug = resource.find('slug').text
         if status == "processing":
             video_sources = []
@@ -186,6 +190,7 @@ class Client(BaseClient):
             'title':  resource.find('title').text,
             'subtitles': self.get_resource_subtitles(resource),
             'status': status,
+            'encoding_progress': encoding_progress,
             'thumbnail_url': self.get_resource_thumbnail_url(resource),
             'video_sources': video_sources,
             'external_link': external_link

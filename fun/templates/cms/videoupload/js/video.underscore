@@ -29,6 +29,9 @@
 <td class="id"><%= id %></td>
 <td class="status">
   <%= status %>
+  <% if (encoding_progress) { %>
+  (<%= encoding_progress %>%)
+  <% } %>
   <% if (error.length > 0) { %>
   <br><%= error %>
   <% } %>

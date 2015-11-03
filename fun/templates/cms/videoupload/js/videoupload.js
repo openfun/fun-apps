@@ -78,6 +78,7 @@ require(["jquery", "underscore", "backbone", "gettext",
         error: "",
         subtitles: [],
         title: "",
+        encoding_progress: null,
       },
 
       url: function() {

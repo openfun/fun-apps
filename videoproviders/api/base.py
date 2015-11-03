@@ -140,6 +140,7 @@ class BaseClient(object):
                     'title':  ...,
                     'thumbnail_url': ...,
                     'status': ...,
+                    'encoding_progress': ...,
                     'embed_url': ...,
                     'video_sources': [...
                         {
