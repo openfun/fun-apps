@@ -332,16 +332,52 @@ class Client(BaseClient):
         return stream.find('slug').text
 
 
+    def iter_resources(self, page_size=50):
+        """Iterate on stream resources
+
+        Iterate page by page on the resources of a stream.
+        """
+        # These parameters dismiss some values from the response content and
+        # accelerates the request
+        request_params = {
+            "without-views": "true",
+            "without-usages": "true",
+        }
+        current_range_start = 0
+        while True:
+            # Note that header 0-N asks for items 0-N *included*, thus N+1
+            # items in total.
+            header_range = "entities=%d-%d" % (
+                current_range_start, current_range_start + page_size - 1
+            )
+
+            page = parse_xml(
+                self.safe_get(
+                    self.urls.stream_resources_path(self.stream_slug),
+                    headers={
+                        "Range": header_range
+                    },
+                    params=request_params,
+                    message=_("Could not list videos")
+            ))
+            resources = page.findall("resource")
+            for resource in resources:
+                yield resource
+            if len(resources) < page_size:
+                break
+            current_range_start += page_size
+
     ####################
     # Overridden methods
     ####################
 
-    def request(self, endpoint, method='GET', params=None, files=None):
+    def request(self, endpoint, method='GET', params=None, files=None, headers=None):#pylint: disable=too-many-arguments
         url = self.urls.libcast_url(endpoint)
         func = getattr(requests, method.lower())
         kwargs = {
             'auth': self.auth,
             'timeout': self.DEFAULT_TIMEOUT_SECONDS,
+            'headers': headers,
         }
         if method.upper() == 'GET':
             kwargs['params'] = params
@@ -353,8 +389,8 @@ class Client(BaseClient):
         except requests.Timeout:
             raise ClientError(u"Libcast timeout url=%s, method=%s, params=%s" % (url, method, params))
         if response.status_code >= 400:
-            logger.error(u"Libcast client error url=%s, method=%s, params=%s, status code=%d",
-                         url, method, params, response.status_code)
+            logger.error(u"Libcast client error url=%s, method=%s, params=%s, headers=%s, status code=%d",
+                         url, method, params, headers, response.status_code)
         return response
 
     def get_auth(self):
@@ -376,18 +412,9 @@ class Client(BaseClient):
         only way we have found to keep the video folder and the playlist in
         sync.
         """
-        # Find course resources
-        resources = parse_xml(self.safe_get(
-            self.urls.stream_resources_path(self.stream_slug),
-            params={
-                "without-views": "true",
-                "without-usages": "true",
-            },
-            message=_("Could not list videos")
-        ))
         # file href -> resource dict
         resources = {
-            resource.find('file').attrib['href']: resource for resource in resources.iter('resource')
+            resource.find('file').attrib['href']: resource for resource in self.iter_resources()
         }
 
         # Iterate on folder and create associated resources if necessary
