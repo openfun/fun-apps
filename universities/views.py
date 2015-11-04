@@ -19,7 +19,7 @@ class UniversityDetailView(mako.MakoTemplateMixin, DetailView):
     context_object_name = 'university'
 
     def get_queryset(self):
-        return University.objects.have_page()
+        return University.objects.with_related().have_page()
 
     def get_context_data(self, **kwargs):
         context = super(UniversityDetailView, self).get_context_data(**kwargs)
