@@ -23,10 +23,7 @@ class UniversityDetailView(mako.MakoTemplateMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UniversityDetailView, self).get_context_data(**kwargs)
-        context['courses'] = get_university_courses(
-            user=self.request.user,
-            university_code=self.object.code
-        )
+        context['courses'] = self.object.courses.public()
         return context
 
 
