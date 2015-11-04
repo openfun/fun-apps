@@ -238,8 +238,11 @@
     left: 0;
     display: none;
     background-color: rgba(61, 121, 190, 0.95);
-    font-family: 'Raleway', sans-serif;
     z-index: 2000;
+}
+
+#sandwich-overlay ul li a {
+    font-family: 'Raleway', sans-serif;
 }
 
 #sandwich-overlay ul {
