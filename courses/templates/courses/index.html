@@ -281,9 +281,18 @@ require(["jquery", "underscore", "backbone"],
                     this.longvaluecollectionview = new LongValueCollectionView({
                             el: this.model.get('overlay') + ' ul',
                             collection: this.model.valuecollection});
+
+                    // Hide overlay on click outside of overlay
+                    var overlay = $(this.model.get("overlay"));
+                    var that = this;
+                    var onBodyClick = function(e) {
+                      if (!overlay.is(e.target) && !that.$(".all-items").is(e.target)) {
+                          overlay.hide();
+                      }
+                    }
+                    $('body').on("click", onBodyClick);
                 };
                 this.model.valuecollection.add(this.model.get("values"))
-
             },
 
             render: function() {
@@ -299,23 +308,24 @@ require(["jquery", "underscore", "backbone"],
             },
 
             events: {
-                'click span.all-items': 'showAllItemsOverlay'
+                'click span.all-items': 'toggleAllItemsOverlay'
             },
 
-            showAllItemsOverlay: function(event) {
-                $('.hide-on-escape-key').hide();
-                var overlay_id = this.model.get('overlay');
-                $(overlay_id).show();
+            toggleAllItemsOverlay: function(event) {
+                var overlay = $(this.model.get('overlay'));
+                overlay.toggle();
 
-                /* Calculate vertical overlay's position regarding clicked button */
-                var top =  $(event.currentTarget).prev().prev().offset().top - 68;
-                $(overlay_id).css('top', top + 'px');
+                if (overlay.is(':visible')) {
+                    /* Calculate vertical overlay's position regarding clicked button */
+                    var top =  $(event.currentTarget).prev().prev().offset().top - 68;
+                    overlay.css('top', top + 'px');
 
-                /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
-                var height = Math.ceil($(overlay_id).find('li').length / $(overlay_id).find('ul').css('column-count'));
-                var li_height = $('li.criterion').outerHeight(true);
-                li_height +=3;  // quick fix to compensate university names which use 2 lines... We have to use shorter name
-                $(overlay_id).find('ul').css('height', (height * li_height) + 'px');
+                    /* Calculate vertical UL's height regarding the number of items and columns as Chrome seems to fail to do it right */
+                    var height = Math.ceil(overlay.find('li').length / overlay.find('ul').css('column-count'));
+                    var li_height = $('li.criterion').outerHeight(true);
+                    li_height +=3;  // quick fix to compensate university names which use 2 lines... We have to use shorter name
+                    overlay.find('ul').css('height', (height * li_height) + 'px');
+                }
             },
         })
 
