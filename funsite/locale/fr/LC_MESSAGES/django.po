@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 18\n"
+"Project-Id-Version: France Université Numérique 19\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-11-04 14:47+0100\n"
-"PO-Revision-Date: 2015-11-04 14:47+0000\n"
+"POT-Creation-Date: 2015-11-04 16:28+0100\n"
+"PO-Revision-Date: 2015-11-04 16:28+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -69,6 +69,10 @@ msgstr "Fin d'inscription"
 msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:72
+msgid "France Université Numérique: The best online courses, for free"
+msgstr "France Université Numérique : Les meilleurs cours en ligne, gratuitement"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:83
 msgid "Highlighted courses"
 msgstr "Les cours à la une"
@@ -90,8 +94,6 @@ msgid "I just registered for {title} through {platform} {url}"
 msgstr "Je viens de m'inscrire pour {title} via {platform} {url}"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:32
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:21
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:72
 msgid "Let's learn, get trained and succeed!"
 msgstr "Venez apprendre, vous former et réussir !"
 
@@ -144,6 +146,10 @@ msgstr "Mentions légales"
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:32
 msgid "Terms of use"
 msgstr "Conditions générales d'utilisation"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:21
+msgid "The best online courses, for free"
+msgstr "Les meilleurs cours en ligne, gratuitement"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:192
 msgid "The news"
