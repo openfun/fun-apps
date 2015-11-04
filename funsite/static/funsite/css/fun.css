@@ -518,7 +518,8 @@ h3.big-title {
     background-color: #CBCCCD;
     color: #08223B;
     text-align: center;
-    font-weight: 600;
+    font-family: sans-serif;
+    font-weight: bold;
     z-index: 10;
     text-transform: uppercase;
 }
