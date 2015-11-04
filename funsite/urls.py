@@ -2,8 +2,9 @@
 
 from django.conf.urls import patterns, url
 
-static_pages = r'(?P<page>(about|honor|legal|privacy|tos))'
 
-urlpatterns = patterns('funsite.views',
-    url(r'^{}/?$'.format(static_pages), 'render_static_template', name='render_static_template'),
-)
+static_pages = ['about', 'honor', 'legal', 'privacy', 'tos']
+
+urls = [url(r'^(?P<page>({}))/?$'.format(name), 'render_static_template', name=name) for name in static_pages]
+
+urlpatterns = patterns('funsite.views', *urls)
