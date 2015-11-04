@@ -287,8 +287,10 @@
 
 /* Main content positioning in courseware */
 .content-wrapper {
-    margin: 60px auto;
+    margin: 60px auto !important;
 }
+
+
 
 /** EXTRA **/
 
