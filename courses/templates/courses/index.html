@@ -202,13 +202,33 @@ require(["jquery", "underscore", "backbone"],
 
         });
 
+        // Collection view that stores the value views listed whenever we click
+        // on a "all" button.
         var LongValueCollectionView = Backbone.View.extend({
             initialize: function() {
                 this.listenTo(this.collection, 'add', this.addOne);
+                this.sortedViews = [];
+            },
+            viewTitle: function(index) {
+                return this.sortedViews[index].model.get("title");
             },
             addOne: function(item) {
+                // Insert view at the proper position, sorted by title
                 var view = new ValueView({model: item});
-                this.$el.append(view.render().el);
+                var insertBeforeIndex;
+                for (insertBeforeIndex=0; insertBeforeIndex < this.sortedViews.length; insertBeforeIndex++) {
+                  if (this.viewTitle(insertBeforeIndex) > item.get('title')) {
+                      break;
+                  }
+                }
+                if (insertBeforeIndex === this.sortedViews.length) {
+                    this.$el.append(view.render().$el);
+                } else if (insertBeforeIndex === 0) {
+                    this.$el.prepend(view.render().$el);
+                } else {
+                    this.$("li:eq(" + insertBeforeIndex + ")").before(view.render().$el);
+                }
+                this.sortedViews.splice(insertBeforeIndex, 0, view);
             },
         });
 
@@ -296,13 +316,7 @@ require(["jquery", "underscore", "backbone"],
                 var li_height = $('li.criterion').outerHeight(true);
                 li_height +=3;  // quick fix to compensate university names which use 2 lines... We have to use shorter name
                 $(overlay_id).find('ul').css('height', (height * li_height) + 'px');
-                console.log(li_height)
-
             },
-            onClick: function(event) {
-                console.log(this.model.toJSON());
-            }
-
         })
 
         var CriterionCollection = Backbone.Collection.extend({
