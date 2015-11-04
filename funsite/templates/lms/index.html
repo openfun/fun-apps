@@ -204,6 +204,7 @@ news = top_news(5)
         </div>
     </div>
     <div class="col-xs-36 text-center hidden-sm hidden-md hidden-lg">
+        % if all(news[:2]):  ## do we have 2 real elements ?
         <div class="owl-carousel owl-news-320">
             % for article in news:
                 % if article:
@@ -213,6 +214,9 @@ news = top_news(5)
                 % endif
             % endfor
         </div>
+        % else:
+            ${newsfeed.news_block(news[0], 'primary', 'home')}
+        % endif
     </div>
 
 

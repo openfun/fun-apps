@@ -151,8 +151,7 @@ class Article(models.Model):
         return self.title
 
     def get_lead_paragraph(self):
-        if self.lead_paragraph:
-            return self.lead_paragraph
+        return self.lead_paragraph if self.lead_paragraph else ''
 
     def get_thumbnail(self, size):
         try:
