@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 8\n"
+"Project-Id-Version: France Université Numérique 11\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-10-26 16:25+0100\n"
-"PO-Revision-Date: 2015-10-26 16:25+0000\n"
+"POT-Creation-Date: 2015-11-04 16:45+0100\n"
+"PO-Revision-Date: 2015-11-04 16:45+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -49,7 +49,7 @@ msgstr "Les établissements obsolètes ne sont pas affichés sur le site."
 msgid "Only used if detail page is enabled"
 msgstr "Utilisé seulement quand la page de détail est activée"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:12
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:21
 msgid "The universities and schools present on {platform_name}"
 msgstr "Les universités et écoles françaises présentes sur {platform_name}"
 
@@ -102,14 +102,14 @@ msgstr "score"
 msgid "short name"
 msgstr "nom court"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:14
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:23
 msgid ""
 "{platform_name}'s goal is to allow universities and schools to publish "
-"their courses online. The list of institutions proposing courses on "
+"their courses online. The list of universities proposing courses on "
 "{platform_name} is continuously getting larger:"
 msgstr ""
 "{platform_name} a pour vocation de permettre aux universités et écoles "
-"françaises qui le souhaitent de dispenser leurs cours en ligne sur la "
-"plateforme {platform_name}. Ces universités et écoles sont de plus en "
-"plus nombreuses à proposer une ou plusieurs formations sur "
-"{platform_name}. Les voici ci-dessous :"
+"françaises qui le souhaitent de dispenser leurs cours en ligne. Ces "
+"établissements sont de plus en plus nombreux à proposer des formations sur"
+" {platform_name} :"
+
