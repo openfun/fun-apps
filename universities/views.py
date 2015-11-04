@@ -3,7 +3,6 @@ from django.views.generic import ListView, DetailView
 from fun.utils import mako
 
 from universities.models import University
-from universities.courses_utils import get_university_courses
 
 
 class UniversityLandingView(mako.MakoTemplateMixin, ListView):
@@ -19,14 +18,11 @@ class UniversityDetailView(mako.MakoTemplateMixin, DetailView):
     context_object_name = 'university'
 
     def get_queryset(self):
-        return University.objects.have_page()
+        return University.objects.with_related().have_page()
 
     def get_context_data(self, **kwargs):
         context = super(UniversityDetailView, self).get_context_data(**kwargs)
-        context['courses'] = get_university_courses(
-            user=self.request.user,
-            university_code=self.object.code
-        )
+        context['courses'] = self.object.courses.public()
         return context
 
 
