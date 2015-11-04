@@ -56,9 +56,6 @@ urlpatterns = patterns('',
     url(r'^openassessment/storage', include(openassessment.fileupload.urls)),
 )
 
-urlpatterns += (
-)
-
 # Ckeditor - Used by Univerity app
 urlpatterns += (
     url(r'^ckeditor/', include('ckeditor.urls')),
