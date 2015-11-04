@@ -11,7 +11,7 @@ from newsfeed.views import top_news
 from universities.models import University
 
 course_subjects = CourseSubject.objects.random_featured()
-universities = University.objects.random_featured(18)
+universities = University.objects.featured(18)
 featured_courses = Course.objects.random_featured(10)
 news = top_news(5)
 %>

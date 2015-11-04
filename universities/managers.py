@@ -30,8 +30,5 @@ class UniversityQuerySet(models.query.QuerySet):
 class UniversityManager(ChainableManager):
     queryset_class = UniversityQuerySet
 
-    def random_featured(self, limit_to=7):
-        universities = self.active_by_score().with_related()[:limit_to]
-        universities = list(universities)
-        random.shuffle(universities)
-        return universities
+    def featured(self, limit_to=7):
+        return self.active_by_score().with_related()[:limit_to]
