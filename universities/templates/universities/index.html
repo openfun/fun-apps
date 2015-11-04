@@ -36,6 +36,13 @@ from django.utils.translation import ugettext as _
                     </a>
                 </li>
                 % endfor
+                ##  Add some fake logo at the end to get correct alignment on the last line
+                % for fake in xrange(len(universities) % 6):
+                <li>
+                    <div class="university-logo fake">
+                    </div>
+                </li>
+                % endfor
             </ul>
 
             <div class="space-40px"></div>

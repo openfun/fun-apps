@@ -429,6 +429,13 @@ require(["jquery", "underscore", "backbone"],
                 var view = new CourseView({model: item});
                 this.$el.append(view.render().el);
             },
+            render: function() {
+                /* add some fake blocks to get correct alignment on last line */
+                for (var i = (this.collection.length % 5); i >= 0; i--) {
+                    this.$el.append($('<li>').attr('class', 'small-course fake'));
+                };
+                return this;
+            }
         });
 
         var AppView = Backbone.View.extend({

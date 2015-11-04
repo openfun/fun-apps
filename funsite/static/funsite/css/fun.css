@@ -568,6 +568,11 @@ h3.big-title {
     height: 340px;
     margin-bottom: 30px;
 }
+.small-course.fake {
+    /* Fake blocks added at the end of the list to get a correct alignement on the last line */
+    /* Have small height to create not too much blank space at the bottom of the page when they are unnecessary */
+    height: 10px;
+}
 
 .small-course .top {
     height: 172px;
@@ -685,16 +690,20 @@ h3.big-title {
     background-color: white;
 }
 
+/* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
 ul.universities-list {
     list-style-type: none;
     padding: 0;
 
     display: -webkit-flex;
     display: flex;
+
     -webkit-align-items: center;
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
+
+
     -webkit-flex-direction: row;
     flex-direction: row;
     -webkit-flex-wrap: wrap;
@@ -716,6 +725,11 @@ ul.universities-list {
 .universities-list .university-logo:hover {
     border-color: #2579BE;
 }
+.universities-list .university-logo.fake,
+.universities-list .university-logo.fake:hover {
+    border: none;
+}
+
 .university-logo {
     width: 185px;
     height: 105px;
