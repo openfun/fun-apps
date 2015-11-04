@@ -596,6 +596,8 @@ h3.big-title {
 
 .small-course .middle {
     height: 120px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 .small-course .footer {
@@ -640,6 +642,8 @@ h3.big-title {
 }
 .big-course .middle {
     height: 99px;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 .big-course .footer {
     width: 370px;
