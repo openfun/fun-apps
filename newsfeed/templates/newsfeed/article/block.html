@@ -12,12 +12,12 @@ from django.utils.formats import date_format
                 <img src="/media/${article.get_thumbnail(size)}" class="img-responsive">
             </a>
             <div>
-                <h3><a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">
+                <h3><a class="no-decoration color-regal-blue" href="${reverse('newsfeed-article', args=[article.slug])}">
                         ${article.title}
                     </a>
                 </h3>
                 <p>
-                    <a class="no-decoration" href="${reverse('newsfeed-article', args=[article.slug])}">
+                    <a class="no-decoration color-regal-blue font-weight-300" href="${reverse('newsfeed-article', args=[article.slug])}">
                         ${article.get_lead_paragraph()}
                     </a>
                 </p>

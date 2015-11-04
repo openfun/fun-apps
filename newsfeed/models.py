@@ -151,12 +151,8 @@ class Article(models.Model):
         return self.title
 
     def get_lead_paragraph(self):
-        LEADING_WORDS = 30
         if self.lead_paragraph:
             return self.lead_paragraph
-        else:
-            lead_paragraph = ' '.join(self.text.split(' ')[:LEADING_WORDS])
-            return lead_paragraph
 
     def get_thumbnail(self, size):
         try:

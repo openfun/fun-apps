@@ -7,13 +7,13 @@
             <div class="type empty">
         <%} %>
             </div>
-        <a class="no-decoration" href="<%= course_about %>">
+        <a class="no-decoration color-regal-blue" href="<%= course_about %>">
             <img class="main img-responsive" src="<%= thumbnails.small %>">
         </a>
     </div>
     <div class="middle">
         <div class="title">
-            <a class="no-decoration" href="<%= course_about %>"><%= title %></a>
+            <a class="no-decoration color-regal-blue" href="<%= course_about %>"><%= title %></a>
         </div>
         <div class="universities">
             <% _.each(universities, function(university) { %>

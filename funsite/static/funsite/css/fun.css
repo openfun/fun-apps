@@ -9,6 +9,26 @@ body {
     margin-right: auto;
 }
 
+.color-athens-grey {
+    color: #EFF0F1 !important;
+}
+.color-oxford-blue {
+    color: #062644 !important;
+}
+.color-regal-blue {
+    color: #0C3D72 !important;
+}
+.color-denim-blue {
+    color: #2579BE !important;
+}
+.color-deep-carmin {
+    color: #F83336 !important;
+}
+.font-weight-300 {
+    font-weight: 300 !important;
+}
+
+
 .container-fluid {
     padding-right: 0;
     padding-left: 0;
@@ -532,7 +552,6 @@ h3.big-title {
     width: 100%;
     font-size: 16px;
     font-weight: 600;
-    color: #08223B;
     margin-bottom: 8px;
 }
 .course-block .universities {
