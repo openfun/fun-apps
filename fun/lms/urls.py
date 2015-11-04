@@ -40,12 +40,23 @@ urlpatterns = patterns('',
     url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN), include('fun_instructor.urls')),
     url(r'^get-grades/{}/(?P<filename>.+.csv)'.format(settings.COURSE_ID_PATTERN), 'fun_instructor.views.get_grades'),
 
+    # Override edx-platform urls
+    url(r'^blog$', handler404),
+    url(r'^donate$', handler404),
+    url(r'^faq$', handler404),
+    url(r'^jobs$', handler404),
+    url(r'^press$', handler404),
+    url(r'^media-kit$', handler404),
+
+    # Include edx-platform urls
     (r'^', include('lms.urls')),
     (r'^', include('fun.common_urls')),
 
     # Ora2 file upload
     url(r'^openassessment/storage', include(openassessment.fileupload.urls)),
+)
 
+urlpatterns += (
 )
 
 # Ckeditor - Used by Univerity app
