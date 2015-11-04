@@ -96,8 +96,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
     # Translators: This text will be automatically posted to the student's
     # Twitter account. {url} should appear at the end of the text.
-    tweet_text = _("I just registered for {number} {title} through {account}: {url}").format(
-        number=course.number,
+    tweet_text = _("I just registered for {title} through {account}: {url}").format(
         title=get_course_about_section(course, 'title'),
         account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
         url=u"http://{domain}{path}".format(
@@ -111,8 +110,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
     email_subject = u"mailto:?subject={subject}&body={body}".format(
         subject=_("Take a course with {platform} online").format(platform=platform_name),
-        body=_("I just registered for {number} {title} through {platform} {url}").format(
-            number=course.number,
+        body=_("I just registered for {title} through {platform} {url}").format(
             title=get_course_about_section(course, 'title'),
             platform=platform_name,
             url=u"http://{domain}{path}".format(
