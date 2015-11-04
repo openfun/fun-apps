@@ -53,5 +53,10 @@ from django.utils.translation import ugettext as _
             </a>
         </li>
         %endif
+        <li>
+            <a href="${reverse('site:render_static_template', args=['about'])}" data-location="about">
+                ${_("About...")}
+            </a>
+        </li>
     </ul>
 </div>
