@@ -13,7 +13,7 @@ from staticfiles.storage import staticfiles_storage
         <ul class="top-footer">
             <div class="left-md-footer">
                 <li>
-                    <a href="${reverse('site:render_static_template', args=['about'])}">
+                    <a href="${reverse('about')}">
                         ${_("About...")}
                     </a>
                 </li>
@@ -28,23 +28,23 @@ from staticfiles.storage import staticfiles_storage
                     </a>
                 </li>
                 <li>
-                    <a href="${reverse('site:render_static_template', args=['tos'])}">
+                    <a href="${reverse('tos')}">
                         ${_("Terms of use")}
                     </a>
                 </li>
             </div><div class="right-md-footer">
                 <li>
-                    <a href="${reverse('site:render_static_template', args=['honor'])}">
+                    <a href="${reverse('honor')}">
                         ${_("Usage policy")}
                     </a>
                 </li>
                 <li>
-                    <a href="${reverse('site:render_static_template', args=['privacy'])}">
+                    <a href="${reverse('privacy')}">
                         ${_("Privacy policy")}
                     </a>
                 </li>
                 <li>
-                    <a href="${reverse('site:render_static_template', args=['legal'])}">
+                    <a href="${reverse('legal')}">
                         ${_("Terms and conditions")}
                     </a>
                 </li>
