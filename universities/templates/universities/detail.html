@@ -54,7 +54,7 @@ from courseware.courses import course_image_url, get_course_about_section
                 <h2 class="big-title">${ _(u"Courses") }</h2>
             </div>
             <ul class="primary-highlight">
-            % for course in university.courses.all():
+            % for course in university.courses.public():
                 <li>
                     <%include file="/courses/course-block/big.html" args="course=course"/>
                 </li>
