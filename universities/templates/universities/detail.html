@@ -3,8 +3,8 @@
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
-%>
 
+%>
 
 <%inherit file="/funsite/parts/base-fixed-width.html" />
 
@@ -47,19 +47,33 @@ from courseware.courses import course_image_url, get_course_about_section
     </div>
 </div>
 
+<%
+courses = university.courses.all()
+%>
+
 <div class="row">
     <div class="col-lg-offset-3 col-lg-30 col-sm-36">
-        <section class="courses">
+        <section class="course-list">
             <div class="col-lg-36 text-center">
                 <h2 class="big-title">${ _(u"Courses") }</h2>
             </div>
-            <ul class="primary-highlight">
-            % for course in university.courses.all():
+            <div class="list">
+                <ul class="">
+                % for course in courses:
+                    <li>
+                        <%include file="/courses/course-block/big.html" args="course=course"/>
+                    </li>
+                % endfor
+                ##  Add some fake course blocks at the end to get correct alignment on the last line
+                % for fake in xrange(3):
                 <li>
-                    <%include file="/courses/course-block/big.html" args="course=course"/>
+                    <div class="course-block big-course fake">
+                    </div>
                 </li>
-            % endfor
-            </ul>
+                % endfor
+
+                </ul>
+            </div>
         </section>
     </div>
 </div>

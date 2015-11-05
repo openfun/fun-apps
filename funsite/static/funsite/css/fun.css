@@ -642,6 +642,14 @@ h3.big-title {
     height: 386px;
     margin-bottom: 36px;
 }
+.big-course.fake {
+    width: 370px;
+    height: 20px;
+    margin-bottom: 0px;
+    background-color: transparent;
+}
+
+
 .big-course .top {
     height: 232px;
 }
@@ -697,7 +705,7 @@ h3.big-title {
 .university-page .university .description {
 
 }
-.university-page .courses {
+.university-page .course-list {
     background-color: #EFF0F1;
 }
 
@@ -1133,7 +1141,7 @@ ul.universities-list {
 
 .criteria-block ul.criteria {
     list-style-type: none;
-    padding-left: 0;
+    padding-left: 0
 }
 
 .criteria-block ul.criteria li {
