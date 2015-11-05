@@ -1,13 +1,5 @@
 (function() {
     var form_origin_position;
-    // Handle FUN overlays closing by hiting escape
-    $(document).keydown(function(event) {
-        if (event.keyCode == 27) { // ESC key
-            $('div.sequence-nav').css('z-index', 'auto');
-            $('nav.sequence-bottom').css('z-index', 'auto');
-            $('.hide-on-escape-key:visible').hide();
-        }
-    });
 
     // select current page menu item
     var page = window.location.pathname.split('/')[1];
