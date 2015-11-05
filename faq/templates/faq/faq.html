@@ -18,14 +18,27 @@ from staticfiles.storage import staticfiles_storage
             <div class="">
                 <ul class="faq-categories">
                     % for category in article_tree:
-                        <li><a id="${category['id']}" class="faq-anchor"><h1>${category['name']}</h1></a>
+                        <li>
+                            <a id="${category['id']}" class="faq-anchor">
+                                ## WARNING: Page title comes from zendesk (main category)
+                                <h1 class="color-oxford-blue">
+                                    ${category['name']}
+                                </h1>
+                            </a>
                             <ul class="faq-sections">
                             % for section in category['sections']:
-                                <li><a id="${section['id']}" class="faq-anchor"><h2>${section['name']}</h2></a>
+                                <li>
+                                    <a id="${section['id']}" class="faq-anchor">
+                                        <h3 class="color-oxford-blue">
+                                            ${section['name']}
+                                        </h3>
+                                    </a>
                                 <ul class="faq-articles">
                                     % for article in section['articles']:
                                         <li>
-                                            <a class="article" href="${reverse('faq:article', args=[article['id']])}">${article['name']}</a>
+                                            <a class="article" href="${reverse('faq:article', args=[article['id']])}">
+                                                ${article['name']}
+                                                </a>
                                         </li>
                                     % endfor
                                 </ul>

@@ -31,8 +31,12 @@ ul.top-footer li {
     font-size: 15px;
 }
 
-ul.top-footer li a {
-    color: white;
+ul.top-footer li a,
+ul.top-footer li a:hover,
+ul.top-footer li a:focus,
+ul.top-footer li a:visited {
+    color: white !important;
+    text-decoration: none;
 }
 
 /* Bottom footer */
