@@ -212,9 +212,13 @@ require(["jquery", "underscore", "backbone"],
             viewTitle: function(index) {
                 return this.sortedViews[index].model.get("title");
             },
+            createView: function(model) {
+                var view = new ValueView({model: model});
+                return view;
+            },
             addOne: function(item) {
                 // Insert view at the proper position, sorted by title
-                var view = new ValueView({model: item});
+                var view = this.createView(item);
                 var insertBeforeIndex;
                 for (insertBeforeIndex=0; insertBeforeIndex < this.sortedViews.length; insertBeforeIndex++) {
                   if (this.viewTitle(insertBeforeIndex) > item.get('title')) {
@@ -223,24 +227,22 @@ require(["jquery", "underscore", "backbone"],
                 }
                 if (insertBeforeIndex === this.sortedViews.length) {
                     this.$el.append(view.render().$el);
-                } else if (insertBeforeIndex === 0) {
-                    this.$el.prepend(view.render().$el);
                 } else {
-                    this.$("li:eq(" + insertBeforeIndex + ")").before(view.render().$el);
+                    this.sortedViews[insertBeforeIndex].$el.before(view.render().$el);
                 }
                 this.sortedViews.splice(insertBeforeIndex, 0, view);
             },
         });
 
-        var SelectValueCollectionView = Backbone.View.extend({
+        var SelectValueCollectionView = LongValueCollectionView.extend({
             events: {"change": "onChange"},
             initialize: function(options) {
+                SelectValueCollectionView.__super__.initialize.apply(this);
                 this.$el.append($('<option>').text(options.title));
-                this.listenTo(this.collection, 'add', this.addOne);
             },
-            addOne: function(item) {
-                var view = new SelectValueView({model: item});
-                this.$el.append(view.render().el);
+            createView: function(model) {
+                var view = new SelectValueView({model: model});
+                return view;
             },
             onChange: function(event) {
                 var model = this.collection.findWhere({value: event.target.value});
@@ -248,7 +250,6 @@ require(["jquery", "underscore", "backbone"],
                 // reset other selects
                 $('.small-device-filter select').not('#' + this.$el.attr('id')).prop('selectedIndex', 0);
             },
-
         });
 
         var Criterion = Backbone.Model.extend({
