@@ -125,7 +125,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
     <div class="row">
 
-        <div class="col-lg-21 col-sm-26 no-gutter-right">
+        <div class="col-lg-21 col-sm-26 no-gutter-left no-gutter-right">
             <div class="left">
 
                 <div class="text-center">
@@ -174,7 +174,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
         <div class="col-lg-15 col-sm-10 no-gutter-left no-padding">
             <div class="right">
-                <div class="university-logo">
+                <div class="course-about-university-logo">
                     % if fun_course.universities.exists():
                     <a href="${fun_course.universities.all()[0].get_absolute_url()}">
                         <img src="${ fun_course.universities.all()[0].get_logo_thumbnail()}">

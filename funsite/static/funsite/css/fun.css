@@ -98,10 +98,10 @@ a,
 a:active,
 a:focus {
     text-decoration: none;
-    color: #2579BE !important;
+    color: #2579BE;
 }
 a:hover {
-    color: #FE3925 !important;
+    color: #FE3925;
     text-decoration: none;
 }
 a.no-decoration,
@@ -443,7 +443,7 @@ h3.big-title {
     }
 
     #video-modal .modal-dialog {
-        width: 90%;
+        width: 90% !important;
     }
 
 }
@@ -491,7 +491,7 @@ h3.big-title {
     }
 
     #video-modal .modal-dialog {
-        width: 100%;
+        width: 100% !important;
     }
 
 
@@ -499,6 +499,13 @@ h3.big-title {
     .simple-content-page {
         padding: 20px !important;
         margin: 0 !important;
+    }
+    .main-content .left {
+        padding: 18px !important;
+        background-color: white;
+    }
+    .main-content .right {
+        width: inherit;
     }
     .fun-news .primary {
         width: 290px !important;
@@ -630,6 +637,7 @@ h3.big-title {
     /* Fake blocks added at the end of the list to get a correct alignement on the last line */
     /* Have small height to create not too much blank space at the bottom of the page when they are unnecessary */
     height: 10px;
+    background-color: transparent;
 }
 
 .small-course .top {
@@ -1335,13 +1343,14 @@ ul.universities-list {
 }
 
 
-.course-about .right .university-logo {
+.course-about .right>.course-about-university-logo {
+    padding-top: 28px;
     height: 180px;
     width: 100%;
     text-align: center;
     border-left: 1px solid #E6E7E8;
 }
-.course-about .right .university-logo img {
+.course-about .right>.course-about-university-logo img {
     margin: auto;
     height: 120px;
 }
@@ -1368,6 +1377,7 @@ ul.universities-list {
 }
 
 .course-about .right .register-course-button span {
+    color: white;
     cursor: pointer;
     top: 25%;
     left: 45%;

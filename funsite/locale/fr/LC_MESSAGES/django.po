@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 21\n"
+"Project-Id-Version: France Université Numérique 22\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-11-04 16:38+0100\n"
-"PO-Revision-Date: 2015-11-04 16:38+0000\n"
+"POT-Creation-Date: 2015-11-05 15:38+0100\n"
+"PO-Revision-Date: 2015-11-05 15:38+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -135,6 +135,10 @@ msgstr "Erreur serveur"
 msgid "Sign up"
 msgstr "Inscription"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:37
+msgid "Sign up for FUN today!"
+msgstr "Inscrivez-vous sur FUN !"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:48
 msgid "Sign up to {platform_name}"
 msgstr "Inscription à {platform_name}"
@@ -184,3 +188,4 @@ msgstr "Vos cours"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:276
 msgid "h/week"
 msgstr "h/semaine"
+
