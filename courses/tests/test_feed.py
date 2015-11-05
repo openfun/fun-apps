@@ -10,10 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
-from fun.tests.utils import skipUnlessLms
 
-
-@skipUnlessLms
 class FeedTest(ModuleStoreTestCase):
     def setUp(self):
         super(FeedTest, self).setUp()

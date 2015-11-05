@@ -2,14 +2,12 @@
 
 from django.test import TestCase
 
-from fun.tests.utils import skipUnlessLms
 from courses import managers
 from courses import models
 
 from . import factories
 
 
-@skipUnlessLms
 class TestCourseSubject(TestCase):
 
     def test_ability_to_count_public_courses_for_course_subjects(self):

@@ -6,8 +6,6 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.timezone import now, timedelta
 
-from fun.tests.utils import skipUnlessLms
-
 from universities.factories import UniversityFactory
 
 from .factories import CourseFactory, CourseSubjectFactory
@@ -15,7 +13,6 @@ from courses import choices as courses_choices
 from courses.models import CourseUniversityRelation
 
 
-@skipUnlessLms
 class CourseAPITest(TestCase):
 
     def setUp(self):

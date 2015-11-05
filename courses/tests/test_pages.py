@@ -3,10 +3,8 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from fun.tests.utils import skipUnlessLms
 
 
-@skipUnlessLms
 class CourseListTest(TestCase):
 
     def test_course_list_page_loads(self):
