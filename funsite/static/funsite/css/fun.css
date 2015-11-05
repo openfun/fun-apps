@@ -442,6 +442,9 @@ h3.big-title {
         margin-bottom: 24px;
     }
 
+    #video-modal .modal-dialog {
+        width: 90%;
+    }
 
 }
 
@@ -487,6 +490,12 @@ h3.big-title {
         margin-right: -20px;
     }
 
+    #video-modal .modal-dialog {
+        width: 100%;
+    }
+
+
+
     .simple-content-page {
         padding: 20px !important;
         margin: 0 !important;
@@ -508,6 +517,26 @@ h3.big-title {
         margin-right: 0px !important;
         margin-bottom: 10px !important;
     }
+    h1.big-title {
+        font-size: 34px;
+    }
+    h2.big-title {
+        font-size: 30px;
+    }
+    h3.big-title {
+        font-size: 26px;
+    }
+    h1 {
+        font-size: 30px;
+    }
+    h2 {
+        font-size: 26px;
+    }
+    h3 {
+        font-size: 22px;
+    }
+
+
 }
 
 .homepage-header {
