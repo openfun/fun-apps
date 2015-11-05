@@ -338,6 +338,10 @@ h3.big-title {
         width: 730px;
     }
 
+    .news-detail .right {
+	width: 790px !important;	
+    }
+
     .course-about .right .register-course-button {
         height: 68px;
         padding-top: 20px;
@@ -353,6 +357,7 @@ h3.big-title {
     .register-page .right {
         right: -36px; /* stick column to border */
     }
+
 
 }
 
@@ -444,6 +449,12 @@ h3.big-title {
 
     #video-modal .modal-dialog {
         width: 90%;
+
+    .news-detail .right {
+	width: 210px !important;	
+    }
+    .news-detail .right .course-info{
+	width: 210px !important;
     }
 
 }
@@ -517,6 +528,7 @@ h3.big-title {
         margin-right: 0px !important;
         margin-bottom: 10px !important;
     }
+
     h1.big-title {
         font-size: 34px;
     }
@@ -536,6 +548,13 @@ h3.big-title {
         font-size: 22px;
     }
 
+    .news-detail .right {
+	width: 320px !important;	
+    }
+    
+    .news-detail .article-body  {
+	margin-right: 0px;
+    }
 
 }
 
