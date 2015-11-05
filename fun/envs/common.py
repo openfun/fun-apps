@@ -134,7 +134,6 @@ LOCALIZED_APPS = sorted([path.split("/")[-2] for path in glob(FUN_BASE_ROOT / "*
 LOCALE_PATHS = tuple(
     [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_APPS] +
     [
-        BASE_ROOT / 'themes/fun/locale',
         BASE_ROOT / 'edx-platform/conf/locale',
         BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/django_countries/locale',    # this should not be required
     ]

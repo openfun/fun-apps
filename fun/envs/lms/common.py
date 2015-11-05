@@ -40,8 +40,6 @@ del DEFAULT_FILE_STORAGE
 
 # those values also have to be in env.json file,
 # because pavlib.utils.envs reads it to build asset's preprocessing commands
-#THEME_NAME = "fun"
-#FEATURES['USE_CUSTOM_THEME'] = True
 FEATURES['ENABLE_MKTG_SITE'] = False
 
 SITE_NAME = LMS_BASE
@@ -135,7 +133,7 @@ SITE_VARIANT = 'lms'
 # Certificates related settings
 CERTIFICATE_BASE_URL = '/attestations/'
 CERTIFICATES_DIRECTORY = '/edx/var/edxapp/attestations/'
-FUN_LOGO_PATH = BASE_ROOT / 'themes/fun/static/images/logo.png'
+FUN_LOGO_PATH = BASE_ROOT / 'fun-apps/funsite/static/fun-site/images/logo195.png'
 STUDENT_NAME_FOR_TEST_CERTIFICATE = 'Test User'
 
 # Grades related settings
