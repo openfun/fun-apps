@@ -11,13 +11,27 @@
         $(this).closest('.overlay').slideUp();
     });
 
-    /* Sandwich menu overlay */
-    $('#sandwich-menu').on('click', function(event) {
-        // change z-index of courseware elements which have it set to 'auto'
-        $('div.sequence-nav').css('z-index', 1);
-        $('nav.sequence-bottom').css('z-index', 1);
-        $('#sandwich-overlay').slideDown();
+    // Handle FUN overlays closing by hiting escape
+    $(document).keydown(function(event) {
+        if (event.keyCode == 27) { // ESC key
+	    if ($('#sandwich-overlay').is(':visible')) {
+		toggleSandwichMenu();
+	    }
+	    else{
+		$('.hide-on-escape-key:visible').hide();
+	    }
+        }
     });
+
+    /* Sandwich menu*/
+    $('#sandwich-menu-icon').on('click', function(event) {
+	toggleSandwichMenu();
+    });
+
+    function toggleSandwichMenu() {
+	$('#sandwich-menu-icon').toggleClass('open');
+	$('#sandwich-overlay').slideToggle(250);
+    }
 
     /* Dropdown menu */
     $('#top-menu .right-nav .toggle-dropdown-menu').on('click', toggleDropdown);
@@ -31,7 +45,8 @@
 
     function toggleDropdown(event) {
         if ($('#top-menu .fun-dropdown-menu').is(":hidden")) {
-            $('#top-menu .fun-dropdown-menu').slideDown();
+            $('#top-menu .fun-dropdown-menu').slideDown(100);
+	    $('#top-menu .fun-dropdown-menu').show();
             toggleAccessiblePopUpAria(true);
         }
         else {
