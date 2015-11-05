@@ -13,8 +13,11 @@ def reverse_course(handler_name, kwargs=None):
 require(["jquery", "underscore", "backbone", "gettext",
          "js/utils/templates", "js/views/modals/base_modal", "js/views/feedback_notification",
          "videojs-fun", "libcast"],
-  function ($, _, Backbone, gettext, TemplateUtils, BaseModal, NotificationView, videojs, libcast) {
+  function ($, _, Backbone, gettext,
+    TemplateUtils, BaseModal, NotificationView,
+    videojs, libcast) {
 
+    var UploadChunkMegabytes = 64;
     var ajaxSettings = (function() {
       var headers = {};
 
@@ -22,7 +25,7 @@ require(["jquery", "underscore", "backbone", "gettext",
       // to send with every ajax call. Also, ajax request errors activate a popup
       // on the bottom of the screen. We need to disable additional headers for
       // CORS requests, and errors are handled by each VideoView.
-      
+
       function resetHeaders() {
         if(_.size(headers) > 0 && (!$.ajaxSettings.headers || _.size($.ajaxSettings.headers) == 0)) {
           $.ajaxSettings.headers = headers;
@@ -65,7 +68,7 @@ require(["jquery", "underscore", "backbone", "gettext",
     }
 
     // Status workflow for a video:
-    // pending -> preparing -> prepared -> uploading -> uploaded -> creating -> created -> processing -> ready -> published -> deleted
+    // preparing -> prepared -> uploading -> uploaded -> creating -> created -> processing -> ready -> published -> deleted
     var Video = Backbone.Model.extend({
       defaults: {
         created_at: "",
@@ -73,9 +76,9 @@ require(["jquery", "underscore", "backbone", "gettext",
         video_sources: [],
         external_link: "",
         error: "",
-        progress: null,
         subtitles: [],
         title: "",
+        encoding_progress: null,
       },
 
       url: function() {
@@ -156,24 +159,18 @@ require(["jquery", "underscore", "backbone", "gettext",
       },
 
       initialize: function() {
-        this.request = null;
         this.listenTo(this.model, 'change', this.render);
         this.listenTo(this.model, 'change:title', this.changeTitle);
         this.listenTo(this.model, 'sync', this.modelSynced);
         this.listenTo(this.model, 'destroy', this.remove);
-        this.listenTo(this.model, 'status-preparing', this.getUploadUrl);
-        this.listenTo(this.model, 'status-prepared', this.uploadFile);
+        this.listenTo(this.model, 'uploading-progress', this.uploadingProgress);
         this.listenTo(this.model, 'status-uploaded', this.createVideo);
         this.listenTo(this.model, 'status-publishing', this.publishVideo);
         this.listenTo(this.model, 'status-unpublishing', this.unpublishVideo);
-
-        if (this.model.get('status') === 'pending') {
-          this.model.setStatus("preparing");
-        }
       },
 
       render: function() {
-        values = this.model.toJSON();
+        var values = this.model.toJSON();
         if (!values.id) {
             values.id = "";
         }
@@ -230,10 +227,7 @@ require(["jquery", "underscore", "backbone", "gettext",
       },
 
       onClickCancel: function(e) {
-        if (this.request) {
-          this.request.abort();
-          this.model.destroy();
-        }
+        this.model.destroy();
       },
 
       onClickPublish: function(e) {
@@ -247,56 +241,6 @@ require(["jquery", "underscore", "backbone", "gettext",
       onClickParameters: function(e) {
         var parameterView = new ParameterView({model: this.model});
         parameterView.show();
-      },
-
-      getUploadUrl: function() {
-        var that = this;
-        $.getJSON('${reverse_course("videoupload:upload-url")}',
-          function(data) {
-            that.model.setStatus("prepared", data);
-          }
-        );
-      },
-
-      uploadFile: function(uploadParams) {
-        var formData = new FormData();
-        formData.append(uploadParams.file_parameter_name, this.model.get("file"))
-
-        var that = this;
-        ajaxSettings.unsetHeaders();
-        ajaxSettings.unsetNotify();
-        this.request = $.ajax({
-          url: uploadParams.url,
-          data: formData,
-          type: 'POST',
-          contentType: false,
-          processData: false,
-          crossDomain: true,
-          xhr: function() {
-            // Track upload progress
-            var xhr = new window.XMLHttpRequest();
-            xhr.upload.addEventListener("progress", function(event) {
-              if (event.lengthComputable) {
-                var percent = event.loaded * 100. / event.total;
-                that.uploadingProgress(percent);
-              }
-            });
-            return xhr;
-          },
-          beforeSend: function() {
-            that.model.setStatus("uploading");
-          },
-          success: function(data){
-            if (data.error) {
-              that.model.setError(data.error)
-            } else {
-              that.model.setStatus("uploaded", data);
-            }
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            that.model.setError(errorThrown);
-          },
-        });
       },
 
       createVideo: function(uploadedData) {
@@ -373,10 +317,28 @@ require(["jquery", "underscore", "backbone", "gettext",
       template: TemplateUtils.loadTemplate("videoupload-list"),
 
       initialize: function() {
+        this.listenTo(Videos, 'request', this.syncing);
+        this.listenTo(Videos, 'sync', this.synced);
         this.listenTo(Videos, 'add', this.addOne);
         this.listenTo(Videos, 'syncError', this.syncError);
         this.render();
         Videos.fetch();
+      },
+
+      syncing: function(model_or_collection) {
+        if (model_or_collection === Videos) {
+            this.$(".syncing").show();
+            this.$(".synced").hide();
+        }
+        return this;
+      },
+
+      synced: function(model_or_collection) {
+        if (model_or_collection === Videos) {
+            this.$(".syncing").hide();
+            this.$(".synced").show();
+        }
+        return this;
       },
 
       render: function() {
@@ -397,29 +359,95 @@ require(["jquery", "underscore", "backbone", "gettext",
     var VideoCollectionApp = new VideoCollectionView;
 
     var VideoUploadFormView = Backbone.View.extend({
-      el: $("#videoupload-form"),
-
       events: {
         "click button": "onChooseFile",
         "change input": "onFileChosen",
       },
-
       onChooseFile: function(e) {
         e.preventDefault();
+
+        // Reset content so that we may trigger 'change' events even if the
+        // same file is selected twice in a row.
+        this.$("input").val(null);
+
+        // Input form is hidden so we need to manually trigger a click
         this.$("input").click();
       },
 
       onFileChosen: function(e) {
         for(var i=0; i < e.target.files.length; i++) {
-          Videos.add(new Video({
-            title: e.target.files[i].name,
-            file: e.target.files[i],
-            status: "pending"
-          }));
+          this.uploadToNewUrl(e.target.files[i]);
         }
-      }
+      },
+
+      uploadToNewUrl: function(videoFile) {
+        var that = this;
+        var video = new Video({
+          title: videoFile.name,
+          status: "preparing"
+        });
+        Videos.add(video);
+        var currentUploadRequest = null;
+        this.listenToOnce(video, "destroy", function() {
+          if (currentUploadRequest) {
+            currentUploadRequest.abort();
+          }
+        });
+        $.getJSON('${reverse_course("videoupload:upload-url")}', function(uploadParams) {
+          video.setStatus("prepared", uploadParams);
+          var fileSize = videoFile.size;
+          var chunkSize = UploadChunkMegabytes*1024*1024;
+          var chunkCount = Math.ceil(fileSize / chunkSize);
+          ajaxSettings.unsetHeaders();
+          ajaxSettings.unsetNotify();
+          video.setStatus("uploading");
+          // Upload chunks sequentially
+          that.listenTo(video, "ready-to-upload-chunk", function(c) {
+            var chunkBlob = videoFile.slice(c*chunkSize, Math.min(fileSize, (c+1)*chunkSize));
+            var chunkFile = new File([chunkBlob], videoFile.name);
+            var formData = new FormData();
+            formData.append(uploadParams.file_parameter_name, chunkFile);
+            formData.append('chunk', c);
+            formData.append('chunks', chunkCount);
+            currentUploadRequest = $.ajax({
+              url: uploadParams.url,
+              data: formData,
+              type: 'POST',
+              contentType: false,
+              processData: false,
+              crossDomain: true,
+              xhr: function() {
+                // Track upload progress
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(event) {
+                  if (event.lengthComputable) {
+                    var progress = event.loaded + c*chunkSize;
+                    video.trigger("uploading-progress", progress * 100 / fileSize)
+                  }
+                });
+                return xhr;
+              },
+              success: function(data){
+                if (data.error) {
+                  video.setError(data.error)
+                } else {
+                  if (c == chunkCount - 1) {
+                    video.setStatus("uploaded", data);
+                  } else {
+                    video.trigger("ready-to-upload-chunk", c+1);
+                  }
+                }
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                video.setError(errorThrown);
+              },
+            });
+          });
+          video.trigger("ready-to-upload-chunk", 0);
+        });
+      },
     });
-    var VideoUploadForm = new VideoUploadFormView;
+    var VideoUploadForm = new VideoUploadFormView({el: $("#videoupload-form")});
 
 
     var Subtitle = Backbone.Model.extend({
@@ -490,15 +518,19 @@ require(["jquery", "underscore", "backbone", "gettext",
         modalSize: "med",
         viewSpecificClasses: 'videoupload-parameters view-uploads'
       }),
-      
+
       initialize: function() {
         // this.model is the current video
         ParameterView.__super__.initialize.apply(this);
+        this.buttonTemplate = TemplateUtils.loadTemplate("videoupload-modal-button");
 
         // Fill subtitles
         this.subtitles = new SubtitleCollection([], {video: this.model});
+        this.listenTo(this.subtitles, 'request', this.subtitlesSyncing);
+        this.listenTo(this.subtitles, 'sync', this.subtitlesSynced);
         this.listenTo(this.subtitles, 'add', this.addSubtitle);
-        this.subtitles.fetch();
+
+        this.render();
       },
 
       cancel: function(event) {
@@ -506,9 +538,28 @@ require(["jquery", "underscore", "backbone", "gettext",
         this.remove();
       },
 
+      show: function() {
+          ParameterView.__super__.show.apply(this);
+          this.subtitles.fetch();
+      },
+
+      subtitlesSyncing: function(model_or_collection) {
+        if (model_or_collection === this.subtitles) {
+            this.$(".subtitles .syncing").show();
+            this.$(".subtitles .synced").hide();
+        }
+      },
+
+      subtitlesSynced: function(model_or_collection) {
+        if (model_or_collection === this.subtitles) {
+            this.$(".subtitles .syncing").hide();
+            this.$(".subtitles .synced").show();
+        }
+      },
+
       addSubtitle: function(subtitle) {
         var subtitleView = new SubtitleView({model: subtitle});
-        this.$('.subtitles').append(subtitleView.render().el);
+        this.$('.subtitles tbody').append(subtitleView.render().el);
       },
 
       addActionButtons: function() {
@@ -582,7 +633,6 @@ require(["jquery", "underscore", "backbone", "gettext",
           },
         });
       },
-
     });
   }
 );

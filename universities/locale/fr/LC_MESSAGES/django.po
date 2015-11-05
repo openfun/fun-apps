@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 1\n"
+"Project-Id-Version: France Université Numérique 11\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-07-22 17:41+0200\n"
-"PO-Revision-Date: 2015-07-22 17:41+0000\n"
+"POT-Creation-Date: 2015-11-04 16:45+0100\n"
+"PO-Revision-Date: 2015-11-04 16:45+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -12,10 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-
-#: /edx/app/edxapp/fun-apps/universities/models.py:22
-msgid "An university with parent will be grouped with it in university filtering"
-msgstr "Une université avec un parent sera groupée avec lui lors du filtrage"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:38
 msgid "DM API Key"
@@ -25,58 +21,56 @@ msgstr "Dailymotion API key"
 msgid "DM User ID"
 msgstr "Dailymotion User ID"
 
-#: /edx/app/edxapp/fun-apps/universities/admin.py:22
-msgid "Daily Motion"
-msgstr "Daily Motion"
+#: /edx/app/edxapp/fun-apps/universities/admin.py:25
+msgid "Dailymotion Cloud"
+msgstr "Dailymotion Cloud"
 
-#: /edx/app/edxapp/fun-apps/universities/admin.py:28
+#: /edx/app/edxapp/fun-apps/universities/admin.py:31
 msgid "Displayed On Site | Banner | Description"
 msgstr "Affiché sur le site | Bannière | Description"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:9
-msgid "Institutions"
-msgstr "Établissements"
+#: /edx/app/edxapp/fun-apps/universities/models.py:20
+msgid "Displayed where space is rare - on side panel for instance."
+msgstr "Affiché dans le panneau latéral où l'espace est réduit."
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:27
+#: /edx/app/edxapp/fun-apps/universities/models.py:28
+msgid "Enables the university detail page."
+msgstr "Active la page de detail de l'établissement."
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:24
 msgid "Logo to be displayed on the certificate document."
 msgstr "Logo à afficher sur le certificat"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:18
-msgid "Offer courses and trainings on {platform_name}"
-msgstr "Proposent des cours variés sur {platform_name}"
+#: /edx/app/edxapp/fun-apps/universities/models.py:31
+msgid "Obsolete universities are not displayed on the site."
+msgstr "Les établissements obsolètes ne sont pas affichés sur le site."
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:33
-msgid "Only used is set as featured"
-msgstr "Seulement utilisé si mis en avant"
+msgid "Only used if detail page is enabled"
+msgstr "Utilisé seulement quand la page de détail est activée"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:21
-msgid "Parent university"
-msgstr "Université parente"
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:21
+msgid "The universities and schools present on {platform_name}"
+msgstr "Les universités et écoles françaises présentes sur {platform_name}"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:30
-msgid ""
-"Shows the logo on various sections of the site and enables the university"
-" page."
-msgstr "Affiche le logo de l'université sur le site"
-
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:17
-msgid "The universities and schools"
-msgstr "Les universités et écoles françaises"
-
-#: /edx/app/edxapp/fun-apps/universities/models.py:47
+#: /edx/app/edxapp/fun-apps/universities/models.py:46
 msgctxt "University model"
 msgid "Universities"
 msgstr "Universités"
+
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:9
+msgid "Universities"
+msgstr "Etablissements"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:34
 msgid "banner"
 msgstr "bannière"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:25
+#: /edx/app/edxapp/fun-apps/universities/models.py:22
 msgid "certificate logo"
 msgstr "Logo du certificat"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:24
+#: /edx/app/edxapp/fun-apps/universities/models.py:21
 msgid "code"
 msgstr "code"
 
@@ -84,27 +78,38 @@ msgstr "code"
 msgid "description"
 msgstr "description"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:29
-msgid "featured on site"
-msgstr "mis en avant sur le site"
+#: /edx/app/edxapp/fun-apps/universities/models.py:26
+msgid "detail page enabled"
+msgstr "page de détail activée"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:28
+#: /edx/app/edxapp/fun-apps/universities/models.py:29
+msgid "is obsolete"
+msgstr "est obsolète"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:25
 msgid "logo"
 msgstr "logo"
 
-#: /edx/app/edxapp/fun-apps/universities/admin.py:42
+#: /edx/app/edxapp/fun-apps/universities/admin.py:50
 msgid "preview"
 msgstr "aperçu"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:39
+msgid "score"
+msgstr "score"
+
+#: /edx/app/edxapp/fun-apps/universities/models.py:19
+msgid "short name"
+msgstr "nom court"
 
 #: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:23
 msgid ""
 "{platform_name}'s goal is to allow universities and schools to publish "
-"their courses online. The list of institutions proposing courses on "
+"their courses online. The list of universities proposing courses on "
 "{platform_name} is continuously getting larger:"
 msgstr ""
 "{platform_name} a pour vocation de permettre aux universités et écoles "
-"françaises qui le souhaitent de dispenser leurs cours en ligne sur la "
-"plateforme {platform_name}. Ces universités et écoles sont de plus en "
-"plus nombreuses à proposer une ou plusieurs formations sur "
-"{platform_name}. Les voici ci-dessous :"
+"françaises qui le souhaitent de dispenser leurs cours en ligne. Ces "
+"établissements sont de plus en plus nombreux à proposer des formations sur"
+" {platform_name} :"
 

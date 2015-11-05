@@ -1,0 +1,62 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
+<div id="sandwich-overlay" class="hide-on-escape-key overlay">
+    <span class="close-overlay glyphicon glyphicon-remove"></span>
+    <ul class="">
+        <li>
+            <a href="/" data-location="">
+                ${_("Home")}
+            </a>
+        </li>
+        <li>
+            <a href="${reverse('newsfeed-landing')}" data-location="news">
+                ${_("News")}
+            </a>
+        </li>
+
+        <li>
+            <a href="${reverse('fun-courses-index')}" data-location="cours">
+                ${_("All courses")}
+            </a>
+        </li>
+        <li>
+            <a href="${reverse('universities-landing')}" data-location="universities">
+                ${_("Universities")}
+            </a>
+        </li>
+        %if request.user.is_authenticated():
+        <li>
+            <a href="${reverse('dashboard')}" data-location="dashboard">
+                ${_("Your courses")}
+            </a>
+        </li>
+        <li>
+            <a href="${reverse('logout')}">
+                ${_("Logout")}
+            </a>
+        </li>
+
+        %else:
+
+        <li>
+            <a href="${reverse('register_user')}" data-location="register">
+                ${_("Register")}
+            </a>
+        </li>
+
+        <li>
+            <a href="${reverse('signin_user')}" data-location="login">
+                ${_("Login")}
+            </a>
+        </li>
+        %endif
+        <li>
+            <a href="${reverse('about')}" data-location="about">
+                ${_("About...")}
+            </a>
+        </li>
+    </ul>
+</div>

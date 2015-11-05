@@ -1,0 +1,16 @@
+<%! from django.utils.translation import ugettext as _ %>
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%block name="title">${_("Server error")}</%block>
+
+<%block name="page_content">
+<h1>${_(u"There has been a 500 error on the {platform_name} servers").format(
+    platform_name=u"<em>{platform_name}</em>".format(platform_name=settings.PLATFORM_NAME)
+)}</h1>
+<p>${_(u'Please wait a few seconds and then reload the page. If the problem persists, please email us at {email}.').format(
+    email=u'<a href="mailto:{email}">{email}</a>'.format(
+        email=settings.TECH_SUPPORT_EMAIL
+    )
+)}
+</p>
+</%block>

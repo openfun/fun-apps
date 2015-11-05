@@ -50,17 +50,17 @@ class Command(BaseCommand):
         make_option(
             "--host",
             dest="host",
-            help="the ip host adress for mongo connexion"
+            help="the ip host adress for mongo connection"
         ),
         make_option(
             "--user_mongo",
             dest="user_mongo",
-            help="the username for mongo connexion"
+            help="the username for mongo connection"
         ),
         make_option(
             "--pwd_mongo",
             dest="pwd_mongo",
-            help="the password for mongo connexion"
+            help="the password for mongo connection"
         ),
         make_option(
             "--email",

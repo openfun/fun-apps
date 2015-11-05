@@ -28,7 +28,7 @@ PATH_EDX_PO = os.path.join(
 class Command(BaseCommand):
 
     help = """Usage: makemessages_fun [-v] [-l fr|de] path1 [path2 [...]]
-    
+
 Update the %s files to make sure all fun-apps translations are
 up-to-date.
 
@@ -93,10 +93,6 @@ class MessageMaker(object):
         fun_apps_to_translate = settings.LOCALIZED_APPS
         for app_name in fun_apps_to_translate:
             self.make_messages(app_root_path(app_name), locale, run_compile=run_compile)
-
-        # Translate theme
-        fun_theme_path = os.path.expanduser("~/themes/fun")
-        self.make_messages(fun_theme_path, locale, run_compile=run_compile)
 
     def make_messages(self, root_path, locale, run_compile=False):
         self.make_domain_messages(root_path, locale, 'django')
@@ -205,7 +201,7 @@ def check_catalog(catalog):
     if missing_translations:
         print "{} missing translations:".format(len(missing_translations))
         for missing_translation in missing_translations:
-            print "    - {}".format(missing_translation)
+            print u"    - {}".format(missing_translation)
 
 def fix_catalog_properties(catalog):
     """Set FUn-compliant catalog properties"""

@@ -23,7 +23,10 @@ PAYMENT_SUPPORT_EMAIL = "paiements@france-universite-numerique-mooc.fr"
 STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
 STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
 BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
-FAVICON_PATH = "themes/fun/images/favicon.ico"
+FAVICON_PATH = "fun/images/favicon.ico"
+
+PLATFORM_FACEBOOK_ACCOUNT = 'https://www.facebook.com/france.universite.numerique'
+PLATFORM_TWITTER_ACCOUNT = '@universite_num'
 
 # those 2 constants are used in code to describe certificate, they are not i18ned, you could do it
 CERT_NAME_SHORT = u"Attestation"
@@ -131,7 +134,6 @@ LOCALIZED_APPS = sorted([path.split("/")[-2] for path in glob(FUN_BASE_ROOT / "*
 LOCALE_PATHS = tuple(
     [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_APPS] +
     [
-        BASE_ROOT / 'themes/fun/locale',
         BASE_ROOT / 'edx-platform/conf/locale',
         BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/django_countries/locale',    # this should not be required
     ]
@@ -197,6 +199,19 @@ CODE_JAIL = {
     "python_bin": "",
     "user": "sandbox"
 }
+
+# easy-thumbnails
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_EXTENSION = 'png'
+
+# Course image thumbnail sizes
+FUN_THUMBNAIL_OPTIONS = {
+    'small': {'size': (270, 152), 'crop': 'smart'},
+    'big': {'size': (337, 191), 'crop': 'smart'},
+    'about': {'size': (730, 412), 'crop': 'scale'},
+    'facebook': {'size': (600, 315), 'crop': 'smart'},  # https://developers.facebook.com/docs/sharing/best-practices
+}
+
 
 # ora2 fileupload
 ORA2_FILEUPLOAD_BACKEND = "filesystem"

@@ -1,0 +1,264 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.formats import date_format
+from django.utils.translation import ugettext as _
+
+from staticfiles.storage import staticfiles_storage
+
+from courses.models import CourseSubject, Course
+from newsfeed.views import top_news
+from universities.models import University
+
+course_subjects = CourseSubject.objects.random_featured()
+universities = University.objects.featured(18)
+featured_courses = Course.objects.random_featured(10)
+news = top_news(5)
+%>
+
+<%inherit file="funsite/parts/base-fixed-width.html" />
+
+<%block name="title">${_(u"The best online courses, for free")}</%block>
+
+<%block name="css_extra"></%block>
+
+<%block name="js_extra">
+<script>
+    $('.owl-theme').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        nav: false,
+        responsive: {
+          0: {
+            items: 1,
+          },
+          768: {
+            items: 3,
+          },
+          1280: {
+            items: 5,
+            margin: 20
+          },
+          1900: {
+            items: 8,
+            margin: 20
+          }
+        }
+    });
+    $('.owl-news-320').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        nav: false,
+        responsive: {
+          0: {
+            items: 1,
+          },
+        }
+    });
+
+ $(window).on("scroll", function () {
+     if ($('.main-width').width() > 768) {
+         $('#top-menu .slogan, .logo').toggle(($('body').scrollTop() > 419))
+     }
+    });
+
+</script>
+</%block>
+
+<%block name="content_fullwidth">
+    <div class="homepage-header drop-down">
+        <h1>${_(u"France Université Numérique: The best online courses, for free")}</h1>
+        <img class="logo-fun" src="${staticfiles_storage.url('funsite/images/logos/fun195.png')}"></img>
+    </div>
+</%block>
+
+<%block name="content">
+
+<%namespace name="newsfeed" file="/newsfeed/article/block.html"/>
+
+<div class="row">
+    <div class="col-lg-36 text-center">
+        <h2 class="big-title small-margin">${ _(u"Highlighted courses") }</h2>
+    </div>
+</div>
+
+<div class="highlighted-courses">
+
+    <%def name="include_course_block(size, featured_courses, index, classes)">
+        %if len(featured_courses) > index:
+        <div class="${classes}">
+            %if size == 'big':
+            <%include file="/courses/course-block/big.html" args="course=featured_courses[index]"/>
+            %else:
+            <%include file="/courses/course-block/small.html" args="course=featured_courses[index]"/>
+            %endif
+        </div>
+        %endif
+    </%def>
+    <%def name="include_big_course_block(featured_courses, index, classes)">
+        ${include_course_block("big", featured_courses, index, classes)}
+    </%def>
+    <%def name="include_small_course_block(featured_courses, index, classes)">
+        ${include_course_block("small", featured_courses, index, classes)}
+    </%def>
+
+    <div class="hidden-xs hidden-sm">
+        <div class="row">
+            ${include_big_course_block(featured_courses, 0, "col-lg-9 col-md-12")}
+            ${include_big_course_block(featured_courses, 1, "col-lg-9 col-md-12")}
+            ${include_big_course_block(featured_courses, 2, "col-lg-9 col-md-12")}
+            ${include_big_course_block(featured_courses, 3, "visible-lg col-lg-9")}
+        </div>
+
+        <div class="row">
+            ${include_small_course_block(featured_courses, 3, "hidden-lg col-md-9")}
+
+            ${include_small_course_block(featured_courses, 4, "col-lg-6 col-md-9")}
+            ${include_small_course_block(featured_courses, 5, "col-lg-6 col-md-9")}
+            ${include_small_course_block(featured_courses, 6, "col-lg-6 col-md-9")}
+
+            ${include_small_course_block(featured_courses, 7, "visible-lg col-lg-6")}
+            ${include_small_course_block(featured_courses, 8, "visible-lg col-lg-6")}
+            ${include_small_course_block(featured_courses, 9, "visible-lg col-lg-6")}
+        </div>
+    </div>
+
+    <div class="visible-sm">
+        <div class="row">
+            % for i in range(0, 6):
+                ${include_small_course_block(featured_courses, i, "col-sm-18")}
+            % endfor
+        </div>
+    </div>
+
+    <div class="visible-xs">
+        % for i in range(0, 3):
+        <div class="row">
+            ${include_small_course_block(featured_courses, i, "col-xs-36")}
+        </div>
+        % endfor
+    </div>
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <a href="${reverse('fun-courses-index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="universities">
+    <div class="row ">
+        <div class="col-lg-36 text-center">
+            <h2 class="big-title big-margin">${_(u"Universities")}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-36">
+            <ul class="universities-list">
+            % for university in universities:
+                % if (loop.index > 11):
+                    <li class="hidden-lg">
+                % elif (loop.index > 5):
+                    <li class="hidden-md">
+                % else:
+                    <li>
+                % endif
+                        <a href="${university.get_absolute_url()}">
+                            <div class="university-logo center-block">
+                                <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}" class="img-responsive">
+                            </div>
+                        </a>
+                    </li>
+            % endfor
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <a href="${reverse('universities-landing')}" class="btn btn-default btn-spaced">${_(u"All universities")}</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="fun-news fun-news-background">
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <h2 class="big-title white big-margin">${_(u"The news")}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-18 col-sm-36 text-center hidden-xs">
+            ${newsfeed.news_block(news[0], 'primary', 'home')}
+        </div>
+
+        <div class="col-md-18 col-sm-36 text-center hidden-xs">
+            ${newsfeed.news_block(news[1], 'secondary', 'home')}
+            ${newsfeed.news_block(news[2], 'secondary', 'home')}
+        </div>
+    </div>
+    <div class="col-xs-36 text-center hidden-sm hidden-md hidden-lg">
+        % if all(news[:2]):  ## do we have 2 real elements ?
+        <div class="owl-carousel owl-news-320">
+            % for article in news:
+                % if article:
+                    <div class="item">
+                        ${newsfeed.news_block(article, 'primary', 'home')}
+                    </div>
+                % endif
+            % endfor
+        </div>
+        % else:
+            ${newsfeed.news_block(news[0], 'primary', 'home')}
+        % endif
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <a href="${reverse('newsfeed-landing')}" class="btn btn-default btn-spaced">${_(u"All news")}</a>
+        </div>
+    </div>
+</div>
+
+<div class="fun-themes">
+    <div class="row ">
+        <div class="col-lg-36 text-center">
+            <h2 class="big-title big-margin">${ _(u"Thematics") }</h2>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-md-36">
+            <div class="owl-carousel owl-theme">
+
+                %for subject in course_subjects:
+                <div class="item">
+                    <a href="${subject.get_absolute_url()}">
+                        <div>
+                            <h3>${subject.name}</h3>
+                            <img src="${subject.image.url}" alt="${subject.name}">
+                        </div>
+                    </a>
+
+                </div>
+                %endfor
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-36 text-center">
+        <a href="${reverse('fun-courses-index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
+    </div>
+</div>
+
+</%block>

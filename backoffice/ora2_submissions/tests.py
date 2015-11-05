@@ -8,8 +8,10 @@ from instructor_task.tests.factories import InstructorTaskFactory
 
 from backoffice.ora2_submissions import tasks_api, tasks
 from backoffice.tests.test import BaseBackoffice
+from fun.tests.utils import skipUnlessLms
 
 
+@skipUnlessLms
 class TestDownloadOra2Submissions(BaseBackoffice):
 
     def setUp(self):

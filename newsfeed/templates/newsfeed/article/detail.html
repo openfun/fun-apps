@@ -1,14 +1,181 @@
 ## mako
-<%inherit file="../../main.html" />
-<%! from django.core.urlresolvers import reverse %>
-<%! from django.utils.translation import ugettext_lazy as _ %>
-<%! from django.utils.formats import date_format %>
+<%!
+from django.utils.translation import ugettext_lazy as _
+from django.utils.formats import date_format
 
-<section class="container news-article">
-    <a href="${reverse('newsfeed-article', kwargs={'slug': article.slug})}"><h2>${article.title}</h2></a>
-    <section class="subtitle">
-        ${_("Posted on")} ${date_format(article.created_at)}
-    </section>
+from newsfeed.models import Article
 
-    <p>${article.text}</p>
-</section>
+newsfeed = Article.objects.all()
+
+%>
+
+
+<%inherit file="/funsite/parts/base-fixed-width.html" />
+
+
+<%block name="meta_extra">
+    <meta property="og:site_name" content="France Université Numérique"/>
+    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${article.get_absolute_url()}" />
+    <meta property="og:title" content="${article.title}" />
+    <meta property="og:description" content="${article.get_lead_paragraph()}" />
+    <meta property="og:locale" content="${article.language}" />
+</%block>
+
+
+<%block name="title">${article.title}</%block>
+
+
+<%block name="content">
+
+<%
+    # TODO
+    facebook_link, tweet_action, email_subject = 'a', 'b', 'c'
+%>
+
+
+<div class="news-detail main-content">
+
+    <div class="row">
+        <div class="col-sm-36">
+            <div class="header">
+
+                <div class="text-center">
+                    <h1 class="big-title">${article.title}</h1>
+                </div>
+                <div class="line text-center">
+                    <span></span>
+                </div>
+                <div class="author">
+                    ${date_format(article.created_at, 'DATE_FORMAT')}
+                </div>
+                <img src="/media/${article.get_thumbnail('very-big')}" class="img-responsive">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-21 col-sm-26 no-gutter-right">
+            <div class="left">
+                <div class="lead-paragraph">
+                    ${article.get_lead_paragraph()}
+                </div>
+
+                <div class="description">
+                    ${article.text}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-15 col-sm-10 no-gutter-left no-padding">
+            <div class="right">
+
+
+                <div class="blue-zone">
+                    <div class="row">
+                        <div class="col-sm-36 social-networks">
+                            <a href="${facebook_link}" target="_blank">
+                                <span class="facebook"></span>
+                            </a>
+                            <a href="${tweet_action}" target="_blank">
+                                <span class="twitter"></span>
+                            </a>
+                            <a href="${email_subject}" target="_blank">
+                                <span class="email"></span>
+                            </a>
+                        </div>
+                        <div class="col-sm-36 col-lg-18">
+                            % if article.event_date:
+                            <div class="course-info calendar">
+                                <ul>
+                                <li>
+                                    <strong>${_("Event date")}</strong>
+                                </li>
+                                <li>
+                                     ${date_format(article.event_date, 'DATE_FORMAT')}
+                                </li>
+                                </ul>
+                            </div>
+                            % endif
+
+                            % if article.courses.all().count():
+                            <div class="course-info diploma">
+                                <ul>
+                                <li>
+                                    <strong>${_("Courses")}</strong>
+                                </li>
+                                % for course in article.courses.all():
+                                <li>
+                                     <a href="${course.get_absolute_url()}">${course.title}</a>
+                                </li>
+                                % endfor
+                                </ul>
+                            </div>
+                            % endif
+
+
+                            % if article.links.count():
+                            <div class="course-info link">
+                                <ul>
+                                <li>
+                                    <strong>${_("Usefull links")}</strong>
+                                </li>
+                                % for link in article.links.all():
+                                <li>
+                                     <a href="${link.url}" target="_blank">${link.name}</a>
+                                </li>
+                                % endfor
+                                </ul>
+                            </div>
+                            % endif
+
+                            % if article.category and Article.objects.filter(category__slug=article.category.slug).count():
+                            <div class="course-info folder">
+                                <ul>
+                                <li>
+                                    <strong>${_("In the same category")}</strong>
+                                </li>
+                                % for news in Article.objects.filter(category__slug=article.category.slug)[:3]:
+                                <li>
+                                     <a href="${news.get_absolute_url()}">${news.title}</a>
+                                </li>
+                                % endfor
+                                </ul>
+                            </div>
+                            % endif
+
+
+
+                        </div>
+                        <div class="col-sm-36 col-lg-18">
+
+                            <div class="course-info star">
+                                <ul>
+                                    <li>
+                                        <strong>${_("Featured news")}</strong>
+                                    </li>
+                                    % for news in newsfeed[:3]:
+                                    <li>
+                                        <a href="${news.get_absolute_url()}">${news.title}</a>
+                                    </li>
+                                    % endfor
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</%block>
+
+
+
+

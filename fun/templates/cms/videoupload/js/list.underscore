@@ -1,12 +1,16 @@
-<table>
+<div style='text-align: center; width: 100%' class="syncing">
+    <i class='icon fa fa-refresh fa-spin'></i>
+</div>
+
+<table class="synced">
   <thead>
     <tr>
       <th class="preview"><%- gettext("Preview") %></th>
-      <th><%- gettext("Title") %></th>
+      <th class="title"><%- gettext("Title") %></th>
       <th><%- gettext("Created at") %></th>
-      <th><%- gettext("ID") %></th>
+      <th class="id"><%- gettext("ID") %></th>
       <th><%- gettext("Status") %></th>
-      <th><%- gettext("Action") %></th>
+      <th class="actions"><%- gettext("Actions") %></th>
     </tr>
   </thead>
   <tbody></tbody>

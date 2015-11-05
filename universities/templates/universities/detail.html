@@ -1,44 +1,77 @@
 ## mako
 <%!
 from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-from courseware.courses import course_image_url, get_course_about_section
 %>
 
-<%namespace name='static' file='../static_content.html'/>
+<%inherit file="/funsite/parts/base-fixed-width.html" />
 
-<%block name="bodyclass">view-university-detail</%block>
-<%block name="title"><title>${ university.name }</title></%block>
+<%block name="title">${ university.name }</%block>
 
-<%inherit file="../main.html" />
 
-<%block name="body">
+<%block name="content">
+<div class="university-page simple-content-page">
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-30 col-sm-36">
 
-  <section class="university-courses">
-    <section class="introduction container">
-      % if university.banner:
-      <img class="illustration" src="${ university.banner.url }" />
-      % endif
-      <header>
-      % if university.logo:
-        <img class="logo" src="${ university.logo.url }" />
-      % endif
-      </header>
-    </section>
+            <section class="university">
 
-    <section class="courses-list container">
-      <%block name="university_description">
-      ${ university.description }
-      </%block>
-    </section>
+                <section class="header">
+                    <h1>${ university.name }</h1>
 
-    <section class="find-courses">
 
-        <section id="courses-list" class="courses-container">
-            <section class="courses">
-                <%include file="/courses/listing.html"/>
+                    <div class="logo">
+                        <img src="${ university.get_logo_thumbnail() }" class="center-block">
+                    </div>
+
+                    <div class="space-40px"></div>
+
+                    <div class="banner">
+                        <img src="${ university.get_banner() }" class="img-responsive center-block">
+                    </div>
+
+                    <div class="space-40px"></div>
+
+                </section>
+
+                <section class="description">
+                    <p>
+                        ${ university.description }
+                    </p>
+                </section>
+
             </section>
-        </section>
-    </section>
-</%block>
+        </div>
+    </div>
+</div>
 
+<%
+courses = university.courses.all()
+%>
+
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-30 col-sm-36">
+        <section class="course-list">
+            <div class="col-lg-36 text-center">
+                <h2 class="big-title">${ _(u"Courses") }</h2>
+            </div>
+            <div class="list">
+                <ul class="">
+                % for course in courses:
+                    <li>
+                        <%include file="/courses/course-block/big.html" args="course=course"/>
+                    </li>
+                % endfor
+                ##  Add some fake course blocks at the end to get correct alignment on the last line
+                % for fake in xrange(3):
+                <li>
+                    <div class="course-block big-course fake">
+                    </div>
+                </li>
+                % endfor
+
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+</%block>

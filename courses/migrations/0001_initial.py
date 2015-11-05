@@ -9,8 +9,14 @@ class Migration(SchemaMigration):
     because we are moving an existing table.
     '''
 
+    # A note concerning the dependency on backoffice application:
+    # We used to have a dependency between 'courses' initial migration
+    # and 'backoffice' migrations. We've removed that dependency after
+    # the initial migration was applied on servers. This is so that we
+    # can run 'courses' migration in places where backoffice app is not
+    # installed.
     depends_on = (
-        ('backoffice', '0004_move_backoffice_courses_and_teachers'),
+        # ('backoffice', '0004_move_backoffice_courses_and_teachers'),
     )
 
     def forwards(self, orm):

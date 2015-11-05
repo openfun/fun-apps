@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
 
 from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
@@ -8,7 +9,9 @@ INSTALLED_APPS += (
     'fun',
     'universities',
     'videoproviders',
+    'courses',
 
+    'easy_thumbnails',
     'ckeditor',
     'adminsortable',
     'selftest',
@@ -71,7 +74,21 @@ CC_PROCESSOR = {
     }
 }
 
+# easy-thumbnails
+SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
+
 SITE_VARIANT = 'cms'
+
+# To use the schedule defined here, you need to have
+# a celery beat instance running, for instance, using
+# Django `manage.py` with: `celery beat -l INFO`.
+# Ex: `fun cms.dev celery beat -l INFO`
+CELERYBEAT_SCHEDULE = {
+    'update-courses-meta-data-every-30-minutes': {
+        'task': 'courses.tasks.update_courses_meta_data',
+        'schedule': timedelta(minutes=30),
+    },
+}
 
 def IS_VIDEOUPLOAD_DASHBOARD_ENABLED(course_id):
     """Determine whether we should display the videoupload link in the dashboard.

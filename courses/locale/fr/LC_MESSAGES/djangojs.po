@@ -1,0 +1,42 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version: France Université Numérique 17\n"
+"Report-Msgid-Bugs-To: team@openfun.fr\n"
+"POT-Creation-Date: 2015-10-28 16:28+0100\n"
+"PO-Revision-Date: 2015-10-28 16:28+0000\n"
+"Last-Translator: FUN <team@openfun.fr>\n"
+"Language-Team: FUN <team@openfun.fr>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/small-course-block.underscore:39
+msgid "Learn more"
+msgstr "En savoir plus"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/small-course-block.underscore:32
+msgctxt "course-block"
+msgid "Starts"
+msgstr "Débute"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:31
+msgid "Your search"
+msgstr "Votre recherche"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:46
+msgid "all"
+msgstr "tous"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:44
+msgid "per page"
+msgstr "par page"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/js/filter.underscore:5
+msgid "result"
+msgid_plural "results"
+msgstr[0] "résultat"
+msgstr[1] "résultats"
+

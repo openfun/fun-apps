@@ -1,0 +1,198 @@
+<%inherit file="funsite/parts/simple-content.html" />
+
+<%! from django.core.urlresolvers import reverse %>
+<%! from django.utils import html %>
+<%! from django_countries import countries %>
+<%! from django.utils.translation import ugettext as _ %>
+<%! from student.models import UserProfile %>
+
+<%block name="js_extra">
+    <script>
+     (function() {
+         $('.register-form').on('submit', function(event) {
+             event.preventDefault();
+             $.ajax({url: '/create_account',
+                     method: 'POST',
+                     data: $(this).serialize(),
+                     success: onSuccess,
+                     error: onError});
+         });
+
+         function onSuccess(json) {
+             var url = json.redirect_url || "${reverse('dashboard')}";
+             location.href = url;
+         }
+
+         function onError(jqXHR) {
+             json = $.parseJSON(jqXHR.responseText);
+             $('.submission-error').addClass('alert-danger').show();
+             $('.submission-error').html(json.value);
+             $(".has-error").removeClass('has-error');
+             $("#field-" + json.field).addClass('has-error');
+             $('body').animate({scrollTop: 0}, 100);
+         }
+     })();
+    </script>
+</%block>
+
+<%block name="title">
+    ${_("Register for {platform_name}").format(platform_name=platform_name)}
+</%block>
+
+
+<%block name="page_content">
+    <div class="register-page">
+        <div class="row">
+            <div class="col-sm-36 text-center">
+                <h2 class="big-title">
+                    ${_("Sign up to {platform_name}").format(platform_name=platform_name)}
+                </h2>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-20 left">
+                <div role="alert" class="alert submission-error" tabindex="-1"></div>
+                <form role="form" class="register-form" method="post" action="/create_account" novalidate>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+                    <div class="form-group" id="field-email">
+                        <label class="required" for="email">${_('E-mail')}</label>
+                        <input class="form-control" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
+                    </div>
+                    <div class="form-group" id="field-name">
+                        <label class="required" for="name">${_('Full Name')}</label>
+                        <input class="form-control" id="name" type="text" name="name" value="${name}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="name-tip" />
+                        <span class="help-block" id="name-tip">${_("Needed for any certificates you may earn")}</span>
+                    </div>
+                    <div class="form-group" id="field-username">
+                        <label class="required" for="username">${_('Public Username')}</label>
+                        <input class="form-control" id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
+                        <span class="help-block" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
+                    </div>
+                    <div class="form-group" id="field-password">
+                        <label class="required" for="password">${_('Password')}</label>
+                        <input class="form-control" id="password" type="password" name="password" value="" required aria-required="true" />
+                    </div>
+
+                    <div class="form-group" id="field-country">
+                        <label class="required" for="country">${_("Country")}</label>
+                        <select class="form-control" id="country" name="country" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['country'] == 'required' else ''}>
+                            <option value="">--</option>
+                            %for code, country_name in countries:
+                                <option value="${code}">${ unicode(country_name) }</option>
+                            %endfor
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="field-city">
+                        <label class="required" for="city">${_('City')}</label>
+                        <input class="form-control" id="city" type="text" name="city" value="" placeholder="${_('example: New York')}" required aria-required="true"/>
+                    </div>
+
+                    <div class="form-group" id="field-gender">
+                        <label for="gender">${_("Gender")}</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option value="">--</option>
+                            %for code, gender in UserProfile.GENDER_CHOICES:
+                                <option value="${code}">${_(gender)}</option>
+                            %endfor
+                        </select>
+                    </div>
+                    <div class="form-group" id="field-yob">
+                        <label for="yob">${_("Year of Birth")}</label>
+                        <select class="form-control" id="yob" name="year_of_birth">
+                            <option value="">--</option>
+                            %for year in UserProfile.VALID_YEARS:
+                                <option value="${year}">${year}</option>
+                            %endfor
+                        </select>
+                    </div>
+
+
+                    <div class="form-group" id="field-education-level">
+                        <label for="education-level">${_("Highest Level of Education Completed")}</label>
+                        <select  class="form-control" id="education-level" name="level_of_education">
+                            <option value="">--</option>
+                            %for code, ed_level in UserProfile.LEVEL_OF_EDUCATION_CHOICES:
+                                <option value="${code}">${_(ed_level)}</option>
+                            %endfor
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="field-goals">
+                        <label for="goals">${_("Please share with us your reasons for registering with {platform_name}").format(platform_name=platform_name)}</label>
+                        <textarea class="form-control" id="goals" name="goals" value=""></textarea>
+                    </div>
+
+                    <div class="form-group" id="field-field-tos">
+                        <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
+                        <label class="required" for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
+                            link_start='<a href="{url}"  tabindex="-1">'.format(url=marketing_link('TOS')),
+                            link_end='</a>')}</label>
+                    </div>
+
+                    <div class="form-group" id="field-honorcode">
+                        <input id="honorcode-yes" type="checkbox" name="honor_code" value="true" required />
+                        <% honor_code_path = marketing_link('HONOR') %>
+                        <label class="required" for="honorcode-yes">${_('I agree to the {link_start}Honor Code{link_end}').format(
+                            link_start='<a href="{url}"  tabindex="-1">'.format(url=honor_code_path),
+                            link_end='</a>')}</label>
+                    </div>
+                    % if course_id and enrollment_action:
+                        <input type="hidden" name="enrollment_action" value="${enrollment_action | h}" />
+                        <input type="hidden" name="course_id" value="${course_id | h}" />
+                    % endif
+                    % if email_opt_in:
+                        <input type="hidden" name="email_opt_in" value="${email_opt_in | h }" />
+                    % endif
+                    <button name="submit" type="submit" id="submit" class="btn btn-primary btn-padded wide">${_('Create my {platform_name} account').format(platform_name=platform_name)}</button>
+                </form>
+
+                <div class="row small-margin">
+                    <div class="col-md-36">
+                        <h4 class="text-center">${_("Do you already have an account?")}</h4>
+                        <a href="${reverse('signin_user')}" class="btn btn-default btn-padded btn-block">${_("Sign in")}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-16 right">
+                <div class="cta cta-welcome">
+                    <h4>${_("Welcome to {platform_name}").format(platform_name=platform_name)}</h4>
+                    <p>${_("Registering with {platform_name} gives you access to all of our current and future free courses. Not ready to take a course just yet? Registering puts you on our mailing list - we will update you as courses are added.").format(platform_name=platform_name)}</p>
+                </div>
+                <div class="cta cta-nextsteps">
+                    <hr>
+                    <h4>${_("Next Steps")}</h4>
+                    <p>${_("As part of joining {platform_name}, you will receive an activation email.  You must click on the activation link to complete the process.  Don't see the email?  Check your spam folder and mark {platform_name} emails as 'not spam'.  At {platform_name}, we communicate mostly through email.").format(platform_name=platform_name)}</p>
+                    <hr>
+                </div>
+                <div class="cta cta-confidentiality">
+                    <h4>${_("Confidentiality")}</h4>
+                    <p>
+                        Les informations recueillies font l’objet d’un traitement informatique destiné à permettre l’inscription, le suivi des cours, la participation aux activités pédagogiques et aux évaluations, la délivrance d’attestations et/ou de certificats.<br>
+                        Les destinataires des données sont :
+                        <ul>
+                            <li>Les enseignants des équipes pédagogiques et les représentants officiels des établissements porteurs des cours, pour les données à caractère personnel.</li>
+                            <li>Des équipes de recherche en sciences cognitives et de l’éducation, habilitées par le ministère en charge de l’Enseignement supérieur, pour les données d’usage anonymisées.</li>
+                        </ul>
+                    </p>
+                    <p>
+                        Conformément à la loi «&nbsp;informatique et libertés&nbsp;» du 6 janvier 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer en vous adressant à :</p>
+                    <address class="vcard">
+                        <div class="adr">
+                            <span class="org">Ministère de l'Éducation nationale, de l'Enseignement supérieur et de la Recherche</span><br>
+                            <span class="org">Direction générale de l'enseignement supérieur et de l'insertion professionnelle</span><br>
+                            <span class="org">Plateforme FUN-MOOC</span><br>
+                            <span class="street-address">1, rue Descartes</span><br>
+                            <span class="postal-code">75231</span> <span class="locality">Paris Cedex 05</span>
+                        </div>
+                    </address>
+                    <p>
+                        Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant.
+                    </p>
+                </div>
+            </div>
+        </div>
+</%block>
+

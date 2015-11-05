@@ -5,6 +5,7 @@ import os
 import requests
 import requests.auth
 
+from django.core.cache import get_cache
 from django.utils.translation import gettext as _
 
 from fun.utils.i18n import language_name
@@ -92,8 +93,8 @@ class Client(BaseClient):
     VISIBILITY_VISIBLE = 'visible'
     DEFAULT_TIMEOUT_SECONDS = 10
 
-    def __init__(self, *args, **kwargs):
-        super(Client, self).__init__(*args, **kwargs)
+    def __init__(self, course_key_string):
+        super(Client, self).__init__(course_key_string)
         self.urls = LibcastUrls(self.course_key_string)
         self._settings = None
 
@@ -166,10 +167,14 @@ class Client(BaseClient):
         """
         visibility = resource.find('visibility').text
         status = 'published' if visibility == 'visible' else 'ready'
+        encoding_progress = None
         if file_obj is not None:
             encoding_status = file_obj.find('encoding_status').text
             if encoding_status != 'finished':
                 status = 'processing'
+                encoding_progress = file_obj.find('encoding_progress')
+                if encoding_progress is not None:
+                    encoding_progress = "%.2f" % float(encoding_progress.text)
         slug = resource.find('slug').text
         if status == "processing":
             video_sources = []
@@ -186,6 +191,7 @@ class Client(BaseClient):
             'title':  resource.find('title').text,
             'subtitles': self.get_resource_subtitles(resource),
             'status': status,
+            'encoding_progress': encoding_progress,
             'thumbnail_url': self.get_resource_thumbnail_url(resource),
             'video_sources': video_sources,
             'external_link': external_link
@@ -250,15 +256,20 @@ class Client(BaseClient):
     def ensure_course_is_configured(self):
         """
         Make sure that everything is ready in the Libcast account for upload.
+        This should be thread-safe, so we make use of a lock.
 
         Returns:
             directory_slug (str)
             stream_slug (str)
         """
-        directory_slug = self.ensure_course_directory_exists()
-        parent_stream_slug = self.get_or_create_stream(self.org)
-        stream_slug = self.get_or_create_stream(self.course_key_string, parent_stream=parent_stream_slug)
-        return directory_slug, stream_slug
+        lock = "libcast-course-configuration: {}".format(self.course_key_string)
+        lock_timeout_in_seconds = 20
+
+        with SelfExpiringLock(lock, lock_timeout_in_seconds):
+            directory_slug = self.ensure_course_directory_exists()
+            parent_stream_slug = self.get_or_create_stream(self.org)
+            stream_slug = self.get_or_create_stream(self.course_key_string, parent_stream=parent_stream_slug)
+            return directory_slug, stream_slug
 
     def ensure_course_directory_exists(self):
         """Check for the existence of a folder and create it if necessary.
@@ -326,10 +337,25 @@ class Client(BaseClient):
     ####################
 
     def request(self, endpoint, method='GET', params=None, files=None):
-        return http_request(
-            self.urls.libcast_url(endpoint), method=method, params=params,
-            files=files, auth=self.auth, timeout=self.DEFAULT_TIMEOUT_SECONDS
-        )
+        url = self.urls.libcast_url(endpoint)
+        func = getattr(requests, method.lower())
+        kwargs = {
+            'auth': self.auth,
+            'timeout': self.DEFAULT_TIMEOUT_SECONDS,
+        }
+        if method.upper() == 'GET':
+            kwargs['params'] = params
+        else:
+            kwargs['data'] = params
+            kwargs['files'] = files
+        try:
+            response = func(url, **kwargs)
+        except requests.Timeout:
+            raise ClientError(u"Libcast timeout url=%s, method=%s, params=%s" % (url, method, params))
+        if response.status_code >= 400:
+            logger.error(u"Libcast client error url=%s, method=%s, params=%s, status code=%d",
+                         url, method, params, response.status_code)
+        return response
 
     def get_auth(self):
         """Libcast API uses HTTP Digest authentication"""
@@ -512,24 +538,27 @@ def slugify(string):
     """
     return string.lower().replace('/', '-')
 
-#pylint: disable=too-many-arguments
-def http_request(url, method='GET', params=None, files=None, auth=None, timeout=None):
-    func = getattr(requests, method.lower())
-    kwargs = {
-        'auth': auth,
-        'timeout': timeout,
-    }
-    if method.upper() == 'GET':
-        kwargs['params'] = params
-    else:
-        kwargs['data'] = params
-        kwargs['files'] = files
-    try:
-        response = func(url, **kwargs)
-    except requests.Timeout:
-        raise ClientError(u"Libcast timeout url=%s, method=%s, params=%s" % (url, method, params))
-    if response.status_code >= 400:
-        logger.error(u"Libcast client error url=%s, method=%s, params=%s, response:\n%s",
-                     url, method, params, response.content.decode('utf-8'))
-    return response
+
+class SelfExpiringLock(object):
+    """
+    Lock based on a cache value. The lock will expire on exit.
+
+    Usage:
+        with SelfExpiringLock("mykey"):
+            # non thread-safe code
+            ...
+    """
+
+    def __init__(self, name, timeout=None):
+        self.name = name
+        self.timeout = timeout
+        self.cache = get_cache('default')
+
+    def __enter__(self):
+        while self.cache.get(self.name):
+            pass
+        self.cache.set(self.name, 1, timeout=self.timeout)
+
+    def __exit__(self, _type, value, traceback):
+        self.cache.delete(self.name)
 

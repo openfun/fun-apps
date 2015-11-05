@@ -39,41 +39,6 @@ OVERRIDDEN_TEMPLATES = [
     ),
 ]
 
-OVERRIDDEN_THEME_TEMPLATES = [
-    (
-        "lms/templates/courseware/course_about.html",
-        "templates/courseware/course_about.html",
-    ),
-    (
-        "lms/templates/index.html",
-        "templates/index.html",
-    ),
-    (
-        "lms/templates/login.html",
-        "templates/login.html",
-    ),
-    (
-        "lms/templates/main.html",
-        "templates/main.html",
-    ),
-    (
-        "lms/templates/main_django.html",
-        "templates/main_django.html",
-    ),
-    (
-        "lms/templates/navigation.html",
-        "templates/navigation.html",
-    ),
-    (
-        "lms/templates/register-sidebar.html",
-        "templates/register-sidebar.html",
-    ),
-    (
-        "lms/templates/dashboard/_dashboard_course_listing.html",
-        "templates/dashboard/_dashboard_course_listing.html",
-    ),
-]
-
 class Command(BaseCommand):
     help = """Override a number of edX templates with the version provided by
 the openfun/fork branch from the edx-platform repository. Before running
@@ -116,7 +81,6 @@ this script, make sure your openfun/fork branch is up-to-date."""
         self.is_verbose = options['verbose']
 
         self.override_all(OVERRIDDEN_TEMPLATES, options['fun_repo'], reverse=options["reverse"])
-        self.override_all(OVERRIDDEN_THEME_TEMPLATES, options['theme_repo'], reverse=options["reverse"])
 
     def override_all(self, templates_to_override, dst_dir, reverse=False):
         for edx_relative_path, dst_relative_path in templates_to_override:
