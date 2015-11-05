@@ -57,16 +57,23 @@ courses = university.courses.all()
             <div class="list">
                 <ul class="">
                 % for course in courses:
-                    <li>
+                    <li class="hidden-xs">
                         <%include file="/courses/course-block/big.html" args="course=course"/>
+                    </li>
+                    <li class="hidden-sm hidden-md hidden-lg">
+                        <%include file="/courses/course-block/small.html" args="course=course"/>
                     </li>
                 % endfor
                 ##  Add some fake course blocks at the end to get correct alignment on the last line
                 % for fake in xrange(3):
-                <li>
-                    <div class="course-block big-course fake">
-                    </div>
-                </li>
+                    <li class="hidden-xs">
+                        <div class="course-block big-course fake">
+                        </div>
+                    </li>
+                    <li class="hidden-sm hidden-md hidden-lg">
+                        <div class="course-block small-course fake">
+                        </div>
+                    </li>
                 % endfor
 
                 </ul>
