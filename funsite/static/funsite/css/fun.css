@@ -475,7 +475,7 @@ h3.big-title {
 
 @media (max-width: 767px) {
     .main-width {
-        width: 320px;
+        width: 100%;
     }
     .slogan {
         display: none;
@@ -580,9 +580,17 @@ h3.big-title {
     .compensate-right-column {
         margin-left: inherit;
     }
+}
+
+@media (max-width: 500px) {
+    /* used for blue column on very low res. */
+    .col-xxs-36 {
+        width: 100%;
+    }
 
 
 }
+
 
 .homepage-header {
     text-align: center;
