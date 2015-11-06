@@ -37,11 +37,11 @@ class FAQTest(ModuleStoreTestCase):
 
         soup = BeautifulSoup(response.content)
         self.assertEqual(u"Category name 1",
-                soup.find('ul', class_='faq-categories').find('h1').text)
+                soup.find('ul', class_='faq-categories').find('h1').text.strip())
         self.assertEqual(u"Section 1",
-                soup.find('ul', class_='faq-categories').find('h2').text)
+                soup.find('ul', class_='faq-categories').find('h3').text.strip())
         self.assertEqual(u"Article 1",
-                soup.find('ul', class_='faq-categories').find('a', class_='article').text)
+                soup.find('ul', class_='faq-categories').find('a', class_='article').text.strip())
 
     def test_faq_article(self):
         response = self.client.get(reverse('faq:article', args=[1]))
