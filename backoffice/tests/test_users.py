@@ -21,9 +21,6 @@ class TestUsers(BaseCourseList):
     def setUp(self):
         super(TestUsers, self).setUp()
 
-        self.fcourse1 = Course.objects.create(key=self.course1.id)
-        self.fcourse2 = Course.objects.create(key=self.course2.id)
-
         self.user2 = UserFactory(username='user1') # user with profile
         self.user3 = User.objects.create(username='user2')  # user without profile should not appear
 
