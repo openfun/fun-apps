@@ -34,7 +34,7 @@ class ContactTest(TestCase):
         Test contact page display (GET)
         """
         contact_form_view = ContactFormView.as_view()
-        request = self.factory.get('/contact/')
+        request = self.factory.get(reverse('contact:contact'))
         contact_form_view(request)
 
         self.assertEqual(len(mock_render_to_response.call_args_list), 1)
@@ -49,7 +49,7 @@ class ContactTest(TestCase):
         Test contact page display (POST), with missing fields values
         """
         contact_form_view = ContactFormView.as_view()
-        request = self.factory.post('/contact/')
+        request = self.factory.post(reverse('contact:contact'))
         contact_form_view(request)
 
         self.assertEqual(len(mock_render_to_response.call_args_list), 1)
@@ -71,8 +71,7 @@ class ContactTest(TestCase):
         """
         Test contact page display (POST), all correct & sent
         """
-        response = self.client.post('/contact/', self.post_vars)
-
+        response = self.client.post(reverse('contact:contact'), self.post_vars)
         self.assertRedirects(response, reverse('contact:contact_form_sent'))
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn('Contact', mail.outbox[0].subject)
