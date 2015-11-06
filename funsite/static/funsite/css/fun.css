@@ -404,6 +404,12 @@ h3.big-title {
     .main-width {
         width: 768px;
     }
+
+    /* this class is used to maintain body centering while we force right column width outside */
+    .compensate-right-column {
+        margin-left: -100px;
+    }
+
     .criteria-overlay ul {
         -moz-column-count: 2;
         -webkit-column-count: 2;
@@ -494,8 +500,6 @@ h3.big-title {
         width: 100% !important;
     }
 
-
-
     .simple-content-page {
         padding: 20px !important;
         margin: 0 !important;
@@ -551,6 +555,11 @@ h3.big-title {
     ul.faq-breadcrumb {
         padding: 0 !important;
     }
+
+    .compensate-right-column {
+        margin-left: inherit;
+    }
+
 
 }
 
