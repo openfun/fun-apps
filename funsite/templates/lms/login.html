@@ -13,7 +13,7 @@ from staticfiles.storage import staticfiles_storage
 
 <%block name="page_content">
 <div class="login-row single-column">
-    <h2>${_("Please log in to access your account and courses")}</h2>
+    <h2 class="color-regal-blue">${_("Please log in to access your account and courses")}</h2>
     <form role="form" class="login-form login-form-page" method="post" data-remote="true" action="/login_ajax" novalidate>
         <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/></div>
         <div class="error-login-page"></div>
