@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 22\n"
+"Project-Id-Version: France Université Numérique 23\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-11-05 15:38+0100\n"
-"PO-Revision-Date: 2015-11-05 15:38+0000\n"
+"POT-Creation-Date: 2015-11-06 16:05+0100\n"
+"PO-Revision-Date: 2015-11-06 16:05+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -39,12 +39,11 @@ msgid ""
 "email?  Check your spam folder and mark FUN emails as 'not spam'.  At "
 "FUN, we communicate mostly through email."
 msgstr ""
-"En rejoignant FUN, vous recevrez un mail d'activation. Vous "
-"devrez cliquer sur le lien d'activation pour compléter l'inscription. Vous "
-"ne voyez pas le mail ? Vérifiez votre dossier de spam et marquez les mails "
-"provenant de {platform_name} comme n'étant pas du spam. A  {platform_name}, "
-"nous communiquons essentiellement par mail."
-
+"En rejoignant FUN, vous recevrez un mail d'activation. Vous devrez "
+"cliquer sur le lien d'activation pour compléter l'inscription. Vous ne "
+"voyez pas le mail ? Vérifiez votre dossier de spam et marquez les mails "
+"provenant de {platform_name} comme n'étant pas du spam. A  "
+"{platform_name}, nous communiquons essentiellement par mail."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:66
 msgid ""
@@ -129,6 +128,12 @@ msgstr "Déconnexion"
 msgid "More about registration"
 msgstr "En savoir plus sur l'inscription"
 
+# Translated in edx by 'Nouvelles'
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:16
+msgctxt "sandwich-menu"
+msgid "News"
+msgstr "Actualités"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:16
 msgid "Please log in to access your account and courses"
 msgstr "Veuillez vous connecter pour accéder à votre compte et à vos cours"
@@ -164,9 +169,11 @@ msgstr "Erreur serveur"
 msgid "Sign up"
 msgstr "Inscription"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:37
 msgid "Sign up for FUN today!"
 msgstr "Inscrivez-vous sur FUN !"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:47
 msgid "Sign up to {platform_name}"
 msgstr "Inscription à {platform_name}"
 
