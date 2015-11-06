@@ -541,7 +541,9 @@ h3.big-title {
         height: 230px !important;
         margin-left: 14px;
     }
-
+    .lead-paragraph {
+        font-size: 18px !important;
+    }
     .universities-list li {
         margin-left: 10px !important;
         margin-right: 0px !important;

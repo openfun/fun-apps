@@ -69,6 +69,23 @@ class ArticleDetailView(mako.MakoTemplateMixin, DetailView, MicrositeArticleMixi
     context_object_name = 'article'
     model = models.Article
 
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(**kwargs)
+
+        url = 'https://%s%s' % (settings.LMS_BASE, self.get_object().get_absolute_url())
+        twitter_action = 'https://twitter.com/intent/tweet?text=Actu+%s:+%s+%s' % (
+                settings.PLATFORM_TWITTER_ACCOUNT,
+                self.get_object().title,
+                url)
+        facebook_action = 'http://www.facebook.com/share.php?u=%s' % (url)
+        email_subject = u"mailto:?subject=Actualité France Université Numérique: %s&body=%s" % (
+                self.get_object().title, url)
+
+        context['twitter_action'] = twitter_action
+        context['email_subject'] = email_subject
+        context['facebook_action'] = facebook_action
+        return context
+
     def get_queryset(self):
         return self.filter_queryset_for_site(models.Article.objects.published())
 article_detail = ArticleDetailView.as_view()

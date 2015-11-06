@@ -3,6 +3,8 @@
 from django.utils.translation import ugettext_lazy as _
 from django.utils.formats import date_format
 
+from microsite_configuration import microsite
+
 from newsfeed.models import Article
 
 newsfeed = Article.objects.all()
@@ -27,35 +29,29 @@ newsfeed = Article.objects.all()
 
 <%block name="content">
 
-<%
-    # TODO
-    facebook_link, tweet_action, email_subject = 'a', 'b', 'c'
-%>
 
 
-<div class="news-detail main-content">
+<div class="news-detail main-content compensate-right-column">
 
-    <div class="row">
-        <div class="col-sm-36">
-            <div class="header">
-
-                <div class="text-center">
-                    <h1 class="big-title">${article.title}</h1>
-                </div>
-                <div class="line text-center">
-                    <span></span>
-                </div>
-                <div class="author">
-                    ${date_format(article.created_at, 'DATE_FORMAT')}
-                </div>
-                <img src="/media/${article.get_thumbnail('very-big')}" class="img-responsive">
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-lg-21 col-sm-26 no-gutter-right">
             <div class="left">
+
+                <div class="header">
+
+                    <div class="text-center">
+                        <h1 class="big-title">${article.title}</h1>
+                    </div>
+                    <div class="line text-center">
+                        <span></span>
+                    </div>
+                    <div class="author">
+                        ${date_format(article.created_at, 'DATE_FORMAT')}
+                    </div>
+                    <img src="/media/${article.get_thumbnail('very-big')}" class="img-responsive">
+                </div>
+
                 <div class="lead-paragraph">
                     ${article.get_lead_paragraph()}
                 </div>
@@ -73,10 +69,10 @@ newsfeed = Article.objects.all()
                 <div class="blue-zone">
                     <div class="row">
                         <div class="col-sm-36 social-networks">
-                            <a href="${facebook_link}" target="_blank">
+                            <a href="${facebook_action}" target="_blank">
                                 <span class="facebook"></span>
                             </a>
-                            <a href="${tweet_action}" target="_blank">
+                            <a href="${twitter_action}" target="_blank">
                                 <span class="twitter"></span>
                             </a>
                             <a href="${email_subject}" target="_blank">
@@ -91,7 +87,7 @@ newsfeed = Article.objects.all()
                                     <strong>${_("Event date")}</strong>
                                 </li>
                                 <li>
-                                     ${date_format(article.event_date, 'DATE_FORMAT')}
+                                    ${date_format(article.event_date, 'DATE_FORMAT')}
                                 </li>
                                 </ul>
                             </div>
@@ -170,6 +166,26 @@ newsfeed = Article.objects.all()
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
