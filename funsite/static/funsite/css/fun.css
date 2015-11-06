@@ -1769,68 +1769,18 @@ div.article {
 
 
 /* Register page */
-.register-page {
+
+/* Register page responsiveness */
+
+@media (max-width: 767px) {
+    /* At 320px we want the term of service checkbox label to be
+       displayed in one line.
+    */
+    #field-tos.form-group input {
+	vertical-align : top;
+    }
+    #field-tos.form-group label {
+	width: 250px;
+    }
 }
 
-.register-page .big-title {
-    margin-top: 30px;
-    margin-bottom: 60px;
-
-}
-
- .register-page #field-yob, .register-page #field-gender {
-     display: inline-block;
- }
-
-.register-page button {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
- }
-
-#field-field-tos input {
-     vertical-align : top;
-}
-
-.register-page .form-inline {
-  margin-bottom: 15px;
- }
-
-.submission-error {
-     padding : 20px 25px;
-     margin-left : auto;
-     margin-right : auto;
-     margin-top : 20px;
-     display: none;
- }
-
-.register-page .submission-error {
-    width: 80%;
-}
-.register-page .left {
-
-}
-.register-page .right {
-    background-color: #06213D;
-    padding: 12px 24px 40px 24px;
-    color: white;
-}
-.register-page .right p {
-    line-height: 22px;
-    font-size: 14px;
-    font-weight: 300;
-}
-.register-page .right address {
-    margin: 24px;
-    padding: 12px;
-    border: 1px solid #364C62;
-    text-align: center;
-    line-height: 24px
-}
-.register-page .right address .org {
-    font-weight: 600;
-
-.register-page .row {
-    margin-left: -5px;
-    margin-right: -5px;
-}

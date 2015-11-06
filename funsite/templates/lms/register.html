@@ -39,21 +39,23 @@
     ${_("Register for {platform_name}").format(platform_name=platform_name)}
 </%block>
 
-
 <%block name="page_content">
     <div class="register-page">
         <div class="row">
-            <div class="col-sm-36 text-center">
-                <h2 class="big-title">
+            <div class="col-xs-36 text-center">
+                <h2>
                     ${_("Sign up to {platform_name}").format(platform_name=platform_name)}
                 </h2>
             </div>
         </div>
-
-
-        <div class="row">
-            <div class="col-md-20 left">
-                <div role="alert" class="alert submission-error" tabindex="-1"></div>
+        
+        <div class="row row-form">
+            <div class="col-md-30 col-md-offset-3  col-lg-18 col-lg-offset-9" >
+                <div class="row" >
+                    <div class="col-xs-offset-2 col-xs-32 ">
+                        <div role="alert" style="display:none" class="alert submission-error" tabindex="-1"></div>
+                    </div>
+                </div>
                 <form role="form" class="register-form" method="post" action="/create_account" novalidate>
                     <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
                     <div class="form-group" id="field-email">
@@ -89,27 +91,31 @@
                         <label class="required" for="city">${_('City')}</label>
                         <input class="form-control" id="city" type="text" name="city" value="" placeholder="${_('example: New York')}" required aria-required="true"/>
                     </div>
-
-                    <div class="form-group" id="field-gender">
-                        <label for="gender">${_("Gender")}</label>
-                        <select class="form-control" id="gender" name="gender">
-                            <option value="">--</option>
-                            %for code, gender in UserProfile.GENDER_CHOICES:
-                                <option value="${code}">${_(gender)}</option>
-                            %endfor
-                        </select>
+                    <div class="row demograhic-form">
+                        <div class="col-sm-18">
+                            <div class="form-group" id="field-gender">
+                                <label for="gender">${_("Gender")}</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option value="">--</option>
+                                    %for code, gender in UserProfile.GENDER_CHOICES:
+                                        <option value="${code}">${_(gender)}</option>
+                                    %endfor
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-18">
+                            <div class="form-group" id="field-yob">
+                                <label for="yob">${_("Year of Birth")}</label>
+                                <select class="form-control" id="yob" name="year_of_birth">
+                                    <option value="">--</option>
+                                    %for year in UserProfile.VALID_YEARS:
+                                        <option value="${year}">${year}</option>
+                                    %endfor
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group" id="field-yob">
-                        <label for="yob">${_("Year of Birth")}</label>
-                        <select class="form-control" id="yob" name="year_of_birth">
-                            <option value="">--</option>
-                            %for year in UserProfile.VALID_YEARS:
-                                <option value="${year}">${year}</option>
-                            %endfor
-                        </select>
-                    </div>
-
-
+                    
                     <div class="form-group" id="field-education-level">
                         <label for="education-level">${_("Highest Level of Education Completed")}</label>
                         <select  class="form-control" id="education-level" name="level_of_education">
@@ -125,11 +131,12 @@
                         <textarea class="form-control" id="goals" name="goals" value=""></textarea>
                     </div>
 
-                    <div class="form-group" id="field-field-tos">
+                    <div class="form-group" id="field-tos">
                         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
                         <label class="required" for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
                             link_start='<a href="{url}"  tabindex="-1">'.format(url=marketing_link('TOS')),
-                            link_end='</a>')}</label>
+                            link_end='</a>')}
+                        </label>
                     </div>
 
                     <div class="form-group" id="field-honorcode">
@@ -154,43 +161,6 @@
                         <h4 class="text-center">${_("Do you already have an account?")}</h4>
                         <a href="${reverse('signin_user')}" class="btn btn-default btn-padded btn-block">${_("Sign in")}</a>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-16 right">
-                <div class="cta cta-welcome">
-                    <h4>${_("Welcome to {platform_name}").format(platform_name=platform_name)}</h4>
-                    <p>${_("Registering with {platform_name} gives you access to all of our current and future free courses. Not ready to take a course just yet? Registering puts you on our mailing list - we will update you as courses are added.").format(platform_name=platform_name)}</p>
-                </div>
-                <div class="cta cta-nextsteps">
-                    <hr>
-                    <h4>${_("Next Steps")}</h4>
-                    <p>${_("As part of joining {platform_name}, you will receive an activation email.  You must click on the activation link to complete the process.  Don't see the email?  Check your spam folder and mark {platform_name} emails as 'not spam'.  At {platform_name}, we communicate mostly through email.").format(platform_name=platform_name)}</p>
-                    <hr>
-                </div>
-                <div class="cta cta-confidentiality">
-                    <h4>${_("Confidentiality")}</h4>
-                    <p>
-                        Les informations recueillies font l’objet d’un traitement informatique destiné à permettre l’inscription, le suivi des cours, la participation aux activités pédagogiques et aux évaluations, la délivrance d’attestations et/ou de certificats.<br>
-                        Les destinataires des données sont :
-                        <ul>
-                            <li>Les enseignants des équipes pédagogiques et les représentants officiels des établissements porteurs des cours, pour les données à caractère personnel.</li>
-                            <li>Des équipes de recherche en sciences cognitives et de l’éducation, habilitées par le ministère en charge de l’Enseignement supérieur, pour les données d’usage anonymisées.</li>
-                        </ul>
-                    </p>
-                    <p>
-                        Conformément à la loi «&nbsp;informatique et libertés&nbsp;» du 6 janvier 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer en vous adressant à :</p>
-                    <address class="vcard">
-                        <div class="adr">
-                            <span class="org">Ministère de l'Éducation nationale, de l'Enseignement supérieur et de la Recherche</span><br>
-                            <span class="org">Direction générale de l'enseignement supérieur et de l'insertion professionnelle</span><br>
-                            <span class="org">Plateforme FUN-MOOC</span><br>
-                            <span class="street-address">1, rue Descartes</span><br>
-                            <span class="postal-code">75231</span> <span class="locality">Paris Cedex 05</span>
-                        </div>
-                    </address>
-                    <p>
-                        Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant.
-                    </p>
                 </div>
             </div>
         </div>
