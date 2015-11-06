@@ -41,11 +41,15 @@ newsfeed = Article.objects.all()
                 <div class="header">
 
                     <div class="text-center">
-                        <h1 class="big-title">${article.title}</h1>
+                        <h1 class="big-title color-regal-blue">${article.title}</h1>
                     </div>
                     <div class="line text-center">
                         <span></span>
                     </div>
+                    <div class="category color-denim-blue text-center">
+                        ${article.category}
+                    </div>
+
                     <div class="author">
                         ${date_format(article.created_at, 'DATE_FORMAT')}
                     </div>
