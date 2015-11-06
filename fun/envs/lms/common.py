@@ -133,7 +133,7 @@ SITE_VARIANT = 'lms'
 # Certificates related settings
 CERTIFICATE_BASE_URL = '/attestations/'
 CERTIFICATES_DIRECTORY = '/edx/var/edxapp/attestations/'
-FUN_LOGO_PATH = BASE_ROOT / 'fun-apps/funsite/static/fun-site/images/logo195.png'
+FUN_LOGO_PATH = BASE_ROOT / 'fun-apps/funsite/static/funsite/images/logos/fun195.png'
 STUDENT_NAME_FOR_TEST_CERTIFICATE = 'Test User'
 
 # Grades related settings
