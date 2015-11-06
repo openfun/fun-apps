@@ -48,12 +48,12 @@ require(["jquery", "underscore", "backbone"],
                 {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
                 {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
             ]},
-            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay', select: '#themes-select', values: [
+            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay', select: '#theme-select', values: [
                 %for course_subject in course_subjects:
                 {value: "${course_subject.slug}", title: "${course_subject.get_short_name()}", count: ${course_subject.public_courses_count}},
                 %endfor
             ]},
-            {title: "${_('Universities')}", name: 'university', type: 'select', max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay', select: '#universities-select', values: [
+            {title: "${_('Universities')}", name: 'university', type: 'select', max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay', select: '#university-select', values: [
                 %for university in universities:
                 {value: "${university.code}", title: "${university.get_short_name()}", count: ${university.public_courses_count}},
                 %endfor
@@ -100,6 +100,7 @@ require(["jquery", "underscore", "backbone"],
                 if (url) {
                     url = "filter" + url;
                 }
+
                 this.navigate(url, {trigger: false});
             },
             initializeFilter: function() {
@@ -109,6 +110,8 @@ require(["jquery", "underscore", "backbone"],
                 if (name && name !== 'page') {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
+                    var $select = $('select[id^="' + name + '"]');
+                    $select.val(slug);
                     this.filter.set('selected', value);
                 }
                 if (rpp) {
@@ -562,9 +565,9 @@ require(["jquery", "underscore", "backbone"],
                         <div class="title">${_("Refine search results")}</div>
                         <select id="availability-select">
                         </select>
-                        <select id="universities-select">
+                        <select id="university-select">
                         </select>
-                        <select id="themes-select">
+                        <select id="theme-select">
                         </select>
 
                     </div>
