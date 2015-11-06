@@ -1765,16 +1765,13 @@ div.article {
     clear: both;
 }
 
-
-
-
-/* Register page */
+/** Register page **/
 
 /* Register page responsiveness */
 
 @media (max-width: 767px) {
-    /* At 320px we want the term of service checkbox label to be
-       displayed in one line.
+    /* At 320px we want the term of service label to be
+       displayed next to the checkbox not below.
     */
     #field-tos.form-group input {
 	vertical-align : top;

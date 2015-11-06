@@ -1,0 +1,44 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from staticfiles.storage import staticfiles_storage
+from django.utils.translation import ugettext as _
+%>
+
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%block name="title">Charte Utilisateurs</%block>
+
+<%block name="page_content">
+    <section>
+        <h2>${_("Welcome to FUN")}</h2>
+        
+        <p>${_("Registering with FUN gives you access to all of our current and future free courses. Not ready to take a course just yet? Registering puts you on our mailing list - we will update you as courses are added.")}</p>
+
+        
+        <p>${_("As part of joining FUN, you will receive an activation email.  You must click on the activation link to complete the process.  Don't see the email?  Check your spam folder and mark FUN emails as 'not spam'.  At FUN, we communicate mostly through email.")}</p>
+        <hr>
+        <h2>${_("Confidentiality")}</h2>
+        <p>
+            Les informations recueillies font l’objet d’un traitement informatique destiné à permettre l’inscription, lne suivi des cours, la participation aux activités pédagogiques et aux évaluations, la délivrance d’attestations et/ou de certificats.<br>
+            Les destinataires des données sont :
+            <ul>
+                <li>Les enseignants des équipes pédagogiques et les représentants officiels des établissements porteurs des cours, pour les données à caractère personnel.</li>
+                <li>Des équipes de recherche en sciences cognitives et de l’éducation, habilitées par le ministère en charge de l’Enseignement supérieur, pour les données d’usage anonymisées.</li>
+            </ul>
+        </p>
+        <p>
+            Conformément à la loi «&nbsp;informatique et libertés&nbsp;» du 6 janvier 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer en vous adressant à :
+        </p>
+        <address>
+            <strong>Ministère de l'Éducation nationale, de l'Enseignement supérieur et de la Recherche</strong><br>
+            <strong >Direction générale de l'enseignement supérieur et de l'insertion professionnelle</strong><br>
+            <strong>Plateforme FUN-MOOC</strong><br>
+            <span class="street-address">1, rue Descartes</span><br>
+            <span class="postal-code">75231</span> <span class="locality">Paris Cedex 05</span>
+        </address>
+        <p>
+            Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant.
+        </p>
+    </section>
+</%block>

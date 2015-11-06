@@ -32,6 +32,20 @@ msgstr "Toutes les actus"
 msgid "All universities"
 msgstr "Tous les établissements"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:19
+msgid ""
+"As part of joining FUN, you will receive an activation email.  You must "
+"click on the activation link to complete the process.  Don't see the "
+"email?  Check your spam folder and mark FUN emails as 'not spam'.  At "
+"FUN, we communicate mostly through email."
+msgstr ""
+"En rejoignant FUN, vous recevrez un mail d'activation. Vous "
+"devrez cliquer sur le lien d'activation pour compléter l'inscription. Vous "
+"ne voyez pas le mail ? Vérifiez votre dossier de spam et marquez les mails "
+"provenant de {platform_name} comme n'étant pas du spam. A  {platform_name}, "
+"nous communiquons essentiellement par mail."
+
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:66
 msgid ""
 "By continuing browsing the france-universite-numerique-mooc.fr site, you "
@@ -41,7 +55,7 @@ msgstr ""
 "mooc.fr, vous acceptez l'utilisation de cookies permettant d'améliorer "
 "votre expérience utilisateur"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:171
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:21
 msgid "Confidentiality"
 msgstr "Confidentialité"
 
@@ -49,11 +63,11 @@ msgstr "Confidentialité"
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:149
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:156
 msgid "Create my {platform_name} account"
 msgstr "Créer mon compte {platform_name}"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:154
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:169
 msgid "Do you already have an account?"
 msgstr "Avez-vous déjà un compte ?"
 
@@ -111,6 +125,10 @@ msgstr "Connexion"
 msgid "Logout"
 msgstr "Déconnexion"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:161
+msgid "More about registration"
+msgstr "En savoir plus sur l'inscription"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:16
 msgid "Please log in to access your account and courses"
 msgstr "Veuillez vous connecter pour accéder à votre compte et à vos cours"
@@ -122,6 +140,17 @@ msgstr "Politique de confidentialité"
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:69
 msgid "Read more"
 msgstr "En savoir plus"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:16
+msgid ""
+"Registering with FUN gives you access to all of our current and future "
+"free courses. Not ready to take a course just yet? Registering puts you "
+"on our mailing list - we will update you as courses are added."
+msgstr ""
+"L'inscription à FUN vous donne accès à tous nos cours gratuits actuels et"
+" futurs. Vous n'êtes pas prêt à suivre un cours pour l'instant? "
+"L'inscription vous ajoute à notre liste de diffusion - nous vous "
+"tiendrons au courant dès que des cours sont ajoutés."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:230
 msgid "Registration closed"
@@ -135,11 +164,9 @@ msgstr "Erreur serveur"
 msgid "Sign up"
 msgstr "Inscription"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:37
 msgid "Sign up for FUN today!"
 msgstr "Inscrivez-vous sur FUN !"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:48
 msgid "Sign up to {platform_name}"
 msgstr "Inscription à {platform_name}"
 
@@ -172,6 +199,10 @@ msgstr "Les établissements"
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:38
 msgid "Usage policy"
 msgstr "Charte utilisateurs"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:14
+msgid "Welcome to FUN"
+msgstr "Bienvenue sur FUN"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:36
 msgid "You don't have an account"

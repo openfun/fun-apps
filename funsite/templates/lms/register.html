@@ -154,6 +154,14 @@
                         <input type="hidden" name="email_opt_in" value="${email_opt_in | h }" />
                     % endif
                     <button name="submit" type="submit" id="submit" class="btn btn-primary btn-padded wide">${_('Create my {platform_name} account').format(platform_name=platform_name)}</button>
+                    <div class="row">
+                        <div class="col-xs-36">
+                            <label class="pull-right">
+                                <a  href="${reverse('register_info')}">
+                                    ${_("More about registration")}
+                                </a>
+                            </label>
+                    </div>
                 </form>
 
                 <div class="row small-margin">
