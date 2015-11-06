@@ -54,5 +54,5 @@ class TestDmCloudVideoId(ModuleStoreTestCase):
                          HTTP_ACCEPT='application/json')
         video_tag_youtube = get_about_section(course, 'video')
         self.assertIn(dm_code, video_tag_youtube)
-        video_tag_dailymotion = '<iframe width="560" height="315" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + dm_code + '"></iframe>'
+        video_tag_dailymotion = '<iframe id="course-teaser" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + dm_code + '/?&api=postMessage"></iframe>'
         self.assertEqual(video_tag_dailymotion, get_teaser(course, video_tag_youtube))
