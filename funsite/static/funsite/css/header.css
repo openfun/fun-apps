@@ -54,6 +54,9 @@
 
 #top-menu .left-nav img.logo {
     margin-left: 20px;
+    margin-top: 2px;
+    width: 61px;
+    height: auto;
 }
 
 #top-menu .left-nav span.slogan {
