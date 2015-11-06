@@ -452,6 +452,25 @@ h3.big-title {
         width: 90% !important;
     }
 
+    h1.big-title {
+        font-size: 38px;
+    }
+    h2.big-title {
+        font-size: 32px;
+    }
+    h3.big-title {
+        font-size: 28px;
+    }
+    h1 {
+        font-size: 36px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    h3 {
+        font-size: 26px;
+    }
+
 }
 
 @media (max-width: 767px) {
