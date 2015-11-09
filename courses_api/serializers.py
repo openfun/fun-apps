@@ -39,7 +39,6 @@ class CourseSerializer(serializers.ModelSerializer):
             'start_date_display',
             'end_date',
             'enrollment_ended',
-            'score',
             'session_number',
             'session_display',
             'thumbnails',

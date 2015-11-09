@@ -139,3 +139,8 @@ class CourseAPITest(TestCase):
         response = self.client.get(self.api_url, filter_data)
         self.assertNotContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
+
+    def test_api_results_do_not_include_score(self):
+        response = self.client.get(self.api_url)
+        data = json.loads(response.content)
+        self.assertFalse('score' in data['results'][0])
