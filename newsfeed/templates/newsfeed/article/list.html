@@ -27,13 +27,17 @@ list(articles)
 
     <div class="row">
         <div class="col-lg-36 hidden-sm hidden-xs">
+            % if articles:
             ${newsfeed.news_block(articles[0], 'big')}
+            % endif
         </div>
     </div>
 
     <div class="row hidden-md hidden-lg">
         <div class="col-sm-36 text-center">
+            % if articles:
             ${newsfeed.news_block(articles[0], 'primary')}
+            % endif
         </div>
         <div class="col-xs-36 hidden-lg hidden-md hidden-sm text-center">
 
