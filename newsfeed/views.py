@@ -14,7 +14,7 @@ from . import models
 def top_news(count=5):
     """Return Top count news if available or fill result list with None for further boolean evaluation."""
     articles = ArticleListView().get_queryset_for_site()
-    return [articles[idx] if len(articles)>idx else None for idx in range(count)]
+    return [articles[idx] if len(articles) > idx else None for idx in range(count)]
 
 class StaffOnlyView(object):
     def dispatch(self, request, *args, **kwargs):
@@ -44,9 +44,7 @@ class ArticleListView(mako.MakoTemplateMixin, ListView, MicrositeArticleMixin):
         queryset = self.get_queryset_for_site()
 
         # We exclude the article that's selected in the featured section.
-        featured_section = models.FeaturedSection.get_solo()
-        if featured_section and featured_section.article:
-            queryset = queryset.exclude(id=featured_section.article.id)
+        queryset = queryset.filter(featured_section__isnull=True)
 
         return queryset
 

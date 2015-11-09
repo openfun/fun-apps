@@ -51,7 +51,7 @@ class ArticleManager(models.Manager):
 class FeaturedSection(SingletonModel):
 
     article = models.ForeignKey("Article", verbose_name=_("article"),
-        blank=True, null=True, related_name="a_+")
+        blank=True, null=True, related_name="featured_section")
     title = models.CharField(verbose_name=_("title"), max_length=256,
         blank=True, help_text=_("If no title is given here, we will use "
         "the related article's title."))
