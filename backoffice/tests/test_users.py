@@ -11,7 +11,6 @@ from student.models import UserStanding, Registration
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
 from fun.tests.utils import skipUnlessLms
-from courses.models import Course
 
 from .test_course_list import BaseCourseList
 

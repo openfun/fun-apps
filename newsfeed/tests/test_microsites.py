@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from student.tests.factories import UserFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
-from backoffice.tests.test_microsites import FAKE_MICROSITE1, FAKE_MICROSITE2
+from backoffice.tests.test_microsites import FAKE_MICROSITE1
 from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
 
 from ..models import Article

@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-import random
-
 from django.db import models
 
 from fun.utils.managers import ChainableManager
