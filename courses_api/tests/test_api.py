@@ -6,17 +6,19 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.timezone import now, timedelta
 
+from fun.tests.utils import skipUnlessLms
 from universities.factories import UniversityFactory
 
-from .factories import CourseFactory, CourseSubjectFactory
 from courses import choices as courses_choices
 from courses.models import CourseUniversityRelation
+from courses.tests.factories import CourseFactory, CourseSubjectFactory
 
 
+@skipUnlessLms
 class CourseAPITest(TestCase):
 
     def setUp(self):
-        self.api_url = reverse('fun-courses-api-list')
+        self.api_url = reverse('fun-courses:api-list')
         self.active_1 = CourseFactory(title='active course 1',
             show_in_catalog=True,
             is_active=True,

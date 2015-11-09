@@ -1,8 +1,9 @@
 from rest_framework import viewsets
 
+from courses.models import Course
+from courses.filters import CourseFilter
+
 from .serializers import CourseSerializer
-from .models import Course
-from .filters import CourseFilter
 
 
 class CourseAPIView(viewsets.ReadOnlyModelViewSet):

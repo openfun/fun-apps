@@ -8,8 +8,8 @@ from .api import CourseAPIView
 
 
 urlpatterns = patterns('',
-    url(r'^$', courses_index, name='fun-courses-index'),
-    url(r'^feed/$', CoursesFeed(), name='fun-courses-feed'),
+    url(r'^$', courses_index, name='index'),
+    url(r'^feed/$', CoursesFeed(), name='feed'),
 )
 
 router = CourseAPIRouter()

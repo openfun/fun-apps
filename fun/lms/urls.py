@@ -22,12 +22,12 @@ urlpatterns = patterns('',
     (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # override edX's courses page to replace by FUN's one (we need to use a other route)
-    (r'^cours/', include('courses.urls')),
+    (r'^cours/', include('courses_api.urls', namespace='fun-courses')),
     url(  # intercept old routes, and redirect
         r'^courses/$',
-        RedirectView.as_view(url=reverse_lazy('fun-courses-index'))
+        RedirectView.as_view(url=reverse_lazy('fun-courses:index'))
     ),
-    url(r'^courses$', RedirectView.as_view(url=reverse_lazy('fun-courses-index'))),
+                       url(r'^courses$', RedirectView.as_view(url=reverse_lazy('fun-courses:index'))),
 
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),

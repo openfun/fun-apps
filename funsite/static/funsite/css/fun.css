@@ -1044,21 +1044,10 @@ ul.universities-list {
 
 
 
-/* Courses filtering and searching courses/index.html */
-.courses-page {
-
-}
+/* Courses filtering and searching courses_api/index.html */
 .courses-page .big-title {
     margin-top: 40px;
     margin-bottom: 30px;
-}
-.course-list {
-
-}
-
-
-
-.course-list .list {
 }
 .course-list .list ul {
     list-style-type: none;

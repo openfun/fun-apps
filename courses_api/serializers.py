@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import locale
-
 from rest_framework import serializers
 
-from django.utils.translation import ugettext as _
-
+from courses.models import Course, CourseSubject
 from universities.serializers import UniversitySerializer
-from .models import Course, CourseSubject
+
 from .serializers_utils import CoursesCountSerializerMixin
 
 

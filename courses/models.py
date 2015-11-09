@@ -131,7 +131,7 @@ class CourseSubject(models.Model):
         verbose_name_plural = _('Course Subjects')
 
     def get_absolute_url(self):
-        url = reverse('fun-courses-index')
+        url = reverse('fun-courses:index')
         url = format('{}#filter/subject/{}/'.format(url, self.slug))
         return url
 

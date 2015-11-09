@@ -90,9 +90,9 @@ news = top_news(5)
         %if len(featured_courses) > index:
         <div class="${classes}">
             %if size == 'big':
-            <%include file="/courses/course-block/big.html" args="course=featured_courses[index]"/>
+            <%include file="/courses_api/course-block/big.html" args="course=featured_courses[index]"/>
             %else:
-            <%include file="/courses/course-block/small.html" args="course=featured_courses[index]"/>
+            <%include file="/courses_api/course-block/small.html" args="course=featured_courses[index]"/>
             %endif
         </div>
         %endif
@@ -143,7 +143,7 @@ news = top_news(5)
 
     <div class="row">
         <div class="col-lg-36 text-center">
-            <a href="${reverse('fun-courses-index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
+            <a href="${reverse('fun-courses:index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
         </div>
     </div>
 
@@ -257,7 +257,7 @@ news = top_news(5)
 
 <div class="row">
     <div class="col-lg-36 text-center">
-        <a href="${reverse('fun-courses-index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
+        <a href="${reverse('fun-courses:index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
     </div>
 </div>
 

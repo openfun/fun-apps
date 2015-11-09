@@ -12,6 +12,7 @@ INSTALLED_APPS += (
     'contact',
     'course_dashboard',
     'courses',
+    'courses_api',
     'newsfeed',
     'universities',
     'videoproviders',
@@ -59,7 +60,7 @@ MKTG_URL_LINK_MAP = {
     "LEGAL": "legal",
     "COPYRIGHTS": None,
     "ROOT": 'root',
-    'COURSES': 'fun-courses-index',
+    'COURSES': 'fun-courses:index',
 }
 FUN_MKTG_URLS = {}
 
@@ -93,7 +94,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
     FUN_BASE_ROOT / 'funsite/templates',
-    FUN_BASE_ROOT / 'courses/templates',
+    FUN_BASE_ROOT / 'courses_api/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
     FUN_BASE_ROOT / 'newsfeed/templates',

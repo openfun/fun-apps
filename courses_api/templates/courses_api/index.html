@@ -3,7 +3,7 @@
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
-from courses.routers import CourseAPIRouter
+from courses_api.routers import CourseAPIRouter
 %>
 
 <%inherit file="/funsite/parts/base-fluid.html" />
@@ -23,7 +23,7 @@ from courses.routers import CourseAPIRouter
 
 % for template_name in ['small-course-block', 'criterion-value', 'filter']:
 <script type="text/template" id="${template_name}-tpl">
-    ${static_include("courses/js/" + template_name + ".underscore")}
+    ${static_include("courses_api/js/" + template_name + ".underscore")}
 </script>
 % endfor
 
@@ -442,7 +442,7 @@ require(["jquery", "underscore", "backbone"],
                     name: "page",
                     value: this.filter.get("currentPage"),
                 })
-                return "${reverse(CourseAPIRouter.BASENAME + '-list')}" + '?' + $.param(parameters);
+                return "${reverse('fun-courses:%s-list' % CourseAPIRouter.BASENAME)}" + '?' + $.param(parameters);
             },
             parse: function (response) {
                this.resultstats.set("totalCount", response.count);
