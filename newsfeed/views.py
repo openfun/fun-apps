@@ -17,7 +17,7 @@ from . import models
 
 def top_news(count=5):
     """Return Top count news if available or fill result list with None for further boolean evaluation."""
-    articles = ArticleListView().get_queryset_for_site()
+    articles = ArticleListView().get_articles(with_featured_section=True)
     return [articles[idx] if len(articles) > idx else None for idx in range(count)]
 
 class StaffOnlyView(object):
@@ -36,32 +36,25 @@ class ArticleListView(mako.MakoTemplateMixin, ListView):
     template_name = 'newsfeed/article/list.html'
     context_object_name = 'articles'
 
-    def get_context_data(self, **kwargs):
-        context = super(ArticleListView, self).get_context_data(**kwargs)
-        context['featured_section'] = models.FeaturedSection.get_solo()
-        return context
-
     def get_queryset(self):
+        return self.get_articles(with_featured_section=False)
+
+    def get_articles(self, with_featured_section=True):
         # Note: We might want to filter on language and limit the queryset to
         # the first n results in the future (see the .featured() method).
-        queryset = self.get_queryset_for_site()
+        queryset = filter_queryset_for_site(models.Article.objects.viewable())
 
         # We exclude the article that's selected in the featured section.
-        queryset = queryset.filter(featured_section__isnull=True)
+        if not with_featured_section:
+            queryset = queryset.filter(featured_section__isnull=True)
 
         return queryset
-
-    def get_queryset_for_site(self):
-        return filter_queryset_for_site(self.get_viewable_queryset())
-
-    def get_viewable_queryset(self):
-        return models.Article.objects.viewable()
 article_list = ArticleListView.as_view()
 
 
 class ArticleListPreviewView(StaffOnlyView, ArticleListView):
-    def get_viewable_queryset(self):
-        return models.Article.objects.published_or(slug=self.kwargs['slug'])
+    def get_queryset(self):
+        return filter_queryset_for_site(models.Article.objects.published_or(slug=self.kwargs['slug']))
 article_list_preview = ArticleListPreviewView.as_view()
 
 

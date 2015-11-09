@@ -28,11 +28,13 @@ class TestNews(ModuleStoreTestCase):
     def test_microsite1(self):
         response = self.client.get(reverse('newsfeed-landing'))
         soup = BeautifulSoup(response.content)
+        big_articles = soup.find(class_='fun-news').find_all(class_='big')
         left_articles = soup.find(class_='fun-news').find_all(class_='left')
         right_articles = soup.find(class_='fun-news').find_all(class_='right')
-        self.assertEqual(1, len(left_articles))
+        self.assertEqual(1, len(big_articles))
+        self.assertEqual(0, len(left_articles))
         self.assertEqual(0, len(right_articles))
-        self.assertIn(u"Microsite 1", left_articles[0].find("h3").text)
+        self.assertIn(u"Microsite 1", big_articles[0].find("h3").text)
 
 
     @setMicrositeTestSettings(FAKE_MICROSITE1)
