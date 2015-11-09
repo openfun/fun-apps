@@ -18,6 +18,8 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.start_soon()
         if 'end-soon' in availability:
             queryset = queryset.end_soon()
+        if 'enrollment-ends-soon' in availability:
+            queryset = queryset.enrollment_ends_soon()
         if 'new' in availability:
             queryset = queryset.new()
         return queryset

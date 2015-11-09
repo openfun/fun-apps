@@ -44,7 +44,7 @@ require(["jquery", "underscore", "backbone"],
 
         var filters = [
             {title: "${_('Availability')}", name: 'availability', type: 'select', select: '#availability-select', values: [
-                {value: 'end-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_end_soon}},
+                {value: 'enrollment-ends-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_end_soon}},
                 {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
                 {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
             ]},

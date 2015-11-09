@@ -39,6 +39,9 @@ class CourseQuerySet(models.query.QuerySet):
     def too_late(self):
         return now() + timedelta(days=courses_settings.NUMBER_DAYS_TOO_LATE)
 
+    def too_late_range(self):
+        return (now(), self.too_late)
+
     def with_related(self):
         queryset = self.prefetch_related('subjects', 'universities')
         return queryset
@@ -47,10 +50,13 @@ class CourseQuerySet(models.query.QuerySet):
         return self.filter(is_active=True, show_in_catalog=True)
 
     def start_soon(self):
-        return self.public().filter(start_date__range=(now(), self.too_late))
+        return self.public().filter(start_date__range=self.too_late_range())
 
     def end_soon(self):
-        return self.public().filter(end_date__range=(now(), self.too_late))
+        return self.public().filter(end_date__range=self.too_late_range())
+
+    def enrollment_ends_soon(self):
+        return self.public().filter(enrollment_end_date__range=self.too_late_range())
 
     def new(self):
         """

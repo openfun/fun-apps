@@ -144,3 +144,16 @@ class CourseAPITest(TestCase):
         response = self.client.get(self.api_url)
         data = json.loads(response.content)
         self.assertFalse('score' in data['results'][0])
+
+    def test_enrollment_ends_soon(self):
+        self.active_1.enrollment_end_date = self.soon
+        self.active_1.save()
+        self.active_2.enrollment_end_date = self.too_late
+        self.active_2.save()
+        filter_data = {'availability': 'enrollment-ends-soon'}
+        response = self.client.get(self.api_url, filter_data)
+        data = json.loads(response.content)
+
+        self.assertEqual(1, len(data['results']))
+        self.assertEqual(self.active_1.title, data['results'][0]['title'])
+
