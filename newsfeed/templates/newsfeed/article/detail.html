@@ -2,18 +2,9 @@
 <%!
 from django.utils.translation import ugettext_lazy as _
 from django.utils.formats import date_format
-
-from microsite_configuration import microsite
-
-from newsfeed.models import Article
-
-newsfeed = Article.objects.all()
-
 %>
 
-
 <%inherit file="/funsite/parts/base-fixed-width.html" />
-
 
 <%block name="meta_extra">
     <meta property="og:site_name" content="France Université Numérique"/>
@@ -25,14 +16,9 @@ newsfeed = Article.objects.all()
 
 </%block>
 
-
 <%block name="title">${article.title}</%block>
 
-
 <%block name="content">
-
-
-
 <div class="news-detail main-content compensate-right-column">
 
 
@@ -99,13 +85,13 @@ newsfeed = Article.objects.all()
                             </div>
                             % endif
 
-                            % if article.courses.all().count():
+                            % if article_courses:
                             <div class="course-info diploma">
                                 <ul>
                                 <li>
                                     <strong>${_("Courses")}</strong>
                                 </li>
-                                % for course in article.courses.all():
+                                % for course in article_courses:
                                 <li>
                                      <a href="${course.get_absolute_url()}">${course.title}</a>
                                 </li>
@@ -115,13 +101,13 @@ newsfeed = Article.objects.all()
                             % endif
 
 
-                            % if article.links.count():
+                            % if article_links:
                             <div class="course-info link">
                                 <ul>
                                 <li>
                                     <strong>${_("Usefull links")}</strong>
                                 </li>
-                                % for link in article.links.all():
+                                % for link in article_links:
                                 <li>
                                      <a href="${link.url}" target="_blank">${link.name}</a>
                                 </li>
@@ -130,13 +116,13 @@ newsfeed = Article.objects.all()
                             </div>
                             % endif
 
-                            % if article.category and Article.objects.filter(category__slug=article.category.slug).count():
+                            % if category_articles:
                             <div class="course-info folder">
                                 <ul>
                                 <li>
                                     <strong>${_("In the same category")}</strong>
                                 </li>
-                                % for news in Article.objects.filter(category__slug=article.category.slug)[:3]:
+                                % for news in category_articles:
                                 <li>
                                      <a href="${news.get_absolute_url()}">${news.title}</a>
                                 </li>
@@ -144,9 +130,6 @@ newsfeed = Article.objects.all()
                                 </ul>
                             </div>
                             % endif
-
-
-
                         </div>
                         <div class="col-xxs-36 col-xs-18 col-sm-36 col-lg-18">
 
@@ -155,7 +138,7 @@ newsfeed = Article.objects.all()
                                     <li>
                                         <strong>${_("Featured news")}</strong>
                                     </li>
-                                    % for news in newsfeed[:3]:
+                                    % for news in featured_news:
                                     <li>
                                         <a href="${news.get_absolute_url()}">${news.title}</a>
                                     </li>
@@ -172,32 +155,4 @@ newsfeed = Article.objects.all()
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </%block>
-
-
-
-

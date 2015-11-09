@@ -2,11 +2,15 @@
 
 from django.conf import settings
 import django.http
-from django.views.generic import ListView, DetailView
+from django.shortcuts import get_object_or_404
+from django.views.generic import ListView
+
+from edxmako.shortcuts import render_to_response
 
 from microsite_configuration import microsite
 
 from fun.utils import mako
+from fun.utils.views import staff_required
 
 from . import models
 
@@ -23,13 +27,12 @@ class StaffOnlyView(object):
         return super(StaffOnlyView, self).dispatch(request, *args, **kwargs)
 
 
-class MicrositeArticleMixin(object):
-    def filter_queryset_for_site(self, queryset):
-        if settings.FEATURES['USE_MICROSITES']:
-            queryset = queryset.filter(microsite=microsite.get_value('SITE_NAME'))
-        return queryset
+def filter_queryset_for_site(queryset):
+    if settings.FEATURES['USE_MICROSITES']:
+        queryset = queryset.filter(microsite=microsite.get_value('SITE_NAME'))
+    return queryset
 
-class ArticleListView(mako.MakoTemplateMixin, ListView, MicrositeArticleMixin):
+class ArticleListView(mako.MakoTemplateMixin, ListView):
     template_name = 'newsfeed/article/list.html'
     context_object_name = 'articles'
 
@@ -49,7 +52,7 @@ class ArticleListView(mako.MakoTemplateMixin, ListView, MicrositeArticleMixin):
         return queryset
 
     def get_queryset_for_site(self):
-        return self.filter_queryset_for_site(self.get_viewable_queryset())
+        return filter_queryset_for_site(self.get_viewable_queryset())
 
     def get_viewable_queryset(self):
         return models.Article.objects.viewable()
@@ -62,34 +65,36 @@ class ArticleListPreviewView(StaffOnlyView, ArticleListView):
 article_list_preview = ArticleListPreviewView.as_view()
 
 
-class ArticleDetailView(mako.MakoTemplateMixin, DetailView, MicrositeArticleMixin):
-    template_name = 'newsfeed/article/detail.html'
-    context_object_name = 'article'
-    model = models.Article
+def article_detail(request, slug):
+    return render_article(models.Article.objects.published(), slug)
 
-    def get_context_data(self, **kwargs):
-        context = super(ArticleDetailView, self).get_context_data(**kwargs)
+@staff_required
+def article_preview(request, slug):
+    return render_article(models.Article.objects.all(), slug)
 
-        url = 'https://%s%s' % (settings.LMS_BASE, self.get_object().get_absolute_url())
-        twitter_action = 'https://twitter.com/intent/tweet?text=Actu+%s:+%s+%s' % (
-                settings.PLATFORM_TWITTER_ACCOUNT,
-                self.get_object().title,
-                url)
-        facebook_action = 'http://www.facebook.com/share.php?u=%s' % (url)
-        email_subject = u"mailto:?subject=Actualité France Université Numérique: %s&body=%s" % (
-                self.get_object().title, url)
+def render_article(queryset, slug):
+    article = get_object_or_404(filter_queryset_for_site(queryset), slug=slug)
 
-        context['twitter_action'] = twitter_action
-        context['email_subject'] = email_subject
-        context['facebook_action'] = facebook_action
-        return context
+    url = 'https://%s%s' % (settings.LMS_BASE, article.get_absolute_url())
+    twitter_action = 'https://twitter.com/intent/tweet?text=Actu+%s:+%s+%s' % (
+            settings.PLATFORM_TWITTER_ACCOUNT,
+            article.title,
+            url)
+    facebook_action = 'http://www.facebook.com/share.php?u=%s' % (url)
+    email_subject = u"mailto:?subject=Actualité France Université Numérique: %s&body=%s" % (
+            article.title, url)
+    category_articles = []
+    if article.category:
+        category_articles = list(queryset.filter(category__slug=article.category.slug)[:3])
+    featured_news = queryset[:3]
 
-    def get_queryset(self):
-        return self.filter_queryset_for_site(models.Article.objects.published())
-article_detail = ArticleDetailView.as_view()
-
-
-class ArticlePreviewView(StaffOnlyView, ArticleDetailView):
-    def get_queryset(self):
-        return self.filter_queryset_for_site(models.Article.objects.all())
-article_preview = ArticlePreviewView.as_view()
+    return render_to_response('newsfeed/article/detail.html', {
+        'article': article,
+        'article_courses': list(article.courses.all()),
+        'article_links': list(article.links.all()),
+        'category_articles': category_articles,
+        'twitter_action': twitter_action,
+        'email_subject': email_subject,
+        'facebook_action': facebook_action,
+        'featured_news': featured_news,
+    })
