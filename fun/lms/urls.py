@@ -61,13 +61,6 @@ urlpatterns += (
     url(r'^ckeditor/', include('ckeditor.urls')),
 )
 
-## Temporary static register_info page url resolution.
-## TODO Fix static funsite.urls.static_pages mecanism and delete this url conf.
-urlpatterns += (
-    url(r'^register_info$', "funsite.views.render_static_template", name='register_info'),
-)
-
-
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
