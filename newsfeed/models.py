@@ -156,7 +156,9 @@ class Article(models.Model):
     def get_thumbnail(self, size):
         try:
             thumbnailer = get_thumbnailer(self.thumbnail)
-            sizes = {'very-big': (1030, 625), 'big': (570, 325), 'primary': (570, 325), 'secondary': (275, 150)}
+            sizes = {'very-big': (1030, 625), 'big': (570, 325),
+                    'primary': (570, 325), 'secondary': (275, 150),
+                    'facebook': (600, 315)}
             thumbnail_options = {'crop': 'smart', 'size': sizes[size]}
             return thumbnailer.get_thumbnail(thumbnail_options)
         except InvalidImageFormatError:

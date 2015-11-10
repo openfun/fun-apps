@@ -21,6 +21,8 @@ newsfeed = Article.objects.all()
     <meta property="og:title" content="${article.title}" />
     <meta property="og:description" content="${article.get_lead_paragraph()}" />
     <meta property="og:locale" content="${article.language}" />
+    <meta property="og:image" content="//www.france-universite-numerique-mooc.fr/media/${article.get_thumbnail('facebook')}" />
+
 </%block>
 
 
