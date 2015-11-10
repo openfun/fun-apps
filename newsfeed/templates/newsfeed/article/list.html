@@ -13,10 +13,6 @@ from staticfiles.storage import staticfiles_storage
 
 <%block name="content">
 <%namespace name="newsfeed" file="./block.html"/>
-<%
-# Start iterating on the queryset in order to reduce the number of queries.
-list(articles)
-%>
 
 <h1 class="big-title big-margin text-center">
     ${_(u"All FUN news")}
