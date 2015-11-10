@@ -523,6 +523,10 @@ h3.big-title {
         padding: 20px !important;
         margin: 0 !important;
     }
+    .main-content {
+        padding-top: 0 !important;
+        background-color: white !important;
+    }
     .main-content .left {
         padding: 18px !important;
         background-color: white;

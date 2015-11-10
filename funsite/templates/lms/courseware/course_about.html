@@ -125,55 +125,28 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
     <div class="row">
 
-        <div class="col-lg-21 col-sm-26 no-gutter-left no-gutter-right">
-            <div class="left">
 
-                <div class="text-center">
+
+        <div class="col-lg-15 col-sm-10 col-lg-push-21 col-sm-push-26 no-gutter-left no-padding">
+            <div class="right">
+
+
+                <div class="text-center hidden-sm hidden-md hidden-lg">
                     <h1 class="big-title">
                         ${get_course_about_section(course, 'title')}
                     </h1>
                 </div>
-                <div class="line text-center">
+                <div class="line text-center hidden-sm hidden-md hidden-lg">
                     <span></span>
                 </div>
-
-                % if fun_course.subjects.all():
-                <div class="subjects">
-                    <ul>
-                        <li>
-                            ${_(u"Thematics")}
-                        </li>
-                        % for theme in fun_course.subjects.all():
-                        <li>
-                            <a href=""><span class="white blue-cell">
-                                ${theme.name}
-                            </span></a>
-                        </li>
-                        % endfor
-                    </ul>
-                </div>
-                % endif
-
-                <div class="course-image hidden-lg">
+                <div class="course-image hidden-lg hidden-sm hidden-md hidden-lg">
                     <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
 
 
-                <div class="description">
-
-                    ${get_course_about_section(course, 'overview')}
-
-                </div>
 
 
-            </div>
-        </div>
-
-
-
-        <div class="col-lg-15 col-sm-10 no-gutter-left no-padding">
-            <div class="right">
                 <div class="course-about-university-logo">
                     % if fun_course.universities.exists():
                     <a href="${fun_course.universities.all()[0].get_absolute_url()}">
@@ -298,6 +271,55 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
             </div>
         </div>
+
+
+        <div class="col-sm-26 col-lg-21 col-sm-pull-10 col-lg-pull-15 no-gutter-left no-gutter-right">
+            <div class="left">
+
+                <div class="text-center hidden-xs">
+                    <h1 class="big-title">
+                        ${get_course_about_section(course, 'title')}
+                    </h1>
+                </div>
+                <div class="line text-center hidden-xs">
+                    <span></span>
+                </div>
+
+                % if fun_course.subjects.all():
+                <div class="subjects">
+                    <ul>
+                        <li>
+                            ${_(u"Thematics")}
+                        </li>
+                        % for theme in fun_course.subjects.all():
+                        <li>
+                            <a href=""><span class="white blue-cell">
+                                ${theme.name}
+                            </span></a>
+                        </li>
+                        % endfor
+                    </ul>
+                </div>
+                % endif
+
+                <div class="course-image hidden-lg hidden-xs">
+                    <div class="video-button"></div>
+                    <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
+                </div>
+
+
+                <div class="description">
+
+                    ${get_course_about_section(course, 'overview')}
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
     </div>
 </div>
 
