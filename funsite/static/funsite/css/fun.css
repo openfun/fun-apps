@@ -634,6 +634,7 @@ h3.big-title {
     text-align: center;
 }
 .course-block .title {
+    color: #0C3D72;
     position: relative;
     text-align: center;
     width: 100%;
@@ -758,8 +759,8 @@ h3.big-title {
 }
 .big-course .middle {
     height: 99px;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 .big-course .footer {
     width: 370px;

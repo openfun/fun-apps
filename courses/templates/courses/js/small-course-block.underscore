@@ -13,7 +13,7 @@
     </div>
     <div class="middle">
         <div class="title">
-            <a class="no-decoration color-regal-blue" href="<%= course_about %>"><%= title %></a>
+            <a class="no-decoration" href="<%= course_about %>"><%= title %></a>
         </div>
         <div class="universities">
             <% _.each(universities, function(university) { %>
