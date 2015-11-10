@@ -35,10 +35,3 @@ class TestNews(ModuleStoreTestCase):
         self.assertEqual(0, len(left_articles))
         self.assertEqual(0, len(right_articles))
         self.assertIn(u"Microsite 1", big_articles[0].find("h3").text)
-
-
-    @setMicrositeTestSettings(FAKE_MICROSITE1)
-    def test_featured_article_is_not_displayed(self):
-        # TODO: because FeaturedSection is a singleton, featured articles will
-        # be displayed on every microsite. This should be fixed.
-        pass

@@ -48,10 +48,13 @@ class ArticleManager(models.Manager):
         return self.viewable(get_language())[:ArticleManager.FEATURED_ARTICLES_COUNT]
 
 
+# TODO: the FeaturedSection is no longer used and should be removed. The
+# featured article is the first article by decreasing date with a true "pinned"
+# attribute; if none exist, it is the latest article.
 class FeaturedSection(SingletonModel):
 
     article = models.ForeignKey("Article", verbose_name=_("article"),
-        blank=True, null=True, related_name="featured_section")
+        blank=True, null=True)
     title = models.CharField(verbose_name=_("title"), max_length=256,
         blank=True, help_text=_("If no title is given here, we will use "
         "the related article's title."))
@@ -130,6 +133,8 @@ class Article(models.Model):
             auto_now=True)
     published = models.BooleanField(verbose_name=_("published"),
             default=False)
+    # TODO: the order field is no longer necessary and should be removed.
+    # Articles should be sorted by decreasing date by default.
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     microsite = models.CharField(max_length=128, blank=True, db_index=True)
@@ -137,7 +142,7 @@ class Article(models.Model):
     objects = ArticleManager()
 
     class Meta:
-        ordering = ["order", "-created_at"]
+        ordering = ["-created_at"]
 
     def related(self):
         """

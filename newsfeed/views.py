@@ -15,6 +15,18 @@ from fun.utils.views import staff_required
 from . import models
 
 
+def get_articles():
+    """
+    List viewable articles for the current site.
+
+    Note: We might want to filter on language and limit the queryset to the
+    first n results in the future (see the .featured() method).
+
+    Returns:
+        queryset
+    """
+    return filter_queryset_for_site(models.Article.objects.viewable())
+
 def top_news(count=5):
     """Return Top count news if available or fill result list with None for further boolean evaluation."""
     articles = get_articles()[:count]
@@ -22,7 +34,7 @@ def top_news(count=5):
 
 def article_list(request):
     # We exclude the article that's selected in the featured section.
-    return render_articles(get_articles().filter(featured_section__isnull=True))
+    return render_articles(get_articles())
 
 @staff_required
 def article_list_preview(request, slug):
@@ -32,11 +44,6 @@ def render_articles(articles_queryset):
     return render_to_response('newsfeed/article/list.html', {
         'articles': list(articles_queryset)
     })
-
-def get_articles():
-    # Note: We might want to filter on language and limit the queryset to
-    # the first n results in the future (see the .featured() method).
-    return filter_queryset_for_site(models.Article.objects.viewable())
 
 def filter_queryset_for_site(queryset):
     if settings.FEATURES['USE_MICROSITES']:

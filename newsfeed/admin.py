@@ -30,10 +30,6 @@ class ArticleAdminForm(forms.ModelForm):
             self.fields['created_at'].initial = datetime.datetime.now()
 
 
-class FeaturedSectionAdmin(SingletonModelAdmin):
-    raw_id_fields = ('article',)
-
-
 class ArticleCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'order')
     prepopulated_fields = {'slug': ('name',)}
@@ -69,5 +65,4 @@ class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
     preview.allow_tags = True
 
 admin.site.register(models.Article, ArticleAdmin)
-admin.site.register(models.FeaturedSection, FeaturedSectionAdmin)
 admin.site.register(models.ArticleCategory, ArticleCategoryAdmin)
