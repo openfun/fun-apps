@@ -1,14 +1,17 @@
 ## mako
 <%!
 from django.utils.translation import ugettext as _
-
 %>
 
 <%inherit file="/funsite/parts/simple-content.html" />
 
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
 <%block name="title">${_("Universities")}</%block>
 
 <%block name="page_content">
+
+    ${breadcrumbs.breadcrumbs(_("Universities"))}
 
 <div class="universities universities-page">
 

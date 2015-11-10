@@ -15,9 +15,9 @@ from staticfiles.storage import staticfiles_storage
     <section class="courses-container">
 
 
-    <ul class="faq-breadcrumb">
-        <li><a href="${reverse('faq:index')}">${_("Help")}</a>&nbsp;>&nbsp;</li>
-        <li><a href="${reverse('faq:index')}#${article['category']['id']}">${article['category']['name']}</a>&nbsp;>&nbsp;</li>
+    <ul class="breadcrumbs">
+        <li><a href="${reverse('faq:index')}">${_("Help")}</a></li>
+        <li><a href="${reverse('faq:index')}#${article['category']['id']}">${article['category']['name']}</a></li>
         <li><a href="${reverse('faq:index')}#${article['section']['id']}">${article['section']['name']}</a></li>
     </ul>
 

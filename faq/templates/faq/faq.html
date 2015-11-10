@@ -8,10 +8,14 @@ from staticfiles.storage import staticfiles_storage
 
 <%inherit file="/funsite/parts/simple-content.html" />
 
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
 <%block name="title">${_("Help")}</%block>
 
 
 <%block name="page_content">
+${breadcrumbs.breadcrumbs(article_tree[0]['name'])}
+
 <section class="fun-faq">
     <section class="courses-container">
         % if article_tree:

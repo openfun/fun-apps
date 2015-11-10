@@ -9,6 +9,7 @@ from courses_api.routers import CourseAPIRouter
 <%inherit file="/funsite/parts/base-fluid.html" />
 
 <%block name="title">${_("Courses")}</%block>
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 
 <%block name="js_extra">
 
@@ -535,6 +536,9 @@ require(["jquery", "underscore", "backbone"],
 </%block>
 
 <%block name="content">
+    <div class="breadcrumbs-wrapper">
+        ${breadcrumbs.breadcrumbs(_("Courses"))}
+    </div>
 
 <div class="courses-page">
     <div class="row-fluid">

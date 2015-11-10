@@ -1,14 +1,17 @@
 ## mako
 <%!
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
 %>
 
 <%inherit file="/funsite/parts/simple-content.html" />
 
-<%block name="title">Politique de confidentialité</%block>
-
+<%block name="title">${_("Privacy policy")}</%block>
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 <%block name="page_content">
+
+  ${breadcrumbs.breadcrumbs(_("Privacy policy"))}
 
 <section>
   <h1>Politique de confidentialité</h1>

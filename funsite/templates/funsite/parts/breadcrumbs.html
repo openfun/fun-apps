@@ -1,0 +1,16 @@
+## mako
+
+<%!
+from funsite.utils import breadcrumbs
+%>
+
+<%def name="breadcrumbs(current_page)">
+    <div>
+        <ul class="breadcrumbs">
+            % for item in breadcrumbs(request.META['PATH_INFO'], current_page):
+                <li><a href="${item[0]}">${item[1]}</a></li>
+            % endfor
+        </ul>
+    </div>
+</%def>
+

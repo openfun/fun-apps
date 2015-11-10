@@ -2,13 +2,16 @@
 <%!
 from django.core.urlresolvers import reverse
 from staticfiles.storage import staticfiles_storage
+from django.utils.translation import ugettext as _
 %>
 
 <%inherit file="/funsite/parts/simple-content.html" />
 
-<%block name="title">Qu’est-ce que FUN ?</%block>
+<%block name="title">${_("About FUN")}</%block>
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 
 <%block name="page_content">
+    ${breadcrumbs.breadcrumbs(_("About FUN"))}
     <section>
       <article>
           <h2>Qu’est-ce que FUN ?</h2>

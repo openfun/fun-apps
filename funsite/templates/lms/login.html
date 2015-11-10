@@ -7,11 +7,15 @@ from staticfiles.storage import staticfiles_storage
 
 <%inherit file="funsite/parts/simple-content.html" />
 
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
 <%block name="title">
     ${_("Log in to your {platform_name} account").format(platform_name=platform_name)}
 </%block>
 
 <%block name="page_content">
+    ${breadcrumbs.breadcrumbs(_("Login"))}
+
 <div class="login-row single-column">
     <h2 class="color-regal-blue">${_("Please log in to access your account and courses")}</h2>
     <form role="form" class="login-form login-form-page" method="post" data-remote="true" action="/login_ajax" novalidate>
