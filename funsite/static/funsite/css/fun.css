@@ -12,6 +12,9 @@ body {
 .color-athens-grey {
     color: #EFF0F1 !important;
 }
+.color-light-gray {
+    color: #D1D2D3 !important;
+}
 .color-oxford-blue {
     color: #062644 !important;
 }
@@ -24,6 +27,7 @@ body {
 .color-deep-carmin {
     color: #F83336 !important;
 }
+
 .font-weight-300 {
     font-weight: 300 !important;
 }
@@ -295,6 +299,37 @@ h3.big-title {
     background-position: -88px 0;
 }
 
+/* Breadcrumbs */
+
+div.breadcrumbs-wrapper {
+    /* On page without white frame like courses and news, breadcrumbs must have its own margin */
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+ul.breadcrumbs {
+    display: block;
+    list-style: none;
+    position: relative;
+    top: 10px;
+    left: 10px;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+ul.breadcrumbs li {
+    display: inline;
+    color: #D1D2D3;
+}
+ul.breadcrumbs li:not(:last-child):after {
+    content: "   •";
+}
+ul.breadcrumbs li a {
+    color: #D1D2D3;
+}
+ul.breadcrumbs li a:hover {
+    color: #F83336;
+}
 
 /* Responsive */
 /*
@@ -579,7 +614,6 @@ h3.big-title {
 
     ul.faq-categories,
     ul.faq-sections,
-    ul.faq-breadcrumb {
         padding: 0 !important;
     }
 
@@ -1754,12 +1788,6 @@ ul.faq-articles > li {
 .faq-last-update span {
     font-size: 12px;
     color: #666;
-}
-
-ul.faq-breadcrumb li {
-    list-style-type: none;
-    float: left;
-    font-size: 14px;
 }
 
 div.article {

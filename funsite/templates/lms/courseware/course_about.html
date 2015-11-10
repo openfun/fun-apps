@@ -82,6 +82,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 </%block>
 
 <%block name="title">${get_course_about_section(course, 'title')}</%block>
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 
 
 <%block name="content">
@@ -126,12 +127,14 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
     <div class="row">
 
 
-
         <div class="col-lg-15 col-sm-10 col-lg-push-21 col-sm-push-26 no-gutter-left no-padding">
+
             <div class="right">
 
 
+
                 <div class="text-center hidden-sm hidden-md hidden-lg">
+                    ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
                     <h1 class="big-title">
                         ${get_course_about_section(course, 'title')}
                     </h1>
@@ -276,7 +279,9 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
         <div class="col-sm-26 col-lg-21 col-sm-pull-10 col-lg-pull-15 no-gutter-left no-gutter-right">
             <div class="left">
 
+
                 <div class="text-center hidden-xs">
+                    ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
                     <h1 class="big-title">
                         ${get_course_about_section(course, 'title')}
                     </h1>

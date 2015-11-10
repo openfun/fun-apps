@@ -6,6 +6,9 @@ from django.utils.formats import date_format
 
 <%inherit file="/funsite/parts/base-fixed-width.html" />
 
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
+
 <%block name="meta_extra">
     <meta property="og:site_name" content="France Université Numérique"/>
     <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${article.get_absolute_url()}" />
@@ -19,12 +22,13 @@ from django.utils.formats import date_format
 <%block name="title">${article.title}</%block>
 
 <%block name="content">
-<div class="news-detail main-content compensate-right-column">
 
+<div class="news-detail main-content compensate-right-column">
 
     <div class="row">
         <div class="col-lg-21 col-sm-26 no-gutter-right">
             <div class="left">
+                ${breadcrumbs.breadcrumbs(article.title)}
 
                 <div class="header">
 

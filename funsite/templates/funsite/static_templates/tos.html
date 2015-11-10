@@ -2,13 +2,18 @@
 <%!
 from django.core.urlresolvers import reverse
 from staticfiles.storage import staticfiles_storage
+from django.utils.translation import ugettext as _
 %>
 
 <%inherit file="/funsite/parts/simple-content.html" />
 
-<%block name="title">Conditions Générales d’Utilisation</%block>
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
+<%block name="title">${_("Terms of use")}</%block>
 
 <%block name="page_content">
+
+${breadcrumbs.breadcrumbs(_("Terms of use"))}
 
 <section>
   <h1>Conditions Générales d’Utilisation</h1>

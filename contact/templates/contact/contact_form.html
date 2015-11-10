@@ -7,9 +7,14 @@ from django.core.urlresolvers import reverse
 
 <%inherit file="/funsite/parts/simple-content.html" />
 
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
 <%block name="title">${_("Contact")}</%block>
 
 <%block name="page_content">
+
+
+${breadcrumbs.breadcrumbs(_("Contact"))}
 <div class="single-column">
     <h2>${_('Contact us')}</h2>
     <p>${_("Do you already follow one or several courses on {platform_name}? If you have questions, suggestions or difficulties about a course in particular? Post a comment on the related forum.").format(platform_name=settings.PLATFORM_NAME)}</p>
