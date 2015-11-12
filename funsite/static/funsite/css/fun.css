@@ -591,10 +591,7 @@ h3.big-title {
     .col-xxs-36 {
         width: 100%;
     }
-
-
 }
-
 
 .homepage-header {
     text-align: center;
@@ -607,6 +604,7 @@ h3.big-title {
     margin-top: 0;
     font-weight: 500;
     color: white;
+    text-shadow: 0 0 3px black;
 }
 .homepage-header img.logo-fun {
     display: inline-block;
