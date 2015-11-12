@@ -1,4 +1,5 @@
 <%inherit file="funsite/parts/simple-content.html" />
+<%namespace file='main.html' import="login_query"/>
 
 <%! from django.core.urlresolvers import reverse %>
 <%! from django.utils import html %>
@@ -167,7 +168,7 @@
                 <div class="row small-margin">
                     <div class="col-md-36">
                         <h4 class="text-center">${_("Do you already have an account?")}</h4>
-                        <a href="${reverse('signin_user')}" class="btn btn-default btn-padded btn-block">${_("Sign in")}</a>
+                        <a href="${reverse('signin_user')}${login_query()}" class="btn btn-default btn-padded btn-block">${_("Sign in")}</a>
                     </div>
                 </div>
             </div>
