@@ -3,6 +3,11 @@ import random
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
+from student.models import CourseEnrollment
+from student.tests.factories import UserFactory
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
+
 from backoffice.tests.test_microsites import FAKE_MICROSITE1, FAKE_MICROSITE2
 from fun.tests.utils import skipUnlessLms, setMicrositeTestSettings
 import newsfeed.tests.factories as newsfactories
@@ -41,3 +46,19 @@ class TestHomepage(TestCase):
         )
         response = self.get_root_page()
         self.assertFalse(str(article.title) in response.content)
+
+
+class TestLoginPage(ModuleStoreTestCase):
+
+    def login_with_enrollment(self):
+        course = CourseFactory.create()
+        user = UserFactory.create()
+        self.assertFalse(CourseEnrollment.is_enrolled(user, course.id))
+        post_params = {
+            'email': user.email,
+            'password': 'test',
+            'enrollment_action': 'enroll',
+            'course_id': unicode(course.id)
+        }
+        self.client.post(reverse('login'), post_params)
+        self.assertTrue(CourseEnrollment.is_enrolled(user, course.id))

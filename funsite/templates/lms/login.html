@@ -27,6 +27,10 @@ from staticfiles.storage import staticfiles_storage
             <input class="form-control  id="password" name="password" type="password" placeholder="${_(u"Password")}">
             <div class="forgotten-password clickable"><a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" >${_(u"Forgot password?")}</a></div>
         </div>
+        % if course_id and enrollment_action:
+            <input type="hidden" name="enrollment_action" value="${enrollment_action | h}" />
+            <input type="hidden" name="course_id" value="${course_id | h}" />
+        % endif
         <button name="submit" type="submit" id="submit" class="btn btn-lg btn-primary btn-block" aria-disabled="false">${_('Log In')}</button>
     </form>
 
