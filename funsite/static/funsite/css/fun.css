@@ -330,9 +330,11 @@ h3.big-title {
         background-image: url('../images/homepage2495.png');
     }
     .homepage-header h1 {
-        padding-top: 200px;
         font-size: 50px;
-        margin-bottom: 70px;
+    }
+    .homepage-header img.logo-fun {
+        margin-left: -97px;
+        top: 387px;
     }
 
     .main-content .right {
@@ -372,13 +374,13 @@ h3.big-title {
         background-image: url('../images/homepage1900.png')
     }
     .homepage-header h1 {
-        padding-top: 140px;
         font-size: 44px;
-        margin-bottom: 50px;
     }
     .homepage-header img.logo-fun {
         width: 195px;
         height: 180px;
+        margin-left: -97px;
+        top: 297px;
     }
 
     .main-content .right {
@@ -421,13 +423,13 @@ h3.big-title {
         background-image: url('../images/homepage1280.png')
     }
     .homepage-header h1 {
-        padding-top: 140px;
         font-size: 40px;
-        margin-bottom: 36px;
     }
     .homepage-header img.logo-fun {
         width: 156px;
         height: 144px;
+        margin-left: -78px;
+        top: 282px;
     }
 
     .register-page .right {
@@ -492,13 +494,13 @@ h3.big-title {
         background-image: url('../images/homepage768.png')
     }
     .homepage-header h1 {
-        padding-top: 110px;
-        font-size: 30px;
-        margin-bottom: 20px;
+        font-size: 28px;
     }
     .homepage-header img.logo-fun {
         width: 98px;
         height: 90px;
+        margin-left: -49px;
+        top: 260px;
     }
     .course-list-table .right {
         padding-left: 0 !important;
@@ -594,6 +596,9 @@ h3.big-title {
 }
 
 .homepage-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     width: 100%;
     background-position: center center;
@@ -601,13 +606,13 @@ h3.big-title {
     padding: 0 20px;
 }
 .homepage-header h1 {
-    margin-top: 0;
     font-weight: 500;
     color: white;
     text-shadow: 0 0 3px black;
 }
 .homepage-header img.logo-fun {
-    display: inline-block;
+    position: absolute;
+    left: 50%;
 }
 
 
