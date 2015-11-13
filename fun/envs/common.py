@@ -26,7 +26,7 @@ BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
 FAVICON_PATH = "fun/images/favicon.ico"
 
 PLATFORM_FACEBOOK_ACCOUNT = 'https://www.facebook.com/france.universite.numerique'
-PLATFORM_TWITTER_ACCOUNT = '@universite_num'
+PLATFORM_TWITTER_ACCOUNT = '@funmooc'
 
 # those 2 constants are used in code to describe certificate, they are not i18ned, you could do it
 CERT_NAME_SHORT = u"Attestation"
