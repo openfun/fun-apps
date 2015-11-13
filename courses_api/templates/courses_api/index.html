@@ -460,7 +460,7 @@ require(["jquery", "underscore", "backbone"],
             render: function() {
                 /* add some fake blocks to get correct alignment on last line */
                 this.$el.find('.fake').remove();  // clear previousely added fake blocks
-                for (var i = (this.collection.length % 5); i >= 0; i--) {
+                for (var i = 5; i >= 0; i--) {
                     this.$el.append($('<li>').attr('class', 'small-course fake'));
                 };
                 return this;
