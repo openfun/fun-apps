@@ -60,7 +60,7 @@ msgstr "Universités"
 
 #: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:9
 msgid "Universities"
-msgstr "Etablissements"
+msgstr "Établissements"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:34
 msgid "banner"

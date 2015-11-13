@@ -29,7 +29,7 @@ msgstr "Token d'accès"
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:16
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:43
 msgid "Associated university"
-msgstr "Etablissement associé"
+msgstr "Établissement associé"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:409
 msgid "Could not change video title"

@@ -76,6 +76,29 @@ msgstr "Introduction"
 msgid "Set 0 if session doesn't make sense for this course."
 msgstr "Mettre à 0 s'il n'y a pas de notion de session pour ce cours."
 
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/listing.html:31
+msgid "Start date:"
+msgstr "Date de début :"
+
+# Translated in edx by 'Commence'
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/big.html:36
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/small.html:36
+msgctxt "course-block"
+msgid "Starts"
+msgstr "Débute"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:48
+msgid "Starts soon"
+msgstr "Démarre bientôt"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:51
+msgid "Themes"
+msgstr "Thèmes"
+
+#: /edx/app/edxapp/fun-apps/courses/templates/courses/index.html:56
+msgid "Universities"
+msgstr "Établissements"
+
 # Translated in edx by 'Université'
 #: /edx/app/edxapp/fun-apps/courses/forms.py:29
 msgid "University"
