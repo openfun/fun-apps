@@ -160,19 +160,13 @@ news = top_news(5)
         <div class="col-md-36">
             <ul class="universities-list">
             % for university in universities:
-                % if (loop.index > 11):
-                    <li class="hidden-lg">
-                % elif (loop.index > 5):
-                    <li class="hidden-md">
-                % else:
-                    <li>
-                % endif
-                        <a href="${university.get_absolute_url()}">
-                            <div class="university-logo center-block">
-                                <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}" class="img-responsive">
-                            </div>
-                        </a>
-                    </li>
+                <li>
+                    <a href="${university.get_absolute_url()}">
+                        <div class="university-logo center-block">
+                            <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}" class="img-responsive">
+                        </div>
+                    </a>
+                </li>
             % endfor
             </ul>
         </div>
