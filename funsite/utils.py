@@ -1,5 +1,11 @@
+# -*- coding: utf-8 -*-
+
+from collections import namedtuple
 
 from django.utils.translation import pgettext, ugettext as _
+
+BreadcrumbsItem = namedtuple('BreadcrumbsItem', ['path', 'name'])
+
 
 def breadcrumbs(url, current_page):
     """
@@ -15,13 +21,13 @@ def breadcrumbs(url, current_page):
         'news': pgettext("fun-news", "News"),
         'universities': _("Universities"),
     }
-    result = [('/', _(u"Home"))]
+    result = [BreadcrumbsItem(path='/', name=_(u"Home"))]
 
     items = url.split('/')[1:]  # split and remove first backslash
     if len(items) > 1 and items[1]:
         if items[0] == 'courses':
             items[0] = 'cours'
-        result.append(('/%s/' % items[0], mapping[items[0]]))
+        result.append(BreadcrumbsItem(path='/%s/' % items[0], name=mapping[items[0]]))
 
-    result.append(('#', current_page))
+    result.append(BreadcrumbsItem(path='#', name=current_page))
     return result

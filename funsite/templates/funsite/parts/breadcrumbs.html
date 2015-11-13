@@ -8,7 +8,7 @@ from funsite.utils import breadcrumbs
     <div>
         <ul class="breadcrumbs">
             % for item in breadcrumbs(request.META['PATH_INFO'], current_page):
-                <li><a href="${item[0]}">${item[1]}</a></li>
+                <li><a href="${item.path}">${item.name}</a></li>
             % endfor
         </ul>
     </div>
