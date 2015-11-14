@@ -4,9 +4,12 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.translation import pgettext, ugettext as _
 
+from fun.tests.utils import skipUnlessLms
+
 from ..utils import breadcrumbs
 
 
+@skipUnlessLms
 class TestBreadcrumbs(TestCase):
 
     def test_static_pages(self):
