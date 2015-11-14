@@ -172,8 +172,6 @@ PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 
-# Also embed a tiny version of bootstrap (grid-only)
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/bootstrap/grid-only/css/bootstrap.min.css')
 
 # js/lms-application.js
 PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
