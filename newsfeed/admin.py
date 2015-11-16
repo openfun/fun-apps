@@ -5,7 +5,6 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from adminsortable.admin import SortableAdminMixin
-from solo.admin import SingletonModelAdmin
 
 from . import models
 
@@ -61,7 +60,7 @@ class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
         template = u"""<img src="{url}" style="max-height: 48px;" />"""
         url = obj.thumbnail.url if obj.thumbnail else ''
         return template.format(url=url)
-    preview.short_description=_('preview')
+    preview.short_description = _('preview')
     preview.allow_tags = True
 
 admin.site.register(models.Article, ArticleAdmin)

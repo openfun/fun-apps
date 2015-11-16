@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
-import django.http
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView
 
 from edxmako.shortcuts import render_to_response
 
 from microsite_configuration import microsite
 
-from fun.utils import mako
 from fun.utils.views import staff_required
 
 from . import models
