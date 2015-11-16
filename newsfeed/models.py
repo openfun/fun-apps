@@ -164,7 +164,7 @@ class Article(models.Model):
             sizes = {'very-big': (1030, 625), 'big': (570, 325),
                     'primary': (570, 325), 'secondary': (275, 150),
                     'facebook': (600, 315)}
-            thumbnail_options = {'crop': 'smart', 'size': sizes[size]}
+            thumbnail_options = {'crop': 'smart', 'size': sizes[size], 'upscale': True}
             return thumbnailer.get_thumbnail(thumbnail_options)
         except InvalidImageFormatError:
             return ''  ## todo: generic image
