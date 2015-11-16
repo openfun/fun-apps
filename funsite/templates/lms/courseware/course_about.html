@@ -279,9 +279,9 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
         <div class="col-sm-26 col-lg-21 col-sm-pull-10 col-lg-pull-15 no-gutter-left no-gutter-right">
             <div class="left">
 
+                ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
 
                 <div class="text-center hidden-xs">
-                    ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
                     <h1 class="big-title">
                         ${get_course_about_section(course, 'title')}
                     </h1>
