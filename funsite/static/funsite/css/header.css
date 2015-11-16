@@ -52,7 +52,7 @@
 #sandwich-menu-icon {
     display : inline-block;
     vertical-align: middle;
-    width: 35px;
+    width: 50px;
     height: 60px;
     cursor: pointer;
 }
@@ -118,7 +118,7 @@
 
 #top-menu .left-nav img.logo {
     vertical-align: middle;
-    margin-left: 20px;
+    margin-left: 6px;
     margin-top: 2px;
     width: 61px;
     height: auto;
