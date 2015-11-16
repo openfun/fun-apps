@@ -35,11 +35,17 @@
     /* Dropdown menu */
     $('#top-menu .right-nav .toggle-dropdown-menu').on('click', toggleDropdown);
 
-     $('body').click(function() {
+     $('body').click(function(e) {
          if ($('#top-menu .fun-dropdown-menu').is(":visible")) {
              $('#top-menu .fun-dropdown-menu').slideUp();
              toggleAccessiblePopUpAria(false);
          }
+
+	 if ($('.navigation-bar  ul.results-per-page-choices').is(":visible")){
+
+             $('.navigation-bar  ul.results-per-page-choices').hide();
+         }
+
      });
 
     function toggleDropdown(event) {
