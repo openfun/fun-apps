@@ -378,7 +378,8 @@ require(["jquery", "underscore", "backbone"],
             },
             events: {
                 "click .glyphicon-remove": "clearSelectedValue",
-                "change .results-per-page": "changeResultsPerPage",
+                "click .results-per-page": "toggleResultsPerPageChoices",
+                "click .change-results-per-page": "changeResultsPerPage",
                 "click .result-page": "changeCurrentPage",
             },
             template: loadTemplate("filter"),
@@ -386,9 +387,21 @@ require(["jquery", "underscore", "backbone"],
                 this.model.startNewSearch(null);
                 $('.small-device-filter select').prop('selectedIndex', 0);  // reset selects
             },
+            toggleResultsPerPageChoices: function(e) {
+                if ($(e.target).parents().is('.result-navigation-top')) {
+                    var resultsPerPageChoices = $(".result-navigation-top .navigation-bar  ul.results-per-page-choices");
+                }
+                else {
+                    var resultsPerPageChoices = $(".result-navigation-bottom .navigation-bar  ul.results-per-page-choices");
+                }
+                resultsPerPageChoices.css("width", $('.navigation-bar  .results-per-page').outerWidth());
+                resultsPerPageChoices.toggle();
+                e.stopPropagation();
+             },
             changeResultsPerPage: function(e) {
-                var resultsPerPage = parseInt(e.target.selectedOptions[0].value);
+                var resultsPerPage = parseInt($(e.target).attr("value"));
                 this.model.set("resultsPerPage", resultsPerPage);
+                e.stopPropagation();
             },
             changeCurrentPage: function(e) {
                 this.model.set("currentPage", parseInt($(e.target).attr("data-page")));
@@ -577,14 +590,14 @@ require(["jquery", "underscore", "backbone"],
 
                     </div>
 
-                    <div class="result-navigation">
+                    <div class="result-navigation result-navigation-top">
                     </div>
 
                     <div class="list">
                         <ul id="course-filtering-results"></ul>
                     </div>
 
-                    <div class="result-navigation hide-search-filter"></div>
+                    <div class="result-navigation result-navigation-bottom"></div>
 
                     <div id="all-themes-overlay" class="criteria-overlay criteria-block hide-on-escape-key overlay">
                         <div class="pull-right">

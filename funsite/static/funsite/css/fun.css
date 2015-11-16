@@ -28,6 +28,9 @@ body {
 .color-deep-carmin {
     color: #F83336 !important;
 }
+.color-iron {
+    color:  #989898;
+}
 
 .light-weight {
     font-weight: 300 !important;
@@ -1230,29 +1233,129 @@ ul.universities-list {
   outline: 0;
 }
 
+/**** Navigation bar ****/
 
+.navigation-bar {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    
+    -webkit-justify-content:  space-between;
+    -webkit-box-justify-content: space-between;
+    -moz-box-justify-content:  space-between;
+    -ms-justify-content:  space-between;
+    justify-content: space-between;
 
-.result-navigation {
+    -webkit-flex-wrap:  wrap;
+    -webkit-box-flex-wrap: wrap;
+    -moz-box-flex-wrap:  wrap;
+    -ms-flex-wrap:  wrap;
+    flex-wrap: wrap;
+
+    padding-left: 20px;
+    margin-bottom: 24px;
     border: 1px solid #CBCCCD;
-    margin: 0 0 24px 0;
-    padding: 8px;
+    font-size: 16px;
 }
-.result-navigation>div.row>div {
-    padding: 4px 12px 4px;
+
+/* Navigation blocks are 60px height block with centered content (vertically and horizontally). 
+ Sadly flex display and margin auto is not working under IE 10/11.
+ See http://stackoverflow.com/questions/32137334/flexbox-min-height-margin-auto-and-internet-explorer.
+ That why we use `padding-top` and `text-align` to vertically, horizontally center content  inside navigation block. This could be remove once we decide to stop handling these versions of IE.
+*/
+
+.navigation-block {
+    display: inline-block;
+    height: 60px;
+    padding-top: 19.25px;
+}
+
+.navigation-bar .navigation-block.labels-search {
+    vertical-align: bottom;
+}
+.navigation-block .pages {
+    display: inline-block;
+}
+
+
+/* Various light horizontal alignments. */
+.navigation-bar .labels-search {
+    margin-left: 15px;
+}
+.navigation-bar .labels-search .blue-cell {
+    margin-left: 15px;
+}
+.navigation-bar .page-backward {
+    margin-right: 13px;
+}
+.navigation-bar .page-forward {
+    margin-left: 13px;
+}
+.navigation-bar .page-list {
+    margin-right: 20px;
+}
+.navigation-bar .results-per-page .glyphicon-menu-down {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.navigation-bar .results-per-page {
+     padding-left: 20px;
+     padding-right: 15px;
+}
+
+/* Various light vertical alignments. */
+.navigation-bar .results-per-page .glyphicon-menu-down {
+    vertical-align: bottom;
     padding-bottom: 4px;
 }
-.result-navigation.hide-search-filter .search-filter{
+.navigation-bar .page-backward, .navigation-bar .page-forward {
+    padding-bottom: 3px;
+    vertical-align: bottom;
+}
+
+
+/* Pagination dropdown menu (results-per-page-choices)*/
+.navigation-bar .results-per-page {
+    position:relative;
+    outline: 1px solid #2579BE;
+    cursor: pointer;
+}
+.navigation-bar  ul.results-per-page-choices {
     display: none;
+    position: absolute;
+    top: 60px;
+    left:0px;
+    z-index: 1;
+
+    text-align: center;
+    background: white;
+    outline: 1px solid #2579BE;
+    
+    list-style: none;
+    padding: 0;
+    
 }
 
-.result-navigation h3 {
-    margin: 0 12px 0 0;
-
-    display: inline-block;
-    color: #3877BC;
-    font-size: 14px;
-    font-weight: 600;
+/* Pagination dropdown menu items */
+.navigation-bar .results-per-page-choices li {
+    height: 60px;
+    font-size: 16px;
+    padding-top: 21px;
+    border-bottom: 1px solid #c8c8c8;
 }
+.navigation-bar .results-per-page-choices li:hover {
+    color: #2579BE;
+    cursor: pointer;
+    outline: solid 1px #2579BE;
+    border-bottom: none;
+}
+.navigation-bar .results-per-page-choices li:last-child {
+    border-bottom: none;
+}
+
+/***************************/
 
 .filters {
     background-color: #08223C;
