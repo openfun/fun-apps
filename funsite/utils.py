@@ -9,8 +9,12 @@ BreadcrumbsItem = namedtuple('BreadcrumbsItem', ['path', 'name'])
 
 def breadcrumbs(url, current_page):
     """
-    Return a list of pair (path, i18ned name) of the breadcrumb for current url
+    Returns a BreadcrumbsItem list of pairs (path, i18ned name) of length from 2 to 3
+    as the breadcrumb for current url
     The tricky part is the replacement of edX's courses page by our.
+    When length is 3. The first item is the home page.
+            The last item is the current page. The middle item, if present, points to the parent
+            page of the current page.
     See tests.test_breadcrumbs to understand awaited behaviour
     """
 
@@ -31,3 +35,4 @@ def breadcrumbs(url, current_page):
 
     result.append(BreadcrumbsItem(path='#', name=current_page))
     return result
+
