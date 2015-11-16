@@ -249,7 +249,7 @@ msgstr "Vous avez un compte ?"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:33
 msgid "Your courses"
-msgstr "Vos cours"
+msgstr "Mes cours"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:252
 msgid "h/week"
