@@ -377,8 +377,12 @@ class Client(BaseClient):
         sync.
         """
         # Find course resources
-        resources = parse_xml(
-            self.safe_get(self.urls.stream_resources_path(self.stream_slug),
+        resources = parse_xml(self.safe_get(
+            self.urls.stream_resources_path(self.stream_slug),
+            params={
+                "without-views": "true",
+                "without-usages": "true",
+            },
             message=_("Could not list videos")
         ))
         # file href -> resource dict
