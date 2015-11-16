@@ -14,11 +14,11 @@ from staticfiles.storage import staticfiles_storage
 
 
 <%block name="page_content">
-${breadcrumbs.breadcrumbs(article_tree[0]['name'])}
+% if article_tree:
+    ${breadcrumbs.breadcrumbs(article_tree[0]['name'])}
 
-<section class="fun-faq">
-    <section class="courses-container">
-        % if article_tree:
+    <section class="fun-faq">
+        <section class="courses-container">
             <div class="">
                 <ul class="faq-categories">
                     % for category in article_tree:
@@ -57,10 +57,17 @@ ${breadcrumbs.breadcrumbs(article_tree[0]['name'])}
             <div class="faq-last-update">
                 <label>${_(u"Last update: ")}</label><span>${date_format(article['last_document_update'])}</span>
             </div>
-        % else:
-            <div><ul class="faq-categories"><li><h2>${_(u"FUN's help page is not currently available")}</h2></li></ul></div>
-        % endif
-
+        </section>
     </section>
-</section>
+% else:
+    ${breadcrumbs.breadcrumbs('')}
+
+    <section class="fun-faq">
+        <section class="courses-container">
+            <div><ul class="faq-categories"><li><h2>${_(u"FUN's help page is not currently available")}</h2></li></ul></div>
+        </section>
+    </section>
+
+% endif
+
 </%block>
