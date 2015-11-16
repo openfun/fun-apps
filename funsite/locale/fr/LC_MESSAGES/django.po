@@ -248,7 +248,7 @@ msgid "You have an account"
 msgstr "Vous avez un compte ?"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:33
-msgid "Your courses"
+msgid "My courses"
 msgstr "Mes cours"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:252
