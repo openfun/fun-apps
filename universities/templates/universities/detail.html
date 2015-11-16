@@ -63,10 +63,10 @@ courses = university.courses.all()
                 <ul class="">
                 % for course in courses:
                     <li class="hidden-xs">
-                        <%include file="/courses/course-block/big.html" args="course=course"/>
+                        <%include file="/courses_api/course-block/big.html" args="course=course"/>
                     </li>
                     <li class="hidden-sm hidden-md hidden-lg">
-                        <%include file="/courses/course-block/small.html" args="course=course"/>
+                        <%include file="/courses_api/course-block/small.html" args="course=course"/>
                     </li>
                 % endfor
                 ##  Add some fake course blocks at the end to get correct alignment on the last line
