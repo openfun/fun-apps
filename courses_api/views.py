@@ -15,7 +15,11 @@ from courses.managers import annotate_with_public_courses
 import courses.utils
 
 
-def courses_index(request):
+def courses_index(request, subject=None):
+    """
+    Args:
+        subject (str): subject slug that allows to reverse course filtering urls.
+    """
     return render_to_response('courses_api/index.html', {
         "course_subjects": annotate_with_public_courses(CourseSubject.objects.by_score()),
         "universities": annotate_with_public_courses(University.objects.active_by_score()),

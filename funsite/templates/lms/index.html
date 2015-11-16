@@ -229,7 +229,7 @@ news = top_news(5)
 
                 %for subject in course_subjects:
                 <div class="item">
-                    <a href="${subject.get_absolute_url()}">
+                    <a href="${reverse('fun-courses:filter', kwargs={'subject': subject.slug})}">
                         <div>
                             <h3>${subject.name}</h3>
                             <img style="" src="${subject.image.url}" alt="${subject.name}">

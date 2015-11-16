@@ -13,3 +13,7 @@ class CourseListTest(TestCase):
         url = reverse('fun-courses:index')
         response = self.client.get(url)
         self.assertContains(response, 'courses')
+
+    def test_filter_url(self):
+        url = reverse('fun-courses:filter', kwargs={'subject': 'physics'})
+        self.assertEqual("/cours/#filter/subject/physics", url)

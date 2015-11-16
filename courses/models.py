@@ -130,11 +130,6 @@ class CourseSubject(models.Model):
         verbose_name = _('Course Subject')
         verbose_name_plural = _('Course Subjects')
 
-    def get_absolute_url(self):
-        url = reverse('fun-courses:index')
-        url = format('{}#filter/subject/{}/'.format(url, self.slug))
-        return url
-
     def get_short_name(self):
         return self.short_name or self.name
 

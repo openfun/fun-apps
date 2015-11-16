@@ -56,4 +56,3 @@ class TestCourseSubject(TestCase):
         course_new = factories.CourseFactory.create(session_number=1)
         new_courses = list(models.Course.objects.new())
         self.assertEqual([course_new], new_courses)
-
