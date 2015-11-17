@@ -143,7 +143,7 @@ class Article(models.Model):
     objects = ArticleManager()
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-order", "-created_at"]
 
     def related(self):
         """
