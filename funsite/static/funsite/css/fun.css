@@ -1583,6 +1583,9 @@ ul.universities-list {
     list-style: none;
     padding-left: 0;
 }
+.main-content .right .course-info ul li {
+    margin-bottom: 10px;
+}
 .main-content .right .course-info ul li a {
     color: #C0C9D0;
     text-decoration: none;

@@ -67,6 +67,7 @@ def render_article(queryset, slug):
     email_subject = u"mailto:?subject=Actualité France Université Numérique: %s&body=%s" % (
             article.title, url)
     category_articles = []
+    queryset =  queryset.exclude(id=article.id)
     if article.category:
         category_articles = list(queryset.filter(category__slug=article.category.slug)[:3])
     featured_news = queryset[:3]
