@@ -27,24 +27,9 @@ news = top_news(5)
     $('.owl-theme').owlCarousel({
         loop: true,
         margin: 10,
-        responsiveClass: true,
+        responsiveClass: false,
         nav: false,
-        responsive: {
-          0: {
-            items: 1,
-          },
-          768: {
-            items: 3,
-          },
-          1280: {
-            items: 5,
-            margin: 20
-          },
-          1900: {
-            items: 8,
-            margin: 20
-          }
-        }
+        item: 10,
     });
     $('.owl-news-320').owlCarousel({
         loop: true,
@@ -64,7 +49,7 @@ news = top_news(5)
 <%block name="content_fullwidth">
     <div class="homepage-header drop-down">
         <h1>${_(u"FUN: The best online courses, for free")}</h1>
-        <img class="logo-fun" src="${staticfiles_storage.url('funsite/images/logos/fun195-black.png')}"></img>
+        <img class="logo-fun" src="${staticfiles_storage.url('funsite/images/logos/fun195.png')}"></img>
     </div>
 </%block>
 
@@ -231,7 +216,7 @@ news = top_news(5)
                     <a href="${subject.get_absolute_url()}">
                         <div>
                             <h3>${subject.name}</h3>
-                            <img src="${subject.image.url}" alt="${subject.name}">
+                            <img style="width: 270px; height: 178px;" src="${subject.image.url}" alt="${subject.name}">
                         </div>
                     </a>
 
