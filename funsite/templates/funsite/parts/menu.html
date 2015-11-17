@@ -31,7 +31,7 @@ from staticfiles.storage import staticfiles_storage
             <span></span>
         </div>
         <a href="${reverse('root')}">
-            <img class="logo" src="${staticfiles_storage.url('funsite/images/logos/fun61.png')}" alt="Logo FUN">
+            <img class="logo" src="${staticfiles_storage.url(settings.FUN_SMALL_LOGO_RELATIVE_PATH)}" alt="Logo FUN">
         </a>
         <span class="slogan">${_(u"The Freedom to Study")}</span>
     </div>
