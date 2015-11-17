@@ -28,10 +28,17 @@ body {
     color: #F83336 !important;
 }
 
-.font-weight-300 {
+.light-weight {
     font-weight: 300 !important;
 }
 
+.normal-weight {
+    font-weight: 500;
+}
+
+.heavy-weight {
+    font-weight: 600;
+}
 
 .container-fluid {
     padding-right: 0;
@@ -981,6 +988,14 @@ ul.universities-list {
     margin-left: 15px;
     width: 540px;
 }
+
+.fun-news .primary>div h3 {
+    font-size: 18px;
+}
+.fun-news .primary>div p {
+    font-size: 16px;
+}
+
 .fun-news .primary>div h3,
 .fun-news .primary>div p {
     color: #062644;
@@ -1022,7 +1037,11 @@ ul.universities-list {
 .fun-news .secondary h3 {
     margin-top: 14px;
     margin-bottom: 4px;
-    font-size: 18px;
+    font-size: 16px;
+}
+
+.fun-news .secondary p {
+    font-size: 14px;
 }
 
 .news-detail .header {
