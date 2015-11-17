@@ -27,9 +27,25 @@ news = top_news(5)
     $('.owl-theme').owlCarousel({
         loop: true,
         margin: 10,
-        responsiveClass: false,
+        responsiveClass: true,
         nav: false,
-        item: 10,
+        responsive: {
+          0: {
+            items: 1,
+          },
+          768: {
+            items: 3,
+            margin: 20
+          },
+          1280: {
+            items: 5,
+            margin: 20
+          },
+          1900: {
+            items: 8,
+            margin: 20
+          }
+        }
     });
     $('.owl-news-320').owlCarousel({
         loop: true,
@@ -216,7 +232,7 @@ news = top_news(5)
                     <a href="${subject.get_absolute_url()}">
                         <div>
                             <h3>${subject.name}</h3>
-                            <img style="width: 270px; height: 178px;" src="${subject.image.url}" alt="${subject.name}">
+                            <img style="" src="${subject.image.url}" alt="${subject.name}">
                         </div>
                     </a>
 
