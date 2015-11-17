@@ -2,6 +2,7 @@
 
 body {
     background-color: #edeeef;
+    font-family: 'Raleway', sans-serif;
 }
 
 .main-width {
@@ -38,10 +39,6 @@ body {
 
 .heavy-weight {
     font-weight: 600;
-}
-
-.container-fluid {
-    font-family: 'Raleway', sans-serif;
 }
 
 .drop-down {
