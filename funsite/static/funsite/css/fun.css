@@ -1,7 +1,7 @@
 /** Site wide CSS **/
 
 body {
-    background-color: #edeeef
+    background-color: #edeeef;
 }
 
 .main-width {
@@ -41,8 +41,6 @@ body {
 }
 
 .container-fluid {
-    padding-right: 0;
-    padding-left: 0;
     font-family: 'Raleway', sans-serif;
 }
 
@@ -1083,7 +1081,7 @@ ul.universities-list {
 
 .fun-themes .item h3 {
     position: absolute;
-    top: 100px;
+    top: 66%;
     z-index: 100;
     text-align: center;
     width: 100%;
