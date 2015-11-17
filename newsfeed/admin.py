@@ -22,12 +22,6 @@ class ArticleAdminForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"size": 100})
         }
 
-    def __init__(self, *args, **kwargs):
-        super(ArticleAdminForm, self).__init__(*args, **kwargs)
-        if "instance" not in kwargs:
-            # Instance is being created
-            self.fields['created_at'].initial = datetime.datetime.now()
-
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'order')
