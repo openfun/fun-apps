@@ -68,7 +68,7 @@
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
-    
+
     -webkit-transition: .25s ease-in-out;
     -moz-transition: .25s ease-in-out;
     -o-transition: .25s ease-in-out;
@@ -97,9 +97,9 @@
 
 #sandwich-menu-icon.open span:nth-child(1),
 #sandwich-menu-icon.open span:nth-child(3) {
-    top: 30px;						
+    top: 30px;
 }
-											
+
 #sandwich-menu-icon.open span:nth-child(1) {
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
