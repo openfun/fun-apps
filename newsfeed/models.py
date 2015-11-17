@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_slug
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 
@@ -128,7 +129,7 @@ class Article(models.Model):
     language = models.CharField(verbose_name=_("language"),
             max_length=8, choices=settings.LANGUAGES, default='fr')
     created_at = models.DateTimeField(verbose_name=_("created at"),
-            db_index=True)
+            db_index=True, default=timezone.now)
     edited_at = models.DateTimeField(verbose_name=_("edited at"),
             auto_now=True)
     published = models.BooleanField(verbose_name=_("published"),
@@ -142,7 +143,7 @@ class Article(models.Model):
     objects = ArticleManager()
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-order", "-created_at"]
 
     def related(self):
         """

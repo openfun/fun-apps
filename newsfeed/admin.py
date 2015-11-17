@@ -4,7 +4,7 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from adminsortable.admin import SortableAdminMixin
+#from adminsortable.admin import SortableAdminMixin
 
 from . import models
 
@@ -22,24 +22,18 @@ class ArticleAdminForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"size": 100})
         }
 
-    def __init__(self, *args, **kwargs):
-        super(ArticleAdminForm, self).__init__(*args, **kwargs)
-        if "instance" not in kwargs:
-            # Instance is being created
-            self.fields['created_at'].initial = datetime.datetime.now()
-
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'order')
     prepopulated_fields = {'slug': ('name',)}
 
 
-class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
     form = ArticleAdminForm
     change_form_template = "newsfeed/change_form.html"
 
     list_display = ("title", "preview", "category", "language",
-        "published", "created_at", "microsite",)
+        "published", "order", "created_at", "microsite",)
     list_filter = ("published", "category")
     filter_horizontal = ('courses',)
     readonly_fields = ("edited_at",)  # TODO display that
@@ -50,7 +44,7 @@ class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
         (None, {
             "fields": ("title", "slug", "language", "thumbnail",
                 "category", "courses", "lead_paragraph",
-                "event_date", ("published", "created_at"),
+                "event_date", ("published", "order", "created_at"),
                 "microsite", "text",
             )
         }),
