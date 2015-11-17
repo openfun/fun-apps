@@ -17,7 +17,6 @@ def breadcrumbs(url, current_page):
             page of the current page.
     See tests.test_breadcrumbs to understand awaited behaviour
     """
-
     mapping = {
         'contact': _("Contact"),
         'courses': _("All courses"),    # edX page
@@ -28,9 +27,11 @@ def breadcrumbs(url, current_page):
     result = [BreadcrumbsItem(path='/', name=_(u"Home"))]
 
     items = url.split('/')[1:]  # split and remove first backslash
-    if len(items) > 1 and items[1]:
+
+    if len(items) > 1 and items[1] and items[0] != 'accounts':
         if items[0] == 'courses':
             items[0] = 'cours'
+
         result.append(BreadcrumbsItem(path='/%s/' % items[0], name=mapping[items[0]]))
 
     result.append(BreadcrumbsItem(path='#', name=current_page))

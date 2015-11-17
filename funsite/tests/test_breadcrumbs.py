@@ -46,3 +46,15 @@ class TestBreadcrumbs(TestCase):
         breadcrumbs_list = breadcrumbs(url, u"FUN Paris V")
         self.assertEqual(breadcrumbs_list,
                 [('/', _("Home")), (reverse('universities-landing'), _(u"Universities")), ('#', u"FUN Paris V")],)
+
+    def test_login_page(self):
+        # login page exists at /login and /accounts/login yeah !
+        url = '/login'
+        breadcrumbs_list = breadcrumbs(url, u"Login")
+        self.assertEqual(breadcrumbs_list,
+                [('/', _("Home")), ('#', u"Login")],)
+
+        url = '/accounts/login'
+        breadcrumbs_list = breadcrumbs(url, u"Accounts/Login")
+        self.assertEqual(breadcrumbs_list,
+                [('/', _("Home")), ('#', u"Accounts/Login")],)
