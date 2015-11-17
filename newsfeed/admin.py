@@ -4,7 +4,7 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from adminsortable.admin import SortableAdminMixin
+#from adminsortable.admin import SortableAdminMixin
 
 from . import models
 
@@ -28,7 +28,7 @@ class ArticleCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
     form = ArticleAdminForm
     change_form_template = "newsfeed/change_form.html"
 
@@ -44,7 +44,7 @@ class ArticleAdmin(SortableAdminMixin, admin.ModelAdmin):
         (None, {
             "fields": ("title", "slug", "language", "thumbnail",
                 "category", "courses", "lead_paragraph",
-                "event_date", ("published", "created_at"),
+                "event_date", ("published", "order", "created_at"),
                 "microsite", "text",
             )
         }),
