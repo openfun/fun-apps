@@ -13,7 +13,6 @@ INSTALLED_APPS += (
 
     'easy_thumbnails',
     'ckeditor',
-    'adminsortable',
     'selftest',
     'password_container',
     'raven.contrib.django.raven_compat',

@@ -18,7 +18,6 @@ INSTALLED_APPS += (
     'videoproviders',
 
     'easy_thumbnails',
-    'adminsortable',
     'bootstrapform',
     'ckeditor',
     'raven.contrib.django.raven_compat',
