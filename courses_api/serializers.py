@@ -5,15 +5,12 @@ from rest_framework import serializers
 from courses.models import Course, CourseSubject
 from universities.serializers import UniversitySerializer
 
-from .serializers_utils import CoursesCountSerializerMixin
 
-
-class CourseSubjectSerializer(CoursesCountSerializerMixin, serializers.ModelSerializer):
-    courses_count = serializers.SerializerMethodField(method_name='get_courses_count')
+class CourseSubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseSubject
-        fields = ('id', 'name', 'courses_count')
+        fields = ('id', 'name')
 
 
 class CourseSerializer(serializers.ModelSerializer):

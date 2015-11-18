@@ -11,7 +11,6 @@ class UniversityQuerySet(models.query.QuerySet):
 
     def with_related(self):
         queryset = self.prefetch_related('courses')
-        queryset = queryset.annotate(courses_count=models.Count('courses'))
         return queryset
 
     def active_by_score(self):
