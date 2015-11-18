@@ -22,9 +22,9 @@ class UniversityQuerySet(models.query.QuerySet):
     def have_page(self):
         return self.active().filter(detail_page_enabled=True)
 
+    def featured(self, limit_to=7):
+        return self.active_by_score().with_related()[:limit_to]
+
 
 class UniversityManager(ChainableManager):
     queryset_class = UniversityQuerySet
-
-    def featured(self, limit_to=7):
-        return self.active_by_score().with_related()[:limit_to]
