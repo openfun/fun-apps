@@ -308,7 +308,9 @@ div.breadcrumbs-wrapper {
     margin-top: 10px;
     margin-left: 20px;
 }
-
+div.breadcrumbs-alignment {
+    text-align: left;
+}
 ul.breadcrumbs {
     display: block;
     list-style: none;
@@ -318,6 +320,7 @@ ul.breadcrumbs {
     margin: 0;
     padding: 0;
     font-size: 12px;
+    width: 99%;
 }
 ul.breadcrumbs li {
     display: inline;
