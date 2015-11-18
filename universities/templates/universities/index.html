@@ -32,11 +32,17 @@ from django.utils.translation import ugettext as _
             <ul class="universities-list">
                 % for university in universities:
                 <li>
-                    <a href="${ university.get_absolute_url()}">
+                    % if university.detail_page_enabled:
+                        <a href="${university.get_absolute_url()}">
                         <div class="university-logo center-block">
+                    % else:
+                        <div class="university-logo no-page center-block">
+                    % endif
                             <img src="${ university.get_logo_thumbnail() }" alt="${ university.name }" title="${ university.name }" class="img-responsive"/>
                         </div>
-                    </a>
+                    % if university.detail_page_enabled:
+                        </a>
+                    % endif
                 </li>
                 % endfor
                 ##  Add some fake logo at the end to get correct alignment on the last line

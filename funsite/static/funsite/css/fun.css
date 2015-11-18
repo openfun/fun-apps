@@ -882,7 +882,7 @@ ul.universities-list {
 .universities-list .university-logo {
     border: 1px solid #E6E6E6;
 }
-.universities-list .university-logo:hover {
+.universities-list .university-logo:hover:not(.no-page) {
     border-color: #2579BE;
 }
 .universities-list .university-logo.fake,
