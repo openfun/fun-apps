@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 25\n"
+"Project-Id-Version: France Université Numérique 33\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-11-17 07:29+0100\n"
-"PO-Revision-Date: 2015-11-17 07:29+0000\n"
+"POT-Creation-Date: 2015-11-18 17:40+0100\n"
+"PO-Revision-Date: 2015-11-18 17:40+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -26,17 +26,17 @@ msgstr "A propos"
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:22
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:23
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:21
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:140
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:248
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:142
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:250
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:36
 msgid "All courses"
 msgstr "Tous les cours"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:213
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:215
 msgid "All news"
 msgstr "Toutes les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:171
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:173
 msgid "All universities"
 msgstr "Tous les établissements"
 
@@ -86,15 +86,21 @@ msgstr "Vous n'avez pas de compte ?"
 msgid "End of Registration"
 msgstr "Fin d'inscription"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:66
-msgid "FUN: The best online courses, for free"
-msgstr "FUN : Les meilleurs cours en ligne, gratuitement"
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:68
+msgid "FUN:"
+msgstr "FUN :"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:26
 msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:77
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:17
+msgid "Higher Education Excellence. Online, Free and Open Courses"
+msgstr ""
+"L'excellence de l'enseignement supérieur pour des cours en ligne, "
+"gratuits et ouverts à tous"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:79
 msgid "Highlighted courses"
 msgstr "Les cours à la une"
 
@@ -122,10 +128,6 @@ msgstr "Je viens de m'inscrire pour {title} via {account}: {url}"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:114
 msgid "I just registered for {title} through {platform} {url}"
 msgstr "Je viens de m'inscrire pour {title} via {platform} {url}"
-
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:36
-msgid "Let's learn, get trained and succeed!"
-msgstr "Venez apprendre, vous former et réussir !"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:13
 msgid "Log in to your {platform_name} account"
@@ -215,15 +217,15 @@ msgstr "Mentions légales"
 msgid "Terms of use"
 msgstr "Conditions générales d'utilisation"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:21
-msgid "The best online courses, for free"
-msgstr "Les meilleurs cours en ligne, gratuitement"
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:36
+msgid "The Freedom to Study"
+msgstr "Se former en liberté"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:180
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:182
 msgid "The news"
 msgstr "Les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:221
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:223
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:297
 msgid "Thematics"
 msgstr "Les thématiques"
@@ -233,12 +235,13 @@ msgstr "Les thématiques"
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/forget-password-modal.html:25
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:27
 msgid "This is the e-mail address you used to register with {platform}"
-msgstr "Veuillez saisir l'adresse email que vous avez utilisé pour vous inscrire sur "
-"{platform}"
+msgstr ""
+"Veuillez saisir l'adresse email que vous avez utilisé pour vous inscrire "
+"sur {platform}"
 
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:25
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:26
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:149
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:151
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:48
 msgid "Universities"
 msgstr "Les établissements"
