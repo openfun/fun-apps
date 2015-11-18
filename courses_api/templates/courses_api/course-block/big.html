@@ -33,10 +33,18 @@ from util.date_utils import strftime_localized
         <div class="footer row">
             <div class="date col-xs-22">
                 <a class="no-decoration" href="${course.get_absolute_url()}">
-                    ${pgettext('course-block', u"Starts")}
-
-                    % if course.start_date:
-                        ${ strftime_localized(course.start_date, 'SHORT_DATE')}
+                    % if course.course_ended:
+                        ${pgettext('course-block', u"Ended")}
+                        <br>
+                        ${course.end_date_display}
+                    % elif course.course_started:
+                        ${pgettext('course-block', u"Started")}
+                        <br>
+                        ${course.start_date_display}
+                    % else:
+                        ${pgettext('course-block', u"Starts")}
+                        <br>
+                        ${course.start_date_display}
                     % endif
                 </a>
             </div>

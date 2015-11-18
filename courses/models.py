@@ -104,8 +104,22 @@ class Course(models.Model):
         return self.start_date.strftime(ugettext(u'%b %d %Y'))
 
     @property
+    def end_date_display(self):
+        if not self.end_date:
+            return ''
+        return self.end_date.strftime(ugettext(u'%b %d %Y'))
+
+    @property
     def enrollment_ended(self):
         return now() > self.enrollment_end_date if self.enrollment_end_date else False
+
+    @property
+    def course_started(self):
+        return now() > self.start_date if self.start_date else False
+
+    @property
+    def course_ended(self):
+        return now() > self.end_date if self.end_date else False
 
 
 
