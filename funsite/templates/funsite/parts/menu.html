@@ -56,11 +56,11 @@ from staticfiles.storage import staticfiles_storage
             </a>
         % endif
     </div>
-
-    % if base_application == 'funsite':
-        <%include file="login-overlay.html" />
-    % endif
 </nav>
+
+% if base_application == 'funsite':
+    <%include file="login-overlay.html" />
+% endif
 
 <div id="cookie-banner" style="display:none">
     <div class="row">
