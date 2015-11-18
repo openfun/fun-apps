@@ -29,9 +29,19 @@
         <div class="footer row">
             <div class="date col-xs-20">
                 <a class="no-decoration" href="<%= course_about %>">
-                    <%- pgettext("course-block", "Starts") %>
-                    <br>
-                    <%- start_date_display %>
+                    <% if (course_ended) { %>
+                        <%- pgettext("course-block", "Ended") %>
+                        <br>
+                        <%- end_date_display %>
+                    <% } else if (course_started) { %>
+                        <%- pgettext("course-block", "Started") %>
+                        <br>
+                        <%- start_date_display %>
+                    <% } else { %>
+                        <%- pgettext("course-block", "Starts") %>
+                        <br>
+                        <%- start_date_display %>
+                    <% } %>
                 </a>
             </div>
             <div class="register <% if (enrollment_ended) { %>closed <% } %>col-xs-16">

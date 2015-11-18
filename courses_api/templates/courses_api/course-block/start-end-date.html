@@ -1,0 +1,22 @@
+## mako
+<%!
+from django.utils.translation import pgettext
+%>
+
+
+<%page args="course,type"/>
+<a class="no-decoration" href="${course.get_absolute_url()}">
+    % if course.course_ended:
+        ${pgettext('course-block', u"Ended")}
+        ${'<br>' if type == 'small' else ''}
+        ${course.end_date_display}
+    % elif course.course_started:
+        ${pgettext('course-block', u"Started")}
+        ${'<br>' if type == 'small' else ''}
+        ${course.start_date_display}
+    % else:
+        ${pgettext('course-block', u"Starts")}
+        ${'<br>' if type == 'small' else ''}
+        ${course.start_date_display}
+    % endif
+</a>
