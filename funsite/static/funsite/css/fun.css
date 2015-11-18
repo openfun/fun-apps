@@ -41,11 +41,6 @@ body {
     font-weight: 600;
 }
 
-.container-fluid {
-    padding-right: 0;
-    padding-left: 0;
-}
-
 .drop-down {
     margin-top: 60px;  /* top-menu's height */
 }
