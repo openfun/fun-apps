@@ -1,14 +1,23 @@
 ## mako
 <%!
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
-from microsite_configuration import microsite
+from django.conf import settings
+from django.utils.translation import get_language_bidi, ugettext as _
 
 from staticfiles.storage import staticfiles_storage
-%>
 
+from microsite_configuration import microsite
+
+dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
+%>
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IEMobile 7]><html class="iem7" lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}"><![endif]-->
+<!--[if lte IE 6]><html class="lte-ie9 lt-ie9 lt-ie8 lt-ie7" lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lte-ie9 lt-ie9 lt-ie8" lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}"><![endif]-->
+<!--[if IE 8]><html class="lte-ie9 lt-ie9" lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}"><![endif]-->
+<!--[if IE 9]><html class="lte-ie9" lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!-->
+<html lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,8 +34,6 @@ from staticfiles.storage import staticfiles_storage
     <%block name="css_extra" />
 
     <title>FUN - <%block name="title" /></title>
-
-    <!-- Bootstrap -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
