@@ -52,13 +52,15 @@ from staticfiles.storage import staticfiles_storage
 
     <div class="container-fluid drop-down">
 
-
-
         <%block name="content"></%block>
 
     </div> <!-- bootstrape container -->
 
 </div>  <!-- main-width -->
+
+<%block name="content_fullwidth2"></%block>
+
+
 <%include file="footer.html" args="base_application='funsite'"/>
     <script src="${staticfiles_storage.url('funsite/jquery/dist/jquery.min.js')}"></script>
     <script src="${staticfiles_storage.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
