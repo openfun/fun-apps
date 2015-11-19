@@ -42,8 +42,16 @@ ul.top-footer li a:visited {
 /* Bottom footer */
 
 .bottom-footer {
-    display:flex;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+
     justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -ms-justify-content: space-between;
+    -moz-justify-content: space-between;
+
     padding-top: 15px;
     padding-bottom: 15px;
     border-top-style: solid;

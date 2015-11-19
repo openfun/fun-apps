@@ -636,8 +636,20 @@ ul.breadcrumbs li a:hover {
 
 .homepage-header {
     display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+
     align-items: center;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -moz-align-items: center;
+
     justify-content: center;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    -moz-justify-content: center;
+
     text-align: center;
     width: 100%;
     background-position: center center;
@@ -858,21 +870,36 @@ ul.universities-list {
     list-style-type: none;
     padding: 0;
 
-    display: -webkit-flex;
     display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
 
-    -webkit-align-items: center;
     align-items: center;
-    -webkit-justify-content: center;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -moz-align-items: center;
+
     justify-content: center;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    -moz-justify-content: center;
 
 
-    -webkit-flex-direction: row;
     flex-direction: row;
-    -webkit-flex-wrap: wrap;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    -moz-flex-direction: row;
+
     flex-wrap: wrap;
-    -webkit-flex-flow: row wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+
     flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    -moz-flex-flow: row wrap;
 
 
 }
@@ -1105,21 +1132,42 @@ ul.universities-list {
     margin: 0 auto;
     padding-left: 0;
 
-    display: -webkit-flex;
     display: flex;
-    -webkit-align-items: center;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+
     align-items: center;
-    -webkit-justify-content: center;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -moz-align-items: center;
+
     justify-content: center;
-    -webkit-flex-direction: row;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    -moz-justify-content: center;
+
     flex-direction: row;
-    -webkit-flex-wrap: wrap;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    -moz-flex-direction: row;
+
     flex-wrap: wrap;
-    -webkit-flex-flow: row wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+
     flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    -moz-flex-flow: row wrap;
 }
 .course-list .list ul li {
     flex: auto;
+    -webkit-flex: auto;
+    -ms-flex: auto;
+    -moz-flex: auto;
+
     margin-left: 2px;
     margin-right: 2px;
 }
