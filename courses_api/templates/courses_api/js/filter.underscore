@@ -1,43 +1,48 @@
-<div class="row">
+<div class="navigation-bar color-denim-blue">
 
-    <div class="col-md-8 col-sm-36 text-left">
+    <div class="navigation-left">
         <% if (totalCount !== null) { %>
-            <%= totalCount %> <%= ngettext("result", "results", totalCount) %>
-        <% } %>
-        <% if (totalPageCount > 1)  { %>
-            <% if (currentPage > 1) { %>
-                <span class="result-page clickable" data-page="<%= currentPage - 1 %>">&lt;</span>
-            <% } else { %>
-                &nbsp;
-            <% } %>
-
-            <% for (var p = 1; p <= totalPageCount; p++) { %>
-                <% if (p === currentPage) { %>
-                    <span><strong><%= p %></strong></span>
-                <% } else if (p === 1 || p === totalPageCount || Math.abs(p - currentPage) <= 1) { %>
-                    <span class="result-page clickable" data-page="<%= p %>"><%= p %></span>
-                <% } else if (p === 2 || p === totalPageCount - 1) { %>
-                    <span>...<span>
-                <% } %>
-            <% } %>
-            <% if (currentPage < totalPageCount) { %>
-                <span class="result-page clickable" data-page="<%= currentPage + 1 %>">&gt;</span>
-            <% } %>
-        <% } %>
-    </div>
-
-    <div class="col-md-20 col-sm-36 hidden-xs">
-        <% if (selected) { %>
-            <h3><%= gettext("Your search") %></h3>
-            <div class="white blue-cell">
-                <%= selected.get("title") %>
-                <span class='glyphicon glyphicon-remove clickable'></span>
+            <div class='navigation-block total-count'><% /*** " N result(s)"  ***/ %>
+                <span><strong><%= totalCount %></strong>
+                    <%= ngettext("result", "results", totalCount) %></span>
+            </div>
+            <div class="navigation-block labels-search">  <% /*** " Your search label1 label2 " ***/ %>
+                    <% if (selected) { %>
+                        <strong class="labels-search-label"><%= gettext("Your search")%></strong>
+                        <div class="white blue-cell">
+                            <%= selected.get("title") %>
+                            <span class='glyphicon glyphicon-remove clickable'></span>
+                        </div>
+                    <% } %>
             </div>
         <% } %>
     </div>
 
-    <div class="col-md-8 col-sm-36 text-right hidden-xs">
-        <select class="results-per-page">
+    <div class="navigation-right">
+        <% if (totalPageCount > 1)  { %>
+            <div class="navigation-block"><%  /**** "1 2 ... 10 >"  ****/  %>
+                <% if (currentPage > 1) { %>
+                    <span class="result-page page-backward clickable glyphicon glyphicon-menu-left" data-page="<%= currentPage - 1 %>"></span>
+                <% } %>
+                <div class="page-list color-iron">
+                    <% for (var p = 1; p <= totalPageCount; p++) { %>
+                        <% if (p === currentPage) { %>
+                            <span><strong class="color-denim-blue"><%= p %></strong ></span>
+                        <% } else if (p === 1 || p === totalPageCount || Math.abs(p - currentPage) <= 1) { %>
+                            <span class="result-page clickable" data-page="<%= p %>"><%= p %></span>
+                        <% } else if (p === 2 || p === totalPageCount - 1) { %>
+                            <span>...<span>
+                        <% } %>
+                    <% } %>
+                </div>
+
+                <% if (currentPage < totalPageCount) { %>
+                    <span class="result-page clickable glyphicon glyphicon-menu-right page-forward" data-page="<%= currentPage + 1 %>"></span>
+
+                <% } %>
+            </div>
+        <% } %>
+        <select class="navigation-block results-per-page hidden-xs"> <%  /**** " N per page  "  ****/ %>
             <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
                 <option value="<%= resultsPerPageChoices[c] %>" <% if (resultsPerPageChoices[c] === resultsPerPage) { %>selected="selected"<% } %>>
                     <% if (resultsPerPageChoices[c] >= 0) { %>
@@ -50,4 +55,3 @@
         </select>
     </div>
 </div>
-

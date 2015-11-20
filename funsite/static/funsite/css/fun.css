@@ -545,6 +545,7 @@ ul.breadcrumbs li a:hover {
     .course-list-table .right {
         padding-left: 0 !important;
         padding-right: 0 !important;
+        width: 100% !important;
     }
 
     .university-logo {
@@ -1126,6 +1127,7 @@ ul.universities-list {
 
 
 /* Courses filtering and searching courses_api/index.html */
+
 .course-list .list ul {
     list-style-type: none;
     width: 100%;
@@ -1161,6 +1163,7 @@ ul.universities-list {
     -webkit-flex-flow: row wrap;
     -ms-flex-flow: row wrap;
     -moz-flex-flow: row wrap;
+
 }
 .course-list .list ul li {
     flex: auto;
@@ -1173,19 +1176,26 @@ ul.universities-list {
 }
 
 .course-list-table {
-    display: table;
+    display: flex;
+    width: 100%;
 }
 
 .course-list-table .left {
-    display: table-cell;
     vertical-align: top;
     width: 325px;
     background-color: #06213B;
 }
 
+.course-list-table .right {
+    vertical-align: top;
+    width: 83%;
+    padding-left: 38px;
+    padding-right: 12px;
+}
+
+
 .small-device-filter {
     background-color: #062644;
-    display: table-cell;
     padding: 24px;
     margin-bottom: 24px;
     font-weight: 300;
@@ -1219,43 +1229,13 @@ ul.universities-list {
 
 
 
-
-.course-list-table .right {
-    display: table-cell;
-    vertical-align: top;
-    width: 100%;
-    padding-left: 38px;
-    padding-right: 12px;
-}
-
-.result-navigation {
-    border: 1px solid #CBCCCD;
-    margin: 0 0 24px 0;
-    padding: 8px;
-}
-.result-navigation>div.row>div {
-    padding: 4px 12px 4px;
-    padding-bottom: 4px;
-}
-.result-navigation.hide-search-filter .search-filter{
-    display: none;
-}
-
-.result-navigation h3 {
-    margin: 0 12px 0 0;
-
-    display: inline-block;
-    color: #3877BC;
-    font-size: 14px;
-    font-weight: 600;
-}
-
 .filters {
     background-color: #08223C;
     width: 325px;
     padding-left: 48px;
     padding-right: 48px;
     overflow: visible;
+    height: 100%;
 }
 .criteria-overlay {
     left: 325px;
@@ -1267,6 +1247,7 @@ ul.universities-list {
     position: absolute;
     background-color: #08223C;
     z-index: 20;
+
 }
 
 
@@ -1301,7 +1282,8 @@ ul.universities-list {
 }
 
 .filters div.title {
-    margin-top: 20px;
+    margin-top: 0;
+    padding-top:20px;
     color: #3976BC;
     font-size: 32px;
     font-weight: 200;
@@ -1881,4 +1863,95 @@ div.article {
 }
 .modal {
     z-index: 4000; /* bootstrap modal has to overtake ours */
+}
+
+
+
+
+
+
+
+
+/**** Navigation bar ****/
+
+.navigation-bar {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-box-justify-content: space-between;
+    -moz-box-justify-content:  space-between;
+    -webkit-justify-content:  space-between;
+    -ms-justify-content:  space-between;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+    padding-left: 20px;
+    margin-bottom: 24px;
+    border: 1px solid #CBCCCD;
+    font-size: 17px;
+}
+
+.navigation-left, .navigation-right {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+
+}
+
+.navigation-block {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+
+    height: 60px;
+}
+
+.navigation-bar .navigation-block * {
+    margin: auto;
+}
+
+.navigation-bar .labels-search {
+    padding-left: 15px;
+}
+
+.navigation-bar .labels-search .labels-search-label {
+    margin-right: 15px;
+}
+
+.navigation-bar .page-backward {
+    margin-right: 13px;
+}
+
+.navigation-bar .page-forward {
+    margin-left: 13px;
+}
+
+.navigation-bar .results-per-page {
+    background :#edeeef;
+    margin-left: 15px;
+    padding-left:15px;
+    border: solid 1px;
+    -webkit-border-radius: 0px;
+    -webkit-appearance: none;
+}
+
+.navigation-bar .results-per-page select {
+    border: none;
+    outline:none;
+}
+
+@media (max-width: 767px) {
+    /* Since the pagination button is disabled for size <767px,
+       we want a right padding in the navigation bar.
+    */
+    .navigation-bar {
+    padding-right: 20px;
+    }
 }
