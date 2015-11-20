@@ -1177,6 +1177,9 @@ ul.universities-list {
 
 .course-list-table {
     display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
     width: 100%;
 }
 
