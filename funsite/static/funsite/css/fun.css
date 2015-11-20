@@ -123,6 +123,7 @@ a.no-decoration:visited {
     background-color: transparent;
 }
 
+
 /* Forms */
 .form-group.required label:after, label.required:after {
     content:" *";
