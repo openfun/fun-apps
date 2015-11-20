@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 33\n"
+"Project-Id-Version: France Université Numérique 35\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-11-18 17:40+0100\n"
-"PO-Revision-Date: 2015-11-18 17:40+0000\n"
+"POT-Creation-Date: 2015-11-20 15:23+0100\n"
+"PO-Revision-Date: 2015-11-20 15:23+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -27,16 +27,16 @@ msgstr "A propos"
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:23
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:21
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:142
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:250
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:256
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:36
 msgid "All courses"
 msgstr "Tous les cours"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:215
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:221
 msgid "All news"
 msgstr "Toutes les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:173
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:179
 msgid "All universities"
 msgstr "Tous les établissements"
 
@@ -62,6 +62,12 @@ msgstr ""
 "mooc.fr, vous acceptez l'utilisation de cookies permettant d'améliorer "
 "votre expérience utilisateur"
 
+# Translated in edx by 'Fin des cours'
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:231
+msgctxt "course-about"
+msgid "Classes End"
+msgstr "Fin du cours"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:23
 msgid "Confidentiality"
 msgstr "Confidentialité"
@@ -82,9 +88,15 @@ msgstr "Avez-vous déjà un compte ?"
 msgid "Don't have an account?"
 msgstr "Vous n'avez pas de compte ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:201
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:205
 msgid "End of Registration"
 msgstr "Fin d'inscription"
+
+# Translated in edx by 'Inscriptions closes'
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:183
+msgctxt "course-about"
+msgid "Enrollment is closed"
+msgstr "Les inscriptions sont closes"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:68
 msgid "FUN:"
@@ -185,7 +197,7 @@ msgstr ""
 "L'inscription vous ajoute à notre liste de diffusion - nous vous "
 "tiendrons au courant dès que des cours sont ajoutés."
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:206
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:210
 msgid "Registration closed"
 msgstr "Inscription close"
 
@@ -221,12 +233,12 @@ msgstr "Conditions générales d'utilisation"
 msgid "The Freedom to Study"
 msgstr "Se former en liberté"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:182
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:188
 msgid "The news"
 msgstr "Les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:223
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:297
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:229
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:301
 msgid "Thematics"
 msgstr "Les thématiques"
 
@@ -266,7 +278,7 @@ msgstr "Vous n'avez pas de compte ?"
 msgid "You have an account"
 msgstr "Vous avez un compte ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:252
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:256
 msgid "h/week"
 msgstr "h/semaine"
 

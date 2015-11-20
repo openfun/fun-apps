@@ -1,7 +1,7 @@
 ## mako
 <%!
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import pgettext, ugettext as _
 from django.core.urlresolvers import reverse
 
 from courseware.courses import course_image_url, get_course_about_section
@@ -180,7 +180,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                         <div class="register-error"></div>
                     %else:
                         <div class="register-course-button registration-closed">
-                            <span>${_("Enrollment is Closed")}</span>
+                            <span>${pgettext("course-about", "Enrollment is closed")}</span>
                         </div>
                     %endif
                 %endif
@@ -228,7 +228,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                             <div class="course-info calendar">
                                 <ul>
                                 <li>
-                                    <strong>${_("Classes End")}</strong>
+                                    <strong>${pgettext("course-about", "Classes End")}</strong>
                                 </li>
                                 <li>
                                     % if get_course_about_section(course, "end_date") or course.end:
