@@ -1177,6 +1177,7 @@ ul.universities-list {
 
 .course-list-table {
     display: flex;
+    width: 100%;
 }
 
 .course-list-table .left {
@@ -1187,7 +1188,7 @@ ul.universities-list {
 
 .course-list-table .right {
     vertical-align: top;
-    width: 80%;
+    width: 83%;
     padding-left: 38px;
     padding-right: 12px;
 }
