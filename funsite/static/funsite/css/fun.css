@@ -1227,27 +1227,6 @@ ul.universities-list {
 
 
 
-.result-navigation {
-    border: 1px solid #CBCCCD;
-    margin: 0 0 24px 0;
-    padding: 8px;
-}
-.result-navigation>div.row>div {
-    padding: 4px 12px 4px;
-    padding-bottom: 4px;
-}
-.result-navigation.hide-search-filter .search-filter{
-    display: none;
-}
-
-.result-navigation h3 {
-    margin: 0 12px 0 0;
-
-    display: inline-block;
-    color: #3877BC;
-    font-size: 14px;
-    font-weight: 600;
-}
 
 .filters {
     background-color: #08223C;
@@ -1883,4 +1862,95 @@ div.article {
 }
 .modal {
     z-index: 4000; /* bootstrap modal has to overtake ours */
+}
+
+
+
+
+
+
+
+
+/**** Navigation bar ****/
+
+.navigation-bar {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-box-justify-content: space-between;
+    -moz-box-justify-content:  space-between;
+    -webkit-justify-content:  space-between;
+    -ms-justify-content:  space-between;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+    padding-left: 20px;
+    margin-bottom: 24px;
+    border: 1px solid #CBCCCD;
+    font-size: 17px;
+}
+
+.navigation-left, .navigation-right {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+
+}
+
+.navigation-block {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+
+    height: 60px;
+}
+
+.navigation-bar .navigation-block * {
+    margin: auto;
+}
+
+.navigation-bar .labels-search {
+    padding-left: 15px;
+}
+
+.navigation-bar .labels-search .labels-search-label {
+    margin-right: 15px;
+}
+
+.navigation-bar .page-backward {
+    margin-right: 13px;
+}
+
+.navigation-bar .page-forward {
+    margin-left: 13px;
+}
+
+.navigation-bar .results-per-page {
+    background :#edeeef;
+    margin-left: 15px;
+    padding-left:15px;
+    border: solid 1px;
+    -webkit-border-radius: 0px;
+    -webkit-appearance: none;
+}
+
+.navigation-bar .results-per-page select {
+    border: none;
+    outline:none;
+}
+
+@media (max-width: 767px) {
+    /* Since the pagination button is disabled for size <767px,
+       we want a right padding in the navigation bar.
+    */
+    .navigation-bar {
+    padding-right: 20px;
+    }
 }
