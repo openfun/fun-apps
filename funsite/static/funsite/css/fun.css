@@ -1327,7 +1327,7 @@ ul.universities-list {
     position: absolute;
     top: 60px;
     left:0px;
-    z-index: 1;
+    z-index: 11;
 
     text-align: center;
     background: white;
