@@ -1299,6 +1299,7 @@ ul.universities-list {
 .navigation-bar .results-per-page .glyphicon-menu-down {
     margin-left: 10px;
     margin-right: 5px;
+    float: right;
 }
 .navigation-bar .results-per-page {
      padding-left: 20px;
