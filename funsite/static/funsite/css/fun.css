@@ -1321,6 +1321,7 @@ ul.universities-list {
     position:relative;
     outline: 1px solid #2579BE;
     cursor: pointer;
+    min-width: 160px;
 }
 .navigation-bar  ul.results-per-page-choices {
     display: none;
