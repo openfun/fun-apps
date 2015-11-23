@@ -1,5 +1,7 @@
 ## mako
 <%!
+import platform
+
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import get_language_bidi, ugettext as _
@@ -22,6 +24,7 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="platform.node" CONTENT="${platform.node()}">
     <%block name="meta_extra" />
 
     <link rel="icon" type="image/x-icon" href="${staticfiles_storage.url(microsite.get_value('favicon_path', settings.FAVICON_PATH))}" />
