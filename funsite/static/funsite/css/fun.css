@@ -623,7 +623,7 @@ ul.breadcrumbs li a:hover {
     }
 
     ul.faq-categories,
-    ul.faq-sections,
+    ul.faq-sections {
         padding: 0 !important;
     }
 
