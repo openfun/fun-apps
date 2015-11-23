@@ -88,10 +88,3 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(minutes=30),
     },
 }
-
-def IS_VIDEOUPLOAD_DASHBOARD_ENABLED(course_id):
-    """Determine whether we should display the videoupload link in the dashboard.
-    Args:
-        course_id (CourseKey)
-    """
-    return True

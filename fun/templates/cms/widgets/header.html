@@ -68,11 +68,9 @@
                   <li class="nav-item nav-course-courseware-textbooks">
                     <a href="${textbooks_url}">${_("Textbooks")}</a>
                   </li>
-                  % if settings.IS_VIDEOUPLOAD_DASHBOARD_ENABLED(course_key):
                   <li class="nav-item nav-course-courseware-videos">
                     <a href="${reverse('videoupload:home', kwargs={'course_key_string': unicode(course_key)})}">${_("Video Uploads")}</a>
                   </li>
-                  % endif
                 </ul>
               </div>
             </div>
