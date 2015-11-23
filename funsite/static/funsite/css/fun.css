@@ -1265,7 +1265,6 @@ ul.universities-list {
  See http://stackoverflow.com/questions/32137334/flexbox-min-height-margin-auto-and-internet-explorer.
  That why we use `padding-top` and `text-align` to vertically, horizontally center content  inside navigation block. This could be remove once we decide to stop handling these versions of IE.
 */
-
 .navigation-block {
     display: inline-block;
     height: 60px;
@@ -1297,9 +1296,9 @@ ul.universities-list {
     margin-right: 20px;
 }
 .navigation-bar .results-per-page .glyphicon-menu-down {
+    float: right;
     margin-left: 10px;
     margin-right: 5px;
-    float: right;
 }
 .navigation-bar .results-per-page {
      padding-left: 20px;
@@ -1309,12 +1308,12 @@ ul.universities-list {
 
 /* Various light vertical alignments. */
 .navigation-bar .results-per-page .glyphicon-menu-down {
-    vertical-align: bottom;
-    padding-bottom: 4px;
+    padding-top: 2.5px;
 }
+
 .navigation-bar .page-backward, .navigation-bar .page-forward {
-    padding-bottom: 3px;
-    vertical-align: bottom;
+    padding-top: 3px;
+    vertical-align: top;
 }
 
 
