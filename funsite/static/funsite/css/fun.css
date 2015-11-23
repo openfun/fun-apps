@@ -1304,6 +1304,7 @@ ul.universities-list {
 .navigation-bar .results-per-page {
      padding-left: 20px;
      padding-right: 15px;
+     text-align: center;
 }
 
 /* Various light vertical alignments. */
