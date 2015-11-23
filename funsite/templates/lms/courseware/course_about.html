@@ -294,6 +294,12 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                     <span></span>
                 </div>
 
+                % if staff_access and studio_url is not None:
+                <div class="text-right">
+                      <a class="color-light-gray" href="${studio_url}">${_("View About Page in studio")}</a>
+                </div>
+                % endif
+
                 % if fun_course.subjects.all():
                 <div class="subjects">
                     <ul>
@@ -310,6 +316,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                     </ul>
                 </div>
                 % endif
+
 
                 <div class="course-image hidden-lg hidden-xs">
                     <div class="video-button"></div>
