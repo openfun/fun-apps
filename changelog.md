@@ -1,5 +1,13 @@
 # Changelog www.france-universite-numerique.fr
 
+## 3.0 23/11/2015
+- Nouveau design du site, et suppression du système de thème edX. Toutes les pages non courseware sont maintenant indépendantes du dépôt `edx-platform`.
+    + Nouvelle page d'accueil présentant des cours mis en avant, des actualités, des thèmes...
+    + Nouvelle page de liste et de recherche des cours
+    + Dénormalisation des metadonnées de cours de mongoDB dans la base SQL
+    + Une API publique est disponible pour consulter et chercher la liste des cours
+    + Etc..
+
 ## 2.17 30/07/2015
 - Ajout d'un xblock permettant d'intégrer des notes externes dans le courseware
 - Backoffice :
