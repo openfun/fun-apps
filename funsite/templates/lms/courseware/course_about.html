@@ -8,27 +8,29 @@ from courseware.courses import course_image_url, get_course_about_section
 from microsite_configuration import microsite
 
 from fun.utils import get_fun_course, get_teaser, registration_datetime_text
-
 %>
 
 <%inherit file="/funsite/parts/base-fixed-width.html" />
 
 <%block name="js_extra">
+
 <script>
 (function() {
+    // Configure video teaser player
     $('.video-button').on('click', function() {
+        var teaserHtml = '${get_teaser(get_course_about_section(course, "video"))}';
         $('#video-modal').modal('show');
-    })
-    $('#video-modal').on('shown.bs.modal', function() {
-        $('iframe#course-teaser')[0].contentWindow.postMessage('play', '*');
+        $('#video-modal .inner-wrapper').html(teaserHtml);
     })
     $('#video-modal').on('hide.bs.modal', function() {
-        $('iframe#course-teaser')[0].contentWindow.postMessage('pause', '*');
-        $('iframe#course-teaser')[0].contentWindow.postMessage('seek=0', '*');
-    })
-    $('div.teacher-image img').addClass('img-circle')
-    $('.social-networks div>a').attr('target', '_blank');
+        $('#video-modal .inner-wrapper').html("");
+    });
 
+    $('div.teacher-image img').addClass('img-circle');
+
+    // Open social links included by course designers in their syllabus in a
+    // different tab.
+    $('.social-networks div>a').attr('target', '_blank');
 
     $(".register").click(function(event) {
         var url = '${reverse("change_enrollment")}',
@@ -126,12 +128,9 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
     <div class="row">
 
-
         <div class="col-lg-15 col-sm-10 col-lg-push-21 col-sm-push-26 no-gutter-left no-padding">
 
             <div class="right">
-
-
 
                 <div class="text-center hidden-sm hidden-md hidden-lg">
                     ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
@@ -146,9 +145,6 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                     <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
-
-
-
 
                 <div class="course-about-university-logo">
                     % if fun_course.universities.exists():
@@ -337,9 +333,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 <div class="modal fade" id="video-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="inner-wrapper">
-                ${get_teaser(course, get_course_about_section(course, "video"))}
-            </div>
+            <div class="inner-wrapper"></div>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import bs4
 import json
 
 from django.core.urlresolvers import reverse
@@ -31,10 +32,10 @@ class ParagraphText(TestCase):
         self.assertEqual("1...", fun.utils.html.truncate_first_paragraph("<p>12345</p>", 4))
 
 @skipUnlessCms
-class TestDmCloudVideoId(ModuleStoreTestCase):
+class TestDailymotionVideoId(ModuleStoreTestCase):
     def test_teaser_public_id(self):
         """
-        Tests that we always get a correct dailmotion id from the about section.
+        Tests that we always get a correct dailymotion id from the about section.
         The public video id is store in Mongo surrounded by an iframe tag referencing youtube.
         As we use dailmotion we need to extract the id from the iframe and create a
         new one referencing dailymotion (see function get_teaser).
@@ -54,5 +55,19 @@ class TestDmCloudVideoId(ModuleStoreTestCase):
                          HTTP_ACCEPT='application/json')
         video_tag_youtube = get_about_section(course, 'video')
         self.assertIn(dm_code, video_tag_youtube)
-        video_tag_dailymotion = '<iframe id="course-teaser" frameborder="0" scrolling="no" allowfullscreen="" src="//www.dailymotion.com/embed/video/' + dm_code + '/?&api=postMessage"></iframe>'
-        self.assertEqual(video_tag_dailymotion, get_teaser(course, video_tag_youtube))
+
+class TestDailymotionTeaser(TestCase):
+    def test_get_teaser(self):
+        video_id = 'abcd'
+        teaser = get_teaser(video_id)
+        soup = bs4.BeautifulSoup(teaser)
+        iframe = soup.find('iframe')
+        iframe_src = iframe.attrs.get('src')
+
+        self.assertNotIn(
+            "'", teaser,
+            "A \"'\" character is dangerous as it will prevent the javascript code from parsing it correctly."
+        )
+        self.assertIsNotNone(iframe)
+        self.assertIn("autoplay=1", iframe_src)
+        self.assertIn(video_id, iframe_src)
