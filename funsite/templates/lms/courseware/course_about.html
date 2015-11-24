@@ -306,10 +306,10 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                         <li>
                             ${_(u"Thematics")}
                         </li>
-                        % for theme in fun_course.subjects.all():
+                        % for subject in fun_course.subjects.all():
                         <li>
-                            <a href=""><span class="white blue-cell">
-                                ${theme.name}
+                            <a href="${reverse('fun-courses:filter', kwargs={'subject': subject.slug})}"><span class="white blue-cell">
+                                ${subject.name}
                             </span></a>
                         </li>
                         % endfor
