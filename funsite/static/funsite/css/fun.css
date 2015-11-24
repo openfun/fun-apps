@@ -79,6 +79,7 @@ body {
     background-color: #08223C;
     padding: 4px 8px 2px 8px;
     font-size: 12px;
+    margin-top: 2px;
     margin-left: 2px;
     margin-right: 2px;
     font-weight: 300;
@@ -1241,7 +1242,7 @@ ul.universities-list {
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    
+
     -webkit-justify-content:  space-between;
     -webkit-box-justify-content: space-between;
     -moz-box-justify-content:  space-between;
@@ -1260,7 +1261,7 @@ ul.universities-list {
     font-size: 16px;
 }
 
-/* Navigation blocks are 60px height block with centered content (vertically and horizontally). 
+/* Navigation blocks are 60px height block with centered content (vertically and horizontally).
  Sadly flex display and margin auto is not working under IE 10/11.
  See http://stackoverflow.com/questions/32137334/flexbox-min-height-margin-auto-and-internet-explorer.
  That why we use `padding-top` and `text-align` to vertically, horizontally center content  inside navigation block. This could be remove once we decide to stop handling these versions of IE.
@@ -1334,10 +1335,10 @@ ul.universities-list {
     text-align: center;
     background: white;
     outline: 1px solid #2579BE;
-    
+
     list-style: none;
     padding: 0;
-    
+
 }
 
 /* Pagination dropdown menu items */
