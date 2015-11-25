@@ -163,15 +163,15 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 
 # Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
-# On FUN v3 frontend, which do not use edX's templates, those files are loaded by funsite/templates/funsite/parts/base.html
-# css/lms-main.css
+# On FUN v3 frontend, which do not use edX's templates, those files are loaded
+# by funsite/templates/funsite/parts/base.html and css/lms-main.css
 
+PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 
 
 # js/lms-application.js
-PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 PIPELINE_JS['application']['source_filenames'].append('fun/js/cookie-banner.js')
+PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
