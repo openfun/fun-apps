@@ -11,33 +11,27 @@ from django.utils.translation import ugettext as _
         <div class="parts">
             <h3>${_(u"You have an account")}</h3>
         </div>
-        <form role="form" class="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
-           <div style="display:none">
-              <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/>
-           </div>
-
+        <form role="form" class="login-form missing-csrf" method="post" data-remote="true" action="/login_ajax" novalidate>
             <div class="parts">
                 <input name="email" type="text" placeholder="${_(u"Email")}"><br>
             </div>
             <div class="parts">
                 <input name="password" type="password" placeholder="${_(u"Password")}"><br>
             </div>
-        <div class="parts forgotten-password">
-            <a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" ref="">${_(u"Forgotten password ?")}</a>
-        </div>
-        <div class="parts error">
+            <div class="parts forgotten-password">
+                <a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" ref="">${_(u"Forgotten password ?")}</a>
+            </div>
+            <div class="parts error"></div>
 
-        </div>
-
-        <div class="parts">
-            <button name="submit" type="submit" id="submit" class="bottom-margin btn btn-primary btn-padded btn-block" aria-disabled="false">${_(u"Login")}</button>
-        </div>
-        <div class="parts">
-            <h3>${_(u"You don't have an account")}</h3>
-        </div>
-        <div class="parts">
-            <a class="btn btn-default btn-padded btn-block" href="${reverse('register_user')}">${_(u"Create an account")}</a>
-        </div>
+            <div class="parts">
+                <button name="submit" type="submit" id="submit" class="bottom-margin btn btn-primary btn-padded btn-block" aria-disabled="false">${_(u"Login")}</button>
+            </div>
+            <div class="parts">
+                <h3>${_(u"You don't have an account")}</h3>
+            </div>
+            <div class="parts">
+                <a class="btn btn-default btn-padded btn-block" href="${reverse('register_user')}">${_(u"Create an account")}</a>
+            </div>
         </form>
     </div>
 </div>

@@ -41,8 +41,6 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
       <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-    </style>
 
     <%include file="/google_analytics.html" />
   </head>
@@ -84,8 +82,8 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <script type="text/javascript" src="/jsi18n/"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('js/src/utility.js')}"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/fun.js')}"></script>
-    <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/header.js')}"></script>
     <script type="text/javascript" src="${staticfiles_storage.url('fun/js/cookie-banner.js')}"></script>
+    <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/header.js')}"></script>
     <%block name="js_extra"/>
   </body>
 </html>

@@ -65,4 +65,16 @@
         // aria-haspopup is used to improve accessibility.
         $('#top-menu .right-nav .toggle-dropdown-menu').attr('aria-haspopup', display);
     }
+
+    /* Fill csrf token in forms that require it. For forms included in pages
+     * cached in anonymous mode, the csrf_token variable is not usable. */
+    var csrfToken = checkCookie('csrftoken');
+    var forms = $("form.missing-csrf");
+    if (forms.length > 0) {
+        if (csrfToken) {
+            forms.append("<input type='hidden' name='csrfmiddlewaretoken' style='display: none;' value='" + csrfToken + "'/>");
+        } else {
+            console.error("Missing CSRF token. Forms will not be submitted properly.");
+        }
+    }
  })();
