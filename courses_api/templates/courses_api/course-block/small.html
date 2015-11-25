@@ -28,15 +28,5 @@ from django.utils.translation import ugettext as _
             </span>
         </div>
     </div>
-    <div class="bottom">
-        <div class="footer row">
-            <div class="date col-xs-20">
-                <%include file="start-end-date.html" args="course=course,type='small'"/>
-            </div>
-
-            <a href="${course.get_absolute_url()}">
-                <div class="register col-xs-16">${_(u"Learn more")}</div>
-            </a>
-        </div>
-    </div>
+    <%include file="footer.html" args="course=course,type='small'"/>
 </div>

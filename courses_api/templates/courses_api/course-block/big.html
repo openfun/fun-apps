@@ -29,17 +29,5 @@ from util.date_utils import strftime_localized
             </span>
         </div>
     </div>
-    <div class="bottom">
-        <div class="footer row">
-            <div class="date col-xs-22">
-                <a class="no-decoration" href="${course.get_absolute_url()}">
-                    <%include file="start-end-date.html" args="course=course,type='big'"/>
-                </a>
-            </div>
-
-            <a href="${course.get_absolute_url()}">
-                <div class="register col-xs-14">${_(u"Learn more")}</div>
-            </a>
-        </div>
-    </div>
+    <%include file="footer.html" args="course=course,type='big'"/>
 </div>
