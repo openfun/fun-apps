@@ -59,10 +59,10 @@ from django.utils.translation import ugettext as _
                 <ul class="">
                 % for course in courses:
                     <li class="hidden-xs">
-                        <%include file="/courses_api/course-block/big.html" args="course=course"/>
+                        <%include file="/course_pages/course-block/big.html" args="course=course"/>
                     </li>
                     <li class="hidden-sm hidden-md hidden-lg">
-                        <%include file="/courses_api/course-block/small.html" args="course=course"/>
+                        <%include file="/course_pages/course-block/small.html" args="course=course"/>
                     </li>
                 % endfor
                 ##  Add some fake course blocks at the end to get correct alignment on the last line

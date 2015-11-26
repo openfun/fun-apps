@@ -24,7 +24,7 @@ from courses_api.routers import CourseAPIRouter
 
 % for template_name in ['small-course-block', 'criterion-value', 'filter']:
 <script type="text/template" id="${template_name}-tpl">
-    ${static_include("courses_api/js/" + template_name + ".underscore")}
+    ${static_include("course_pages/js/" + template_name + ".underscore")}
 </script>
 % endfor
 
@@ -456,7 +456,7 @@ require(["jquery", "underscore", "backbone"],
                     name: "page",
                     value: this.filter.get("currentPage"),
                 })
-                return "${reverse('fun-courses:%s-list' % CourseAPIRouter.BASENAME)}" + '?' + $.param(parameters);
+                return "${reverse('fun-courses-api:%s-list' % CourseAPIRouter.BASENAME)}" + '?' + $.param(parameters);
             },
             parse: function (response) {
                this.resultstats.set("totalCount", response.count);

@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 
 from courses.models import Course
-from courses.filters import CourseFilter
 
+from .filters import CourseFilter
 from .serializers import CourseSerializer
 
 

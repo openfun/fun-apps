@@ -86,9 +86,9 @@ tagline = _("Higher Education Excellence. Online, Free and Open Courses")
         %if len(featured_courses) > index:
         <div class="${classes}">
             %if size == 'big':
-            <%include file="/courses_api/course-block/big.html" args="course=featured_courses[index]"/>
+            <%include file="/course_pages/course-block/big.html" args="course=featured_courses[index]"/>
             %else:
-            <%include file="/courses_api/course-block/small.html" args="course=featured_courses[index]"/>
+            <%include file="/course_pages/course-block/small.html" args="course=featured_courses[index]"/>
             %endif
         </div>
         %endif

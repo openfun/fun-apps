@@ -20,7 +20,7 @@ def courses_index(request, subject=None):
     Args:
         subject (str): subject slug that allows to reverse course filtering urls.
     """
-    return render_to_response('courses_api/index.html', {
+    return render_to_response('course_pages/index.html', {
         "course_subjects": annotate_with_public_courses(CourseSubject.objects.by_score()),
         "universities": annotate_with_public_courses(University.objects.active_by_score()),
         "courses_count_start_soon": Course.objects.start_soon().count(),
@@ -51,7 +51,7 @@ class CoursesFeed(Feed):
             context['university'] = University.objects.get(code=course.org)
         except University.DoesNotExist:
             pass
-        return render_to_string('courses_api/feed/feed.html', context)
+        return render_to_string('course_pages/feed/feed.html', context)
 
     def item_link(self, course):
         return reverse('about_course', args=[course.id.to_deprecated_string()])

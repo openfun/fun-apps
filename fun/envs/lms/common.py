@@ -13,6 +13,7 @@ INSTALLED_APPS += (
     'course_dashboard',
     'courses',
     'courses_api',
+    'course_pages',
     'newsfeed',
     'universities',
     'videoproviders',
@@ -93,7 +94,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
     FUN_BASE_ROOT / 'funsite/templates',
-    FUN_BASE_ROOT / 'courses_api/templates',
+    FUN_BASE_ROOT / 'course_pages/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
     FUN_BASE_ROOT / 'newsfeed/templates',

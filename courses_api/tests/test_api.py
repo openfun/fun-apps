@@ -18,7 +18,7 @@ from courses.tests.factories import CourseFactory, CourseSubjectFactory
 class CourseAPITest(TestCase):
 
     def setUp(self):
-        self.api_url = reverse('fun-courses:api-list')
+        self.api_url = reverse('fun-courses-api:courses-list')
         self.active_1 = CourseFactory(title='active course 1',
             show_in_catalog=True,
             is_active=True,
