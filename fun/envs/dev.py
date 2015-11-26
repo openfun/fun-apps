@@ -33,7 +33,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ################################ DEBUG TOOLBAR ################################
 
-DEBUG_TOOLBAR_INSTALLED_APPS = ('debug_toolbar', 'djpyfs',)
+DEBUG_TOOLBAR_INSTALLED_APPS = ('debug_toolbar',)
 DEBUG_TOOLBAR_MIDDLEWARE_CLASSES = (
     'django_comment_client.utils.QueryCountDebugMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
