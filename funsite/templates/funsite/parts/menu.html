@@ -33,20 +33,26 @@ from staticfiles.storage import staticfiles_storage
         <a class="fun-logo-link header-block" href="${reverse('root')}">
             <img class="logo" src="${staticfiles_storage.url(settings.FUN_SMALL_LOGO_RELATIVE_PATH)}" alt="Logo FUN">
         </a>
-        <span class="slogan color-fun-blue heavy-weight header-block">${_(u"The Freedom to Study")}</span>
+        % if course:
+            <span class="course-org color-fun-red heavy-weight header-block">${course.display_org_with_default | h}</span>
+            <span class="course-display-name color-fun-blue heavy-weight header-block">${course.display_name_with_default | h}</span>
+        % else:
+            <span class="slogan color-fun-blue heavy-weight header-block">${_(u"The Freedom to Study")}</span>
+        % endif
     </div>
     <div class="right-header clickable">
         % if not request.user.is_authenticated():
             <a class="signup-link header-block" href="${reverse('register_user')}">
                 <span class="color-fun-red heavy-weight">${_(u"Sign up")}</span>
             </a>
-            <a class="user-icon-sign-in-link header-block" href="${reverse('signin_user')}">
+            <a class="user-icon-sign-in-link header-block" href="">
                 <img class="user-icon" src="${staticfiles_storage.url('funsite/images/icones/user.png')}" alt="User icon">
             </a>
-            <a class="login-link header-block" href="${reverse('signin_user')}">
+            <a class="login-link header-block" href="${'#' if base_application == 'funsite' else reverse('signin_user')}">
                 <span class="login-label color-fun-white heavy-weight">${_(u"Login")}</span>
             </a>
         % else:
+            <div class="white-header-block header-block"></div>
             <a class="user-icon-dashboard-link header-block" href="${reverse('dashboard')}">
                 <img class="user-icon" src="${staticfiles_storage.url('funsite/images/icones/user.png')}" alt="User icon">
             </a>
