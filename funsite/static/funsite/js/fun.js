@@ -6,7 +6,7 @@
     $('#sandwich-overlay [data-location="'+ page +'"]').addClass('selected');
 
     /* Login overlay */
-    $('#top-menu .right-nav .login-link').on('click', function(event) {
+    $('#top-menu .right-header .login-link').on('click', function(event) {
         $('#login-overlay').toggle();
         if ($('#login-overlay').is(':visible')) {
             $('#login-overlay input[name="email"]').focus();

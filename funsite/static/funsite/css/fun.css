@@ -524,9 +524,6 @@ ul.breadcrumbs li a:hover {
     .main-width {
         width: 100%;
     }
-    .slogan {
-        display: none;
-    }
     .hidden-320 {
         display: none !important;
     }

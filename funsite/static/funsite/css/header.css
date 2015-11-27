@@ -72,6 +72,7 @@
 }
 
 
+
 /******************** Left header ********************/
 
 #top-menu .left-header {
@@ -137,14 +138,25 @@
 #top-menu .left-header .fun-logo-link {
     padding: 0px;
 }
+
+/***** Slogan (in funsite),  course display name (in courseware) *****/
+#top-menu .left-header .course-org,
+#top-menu .left-header .course-display-name,
 #top-menu .left-header .slogan {
     font-size: 17px;
+}
+
+#top-menu .left-header span.course-display-name {
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
 /***** Various light horizontal alignments. *****/
 #top-menu .left-header #sandwich-menu-icon span {
     left: 18px;
 }
+#top-menu .left-header .course-org,
+#top-menu .left-header .course-display-name,
 #top-menu .left-header .slogan {
     margin-left: 5px;
 }
@@ -158,6 +170,11 @@
     top:0;
     right: 0;
     background: #F72C30;
+}
+
+#top-menu .right-header .white-header-block {
+    background : white;
+    width: 20px;
 }
 
 #top-menu .right-header .toggle-dropdown-menu {
@@ -202,8 +219,17 @@
 
 @media (max-width: 767px) {
     /***** < 767px the username in right header disappears. *****/
-    #top-menu .right-header .dashboard-user-link {
+    #top-menu .right-header .dashboard-user-link,
+    #top-menu .left-header .slogan,
+    #top-menu .left-header .course-org,
+    #top-menu .left-header .course-display-name,
+    #top-menu .right-header .signup-link,
+    #top-menu .right-header .login-link  
+    {
 	display: none;
+    }
+    #top-menu .right-header .user-icon-sign-in-link {
+	padding-right: 15px;
     }
 }
 
