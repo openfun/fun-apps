@@ -50,6 +50,11 @@
     font-family: 'Raleway', sans-serif;
 }
 
+
+#top-menu * {
+    box-sizing: border-box;
+}
+
 .slogan, .username {
     font-family: 'Raleway', sans-serif;
 }
