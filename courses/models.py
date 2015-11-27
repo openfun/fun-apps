@@ -29,6 +29,8 @@ class Course(models.Model):
         null=True, blank=True)
     level = models.CharField(_('level'), max_length=255,
         choices=courses_choices.COURSE_LEVEL_CHOICES, blank=True, db_index=True)
+    language = models.CharField(_('language'), max_length=255,
+                                choices=courses_choices.COURSE_LANGUAGES, default='fr', db_index=True)
     show_in_catalog = models.BooleanField(verbose_name=_('show in catalog'),
         default=True, db_index=True, help_text=_('Controls whether a course is '
         'listed in the courses catalog page'))
