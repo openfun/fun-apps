@@ -56,3 +56,14 @@ class TestCourseSubject(TestCase):
         course_new = factories.CourseFactory.create(session_number=1)
         new_courses = list(models.Course.objects.new())
         self.assertEqual([course_new], new_courses)
+
+    def test_get_course_language(self):
+        course = factories.CourseFactory.create(language="en")
+
+        self.assertEqual("en",
+                         models.Course.get_course_language(unicode(course.key)))
+
+        self.assertEqual(None,
+                         models.Course.get_course_language(unicode("this/course/doesNotExist")))
+
+

@@ -11,6 +11,7 @@ from django.conf import settings
 from capa.xqueue_interface import make_hashkey
 from instructor_task.models import InstructorTask
 
+from courses.models import Course
 from teachers.models import CertificateTeacher
 from fun_certificates.generator import CertificateInfo
 from universities.models import University
@@ -27,14 +28,15 @@ def create_test_certificate(course, course_key, university):
         logo_path = None
 
     teachers = get_teachers_list_from_course(course_key)
-
+    certificate_language = Course.get_course_language(unicode(course_key))
     key = make_hashkey(random.random())
     filename = "TEST_attestation_suivi_%s_%s.pdf" % (
         course.id.to_deprecated_string().replace('/', '_'), key
     )
 
     certificate = CertificateInfo(settings.STUDENT_NAME_FOR_TEST_CERTIFICATE,
-        course.display_name, university.name, logo_path, filename, teachers
+                                  course.display_name, university.name, logo_path, filename, teachers,
+                                  language=certificate_language
     )
 
     certificate.generate()
