@@ -38,6 +38,7 @@ class CourseAdmin(admin.ModelAdmin):
                 'subjects',
                 'session_number',
                 'score',
+                'language'
             )
         }),
         (_('Course Info - Automatically Updated'), {
