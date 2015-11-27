@@ -19,13 +19,14 @@ from certificates.models import (
   certificate_status_for_student,
   CertificateStatuses as status,
   GeneratedCertificate)
-from fun_certificates.generator import CertificateInfo
 from student.models import UserProfile
 from capa.xqueue_interface import make_hashkey
 from universities.models import University
-
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys import InvalidKeyError
+
+from fun_certificates.generator import CertificateInfo
+from courses.models import Course
 
 factory = RequestFactory()
 request = factory.get('/')
@@ -68,10 +69,11 @@ def generate_fun_certificate(student,
         key = make_hashkey(random.random())
         cert.key = key
         certificate_filename = certificate_base_filename + key + ".pdf"
+        certificate_language = Course.get_course_language(unicode(course_id))
         info = CertificateInfo(
             student_name, course_display_name,
             organization_display_name, organization_logo,
-            certificate_filename, teachers
+            certificate_filename, teachers, language=certificate_language
         )
         info.generate()
 
