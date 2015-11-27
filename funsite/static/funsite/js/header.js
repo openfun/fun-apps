@@ -33,8 +33,7 @@
     }
 
     /* Dropdown menu */
-    $('#top-menu .right-nav .toggle-dropdown-menu').on('click', toggleDropdown);
-
+    $('#top-menu .toggle-dropdown-menu').on('click', toggleDropdown);
      $('body').click(function(e) {
          if ($('#top-menu .fun-dropdown-menu').is(":visible")) {
              $('#top-menu .fun-dropdown-menu').slideUp();
