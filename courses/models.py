@@ -71,6 +71,13 @@ class Course(models.Model):
             pass
         return url
 
+    @staticmethod
+    def get_course_language(course_id):
+        try:
+            return Course.objects.get(key=course_id).language
+        except Course.DoesNotExist:
+            return None
+
     @property
     def first_university(self):
         try:

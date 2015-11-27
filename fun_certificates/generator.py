@@ -2,14 +2,14 @@
 import datetime
 import os
 
+from django.conf import settings
+from django.utils.translation.trans_real import translation
+
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-
-from django.conf import settings
-
 
 CURRENT_DIR = os.path.realpath(os.path.dirname(__file__))
 FONT_FILE = os.path.join(CURRENT_DIR, 'Arial.ttf')
@@ -49,7 +49,7 @@ class CertificateInfo(object):
     def __init__(
         self, full_name, course_name,
         organization, organization_logo,
-        filename, teachers
+        filename, teachers, language
     ):
         self.full_name = full_name
         self.course_name = course_name
@@ -57,6 +57,7 @@ class CertificateInfo(object):
         self.organization_logo = organization_logo
         self.filename = filename
         self.teachers = teachers
+        self._ = translation(language if language else "fr").ugettext
 
     @property
     def pdf_file_name(self):
@@ -98,7 +99,8 @@ class CertificateInfo(object):
         textobject.setTextOrigin(titleX, titleY)
         textobject.setFont("Arial", 24)
         textobject.setFillColorRGB(59./256, 118./256, 188./256)
-        textobject.textLine(u" ATTESTATION DE SUIVI AVEC SUCCÈS")
+
+        textobject.textLine(self._("ATTESTATION OF ACHIEVEMENT"))
         c.drawText(textobject)
 
         c.setFillColorRGB(221./256, 221./256, 221./256)
@@ -128,7 +130,7 @@ class CertificateInfo(object):
         textobject.setTextOrigin(mainContentX, mainContentY)
         textobject.setFont("Arial", 16)
         textobject.setFillColorRGB(127./256, 127./256, 127./256)
-        textobject.textOut(u"a suivi avec succès le MOOC")
+        textobject.textOut(self._("has successfully completed the MOOC"))
         textobject.setFillColorRGB(59./256, 118./256, 188./256)
         textobject.textLine("*")
 
@@ -144,22 +146,22 @@ class CertificateInfo(object):
         textobject.setFillColorRGB(127./256, 127./256, 127./256)
         if (self.organizationNameTooLong):
             indexReturnLine = self.organization.rfind(" ", 0, 33)
-            textobject.textOut(u"proposé par ")
+            textobject.textOut(self._("proposed by "))
             textobject.setFillColorRGB(0, 0, 0)
             textobject.textLine(self.organization[:indexReturnLine])
             textobject.textLine(self.organization[indexReturnLine+1:])
         else:
-            textobject.textOut(u"proposé par ")
+            textobject.textOut(self._("proposed by "))
             textobject.setFillColorRGB(0, 0, 0)
             textobject.textLine(self.organization)
         textobject.setFillColorRGB(0, 0, 0)
 
         textobject.setFillColorRGB(127./256, 127./256, 127./256)
-        textobject.textOut(u"et diffusé sur la ")
+        textobject.textOut(self._("and published on the platform "))
         textobject.setFillColorRGB(0, 0, 0)
-        textobject.textLine(u"plateforme FUN")
+        textobject.textLine(self._("FUN"))
         textobject.setFillColorRGB(59./256, 118./256, 188./256)
-        textobject.textLine(datetime.date.today().strftime('Le %d/%m/%Y'))
+        textobject.textLine(datetime.date.today().strftime(self._("On the %m/%d/%Y")))
         c.drawText(textobject)
 
     def write_legal_mentions(self, c):
@@ -168,17 +170,17 @@ class CertificateInfo(object):
         textobject.setFont("Arial", 8.5)
         textobject.setFillColorRGB(0, 0, 0)
         legalMentions = (
-            u"La présente attestation n’est pas un diplôme et ne confère pas de crédits (ECTS)."
-            u" Elle n'atteste pas que le participant était inscrit à/au {}.".format(self.organization)
+            self._("The current document is not a degree or diploma and does not award credits (ECTS).") +
+            self._(" It does not certify that the learner was registered with {}.").format(self.organization)
         )
         if (len(legalMentions) > 169):
             indexReturnLine = legalMentions.rfind(" ", 0, 169)
             textobject.textLine(legalMentions[:indexReturnLine])
             textobject.textOut(legalMentions[indexReturnLine+1:])
-            textobject.textLine(u". L’identité du participant n’a pas été vérifiée.")
+            textobject.textLine(self._(". The learner's identity has not been verified."))
         else:
             textobject.textLine(legalMentions)
-            textobject.textLine(u"L’identité du participant n’a pas été vérifiée.")
+            textobject.textLine(self._("The learner's identity has not been verified."))
         c.drawText(textobject)
 
     def write_fun_logo(self, c):
@@ -191,7 +193,7 @@ class CertificateInfo(object):
     def write_professor_list(self, c):
         c.setFont("Arial", 16)
         c.setFillColorRGB(59./256, 118./256, 188./256)
-        c.drawRightString(100+21.70*cm, 100+8.40*cm, "Les enseignants")
+        c.drawRightString(100+21.70*cm, 100+8.40*cm, self._("Instructors"))
         y = 7.5
         c.setFillColorRGB(0, 0, 0)
         c.setFont("Arial", 12)
@@ -223,6 +225,6 @@ class CertificateInfo(object):
         textobject.setFillColorRGB(59./256, 118./256, 188./256)
         textobject.textOut("* ")
         textobject.setFillColorRGB(127./256, 127./256, 127./256)
-        textobject.textLine(u"MOOC : cours en ligne")
+        textobject.textLine(self._("MOOC: Massive Open Online Course"))
         c.drawText(textobject)
 
