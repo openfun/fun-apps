@@ -1234,24 +1234,7 @@ ul.universities-list {
 /**** Navigation bar ****/
 
 .navigation-bar {
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-
-    -webkit-justify-content:  space-between;
-    -webkit-box-justify-content: space-between;
-    -moz-box-justify-content:  space-between;
-    -ms-justify-content:  space-between;
-    justify-content: space-between;
-
-    -webkit-flex-wrap:  wrap;
-    -webkit-box-flex-wrap: wrap;
-    -moz-box-flex-wrap:  wrap;
-    -ms-flex-wrap:  wrap;
-    flex-wrap: wrap;
-
+    position:relative;
     padding-left: 20px;
     margin-bottom: 24px;
     border: 1px solid #CBCCCD;
@@ -1274,6 +1257,11 @@ ul.universities-list {
 }
 .navigation-block .pages {
     display: inline-block;
+}
+.navigation-right {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 
