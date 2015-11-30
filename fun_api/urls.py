@@ -1,7 +1,6 @@
-from django.conf.urls import url
-from rest_framework.authtoken import views
+from django.conf.urls import patterns, url
 
 
-urlpatterns = [
-    url(r'^$', views.obtain_auth_token)
-]
+urlpatterns = patterns('fun_api.views',
+    url(r'^$', 'get_token', name='fun-get-token'),
+)
