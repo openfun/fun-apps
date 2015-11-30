@@ -18,3 +18,12 @@ class UniversitySerializer(serializers.ModelSerializer):
             'detail_page_enabled',
             'banner',
         )
+
+
+class PrivateUniversitySerializer(UniversitySerializer):
+    '''
+    Presents data accessible to authenticated admin users.
+    '''
+
+    class Meta(UniversitySerializer.Meta):
+        fields = UniversitySerializer.Meta.fields + ('score',)
