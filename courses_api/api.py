@@ -1,9 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from courses.models import Course
 
 from .filters import CourseFilter
-from .serializers import CourseSerializer
+from .serializers import CourseSerializer, CourseScoreSerializer
 
 
 class CourseAPIView(viewsets.ReadOnlyModelViewSet):
@@ -40,3 +42,10 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
         queryset = queryset.with_related().public()
         queryset = self.filter_queryset(queryset)
         return queryset
+
+
+class CourseScoreView(mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    queryset = Course.objects.all()
+    serializer_class = CourseScoreSerializer

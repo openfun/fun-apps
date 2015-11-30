@@ -46,3 +46,10 @@ class CourseSerializer(serializers.ModelSerializer):
             'session_display',
             'thumbnails',
         )
+
+
+class CourseScoreSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Course
+        fields = ('score',)
