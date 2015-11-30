@@ -41,6 +41,21 @@
     font-family: 'Raleway', sans-serif;
 }
 
+#top-menu span.fun-logo {
+    background-image: url('../images/logos/fun61.png');
+    background-size: 61px 58px;
+    width: 61px;
+    height: 58px;
+    display: inline-block;
+    vertical-align: middle;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #top-menu span.fun-logo {
+        background-image: url('../images/logos/fun195.png');
+    }
+}
+
+
 .slogan, .username {
     font-family: 'Raleway', sans-serif;
 }
