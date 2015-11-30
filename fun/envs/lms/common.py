@@ -4,9 +4,12 @@ from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-i
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 INSTALLED_APPS += (
+    'rest_framework.authtoken',
+
     'backoffice',
     'fun',
     'funsite',
+    'fun_api',
     'fun_certificates',
     'fun_instructor',
     'contact',
