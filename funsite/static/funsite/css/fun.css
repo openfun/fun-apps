@@ -1458,16 +1458,16 @@ ul.universities-list {
     padding-left: 36px !important;
     height: 36px;
 }
-.criteria li.icon.french-flag {
+.criteria li.icon.fr-flag {
     background: url('../images/icones/french-flag.png') 6px 2px no-repeat;
 }
-.criteria li.icon.english-flag {
+.criteria li.icon.en-flag {
     background: url('../images/icones/english-flag.png') 6px 2px no-repeat;
 }
-.criteria li.icon.german-flag {
+.criteria li.icon.de-flag {
     background: url('../images/icones/german-flag.png') 6px 2px no-repeat;
 }
-.criteria li.icon.spanish-flag {
+.criteria li.icon.es-flag {
     background: url('../images/icones/spanish-flag.png') 6px 2px no-repeat;
 }
 

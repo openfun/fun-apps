@@ -63,14 +63,12 @@ require(["jquery", "underscore", "backbone"],
             {title: '${_("Certified training")}', name: 'certificate', type: 'checkbox', values: [
                 {value: "certificat", title: "Certificate", count: 50 },
             ]},
-            {title: '${_("Language")}', name: 'language', type: 'select', values: [
-                {value: 'fr', title: "Français", image: 'french-flag', count: 12},
-                {value: 'en', title: "English", image: 'english-flag', count: 12},
-                {value: 'de', title: "Deutsch", image: 'german-flag', count: 12},
-                {value: 'es', title: "Español", image: 'spanish-flag', count: 12},
-            ]},
             */
-
+            {title: '${_("Language")}', name: 'language', type: 'select', values: [
+                %for language in languages:
+                {value: "${language['language']}", title: "${language['title']}", image: "${language['language'] + '-flag'}", count: "${language['count']}"},
+                %endfor
+            ]},
         ];
 
         var AppRouter = Backbone.Router.extend({
