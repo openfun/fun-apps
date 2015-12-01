@@ -2,6 +2,7 @@
 
 from django.core.urlresolvers import reverse
 from django.contrib.syndication.views import Feed
+from django.db.models import Count
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
@@ -12,6 +13,7 @@ from universities.models import University
 
 from courses.models import Course, CourseSubject
 from courses.managers import annotate_with_public_courses
+from courses.choices import COURSE_LANGUAGES
 import courses.utils
 
 
@@ -20,9 +22,14 @@ def courses_index(request, subject=None):
     Args:
         subject (str): subject slug that allows to reverse course filtering urls.
     """
+    # get course count for distinct languages
+    languages = Course.objects.public().values('language').distinct().annotate(count=Count('id'))
+    # update returned dict with language name comming from courses.choices.COURSE_LANGUAGES
+    languages = [dict(language, title=unicode(dict(COURSE_LANGUAGES)[language['language']])) for language in languages]
     return render_to_response('course_pages/index.html', {
         "course_subjects": annotate_with_public_courses(CourseSubject.objects.by_score()),
         "universities": annotate_with_public_courses(University.objects.active_by_score()),
+        "languages": languages,
         "courses_count_start_soon": Course.objects.start_soon().count(),
         "courses_count_end_soon": Course.objects.end_soon().count(),
         "courses_count_new": Course.objects.new().count(),
