@@ -51,7 +51,7 @@ class CourseAPITest(TestCase):
         data = json.loads(response.content)
         self.assertIn('results', data)
 
-    def test_response_contains_on_active_courses(self):
+    def test_response_contains_only_active_courses(self):
         response = self.client.get(self.api_url)
         self.assertContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
@@ -153,7 +153,6 @@ class CourseAPITest(TestCase):
         filter_data = {'availability': 'enrollment-ends-soon'}
         response = self.client.get(self.api_url, filter_data)
         data = json.loads(response.content)
-
         self.assertEqual(1, len(data['results']))
         self.assertEqual(self.active_1.title, data['results'][0]['title'])
 
