@@ -2,9 +2,12 @@
 
 import json
 
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.timezone import now, timedelta
+
+from student.tests.factories import UserFactory
 
 from fun.tests.utils import skipUnlessLms
 from universities.factories import UniversityFactory
@@ -37,6 +40,7 @@ class CourseAPITest(TestCase):
             show_in_catalog=False,
             is_active=True,
         )
+        self.user = UserFactory(username='user', password='password') # user with profile
 
     @property
     def soon(self):
@@ -51,11 +55,39 @@ class CourseAPITest(TestCase):
         data = json.loads(response.content)
         self.assertIn('results', data)
 
-    def test_response_contains_on_active_courses(self):
+    def test_response_contains_only_active_courses(self):
         response = self.client.get(self.api_url)
         self.assertContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_active.title)
+        self.assertNotContains(response, self.not_in_catalog.title)
+
+    def test_staff_user_can_see_courses_not_catalog(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.client.login(username='user', password='password')
+        data = {'catalog_only': True}
+        response = self.client.get(self.api_url, data)
+        self.assertContains(response, self.active_1.title)
+        self.assertContains(response, self.active_2.title)
+        self.assertContains(response, self.not_in_catalog.title)
+
+    def test_user_can_only_see_public_courses_is_not_staff(self):
+        self.user.is_staff = False
+        self.user.save()
+        self.client.login(username='user', password='password')
+        data = {'catalog_only': True}
+        response = self.client.get(self.api_url, data)
+        self.assertContains(response, self.active_1.title)
+        self.assertContains(response, self.active_2.title)
+        self.assertNotContains(response, self.not_in_catalog.title)
+
+    def test_user_can_only_see_public_courses_is_not_logged_in(self):
+        self.client.logout()
+        data = {'catalog_only': True}
+        response = self.client.get(self.api_url, data)
+        self.assertContains(response, self.active_1.title)
+        self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_in_catalog.title)
 
     def test_only_display_courses_for_a_specific_university(self):
@@ -153,7 +185,6 @@ class CourseAPITest(TestCase):
         filter_data = {'availability': 'enrollment-ends-soon'}
         response = self.client.get(self.api_url, filter_data)
         data = json.loads(response.content)
-
         self.assertEqual(1, len(data['results']))
         self.assertEqual(self.active_1.title, data['results'][0]['title'])
 
