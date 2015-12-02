@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import json
+
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -16,6 +18,14 @@ class APIAuthTest(TestCase):
             username='user', password='password',
         )
         self.user_data = {'username': 'user', 'password': 'password'}
+
+    def test_token_api_response_loads(self):
+        self.user.is_superuser = True
+        self.user.save()
+        response = self.client.post(self.get_token_url, self.user_data)
+        data = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('token', data)
 
     def test_cannot_get_token_if_not_active(self):
         self.user.is_active = False
