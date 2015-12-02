@@ -1,11 +1,15 @@
 from rest_framework import viewsets, mixins
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from courses.models import Course
 
 from .filters import CourseFilter
 from .serializers import CourseSerializer, CourseScoreSerializer
+
+
+def is_true(value):
+    return str(value).lower() in ['true', '1', 'y', 'yes']
 
 
 class CourseAPIView(viewsets.ReadOnlyModelViewSet):
@@ -31,7 +35,7 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     '''
     filter_backends = (CourseFilter,)
     model = Course
-    authentication_classes = ()  # Disable auth - works with nginx.
+    authentication_classes = (TokenAuthentication, SessionAuthentication)
     serializer_class = CourseSerializer
     paginate_by = 100
     paginate_by_param = 'rpp'
@@ -39,7 +43,13 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
-        queryset = queryset.with_related().public()
+        queryset = queryset.filter(is_active=True)  # Not active means deleted.
+        catalog_only = self.request.QUERY_PARAMS.get('catalog_only')
+        is_admin = self.request.user.is_staff or self.request.user.is_superuser
+        if is_true(catalog_only) and is_admin:
+            queryset = queryset.with_related()
+        else:
+            queryset = queryset.with_related().public()
         queryset = self.filter_queryset(queryset)
         return queryset
 
