@@ -233,7 +233,7 @@ a.no-decoration:visited {
     #top-menu .left-header .course-org,
     #top-menu .left-header .course-display-name,
     #top-menu .right-header .signup-link,
-    #top-menu .right-header .login-link  
+    #top-menu .right-header .login-label  
     {
 	display: none;
     }
