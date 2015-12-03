@@ -45,10 +45,8 @@ from staticfiles.storage import staticfiles_storage
             <a class="signup-link header-block" href="${reverse('register_user')}">
                 <span class="color-fun-red heavy-weight">${_(u"Sign up")}</span>
             </a>
-            <a class="user-icon-sign-in-link header-block" href="">
-                <img class="user-icon" src="${staticfiles_storage.url('funsite/images/icones/user.png')}" alt="User icon">
-            </a>
             <a class="login-link header-block" href="${'#' if base_application == 'funsite' else reverse('signin_user')}">
+                <img class="user-icon" src="${staticfiles_storage.url('funsite/images/icones/user.png')}" alt="User icon">
                 <span class="login-label color-fun-white heavy-weight">${_(u"Login")}</span>
             </a>
         % else:
