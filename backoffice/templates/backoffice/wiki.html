@@ -1,0 +1,78 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n course staticfiles %}
+
+{% block extra_head %}
+<style>
+ul {
+  list-style: disc;
+}
+li>span {
+  color: #999;
+}
+li>span.open {
+  color: green;
+}
+li>span.closed {
+  color: red;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ course_info.course.display_name_with_default }}</h1>
+
+
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><a href="{% url 'backoffice:course-detail' course_key_string %}">{% trans "Information" %}</a></li>
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Wiki" %}</a></li>
+  </ul>
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+    <div role="tabpanel" class="tab-pane active" id="wiki">
+
+      <div class="row">
+        <div class="col-md-12">
+
+        <p><br>
+
+{% blocktrans %}This is the tree structure of this course wiki. Between parenthesis is the number of revisions, and date of the last one, of page which indicate page If date is green the page et editable, if red write permission has been removed.{% endblocktrans %}
+
+        </p><br>
+        <ul class="wiki-tree">
+          {{ html|safe }}
+        </ul>
+
+        </div>
+      </div>
+
+      <div class="row button-bar">
+        <div class="col-md-10">
+            <div class="row">
+            </div>
+        </div>
+        <div class="col-md-2 text-right">
+          <form method="POST" action=".">{% csrf_token %}
+            <button class="btn btn-info" name="action" value="open">{% trans "Restore wiki permissions" %}</button>
+            <br><br>
+            <button class="btn btn-danger" name="action" value="close">{% trans "Remove wiki permissions" %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+{% endblock %}

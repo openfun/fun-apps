@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 2\n"
+"Project-Id-Version: France Université Numérique 3\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-07-23 14:53+0200\n"
-"PO-Revision-Date: 2015-07-23 14:53+0000\n"
+"POT-Creation-Date: 2015-12-16 17:48+0100\n"
+"PO-Revision-Date: 2015-12-16 17:48+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -26,6 +26,11 @@ msgstr ""
 "un astérisque (*)%(bold_end)s.\n"
 "        "
 
+#: /edx/app/edxapp/fun-apps/fun/utils/funwiki.py:65
+#, python-format
+msgid "%m/%d/%y %H:%M"
+msgstr "%d/%m/%y %H:%M"
+
 # Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:180
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:194
@@ -42,11 +47,11 @@ msgstr "Accéder à mes Cours"
 msgid "Activation Invalid"
 msgstr "Activation non valide"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:76
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:100
 msgid "Add"
 msgstr "Ajouter"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:125
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:147
 msgid "Add videos to your course"
 msgstr "Ajouter la vidéo à votre cours"
 
@@ -58,7 +63,7 @@ msgstr "Administrateurs"
 msgid "All (students, staff and instructors)"
 msgstr "Tous (Apprenants et équipe pédagogique)"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:126
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:148
 msgid "All uploaded videos are sent to our storage backend."
 msgstr ""
 "Toutes les vidéos ajoutées sont envoyées vers notre infrastructure de "
@@ -77,39 +82,35 @@ msgstr "Licence"
 msgid "Check"
 msgstr "Vérifier"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:109
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:133
 msgid "Click to upload a new video"
 msgstr "Cliquez pour ajouter une nouvelle vidéo"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:187
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:178
 msgid "Could not add subtitles:"
 msgstr "Impossible d'ajouter des sous-titres :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:232
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:211
 msgid "Could not add thumbnail:"
 msgstr "Impossible d'ajouter une vignette :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:97
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:98
 msgid "Could not change video title:"
 msgstr "Impossible de changer le titre de la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:121
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:126
 msgid "Could not create video:"
 msgstr "Impossible de créer la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:207
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:194
 msgid "Could not delete subtitle:"
 msgstr "Impossible de supprimer les sous-titres :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:89
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:90
 msgid "Could not delete video:"
 msgstr "Impossible de supprimer la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:202
-msgid "Could not fetch subtitle:"
-msgstr "Impossible de récupérer les sous-titres :"
-
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:106
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:107
 msgid "Could not fetch upload url:"
 msgstr "Impossible de récupérer l'url d'upload"
 
@@ -117,7 +118,7 @@ msgstr "Impossible de récupérer l'url d'upload"
 msgid "Could not fetch video list:"
 msgstr "Impossible de récupérer la liste de vidéos :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:175
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:166
 msgid "Could not fetch video subtitles:"
 msgstr "Impossible de récupérer les sous-titres :"
 
@@ -125,19 +126,19 @@ msgstr "Impossible de récupérer les sous-titres :"
 msgid "Could not fetch video:"
 msgstr "Impossible de récupérer la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:145
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:141
 msgid "Could not publish video:"
 msgstr "Impossible de publier la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:164
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:155
 msgid "Could not unpublish video:"
 msgstr "Impossible de dé-publier la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:189
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:180
 msgid "Could not upload subtitles"
 msgstr "Impossible d'ajouter les sous-titres"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:234
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:213
 msgid "Could not upload thumbnail"
 msgstr "Impossible d'ajouter la vignette"
 
@@ -192,7 +193,7 @@ msgstr "Adresse mail ou mot de passe incorrect"
 msgid "Engage with posts"
 msgstr "S'investir dans les discussions"
 
-#: /edx/app/edxapp/fun-apps/fun/envs/common.py:52
+#: /edx/app/edxapp/fun-apps/fun/envs/common.py:55
 msgid "English"
 msgstr "Anglais"
 
@@ -229,11 +230,11 @@ msgstr "Suivi"
 msgid "Forum Admin"
 msgstr "Administrateurs des forums"
 
-#: /edx/app/edxapp/fun-apps/fun/envs/common.py:51
+#: /edx/app/edxapp/fun-apps/fun/envs/common.py:54
 msgid "French"
 msgstr "Français"
 
-#: /edx/app/edxapp/fun-apps/fun/envs/common.py:53
+#: /edx/app/edxapp/fun-apps/fun/envs/common.py:56
 msgid "German"
 msgstr "Allemand"
 
@@ -295,7 +296,7 @@ msgstr "Masculin"
 msgid "Master's or professional degree"
 msgstr "Master / Diplôme d'ingénieur"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:24
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:26
 msgid "Missing credentials:"
 msgstr "Identifiants manquants"
 
@@ -366,16 +367,6 @@ msgstr "Merci pour votre inscription !"
 msgid "The page that you were looking for was not found."
 msgstr "La page que vous recherchez n'a pas été trouvée."
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:25
-msgid ""
-"There is no video storage credentials defined for this account. Please "
-"get in touch with your administrator or support team to setup the "
-"credentials for university '{}'"
-msgstr ""
-"Il n'y a pas d'identifiant pour le stockage de vidéos défini pour ce "
-"compte. Veuillez rentrer en contact avec votre université ou votre équipe"
-" de support pour définir les identifiants de votre établissement '{}'."
-
 # Translated in edx by 'Cet article a été modifié pour la dernière fois:'
 msgid "This article was last modified:"
 msgstr "Cet article a été modifié :"
@@ -388,7 +379,7 @@ msgstr "Sans réponse"
 msgid "University"
 msgstr "Établissement"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:108
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:132
 msgid "Upload new videos"
 msgstr "Ajouter de nouvelles vidéos"
 
@@ -404,7 +395,7 @@ msgstr "Exemples utiles :"
 msgid "Valid e-mail address required."
 msgstr "Une adresse email valide est requise."
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload.html:103
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:127
 msgid "Video uploads"
 msgstr "Upload de vidéos"
 
@@ -460,4 +451,21 @@ msgstr "votre identifiant vidéo"
 # Translated in edx by 'Résumé général de {platform_name}'
 msgid "{platform_name}-wide Summary"
 msgstr "{platform_name}-Sommaire général"
+
+#~ msgid "Could not fetch subtitle:"
+#~ msgstr "Impossible de récupérer les sous-titres :"
+
+#~ msgid ""
+#~ "There is no video storage credentials"
+#~ " defined for this account. Please get"
+#~ " in touch with your administrator or"
+#~ " support team to setup the "
+#~ "credentials for university '{}'"
+#~ msgstr ""
+#~ "Il n'y a pas d'identifiant pour le"
+#~ " stockage de vidéos défini pour ce"
+#~ " compte. Veuillez rentrer en contact "
+#~ "avec votre université ou votre équipe"
+#~ " de support pour définir les "
+#~ "identifiants de votre établissement '{}'."
 

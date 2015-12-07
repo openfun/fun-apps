@@ -30,13 +30,14 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Reg
 from xmodule_django.models import CourseKeyField
 from xmodule.modulestore.django import modulestore
 
+from courses.models import Course, CourseUniversityRelation
+from courses.utils import get_about_section
 from newsfeed.models import Article
+from fun.utils import funwiki as wiki_utils
 from universities.models import University
 
 from .forms import SearchUserForm, UserForm, UserProfileForm, ArticleForm
 from .utils import get_course, group_required, get_course_key
-from courses.models import Course, CourseUniversityRelation
-from courses.utils import get_about_section
 
 ABOUT_SECTION_FIELDS = ['effort', 'video']
 
@@ -419,3 +420,37 @@ def news_detail(request, news_id=None):
         'form': form,
         'tab': 'news',
     })
+
+
+@group_required('fun_backoffice')
+def wiki(request, course_key_string, action=None):
+    course_info = get_complete_course_info(get_course(course_key_string))
+
+    ck = CourseKey.from_string(course_key_string)
+    course = modulestore().get_course(ck)
+
+    base_page = wiki_utils.get_base_page(course)
+
+    if request.method == 'POST':
+        value, word = {'open': (True, _(u"opened")), 'close': (False, _(u"closed"))}[request.POST['action']]
+        result = wiki_utils.set_permissions(course, value)
+        if result:
+            messages.success(request, _(u"Wiki was successfully ") + unicode(word))
+        else:
+            messages.error(request, _(u"Wiki could not be ") + unicode(word))
+
+        return redirect(reverse('backoffice:course-wiki', args=[course_key_string]))
+
+    pages = wiki_utils.get_page_tree([base_page])
+    html = _(u"This course has no wiki")
+    if any(pages):
+        pages, html = wiki_utils.render_html_tree(pages, '')
+
+    return render(request, 'backoffice/wiki.html', {
+            'course_key_string': course_key_string,
+            'course_info': course_info,
+            'pages': pages,
+            'html': html,
+            'tab': 'courses',
+        })
+

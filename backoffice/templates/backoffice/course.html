@@ -22,6 +22,7 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Information" %}</a></li>
+    <li role="presentation"><a href="{% url 'backoffice:course-wiki' course_info.course.id %}">{% trans "Wiki" %}</a></li>
   </ul>
 
 
@@ -82,7 +83,9 @@
 
     </div>
 
+
   </div>
+
 
 </div>
 

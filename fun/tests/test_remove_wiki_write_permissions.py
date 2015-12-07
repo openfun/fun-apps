@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from StringIO import StringIO
 
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase

@@ -5,8 +5,8 @@ from django.conf.urls import include, url, patterns
 
 urlpatterns = patterns('backoffice.views',
     url(r'^$', 'courses_list', name='courses-list'),
-    url(r'^course/{}?$'.format(settings.COURSE_KEY_PATTERN), 'course_detail',
-            name='course-detail'),
+    url(r'^course/{}?$'.format(settings.COURSE_KEY_PATTERN),
+            'course_detail', name='course-detail'),
 
     url(r'^users/$', 'user_list', name='user-list'),
     url(r'^user/(?P<username>[^/]+)/$', 'user_detail', name='user-detail'),
@@ -23,4 +23,6 @@ urlpatterns = patterns('backoffice.views',
         r'^course/certificate/{}/'.format(settings.COURSE_KEY_PATTERN),
         include('backoffice.certificate_manager.urls')
     ),
+    url(r'^wiki/{}/(?P<action>[^/]+)?$'.format(settings.COURSE_KEY_PATTERN),
+            'wiki', name='course-wiki'),
 )
