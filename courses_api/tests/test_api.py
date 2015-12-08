@@ -2,7 +2,6 @@
 
 import json
 
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.timezone import now, timedelta
@@ -172,10 +171,19 @@ class CourseAPITest(TestCase):
         self.assertNotContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
 
-    def test_api_results_do_not_include_score(self):
+    def test_public_api_results_do_not_include_score(self):
+        self.user.is_staff = False
+        self.user.save()
+        self.client.logout()
         response = self.client.get(self.api_url)
-        data = json.loads(response.content)
-        self.assertFalse('score' in data['results'][0])
+        self.assertNotContains(response, 'score')
+
+    def test_private_api_results_include_score(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.client.login(username='user', password='password')
+        response = self.client.get(self.api_url)
+        self.assertContains(response, 'score')
 
     def test_enrollment_ends_soon(self):
         self.active_1.enrollment_end_date = self.soon
