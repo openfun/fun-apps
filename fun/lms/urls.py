@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # fun api
+    (r'^fun/api/token/', include('fun_api.urls', namespace='fun-api')),
     (r'^fun/', include('courses_api.urls', namespace='fun-courses-api')),
 
     # override edX's courses page to replace by FUN's one (we need to use a other route)
