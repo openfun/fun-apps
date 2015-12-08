@@ -1,5 +1,11 @@
 # Changelog www.france-universite-numerique.fr
 
+## 3.1 8/12/2015
+- Possibilité de spécifier la langues principale d'un cours
+    - Création des certificats dans cette langue
+    - Filtrage des cours par langue
+- Bugfixes (Popin de login en basse résolution et teaser video sous FF)
+
 ## 3.0 23/11/2015
 - Nouveau design du site, et suppression du système de thème edX. Toutes les pages non courseware sont maintenant indépendantes du dépôt `edx-platform`.
     + Nouvelle page d'accueil présentant des cours mis en avant, des actualités, des thèmes...
