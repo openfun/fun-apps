@@ -85,10 +85,7 @@ def get_university_attached_to_course(course):
     """
     Get the university attached to a course return 'None' if not found
     """
-    try:
-        university = University.objects.get(code=course.org)
-    except University.DoesNotExist:
-        university = None
-    return university
+    fun_course = Course.objects.get(key=course.id.to_deprecated_string())
+    return fun_course.first_university
 
 
