@@ -45,6 +45,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'thumbnails',
         )
 
+
 class PublicCourseSerializer(CourseSerializer):
     universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
@@ -57,8 +58,9 @@ class PrivateCourseSerializer(CourseSerializer):
     class Meta:
         model = Course
         fields = CourseSerializer.Meta.fields + (
-            'scores',
+            'score',
         )
+
 
 class CourseScoreSerializer(serializers.ModelSerializer):
 
