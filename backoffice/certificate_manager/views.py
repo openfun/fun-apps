@@ -53,11 +53,11 @@ def generate_test_certificate(request, course_key_string):
     course = get_course(course_key_string)
 
     university = get_university_attached_to_course(course)
-    messages.warning(request, _("University doesn't exist"))
     if university is not None:
         certificate = create_test_certificate(course, course_key, university)
         return certificate_file_response(certificate)
     else:
+        messages.warning(request, _("University doesn't exist"))
         return redirect('backoffice:certificate-dashboard', course_key_string)
 
 

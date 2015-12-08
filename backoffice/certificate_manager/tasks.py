@@ -16,7 +16,8 @@ from fun_certificates.management.commands.generate_fun_certificates import (
     get_enrolled_students, generate_fun_certificate
 )
 from backoffice.utils import get_course_key
-from backoffice.certificate_manager.utils import get_teachers_list_from_course, create_test_certificate
+from backoffice.certificate_manager.utils import (
+    get_teachers_list_from_course, create_test_certificate, get_university_attached_to_course)
 
 from universities.models import University
 
@@ -29,7 +30,7 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
     course = modulestore().get_course(course_id, depth=2)
     course_key = get_course_key(str(course_id))
     course_display_name = unicode(course.display_name).encode('utf-8')
-    university = University.objects.get(code=course.location.org)
+    university = get_university_attached_to_course(course)
     certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
 
     start_time = time()
