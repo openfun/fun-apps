@@ -6,7 +6,7 @@ from courses.models import Course
 
 from .filters import CourseFilter
 from .serializers import (
-    PublicCourseSerializer, PrivateCourseSerializer, CourseScoreSerializer,
+    CourseSerializer, PrivateCourseSerializer, CourseScoreSerializer,
 )
 
 
@@ -67,7 +67,7 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     def get_serializer_class(self):
         if self.is_admin:
             return PrivateCourseSerializer
-        return PublicCourseSerializer
+        return CourseSerializer
 
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
