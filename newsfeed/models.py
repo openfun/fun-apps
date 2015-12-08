@@ -10,7 +10,6 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 
-from solo.models import SingletonModel
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 
@@ -47,36 +46,6 @@ class ArticleManager(models.Manager):
         language.
         """
         return self.viewable(get_language())[:ArticleManager.FEATURED_ARTICLES_COUNT]
-
-
-# TODO: the FeaturedSection is no longer used and should be removed. The
-# featured article is the first article by decreasing date with a true "pinned"
-# attribute; if none exist, it is the latest article.
-class FeaturedSection(SingletonModel):
-
-    article = models.ForeignKey("Article", verbose_name=_("article"),
-        blank=True, null=True)
-    title = models.CharField(verbose_name=_("title"), max_length=256,
-        blank=True, help_text=_("If no title is given here, we will use "
-        "the related article's title."))
-    image = models.ImageField(_("image"),
-        upload_to="newsfeed", help_text=_("Featured on the top section of "
-        "the page."))
-
-    def __unicode__(self):
-        return u"FeaturedSection"
-
-    class Meta:
-        verbose_name = _("Featured Section")
-        verbose_name_plural = _("Featured Section")
-
-    @property
-    def displayed_title(self):
-        """Title to display
-
-        Will fallback to the article title if the model title is not defined.
-        """
-        return self.title or self.article.title
 
 
 class ArticleCategory(models.Model):
