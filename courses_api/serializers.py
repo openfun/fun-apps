@@ -14,8 +14,6 @@ class CourseSubjectSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    universities = UniversitySerializer()
-    subjects = CourseSubjectSerializer()
     session_display = serializers.CharField(source='session_display')
     thumbnails = serializers.CharField(source='thumbnails_info')
     start_date_display = serializers.CharField(source='start_date_display')
@@ -47,6 +45,20 @@ class CourseSerializer(serializers.ModelSerializer):
             'thumbnails',
         )
 
+class PublicCourseSerializer(CourseSerializer):
+    universities = UniversitySerializer()
+    subjects = CourseSubjectSerializer()
+
+
+class PrivateCourseSerializer(CourseSerializer):
+    universities = UniversitySerializer()
+    subjects = CourseSubjectSerializer()
+
+    class Meta:
+        model = Course
+        fields = CourseSerializer.Meta.fields + (
+            'scores',
+        )
 
 class CourseScoreSerializer(serializers.ModelSerializer):
 

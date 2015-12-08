@@ -5,7 +5,9 @@ from rest_framework.permissions import IsAuthenticated
 from courses.models import Course
 
 from .filters import CourseFilter
-from .serializers import CourseSerializer, CourseScoreSerializer
+from .serializers import (
+    PublicCourseSerializer, PrivateCourseSerializer, CourseScoreSerializer,
+)
 
 
 def is_true(value):
@@ -36,17 +38,29 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     filter_backends = (CourseFilter,)
     model = Course
     authentication_classes = (TokenAuthentication, SessionAuthentication)
-    serializer_class = CourseSerializer
     paginate_by = 100
     paginate_by_param = 'rpp'
     max_paginate_by = None
 
+    @property
+    def is_admin(self):
+        is_admin = self.request.user.is_staff or self.request.user.is_superuser
+        return is_admin
+
+    @property
+    def catalog_only(self):
+        catalog_only = self.request.QUERY_PARAMS.get('catalog_only')
+        return is_true(catalog_only)
+
+    def get_serialiser_class(self):
+        if self.is_admin:
+            return PrivateCourseSerializer
+        return PublicCourseSerializer
+
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
         queryset = queryset.filter(is_active=True)  # Not active means deleted.
-        catalog_only = self.request.QUERY_PARAMS.get('catalog_only')
-        is_admin = self.request.user.is_staff or self.request.user.is_superuser
-        if is_true(catalog_only) and is_admin:
+        if self.is_admin and self.catalog_only:
             queryset = queryset.with_related()
         else:
             queryset = queryset.with_related().public()
