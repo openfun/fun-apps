@@ -3,7 +3,7 @@
 from rest_framework import serializers
 
 from courses.models import Course, CourseSubject
-from universities.serializers import UniversitySerializer
+from universities.serializers import UniversitySerializer, PrivateUniversitySerializer
 
 
 class CourseSubjectSerializer(serializers.ModelSerializer):
@@ -13,7 +13,15 @@ class CourseSubjectSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
+
+    class Meta(CourseSubjectSerializer.Meta):
+        fields = CourseSubjectSerializer.Meta.fields + ('score',)
+
+
 class CourseSerializer(serializers.ModelSerializer):
+    universities = UniversitySerializer()
+    subjects = CourseSubjectSerializer()
     session_display = serializers.CharField(source='session_display')
     thumbnails = serializers.CharField(source='thumbnails_info')
     start_date_display = serializers.CharField(source='start_date_display')
@@ -46,20 +54,12 @@ class CourseSerializer(serializers.ModelSerializer):
         )
 
 
-class PublicCourseSerializer(CourseSerializer):
-    universities = UniversitySerializer()
-    subjects = CourseSubjectSerializer()
-
-
 class PrivateCourseSerializer(CourseSerializer):
-    universities = UniversitySerializer()
-    subjects = CourseSubjectSerializer()
+    universities = PrivateUniversitySerializer()
+    subjects = PrivateCourseSubjectSerializer()
 
-    class Meta:
-        model = Course
-        fields = CourseSerializer.Meta.fields + (
-            'score',
-        )
+    class Meta(CourseSerializer.Meta):
+        fields = CourseSerializer.Meta.fields + ('score',)
 
 
 class CourseScoreSerializer(serializers.ModelSerializer):

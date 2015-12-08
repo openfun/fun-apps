@@ -41,6 +41,11 @@ class CourseAPITest(TestCase):
         )
         self.user = UserFactory(username='user', password='password') # user with profile
 
+    def login_as_admin(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.client.login(username='user', password='password')
+
     @property
     def soon(self):
         return now() + timedelta(days=1)
@@ -104,6 +109,21 @@ class CourseAPITest(TestCase):
         self.assertNotContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
 
+    def test_university_score_available_only_if_logged_in_as_admin(self):
+        university = UniversityFactory(code='test-university', score=10)
+        CourseUniversityRelation.objects.create(
+            course=self.active_1, university=university
+        )
+        filter_data = {'university': 'test-university'}
+        self.login_as_admin()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertIn('score', response_data['results'][0]['universities'][0])
+        self.client.logout()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertNotIn('score', response_data['results'][0]['universities'][0])
+
     def test_only_display_courses_for_a_specific_subject(self):
         subject = CourseSubjectFactory(slug='test-subject')
         UniversityFactory(slug='another-subject')
@@ -116,6 +136,20 @@ class CourseAPITest(TestCase):
         response = self.client.get(self.api_url, filter_data)
         self.assertNotContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
+
+    def test_subjet_score_only_available_if_logged_in_as_admin(self):
+        subject = CourseSubjectFactory(slug='test-subject')
+        UniversityFactory(slug='another-subject')
+        self.active_1.subjects.add(subject)
+        filter_data = {'subject': 'test-subject'}
+        self.login_as_admin()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertIn('score', response_data['results'][0]['subjects'][0])
+        self.client.logout()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertNotIn('score', response_data['results'][0]['subjects'][0])
 
     def test_only_display_courses_for_a_specific_level(self):
         self.active_1.level = courses_choices.COURSE_LEVEL_INTRODUCTORY
@@ -174,14 +208,14 @@ class CourseAPITest(TestCase):
     def test_public_api_results_do_not_include_score(self):
         self.client.logout()
         response = self.client.get(self.api_url)
-        self.assertNotContains(response, 'score')
+        response_data = json.loads(response.content)
+        self.assertNotIn('score', response_data['results'][0])
 
     def test_private_api_results_include_score(self):
-        self.user.is_staff = True
-        self.user.save()
-        self.client.login(username='user', password='password')
+        self.login_as_admin()
         response = self.client.get(self.api_url)
-        self.assertContains(response, 'score')
+        response_data = json.loads(response.content)
+        self.assertIn('score', response_data['results'][0])
 
     def test_enrollment_ends_soon(self):
         self.active_1.enrollment_end_date = self.soon
