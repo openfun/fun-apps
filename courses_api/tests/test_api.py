@@ -65,7 +65,7 @@ class CourseAPITest(TestCase):
         self.user.is_staff = True
         self.user.save()
         self.client.login(username='user', password='password')
-        data = {'catalog_only': True}
+        data = {'extended_list': True}
         response = self.client.get(self.api_url, data)
         self.assertContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
@@ -75,7 +75,7 @@ class CourseAPITest(TestCase):
         self.user.is_staff = False
         self.user.save()
         self.client.login(username='user', password='password')
-        data = {'catalog_only': True}
+        data = {'extended_list': True}
         response = self.client.get(self.api_url, data)
         self.assertContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
@@ -83,7 +83,7 @@ class CourseAPITest(TestCase):
 
     def test_user_can_only_see_public_courses_is_not_logged_in(self):
         self.client.logout()
-        data = {'catalog_only': True}
+        data = {'extended_list': True}
         response = self.client.get(self.api_url, data)
         self.assertContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)

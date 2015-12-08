@@ -33,7 +33,6 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     /api/locations/?rpp=6
 
     By default, pagination is set to 10.
-
     '''
     filter_backends = (CourseFilter,)
     model = Course
@@ -48,9 +47,9 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
         return is_admin
 
     @property
-    def catalog_only(self):
-        catalog_only = self.request.QUERY_PARAMS.get('catalog_only')
-        return is_true(catalog_only)
+    def extended_list(self):
+        extended_list = self.request.QUERY_PARAMS.get('extended_list')
+        return is_true(extended_list)
 
     def get_serialiser_class(self):
         if self.is_admin:
@@ -60,7 +59,7 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
         queryset = queryset.filter(is_active=True)  # Not active means deleted.
-        if self.is_admin and self.catalog_only:
+        if self.is_admin and self.extended_list:
             queryset = queryset.with_related()
         else:
             queryset = queryset.with_related().public()
