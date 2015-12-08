@@ -64,7 +64,7 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
         extended_list = self.request.QUERY_PARAMS.get('extended_list')
         return is_true(extended_list)
 
-    def get_serialiser_class(self):
+    def get_serializer_class(self):
         if self.is_admin:
             return PrivateCourseSerializer
         return PublicCourseSerializer

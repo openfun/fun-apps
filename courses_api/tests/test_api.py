@@ -172,8 +172,6 @@ class CourseAPITest(TestCase):
         self.assertContains(response, self.active_2.title)
 
     def test_public_api_results_do_not_include_score(self):
-        self.user.is_staff = False
-        self.user.save()
         self.client.logout()
         response = self.client.get(self.api_url)
         self.assertNotContains(response, 'score')
