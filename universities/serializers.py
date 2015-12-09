@@ -18,3 +18,9 @@ class UniversitySerializer(serializers.ModelSerializer):
             'detail_page_enabled',
             'banner',
         )
+
+
+class PrivateUniversitySerializer(UniversitySerializer):
+
+    class Meta(UniversitySerializer.Meta):
+        fields = UniversitySerializer.Meta.fields + ('score',)

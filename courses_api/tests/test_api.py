@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.timezone import now, timedelta
 
+from student.tests.factories import UserFactory
+
 from fun.tests.utils import skipUnlessLms
 from universities.factories import UniversityFactory
 
@@ -37,6 +39,12 @@ class CourseAPITest(TestCase):
             show_in_catalog=False,
             is_active=True,
         )
+        self.user = UserFactory(username='user', password='password') # user with profile
+
+    def login_as_admin(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.client.login(username='user', password='password')
 
     @property
     def soon(self):
@@ -51,11 +59,39 @@ class CourseAPITest(TestCase):
         data = json.loads(response.content)
         self.assertIn('results', data)
 
-    def test_response_contains_on_active_courses(self):
+    def test_response_contains_only_active_courses(self):
         response = self.client.get(self.api_url)
         self.assertContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_active.title)
+        self.assertNotContains(response, self.not_in_catalog.title)
+
+    def test_staff_user_can_see_courses_not_catalog(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.client.login(username='user', password='password')
+        data = {'extended_list': True}
+        response = self.client.get(self.api_url, data)
+        self.assertContains(response, self.active_1.title)
+        self.assertContains(response, self.active_2.title)
+        self.assertContains(response, self.not_in_catalog.title)
+
+    def test_user_can_only_see_public_courses_is_not_staff(self):
+        self.user.is_staff = False
+        self.user.save()
+        self.client.login(username='user', password='password')
+        data = {'extended_list': True}
+        response = self.client.get(self.api_url, data)
+        self.assertContains(response, self.active_1.title)
+        self.assertContains(response, self.active_2.title)
+        self.assertNotContains(response, self.not_in_catalog.title)
+
+    def test_user_can_only_see_public_courses_is_not_logged_in(self):
+        self.client.logout()
+        data = {'extended_list': True}
+        response = self.client.get(self.api_url, data)
+        self.assertContains(response, self.active_1.title)
+        self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_in_catalog.title)
 
     def test_only_display_courses_for_a_specific_university(self):
@@ -73,6 +109,21 @@ class CourseAPITest(TestCase):
         self.assertNotContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
 
+    def test_university_score_available_only_if_logged_in_as_admin(self):
+        university = UniversityFactory(code='test-university', score=10)
+        CourseUniversityRelation.objects.create(
+            course=self.active_1, university=university
+        )
+        filter_data = {'university': 'test-university'}
+        self.login_as_admin()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertIn('score', response_data['results'][0]['universities'][0])
+        self.client.logout()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertNotIn('score', response_data['results'][0]['universities'][0])
+
     def test_only_display_courses_for_a_specific_subject(self):
         subject = CourseSubjectFactory(slug='test-subject')
         UniversityFactory(slug='another-subject')
@@ -85,6 +136,20 @@ class CourseAPITest(TestCase):
         response = self.client.get(self.api_url, filter_data)
         self.assertNotContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
+
+    def test_subjet_score_only_available_if_logged_in_as_admin(self):
+        subject = CourseSubjectFactory(slug='test-subject')
+        UniversityFactory(slug='another-subject')
+        self.active_1.subjects.add(subject)
+        filter_data = {'subject': 'test-subject'}
+        self.login_as_admin()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertIn('score', response_data['results'][0]['subjects'][0])
+        self.client.logout()
+        response = self.client.get(self.api_url, filter_data)
+        response_data = json.loads(response.content)
+        self.assertNotIn('score', response_data['results'][0]['subjects'][0])
 
     def test_only_display_courses_for_a_specific_level(self):
         self.active_1.level = courses_choices.COURSE_LEVEL_INTRODUCTORY
@@ -140,10 +205,17 @@ class CourseAPITest(TestCase):
         self.assertNotContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
 
-    def test_api_results_do_not_include_score(self):
+    def test_public_api_results_do_not_include_score(self):
+        self.client.logout()
         response = self.client.get(self.api_url)
-        data = json.loads(response.content)
-        self.assertFalse('score' in data['results'][0])
+        response_data = json.loads(response.content)
+        self.assertNotIn('score', response_data['results'][0])
+
+    def test_private_api_results_include_score(self):
+        self.login_as_admin()
+        response = self.client.get(self.api_url)
+        response_data = json.loads(response.content)
+        self.assertIn('score', response_data['results'][0])
 
     def test_enrollment_ends_soon(self):
         self.active_1.enrollment_end_date = self.soon
@@ -153,7 +225,6 @@ class CourseAPITest(TestCase):
         filter_data = {'availability': 'enrollment-ends-soon'}
         response = self.client.get(self.api_url, filter_data)
         data = json.loads(response.content)
-
         self.assertEqual(1, len(data['results']))
         self.assertEqual(self.active_1.title, data['results'][0]['title'])
 
