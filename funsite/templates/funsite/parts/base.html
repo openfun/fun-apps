@@ -25,6 +25,8 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="platform.node" CONTENT="${platform.node()}">
+    <meta name="description" content="${_(u'Higher Education Excellence. Online, Free and Open Courses')}">
+
     <%block name="meta_extra" />
 
     <link rel="icon" type="image/x-icon" href="${staticfiles_storage.url(microsite.get_value('favicon_path', settings.FAVICON_PATH))}" />
