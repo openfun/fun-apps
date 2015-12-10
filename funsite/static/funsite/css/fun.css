@@ -3,6 +3,7 @@
 body {
     background-color: #edeeef;
     font-family: 'Raleway', sans-serif;
+    -ms-overflow-style: scrollbar;
 }
 
 .main-width {
@@ -1175,7 +1176,7 @@ ul.universities-list {
     display: -webkit-flex;
     display: -ms-flex;
     display: -moz-flex;
-    width: 100%;
+    width: 99%;
 }
 
 .course-list-table .left {
