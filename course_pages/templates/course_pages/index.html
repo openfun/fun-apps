@@ -222,8 +222,10 @@ require(["jquery", "underscore", "backbone"],
                 // Insert view at the proper position, sorted by title
                 var view = this.createView(item);
                 var insertBeforeIndex;
+                var itemTitle = item.get('title');
                 for (insertBeforeIndex=0; insertBeforeIndex < this.sortedViews.length; insertBeforeIndex++) {
-                  if (this.viewTitle(insertBeforeIndex) > item.get('title')) {
+                  // We use locale-sensitive string comparison to make sure accented titles are correctly sorted
+                  if (itemTitle.localeCompare(this.viewTitle(insertBeforeIndex)) < 0) {
                       break;
                   }
                 }
