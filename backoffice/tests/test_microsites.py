@@ -96,6 +96,6 @@ class TestMicrositeUsers(BaseMicrositeTestCase):
         }
         self.client.login(username=self.backuser1.username, password='password')
         response = self.client.post(reverse('backoffice:news-create'), data)
-        self.assertEqual(302, response.status_code)
+        self.assertEqual(200, response.status_code)
         article = Article.objects.get(slug='admin_microsite1')
         self.assertEqual('microsite1', article.microsite)

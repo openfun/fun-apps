@@ -29,7 +29,7 @@ class ArticleAdmin(admin.ModelAdmin):
     change_form_template = "newsfeed/change_form.html"
 
     list_display = ("title", "preview", "category", "language",
-        "published", "order", "created_at", "microsite",)
+        "published", "created_at", "microsite",)
     list_filter = ("published", "category")
     filter_horizontal = ('courses',)
     readonly_fields = ("edited_at",)  # TODO display that
@@ -40,7 +40,7 @@ class ArticleAdmin(admin.ModelAdmin):
         (None, {
             "fields": ("title", "slug", "language", "thumbnail",
                 "category", "courses", "lead_paragraph",
-                "event_date", ("published", "order", "created_at"),
+                "event_date", ("published", "created_at"),
                 "microsite", "text",
             )
         }),

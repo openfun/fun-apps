@@ -52,4 +52,9 @@ class ArticleForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         if settings.FEATURES['USE_MICROSITES']:
             self.instance.microsite = microsite.get_value('SITE_NAME')
-        return super(ArticleForm, self).save(*args, **kwargs)
+        instance = super(ArticleForm, self).save(*args, **kwargs)
+        # For some reason, the 'thumbnail' field of the form remains an
+        # InMemoryUploadedFile after the model has been modified and saved, and
+        # it is not displayed in the frontend
+        self.files['thumbnail'] = instance.thumbnail
+        return instance

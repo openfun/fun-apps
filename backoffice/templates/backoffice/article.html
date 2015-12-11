@@ -18,7 +18,9 @@
 <script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
     <script>
     $(function () {
-        $('#id_created_at').datetimepicker({locale: 'fr'});
+        // Use bootstrap plugin for 'created_at' field
+        $('#id_created_at').datetimepicker({format: 'MM/DD/YYYY HH:mm'});
+
         // handle slug generation from title
         document.getElementById("id_title").onkeyup = function() {
             var e = document.getElementById("id_slug");
@@ -37,7 +39,7 @@
 
 <div class="row">
 
-        <form action="." method="POST" class="form-horizontal">
+        <form action="." method="POST" class="form-horizontal" enctype="multipart/form-data">
           {% csrf_token %}
 
             <div class="form-group">
@@ -48,8 +50,8 @@
 
                 <div class="pull-left">
                     {% if form.instance.id %}
-                    <a class="btn btn-info" href="{% url 'newsfeed-article-preview' form.instance.slug %}">{% trans "Preview" %}</a>
-                    <a class="btn btn-info" href="{% url 'newsfeed-landing-preview' form.instance.slug %}">{% trans "Preview news page" %}</a></p>
+                    <a class="btn btn-info" href="{% url 'newsfeed-article-preview' form.instance.slug %}" target="_blank">{% trans "Preview" %}</a>
+                    <a class="btn btn-info" href="{% url 'newsfeed-landing-preview' form.instance.slug %}" target="_blank">{% trans "Preview news page" %}</a></p>
                     {% endif %}
                 </div>
 
