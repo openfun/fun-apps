@@ -86,7 +86,7 @@ class Article(models.Model):
     courses = models.ManyToManyField('courses.Course', verbose_name=_('courses'),
         related_name='articles', null=True, blank=True,
         limit_choices_to={'is_active': True})
-    thumbnail = models.ImageField(_('thumnail'),
+    thumbnail = models.ImageField(_('thumbnail'),
         upload_to='newsfeed', null=True, blank=True,
         help_text=_('Displayed on the news list page.'))
     lead_paragraph = models.CharField(verbose_name=_("Lead paragraph"),
@@ -103,16 +103,13 @@ class Article(models.Model):
             auto_now=True)
     published = models.BooleanField(verbose_name=_("published"),
             default=False)
-    # TODO: the order field is no longer necessary and should be removed.
-    # Articles should be sorted by decreasing date by default.
-    order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     microsite = models.CharField(max_length=128, blank=True, db_index=True)
 
     objects = ArticleManager()
 
     class Meta:
-        ordering = ["-order", "-created_at"]
+        ordering = ["-created_at"]
 
     def related(self):
         """

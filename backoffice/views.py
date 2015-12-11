@@ -13,7 +13,7 @@ from django.db.models import Q
 from django.http import HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -405,16 +405,21 @@ def news_list(request):
 @group_required('fun_backoffice')
 def news_detail(request, news_id=None):
     if news_id:
-        article = Article.objects.get(id=news_id)
+        search_query = {
+            'id': news_id
+        }
         if settings.FEATURES['USE_MICROSITES']:
-            assert article.microsite == microsite.get_value('SITE_NAME')
+            search_query['microsite'] = microsite.get_value('SITE_NAME')
+        article = get_object_or_404(Article, **search_query)
     else:
         article = None
 
-    form = ArticleForm(data=request.POST or None, instance=article)
-    if form.is_valid():
-        form.save()
-        return redirect('backoffice:news-list')
+    if request.method == 'POST':
+        form = ArticleForm(data=request.POST, files=request.FILES, instance=article)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ArticleForm(instance=article)
 
     return render(request, 'backoffice/article.html', {
         'form': form,
