@@ -17,6 +17,7 @@ from django.views.debug import get_safe_settings
 from dealer.git import git
 
 from .forms import EmailForm
+from selftest.tasks import trigger_worker_error
 
 
 repositories = ['edx-platform', 'fun-config', 'fun-apps',
@@ -76,3 +77,10 @@ def server_error(request):
     if not request.user.is_superuser:
         raise Http404
     raise Exception("This is an intentional 500 (server error).")
+
+def worker_error(request):
+    task = trigger_worker_error.apply_async()
+    messages.add_message(request, messages.INFO, "Request sent. Task id: {}".format(task.id))
+    return HttpResponseRedirect(reverse('self-test-index'))
+
+
