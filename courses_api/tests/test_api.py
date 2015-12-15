@@ -76,7 +76,7 @@ class CourseAPITest(TestCase):
         self.assertContains(response, self.active_2.title)
         self.assertContains(response, self.not_in_catalog.title)
 
-    def test_user_can_only_see_public_courses_is_not_staff(self):
+    def test_user_can_only_see_public_courses_if_not_staff(self):
         self.user.is_staff = False
         self.user.save()
         self.client.login(username='user', password='password')
@@ -86,7 +86,7 @@ class CourseAPITest(TestCase):
         self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_in_catalog.title)
 
-    def test_user_can_only_see_public_courses_is_not_logged_in(self):
+    def test_user_can_only_see_public_courses_if_not_logged_in(self):
         self.client.logout()
         data = {'extended_list': True}
         response = self.client.get(self.api_url, data)
