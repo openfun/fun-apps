@@ -21,6 +21,9 @@ class UniversitySerializer(serializers.ModelSerializer):
 
 
 class PrivateUniversitySerializer(UniversitySerializer):
+    '''
+    Presents data accessible to authenticated admin users.
+    '''
 
     class Meta(UniversitySerializer.Meta):
         fields = UniversitySerializer.Meta.fields + ('score',)

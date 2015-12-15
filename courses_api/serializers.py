@@ -14,6 +14,9 @@ class CourseSubjectSerializer(serializers.ModelSerializer):
 
 
 class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
+    '''
+    Presents data accessible to authenticated admin users.
+    '''
 
     class Meta(CourseSubjectSerializer.Meta):
         fields = CourseSubjectSerializer.Meta.fields + ('score',)
@@ -55,6 +58,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class PrivateCourseSerializer(CourseSerializer):
+    '''
+    Presents data accessible to authenticated admin users.
+    '''
+
     universities = PrivateUniversitySerializer()
     subjects = PrivateCourseSubjectSerializer()
 
