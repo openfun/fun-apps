@@ -71,7 +71,8 @@ class PrivateCourseSerializer(CourseSerializer):
         fields = CourseSerializer.Meta.fields + ('score',)
 
 
-class CourseScoreSerializer(serializers.ModelSerializer):
+class CourseUpdateSerializer(serializers.ModelSerializer):
+    score = serializers.IntegerField(required=False)
 
     class Meta:
         model = Course

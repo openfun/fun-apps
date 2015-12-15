@@ -94,6 +94,27 @@ class CourseAPITest(TestCase):
         self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_in_catalog.title)
 
+    def test_can_update_course_score_as_admin(self):
+        self.login_as_admin()
+        self.active_1.score = 0
+        self.active_1.save()
+        data = {'score': 100}
+        url = reverse('fun-courses-api:courses-detail',
+            args=[self.active_1.id]
+        )
+        response = self.client.put(url, data)
+        response_data = json.loads(response.content)
+        self.assertEqual(100, response_data['score'])
+
+    def test_cannot_update_course_score_if_not_logged_in(self):
+        self.client.logout()
+        data = {'score': 100}
+        url = reverse('fun-courses-api:courses-detail',
+            args=[self.active_1.id]
+        )
+        response = self.client.put(url, data)
+        self.assertNotEqual(response.status_code, 200)
+
     def test_only_display_courses_for_a_specific_university(self):
         university = UniversityFactory(code='test-university')
         UniversityFactory(code='another-university')
@@ -225,6 +246,7 @@ class CourseAPITest(TestCase):
         filter_data = {'availability': 'enrollment-ends-soon'}
         response = self.client.get(self.api_url, filter_data)
         data = json.loads(response.content)
+
         self.assertEqual(1, len(data['results']))
         self.assertEqual(self.active_1.title, data['results'][0]['title'])
 
