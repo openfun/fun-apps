@@ -5,6 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class FunAuthTokenSerializer(AuthTokenSerializer):
+    '''
+    Adds specific authentication validation for FUN API.
+    '''
 
     def validate(self, attrs):
         super(FunAuthTokenSerializer, self).validate(attrs)
