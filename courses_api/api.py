@@ -70,8 +70,7 @@ class CourseAPIView(mixins.ListModelMixin,
     def get_permissions(self):
         if self.request.method == 'GET':
             return [AllowAny()]
-        else:
-            return [IsAuthenticated()]
+        return [IsAuthenticated()]
 
     def get_serializer_class(self):
         if self.is_admin:
