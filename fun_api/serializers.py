@@ -12,9 +12,6 @@ class FunAuthTokenSerializer(AuthTokenSerializer):
     def validate(self, attrs):
         super(FunAuthTokenSerializer, self).validate(attrs)
         user = attrs['user']
-        if user.is_superuser:
+        if user.is_staff or user.is_superuser:
             return attrs
-        if not user.is_staff:
-            msg = _('User is not staff member.')
-            raise serializers.ValidationError(msg)
-        return attrs
+        raise serializers.ValidationError(_('User is not staff member.'))
