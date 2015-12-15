@@ -1,6 +1,6 @@
 from rest_framework import viewsets, mixins
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from courses.models import Course
 
@@ -14,7 +14,10 @@ def is_true(value):
     return str(value).lower() in ['true', '1', 'y', 'yes']
 
 
-class CourseAPIView(viewsets.ReadOnlyModelViewSet):
+class CourseAPIView(mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
     '''
     ## Filtering
 
@@ -64,10 +67,20 @@ class CourseAPIView(viewsets.ReadOnlyModelViewSet):
         extended_list = self.request.QUERY_PARAMS.get('extended_list')
         return is_true(extended_list)
 
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        else:
+            return [IsAuthenticated()]
+
     def get_serializer_class(self):
         if self.is_admin:
-            return PrivateCourseSerializer
-        return CourseSerializer
+            if self.action == 'update':
+                return CourseScoreSerializer
+            if self.action in ('retrieve', 'list'):
+                return PrivateCourseSerializer
+        if self.action in ('retrieve', 'list'):
+            return CourseSerializer
 
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
