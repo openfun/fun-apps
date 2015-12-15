@@ -90,10 +90,3 @@ class CourseAPIView(mixins.ListModelMixin,
             queryset = queryset.with_related().public()
         queryset = self.filter_queryset(queryset)
         return queryset
-
-
-class CourseScoreView(mixins.UpdateModelMixin, viewsets.GenericViewSet):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    queryset = Course.objects.all()
-    serializer_class = CourseScoreSerializer
