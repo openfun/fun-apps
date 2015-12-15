@@ -64,9 +64,9 @@ admin.site.register(LoginFailuresProxy, LoginFailuresAdmin)
 
 class CommentRoleProxy(Role):
     class Meta:
-            proxy = True
-            verbose_name = _(u"Comment as service client Role")
-            verbose_name_plural = _(u"Comment as service client Roles")
+        proxy = True
+        verbose_name = _(u"Comment as service client Role")
+        verbose_name_plural = _(u"Comment as service client Roles")
 
 class CommentRoleAdmin(admin.ModelAdmin):
     search_fields = ('course_id',)
@@ -76,9 +76,9 @@ admin.site.register(CommentRoleProxy, CommentRoleAdmin)
 
 class CommentPermissionProxy(Permission):
     class Meta:
-            proxy = True
-            verbose_name = _(u"Comment as service client Permission")
-            verbose_name_plural = _(u"Comment as service client Permissions")
+        proxy = True
+        verbose_name = _(u"Comment as service client Permission")
+        verbose_name_plural = _(u"Comment as service client Permissions")
 
 class CommentPermissionAdmin(admin.ModelAdmin):
     pass

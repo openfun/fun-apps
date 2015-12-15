@@ -1,5 +1,3 @@
-from django.conf.urls import patterns, url
-
 from .routers import CourseAPIRouter
 from .api import CourseAPIView
 

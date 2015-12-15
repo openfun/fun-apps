@@ -19,8 +19,6 @@ from backoffice.utils import get_course_key
 from backoffice.certificate_manager.utils import (
     get_teachers_list_from_course, create_test_certificate, get_university_attached_to_course)
 
-from universities.models import University
-
 
 def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_input, action_name):
     """

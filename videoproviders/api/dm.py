@@ -174,7 +174,7 @@ class Client(BaseClient):
             if not results['has_more']:
                 break
 
-    def request(self, endpoint, method='GET', params=None, files=None):
+    def request(self, endpoint, method='GET', params=None, files=None, headers=None):# pylint: disable=too-many-arguments
         try:
             result = self.dailymotion.call(endpoint, method=method, params=params, files=files)
         except (dailymotion.DailymotionClientError, dailymotion.DailymotionApiError) as e:

@@ -14,7 +14,6 @@ from instructor_task.models import InstructorTask
 from courses.models import Course
 from teachers.models import CertificateTeacher
 from fun_certificates.generator import CertificateInfo
-from universities.models import University
 
 
 def create_test_certificate(course, course_key, university):
