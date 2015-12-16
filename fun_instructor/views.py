@@ -4,7 +4,7 @@ from util.json_request import JsonResponse
 import urllib
 import os
 
-from django_future.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import Http404
 from django.views.decorators.cache import cache_control
 from django.http import HttpResponse
