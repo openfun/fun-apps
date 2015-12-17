@@ -532,6 +532,7 @@ require(["jquery", "underscore", "backbone"],
                 }
                 // Fill collection
                 this.coursecollection.fetch();
+                window.scrollTo(0, 0);
             },
             courseCollectionSynced: function(){
                 this.coursecollectionview.render()
