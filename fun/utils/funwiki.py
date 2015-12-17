@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _
 
 from course_wiki.utils import course_wiki_slug
 
-TEMPLATE = '<li><a href="{link}" target="_blank">{title}</a> <span class="{state}">({revisions} {date})</span></li>'
+TEMPLATE = u'<li><a href="{link}" target="_blank">{title}</a> <span class="{state}">({revisions} {date})</span></li>'
 
 
 def get_base_page(course):
