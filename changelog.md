@@ -1,5 +1,14 @@
 # Changelog www.france-universite-numerique.fr
 
+## 3.2
+- Backoffice: Page de gestion du wiki
+    + Affichage de l'arborescence des pages et leur activité
+    + Retrait et ajout des permissions d'écriture
+- Amélioration de la gestion des actualités dans le backoffice et de leur ordre d'affichage sur le front
+- SEO: Amélioration des `title` et `meta description` de la home page
+- Prise en compte des majuscules accentuées dans le tri des établisement et thématiques
+- Amelioration du support Internet Explorer
+
 ## 3.1 8/12/2015
 - Possibilité de spécifier la langues principale d'un cours
     - Création des certificats dans cette langue
