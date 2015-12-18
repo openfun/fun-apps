@@ -37,7 +37,7 @@ class CourseLanguagesTest(TestCase):
         response = self.client.get(url)
         self.assertContains(response, 'courses')
 
-    def test_available_langues(self):
+    def test_available_languages(self):
         """Ensure only available languages are returned by get_courses_per_language()."""
         languages = get_courses_per_language()
         self.assertEqual(len(COURSE_LANGUAGES), len(languages))
@@ -46,7 +46,7 @@ class CourseLanguagesTest(TestCase):
             set([c['language'] for c in languages])
             )
 
-    def test_get_available_langues_structure(self):
+    def test_get_available_languages_structure(self):
         """Ensure get_courses_per_language() returns correct dict structure."""
         languages = get_courses_per_language()
         self.assertEqual(languages[0]['language'], COURSE_LANGUAGES[0][0])
