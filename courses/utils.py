@@ -2,6 +2,7 @@
 
 import datetime
 
+from django.db.models import Count
 from django.utils import timezone
 
 from courseware.courses import sort_by_announcement
@@ -10,6 +11,9 @@ from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
+
+from .choices import COURSE_LANGUAGES
+from .models import Course
 
 
 def get_about_section(course_descriptor, field):
@@ -88,3 +92,19 @@ def course_image_url(course, image_name=None):
         loc = StaticContent.compute_location(course.location.course_key, course.course_image)
 
     return loc.to_deprecated_string()
+
+
+def get_courses_per_language():
+    """Returns available languages for courses from constant COURSE_LANGUAGES,
+       count of public courses of thoses language and the i18ned name of the language.
+
+       Returns: list of dicts
+    """
+    # retrieve authorized course languages
+    course_languages = [language[0] for language in COURSE_LANGUAGES]
+    # get course count for distinct languages
+    languages = Course.objects.public().filter(language__in=course_languages
+            ).values('language').distinct().annotate(count=Count('id'))
+    # update returned dict with language name comming from courses.choices.COURSE_LANGUAGES
+    languages = [dict(language, title=unicode(dict(COURSE_LANGUAGES)[language['language']])) for language in languages]
+    return languages
