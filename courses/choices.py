@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -12,3 +14,4 @@ COURSE_LEVEL_CHOICES = (
 )
 
 COURSE_LANGUAGES = (('en', _('English')), ('fr', _('French')))
+
