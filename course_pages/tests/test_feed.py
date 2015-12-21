@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from collections import OrderedDict
 import datetime
 import xmltodict
 
@@ -11,13 +10,33 @@ from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from fun.tests.utils import skipUnlessLms
+from courses.models import Course, CourseUniversityRelation
+from universities.factories import UniversityFactory
 
 
 @skipUnlessLms
 class FeedTest(ModuleStoreTestCase):
     def setUp(self):
         super(FeedTest, self).setUp()
+        date = datetime.datetime(2015, 1, 1)
+
         self.url = reverse('fun-courses:feed')
+        CourseFactory(org='fun', course='course1', name='course1', display_name=u"unpublished", ispublic=False)
+        CourseFactory(org='fun', course='course2', name='course2', display_name=u"published", ispublic=True,
+                start=date,
+                end=date + datetime.timedelta(days=15))
+        CourseFactory(org='fun', course='course3', name='course3', display_name=u"published", ispublic=True,
+                start=date + datetime.timedelta(days=30),
+                end=date + datetime.timedelta(days=60))
+
+        university1 = UniversityFactory(name=u"Université Paris Descartes")
+        university2 = UniversityFactory(name=u"FÛN")
+        self.course1 = Course.objects.get(key='fun/course1/course1')
+        self.course2 = Course.objects.get(key='fun/course2/course2')
+        self.course3 = Course.objects.get(key='fun/course3/course3')
+        CourseUniversityRelation.objects.create(university=university1, course=self.course2)
+        CourseUniversityRelation.objects.create(university=university2, course=self.course3)
+        CourseUniversityRelation.objects.create(university=university1, course=self.course3)
 
     def get_parsed_feed(self):
         response = self.client.get(self.url)
@@ -26,25 +45,18 @@ class FeedTest(ModuleStoreTestCase):
     def test_feed(self):
         self.assertEqual(200, self.client.get(self.url).status_code)
 
-    def test_feed_with_unpublished_course(self):
-        CourseFactory(org='fun', number='001', display_name=u"unpublished", ispublic=False)
-        CourseFactory(org='fun', number='002', display_name=u"published", ispublic=True)
-
+    def test_feed_for_unpublished_course(self):
         feed = self.get_parsed_feed()
+        self.assertTrue('course1' not in [i['title'] for i in feed['channel']['item']])
 
+    def test_feed_structure(self):
+        feed = self.get_parsed_feed()
         self.assertEqual(_(u"Fun latest published courses"), feed['channel']['title'])
-        self.assertTrue(isinstance(feed['channel']['item'], OrderedDict))
-        self.assertEqual(u"published", feed['channel']['item']['title'])
-
-    def test_feed_is_sorted(self):
-        now = datetime.datetime.now()
-        for delta in range(30):
-            start = now + datetime.timedelta(days=delta)
-            CourseFactory(display_name=str(delta), start=start, ispublic=True)
-
-        feed = self.get_parsed_feed()
-
-        # The feed should contain only the 16 most recent courses.
-        self.assertEqual(16, len(feed['channel']['item']))
-        for count, delta in enumerate(range(29, 14, -1)):
-            self.assertEqual(str(delta), feed['channel']['item'][count]['title'])
+        course2 = dict(feed['channel']['item'][0])  # course2 should be first
+        course3 = dict(feed['channel']['item'][1])
+        self.assertEqual('course2', course2['title'])
+        self.assertEqual('course3', course3['title'])
+        self.assertEqual(u'2015-01-01T00:00:00+00:00', course2['start_date'])
+        self.assertEqual(u'2015-01-31T00:00:00+00:00', course3['start_date'])
+        self.assertEqual(u"Université Paris Descartes", course2['university'])
+        self.assertEqual(u"FÛN", course3['university'])
