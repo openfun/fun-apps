@@ -36,6 +36,8 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <link href="${staticfiles_storage.url('funsite/css/header.css')}" rel="stylesheet">
     <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
     <link href="${staticfiles_storage.url('funsite/css/footer.css')}" rel="stylesheet">
+    <link rel="alternate" type="application/rss+xml" title="${_('FUN courses RSS feed')}" href="${reverse('fun-courses:feed')}" />
+
     <%block name="css_extra" />
 
     <title>FUN - <%block name="title" /></title>

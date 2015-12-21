@@ -4,18 +4,38 @@ from django.utils.translation import ugettext as _
 %>
 <html>
 <body>
-<img src="http://www.france-universite-numerique-mooc.fr${image_url}">
 <p>
-% if university:
-    ${ _(u"Proposed by")}: ${university.name()}
+    <center>
+        <img src="${protocol}${site}${course.get_thumbnail_url('big')}">
+        <h1><a href="${protocol}${site}${course.get_absolute_url()}">${course.title}</a></h1>
+    </center>
+</p>
+
+<p>
+% if course.university_name:
+    ${ _(u"Proposed by")}: ${course.university_name}
 % endif
 </p>
+
 <p>
-${short_description}
+    <strong>
+        ${course.short_description}
+    </strong>
 </p>
+
 <p>
-${course.inscription_inverval}
 </p>
+
 <p>
-${course.course_interval}
+    % if course.subjects.exists():
+        ${_(u"Course subjects : ")} ${', '.join(course.subjects.all().values_list('name', flat=True))}
+    % endif
+<p>
+    ${_(u"Enrollment starts : ")} ${ course.enrollment_start_date_display}<br>
+    ${_(u"Enrollment ends : ")} ${ course.enrollment_end_date_display}<br>
+</p>
+
+<p>
+    ${_(u"Course starts : ")} ${ course.start_date_display}<br>
+    ${_(u"Course ends : ")} ${ course.end_date_display}<br>
 </p>
