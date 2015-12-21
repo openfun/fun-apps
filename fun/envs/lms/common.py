@@ -8,7 +8,6 @@ INSTALLED_APPS += (
 
     'backoffice',
     'fun',
-    'funsite',
     'fun_api',
     'fun_certificates',
     'fun_instructor',
@@ -95,8 +94,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
 
 # add application templates directory to MAKO template finder
 MAKO_TEMPLATES['main'] = [
-    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
-    FUN_BASE_ROOT / 'funsite/templates',
+    #FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
+    #FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'course_pages/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
@@ -173,11 +172,11 @@ SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded
 # by funsite/templates/funsite/parts/base.html and css/lms-main.css
 
-PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
+#PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
+#PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
+#PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
 PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 
 # js/lms-application.js
-PIPELINE_JS['application']['source_filenames'].append('fun/js/cookie-banner.js')
-PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
+#PIPELINE_JS['application']['source_filenames'].append('fun/js/cookie-banner.js')
+#PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
