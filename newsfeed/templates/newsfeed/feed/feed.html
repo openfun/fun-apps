@@ -1,0 +1,22 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+%>
+<html>
+<body>
+<p>
+    <center>
+        <img src="${protocol}${site}${article.get_thumbnail('big')}">
+        <h1><a href="${protocol}${site}${article.get_absolute_url()}">${article.title}</a></h1>
+    </center>
+</p>
+
+<p>
+    <strong>
+        ${article.get_lead_paragraph()}
+    </strong>
+</p>
+
+<p>
+    ${article.text}
+</p>
