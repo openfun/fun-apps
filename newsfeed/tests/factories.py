@@ -10,6 +10,7 @@ class ArticleCategoryFactory(factory.DjangoModelFactory):
     FACTORY_FOR = models.ArticleCategory
     slug = factory.Sequence(lambda n: 'category-{0}'.format(n))
 
+
 class ArticleFactory(factory.DjangoModelFactory):
     FACTORY_FOR = models.Article
 

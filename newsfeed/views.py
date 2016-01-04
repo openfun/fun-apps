@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
+from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.utils.feedgenerator import Rss201rev2Feed
+from django.utils.translation import ugettext_lazy as _
 
 from edxmako.shortcuts import render_to_response
 
@@ -82,3 +86,34 @@ def render_article(queryset, slug):
         'facebook_action': facebook_action,
         'featured_news': featured_news,
     })
+
+
+class NewsFeed(Feed):
+    title = _(u"Fun latest published news")
+    link = "/news/feed/"
+    description = _(u"Latests news published on france-universite-numerique-mooc.fr")
+    feed_type = Rss201rev2Feed
+    __name__ = 'FUNNEWSRSS'
+
+    def get_site(self):
+        protocol = 'https://'
+        site = settings.SITE_NAME
+        return protocol, site
+
+    def items(self, request):
+        return models.Article.objects.published()
+
+    def item_title(self, article):
+        return article.title
+
+    def item_link(self, article):
+        return article.get_absolute_url()
+
+    # This will be rendered by aggregators
+    def item_description(self, article):
+        protocol, site = self.get_site()
+        return render_to_string('newsfeed/feed/feed.html', {
+                'article': article,
+                'protocol': protocol,
+                'site': site,
+                })
