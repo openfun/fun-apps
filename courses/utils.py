@@ -28,37 +28,6 @@ def get_about_section(course_descriptor, field):
         return None
 
 
-def dates_description(course):
-    # As we do not know user timezone, assume he is in the same as instructor :-/
-    FORMAT = '%d/%m/%Y'  # '%A %d %B %Y'
-
-    now = timezone.make_aware(datetime.datetime.utcnow(), course.start.tzinfo)
-    inscription_inverval = ''
-    course_interval = ''
-    if course.enrollment_start and course.enrollment_start > now:
-        inscription_inverval = u"Inscription à partir du %s" % (course.enrollment_start.strftime(FORMAT))
-    elif (course.enrollment_start and course.enrollment_end and
-          course.enrollment_start < now and course.enrollment_end > now):
-        inscription_inverval = u"Inscription jusqu'au %s" % (course.enrollment_end.strftime(FORMAT))
-    else:
-        inscription_inverval = u"Les inscriptions sont terminées"
-    if course.start and course.start > now:
-        if course.end:
-            course_interval = u"Le cours dure du %s au %s" % (
-                course.start.strftime(FORMAT), course.end.strftime(FORMAT)
-            )
-        else:
-            course_interval = u"Le cours démarre le %s" % (course.start.strftime(FORMAT))
-    elif course.end and course.end > now:
-        course_interval = u"Le cours dure jusqu'au %s" %(course.end.strftime(FORMAT))
-    else:
-        course_interval = u"Le cours est terminé"
-
-    course.inscription_inverval = inscription_inverval
-    course.course_interval = course_interval
-    return course
-
-
 def sort_courses(courses):
     """Sort courses in a usefull order for user:
         - courses with enrollement date started should be first
