@@ -8,7 +8,7 @@ from mock import patch
 from django.conf import settings
 from django.test.utils import override_settings
 
-from student.models import UserProfile
+from student.models import UserProfile, anonymous_id_for_user
 from student.tests.factories import UserFactory
 from courseware.tests.factories import StudentModuleFactory
 from instructor_task.tests.test_base import InstructorTaskModuleTestCase, OPTION_1, OPTION_2
@@ -66,6 +66,7 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
     def _create_response_row(self):
         user_profile = UserProfile.objects.get(user__username=self.username)
         response_row = [unicode(x) for x in [anonymize_username(user_profile.user.username),
+                                             anonymous_id_for_user(user_profile.user, self.course.id),
                                              user_profile.gender, user_profile.year_of_birth,
                                              user_profile.level_of_education]] + [OPTION_1, OPTION_2]
         return response_row
@@ -77,7 +78,7 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
         rows = self._read_report_file(get_path(self.running_report_name,
                                                self.problem_module.location))
 
-        self.assertEqual(rows[1], ['id', 'gender', 'year_of_birth', 'level_of_education',
+        self.assertEqual(rows[1], ['id', 'course_specific_id', 'gender', 'year_of_birth', 'level_of_education',
                                    'q1', 'q2'])
 
         response_row = self._create_response_row()
