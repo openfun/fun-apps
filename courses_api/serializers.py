@@ -32,6 +32,7 @@ class CourseSerializer(serializers.ModelSerializer):
     end_date_display = serializers.CharField(source='end_date_display')
     course_ended = serializers.BooleanField(source='course_ended')
     course_started = serializers.BooleanField(source='course_started')
+    university_name = serializers.CharField(source='university_name')
 
     class Meta:
         model = Course
@@ -39,6 +40,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'id',
             'key',
             'universities',
+            'university_name',
             'title',
             'short_description',
             'level',
