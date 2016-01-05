@@ -62,7 +62,7 @@ msgstr "En savoir plus"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/courses_pages/index.html:50
 msgid "New"
-msgstr "Nouveau"
+msgstr "Nouveautés"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/courses_pages/feed/feed.html:10
 msgid "Proposed by"
