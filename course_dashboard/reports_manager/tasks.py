@@ -3,7 +3,7 @@ import json
 from time import time
 
 from courseware.models import StudentModule
-from student.models import UserProfile
+from student.models import UserProfile, anonymous_id_for_user
 from instructor_task.tasks_helper import TaskProgress
 from xmodule.modulestore.django import modulestore
 
@@ -35,7 +35,7 @@ def create_header_row(problem_size):
     """
     Return the csv header row as list.
     """
-    header_row = ['id', 'gender', 'year_of_birth', 'level_of_education']
+    header_row = ['id', 'course_specific_id', 'gender', 'year_of_birth', 'level_of_education']
     header_row += ['q' + str(i) for i in range(1, problem_size + 1)]
     return header_row
 
@@ -46,6 +46,7 @@ def fetch_user_profile_data(student_module):
     user = student_module.student
     user_profile = UserProfile.objects.get(user=user)
     data_row = [anonymize_username(user.username),
+                anonymous_id_for_user(user, student_module.course_id),
                 unicode(user_profile.gender),
                 unicode(user_profile.year_of_birth),
                 unicode(user_profile.level_of_education)]
