@@ -189,6 +189,9 @@ a.no-decoration:visited {
 #top-menu .right-header .toggle-dropdown-menu {
     width: 40px;
 }
+#top-menu .vertical-arrow {
+    font-size : 21px;
+}
 #top-menu .right-header .toggle-dropdown-menu:focus {
     outline: 0; /* Override edx focus on `a` tag behaviour. */
 }
@@ -202,6 +205,9 @@ a.no-decoration:visited {
 #top-menu .right-header .user-icon-dashboard-link  {
     display: inline-block;
     padding-top : 15px;
+}
+#top-menu .right-header .toggle-dropdown-menu {
+    padding-top : 12px;
 }
 
 /***** Various light horizontal alignments. *****/
