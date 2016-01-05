@@ -13,5 +13,6 @@ COURSE_LEVEL_CHOICES = (
     (COURSE_LEVEL_ADVANCED, _('Advanced')),
 )
 
-COURSE_LANGUAGES = (('en', _('English')), ('fr', _('French')))
+# Please maintain alphabetical order for test consistancy
+COURSE_LANGUAGES = (('de', _('German')), ('en', _('English')), ('fr', _('French')))
 
