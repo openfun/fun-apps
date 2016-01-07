@@ -3,7 +3,7 @@
 from rest_framework import serializers
 
 from courses.models import Course, CourseSubject
-from universities.serializers import UniversitySerializer, PrivateUniversitySerializer
+from universities_api.serializers import UniversitySerializer, PrivateUniversitySerializer
 
 
 class CourseSubjectSerializer(serializers.ModelSerializer):
