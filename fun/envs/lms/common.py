@@ -104,6 +104,9 @@ MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'newsfeed/templates',
 ] + MAKO_TEMPLATES['main']
 
+# Add funsite templates directory to Django templates finder.
+TEMPLATE_DIRS.insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
+
 # Xiti
 XITI_ENABLED = True
 XITI_XTN2 = '100'
