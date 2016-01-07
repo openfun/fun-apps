@@ -91,7 +91,7 @@ class TestMicrositeUsers(BaseMicrositeTestCase):
             'slug': 'admin_microsite1',
             'published': True,
             'language': 'fr',
-            'created_at': '24/07/2015 12:46:20',
+            'created_at': '24/07/2015 12:46',
             'text': 'blah',
         }
         self.client.login(username=self.backuser1.username, password='password')
