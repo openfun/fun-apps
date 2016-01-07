@@ -43,11 +43,17 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ArticleForm(forms.ModelForm):
+    # Make sure that the datetime formats used for form rendering and JS parsing are the same.
+    DATETIME_INPUT_FORMAT = '%d/%m/%Y %H:%M'
+    DATETIME_INPUT_FORMAT_JS = 'DD/MM/YYYY HH:mm'
+    created_at = forms.DateTimeField(
+        input_formats=(DATETIME_INPUT_FORMAT,),
+        widget=forms.DateTimeInput(format=DATETIME_INPUT_FORMAT),
+    )
 
     class Meta:
         model = Article
-        fields = ['title', 'slug', 'created_at', 'thumbnail', 'language',
-                'text', 'published',]
+        fields = ['title', 'slug', 'created_at', 'thumbnail', 'language', 'text', 'published',]
 
     def save(self, *args, **kwargs):
         if settings.FEATURES['USE_MICROSITES']:

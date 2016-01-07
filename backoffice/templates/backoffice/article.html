@@ -19,7 +19,7 @@
     <script>
     $(function () {
         // Use bootstrap plugin for 'created_at' field
-        $('#id_created_at').datetimepicker({format: 'MM/DD/YYYY HH:mm'});
+        $('#id_created_at').datetimepicker({format: '{{ form.DATETIME_INPUT_FORMAT_JS }}'});
 
         // handle slug generation from title
         document.getElementById("id_title").onkeyup = function() {
