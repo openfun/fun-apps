@@ -23,4 +23,15 @@ class PrivateUniversitySerializer(UniversitySerializer):
     '''
 
     class Meta(UniversitySerializer.Meta):
-        fields = UniversitySerializer.Meta.fields + ('score',)
+        fields = UniversitySerializer.Meta.fields + (
+            'score',
+            'partnership_level',
+        )
+
+
+class UniversityUpdateSerializer(serializers.ModelSerializer):
+    score = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = University
+        fields = ('score',)
