@@ -308,3 +308,5 @@ def configure_raven(sentry_dsn, raven_config, logging_config):
 # FUN Mongo database
 # Other settings FUN_MONGO_HOST, FUN_MONGO_USER and FUN_MONGO_PASSWORD will come from lms/cms.auth.env
 FUN_MONGO_DATABASE = 'fun'
+
+SEARCH_ENGINE = 'search.elastic.ElasticSearchEngine'  # use ES for courseware and course meta information indexing
