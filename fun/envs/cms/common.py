@@ -63,6 +63,10 @@ FEATURES['SUBDOMAIN_BRANDING'] = False
 FEATURES['SUBDOMAIN_COURSE_LISTINGS'] = False
 FEATURES['USE_CUSTOM_THEME'] = False
 
+# index courseware content in 'courseware_index' and course meta information in 'course_info' after every modification in studio
+FEATURES['ENABLE_COURSEWARE_INDEX'] = True
+
+
 CC_PROCESSOR = {
     'CyberSource': {
         'SHARED_SECRET': '',
