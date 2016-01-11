@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django_future.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponseBadRequest
 from django.utils.html import strip_tags
 from django.views.decorators.cache import cache_control
