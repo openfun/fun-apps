@@ -25,7 +25,7 @@ def list_report_downloads(_request, course_id):
     """
 
     course_id = SlashSeparatedCourseKey.from_deprecated_string(course_id)
-    report_store = ReportStore.from_config()
+    report_store = ReportStore.from_config(config_name='GRADES_DOWNLOAD')
 
     response_payload = {
         'downloads': [
