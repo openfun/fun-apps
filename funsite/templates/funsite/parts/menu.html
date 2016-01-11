@@ -3,6 +3,7 @@
 <%page args="base_application"/>
 
 <%!
+from courses.models import Course
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from staticfiles.storage import staticfiles_storage
@@ -34,7 +35,14 @@ from staticfiles.storage import staticfiles_storage
             <img class="logo" src="${staticfiles_storage.url(settings.FUN_SMALL_LOGO_RELATIVE_PATH)}" alt="Logo FUN">
         </a>
         % if course:
-            <span class="course-org color-fun-red heavy-weight header-block">${course.display_org_with_default | h}</span>
+            <%
+            try:
+              university_name = Course.objects.get(key=unicode(course.id)).university_name
+              course_org = university_name if university_name else course.display_org_with_default
+            except Course.DoesNotExist:
+              course_org = course.display_org_with_default
+            %>
+            <span class="course-org color-fun-red heavy-weight header-block">${course_org | h}</span>
             <span class="course-display-name color-fun-blue heavy-weight header-block">${course.display_name_with_default | h}</span>
         % else:
             <span class="slogan color-fun-blue heavy-weight header-block">${_(u"The Freedom to Study")}</span>
