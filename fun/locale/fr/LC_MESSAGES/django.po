@@ -419,6 +419,10 @@ msgstr "Quand cet article est modifié"
 msgid "Yes, I am sure"
 msgstr "Oui, je confirme"
 
+#: edx-platform/common/lib/xmodule/xmodule/capa_base.py
+msgid "Your answers have been saved but not graded. Click 'Check' to grade them."
+msgstr "Vos réponses ont été enregistrées mais pas encore évaluées. Cliquez sur «Vérifier» pour les évaluer."
+
 # Translated in edx by 'Vous avez créé avec succès un compte sur
 # {platform_name}. Nous venons de vous envoyer un message d'activation du
 # compte par mail à {email}. Cliquez sur le lien dans ce message pour activer
