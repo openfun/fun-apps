@@ -98,12 +98,12 @@ def get_courses_per_language():
     """Returns available languages for courses from constant COURSE_LANGUAGES,
        count of public courses of thoses language and the i18ned name of the language.
 
-       Returns: list of dicts
+       Returns: list of dicts ordered by language code
     """
     # retrieve authorized course languages
     course_languages = [language[0] for language in COURSE_LANGUAGES]
     # get course count for distinct languages
-    languages = Course.objects.public().filter(language__in=course_languages
+    languages = Course.objects.public().filter(language__in=course_languages).order_by('language'
             ).values('language').distinct().annotate(count=Count('id'))
     # update returned dict with language name comming from courses.choices.COURSE_LANGUAGES
     languages = [dict(language, title=unicode(dict(COURSE_LANGUAGES)[language['language']])) for language in languages]
