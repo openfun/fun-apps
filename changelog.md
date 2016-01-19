@@ -1,5 +1,12 @@
 # Changelog www.france-universite-numerique.fr
 
+## 3.3
+- Merge de la nouvelle version LTS de edX: Cypress
+    - http://edx.readthedocs.org/projects/open-edx-release-notes/en/latest/cypress.html
+
+## 3.2.1
+- Ajout de l'api de consultation des établissements
+
 ## 3.2
 - Backoffice: Page de gestion du wiki
     + Affichage de l'arborescence des pages et leur activité
@@ -29,7 +36,7 @@
     - Edition des news
     - Prise en compte des microsites
 - Upload de vidéo sur Dailymotion Public. (pas de lien pour les concepteurs)
-- Intégration de la FAQ Zendesk sur la page /aide 
+- Intégration de la FAQ Zendesk sur la page /aide
 - Résolution d'un problème de CSS qui décentrait le header de toutes les pages
 - Création d'un script permettant de supprimer les permissions d'écriture du wiki d'un cours
 - Modification de la visibilité par défaut des profils des utilisateurs
@@ -72,7 +79,7 @@
     - liens conversations sur le profile utilisateurs forum
     - La prévisualisation de la page de news n'affiche plus l'article en cours de rédaction en double
 	 - traductions
-	
+
 
 ## 2.10 09/03/2015
 - Refactorisation du code permettant la consultation de la répartition des reponses aux quizz
