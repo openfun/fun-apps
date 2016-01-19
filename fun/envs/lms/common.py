@@ -19,6 +19,7 @@ INSTALLED_APPS += (
     'course_pages',
     'newsfeed',
     'universities',
+    'universities_api',
     'videoproviders',
 
     'easy_thumbnails',

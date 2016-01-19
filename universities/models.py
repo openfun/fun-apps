@@ -9,6 +9,7 @@ from easy_thumbnails.exceptions import InvalidImageFormatError
 from ckeditor.fields import RichTextField
 
 from .managers import UniversityManager
+from . import choices as universities_choices
 
 
 class University(models.Model):
@@ -36,7 +37,12 @@ class University(models.Model):
     description = RichTextField(_('description'), blank=True)
     dm_user_id = models.CharField(_('DM User ID'), max_length=255, blank=True)
     dm_api_key = models.CharField(_('DM API Key'), max_length=255, blank=True)
+    partnership_level = models.CharField(_('partnership level'), max_length=255,
+        choices=universities_choices.UNIVERSITY_PARTNERSHIP_LEVEL, blank=True,
+        db_index=True)
     score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
+    prevent_auto_update = models.BooleanField(
+        verbose_name=_('prevent automatic update'), default=False)
 
     objects = UniversityManager()
 
