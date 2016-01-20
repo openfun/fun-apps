@@ -114,14 +114,6 @@ MAKO_TEMPLATES['main'] = [
 # Add funsite templates directory to Django templates finder.
 TEMPLATE_DIRS.insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
 
-# Xiti
-XITI_ENABLED = True
-XITI_XTN2 = '100'
-XITI_JS_URL = '/static/funsite/xiti/xtcore.js'
-XITI_XTSITE = '530632'
-XITI_XTSD = 'https://logs1279'
-
-
 # Enable legal page
 MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
