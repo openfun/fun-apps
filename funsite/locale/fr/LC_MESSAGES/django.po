@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 38\n"
+"Project-Id-Version: France Université Numérique 39\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-15 11:12+0100\n"
-"PO-Revision-Date: 2015-12-15 11:12+0000\n"
+"POT-Creation-Date: 2015-12-22 12:15+0100\n"
+"PO-Revision-Date: 2015-12-22 12:15+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -26,17 +26,17 @@ msgstr "A propos"
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:22
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:23
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:21
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:143
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:257
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:140
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:254
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:36
 msgid "All courses"
 msgstr "Tous les cours"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:222
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:219
 msgid "All news"
 msgstr "Toutes les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:180
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:177
 msgid "All universities"
 msgstr "Tous les établissements"
 
@@ -98,7 +98,11 @@ msgctxt "course-about"
 msgid "Enrollment is closed"
 msgstr "Les inscriptions sont closes"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:69
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:39
+msgid "FUN courses RSS feed"
+msgstr "Flux RSS des Cours FUN"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:66
 msgid "FUN:"
 msgstr "FUN :"
 
@@ -107,12 +111,13 @@ msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:28
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:17
 msgid "Higher Education Excellence. Online, Free and Open Courses"
 msgstr ""
 "L'excellence de l'enseignement supérieur pour des cours en ligne, "
 "gratuits et ouverts à tous"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:80
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:77
 msgid "Highlighted courses"
 msgstr "Les cours à la une"
 
@@ -230,15 +235,15 @@ msgid "Terms of use"
 msgstr "Conditions générales d'utilisation"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:40
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:21
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:22
 msgid "The Freedom to Study"
 msgstr "Se former en liberté"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:189
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:186
 msgid "The news"
 msgstr "Les actus"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:230
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:227
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:303
 msgid "Thematics"
 msgstr "Les thématiques"
@@ -254,7 +259,7 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:25
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:26
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:152
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:149
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:48
 msgid "Universities"
 msgstr "Les établissements"

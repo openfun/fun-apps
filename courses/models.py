@@ -64,6 +64,7 @@ class Course(models.Model):
         return reverse('about_course', args=[self.key])
 
     def get_thumbnail_url(self, thumbnail_alias):
+        # see settings.FUN_THUMBNAIL_OPTIONS for preprocessed thumbnails
         url = ''
         try:
             url = self.thumbnails_info[thumbnail_alias]
@@ -117,6 +118,18 @@ class Course(models.Model):
         if not self.end_date:
             return ''
         return self.end_date.strftime(ugettext(u'%b %d %Y'))
+
+    @property
+    def enrollment_start_date_display(self):
+        if not self.enrollment_start_date:
+            return ''
+        return self.enrollment_start_date.strftime(ugettext(u'%b %d %Y'))
+
+    @property
+    def enrollment_end_date_display(self):
+        if not self.enrollment_end_date:
+            return ''
+        return self.enrollment_end_date.strftime(ugettext(u'%b %d %Y'))
 
     @property
     def enrollment_ended(self):
