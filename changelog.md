@@ -1,6 +1,11 @@
 # Changelog www.france-universite-numerique.fr
 
-## 3.3
+## 3.4 
+- Ajout de la langue allemande dans les filtre de cours
+- Nouveaux flux RSS Cours et Actualité
+- Amelioration du Backoffice actualité
+
+## 3.3 20/01/2016
 - Merge de la nouvelle version LTS de edX: Cypress
     - http://edx.readthedocs.org/projects/open-edx-release-notes/en/latest/cypress.html
 
