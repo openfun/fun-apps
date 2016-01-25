@@ -193,8 +193,8 @@ FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable B
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'ENGINE': 'courses.search_indexes.AsciifoldingElasticSearchEngine',
         'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
+        'INDEX_NAME': 'haystack2',
     },
 }
