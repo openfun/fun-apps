@@ -76,4 +76,6 @@
             console.error("Missing CSRF token. Forms will not be submitted properly.");
         }
     }
+
+
  })();

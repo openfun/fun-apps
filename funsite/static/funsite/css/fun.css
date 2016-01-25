@@ -193,6 +193,10 @@ a:hover {
     border: 1px solid #F1F2F3;
     padding: 8px 8px 8px 40px ;
 }
+#login-overlay input:focus {
+    outline: none;
+    border: 1px solid #FB453E;
+}
 #login-overlay input[name="email"] {
     background: url('../images/icones/login-email.png') 8px 8px no-repeat #F1F2F3;
 

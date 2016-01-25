@@ -7,8 +7,9 @@ unicodecsv==0.9.4
 raven==5.1.0
 django-pure-pagination==0.2.1
 easy-thumbnails==2.2
+django-haystack==2.4.1
 
-# DMCloud XBlock 
+# DMCloud XBlock
 -e git+https://github.com/openfun/dmcloud.git@1.2#egg=dmcloud-xblock
 -e git+https://github.com/openfun/cloudkey-py@1.2.7-1#egg=cloudkey
 
