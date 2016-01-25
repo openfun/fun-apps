@@ -22,6 +22,8 @@ INSTALLED_APPS += (
     'universities_api',
     'videoproviders',
 
+    'haystack',
+
     'easy_thumbnails',
     'bootstrapform',
     'ckeditor',
@@ -188,3 +190,11 @@ PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
