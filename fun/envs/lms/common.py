@@ -191,10 +191,43 @@ PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
 
+ELASTICSEARCH_INDEX_SETTINGS = {
+  "settings": {
+    "analysis": {
+      "filter": {
+        "elision": {
+          "type": "elision",
+          "articles": ["l", "m", "t", "qu", "n", "s", "j", "d"]
+        }
+      },
+      "analyzer": {
+        "custom_french_analyzer": {
+          "tokenizer": "letter",
+          "filter": ["asciifolding", "lowercase", "french_stem", "elision", "stop"]
+        },
+      },
+
+#      "ascii_analyser" : {
+#          "tokenizer" : "standard",
+#          "filter" : ["standard", "asciifolding", "lowercase"]
+#      },
+#      "ngram_analyzer": {
+#          "type": "custom",
+#          "tokenizer": "lowercase",
+#          "filter": ["haystack_ngram", "asciifolding"]
+#      },
+#      "edgengram_analyzer": {
+#          "type": "custom",
+#          "tokenizer": "lowercase",
+#          "filter": ["haystack_edgengram", "asciifolding"]
+#      }
+    }
+  }
+}
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'courses.search_indexes.AsciifoldingElasticSearchEngine',
+        'ENGINE': 'courses.search_indexes.ConfigurableElasticSearchEngine',
         'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack2',
+        'INDEX_NAME': 'haystack',
     },
 }

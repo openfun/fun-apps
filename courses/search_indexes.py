@@ -2,51 +2,44 @@
 
 import datetime
 
+from django.conf import settings
+
 from haystack import indexes
 from haystack.backends import elasticsearch_backend
 
 from .models import Course
+from newsfeed.models import Article
 
 
-class AsciifoldingElasticBackend(elasticsearch_backend.ElasticsearchSearchBackend):
+class ConfigurableElasticBackend(elasticsearch_backend.ElasticsearchSearchBackend):
 
-    def __init__(self, *args, **kwargs):
-        super(AsciifoldingElasticBackend, self).__init__(*args, **kwargs)
-        analyzer = {
-            "ascii_analyser" : {
-                "tokenizer" : "standard",
-                "filter" : ["standard", "asciifolding", "lowercase"]
-            },
-            "ngram_analyzer": {
-                "type": "custom",
-                "tokenizer": "lowercase",
-                "filter": ["haystack_ngram", "asciifolding"]
-            },
-            "edgengram_analyzer": {
-                "type": "custom",
-                "tokenizer": "lowercase",
-                "filter": ["haystack_edgengram", "asciifolding"]
-            }
-        }
-        self.DEFAULT_SETTINGS['settings']['analysis']['analyzer'] = analyzer
+    DEFAULT_ANALYZER = "custom_french_analyzer"
+
+    def __init__(self, connection_alias, **kwargs):
+        import ipdb; ipdb.set_trace()
+        super(ConfigurableElasticBackend, self).__init__(connection_alias, **kwargs)
+        user_settings = getattr(settings, 'ELASTICSEARCH_INDEX_SETTINGS')
+        if user_settings:
+            setattr(self, 'DEFAULT_SETTINGS', user_settings)
 
     def build_schema(self, fields):
-        content_field_name, mapping = super(AsciifoldingElasticBackend,
-                                            self).build_schema(fields)
+        content_field_name, mapping = super(ConfigurableElasticBackend, self).build_schema(fields)
 
         for field_name, field_class in fields.items():
             field_mapping = mapping[field_class.index_fieldname]
 
             if field_mapping['type'] == 'string' and field_class.indexed:
-                if not hasattr(field_class, 'facet_for') and not field_class.field_type in('ngram', 'edge_ngram'):
-                    field_mapping['analyzer'] = "ascii_analyser"
-
+                if not hasattr(field_class, 'facet_for') and not \
+                                  field_class.field_type in('ngram', 'edge_ngram'):
+                    field_mapping['analyzer'] = getattr(field_class, 'analyzer',
+                                                            self.DEFAULT_ANALYZER)
             mapping.update({field_class.index_fieldname: field_mapping})
         return (content_field_name, mapping)
 
 
-class AsciifoldingElasticSearchEngine(elasticsearch_backend.ElasticsearchSearchEngine):
-    backend = AsciifoldingElasticBackend
+
+class ConfigurableElasticSearchEngine(elasticsearch_backend.ElasticsearchSearchEngine):
+    backend = ConfigurableElasticBackend
 
 
 class CourseIndex(indexes.SearchIndex, indexes.Indexable):
@@ -57,6 +50,18 @@ class CourseIndex(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Course
+
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        return self.get_model().objects.all()
+
+
+class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
+    title = indexes.CharField(model_attr='title')
+    text = indexes.CharField(document=True, use_template=True)
+
+    def get_model(self):
+        return Article
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
