@@ -31,3 +31,5 @@ FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 
 # To totaly deactivate cache we also have de deactivate edx cache on anonymous views
 # by commenting line 79 (cache.set(cache_key, response, 60 * 3)) in file common/djangoapps/util/cache.py@cache_if_anonymous
+
+HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
