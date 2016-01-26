@@ -1,0 +1,59 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+%>
+
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
+<%block name="title">${_("Search results for ")} ${ request.GET.get('q') }</%block>
+
+<%block name="page_content">
+
+    ${breadcrumbs.breadcrumbs(_("Search results"))}
+
+<div class="">
+
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-30 col-md-36">
+
+            <div class="introduction">
+
+                <h1>${_("Search results for ")} ${ request.GET.get('q') }</h1>
+
+                <p>
+                    Il y a ${result_count} résults dans ${category_count} categories
+                </p>
+            </div>
+
+            <div class="space-40px"></div>
+            % if courses:
+                <h3>${_("Courses")}</h3>
+                <ul class="">
+                    % for course in courses:
+                    <li>
+                        <a href="${ course.get_absolute_url() }">${ course.title }</a>
+                    </li>
+                    % endfor
+                </ul>
+            % endif
+
+            % if articles:
+                <h3>${_("News")}</h3>
+                <ul class="">
+                    % for article in articles:
+                    <li>
+                        <a href="${ article.get_absolute_url() }">${ article.title }</a>
+                    </li>
+                    % endfor
+                </ul>
+            % endif
+
+            <div class="space-40px"></div>
+
+        </div>
+    </div>
+</div>
+
+</%block>

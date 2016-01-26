@@ -41,7 +41,7 @@ from staticfiles.storage import staticfiles_storage
         % endif
     </div>
     <div class="right-header clickable">
-        <form id="search-site" name="search-site" method="GET" action="" class="header-block">
+        <form id="search-site" name="search-site" method="GET" action="${ reverse('search-site') }" class="header-block">
             <input name="q" value="${ request.GET.get('q', '') }" placeholder="${ _(u'Search') }">
         </form>
         % if not request.user.is_authenticated():

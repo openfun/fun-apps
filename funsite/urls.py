@@ -12,3 +12,6 @@ urls = [
 
 urlpatterns = patterns('django.views.generic.simple', *urls)
 
+urlpatterns += patterns('funsite.views',
+    url(r'^search/$', 'search', name='search-site'),
+)
