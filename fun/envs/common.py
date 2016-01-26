@@ -260,6 +260,7 @@ CACHES = {
     "celery": default_cache_configuration("integration_celery"),
     "default": default_cache_configuration("sandbox_default"),
     "general": default_cache_configuration("sandbox_general"),
+    "libcast_resources": file_cache_configuration("resources", "libcast_cache"),
     "video_subtitles": file_cache_configuration(
         "video_subtitles",
         "video_subtitles_cache"

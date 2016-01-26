@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource href="https://api.libcast.com/resource/video-bienvenue-sur-fun">
+  <slug><![CDATA[video-bienvenue-sur-fun]]></slug>
+  <title><![CDATA[MOOC.mp4]]></title>
+  <sub_title><![CDATA[]]></sub_title>
+  <description><![CDATA[]]></description>
+  <published_at><![CDATA[1447075980]]></published_at>
+  <visibility><![CDATA[hidden]]></visibility>
+  <duration>90.24</duration>
+  <thumbnail><![CDATA[https://api.libcast.com/resource/video-bienvenue-sur-fun/thumbnail/thumb.jpg]]></thumbnail>
+  <file href="https://api.libcast.com/file/source-1419319119-mp4-auth-1755852042-0-l9mhcst1-59615f41389ea53eaf927569478c42e2-filename-mooc_mp4-source-1419319119-mp4"/>
+  <stream href="https://api.libcast.com/stream/fun-fun101-funv20"/>
+  <metadata>
+    <dmcloud-id-><![CDATA[5499255e06361d2d19aebc5c]]></dmcloud-id->
+  </metadata>
+  <subtitles>
+    <subtitle language="fr" href="https://fun.libcast.com/resource/video-bienvenue-sur-fun/subtitles/ff60214f3698f1b55ae593fab4996ffc5afc72ca.fr.srt"/>
+  </subtitles>
+  <flavors>
+    <flavor name="fun-hd"><![CDATA[https://fun.libcast.com/resource/video-bienvenue-sur-fun/flavor/video/fun-hd.mp4]]></flavor>
+    <flavor name="fun-sd"><![CDATA[https://fun.libcast.com/resource/video-bienvenue-sur-fun/flavor/video/fun-sd.mp4]]></flavor>
+    <flavor name="fun-ld"><![CDATA[https://fun.libcast.com/resource/video-bienvenue-sur-fun/flavor/video/fun-ld.mp4]]></flavor>
+  </flavors>
+</resource>

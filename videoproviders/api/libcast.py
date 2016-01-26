@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 import lxml.etree
 import logging
 import os
@@ -9,6 +10,7 @@ from django.core.cache import get_cache
 from django.utils.translation import gettext as _
 
 from fun.utils.i18n import language_name
+import videoproviders.subtitles
 from .base import BaseClient, ClientError, MissingCredentials
 from .. import models
 
@@ -95,12 +97,9 @@ class Client(BaseClient):
 
     def __init__(self, course_key_string):
         super(Client, self).__init__(course_key_string)
+        self.course_key_string = course_key_string
         self.urls = LibcastUrls(self.course_key_string)
         self._settings = None
-
-    @property
-    def course_key_string(self):
-        return unicode(self.course_id)
 
     @property
     def settings(self):
@@ -224,7 +223,7 @@ class Client(BaseClient):
         ]
 
     def create_resource(self, file_slug, title):
-        return parse_xml(self.safe_post(
+        resource = parse_xml(self.safe_post(
             self.urls.stream_resources_path(self.stream_slug), {
                 "title": title,
                 "file": file_slug,
@@ -232,6 +231,9 @@ class Client(BaseClient):
             },
             message=_("Could not create resource")
         ))
+        resource_slug = resource.find('slug').text
+        self.expire_resource(resource_slug)
+        return resource
 
     def convert_subtitle_to_dict(self, subtitle):
         subtitle_href = subtitle.attrib['href']
@@ -243,6 +245,16 @@ class Client(BaseClient):
             'language_label': language_name(subtitle.attrib['language']),
             'url': subtitle_href,
         }
+
+    def expire_resource(self, video_id):
+        """This method needs to be called every time a resource is updated.
+
+        It guarantees that the resource cache is always kept up-to-date.
+
+        Args:
+            video_id (str): this is in fact the resource slug.
+        """
+        CachedResource(self.course_key_string, video_id).expire()
 
     ##############################
     # Ensure account is configured
@@ -455,6 +467,7 @@ class Client(BaseClient):
         # resources will be deleted.
         resource = self.get_resource(video_id)
         file_slug = self.get_resource_file_slug(resource)
+        self.expire_resource(video_id)
         self.safe_delete(
             self.urls.file_path(file_slug),
             message=_("Could not delete video")
@@ -465,6 +478,7 @@ class Client(BaseClient):
             self.urls.resource_path(video_id), {"title": title},
             message=_("Could not change video title")
         )
+        self.expire_resource(video_id)
         return {}
 
     def get_upload_url(self):
@@ -512,6 +526,10 @@ class Client(BaseClient):
 
         Args:
             resource (etree)
+
+        Returns:
+            subtitles (array): each subtitle is a dictionary of
+                id/language/language_label/url properties.
         """
         subtitles = resource.find('subtitles')
         if not subtitles:
@@ -538,10 +556,85 @@ class Client(BaseClient):
             self.urls.subtitle_path(file_slug, subtitle_id),
             message=_("Could not delete subtitle")
         )
+        self.expire_resource(video_id)
 
     def set_thumbnail(self, video_id, url):
         # TODO
         pass
+
+
+class SelfExpiringLock(object):
+    """
+    Lock based on a cache value. The lock will expire on exit.
+
+    Usage:
+        with SelfExpiringLock("mykey"):
+            # non thread-safe code
+            ...
+    """
+
+    def __init__(self, name, timeout=None):
+        self.name = name
+        self.timeout = timeout
+        self.cache = get_cache('default')
+
+    def __enter__(self):
+        while self.cache.get(self.name):
+            pass
+        self.cache.set(self.name, 1, timeout=self.timeout)
+
+    def __exit__(self, _type, value, traceback):
+        self.cache.delete(self.name)
+
+
+class CachedResource(object):
+    """Convenient class for accessing cached Libcast resources.
+
+    Since calling the Libcast API from the libcast xblock requires a long time,
+    we cache xblock resources locally. We need to expire the keys from this
+    cache every time a resources gets updated.
+    """
+
+    CACHE = get_cache("libcast_resources")
+
+    # Number of seconds before a cached resource entry expires
+    EXPIRES_IN_SECONDS = 24*60*60
+
+    def __init__(self, course_key_string, resource_slug):
+        """
+        Args:
+            course_key_string: str
+            resource_slug: str
+        """
+        self.course_key_string = course_key_string
+        self.resource_slug = resource_slug
+
+    @property
+    def key(self):
+        """String key under which the resource is stored."""
+        return "{}/{}".format(self.course_key_string, self.resource_slug)
+
+    def set(self, resource_dict):
+        """Store the resource
+
+        Args:
+            resource_dict: dict
+        """
+        self.CACHE.set(self.key, json.dumps(resource_dict), self.EXPIRES_IN_SECONDS)
+
+    def get(self):
+        """Fetch the resource
+
+        Returns:
+            dict or None
+        """
+        resource_dict_json = self.CACHE.get(self.key)
+        if resource_dict_json is not None:
+            return json.loads(resource_dict_json)
+        return None
+
+    def expire(self):
+        self.CACHE.delete(self.key)
 
 
 def parse_xml(response):
@@ -570,26 +663,52 @@ def slugify(string):
     return string.lower().replace('/', '-')
 
 
-class SelfExpiringLock(object):
+def get_vtt_content(course_key_string, resource_slug, subtitle_id):
+    """Fetch the content of a subtitle file in VTT format.
+
+    This is used in the Libcast XBlock.
+
+    Returns:
+        content (str): Content of the subtitle file in vtt format.
     """
-    Lock based on a cache value. The lock will expire on exit.
+    libcast_urls = LibcastUrls(course_key_string)
+    subtitle_url = libcast_urls.subtitle_href(resource_slug, subtitle_id)
+    caps = videoproviders.subtitles.get_vtt_content(subtitle_url) or ""
+    return caps
 
-    Usage:
-        with SelfExpiringLock("mykey"):
-            # non thread-safe code
-            ...
+def get_cached_resource_dict(course_key_string, resource_slug):
+    """Same as get_resource_dict but caches values.
+
+    The values returned by get_resource_dict are stored in the
+    'libcast_resources' cache (which should be defined in the settings). Values
+    are stored for 24h before they expire. Note that these cache entries should
+    be manually deleted every time a resource is updated.
     """
+    cached_resource = CachedResource(course_key_string, resource_slug)
+    resource_dict = cached_resource.get()
+    if resource_dict is None:
+        resource_dict = get_resource_dict(course_key_string, resource_slug)
+        cached_resource.set(resource_dict)
+    return resource_dict
 
-    def __init__(self, name, timeout=None):
-        self.name = name
-        self.timeout = timeout
-        self.cache = get_cache('default')
+def get_resource_dict(course_key_string, resource_slug):
+    """Get a dictionary containing the properties of the course resource.
 
-    def __enter__(self):
-        while self.cache.get(self.name):
-            pass
-        self.cache.set(self.name, 1, timeout=self.timeout)
+    Returns:
+        {
+            'video_sources': array of label/res/type/url values
+            'subtitles': array of id/language/language_label/url values
+            'thumbnail_url': string of public thumbnail url
+            'downloadable_files': array of name/url values
+        }
+    """
+    client = Client(course_key_string)
+    resource = client.get_resource(resource_slug)
 
-    def __exit__(self, _type, value, traceback):
-        self.cache.delete(self.name)
+    return {
+        'video_sources': client.video_sources(resource_slug),
+        'subtitles': client.get_resource_subtitles(resource),
+        'thumbnail_url': client.get_resource_thumbnail_url(resource),
+        'downloadable_files': client.downloadable_files(resource_slug)
+    }
 
