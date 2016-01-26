@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 3\n"
+"Project-Id-Version: France Université Numérique 4\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-14 10:25+0100\n"
-"PO-Revision-Date: 2015-12-14 10:25+0000\n"
+"POT-Creation-Date: 2016-01-26 15:47+0100\n"
+"PO-Revision-Date: 2016-01-26 15:47+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -45,15 +45,24 @@ msgstr "Date de l'événement"
 msgid "Featured news"
 msgstr "Articles mis en avant"
 
+#: /edx/app/edxapp/fun-apps/newsfeed/views.py:92
+#: /edx/app/edxapp/fun-apps/newsfeed/tests/test_feed.py:28
+msgid "Fun latest published news"
+msgstr "Dernières actualités publiées sur FUN"
+
 #: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:127
 msgid "In the same category"
 msgstr "Dans la même categorie"
+
+#: /edx/app/edxapp/fun-apps/newsfeed/views.py:94
+msgid "Latests news published on france-universite-numerique-mooc.fr"
+msgstr "Dernières actualités publiées sur france-universite-numerique-mooc.fr"
 
 #: /edx/app/edxapp/fun-apps/newsfeed/models.py:92
 msgid "Lead paragraph"
 msgstr "Chapeau"
 
-# Translated in edx by 'Nouvelles'
+# Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:12
 #: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:18
 msgctxt "fun-news"
