@@ -24,7 +24,7 @@ def annotate_with_public_courses(queryset):
 class CourseSubjectManager(models.Manager):
 
     def by_score(self):
-        return self.order_by('-score')
+        return self.order_by('-score', 'name')
 
     def featured(self):
         return self.filter(featured=True).exclude(image='')
