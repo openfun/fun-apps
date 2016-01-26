@@ -1,1 +1,4 @@
 {{ object.title }}
+{{ object.lead_paragraph }}
+{{ object.text }}
+{% for category in object.categories.all %}{{ category.name }}{% endfor %}

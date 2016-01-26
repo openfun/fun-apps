@@ -16,7 +16,6 @@ class ConfigurableElasticBackend(elasticsearch_backend.ElasticsearchSearchBacken
     DEFAULT_ANALYZER = "custom_french_analyzer"
 
     def __init__(self, connection_alias, **kwargs):
-        import ipdb; ipdb.set_trace()
         super(ConfigurableElasticBackend, self).__init__(connection_alias, **kwargs)
         user_settings = getattr(settings, 'ELASTICSEARCH_INDEX_SETTINGS')
         if user_settings:
@@ -43,9 +42,6 @@ class ConfigurableElasticSearchEngine(elasticsearch_backend.ElasticsearchSearchE
 
 
 class CourseIndex(indexes.SearchIndex, indexes.Indexable):
-    key = indexes.CharField(model_attr='key')
-    title = indexes.CharField(model_attr='title')
-    key = indexes.CharField(model_attr='key')
     text = indexes.CharField(document=True, use_template=True)
 
     def get_model(self):
@@ -53,11 +49,10 @@ class CourseIndex(indexes.SearchIndex, indexes.Indexable):
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return self.get_model().objects.all()
+        return self.get_model().objects.public()
 
 
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
-    title = indexes.CharField(model_attr='title')
     text = indexes.CharField(document=True, use_template=True)
 
     def get_model(self):
@@ -65,4 +60,4 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return self.get_model().objects.all()
+        return self.get_model().objects.published()
