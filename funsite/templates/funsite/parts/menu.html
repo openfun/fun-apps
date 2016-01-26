@@ -41,6 +41,9 @@ from staticfiles.storage import staticfiles_storage
         % endif
     </div>
     <div class="right-header clickable">
+        <form id="search-site" name="search-site" method="GET" action="" class="header-block">
+            <input name="q" value="${ request.GET.get('q', '') }" placeholder="${ _(u'Search') }">
+        </form>
         % if not request.user.is_authenticated():
             <a class="signup-link header-block" href="${reverse('register_user')}">
                 <span class="color-fun-red heavy-weight">${_(u"Sign up")}</span>

@@ -193,6 +193,10 @@ a:hover {
     border: 1px solid #F1F2F3;
     padding: 8px 8px 8px 40px ;
 }
+#login-overlay input:focus {
+    outline: none;
+    border: 1px solid #FB453E;
+}
 #login-overlay input[name="email"] {
     background: url('../images/icones/login-email.png') 8px 8px no-repeat #F1F2F3;
 
@@ -1983,3 +1987,22 @@ div.article {
 .modal {
     z-index: 4000; /* bootstrap modal has to overtake ours */
 }
+
+/* global search */
+#search-site {
+    padding-top: 10px;
+    padding-right: 20px;
+    background-color: white;
+}
+
+#search-site input {
+    width: 200px;
+    border: 1px solid #F1F2F3;
+    padding: 8px 8px 8px 40px ;
+}
+#search-site input:focus {
+    outline: none;
+    border: 1px solid #FB453E;
+}
+#search-site input[name="q"] {
+    background: url('../images/icones/search.png') 3px 3px no-repeat white;
