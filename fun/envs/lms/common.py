@@ -165,7 +165,7 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 10,
 }
 
-NUMBER_DAYS_TOO_LATE = 7
+NUMBER_DAYS_TOO_LATE = 31
 
 # Default visibility of student's profile to other students
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
