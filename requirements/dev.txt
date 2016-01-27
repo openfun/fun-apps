@@ -1,1 +1,2 @@
 git+https://github.com/openfun/fun-cmd.git@master#egg=fun-cmd
+pylint==1.5.4
