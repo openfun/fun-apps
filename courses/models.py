@@ -81,8 +81,12 @@ class Course(models.Model):
 
     @property
     def first_university(self):
+        '''
+        First university in regard to the order field - that's how allow
+        an admin person to decide who's the first / main university.
+        '''
         try:
-            first = self.related_universities.all()[0].university
+            first = self.related_universities.order_by('order')[0].university
         except IndexError:
             first = None
         return first
