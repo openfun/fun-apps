@@ -23,6 +23,8 @@ class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    university_serializer_class = UniversitySerializer
+    main_university = serializers.SerializerMethodField('get_main_university')
     universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
     session_display = serializers.CharField(source='session_display')
@@ -41,6 +43,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'key',
             'universities',
             'university_name',
+            'main_university',
             'title',
             'short_description',
             'level',
@@ -60,12 +63,22 @@ class CourseSerializer(serializers.ModelSerializer):
             'thumbnails',
         )
 
+    def get_main_university(self, obj):
+        '''
+        The main university is just the first one, when ordered
+        using the order field.
+        '''
+        if not obj.first_university:
+            return None
+        return self.university_serializer_class(instance=obj.first_university).data
+
 
 class PrivateCourseSerializer(CourseSerializer):
     '''
     Presents data accessible to authenticated admin users.
     '''
-
+    university_serializer_class = PrivateUniversitySerializer
+    main_university = serializers.SerializerMethodField('get_main_university')
     universities = PrivateUniversitySerializer()
     subjects = PrivateCourseSubjectSerializer()
 
