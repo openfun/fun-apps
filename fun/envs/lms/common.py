@@ -188,3 +188,19 @@ PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
+
+
+FEATURES["ENABLE_SHOPPING_CART"] = True
+FEATURES["ENABLE_PAID_COURSE_REGISTRATION"] = True
+
+PAID_COURSE_REGISTRATION_CURRENCY = [u"eur", u"€"]
+
+CC_PROCESSOR_NAME = 'CyberSource2'
+CC_PROCESSOR = {
+        "CyberSource2": {
+            "SECRET_KEY": "abcd123",
+            "ACCESS_KEY": "abcd123",
+            "PROFILE_ID": "edx",
+            "PURCHASE_ENDPOINT": "/shoppingcart/payment_fake"
+        }
+    }
