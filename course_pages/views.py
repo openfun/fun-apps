@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.contrib.syndication.views import Feed, add_domain
+from django.contrib.syndication.views import Feed
 from django.template.loader import render_to_string
 from django.utils.feedgenerator import Rss201rev2Feed
 from django.utils.translation import ugettext_lazy as _
 
-from courseware.courses import get_courses, get_course_about_section
 from edxmako.shortcuts import render_to_response
 
 from universities.models import University
 
 from courses.models import Course, CourseSubject
 from courses.managers import annotate_with_public_courses
-from courses.choices import COURSE_LANGUAGES
 from courses.utils import get_courses_per_language
 
 
@@ -86,15 +83,16 @@ class CoursesFeed(Feed):
         Add the 'content' field of the 'Entry' item, to be used by the custom feed generator.
         """
         protocol, site = self.get_site()
-        return {'university': course.university_name,
-                'language': course.get_language_display(),
-                'level': course.get_level_display(),
-                'short_description': course.short_description,
-                'subjects': ', '.join([s.name for s in course.subjects.all()]),
-                'thumbnail_url': protocol + site + course.get_thumbnail_url('big'),
-                'start_date': course.start_date.isoformat() if course.start_date else '',
-                'end_date': course.end_date.isoformat() if course.end_date else '',
-                'enrollment_start_date': course.enrollment_start_date.isoformat() if course.enrollment_start_date else '',
-                'enrollment_end_date': course.enrollment_end_date.isoformat() if course.enrollment_end_date else '',
-                }
+        return {
+            'university': course.university_name,
+            'language': course.get_language_display(),
+            'level': course.get_level_display(),
+            'short_description': course.short_description,
+            'subjects': ', '.join([s.name for s in course.subjects.all()]),
+            'thumbnail_url': protocol + site + course.get_thumbnail_url('big'),
+            'start_date': course.start_date.isoformat() if course.start_date else '',
+            'end_date': course.end_date.isoformat() if course.end_date else '',
+            'enrollment_start_date': course.enrollment_start_date.isoformat() if course.enrollment_start_date else '',
+            'enrollment_end_date': course.enrollment_end_date.isoformat() if course.enrollment_end_date else '',
+        }
 

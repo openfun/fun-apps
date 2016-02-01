@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime
-
 from django.db.models import Count
-from django.utils import timezone
 
 from courseware.courses import sort_by_announcement
 from xmodule.contentstore.content import StaticContent
