@@ -5,6 +5,7 @@ import logging
 import os
 import requests
 import requests.auth
+from time import time
 
 from django.core.cache import get_cache
 from django.utils.translation import gettext as _
@@ -566,22 +567,26 @@ class Client(BaseClient):
 class SelfExpiringLock(object):
     """
     Lock based on a cache value. The lock will expire on exit.
+    To make sure that we don't wait for ever on a non-expiring cache key, we
+    wait for at most 1.5 the timeout.
 
     Usage:
-        with SelfExpiringLock("mykey"):
+        with SelfExpiringLock("mykey", 1):# Wait for free lock for at most 1.5 seconds
             # non thread-safe code
             ...
     """
 
-    def __init__(self, name, timeout=None):
+    def __init__(self, name, timeout_in_seconds):
         self.name = name
-        self.timeout = timeout
+        self.timeout_in_seconds = timeout_in_seconds
         self.cache = get_cache('default')
 
     def __enter__(self):
+        start_time = time()
         while self.cache.get(self.name):
-            pass
-        self.cache.set(self.name, 1, timeout=self.timeout)
+            if time() - start_time > 1.5*self.timeout_in_seconds:
+                raise ValueError("Lock could not be acquired for key '{}'".format(self.name))
+        self.cache.set(self.name, 1, timeout=self.timeout_in_seconds)
 
     def __exit__(self, _type, value, traceback):
         self.cache.delete(self.name)

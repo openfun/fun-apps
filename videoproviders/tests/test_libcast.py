@@ -62,6 +62,33 @@ class LibcastTests(TestCase):
         self.assertEqual(resource_dict, resource_1)
         self.assertEqual(resource_1, resource_2)
 
+
+class SelfExpiringLockTests(TestCase):
+
+    def setUp(self):
+        self.cache = libcast.get_cache("default")
+
+    def test_lock_deletes_cache_key_on_exit(self):
+        key = "test_lock_deletes_cache_key_on_exit"
+        self.cache.delete(key)
+        with libcast.SelfExpiringLock(key, 1):
+            value_inside_lock = self.cache.get(key)
+        value_outside_lock = self.cache.get(key)
+
+        self.assertEqual(1, value_inside_lock)
+        self.assertIsNone(value_outside_lock)
+
+    def test_lock_raises_error_if_waiting_for_too_long(self):
+        key = "test_lock_raises_error_if_waiting_for_too_long"
+        timeout = 0.001
+        self.cache.set(key, 1, timeout=1000*timeout)
+        self.assertRaises(ValueError, self.wait_for_lock, key, timeout)
+
+    def wait_for_lock(self, key, timeout):
+        with libcast.SelfExpiringLock(key, timeout):
+            pass
+
+
 class LibcastCachedResourceTests(TestCase):
 
     def test_get_set_delete(self):
