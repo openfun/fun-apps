@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.test import TestCase
 
 import fun.utils
 
@@ -46,9 +45,13 @@ class RSSDeclarationMixin():
         self.assertTrue('item1' not in [i['title'] for i in feed['channel']['item']])
 
     def test_feed_description_structure(self):
-        """Test HTML description structure, see feed.html templates which chould have common structures for item title."""
+        """Test HTML description structure
+
+        See feed.html templates which chould have common structures for item title.
+        """
         feed = self.get_parsed_feed()
-        description = dict(dict(dict(feed)['channel'])['item'][0])['description']  # get the HTML description of the first item
+        # get the HTML description of the first item
+        description = dict(dict(dict(feed)['channel'])['item'][0])['description']
         soup = BeautifulSoup(description)
         self.assertEqual(self.item2.title, soup.select('html h1 a')[0].text)
 
