@@ -68,7 +68,7 @@
 
     $('#pwd_reset_form').on('submit', function(event) {
         event.preventDefault();
-        $.ajax({ url: 'password_reset/',
+        $.ajax({ url: '/password_reset/',
             method: 'POST',
             data: $(this).serialize(),
             success: onSuccessPasswordReset,
