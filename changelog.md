@@ -1,6 +1,12 @@
 # Changelog www.france-universite-numerique.fr
 
-## 3.4 
+
+## 3.5 04/02/2016
+- Mise en cache des données de l'API Libcast pour améliorer la stabilité
+- Moteur de recherche full-text de cours
+- Amelioration de la prise en charge des themes et etablissements dans l'API
+
+## 3.4
 - Ajout de la langue allemande dans les filtre de cours
 - Nouveaux flux RSS Cours et Actualité
 - Amelioration du Backoffice actualité
