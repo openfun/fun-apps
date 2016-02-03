@@ -26,7 +26,7 @@ def get_fun_course(course):
     from courses.models import Course
     return Course.objects.get(key=course.id.to_deprecated_string())
 
-def get_teaser(video_id, autoplay=False, force_html=False):
+def get_teaser(video_id):
     """Build the DailyMotion url from the video_id and return the html snippet.
 
     The teaser will be an HTML5 video that will auto-play.
@@ -47,7 +47,7 @@ def get_teaser(video_id, autoplay=False, force_html=False):
     return (
         '<iframe id="course-teaser" '
         'frameborder="0" scrolling="no" allowfullscreen="" '
-        'src="//www.dailymotion.com/embed/video/{dm_id}/?html&autoplay=1"'
+        'src="//www.dailymotion.com/embed/video/{dm_id}/?html=1&autoplay=1"'
         '></iframe>'
     ).format(dm_id=dm_id)
 
