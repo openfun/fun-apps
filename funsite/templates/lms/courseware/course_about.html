@@ -147,13 +147,17 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                 </div>
 
                 <div class="course-about-university-logo">
-                    % if fun_course.first_university:
-                        % if fun_course.first_university.detail_page_enabled:
-                            <a href="${fun_course.first_university.get_absolute_url()}">
-                                <img src="${fun_course.first_university.get_logo_thumbnail()}">
+
+                    <%
+                    first_university = fun_course.first_university
+                    %>
+                    % if first_university:
+                        % if first_university.detail_page_enabled:
+                            <a href="${first_university.get_absolute_url()}">
+                                <img src="${first_university.get_logo_thumbnail()}">
                             </a>
                         % else:
-                            <img src="${fun_course.first_university.get_logo_thumbnail()}">
+                            <img src="${first_university.get_logo_thumbnail()}">
                         % endif
                     % endif
                 </div>
