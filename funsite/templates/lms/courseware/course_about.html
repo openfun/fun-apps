@@ -149,7 +149,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                 <div class="course-about-university-logo">
 
                     <%
-                    first_university = fun_course.first_university
+                    first_university = fun_course.get_first_university()
                     %>
                     % if first_university:
                         % if first_university.detail_page_enabled:

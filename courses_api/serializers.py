@@ -68,7 +68,7 @@ class CourseSerializer(serializers.ModelSerializer):
         The main university is just the first one, when ordered
         using the order field.
         '''
-        main_university = obj.first_university
+        main_university = obj.get_first_university()
         if not main_university:
             return None
         return self.university_serializer_class(instance=main_university).data
