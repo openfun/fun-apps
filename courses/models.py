@@ -107,8 +107,9 @@ class Course(models.Model):
     def university_name(self):
         if self.university_display_name:
             return self.university_display_name
-        if self.first_university:
-            return self.first_university.get_short_name()
+        first_university = self.first_university
+        if first_university:
+            return first_university.get_short_name()
         return ''
 
     @property
