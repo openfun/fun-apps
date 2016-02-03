@@ -85,4 +85,4 @@ def get_university_attached_to_course(course):
     Get the university attached to a course return 'None' if not found
     """
     fun_course = Course.objects.get(key=unicode(course.id))
-    return fun_course.first_university
+    return fun_course.get_first_university()

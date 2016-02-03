@@ -79,8 +79,7 @@ class Course(models.Model):
         except Course.DoesNotExist:
             return None
 
-    @property
-    def first_university(self):
+    def get_first_university(self):
         '''
         First university in regard to the order field - that's how allow
         an admin person to decide who's the first / main university.
@@ -107,7 +106,7 @@ class Course(models.Model):
     def university_name(self):
         if self.university_display_name:
             return self.university_display_name
-        first_university = self.first_university
+        first_university = self.get_first_university()
         if first_university:
             return first_university.get_short_name()
         return ''
