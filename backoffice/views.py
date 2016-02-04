@@ -25,7 +25,7 @@ from courseware.courses import course_image_url, get_courses, get_cms_course_lin
 from edxmako.shortcuts import render_to_string
 from microsite_configuration import microsite
 from opaque_keys.edx.keys import CourseKey
-from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Registration
+from student.models import CourseEnrollment, CourseAccessRole, UserStanding, UserProfile, Registration
 
 from xmodule_django.models import CourseKeyField
 from xmodule.modulestore.django import modulestore
@@ -237,23 +237,24 @@ def order_and_paginate_queryset(request, queryset, default_order):
 @group_required('fun_backoffice')
 def user_list(request):
     form = SearchUserForm(data=request.GET)
-    users = User.objects.select_related('profile').exclude(profile__isnull=True)
+    user_profiles = UserProfile.objects
     if settings.FEATURES['USE_MICROSITES']:
-        users = users.filter(usersignupsource__site=microsite.get_value('SITE_NAME'))
-    total_count = users.count()
+        user_profiles = user_profiles.filter(user__usersignupsource__site=microsite.get_value('SITE_NAME'))
+    total_count = user_profiles.count()
 
+    user_profiles = user_profiles.select_related('user')
     if form.data and form.is_valid():
         pattern = form.cleaned_data['search']
-        users = users.filter(
-            Q(username__icontains=pattern)
-            | Q(email__icontains=pattern)
-            | Q(profile__name__icontains=pattern)
+        user_profiles = user_profiles.filter(
+            Q(user__username__icontains=pattern)
+            | Q(user__email__icontains=pattern)
+            | Q(name__icontains=pattern)
         )
-    users = order_and_paginate_queryset(request, users, 'username')
+    user_profiles = order_and_paginate_queryset(request, user_profiles, 'user__username')
 
     return render(request, 'backoffice/users.html', {
-        'users': users,
-        'search_results_count': users.paginator.count,
+        'user_profiles': user_profiles,
+        'search_results_count': user_profiles.paginator.count,
         'total_count': total_count,
         'form': form,
         'tab': 'users',

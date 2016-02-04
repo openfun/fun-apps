@@ -47,12 +47,12 @@
             </tr>
         </thead>
 
-        {% for user in users.object_list %}
+        {% for user_profile in user_profiles.object_list %}
         <tr>
-            <td><a href="{% url 'backoffice:user-detail' user.username %}">{{ user.profile.name|default:"Pas de profil utilisateur" }}</a></td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.date_joined }}</td>
+            <td><a href="{% url 'backoffice:user-detail' user_profile.user.username %}">{{ user_profile.name|default:"Pas de profil utilisateur" }}</a></td>
+            <td>{{ user_profile.user.username }}</td>
+            <td>{{ user_profile.user.email }}</td>
+            <td>{{ user_profile.user.date_joined }}</td>
         </tr>
         {% endfor %}
 
@@ -61,7 +61,7 @@
 
 <div class="row">
     <div id="pagination">
-        {{ users.render }}
+        {{ user_profiles.render }}
     </div>
 </div>
 {% else %}

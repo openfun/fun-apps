@@ -54,19 +54,19 @@ class TestMicrositeUsers(BaseMicrositeTestCase):
     def test_user_list_with_microsite1(self):
         self.client.login(username=self.backuser1.username, password='password')
         response = self.client.get(reverse('backoffice:user-list'))
-        users = response.context['users'].object_list
-        self.assertTrue(self.user1 in users)
-        self.assertTrue(self.user0 not in users)
-        self.assertTrue(self.user2 not in users)
+        user_profiles = response.context['user_profiles'].object_list
+        self.assertEqual(2, len(user_profiles))
+        self.assertTrue(self.user1.profile in user_profiles)
+        self.assertTrue(self.backuser1.profile in user_profiles)
 
     @setMicrositeTestSettings(FAKE_MICROSITE2)
     def test_user_list_with_microsite2(self):
         self.client.login(username=self.backuser2.username, password='password')
         response = self.client.get(reverse('backoffice:user-list'))
-        users = response.context['users'].object_list
-        self.assertTrue(self.user2 in users)
-        self.assertTrue(self.user0 not in users)
-        self.assertTrue(self.user1 not in users)
+        user_profiles = response.context['user_profiles'].object_list
+        self.assertEqual(2, len(user_profiles))
+        self.assertTrue(self.user2.profile in user_profiles)
+        self.assertTrue(self.backuser2.profile in user_profiles)
 
     @setMicrositeTestSettings(FAKE_MICROSITE1)
     def test_user_edit_with_microsite(self):

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from certificates.models import GeneratedCertificate
 from certificates.tests.factories import GeneratedCertificateFactory
 from student.models import UserStanding, Registration
-from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
+from student.tests.factories import UserFactory, UserProfileFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
 from fun.tests.utils import skipUnlessLms
 
@@ -26,18 +26,17 @@ class TestUsers(BaseCourseList):
     def test_user_list(self):
         response = self.client.get(reverse('backoffice:user-list'))
         self.assertEqual(200, response.status_code)
-        users = response.context['users'].object_list
-        self.assertTrue(self.user2 in users)
-        self.assertTrue(self.user in users)
-        self.assertTrue(self.user3 not in users)
+        user_profiles = response.context['user_profiles'].object_list
+        self.assertEqual(2, len(user_profiles))
+        self.assertTrue(self.user2.profile in user_profiles)
+        self.assertTrue(self.user.profile in user_profiles)
 
     def test_user_list_filtering(self):
         response = self.client.get(reverse('backoffice:user-list') + '?search=user1')
-        users = response.context['users'].object_list
+        user_profiles = response.context['user_profiles'].object_list
         self.assertEqual(200, response.status_code)
-        self.assertTrue(self.user2 in users)
-        self.assertTrue(self.user3 not in users)
-        self.assertTrue(self.user not in users)
+        self.assertEqual(1, len(user_profiles))
+        self.assertTrue(self.user2.profile in user_profiles)
 
     def test_user_detail(self):
         CourseEnrollmentFactory(course_id=self.course1.id, user=self.user2)
