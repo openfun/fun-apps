@@ -74,6 +74,7 @@ require(["jquery", "underscore", "backbone"],
         var AppRouter = Backbone.Router.extend({
             routes: {
                 "(filter)": "initializeFilter",
+                "filter(/:name/:slug)(?page=:page&rpp=:rpp&query=)": "filter",
                 "filter(/:name/:slug)(?page=:page&rpp=:rpp&query=:query)": "filter",
             },
             initialize: function(options) {
@@ -121,9 +122,7 @@ require(["jquery", "underscore", "backbone"],
                 if (page) {
                     this.filter.set("currentPage", parseInt(page));
                 }
-                if (query) {
-                    this.filter.set("query", query);
-                }
+                this.filter.set("query", query);
             },
         });
 
