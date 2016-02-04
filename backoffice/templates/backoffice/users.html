@@ -49,7 +49,7 @@
 
         {% for user in users.object_list %}
         <tr>
-            <td><a href="{% url 'backoffice:user-detail' user.username %}">{{ user.profile.name|default:"Pas de profile utilsateur" }}</a></td>
+            <td><a href="{% url 'backoffice:user-detail' user.username %}">{{ user.profile.name|default:"Pas de profil utilisateur" }}</a></td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.date_joined }}</td>
