@@ -77,13 +77,5 @@
         }
     }
 
-    /* Handle search course global widget */
-    $('#search-site').keyup(function(event) {
-        var pattern = $(this).val();
-        if ((window.location.pathname == '/cours/') || (pattern != '') && (event.keyCode == 13)) {
-
-            window.location.href = '/cours/#filter?page=1&rpp=50&query=' + pattern;
-        }
-    });
 
  })();
