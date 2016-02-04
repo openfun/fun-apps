@@ -13,41 +13,6 @@
         }
     });
 
-    /* Handle search course global widget */
-    $('#search-site').keyup(function(event) {
-        var pattern = $(this).val();
-        if (pattern != '') {
-            if (event.keyCode == 13) {
-                window.location.href = '/cours/#filter?page=1&rpp=50&query=' + pattern;
-            }
-        }
-    });
-
-    /* Handle search course global widget */
-    $('#search-site').keyup(function(event) {
-        var pattern = $(this).val();
-        if ((window.location.pathname == '/cours/') || ((pattern != '') && (event.keyCode == 13))) {
-            window.location.href = '/cours/#filter?page=1&rpp=50&query=' + pattern;
-        }
-    });
-
-    function getParameterByName(name) {
-        // Retrieve query parameters in url using hash character:
-        // /cours/#filter?page=1&rpp=50&query=test
-        url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) {return null;}
-        if (!results[2]) {return '';}
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-    if (window.location.pathname == '/cours/') {
-        // when on course list page this will set search widget to current search value is any
-        $('#search-site').val(getParameterByName('query'))
-    }
-
     $('.login-form').on('submit', function(event) {
         if ($(this).hasClass("login-form-page")) {
             form_origin_position = "login-page";

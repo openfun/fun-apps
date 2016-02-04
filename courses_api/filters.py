@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-
-
 from rest_framework import filters
-
-from haystack.query import SearchQuerySet
 
 
 class CourseFilter(filters.BaseFilterBackend):
@@ -14,8 +9,6 @@ class CourseFilter(filters.BaseFilterBackend):
         levels = request.QUERY_PARAMS.getlist('level')
         languages = request.QUERY_PARAMS.getlist('language')
         availability = request.QUERY_PARAMS.getlist('availability')
-        full_text_query = request.QUERY_PARAMS.get('query', None)
-
         if university_codes:
             queryset = queryset.filter(universities__code__in=university_codes)
         if subject_slugs:
@@ -32,7 +25,4 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.enrollment_ends_soon()
         if 'new' in availability:
             queryset = queryset.new()
-        if full_text_query:
-            results = SearchQuerySet().filter(content=full_text_query)
-            queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
         return queryset

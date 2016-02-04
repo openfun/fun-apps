@@ -74,7 +74,7 @@ require(["jquery", "underscore", "backbone"],
         var AppRouter = Backbone.Router.extend({
             routes: {
                 "(filter)": "initializeFilter",
-                "filter(/:name/:slug)(?page=:page&rpp=:rpp&query=:query)": "filter",
+                "filter(/:name/:slug)(?page=:page&rpp=:rpp)": "filter",
             },
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
@@ -86,16 +86,14 @@ require(["jquery", "underscore", "backbone"],
                 var selected = this.filter.get("selected");
                 var page = this.filter.get("currentPage");
                 var rpp = this.filter.get("resultsPerPage");
-                var query = this.filter.get("query");
                 if (selected) {
                     url += '/' + selected.criterionName() +
                            '/' + selected.get('value');
                 }
-                if ((page && page != "1") || (rpp && rpp != "50") || (query && query != '')) {
+                if ((page && page != "1") || (rpp && rpp != "50")) {
                     url += '?' + $.param([
                         {name: "page", value: page},
-                        {name: "rpp", value: rpp},
-                        {name: "query", value: query}
+                        {name: "rpp", value: rpp}
                     ]);
                 }
                 if (url) {
@@ -107,7 +105,7 @@ require(["jquery", "underscore", "backbone"],
             initializeFilter: function() {
                 this.filter.trigger("initialized")
             },
-            filter: function(name, slug, page, rpp, query) {
+            filter: function(name, slug, page, rpp) {
                 if (name && name !== 'page') {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
@@ -120,9 +118,6 @@ require(["jquery", "underscore", "backbone"],
                 }
                 if (page) {
                     this.filter.set("currentPage", parseInt(page));
-                }
-                if (query) {
-                    this.filter.set("query", query);
                 }
             },
         });
@@ -360,7 +355,6 @@ require(["jquery", "underscore", "backbone"],
                 resultsPerPage: 50,
                 resultsPerPageChoices: [20, 50, 100, -1],
                 currentPage: 1,
-                query: null
             },
             startNewSearch: function(value) {
                 if (value !== this.get("selected")) {
@@ -462,12 +456,6 @@ require(["jquery", "underscore", "backbone"],
                     name: "page",
                     value: this.filter.get("currentPage"),
                 })
-                if (this.filter.get("query") != '') {
-                    parameters.push({
-                        name: "query",
-                        value: this.filter.get("query"),
-                    })
-                }
                 return "${reverse('fun-courses-api:%s-list' % CourseAPIRouter.BASENAME)}" + '?' + $.param(parameters);
             },
             parse: function (response) {

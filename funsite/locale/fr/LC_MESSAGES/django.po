@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 40\n"
+"Project-Id-Version: France Université Numérique 39\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-02-02 17:44+0100\n"
-"PO-Revision-Date: 2016-02-02 17:44+0000\n"
+"POT-Creation-Date: 2015-12-22 12:15+0100\n"
+"PO-Revision-Date: 2015-12-22 12:15+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -53,7 +53,7 @@ msgstr ""
 "provenant de {platform_name} comme n'étant pas du spam. A  "
 "{platform_name}, nous communiquons essentiellement par mail."
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:83
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:80
 msgid ""
 "By continuing browsing the france-universite-numerique-mooc.fr site, you "
 "accept the use of cookies to enhance your user experience"
@@ -102,10 +102,6 @@ msgstr "Les inscriptions sont closes"
 msgid "FUN courses RSS feed"
 msgstr "Flux RSS des Cours FUN"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:40
-msgid "FUN news RSS feed"
-msgstr "Flux RSS de l'actualité FUN"
-
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:66
 msgid "FUN:"
 msgstr "FUN :"
@@ -138,7 +134,7 @@ msgstr "Les cours à la une"
 msgid "Home"
 msgstr "Accueil"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:90
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:87
 msgid "I agree"
 msgstr "J'accepte"
 
@@ -155,7 +151,7 @@ msgid "Log in to your {platform_name} account"
 msgstr "Connexion à votre compte {platform_name}"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:27
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:53
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:50
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:51
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:17
 msgid "Login"
@@ -173,7 +169,7 @@ msgstr "En savoir plus sur l'inscription"
 msgid "My courses"
 msgstr "Mes cours"
 
-# Translated in edx by ''
+# Translated in edx by 'Nouvelles'
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:24
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:15
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:42
@@ -191,7 +187,7 @@ msgstr "Veuillez vous connecter pour accéder à votre compte et à vos cours"
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:86
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:83
 msgid "Read more"
 msgstr "En savoir plus"
 
@@ -210,15 +206,11 @@ msgstr ""
 msgid "Registration closed"
 msgstr "Inscription close"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:45
-msgid "Search courses"
-msgstr "Recherche un cours"
-
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/static_templates/server-error.html:4
 msgid "Server error"
 msgstr "Erreur serveur"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:49
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:46
 msgid "Sign up"
 msgstr "Inscription"
 
@@ -256,8 +248,8 @@ msgstr "Les actus"
 msgid "Thematics"
 msgstr "Les thématiques"
 
-# Translated in edx by 'Voici l'adresse e-mail que vous avez utilisée pour
-# vous inscrire sur {platform}'
+# Translated in edx by 'Voici l'adresse email que vous avez utilisée pour vous
+# inscrire sur {platform}'
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/forget-password-modal.html:25
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:27
 msgid "This is the e-mail address you used to register with {platform}"

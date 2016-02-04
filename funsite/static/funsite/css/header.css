@@ -229,25 +229,6 @@ a.no-decoration:visited {
     padding-right: 15px;
 }
 
-/* global course search */
-.search-site-block {
-    padding-top: 10px;
-    padding-right: 20px;
-    background-color: white;
-    margin-right: -5px;
-}
-
-#search-site {
-    width: 200px;
-    border: 1px solid #F1F2F3;
-    padding: 8px 8px 8px 40px;
-    background: url('../images/icones/search.png') 3px 3px no-repeat white;
-}
-#search-site:focus {
-    outline: none;
-    border: 1px solid #FB453E;
-}
-
 
 /********************  Header responsiveness: ********************/
 
@@ -258,18 +239,12 @@ a.no-decoration:visited {
     #top-menu .left-header .course-org,
     #top-menu .left-header .course-display-name,
     #top-menu .right-header .signup-link,
-    #top-menu .right-header .login-label
+    #top-menu .right-header .login-label  
     {
-	   display: none;
+	display: none;
     }
     #top-menu .right-header .user-icon-sign-in-link {
-	   padding-right: 15px;
-    }
-}
-
-@media (max-width: 500px) {
-    #search-site {
-        width: 76px;
+	padding-right: 15px;
     }
 }
 
@@ -399,6 +374,8 @@ a.no-decoration:visited {
 .content-wrapper {
     margin: 60px auto !important;
 }
+
+
 
 /** EXTRA **/
 

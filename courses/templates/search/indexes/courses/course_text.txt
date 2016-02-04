@@ -1,5 +1,0 @@
-{{ object.title }}
-{{ object.university_name }}
-{% for subject in object.subjects.all %}{{ subject.name }} {% endfor %}
-{% for teacher in object.courseteacher_related.all %}{{ teacher.full_name }} {% endfor %}
-{{ object.short_description }}

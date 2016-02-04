@@ -11,3 +11,4 @@ urls = [
 ]
 
 urlpatterns = patterns('django.views.generic.simple', *urls)
+
