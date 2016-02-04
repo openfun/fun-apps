@@ -530,6 +530,8 @@ require(["jquery", "underscore", "backbone"],
                 });
                 this.listenTo(this.coursecollection, 'sync', this.courseCollectionSynced)
 
+                this.refreshCourseRequest = null;
+
                 Backbone.history.start();
             },
             criterionSelected: function(value) {
@@ -542,7 +544,11 @@ require(["jquery", "underscore", "backbone"],
                     this.coursecollection.pop();
                 }
                 // Fill collection
-                this.coursecollection.fetch();
+                if (this.refreshCourseRequest) {
+                    // Abort previous request
+                    this.refreshCourseRequest.abort();
+                }
+                this.refreshCourseRequest = this.coursecollection.fetch();
                 window.scrollTo(0, 0);
             },
             courseCollectionSynced: function(){
