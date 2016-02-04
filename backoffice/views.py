@@ -253,6 +253,7 @@ def user_list(request):
 
     return render(request, 'backoffice/users.html', {
         'users': users,
+        'search_results_count': users.paginator.count,
         'total_count': total_count,
         'form': form,
         'tab': 'users',
