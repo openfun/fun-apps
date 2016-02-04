@@ -224,7 +224,7 @@ def course_detail(request, course_key_string):
 
 def order_and_paginate_queryset(request, queryset, default_order):
     order = request.GET.get('order', default_order)
-    direction = '' if 'd' in request.GET else '-'
+    direction = '-' if 'd' in request.GET else ''
     try:
         page = request.GET.get('page', 1)
     except PageNotAnInteger:
@@ -249,7 +249,7 @@ def user_list(request):
             | Q(email__icontains=pattern)
             | Q(profile__name__icontains=pattern)
         )
-    users = order_and_paginate_queryset(request, users, 'date_joined')
+    users = order_and_paginate_queryset(request, users, 'username')
 
     return render(request, 'backoffice/users.html', {
         'users': users,
