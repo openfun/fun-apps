@@ -34,9 +34,9 @@ class OrderTableNode(template.Node):
             if context['request'].GET.get(table_name + 'order') == col_name:
                 css_class = 'colactive'
                 if 'd' in context['request'].GET:
-                    glyph = '<i class="icon-chevron-up"></i>'
+                    glyph = '<i class="glyphicon glyphicon-chevron-up"></i>'
                 else:
-                    glyph = '<i class="icon-chevron-down"></i>'
+                    glyph = '<i class="glyphicon glyphicon-chevron-down"></i>'
 
             if query[table_name + 'order'] == col_name:
                 if table_name + 'd' in query:
@@ -70,10 +70,11 @@ def order_col(parser, token):
 
     """
     try:
-        col_name = token.split_contents()[1]
-        col_title = token.split_contents()[2]
-        tooltip = token.split_contents()[3]
-        table_name = token.split_contents()[4] if len(token.split_contents()) > 4 else ''
+        tokens = token.split_contents()
+        col_name = tokens[1]
+        col_title = tokens[2]
+        tooltip = tokens[3]
+        table_name = tokens[4] if len(tokens) > 4 else ''
 
     except IndexError:
         raise template.TemplateSyntaxError("%r tag requires at least 2 arguments" % token.contents.split()[0])
