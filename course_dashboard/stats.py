@@ -44,16 +44,24 @@ def enrollments_per_day(course_key_string=None, since=None):
             return date
         return datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
 
-    enrollments_per_day = [(dateify(result[period_name]), result['enrollment_count']) for result in query]
-    return add_days_with_no_enrollments(enrollments_per_day)
+    results = [(dateify(result[period_name]), result['enrollment_count']) for result in query]
+    return add_days_with_no_enrollments(results)
 
-def add_days_with_no_enrollments(enrollments_per_day):
-    if not enrollments_per_day:
+def add_days_with_no_enrollments(enrollments):
+    """Fill holes in the enrollments/day stats.
+
+    Args:
+        enrollments: (date, int) list
+
+    Returns:
+        a (date, int) list that contains days for which there were no stats
+    """
+    if not enrollments:
         return []
-    start_day = enrollments_per_day[0][0]
-    result_length = (enrollments_per_day[-1][0] - start_day).days + 1
+    start_day = enrollments[0][0]
+    result_length = (enrollments[-1][0] - start_day).days + 1
     result = [(start_day + timedelta(days=d), 0) for d in xrange(0, result_length)]
-    for day in enrollments_per_day:
+    for day in enrollments:
         index = (day[0] - start_day).days
         result[index] = day
     return result
