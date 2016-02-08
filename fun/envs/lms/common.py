@@ -29,6 +29,8 @@ INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
     'pure_pagination',
 
+    'payment',
+
     'forum_contributors',
     'selftest',
     'password_container', # this is an xblock we add to applications to allow syncdb of its models
@@ -100,6 +102,7 @@ MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
     FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'course_pages/templates',
+    FUN_BASE_ROOT / 'payment/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
     FUN_BASE_ROOT / 'newsfeed/templates',
@@ -190,4 +193,36 @@ PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
+
+FEATURES['ENABLE_PAYMENT_FAKE'] = True
+
+
+EDX_API_KEY = 'test'
+
+ECOMMERCE_API_SIGNING_KEY = 'test'
+ECOMMERCE_API_URL = "http://localhost:8080/api/v2/"
+ECOMMERCE_PUBLIC_URL_ROOT = "http://localhost:8080/"
+ECOMMERCE_NOTIFICATION_URL = 'http://localhost:8080/payment/paybox/notify/'
+ECOMMERCE_SERVICE_WORKER_USERNAME = 'ecommerce_worker'
+
+JWT_ISSUER = "http://localhost:8000/oauth2"
+JWT_EXPIRATION = 30
+
+OAUTH_ENFORCE_SECURE = False
+OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
+
+# A user is verified if he has an approved SoftwareSecurePhotoVerification entry
+# this setting will create a dummy SoftwareSecurePhotoVerification for user in paybox success callback view
+# I think it's better to create a dummy one than to remove verifying process in edX
+FUN_ECOMMERCE_AUTOMATIC_VERIFICATION = True
+
+
+FEATURES["ENABLE_CREDIT_API"] = True
+FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
+FEATURES["ENABLE_MOBILE_REST_API"] = True
+FEATURES["ENABLE_OAUTH2_PROVIDER"] = True
+FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = True
+FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
+FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
+FEATURES['ENABLE_COURSE_DISCOVERY'] = False
 
