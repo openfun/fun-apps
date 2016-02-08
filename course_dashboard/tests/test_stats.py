@@ -56,6 +56,16 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         self.assertEqual(1, len(course_population))
         self.assertEqual(2, course_population[countries.UNKNOWN_COUNTRY_CODE])
 
+    def test_null_and_empty_countries_are_grouped(self):
+        course = CourseFactory.create()
+        course_id = self.get_course_id(course)
+        CourseEnrollmentFactory.create(course_id=course_id, user__profile__country=None)
+        CourseEnrollmentFactory.create(course_id=course_id, user__profile__country='')
+
+        course_population = stats.population_by_country(course_id)
+        self.assertEqual(1, len(course_population))
+        self.assertEqual(2, course_population[countries.UNKNOWN_COUNTRY_CODE])
+
     def test_dependent_territories_are_not_listed_separately(self):
         course = CourseFactory.create()
         self.enroll_student(course, user__profile__country='GF', user__is_active=False)
