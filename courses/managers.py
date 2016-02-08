@@ -43,7 +43,10 @@ class CourseQuerySet(models.query.QuerySet):
         return (now(), self.too_late)
 
     def with_related(self):
-        queryset = self.prefetch_related('subjects', 'universities')
+        queryset = self.prefetch_related(
+            'subjects', 'universities',
+            'related_universities',
+        )
         return queryset
 
     def public(self):
