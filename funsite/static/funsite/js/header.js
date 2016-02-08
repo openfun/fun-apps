@@ -80,9 +80,19 @@
     /* Handle search course global widget */
     $('#search-site').keyup(function(event) {
         var pattern = $(this).val();
-        if ((window.location.pathname == '/cours/') || (pattern != '') && (event.keyCode == 13)) {
-
-            window.location.href = '/cours/#filter?page=1&rpp=50&query=' + pattern;
+        if ((window.location.pathname === '/cours/') || (pattern !== '') && (event.keyCode === 13)) {
+            if (pattern) {
+                window.location.href = '/cours/#search?' + $.param([
+                    {name: 'query', value: pattern},
+                    {name: 'page', value: 1},
+                    {name: 'rpp', value: 50},
+                ]);
+            } else {
+                window.location.href = '/cours/#filter?' + $.param([
+                    {name: 'page', value: 1},
+                    {name: 'rpp', value: 50},
+                ]);
+            }
         }
     });
 
