@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from student.tests.factories import UserFactory
 
-from fun.utils import countries
 from .base import BaseCourseDashboardTestCase
 
 
@@ -86,10 +85,6 @@ class StudentMapTestCase(BaseCourseDashboardTestCase):
         response = self.get_course_student_map(self.course)
         self.assertEqual(200, response.status_code)
         self.assertIn("France", response.content)
-
-    def test_get_country_name(self):
-        self.assertEqual(_("France"), countries.get_country_name('FR'))
-        self.assertEqual(_("Unknown"), countries.get_country_name(countries.UNKNOWN_COUNTRY_CODE))
 
     def test_student_has_no_access(self):
         student = UserFactory.create()

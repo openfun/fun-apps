@@ -26,7 +26,8 @@ UNKNOWN_COUNTRY_CODE = 'XX'
 
 def territory_country(territory_code):
     """Return the country associated to a territory code."""
-    return TERRITORIES.get(territory_code, territory_code)
+    territory = TERRITORIES.get(territory_code, territory_code)
+    return countries.alpha2(territory) or UNKNOWN_COUNTRY_CODE
 
 def get_country_name(country_code):
     if country_code == UNKNOWN_COUNTRY_CODE:
