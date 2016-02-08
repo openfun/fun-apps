@@ -192,8 +192,9 @@ FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable B
 
 FEATURES["ENABLE_SHOPPING_CART"] = True
 FEATURES["ENABLE_PAID_COURSE_REGISTRATION"] = True
+FEATURES["ENABLE_PAYMENT_FAKE"] = True  # /!\ demo purpose while testing shopping cart.
 
-PAID_COURSE_REGISTRATION_CURRENCY = [u"eur", u"€"]
+PAID_COURSE_REGISTRATION_CURRENCY = [u"EUR", u"€"]
 
 CC_PROCESSOR_NAME = 'CyberSource2'
 CC_PROCESSOR = {
