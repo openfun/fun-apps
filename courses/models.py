@@ -85,7 +85,7 @@ class Course(models.Model):
         an admin person to decide who's the first / main university.
         '''
         try:
-            first = self.related_universities.order_by('order')[0].university
+            first = self.related_universities.all()[0].university
         except IndexError:
             first = None
         return first

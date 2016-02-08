@@ -66,4 +66,15 @@ class TestCourseSubject(TestCase):
         self.assertEqual(None,
                          models.Course.get_course_language(unicode("this/course/doesNotExist")))
 
+    def test_number_of_queries_of_with_related(self):
+        # Create a large number of course objects
+        for _ in range(0, 10):
+            factories.CourseFactory.create()
 
+        # The number of SQL queries required to load the first university and
+        # its name should not be proportional to the number of objects in the
+        # database.
+        with self.assertNumQueries(4):
+            for course in models.Course.objects.with_related():
+                _first_university = course.get_first_university()
+                _university_name = course.university_name

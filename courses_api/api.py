@@ -84,8 +84,7 @@ class CourseAPIView(mixins.ListModelMixin,
     def get_queryset(self):
         queryset = super(CourseAPIView, self).get_queryset()
         queryset = queryset.filter(is_active=True)  # Not active means deleted.
-        if self.is_admin and self.extended_list:
-            queryset = queryset.with_related()
-        else:
-            queryset = queryset.with_related().public()
+        queryset = queryset.with_related()
+        if not (self.is_admin and self.extended_list):
+            queryset = queryset.public()
         return queryset
