@@ -68,16 +68,6 @@ FEATURES['USE_CUSTOM_THEME'] = False
 FEATURES['ENABLE_COURSEWARE_INDEX'] = True
 
 
-CC_PROCESSOR = {
-    'CyberSource': {
-        'SHARED_SECRET': '',
-        'MERCHANT_ID': '',
-        'SERIAL_NUMBER': '',
-        'ORDERPAGE_VERSION': '7',
-        'PURCHASE_ENDPOINT': '',
-    }
-}
-
 # easy-thumbnails
 SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 

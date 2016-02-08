@@ -1,0 +1,22 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+%>
+
+<%inherit file="/payment/base.html" />
+
+
+<%block name="title">${_(u"Payment canceled")}</%block>
+<%block name="breadcrumb_current_page">${_(u"Payment canceled")}</%block>
+
+<%block name="message">
+    <h2>${_(u"Payment canceled")}</h2>
+    <p>
+        ${_(u"Payment order for the course has been interrupted.")}
+
+    </p>
+    <p>
+    ${_(u"This was for the payment order <strong>{number}</strong>.").format(number=order_number)}
+    </p>
+
+</%block>

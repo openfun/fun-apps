@@ -14,7 +14,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
 <%block name="js_extra">
 
-<script>
+<script type="text/javascript">
 (function() {
     // Configure video teaser player
     $('.video-button').on('click', function() {
@@ -64,6 +64,33 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
         });
         event.preventDefault();
     });
+    % if can_add_course_to_cart:
+      add_course_complete_handler = function(jqXHR, textStatus) {
+        if (jqXHR.status == 200) {
+          location.href = "${cart_link}";
+        }
+        if (jqXHR.status == 400) {
+          $("#register_error")
+            .html(jqXHR.responseText ? jqXHR.responseText : "${_("An error occurred. Please try again later.")}")
+            .css("display", "block");
+        }
+        else if (jqXHR.status == 403) {
+            location.href = "${reg_then_add_to_cart_link}";
+        }
+      };
+      $("#add_to_cart_post").click(function(event){
+        $.ajax({
+          url: "${reverse('add_course_to_cart', args=[course.id.to_deprecated_string()])}",
+          type: "POST",
+          data: {
+              'csrfmiddlewaretoken': '${ csrf_token }'
+          },
+          complete: add_course_complete_handler
+        })
+        event.preventDefault();
+      });
+    % endif
+
 })();
 
 </script>
@@ -138,6 +165,7 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                         ${get_course_about_section(course, 'title')}
                     </h1>
                 </div>
+
                 <div class="line text-center hidden-sm hidden-md hidden-lg">
                     <span></span>
                 </div>
@@ -174,9 +202,31 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                     </div>
                 %else:
                     %if can_enroll:
-                        <div class="register-course-button">
-                            <a href="#" class="register"><span>${_("Register")}</span></a>
-                        </div>
+                        %if can_add_course_to_cart:
+                            % if in_cart:
+                                <div class="register-course-button course-has-price">
+                                <a href="${ cart_link }">${pgettext("course-about", "Already in your cart")}</a>
+                                </div>
+                            %else:
+                                <%
+                                if user.is_authenticated():
+                                    reg_href = "#"
+                                    reg_element_id = "add_to_cart_post"
+                                else:
+                                    reg_href = reg_then_add_to_cart_link
+                                    reg_element_id = "reg_then_add_to_cart"
+                                %>
+                                <div class="register-course-button course-has-price">
+                                    <a href="${reg_href}" class="add-to-cart" id="${reg_element_id}">
+                                        ${_("Add course to Cart ({price})").format(price=course_price)}
+                                    </a>
+                                </div>
+                            %endif
+                        %else:
+                            <div class="register-course-button">
+                                <a href="#" class="register"><span>${_("Register")}</span></a>
+                            </div>
+                        %endif
                         <div class="register-error"></div>
                     %else:
                         <div class="register-course-button registration-closed">
@@ -297,6 +347,26 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
             <div class="left">
 
                 ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
+                % if False:
+                <table>
+                <thead><th colspan="2">DEBUG</th></thead>
+                <tr><td>is_cosmetic_price_enabled:</td><td> ${ is_cosmetic_price_enabled }</td></tr>
+                <tr><td>course_price:</td><td> ${ course_price }</td></tr>
+                <tr><td>in_cart:</td><td> ${ in_cart }</td></tr>
+                <tr><td>reg_then_add_to_cart_link:</td><td> ${ reg_then_add_to_cart_link }</td></tr>
+                <tr><td>active_reg_button:</td><td> ${ active_reg_button }</td></tr>
+                <tr><td>can_add_course_to_cart:</td><td> ${ can_add_course_to_cart }</td></tr>
+                <tr><td>cart_link:</td><td> ${ cart_link }</td></tr>
+                <tr><td>staff_access:</td><td> ${ staff_access }</td></tr>
+                <tr><td>registered:</td><td> ${ registered }</td></tr>
+                <tr><td>course_target:</td><td> ${ course_target }</td></tr>
+                <tr><td>is_course_full:</td><td> ${ is_course_full }</td></tr>
+                <tr><td>can_enroll:</td><td> ${ can_enroll }</td></tr>
+                <tr><td>invitation_only:</td><td> ${ invitation_only }</td></tr>
+                <tr><td>is_shib_course:</td><td> ${ is_shib_course }</td></tr>
+                <tr><td>pre_requisite_courses:</td><td> ${ pre_requisite_courses }</td></tr>
+                </table>
+                % endif
 
                 <div class="text-center hidden-xs">
                     <h1 class="big-title">

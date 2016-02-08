@@ -1,0 +1,32 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+
+%>
+
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
+
+
+<%block name="page_content">
+
+    <ul class="breadcrumbs">
+        <li><a href="${reverse('root')}">${_("Home")}</a></li>
+        <li><a href="${reverse('dashboard')}">${_("Dashboard")}</a></li>
+        <li><%block name="breadcrumb_current_page"></%block></li>
+    </ul>
+
+<div class="single-column text-center">
+
+    <%block name="message"></%block>
+
+    <P>
+    	<a href="${reverse('dashboard')}">${_(u"Return to dashboard")}</a>
+    </p>
+</div>
+</%block>
+
+

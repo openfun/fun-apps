@@ -1,0 +1,74 @@
+<%page args="order, course" />
+<%!
+from django.utils.translation import ugettext as _
+from datetime import datetime
+%>
+<br><br><br>
+
+<table width="100%" style="border-collapse: collapse; border: 1px solid black;">
+<tr>
+<td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <%include file="/funsite/static_templates/fun-address.html"/>
+</td>
+<td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Date:" )} ${datetime.now().strftime(_('%m/%d/%y %H:%M'))}<br>
+    ${_(u"Order No:")} ${order['number']}<br>
+    ${_(u"Contact:")} <br>
+
+</td>
+</tr>
+
+<tr>
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Description")}
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Quantity")}
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Unit price")}
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Price")}
+    </td>
+</tr>
+
+<tr>
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Subscribe to")} ${course.title}
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    1
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${order['total_excl_tax']} €
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${order['total_excl_tax']} €
+    </td>
+</tr>
+
+<tr>
+    <td width="50" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+        <br>${_(u"VAT not applicable, Exemption. Art. 261-4-4 CGI")}
+
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    &nbsp;
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Price excl. tax:")} ${order['total_excl_tax']} €<br>
+    ${_(u"Price incl. tax:")} ${order['total_incl_tax']} €<br>
+    </td>
+</tr>
+</table>
+
+<br><br><br>

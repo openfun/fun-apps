@@ -1,0 +1,72 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+%>
+<%inherit file="/payment/email/base.html" />
+
+
+<%block name="message">
+
+      <center><h1 style="font-size: 22px; color: #555;">
+        ${_(u"Payment confirmation")}
+      </h1></center>
+
+<p>
+<strong>
+
+
+${_(u"Your payment of {total_excl_tax} € for registration in {title} has been taken into account.").format(total_excl_tax=order['total_excl_tax'], title=course.title)}
+
+</strong>
+</p>
+<p>
+${_(u"VAT not applicable, Exemption Art. 261-4-4 CGI.")}
+</p>
+<br><br>
+
+<p>
+${_(u"You have chosen to follow the course <strong>{title}</strong> as a student with identity verification.").format(title=course.title)}
+${_(u"The verified certificate will allow you to enhance your knowledge, improve your employability and promote your career.")}
+</p>
+<p>
+
+${_(u"After the proctored exam integrated into the course, and if successful, you will:")}
+
+<ul>
+<li>
+${_(u"Receive a certificate issued by the institution that created the MOOC")}
+
+</li>
+<li>
+${_(u"Can add this certificate to your resume, your cover letter or share it directly on social networks.")}
+</li>
+</ul>
+${_(u"Here is a brief reminder of the mandatory requirements regarding the proctored exam necessary to obtain the certificate:")}
+<ul>
+<li>
+${_(u"The proctored exam is organized by the provider in ProctorU only visible part of the course for students who have chosen the path checked")}
+</li>
+<li>
+${_(u"You must own the necessary equipment in order to pass this remotely monitored examination (web cam, enough Internet connection). <a href='http://www.proctoru.com/testitout/'> </a> Click here to verify that your equipment is sufficient.")}
+</li>
+<li>
+${_(u"You must be able to provide an official identity document (passport, identity card ...) at the time of examination")}
+</li>
+<li>
+${_(u"You must comply with the rules of the examination explained in the course.")}
+</li>
+
+</p>
+<p>
+${_(u"Thank you for your continued support, we wish you a good MOOC!")}
+</p>
+
+<strong>
+${_(u"FUN Team")}
+
+</strong>
+
+<% %>
+
+
+</%block>
