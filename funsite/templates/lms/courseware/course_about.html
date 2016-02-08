@@ -271,6 +271,19 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                                 </ul>
                             </div>
                             % endif
+
+                            % if fun_course.language:
+                            <div class="course-info bubble">
+                                <ul>
+                                <li>
+                                    <strong>${_("Language")}</strong>
+                                </li>
+                                <li class="icon ${fun_course.language}-flag">
+                                    ${fun_course.get_language_display()}
+                                </li>
+                                </ul>
+                            </div>
+                            % endif
                         </div>
                     </div>
 

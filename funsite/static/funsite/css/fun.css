@@ -1459,21 +1459,30 @@ ul.universities-list {
     margin-top: 6px;
     margin-bottom: 40px;
 }
-.criteria li.icon {
+.criteria li.icon,
+.course-info li.icon {
     padding-left: 36px !important;
     height: 36px;
 }
-.criteria li.icon.fr-flag {
+.criteria li.icon.fr-flag,
+.course-info li.icon.fr-flag {
     background: url('../images/icones/french-flag.png') 6px 2px no-repeat;
 }
-.criteria li.icon.en-flag {
+.criteria li.icon.en-flag,
+.course-info li.icon.en-flag {
     background: url('../images/icones/english-flag.png') 6px 2px no-repeat;
 }
-.criteria li.icon.de-flag {
+.criteria li.icon.de-flag,
+.course-info li.icon.de-flag {
     background: url('../images/icones/german-flag.png') 6px 2px no-repeat;
 }
-.criteria li.icon.es-flag {
+.criteria li.icon.es-flag,
+.course-info li.icon.es-flag {
     background: url('../images/icones/spanish-flag.png') 6px 2px no-repeat;
+}
+.course-info li.icon {
+    margin-left: -8px;
+    padding-top: 6px;
 }
 
 .criteria li.filter-checkbox {
