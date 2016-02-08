@@ -478,14 +478,21 @@ require(["jquery", "underscore", "backbone"],
         var CourseCollectionView = Backbone.View.extend({
             initialize: function(data) {
                 this.listenTo(this.collection, 'add', this.addOne);
+                this.listenTo(this.collection, 'request', this.syncing);
             },
             addOne: function(item) {
                 var view = new CourseView({model: item});
                 this.$el.append(view.render().el);
             },
+            syncing: function() {
+                this.$el.html("<img src='${STATIC_URL}images/spinner.gif' class='syncing' alt='loading...'>");
+            },
             render: function() {
-                /* add some fake blocks to get correct alignment on last line */
-                this.$el.find('.fake').remove();  // clear previousely added fake blocks
+                // Remove spinner
+                this.$el.find('.syncing').remove();
+                // clear previously added fake blocks
+                this.$el.find('.fake').remove();
+                // add some fake blocks to get correct alignment on last line
                 for (var i = 5; i >= 0; i--) {
                     this.$el.append($('<li>').attr('class', 'small-course fake'));
                 };
