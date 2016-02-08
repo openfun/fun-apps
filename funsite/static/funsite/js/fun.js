@@ -27,7 +27,7 @@
 
     if (window.location.pathname == '/cours/') {
         // when on course list page this will set search widget to current search value is any
-        $('#search-site').val(getParameterByName('query'))
+        $('#search-site').val(getParameterByName('query'));
     }
 
     $('.login-form').on('submit', function(event) {
@@ -46,7 +46,7 @@
                 if (json.success) {
                     var u = decodeURI(window.location.search);
                     var next = u.split("next=")[1];
-                    if (next != undefined) {
+                    if (next !== undefined) {
                         // if next is undefined, decodeURI returns "undefined" causing a bad redirect.
                         next = decodeURIComponent(next);
                     }
@@ -81,7 +81,7 @@
                 $('#login-overlay').find('.error').html(gettext("Your request could not be completed. Please try again"));
             }
         });
-    })
+    });
 
     $('#pwd_reset_form').on('submit', function(event) {
         event.preventDefault();

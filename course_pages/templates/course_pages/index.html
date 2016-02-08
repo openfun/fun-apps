@@ -29,8 +29,6 @@ from courses_api.routers import CourseAPIRouter
 % endfor
 
 <script>
-
-
 require(["jquery", "underscore", "backbone"],
     function ($, _, Backbone) {
 
@@ -43,39 +41,53 @@ require(["jquery", "underscore", "backbone"],
             return _.template(templateText);
         };
 
-        var filters = [
-            {title: "${_('Availability')}", name: 'availability', type: 'select', select: '#availability-select', values: [
-                {value: 'enrollment-ends-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_enrollment_ends_soon}},
-                {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
-                {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
-            ]},
-            {title: '${_("Themes")}', name: 'subject', type: 'select', max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay', select: '#theme-select', values: [
-                %for course_subject in course_subjects:
-                {value: "${course_subject.slug}", title: "${course_subject.get_short_name()}", count: ${course_subject.public_courses_count}},
-                %endfor
-            ]},
-            {title: "${_('Universities')}", name: 'university', type: 'select', max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay', select: '#university-select', values: [
-                %for university in universities:
-                {value: "${university.code}", title: "${university.get_short_name()}", count: ${university.public_courses_count}},
-                %endfor
-            ]},
+        var FILTERS = [
+            {
+                title: "${_('Availability')}", name: 'availability', type: 'select', select: '#availability-select',
+                values: [
+                    {value: 'enrollment-ends-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_enrollment_ends_soon}},
+                    {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
+                    {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
+                ]
+            },
+            {
+                title: '${_("Themes")}', name: 'subject', type: 'select', select: '#theme-select',
+                max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay',
+                values: [
+                    %for course_subject in course_subjects:
+                    {value: "${course_subject.slug}", title: "${course_subject.get_short_name()}", count: ${course_subject.public_courses_count}},
+                    %endfor
+                ]
+            },
+            {
+                title: "${_('Universities')}", name: 'university', type: 'select', select: '#university-select',
+                max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay',
+                values: [
+                    %for university in universities:
+                    {value: "${university.code}", title: "${university.get_short_name()}", count: ${university.public_courses_count}},
+                    %endfor
+                ]
+            },
             /*
             {title: '${_("Certified training")}', name: 'certificate', type: 'checkbox', values: [
                 {value: "certificat", title: "Certificate", count: 50 },
             ]},
             */
-            {title: '${_("Language")}', name: 'language', type: 'select', values: [
-                %for language in languages:
-                {value: "${language['language']}", title: "${language['title']}", image: "${language['language'] + '-flag'}", count: "${language['count']}"},
-                %endfor
-            ]},
+            {
+                title: '${_("Language")}', name: 'language', type: 'select',
+                values: [
+                    %for language in languages:
+                    {value: "${language['language']}", title: "${language['title']}", image: "${language['language'] + '-flag'}", count: "${language['count']}"},
+                    %endfor
+                ]
+            },
         ];
 
         var AppRouter = Backbone.Router.extend({
             routes: {
                 "(filter)": "initializeFilter",
-                "filter(/:name/:slug)(?page=:page&rpp=:rpp&query=)": "filter",
-                "filter(/:name/:slug)(?page=:page&rpp=:rpp&query=:query)": "filter",
+                "search?query=:query&page=:page&rpp=:rpp": "search",
+                "filter(/:name/:slug)(?page=:page&rpp=:rpp)": "filter",
             },
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
@@ -88,19 +100,24 @@ require(["jquery", "underscore", "backbone"],
                 var page = this.filter.get("currentPage");
                 var rpp = this.filter.get("resultsPerPage");
                 var query = this.filter.get("query");
+                var parameters = [];
+
+                // Action
                 if (selected) {
-                    url += '/' + selected.criterionName() +
-                           '/' + selected.get('value');
+                    url = 'filter/' + selected.criterionName() + '/' + selected.get('value');
+                } else if (query) {
+                    parameters.push({name: "query", value: query});
+                    url = 'search';
+                } else {
+                    url = 'filter';
                 }
-                if ((page && page != "1") || (rpp && rpp != "50") || (query && query != '')) {
-                    url += '?' + $.param([
-                        {name: "page", value: page},
-                        {name: "rpp", value: rpp},
-                        {name: "query", value: query}
-                    ]);
+                // Optional parameters
+                if ((page && page != "1") || (rpp && rpp != "50")) {
+                    parameters.push({name: "page", value: page});
+                    parameters.push({name: "rpp", value: rpp});
                 }
-                if (url) {
-                    url = "filter" + url;
+                if (parameters.length > 0) {
+                    url += '?' + $.param(parameters);
                 }
 
                 this.navigate(url, {trigger: false});
@@ -108,7 +125,16 @@ require(["jquery", "underscore", "backbone"],
             initializeFilter: function() {
                 this.filter.trigger("initialized")
             },
-            filter: function(name, slug, page, rpp, query) {
+            search: function(query, page, rpp) {
+                this.filter.set("query", query);
+                if (rpp) {
+                    this.filter.set("resultsPerPage", parseInt(rpp));
+                }
+                if (page) {
+                    this.filter.set("currentPage", parseInt(page));
+                }
+            },
+            filter: function(name, slug, page, rpp) {
                 if (name && name !== 'page') {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
@@ -122,11 +148,12 @@ require(["jquery", "underscore", "backbone"],
                 if (page) {
                     this.filter.set("currentPage", parseInt(page));
                 }
-                this.filter.set("query", query);
+                this.filter.set("query", null);
             },
         });
 
 
+        // Value of a possible filter. E.g: Language=English, Availability=Ends-soon, etc.
         var Value = Backbone.Model.extend({
             criterionName: function() {
                 return this.collection.criterion.get("name");
@@ -260,6 +287,7 @@ require(["jquery", "underscore", "backbone"],
             },
         });
 
+        // A criterion is a collection of possible filters from one kind. E.g: Language, Availability, etc.
         var Criterion = Backbone.Model.extend({
             defaults: {
                 // if no max value, we use a big one to display all items (and save JS LOC)
@@ -277,16 +305,19 @@ require(["jquery", "underscore", "backbone"],
             tagName: 'div',
 
             initialize: function() {
+                // Top elements from value collection
                 this.valuecollectionview = new ShortValueCollectionView({
                         collection: this.model.valuecollection,
                         max: this.model.get('max')});
 
+                // 'select' DOM element for mobile view
                 this.selectvaluecollectionview = new SelectValueCollectionView({
                         el: this.model.get('select'),
                         collection: this.model.valuecollection,
                         title: this.model.get('title')});
 
                 if (this.model.get('all_button')) {
+                    // Complete list of possible values
                     this.longvaluecollectionview = new LongValueCollectionView({
                             el: this.model.get('overlay') + ' ul',
                             collection: this.model.valuecollection});
@@ -350,7 +381,6 @@ require(["jquery", "underscore", "backbone"],
                 var view = new CriterionView({model: criterion});
                 this.$el.append(view.render().el);
             },
-
         });
 
         var Filter = Backbone.Model.extend({
@@ -362,13 +392,11 @@ require(["jquery", "underscore", "backbone"],
                 query: null
             },
             startNewSearch: function(value) {
-                if (value !== this.get("selected")) {
-                    this.set({
-                        selected: value,
-                        currentPage: 1,
-                        query: null,
-                    });
-                }
+                this.set({
+                    selected: value,
+                    currentPage: 1,
+                    query: null,
+                });
             }
         });
         var ResultStats = Backbone.Model.extend({
@@ -462,7 +490,7 @@ require(["jquery", "underscore", "backbone"],
                     name: "page",
                     value: this.filter.get("currentPage"),
                 })
-                if (this.filter.get("query") != '') {
+                if (this.filter.get("query")) {
                     parameters.push({
                         name: "query",
                         value: this.filter.get("query"),
@@ -566,11 +594,9 @@ require(["jquery", "underscore", "backbone"],
 
         var App = new AppView({
             el: $('#course-search'),
-            filters: filters
+            filters: FILTERS
         });
     });
-
-
 </script>
 </%block>
 
