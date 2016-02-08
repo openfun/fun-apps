@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
 
-from fun.tests.utils import skipUnlessLms, RSSDeclarationMixin
+from fun.tests.utils import skipUnlessLms, RSSDeclarationMixin, skipUnlessLms
 
 from .factories import ArticleCategoryFactory, ArticleFactory
 

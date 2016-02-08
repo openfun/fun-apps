@@ -312,3 +312,31 @@ FUN_MONGO_DATABASE = 'fun'
 
 SEARCH_ENGINE = 'search.elastic.ElasticSearchEngine'  # use ES for courseware and course meta information indexing
 ELASTIC_SEARCH_CONFIG = [{'host': 'localhost'},]  # specific environments will override this setting
+
+ELASTICSEARCH_INDEX_SETTINGS = {
+    "settings": {
+        "analysis": {
+            "filter": {
+                "elision": {
+                    "type": "elision",
+                    "articles": ["l", "m", "t", "qu", "n", "s", "j", "d"]
+                }
+            },
+            "analyzer": {
+                "custom_french_analyzer": {
+                    "tokenizer": "letter",
+                    "filter": ["asciifolding", "lowercase", "french_stem", "elision", "stop", "word_delimiter"]
+                },
+            },
+        }
+    }
+}
+def configure_haystack(elasticsearch_conf):
+    """Configure haystack with env. specific ES conf."""
+    return {
+        'default': {
+            'ENGINE': 'courses.search_indexes.ConfigurableElasticSearchEngine',
+            'URL': 'http://%s:%d/' % (elasticsearch_conf[0].get('host', 'localhost'), elasticsearch_conf[0].get('port', 9200)),
+            'INDEX_NAME': 'haystack',
+        },
+    }

@@ -10,6 +10,7 @@ INSTALLED_APPS += (
     'universities',
     'videoproviders',
     'courses',
+    'haystack',
 
     'easy_thumbnails',
     'ckeditor',
