@@ -88,5 +88,4 @@ class CourseAPIView(mixins.ListModelMixin,
             queryset = queryset.with_related()
         else:
             queryset = queryset.with_related().public()
-        queryset = self.filter_queryset(queryset)
         return queryset
