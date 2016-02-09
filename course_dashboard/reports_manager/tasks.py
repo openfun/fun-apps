@@ -41,16 +41,21 @@ def create_header_row(problem_size):
 
 def fetch_user_profile_data(student_module):
     """
-    Return a list of user profile information.
+    Return a list of user profile information. If the user profile is not
+    available, the relevant pieces of information are skipped.
     """
     user = student_module.student
-    user_profile = UserProfile.objects.get(user=user)
-    data_row = [anonymize_username(user.username),
-                anonymous_id_for_user(user, student_module.course_id),
-                unicode(user_profile.gender),
-                unicode(user_profile.year_of_birth),
-                unicode(user_profile.level_of_education)]
-    return data_row
+    try:
+        user_profile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        user_profile = None
+    return  [
+        anonymize_username(user.username),
+        anonymous_id_for_user(user, student_module.course_id),
+        unicode(user_profile.gender if user_profile else ''),
+        unicode(user_profile.year_of_birth if user_profile else ''),
+        unicode(user_profile.level_of_education if user_profile else '')
+    ]
 
 def fetch_student_answers(problem, problem_size):
     """ Fetch student answers and appends.
@@ -66,8 +71,6 @@ def fetch_student_answers(problem, problem_size):
     data_rows = []
     student_modules = StudentModule.objects.filter(module_state_key=problem.location)
     for student_module in student_modules:
-        if student_module.student.is_superuser:
-            continue
         data_row = fetch_user_profile_data(student_module)
         state = json.loads(student_module.state)
         student_answers = state.get('student_answers', None)

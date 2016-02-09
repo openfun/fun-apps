@@ -8,7 +8,7 @@ from mock import patch
 from django.conf import settings
 from django.test.utils import override_settings
 
-from student.models import UserProfile, anonymous_id_for_user
+from student.models import User, UserProfile, anonymous_id_for_user
 from student.tests.factories import UserFactory
 from courseware.tests.factories import StudentModuleFactory
 from instructor_task.tests.test_base import InstructorTaskModuleTestCase, OPTION_1, OPTION_2
@@ -63,26 +63,37 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
             rows = list(reader)
         return rows
 
-    def _create_response_row(self):
-        user_profile = UserProfile.objects.get(user__username=self.username)
-        response_row = [unicode(x) for x in [anonymize_username(user_profile.user.username),
-                                             anonymous_id_for_user(user_profile.user, self.course.id),
-                                             user_profile.gender, user_profile.year_of_birth,
-                                             user_profile.level_of_education]] + [OPTION_1, OPTION_2]
-        return response_row
-
     def test_generate_answers_distribution_report(self):
         self._create_student_module_entry()
-
         self._launch_task()
-        rows = self._read_report_file(get_path(self.running_report_name,
-                                               self.problem_module.location))
+        rows = self._read_report_file(get_path(self.running_report_name, self.problem_module.location))
+
+        user_profile = UserProfile.objects.get(user__username=self.username)
+        expected_row = [unicode(x) for x in [
+            anonymize_username(self.username),
+            anonymous_id_for_user(user_profile.user, self.course.id),
+            user_profile.gender, user_profile.year_of_birth,
+            user_profile.level_of_education
+        ]] + [OPTION_1, OPTION_2]
 
         self.assertEqual(rows[1], ['id', 'course_specific_id', 'gender', 'year_of_birth', 'level_of_education',
                                    'q1', 'q2'])
+        self.assertEqual(rows[2], expected_row)
 
-        response_row = self._create_response_row()
-        self.assertEqual(rows[2], response_row)
+    def test_user_with_no_profile(self):
+        self._create_student_module_entry()
+        user = User.objects.get(username=self.username)
+        UserProfile.objects.filter(user__username=self.username).delete()
+        self._launch_task()
+        rows = self._read_report_file(get_path(self.running_report_name, self.problem_module.location))
+
+        expected_row = [unicode(x) for x in [
+            anonymize_username(self.username),
+            anonymous_id_for_user(user, self.course.id),
+            '', '', ''
+        ]] + [OPTION_1, OPTION_2]
+
+        self.assertEqual(rows[2], expected_row)
 
     def tearDown(self):
         self._rm_tree()
