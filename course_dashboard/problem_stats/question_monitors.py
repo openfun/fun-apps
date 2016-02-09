@@ -1,4 +1,5 @@
 import ast
+import re
 
 from collections import defaultdict
 from lxml import etree
@@ -157,7 +158,7 @@ class OptionQuestionMonitor(QuestionMonitor):
 
 @registry.register
 class ChoiceQuestionMonitor(QuestionMonitor):
-    """Monitor for Multiplechoice questions"""
+    """Monitor for choice questions"""
     tags = ['choiceresponse']
 
     def format_student_answers(self):
@@ -169,12 +170,40 @@ class ChoiceQuestionMonitor(QuestionMonitor):
               u"[u'choice_1',u'choice_2']" -> (2, 3)
         The first choice beeing 1 and not 0.
         """
-        student_answers = {}
+        student_answers = defaultdict(int)
         for answer, value in self.student_answers.iteritems():
-            choices = ast.literal_eval(answer)
-            choices = [int(choice[-1:]) + 1 for choice in choices]
-            student_answers[tuple(choices)] = value
+            # When the problem is changed from a multiple choice question (with one
+            # possible answer) to a question problem (with multiple allowed
+            # answers) the ChoiceQuestionMonitor has to parse answers formatted
+            # differently.
+            choices = self.parse_answer(answer) or self.parse_answer("['" + answer + "']") or ()
+            parsed = self.parse_choices(choices)
+            student_answers[tuple(parsed)] += value
         return student_answers
+
+    def parse_answer(self, answer):
+        """
+        Args:
+            answer (str): E.g: "[u'choice_1', u'choice_2']", "choice_1", "invalid"...
+        """
+        try:
+            return ast.literal_eval(answer)
+        except (ValueError, SyntaxError):
+            return None
+
+    def parse_choices(self, choices):
+        """
+        Args:
+            choices (list)
+        Returns:
+            integer list of length less or equal to choices that contain the valid choices.
+        """
+        parsed = []
+        for choice in choices:
+            match = re.match(r'choice_(\d+)', choice)
+            if match:
+                parsed.append(int(match.group(1)) + 1)
+        return parsed
 
     def get_html(self):
         return self.get_template_html('problem_stats/choice_question.html')

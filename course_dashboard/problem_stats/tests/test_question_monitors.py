@@ -38,7 +38,9 @@ class QuestionMonitorTestCase(BaseCourseDashboardTestCase):
 
     def test_title(self):
         self.assertEqual(self.label_text, self.question_monitor.get_title()[0].text)
-        self.assertIn(self.label_text, self.question_monitor.get_template_html('problem_stats/single_choice_question.html'))
+        self.assertIn(self.label_text, self.question_monitor.get_template_html(
+            'problem_stats/single_choice_question.html'
+        ))
 
 class ChoiceQuestionMonitorTestCase(TestCase):
     def setUp(self):
@@ -47,8 +49,22 @@ class ChoiceQuestionMonitorTestCase(TestCase):
                                                                choice_names=['henri2', 'henri1', 'charles8'])
         question_tree = etree.fromstring(problem_tree).find('choiceresponse')
         self.question_monitor = ChoiceQuestionMonitor(1, question_tree, None)
+
+    def test_format_student_answers(self):
         self.question_monitor.student_answers = {"[u'choice_0',u'choice_2']": 10,
                                                  "[u'choice_0',u'choice_1']": 42}
-    def test_format_student_answers(self):
         self.assertEqual(self.question_monitor.format_student_answers(),
-                         {(1, 3) : 10, (1, 2) :42})
+                         {(1, 3): 10, (1, 2): 42})
+
+    def test_choice_with_large_value(self):
+        self.question_monitor.student_answers = {"[u'choice_15']": 7}
+        self.assertEqual(self.question_monitor.format_student_answers(), {(16,): 7})
+
+    def test_multiple_choice_answer_to_problem(self):
+        self.question_monitor.student_answers['choice_1'] = 1
+        self.assertEqual(self.question_monitor.format_student_answers(), {(2,): 1})
+
+    def test_invalid_response_to_problem(self):
+        self.question_monitor.student_answers['['] = 1
+        self.question_monitor.student_answers['pouac'] = 2
+        self.assertEqual(self.question_monitor.format_student_answers(), {(): 3})
