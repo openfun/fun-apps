@@ -19,8 +19,8 @@ class BaseCourseDashboardTestCase(ModuleStoreTestCase):
         self.problem_module = None
         self._generate_modules_tree(self.course, 'chapter', 'sequential',
                                     'vertical', 'problem')
-        instructor = InstructorFactory.create(course_key=self.course.id)
-        self.client.login(username=instructor.username, password="test")
+        self.instructor = InstructorFactory.create(course_key=self.course.id)
+        self.client.login(username=self.instructor.username, password="test")
 
     def enroll_student(self, course, **kwargs):
         return CourseEnrollmentFactory.create(
