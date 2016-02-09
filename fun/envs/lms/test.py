@@ -3,6 +3,10 @@ from path import path
 
 ENVIRONMENT = 'test'
 
+############# Disable useless logging
+import logging
+logging.getLogger("backoffice.views").setLevel(logging.ERROR)
+
 ################ Microsite test settings
 
 FAKE_MICROSITE = {
