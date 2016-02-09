@@ -24,6 +24,10 @@ STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
 PIPELINE_ENABLED = False
 
 CACHES.update(test.caches)
+
 ################ Disable Django debug toolbar
 INSTALLED_APPS = tuple([app for app in INSTALLED_APPS if app not in DEBUG_TOOLBAR_INSTALLED_APPS])
 MIDDLEWARE_CLASSES = tuple([m for m in MIDDLEWARE_CLASSES if m not in DEBUG_TOOLBAR_MIDDLEWARE_CLASSES])
+
+# Disable costly calls to publish signals
+COURSE_SIGNALS_DISABLED = True

@@ -3,6 +3,7 @@
 import datetime
 
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 from django.utils.translation import ugettext_lazy as _
 
 from xmodule.modulestore.tests.factories import CourseFactory
@@ -14,6 +15,7 @@ from universities.factories import UniversityFactory
 
 
 @skipUnlessLms
+@override_settings(COURSE_SIGNALS_DISABLED=False)
 class FeedTest(ModuleStoreTestCase, RSSDeclarationMixin):
     def setUp(self):
         super(FeedTest, self).setUp()

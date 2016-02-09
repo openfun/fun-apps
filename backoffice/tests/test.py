@@ -7,6 +7,7 @@ from StringIO import StringIO
 
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 from django.utils.translation import ugettext as _
 
 from lang_pref import LANGUAGE_KEY
@@ -87,6 +88,7 @@ class TestAuthentication(BaseBackoffice):
         self.assertEqual(1, len(response.context['course_infos']))
 
 
+@override_settings(COURSE_SIGNALS_DISABLED=False)
 class TestGenerateCertificate(BaseBackoffice):
     def setUp(self):
         super(TestGenerateCertificate, self).setUp()
