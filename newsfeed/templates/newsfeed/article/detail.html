@@ -38,9 +38,11 @@ from django.utils.formats import date_format
                     <div class="line text-center">
                         <span></span>
                     </div>
-                    <div class="category color-denim-blue text-center">
-                        ${article.category}
-                    </div>
+                    % if article.category:
+                      <div class="category color-denim-blue text-center">
+                          ${article.category}
+                      </div>
+                    % endif
 
                     <div class="author">
                         ${date_format(article.created_at, 'DATE_FORMAT')}
