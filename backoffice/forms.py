@@ -53,7 +53,7 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['title', 'slug', 'created_at', 'thumbnail', 'language', 'text', 'published',]
+        fields = ['title', 'slug', 'created_at', 'thumbnail', 'language', 'category', 'text', 'published',]
 
     def save(self, *args, **kwargs):
         if settings.FEATURES['USE_MICROSITES']:
