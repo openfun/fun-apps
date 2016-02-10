@@ -2,7 +2,7 @@
 
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.utils.translation import pgettext, ugettext as _
+from django.utils.translation import ugettext as _
 
 from fun.tests.utils import skipUnlessLms
 
@@ -39,7 +39,7 @@ class TestBreadcrumbs(TestCase):
         url = '/news/test-news'
         breadcrumbs_list = breadcrumbs(url, u"Test news")
         self.assertEqual(breadcrumbs_list,
-                [('/', _("Home")), (reverse('newsfeed-landing'), pgettext("fun-news", "News")), ('#', u"Test news")],)
+                [('/', _("Home")), (reverse('newsfeed-landing'), _("News")), ('#', u"Test news")],)
 
     def test_university_page(self):
         url = '/universities/fun-paris-V'

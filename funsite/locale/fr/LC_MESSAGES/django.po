@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 39\n"
+"Project-Id-Version: France Université Numérique 43\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-22 12:15+0100\n"
-"PO-Revision-Date: 2015-12-22 12:15+0000\n"
+"POT-Creation-Date: 2016-02-10 17:34+0100\n"
+"PO-Revision-Date: 2016-02-10 17:34+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -33,8 +33,8 @@ msgid "All courses"
 msgstr "Tous les cours"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:219
-msgid "All news"
-msgstr "Toutes les actus"
+msgid "All the news"
+msgstr "Toutes les actualités"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:177
 msgid "All universities"
@@ -63,7 +63,7 @@ msgstr ""
 "votre expérience utilisateur"
 
 # Translated in edx by 'Fin des cours'
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:227
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:231
 msgctxt "course-about"
 msgid "Classes End"
 msgstr "Fin du cours"
@@ -88,26 +88,30 @@ msgstr "Avez-vous déjà un compte ?"
 msgid "Don't have an account?"
 msgstr "Vous n'avez pas de compte ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:201
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:205
 msgid "End of Registration"
 msgstr "Fin d'inscription"
 
 # Translated in edx by 'Inscriptions closes'
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:179
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:183
 msgctxt "course-about"
 msgid "Enrollment is closed"
 msgstr "Les inscriptions sont closes"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:39
 msgid "FUN courses RSS feed"
-msgstr "Flux RSS des Cours FUN"
+msgstr "Flux RSS des cours FUN"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:40
+msgid "FUN news RSS feed"
+msgstr "Flux RSS des actualités FUN"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:66
 msgid "FUN:"
 msgstr "FUN :"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:22
-msgid "Forgotten password ?"
+msgid "Forgotten password?"
 msgstr "Mot de passe oublié ?"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:28
@@ -169,11 +173,11 @@ msgstr "En savoir plus sur l'inscription"
 msgid "My courses"
 msgstr "Mes cours"
 
-# Translated in edx by 'Nouvelles'
+# Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:24
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:15
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:186
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:42
-msgctxt "fun-news"
 msgid "News"
 msgstr "Actualités"
 
@@ -202,7 +206,7 @@ msgstr ""
 "L'inscription vous ajoute à notre liste de diffusion - nous vous "
 "tiendrons au courant dès que des cours sont ajoutés."
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:206
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:210
 msgid "Registration closed"
 msgstr "Inscription close"
 
@@ -239,17 +243,13 @@ msgstr "Conditions générales d'utilisation"
 msgid "The Freedom to Study"
 msgstr "Se former en liberté"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:186
-msgid "The news"
-msgstr "Les actus"
-
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:227
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:303
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:307
 msgid "Thematics"
 msgstr "Les thématiques"
 
-# Translated in edx by 'Voici l'adresse email que vous avez utilisée pour vous
-# inscrire sur {platform}'
+# Translated in edx by 'Voici l'adresse e-mail que vous avez utilisée pour
+# vous inscrire sur {platform}'
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/forget-password-modal.html:25
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:27
 msgid "This is the e-mail address you used to register with {platform}"
@@ -284,7 +284,7 @@ msgstr "Vous n'avez pas de compte ?"
 msgid "You have an account"
 msgstr "Vous avez un compte ?"
 
-#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:252
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:256
 msgid "h/week"
 msgstr "h/semaine"
 

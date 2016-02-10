@@ -2,7 +2,7 @@
 
 from collections import namedtuple
 
-from django.utils.translation import pgettext, ugettext as _
+from django.utils.translation import ugettext as _
 
 BreadcrumbsItem = namedtuple('BreadcrumbsItem', ['path', 'name'])
 
@@ -21,7 +21,7 @@ def breadcrumbs(url, current_page):
         'contact': _("Contact"),
         'courses': _("All courses"),    # edX page
         'cours': _("All courses"),      # FUN page
-        'news': pgettext("fun-news", "News"),
+        'news': _("News"),
         'universities': _("Universities"),
     }
     result = [BreadcrumbsItem(path='/', name=_(u"Home"))]
