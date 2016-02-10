@@ -1,7 +1,7 @@
 ## mako
 <%!
 from django.core.urlresolvers import reverse
-from django.utils.translation import pgettext, ugettext as _
+from django.utils.translation import ugettext as _
 %>
 <div id="sandwich-overlay" class="hide-on-escape-key overlay light-shadow">
     <ul class="">
@@ -12,7 +12,7 @@ from django.utils.translation import pgettext, ugettext as _
         </li>
         <li>
             <a href="${reverse('newsfeed-landing')}" data-location="news">
-                ${pgettext("fun-news", "News")}
+                ${_("News")}
             </a>
         </li>
 
