@@ -1,14 +1,18 @@
 from mock import patch
 
-from django.conf import settings
+#from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from student.models import UserProfile
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from fun.tests.utils import skipUnlessLms
-from fun.tests.utils import setMicrositeTestSettings
+#from fun.tests.utils import setMicrositeTestSettings
 from newsfeed.tests.factories import ArticleFactory
+
+
+def set_instance_id_to_42(this):
+    this.instance.id = 42
 
 
 @skipUnlessLms
@@ -31,6 +35,15 @@ class TestNews(ModuleStoreTestCase):
 
         self.assertEqual(200, response.status_code)
 
+    @patch("backoffice.forms.ArticleForm.is_valid")
+    @patch("backoffice.forms.ArticleForm.save", new=set_instance_id_to_42)
+    def test_create_valid_news_redirects_to_news_page(self, mock_form_is_valid):
+        url = reverse("backoffice:news-create")
+        mock_form_is_valid.return_value = True
+        response = self.client.post(url)
+
+        self.assertEqual(302, response.status_code)
+        self.assertTrue(response['Location'].endswith(reverse('backoffice:news-detail', kwargs={'news_id': 42})))
 
     # It seem that setMicrositeTestSettings is invoked even when CMS tests are running but
     # CMS tests settings do not have FAKE_MICROSITE dict which makes skipUnlessLms to be ignored...
