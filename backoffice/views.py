@@ -420,6 +420,8 @@ def news_detail(request, news_id=None):
         form = ArticleForm(data=request.POST, files=request.FILES, instance=article)
         if form.is_valid():
             form.save()
+            if article is None:
+                return redirect('backoffice:news-detail', news_id=form.instance.id)
     else:
         form = ArticleForm(instance=article)
 

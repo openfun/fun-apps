@@ -38,29 +38,27 @@
 </div>
 
 <div class="row">
+    <form action="." method="POST" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
 
-        <form action="." method="POST" class="form-horizontal" enctype="multipart/form-data">
-          {% csrf_token %}
+        <div class="form-group">
+            {{ form|bootstrap_horizontal:'col-lg-4' }}
+        </div>
 
-            <div class="form-group">
-                {{ form|bootstrap_horizontal:'col-lg-4' }}
+        <div class="form-group">
+
+            <div class="pull-left">
+                {% if form.instance.id %}
+                <a class="btn btn-info" href="{% url 'newsfeed-article-preview' form.instance.slug %}" target="_blank">{% trans "Preview" %}</a>
+                <a class="btn btn-info" href="{% url 'newsfeed-landing-preview' form.instance.slug %}" target="_blank">{% trans "Preview news page" %}</a></p>
+                {% endif %}
             </div>
 
-            <div class="form-group">
-
-                <div class="pull-left">
-                    {% if form.instance.id %}
-                    <a class="btn btn-info" href="{% url 'newsfeed-article-preview' form.instance.slug %}" target="_blank">{% trans "Preview" %}</a>
-                    <a class="btn btn-info" href="{% url 'newsfeed-landing-preview' form.instance.slug %}" target="_blank">{% trans "Preview news page" %}</a></p>
-                    {% endif %}
-                </div>
-
-              <div class="pull-right">
-                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
-              </div>
-            </div>
-        </form>
-
+          <div class="pull-right">
+            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+          </div>
+        </div>
+    </form>
 </div>
 
 {% endblock %}
