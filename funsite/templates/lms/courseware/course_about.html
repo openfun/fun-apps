@@ -74,12 +74,12 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
     <%
     fun_course = get_fun_course(course)
     %>
-    <meta property="og:site_name" content="France Université Numérique"/>
-    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${reverse('about_course', args=[fun_course.key])}" />
+    <meta property="og:site_name" content="FUN-MOOC"/>
+    <meta property="og:url" content="//www.fun-mooc.fr${reverse('about_course', args=[fun_course.key])}" />
     <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
     <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
     <meta property="og:locale" content="fr_FR" />
-    <meta property="og:image" content="//www.france-universite-numerique-mooc.fr${ fun_course.get_thumbnail_url('facebook') }" />
+    <meta property="og:image" content="//www.fun-mooc.fr${ fun_course.get_thumbnail_url('facebook') }" />
 
 </%block>
 

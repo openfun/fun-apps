@@ -111,8 +111,8 @@ HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
 GITHUB_REPO_ROOT = '/edx/var/edxapp/data'
 
 # This settings may have to be changed when final URL scheme will be decided for production
-LMS_BASE = 'france-universite-numerique-mooc.fr'  # LMS web address
-CMS_BASE = 'studio.france-universite-numerique-mooc.fr'  # Studio web address
+LMS_BASE = 'fun-mooc.fr'  # LMS web address
+CMS_BASE = 'studio.fun-mooc.fr'  # Studio web address
 # We do not need to prefix LMS_BASE to access LMS from studio in our configuration,
 # but we may want to use a 'preview' instance of LMS as in v1
 PREVIEW_LMS_BASE = ''  # Sudio will build preview address like this //PREVIEW_LMS_BASE + LMS_BASE to/course...

@@ -68,10 +68,10 @@ def render_article(queryset, slug):
             article.title,
             url)
     facebook_action = 'http://www.facebook.com/share.php?u=%s' % (url)
-    email_subject = u"mailto:?subject=Actualité France Université Numérique: %s&body=%s" % (
+    email_subject = u"mailto:?subject=Actualité FUN: %s&body=%s" % (
             article.title, url)
     category_articles = []
-    queryset =  queryset.exclude(id=article.id)
+    queryset = queryset.exclude(id=article.id)
     if article.category:
         category_articles = list(queryset.filter(category__slug=article.category.slug)[:3])
     featured_news = queryset[:3]
@@ -91,7 +91,7 @@ def render_article(queryset, slug):
 class NewsFeed(Feed):
     title = _(u"Fun latest published news")
     link = "/news/feed/"
-    description = _(u"Latests news published on france-universite-numerique-mooc.fr")
+    description = _(u"Latests news published on fun-mooc.fr")
     feed_type = Rss201rev2Feed
     __name__ = 'FUNNEWSRSS'
 

@@ -215,7 +215,7 @@ class CertificateInfo(object):
             textobject.setTextOrigin(URLFunX, URLFunY)
         textobject.setFont("Arial", 12)
         textobject.setFillColorRGB(59./256, 118./256, 188./256)
-        textobject.textLine(u"http://www.france-universite-numerique-mooc.fr")
+        textobject.textLine(u"https://www.fun-mooc.fr")
         c.drawText(textobject)
 
     def write_mooc(self, c):

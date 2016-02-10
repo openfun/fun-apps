@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 47\n"
+"Project-Id-Version: FUN-MOOC 47\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
 "POT-Creation-Date: 2016-03-01 14:50+0100\n"
 "PO-Revision-Date: 2016-03-01 14:50+0000\n"
@@ -69,8 +69,8 @@ msgid "Imminent end of enrollment"
 msgstr "Fin d'inscription imminente"
 
 #: /edx/app/edxapp/fun-apps/course_pages/views.py:0
-msgid "Latests courses published on www.france-universite-numerique-mooc.fr"
-msgstr "Derniers cours publiés sur www.france-universite-numerique-mooc.fr"
+msgid "Latests courses published on www.fun-mooc.fr"
+msgstr "Derniers cours publiés sur www.fun-mooc.fr"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/footer.html:0
 msgid "Learn more"

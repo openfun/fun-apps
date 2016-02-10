@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 46\n"
+"Project-Id-Version: FUN-MOOC 46\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
 "POT-Creation-Date: 2016-03-01 14:50+0100\n"
 "PO-Revision-Date: 2016-03-01 14:50+0000\n"
@@ -52,12 +52,12 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
 msgid ""
-"By continuing browsing the france-universite-numerique-mooc.fr site, you "
-"accept the use of cookies to enhance your user experience"
+"By continuing browsing the fun-mooc.fr site, you accept the use of "
+"cookies to enhance your user experience"
 msgstr ""
-"En poursuivant votre navigation sur le site france-universite-numerique-"
-"mooc.fr, vous acceptez l'utilisation de cookies permettant d'améliorer "
-"votre expérience utilisateur"
+"En poursuivant votre navigation sur le site fun-mooc.fr, vous acceptez "
+"l'utilisation de cookies permettant d'améliorer votre expérience "
+"utilisateur"
 
 # Translated in edx by 'Fin des cours'
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
