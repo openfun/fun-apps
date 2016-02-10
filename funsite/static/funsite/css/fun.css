@@ -939,7 +939,7 @@ ul.universities-list {
 .fun-news .big {
     position: relative;
     width: 1170px;
-    height: 325px;
+    height: 346px;
     margin: 0 auto 50px auto;
     text-align: left;
 }
@@ -954,7 +954,7 @@ ul.universities-list {
 
 .fun-news .big img {
     width: 570px;
-    height: 325px;
+    height: 346px;
 }
 .fun-news .big>div {
     position: absolute;
@@ -962,7 +962,7 @@ ul.universities-list {
     width: 600px;
     right: 0;
     top: 0;
-    height: 325px;
+    height: 346px;
     text-align: center;
     padding: 12px 40px 12px 40px;
 }
@@ -995,7 +995,7 @@ ul.universities-list {
 }
 .fun-news .primary.home {
     width: 570px;
-    height: 335px;
+    height: 356px;
     margin-left: auto;
     margin-right: 12px;
 }
@@ -1026,8 +1026,8 @@ ul.universities-list {
 .fun-news .secondary {
     position: relative;
     width: 570px;
-    height: 150px;
-    margin-bottom: 30px;
+    height: 167px;
+    margin-bottom: 22px;
     text-align: left;
 }
 
@@ -1042,7 +1042,7 @@ ul.universities-list {
 
 .fun-news .secondary img {
     width: 275px;
-    height: 150px;
+    height: 167px;
 }
 .fun-news .secondary>div {
     position: absolute;
@@ -1050,7 +1050,7 @@ ul.universities-list {
     width: 300px;
     right: 0;
     top: 0;
-    height: 150px;
+    height: 167px;
     text-align: center;
     padding-left: 4px;
     padding-right: 4px;
