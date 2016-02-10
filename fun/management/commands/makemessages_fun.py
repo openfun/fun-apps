@@ -216,13 +216,13 @@ def check_catalog(catalog):
 def fix_catalog_properties(catalog):
     """Set FUn-compliant catalog properties"""
     catalog.header_comment = ""
-    catalog.project = u"France Université Numérique"
+    catalog.project = u"FUN-MOOC"
+    catalog.copyright_holder = u"FUN-MOOC"
     catalog.revision_date = datetime.now()
     try:
         catalog.version = str(int(catalog.version) + 1)
     except ValueError:
         catalog.version = "0"
-    catalog.copyright_holder = u"France Université Numérique"
     catalog.msgid_bugs_address = "team@openfun.fr"
     catalog.language_team = "FUN <team@openfun.fr>"
     catalog.last_translator = catalog.language_team

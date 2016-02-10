@@ -49,7 +49,7 @@ class FUNCustomFeedGenerator(Rss201rev2Feed):
 class CoursesFeed(Feed):
     title = _(u"Fun latest published courses")
     link = "/cours/feed/"
-    description = _(u"Latests courses published on www.france-universite-numerique-mooc.fr")
+    description = _(u"Latests courses published on www.fun-mooc.fr")
     __name__ = 'FUNRSS'
     feed_type = FUNCustomFeedGenerator
 

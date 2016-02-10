@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 11\n"
+"Project-Id-Version: FUN-MOOC 11\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
 "POT-Creation-Date: 2016-03-01 14:50+0100\n"
 "PO-Revision-Date: 2016-03-01 14:50+0000\n"
@@ -55,8 +55,8 @@ msgid "In the same category"
 msgstr "Dans la même catégorie"
 
 #: /edx/app/edxapp/fun-apps/newsfeed/views.py:0
-msgid "Latests news published on france-universite-numerique-mooc.fr"
-msgstr "Dernières actualités publiées sur france-universite-numerique-mooc.fr"
+msgid "Latests news published on fun-mooc.fr"
+msgstr "Dernières actualités publiées sur fun-mooc.fr"
 
 #: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "Lead paragraph"

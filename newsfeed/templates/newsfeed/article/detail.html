@@ -10,12 +10,12 @@ from django.utils.formats import date_format
 
 
 <%block name="meta_extra">
-    <meta property="og:site_name" content="France Université Numérique"/>
-    <meta property="og:url" content="//www.france-universite-numerique-mooc.fr${article.get_absolute_url()}" />
+    <meta property="og:site_name" content="FUN-MOOC"/>
+    <meta property="og:url" content="//www.fun-mooc.fr${article.get_absolute_url()}" />
     <meta property="og:title" content="${article.title}" />
     <meta property="og:description" content="${article.get_lead_paragraph()}" />
     <meta property="og:locale" content="${article.language}" />
-    <meta property="og:image" content="//www.france-universite-numerique-mooc.fr/media/${article.get_thumbnail('facebook')}" />
+    <meta property="og:image" content="//www.fun-mooc.fr/media/${article.get_thumbnail('facebook')}" />
 
 </%block>
 

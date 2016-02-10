@@ -1,4 +1,4 @@
-# Changelog www.france-universite-numerique.fr
+# Changelog www.fun-mooc.fr
 
 ## 3.7 03/03/2016
 - Précision de la charte de bonne conduite des apprenants
