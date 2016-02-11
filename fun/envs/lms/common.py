@@ -188,3 +188,27 @@ PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
+
+
+EDX_API_KEY = 'test'
+
+ECOMMERCE_API_SIGNING_KEY = 'test'
+ECOMMERCE_API_URL = "http://localhost:8002/api/v2/"
+ECOMMERCE_PUBLIC_URL_ROOT = "http://localhost:8002/"
+ECOMMERCE_SERVICE_WORKER_USERNAME = 'ecommerce_worker'
+
+JWT_ISSUER = "http://localhost:8000/oauth2"
+JWT_EXPIRATION = 30
+
+OAUTH_ENFORCE_SECURE = False
+OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
+
+
+FEATURES["ENABLE_CREDIT_API"] = True
+FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
+FEATURES["ENABLE_MOBILE_REST_API"] = True
+FEATURES["ENABLE_OAUTH2_PROVIDER"] = True
+FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = True
+FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
+FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
+FEATURES['ENABLE_COURSE_DISCOVERY'] = False
