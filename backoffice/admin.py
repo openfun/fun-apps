@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from djcelery.models import TaskMeta, TaskSetMeta
 
-from django_comment_common.models import Role, Permission
 from student.models import LoginFailures
 
 
@@ -60,27 +59,3 @@ class LoginFailuresAdmin(admin.ModelAdmin):
     list_display = ('user', 'lockout_until', 'failure_count')
 
 admin.site.register(LoginFailuresProxy, LoginFailuresAdmin)
-
-
-class CommentRoleProxy(Role):
-    class Meta:
-        proxy = True
-        verbose_name = _(u"Comment as service client Role")
-        verbose_name_plural = _(u"Comment as service client Roles")
-
-class CommentRoleAdmin(admin.ModelAdmin):
-    search_fields = ('course_id',)
-    list_display = ('name', 'course_id')
-admin.site.register(CommentRoleProxy, CommentRoleAdmin)
-
-
-class CommentPermissionProxy(Permission):
-    class Meta:
-        proxy = True
-        verbose_name = _(u"Comment as service client Permission")
-        verbose_name_plural = _(u"Comment as service client Permissions")
-
-class CommentPermissionAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(CommentPermissionProxy, CommentPermissionAdmin)
-
