@@ -52,7 +52,7 @@ msgstr "Dernières actualités publiées sur FUN"
 
 #: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:129
 msgid "In the same category"
-msgstr "Dans la même categorie"
+msgstr "Dans la même catégorie"
 
 #: /edx/app/edxapp/fun-apps/newsfeed/views.py:94
 msgid "Latests news published on france-universite-numerique-mooc.fr"
