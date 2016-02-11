@@ -60,7 +60,7 @@ msgstr "Dernières actualités publiées sur france-universite-numerique-mooc.fr
 
 #: /edx/app/edxapp/fun-apps/newsfeed/models.py:92
 msgid "Lead paragraph"
-msgstr "Chapeau"
+msgstr "Chapô"
 
 # Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:12
