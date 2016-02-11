@@ -3,7 +3,6 @@
 from glob import glob
 import os
 import sys
-import gettext
 
 from path import path
 
@@ -51,9 +50,9 @@ LANGUAGE_CODE = 'fr'
 # These are the languages we allow on FUN platform
 # DarkLanguageConfig.released_languages must use the same codes (comma separated)
 LANGUAGES = (
-    ('fr', gettext('French')),
-    ('en', gettext('English')),
-    ('de-de', gettext('German')), # codes have to match edX's ones (lms.envs.common.LANGUAGES)
+    ('fr', 'Français'),
+    ('en', 'English'),
+    ('de-de', 'Deutsch'), # codes have to match edX's ones (lms.envs.common.LANGUAGES)
 )
 # EdX rely on this code to display current language to user, when not yet set in preferences
 # This is probably a bug because user with an english browser, will have the english i18n
