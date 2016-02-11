@@ -190,18 +190,25 @@ FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's 
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
 
 
-FEATURES["ENABLE_SHOPPING_CART"] = True
-FEATURES["ENABLE_PAID_COURSE_REGISTRATION"] = True
-FEATURES["ENABLE_PAYMENT_FAKE"] = True  # /!\ demo purpose while testing shopping cart.
+EDX_API_KEY = 'test'
 
-PAID_COURSE_REGISTRATION_CURRENCY = [u"EUR", u"€"]
+ECOMMERCE_API_SIGNING_KEY = 'test'
+ECOMMERCE_API_URL = "http://localhost:8002/api/v2/"
+ECOMMERCE_PUBLIC_URL_ROOT = "http://localhost:8002/"
+ECOMMERCE_SERVICE_WORKER_USERNAME = 'ecommerce_worker'
 
-CC_PROCESSOR_NAME = 'CyberSource2'
-CC_PROCESSOR = {
-        "CyberSource2": {
-            "SECRET_KEY": "abcd123",
-            "ACCESS_KEY": "abcd123",
-            "PROFILE_ID": "edx",
-            "PURCHASE_ENDPOINT": "/shoppingcart/payment_fake"
-        }
-    }
+JWT_ISSUER = "http://localhost:8000/oauth2"
+JWT_EXPIRATION = 30
+
+OAUTH_ENFORCE_SECURE = False
+OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
+
+
+FEATURES["ENABLE_CREDIT_API"] = True
+FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
+FEATURES["ENABLE_MOBILE_REST_API"] = True
+FEATURES["ENABLE_OAUTH2_PROVIDER"] = True
+FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = True
+FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
+FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
+FEATURES['ENABLE_COURSE_DISCOVERY'] = False
