@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 3\n"
+"Project-Id-Version: France Université Numérique 4\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-16 17:48+0100\n"
-"PO-Revision-Date: 2015-12-16 17:48+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -26,16 +26,13 @@ msgstr ""
 "un astérisque (*)%(bold_end)s.\n"
 "        "
 
-#: /edx/app/edxapp/fun-apps/fun/utils/funwiki.py:65
+#: /edx/app/edxapp/fun-apps/fun/utils/funwiki.py:0
 #, python-format
 msgid "%m/%d/%y %H:%M"
 msgstr "%d/%m/%y %H:%M"
 
 # Translated in edx by ''
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:180
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:194
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:210
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:224
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:0
 msgid "(UTC)"
 msgstr "(UTC)"
 
@@ -47,11 +44,11 @@ msgstr "Accéder à mes Cours"
 msgid "Activation Invalid"
 msgstr "Activation non valide"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:100
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:0
 msgid "Add"
 msgstr "Ajouter"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:147
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:0
 msgid "Add videos to your course"
 msgstr "Ajouter la vidéo à votre cours"
 
@@ -63,7 +60,7 @@ msgstr "Administrateurs"
 msgid "All (students, staff and instructors)"
 msgstr "Tous (Apprenants et équipe pédagogique)"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:148
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:0
 msgid "All uploaded videos are sent to our storage backend."
 msgstr ""
 "Toutes les vidéos ajoutées sont envoyées vers notre infrastructure de "
@@ -82,63 +79,63 @@ msgstr "Licence"
 msgid "Check"
 msgstr "Vérifier"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:133
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:0
 msgid "Click to upload a new video"
 msgstr "Cliquez pour ajouter une nouvelle vidéo"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:178
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not add subtitles:"
 msgstr "Impossible d'ajouter des sous-titres :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:211
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not add thumbnail:"
 msgstr "Impossible d'ajouter une vignette :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:98
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not change video title:"
 msgstr "Impossible de changer le titre de la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:126
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not create video:"
 msgstr "Impossible de créer la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:194
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not delete subtitle:"
 msgstr "Impossible de supprimer les sous-titres :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:90
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not delete video:"
 msgstr "Impossible de supprimer la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:107
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not fetch upload url:"
 msgstr "Impossible de récupérer l'url d'upload"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:51
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not fetch video list:"
 msgstr "Impossible de récupérer la liste de vidéos :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:166
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not fetch video subtitles:"
 msgstr "Impossible de récupérer les sous-titres :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:83
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not fetch video:"
 msgstr "Impossible de récupérer la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:141
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not publish video:"
 msgstr "Impossible de publier la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:155
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not unpublish video:"
 msgstr "Impossible de dé-publier la vidéo :"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:180
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not upload subtitles"
 msgstr "Impossible d'ajouter les sous-titres"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:213
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Could not upload thumbnail"
 msgstr "Impossible d'ajouter la vignette"
 
@@ -175,7 +172,7 @@ msgstr "Interdire à tous les utilisateurs de modifier l'article."
 msgid "Download Your {cert_name_short} (PDF)"
 msgstr "Télécharger votre attestation (PDF)"
 
-# Translated in edx by 'Changement d'adresse email échoué'
+# Translated in edx by 'Changement d'adresse e-mail échoué'
 msgid "E-mail change failed"
 msgstr "changement d'adresse email échoué"
 
@@ -183,9 +180,7 @@ msgstr "changement d'adresse email échoué"
 msgid "Elementary/primary school"
 msgstr "Brevet des collèges"
 
-# Translated in edx by '#-#-#-#-#  django-partial.po (edx-platform)  #-#-#-#-#
-# L'adresse email ou le mot de passe est incorrect #-#-#-#-#  mako.po
-# (edx-platform)  #-#-#-#-# Adresse mail ou mot de passe incorrect.'
+# Translated in edx by 'Adresse mail ou mot de passe incorrect.'
 msgid "Email or password is incorrect."
 msgstr "Adresse mail ou mot de passe incorrect"
 
@@ -193,15 +188,11 @@ msgstr "Adresse mail ou mot de passe incorrect"
 msgid "Engage with posts"
 msgstr "S'investir dans les discussions"
 
-#: /edx/app/edxapp/fun-apps/fun/envs/common.py:55
-msgid "English"
-msgstr "Anglais"
-
 # Translated in edx by 'Entrer le nom d'utilisateur du propriétaire.'
 msgid "Enter the username of the owner."
 msgstr "Rentrez le nom d'utilisateur du propriétaire."
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:317
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:0
 msgid ""
 "Enter your video ID (Note : DailyMotion Cloud, DailyMotion Classic and "
 "Youtube are supported. Still, the administrator may restrict the use to "
@@ -230,13 +221,9 @@ msgstr "Suivi"
 msgid "Forum Admin"
 msgstr "Administrateurs des forums"
 
-#: /edx/app/edxapp/fun-apps/fun/envs/common.py:54
-msgid "French"
-msgstr "Français"
-
-#: /edx/app/edxapp/fun-apps/fun/envs/common.py:56
-msgid "German"
-msgstr "Allemand"
+#: /edx/app/edxapp/fun-apps/fun/utils/tests/test_countries.py:0
+msgid "France"
+msgstr ""
 
 # Translated in edx by 'Note requise pour le {cert_name_short}:'
 msgid "Grade required for a {cert_name_short}:"
@@ -246,9 +233,7 @@ msgstr "Note requise pour l'attestation :"
 msgid "Highest Level of Education Completed"
 msgstr "Plus haut niveau de formation atteint"
 
-# Translated in edx by '#-#-#-#-#  django-partial.po (edx-platform)  #-#-#-#-#
-# Charte utilisateur #-#-#-#-#  mako.po (edx-platform)  #-#-#-#-# Code
-# d'honneur'
+# Translated in edx by 'Code d'honneur'
 msgid "Honor Code"
 msgstr "Charte utilisateur"
 
@@ -284,7 +269,7 @@ msgstr "Se Connecter"
 msgid "Log in"
 msgstr "Se connecter"
 
-# Translated in edx by 'Apparemment, vous êtes inscrit à aucun cours.'
+# Translated in edx by 'Apparemment, vous n'êtes inscrit à aucun cours.'
 msgid "Looks like you haven't enrolled in any courses yet."
 msgstr "On dirait que vous ne vous êtes encore inscrit à aucun cours."
 
@@ -296,7 +281,7 @@ msgstr "Masculin"
 msgid "Master's or professional degree"
 msgstr "Master / Diplôme d'ingénieur"
 
-#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:26
+#: /edx/app/edxapp/fun-apps/fun/cms/views/videoupload.py:0
 msgid "Missing credentials:"
 msgstr "Identifiants manquants"
 
@@ -379,7 +364,7 @@ msgstr "Sans réponse"
 msgid "University"
 msgstr "Établissement"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:132
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:0
 msgid "Upload new videos"
 msgstr "Ajouter de nouvelles vidéos"
 
@@ -395,7 +380,7 @@ msgstr "Exemples utiles :"
 msgid "Valid e-mail address required."
 msgstr "Une adresse email valide est requise."
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:127
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:0
 msgid "Video uploads"
 msgstr "Upload de vidéos"
 
@@ -444,7 +429,7 @@ msgstr "En attente"
 msgid "post anonymously to classmates"
 msgstr "Ecrire anonymement aux camarades de classe"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:316
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:0
 msgid "your video ID"
 msgstr "votre identifiant vidéo"
 
@@ -456,16 +441,14 @@ msgstr "{platform_name}-Sommaire général"
 #~ msgstr "Impossible de récupérer les sous-titres :"
 
 #~ msgid ""
-#~ "There is no video storage credentials"
-#~ " defined for this account. Please get"
-#~ " in touch with your administrator or"
-#~ " support team to setup the "
-#~ "credentials for university '{}'"
 #~ msgstr ""
-#~ "Il n'y a pas d'identifiant pour le"
-#~ " stockage de vidéos défini pour ce"
-#~ " compte. Veuillez rentrer en contact "
-#~ "avec votre université ou votre équipe"
-#~ " de support pour définir les "
-#~ "identifiants de votre établissement '{}'."
+
+#~ msgid "English"
+#~ msgstr "Anglais"
+
+#~ msgid "French"
+#~ msgstr "Français"
+
+#~ msgid "German"
+#~ msgstr "Allemand"
 

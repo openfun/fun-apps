@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 9\n"
+"Project-Id-Version: France Université Numérique 10\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-02-10 17:35+0100\n"
-"PO-Revision-Date: 2016-02-10 17:35+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,115 +13,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:22
+#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:0
 msgid "All the news"
 msgstr "Toutes les actualités"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:62
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "Article Categories"
 msgstr "Categories d'article"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:61
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "Article Category"
 msgstr "Categorie d'article"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:75
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "Article Link"
 msgstr "Lien d'article"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:76
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "Article Links"
 msgstr "Liens d'article"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:91
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "Displayed on the news list page."
 msgstr "A moins 1000px de large"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:85
+#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:0
 msgid "Event date"
 msgstr "Date de l'événement"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:145
+#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:0
 msgid "Featured news"
 msgstr "Articles mis en avant"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/views.py:92
-#: /edx/app/edxapp/fun-apps/newsfeed/tests/test_feed.py:27
+#: /edx/app/edxapp/fun-apps/newsfeed/tests/test_feed.py:0
+#: /edx/app/edxapp/fun-apps/newsfeed/views.py:0
 msgid "Fun latest published news"
 msgstr "Dernières actualités publiées sur FUN"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:129
+#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:0
 msgid "In the same category"
 msgstr "Dans la même catégorie"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/views.py:94
+#: /edx/app/edxapp/fun-apps/newsfeed/views.py:0
 msgid "Latests news published on france-universite-numerique-mooc.fr"
 msgstr "Dernières actualités publiées sur france-universite-numerique-mooc.fr"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:92
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "Lead paragraph"
 msgstr "Chapô"
 
 # Translated in edx by ''
-#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:12
-#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:18
+#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/list.html:0
 msgctxt "fun-news"
 msgid "News"
 msgstr "Actualités"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:114
+#: /edx/app/edxapp/fun-apps/newsfeed/templates/newsfeed/article/detail.html:0
 msgid "Usefull links"
 msgstr "Liens utiles"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:84
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "category"
 msgstr "categorie"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:86
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "courses"
 msgstr "cours"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:100
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "created at"
 msgstr "écrit le"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:102
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "edited at"
 msgstr "édité à"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:96
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "event date"
 msgstr "Date de l'événement"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:98
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "language"
 msgstr "langue"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:54
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "order"
 msgstr "ordre"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/admin.py:53
+#: /edx/app/edxapp/fun-apps/newsfeed/admin.py:0
 msgid "preview"
 msgstr "preview"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:104
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "published"
 msgstr "publié"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:94
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "text"
 msgstr "texte"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:89
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "thumbnail"
 msgstr "vignette"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:80
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "title"
 msgstr "titre"
 
-#: /edx/app/edxapp/fun-apps/newsfeed/models.py:67
+#: /edx/app/edxapp/fun-apps/newsfeed/models.py:0
 msgid "url"
 msgstr "adresse"
 

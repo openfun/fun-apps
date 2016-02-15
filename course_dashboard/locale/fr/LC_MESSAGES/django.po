@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 1\n"
+"Project-Id-Version: France Université Numérique 2\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-08-10 15:12+0200\n"
-"PO-Revision-Date: 2015-08-10 15:12+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,141 +13,130 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:15
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 #, python-format
 msgid "%.2f%% of students"
 msgstr "%.2f%% des apprenants"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:24
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
 #, python-format
 msgid "%d comments"
 msgstr "%d commentaires"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:22
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 #, python-format
 msgid "%d countries"
 msgstr "%d pays"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:20
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:27
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
 #, python-format
 msgid "%d enrollments"
 msgstr "%d inscriptions"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:20
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 #, python-format
 msgid "%d students"
 msgstr "%d apprenants"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/graph.html:35
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:40
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/graph.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 #, python-format
 msgid "%m/%d/%Y"
 msgstr "%d/%m/%Y"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/reports_manager/views.py:66
+#: /edx/app/edxapp/fun-apps/course_dashboard/reports_manager/views.py:0
 msgid "A report on answers distribution is already running"
 msgstr "Un rapport sur la répartition des réponses est déjà en cours"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:32
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
 msgid "An average of"
 msgstr "Une moyenne de"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:20
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
 msgid "Answers distribution"
 msgstr "Répartition des réponses"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:26
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:0
 msgid "Answers distribution reports"
 msgstr "Rapports de répartition des réponses"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/choice_question.html:54
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/multiplechoice.html:33
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/option_question.html:36
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/string_question.html:34
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/choice_question.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/single_choice_question.html:0
 msgid "Blank answers"
 msgstr "Aucune réponse"
 
-# Translated in edx by 'Certificates'
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:21
+# Translated in edx by 'Certificats'
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
 msgctxt "certificate-stats"
 msgid "Certificates"
 msgstr "Attestations"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:26
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
 msgid "Certificates have not been generated yet."
 msgstr "Les attestations n'ont pas encore été générées."
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:14
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:7
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:11
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
 msgid "Course dashboard"
 msgstr "Tableau de bord de cours"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:109
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Creation date"
 msgstr "Date de création"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:25
-msgid "Day with least enrollments:"
-msgstr "Jour avec le moins d'inscriptions :"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:18
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
 msgid "Day with most enrollments:"
 msgstr "Jour avec le plus d'inscriptions :"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:41
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:43
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:47
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:40
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:42
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:78
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:0
 msgid "Download raw CSV data"
 msgstr "Télécharger les données CSV brutes"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-global.html:10
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:11
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-global.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:0
 msgid "Enrollments per day"
 msgstr "Inscriptions par jour"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:18
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
 msgid "Forum activity"
 msgstr "Activité des forums"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:91
-#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:114
+#: /edx/app/edxapp/fun-apps/course_dashboard/tests/test_views.py:0
 msgid "France"
 msgstr "France"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:104
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Last created pages"
 msgstr "Dernières pages créées"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:35
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
 msgid "Least active forum thread:"
 msgstr "Fil de discussion le moins actif :"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:89
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:0
 msgid "Loading ..."
 msgstr "Chargement ..."
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:32
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
 msgid "Most active forum thread:"
 msgstr "Fil de discussion le plus actif :"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:40
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
 msgid "Most active student:"
 msgstr "Apprenant le plus actif :"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:67
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
 msgid "New forum threads per day"
 msgstr "Nouveaux fils de conversations par jour"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/no_answers.html:11
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/no_answers.html:0
 msgid "No answers were found for this question."
 msgstr "Aucune réponse trouvée pour cette question."
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:35
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 msgid ""
 "Note: the 'Unknown' country refers to the users who have not provided "
 "their country of origin. These data are collected on a declarative basis."
@@ -156,130 +145,132 @@ msgstr ""
 "renseigné leur pays d'origine. Ces données sont collectées de manière "
 "purement déclaratives."
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:51
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
 msgid "Number of enrollments"
 msgstr "Nombre d'inscriptions"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:50
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 msgid "Number of learners"
 msgstr "Nombre d'apprenants"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:54
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
 msgid "Number of new threads"
 msgstr "Nombre de nouveaux fils de discussion"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:17
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Page creations by day"
 msgstr "Nombre de pages créées par jour"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:21
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Page revisions by day"
 msgstr "Nombre de pages modifiées par jour"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:82
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Pages by activity"
 msgstr "Pages par activité"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:11
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:0
 msgid "Platform statistics"
 msgstr "Statistiques de la plateforme"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:81
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:0
 msgid "Please wait while data is being loaded."
 msgstr "Veuillez patienter pendant le chargement des données."
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:51
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 msgid "Proportion"
 msgstr "Proportion"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:42
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:90
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/index.html:0
 msgid "Refresh"
 msgstr "Rafraîchir"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:22
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
 msgid "Reports bucket"
 msgstr "Rapports"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:87
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:129
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Revision count"
 msgstr "Nombre de modifications"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:13
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/reports_manager/dashboard.html:0
 msgid "Running answers distribution reports generation"
 msgstr "Génération des rapports de répartition des notes en cours"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:28
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 msgid "Second country by enrollment"
 msgstr "Deuxième pays"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:17
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:17
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:0
 msgid "Student map"
 msgstr "Carte des apprenants"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:10
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
 msgid "Students with certificate"
 msgstr "Apprenants avec attestation"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:15
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
 msgid "Students without certificate"
 msgstr "Apprenants sans attestation"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:16
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:16
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:0
 msgid "Subscription statistics"
 msgstr "Statistiques d'inscriptions"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/nothandled.html:9
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/problem_stats/nothandled.html:0
 msgid "The answers distribution for problem {} is not handled yet."
 msgstr ""
 "Veuillez nous excuser, la distribution des réponses n'est pas encore "
 "gérée pour le problème {}."
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:31
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 msgid "Third country by enrollment"
 msgstr "Troisième pays"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:25
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 msgid "Top country by enrollment"
 msgstr "Premier pays"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:124
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Users by activity"
 msgstr "Utilisateurs par activité"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:19
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
 msgid "Wiki activity"
 msgstr "Activité du wiki"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:75
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "active users"
 msgstr "utilisateurs actifs"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:65
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "created pages"
 msgstr "pages créées"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:34
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
 msgid "enrollments / day"
 msgstr "inscriptions / jour"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:19
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/forum-activity.html:0
 msgid "forum threads created"
 msgstr "fils de discussion créés"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:21
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/student-map-content.html:0
 msgid "from"
 msgstr "de"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:70
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "modified pages"
 msgstr "pages modifiées"
 
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:14
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
 #, python-format
 msgid "students enrolled over %d days"
 msgstr "apprenants inscrits en %d jours"
+
+#~ msgid "Day with least enrollments:"
+#~ msgstr "Jour avec le moins d'inscriptions :"
 

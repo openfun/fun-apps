@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 15\n"
+"Project-Id-Version: France Université Numérique 16\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-02-24 12:34+0100\n"
-"PO-Revision-Date: 2016-02-24 12:34+0000\n"
+"POT-Creation-Date: 2016-03-01 14:48+0100\n"
+"PO-Revision-Date: 2016-03-01 14:48+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,125 +13,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/universities/choices.py:14
+#: /edx/app/edxapp/fun-apps/universities/choices.py:0
 msgid "Academic Partner"
 msgstr "Partenaire Académique"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:39
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "DM API Key"
 msgstr "Dailymotion API key"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:38
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "DM User ID"
 msgstr "Dailymotion User ID"
 
-#: /edx/app/edxapp/fun-apps/universities/admin.py:31
+#: /edx/app/edxapp/fun-apps/universities/admin.py:0
 msgid "Dailymotion Cloud"
 msgstr "Dailymotion Cloud"
 
-#: /edx/app/edxapp/fun-apps/universities/admin.py:37
+#: /edx/app/edxapp/fun-apps/universities/admin.py:0
 msgid "Displayed On Site | Banner | Description"
 msgstr "Affiché sur le site | Bannière | Description"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:21
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "Displayed where space is rare - on side panel for instance."
 msgstr "Affiché dans le panneau latéral où l'espace est réduit."
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:29
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "Enables the university detail page."
 msgstr "Active la page de detail de l'établissement."
 
-#: /edx/app/edxapp/fun-apps/universities/choices.py:15
+#: /edx/app/edxapp/fun-apps/universities/choices.py:0
 msgid "Level 1"
 msgstr "Niveau 1"
 
-#: /edx/app/edxapp/fun-apps/universities/choices.py:16
+#: /edx/app/edxapp/fun-apps/universities/choices.py:0
 msgid "Level 2"
 msgstr "Niveau 2"
 
-#: /edx/app/edxapp/fun-apps/universities/choices.py:17
+#: /edx/app/edxapp/fun-apps/universities/choices.py:0
 msgid "Level 3"
 msgstr "Niveau 3"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:25
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "Logo to be displayed on the certificate document."
 msgstr "Logo à afficher sur le certificat"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:32
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "Obsolete universities do not have their logo displayed on the site."
 msgstr "Les logos des établissements obsolètes ne sont pas affichés sur le site."
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:34
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "Only used if detail page is enabled"
 msgstr "Utilisé seulement quand la page de détail est activée"
 
-#: /edx/app/edxapp/fun-apps/universities/choices.py:13
+#: /edx/app/edxapp/fun-apps/universities/choices.py:0
 msgid "Partner"
 msgstr "Paternaire"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:24
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:0
 msgid "The universities and schools present on {platform_name}"
 msgstr "Les universités et écoles françaises présentes sur {platform_name}"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:52
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgctxt "University model"
 msgid "Universities"
 msgstr "Universités"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:10
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:14
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:0
 msgid "Universities"
 msgstr "Établissements"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:35
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "banner"
 msgstr "bannière"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:23
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "certificate logo"
 msgstr "Logo du certificat"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:22
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "code"
 msgstr "code"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:37
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "description"
 msgstr "description"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:27
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "detail page enabled"
 msgstr "page de détail activée"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:30
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "is obsolete"
 msgstr "est obsolète"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:26
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "logo"
 msgstr "logo"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:40
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "partnership level"
 msgstr "niveau d'adhésion"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:45
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "prevent automatic update"
 msgstr "pas de mise à jour automatique"
 
-#: /edx/app/edxapp/fun-apps/universities/admin.py:56
+#: /edx/app/edxapp/fun-apps/universities/admin.py:0
 msgid "preview"
 msgstr "aperçu"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:43
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "score"
 msgstr "score"
 
-#: /edx/app/edxapp/fun-apps/universities/models.py:20
+#: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgid "short name"
 msgstr "nom court"
 
-#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:26
+#: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:0
 msgid ""
 "{platform_name}'s goal is to allow universities and schools to publish "
 "their courses online. The list of universities proposing courses on "

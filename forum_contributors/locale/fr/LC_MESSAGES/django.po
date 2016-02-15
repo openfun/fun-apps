@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 1\n"
+"Project-Id-Version: France Université Numérique 2\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-07-22 17:41+0200\n"
-"PO-Revision-Date: 2015-07-22 17:41+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,45 +13,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:604
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
 msgid "Active"
 msgstr "Actif"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:274
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
 msgid "Active contributors"
 msgstr "Contributeurs actifs"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:259
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:269
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:279
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
 msgid "Add contributor"
 msgstr "Ajouter un contributeur"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:608
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
 msgid "Official"
 msgstr "Officiel"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:254
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
 msgid "Official contributors"
 msgstr "Contributeurs officiels"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:256
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
 msgid "Official forum contributors."
 msgstr "Contributeurs officiels du forum"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:606
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
 msgid "Recommended"
 msgstr "Recommandé"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:264
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
 msgid "Recommended contributors"
 msgstr "Contributeurs recommandés"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:266
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
 msgid "These forum contributors are recommended by instructor."
 msgstr "Ces contributeurs du forum sont recommandés par l'enseignant."
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:276
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
 msgid "These forum contributors are very active."
 msgstr "Contributeurs du forum particulièrement actifs"
 
