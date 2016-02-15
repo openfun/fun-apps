@@ -116,8 +116,3 @@ msgstr "Thèmes"
 msgid "Universities"
 msgstr "Etablissements"
 
-# Translated in edx by 'Université'
-#: /edx/app/edxapp/fun-apps/courses/forms.py:29
-msgid "University"
-msgstr "Établissement"
-
