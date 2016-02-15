@@ -126,29 +126,38 @@ require(["jquery", "underscore", "backbone"],
                 this.filter.trigger("initialized")
             },
             search: function(query, page, rpp) {
+                var attributes = {
+                    query: query,
+                    selected: null,
+                }
                 this.filter.set("query", query);
                 if (rpp) {
-                    this.filter.set("resultsPerPage", parseInt(rpp));
+                    attributes.resultsPerPage = parseInt(rpp);
                 }
                 if (page) {
-                    this.filter.set("currentPage", parseInt(page));
+                    attributes.currentPage = parseInt(page);
                 }
+                this.filter.set(attributes);
             },
             filter: function(name, slug, page, rpp) {
+                var attributes = {
+                    query: null,
+                }
                 if (name && name !== 'page') {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
                     var $select = $('select[id^="' + name + '"]');
                     $select.val(slug);
-                    this.filter.set('selected', value);
+                    
+                    attributes.selected = value;
                 }
                 if (rpp) {
-                    this.filter.set("resultsPerPage", parseInt(rpp));
+                    attributes.resultsPerPage = parseInt(rpp);
                 }
                 if (page) {
-                    this.filter.set("currentPage", parseInt(page));
+                    attributes.currentPage = parseInt(page);
                 }
-                this.filter.set("query", null);
+                this.filter.set(attributes);
             },
         });
 
