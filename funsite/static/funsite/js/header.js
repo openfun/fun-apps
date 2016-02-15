@@ -34,18 +34,16 @@
 
     /* Dropdown menu */
     $('#top-menu .toggle-dropdown-menu').on('click', toggleDropdown);
-     $('body').click(function(e) {
-         if ($('#top-menu .fun-dropdown-menu').is(":visible")) {
-             $('#top-menu .fun-dropdown-menu').slideUp();
-             toggleAccessiblePopUpAria(false);
-         }
+    $('body').click(function(e) {
+        if ($('#top-menu .fun-dropdown-menu').is(":visible")) {
+            $('#top-menu .fun-dropdown-menu').slideUp();
+            toggleAccessiblePopUpAria(false);
+        }
 
-	 if ($('.navigation-bar  ul.results-per-page-choices').is(":visible")){
-
-             $('.navigation-bar  ul.results-per-page-choices').hide();
-         }
-
-     });
+        if ($('.navigation-bar ul.results-per-page-choices').is(":visible")) {
+            $('.navigation-bar  ul.results-per-page-choices').hide();
+        }
+    });
 
     function toggleDropdown(event) {
         if ($('#top-menu .fun-dropdown-menu').is(":hidden")) {
