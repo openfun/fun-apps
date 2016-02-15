@@ -86,6 +86,7 @@ require(["jquery", "underscore", "backbone"],
         var AppRouter = Backbone.Router.extend({
             routes: {
                 "(filter)": "initializeFilter",
+                "search?query=:query": "search",
                 "search?query=:query&page=:page&rpp=:rpp": "search",
                 "filter(/:name/:slug)(?page=:page&rpp=:rpp)": "filter",
             },
