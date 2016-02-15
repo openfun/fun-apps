@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 4\n"
+"Project-Id-Version: France Université Numérique 6\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-02-15 15:00+0100\n"
-"PO-Revision-Date: 2016-02-15 15:00+0000\n"
+"POT-Creation-Date: 2016-02-15 15:10+0100\n"
+"PO-Revision-Date: 2016-02-15 15:10+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -221,10 +221,6 @@ msgstr "Suivi"
 msgid "Forum Admin"
 msgstr "Administrateurs des forums"
 
-#: /edx/app/edxapp/fun-apps/fun/utils/tests/test_countries.py:0
-msgid "France"
-msgstr ""
-
 # Translated in edx by 'Note requise pour le {cert_name_short}:'
 msgid "Grade required for a {cert_name_short}:"
 msgstr "Note requise pour l'attestation :"
@@ -436,19 +432,4 @@ msgstr "votre identifiant vidéo"
 # Translated in edx by 'Résumé général de {platform_name}'
 msgid "{platform_name}-wide Summary"
 msgstr "{platform_name}-Sommaire général"
-
-#~ msgid "Could not fetch subtitle:"
-#~ msgstr "Impossible de récupérer les sous-titres :"
-
-#~ msgid ""
-#~ msgstr ""
-
-#~ msgid "English"
-#~ msgstr "Anglais"
-
-#~ msgid "French"
-#~ msgstr "Français"
-
-#~ msgid "German"
-#~ msgstr "Allemand"
 
