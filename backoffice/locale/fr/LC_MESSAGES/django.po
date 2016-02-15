@@ -59,11 +59,6 @@ msgstr "Attestation"
 msgid "Certificate Management"
 msgstr "Gestion des attestations"
 
-# Translated in edx by 'Certificats'
-msgctxt "change-user-grade"
-msgid "Certificates"
-msgstr "Attestations"
-
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:131
 msgid "Change password"
 msgstr "Changer le mot de passe"
@@ -71,18 +66,6 @@ msgstr "Changer le mot de passe"
 #: /edx/app/edxapp/fun-apps/backoffice/admin.py:80
 msgid "Comment as service client Permission"
 msgstr "Permission de forum"
-
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:81
-msgid "Comment as service client Permissions"
-msgstr "Permissions de forum"
-
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:68
-msgid "Comment as service client Role"
-msgstr "Rôle de forum"
-
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:69
-msgid "Comment as service client Roles"
-msgstr "Rôles de forum"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:9
 msgid "Confirm ban of user"

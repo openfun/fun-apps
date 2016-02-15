@@ -36,7 +36,7 @@
         </div>
 
         <div class="col-xs-4">
-            {{ course_infos|length }} {% blocktrans count counter=course_infos|length %}course{% plural %}courses{% endblocktrans %}{% if pattern %} {% trans "for your search pattern" %}{% endif %}
+            {{ course_infos|length }} {% blocktrans %}courses{% endblocktrans %}{% if pattern %} {% trans "for your search pattern" %}{% endif %}
         </div>
 
         <table class="table table-striped table-hover" id="courses-list">
