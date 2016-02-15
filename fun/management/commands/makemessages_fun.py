@@ -191,7 +191,16 @@ def keep_overriden_messages(fun_catalog, edx_catalog):
 
     for message_id in overriden_message_ids:
         # default=None is actually required here because of a quirkness in how odict.pop works
-        fun_catalog[message_id] = fun_catalog.obsolete.pop(message_id, default=None)
+        try:
+            fun_catalog[message_id] = fun_catalog.obsolete.pop(message_id, default=None)
+        except:
+            print (
+                "Error while processing message {}. Please check if the message "
+                "still exists in the application and should not be removed from "
+                "the .po file. Note that context and pluralization is not "
+                "supported by babel in Django templates."
+            ).format(message_id)
+            raise
 
 def check_catalog(catalog):
     missing_translations = sorted([
