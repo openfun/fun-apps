@@ -123,8 +123,9 @@ class MessageMaker(object):
             # Verify catalog
             check_catalog(fun_catalog)
 
-        # Fix headers
+        # Fix headers and message locations
         fix_catalog_properties(fun_catalog)
+        remove_line_numbers(fun_catalog)
 
         # Save result
         self.stdout.write("Updating %s...\n" % path_fun_po)
@@ -225,6 +226,16 @@ def fix_catalog_properties(catalog):
     catalog.msgid_bugs_address = "team@openfun.fr"
     catalog.language_team = "FUN <team@openfun.fr>"
     catalog.last_translator = catalog.language_team
+
+def remove_line_numbers(catalog):
+    """Replace line numbers by 0
+
+    Line numbers need to be integers to make formatting work. We don't want to
+    keep line numbers because they complicate pull requests. So we replace them
+    by a fixed value ('0').
+    """
+    for message in catalog:
+        message.locations = sorted(set([(path, 0) for (path, _lineno) in message.locations]))
 
 def write_po_catalog(catalog, path):
     with open(path, "w") as catalog_file:
