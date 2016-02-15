@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 5\n"
+"Project-Id-Version: France Université Numérique 6\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-17 08:24+0100\n"
-"PO-Revision-Date: 2015-12-17 08:24+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,392 +13,381 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:101
+#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "A certificate generation is already running"
 msgstr "Une génération d'attestation est déjà en cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:48
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Account created:"
 msgstr "Compte créé :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:321
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 #, python-format
 msgid "Activation email has been resent to user %s at addresse: %s"
 msgstr "L'email d'activation de l'utilisateur %s a été renvoyé à l'adresse %s"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:35
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
 msgid "Article"
 msgstr "Article"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:34
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:0
 msgid "Backoffice"
 msgstr "Backoffice"
 
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:16
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:0
 msgid "Celery task result"
 msgstr "Résultat de tâche Celery"
 
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:17
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:0
 msgid "Celery task results"
 msgstr "Résultats de tâches Celery"
 
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:23
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:0
 msgid "Celery taskset result"
 msgstr "Résultat de groupe de tâches Celery"
 
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:24
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:0
 msgid "Celery taskset results"
 msgstr "Résultats de groupes de tâches Celery"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:34
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:74
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Certificate"
 msgstr "Attestation"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:74
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Certificate Management"
 msgstr "Gestion des attestations"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:131
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:80
-msgid "Comment as service client Permission"
-msgstr "Permission de forum"
-
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:9
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:0
 msgid "Confirm ban of user"
 msgstr "Confirmer l'exclusion de l'utilisateur"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:9
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:0
 msgid "Confirm unban of user"
 msgstr "Confirmer la réintegration de l'utilisateur"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:206
-#: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:123
+#: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 #, python-format
 msgid "Course <strong>%s</strong> has been deleted."
 msgstr "Le cours <strong>%s</strong> a été supprimé"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:37
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Course information"
 msgstr "Informations sur le cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:22
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:0
 msgid "Create new article"
 msgstr "Créer un nouvel article"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:104
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Delete course"
 msgstr "Supprimer un cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:80
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Delete this course"
 msgstr "Supprimer ce cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:34
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:38
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Download"
 msgstr "Télécharger"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:76
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Download ORA2 submissions"
 msgstr "Télécharger les évaluations par les pairs ORA2"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:9
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Download open assessment submissions"
 msgstr "Télécharger les évaluations par les pairs"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:17
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:62
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "Draft"
 msgstr "Brouillon"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:147
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Effort"
 msgstr "Effort"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:60
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Email is OK"
 msgstr "L'adresse est verifiée"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:49
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "End"
 msgstr "Fin"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:145
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "End date"
 msgstr "Date de fin"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:35
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:75
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Enrolled students"
 msgstr "Etudiants inscrits"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:146
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:51
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Enrollment end"
 msgstr "Fin d'inscription"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:146
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:50
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Enrollment start"
 msgstr "Début d'inscription"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:52
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:86
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Enrollments"
 msgstr "Inscriptions"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_grade.html:9
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_grade.html:0
 msgid "Enter new grade (range from 0 to 1):"
 msgstr "Entrez la nouvelle note (comprise entre 0 et 1) :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_password.html:7
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_password.html:0
 msgid "Enter new password"
 msgstr "Saisissez le nouveau mot de passe"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:91
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Forum"
 msgstr "Forum"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:121
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:26
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Generate"
 msgstr "Générer"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:113
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Generate certificate"
 msgstr "Génération des attestations"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:22
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Generate certificates"
 msgstr "Générer les attestations"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:21
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Generate new dump of open assessment submissions:"
 msgstr "Générer un nouveau dump des évaluations par les pairs"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:21
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Generate test certificate"
 msgstr "Générer une attestation de test"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:296
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Grades range from 0 to 1."
 msgstr "Les notes sont comprises entre 0 et 1."
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:37
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "ID: "
 msgstr "ID :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:45
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "Ident"
 msgstr "Identifiant"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:147
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Image"
 msgstr "Image"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:24
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:32
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:0
 msgid "Information"
 msgstr "Informations sur le cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:293
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Invalid certificate grade."
 msgstr "Note de l'attestation invalide."
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:347
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Invalid user action."
 msgstr "Action de l'utilisateur invalide."
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:56
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Is active:"
 msgstr "Actif :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:52
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Last connection:"
 msgstr "Dernière connexion :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:35
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Last file generated on: "
 msgstr "Dernier fichier généré à :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:35
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Name: "
 msgstr "Nom :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:57
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:0
 msgid "No article"
 msgstr "Aucun article"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:169
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "No certificates generated."
 msgstr "Aucune attestation générée."
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:123
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "No course enrollments"
 msgstr "Aucune inscription"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:69
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "No result"
 msgstr "Pas de résultat"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:81
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "No result for this search pattern"
 msgstr "Pas de résultat pour cette recherche"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:90
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Opt out"
 msgstr "Opt out"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:144
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Organisation code"
 msgstr "Code établissement"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:159
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Pdf"
 msgstr "Pdf"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:29
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Pending Certificate Tasks"
 msgstr "Génération d'attestations en cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/base_modal_form.html:11
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/base_modal_form.html:0
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:116
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Please confirm that you really want to generate a certificate for course:"
 msgstr "Veuillez confirmer la génération des certificats pour le cours :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:108
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Please confirm you really want to delete this course:"
 msgstr "Veuillez confirmer la suppression de ce cours :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:52
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
 msgid "Preview news page"
 msgstr "Prévisualiser la page des actualités"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:70
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Previous Certificate Tasks"
 msgstr "Historique des générations d'attestations"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:42
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:16
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:61
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "Published"
 msgstr "Publié"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:66
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:0
 msgid "Remove wiki permissions"
 msgstr "Fermer le wiki en écriture"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:147
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Resend activation email"
 msgstr "Renvoyer le mail d'activation"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:64
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:0
 msgid "Restore wiki permissions"
 msgstr "Ouvrir le wiki en écriture"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:145
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Run"
 msgstr "Exécuter"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:48
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:89
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Sample"
 msgstr "Échantillon"
 
 # Translated in edx by 'Enregistrer'
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:57
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:79
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Save"
 msgstr "Enregistrer"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:53
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "See"
 msgstr "Voir"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:75
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "See course"
 msgstr "Voir le cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:103
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "See user contributions to course forum"
 msgstr "Voir les contributions de l'utilisateur dans le forum du cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:48
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "Start"
 msgstr "Début"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:145
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Start date"
 msgstr "Date de début"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:50
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:0
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:146
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Students count"
 msgstr "Nombre d'étudiants"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:110
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Students enrolled"
 msgstr "Utilisateurs inscrits"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:39
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "Students enrolled in this course: "
 msgstr "Utilisateurs inscrits à ce cours : "
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:36
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:76
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Students with certificate"
 msgstr "Apprenants ayant obtenu l'attestation"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:37
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:77
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Students without certificate"
 msgstr "Apprenants n'ayant pas obtenu l'attestation"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:14
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Submissions dump is being generated..."
 msgstr "Dump des évaluations en cours de génération..."
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:11
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:36
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:0
 msgid "Support team"
 msgstr "Cellule d'appui"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:39
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:79
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Task Start"
 msgstr "Démarrage de la tâche"
 
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:53
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:0
 msgid "Temporary account suspension"
 msgstr "Suspension temporaire de compte"
 
-#: /edx/app/edxapp/fun-apps/backoffice/admin.py:54
+#: /edx/app/edxapp/fun-apps/backoffice/admin.py:0
 msgid "Temporary account suspensions"
 msgstr "Suspensions temporaires de compte"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:41
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "This account is disabled since:"
 msgstr "Cet utilisateur a été exclu depuis :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:65
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 msgid "This course does not belong to any university"
 msgstr "Ce cours n'est lié à aucun établissement"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:445
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "This course has no wiki"
 msgstr "Ce cours n'a pas de wiki."
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:47
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:0
 msgid ""
 "This is the tree structure of this course wiki. Between parenthesis is "
 "the number of revisions, and date of the last one, of page which indicate"
@@ -411,107 +400,105 @@ msgstr ""
 " verte la page est éditable, si elle est rouge, les permissions "
 "d'écriture ont été retirées."
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:73
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "This user does not have edX profile"
 msgstr "Cet utilisateur n'a pas de profile edX"
 
 # Translated in edx by 'Titre'
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:144
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:47
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Title"
 msgstr "Titre"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:40
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Total Duration (sec)"
 msgstr "Durée totale (sec)"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:137
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Unban"
 msgstr "Réintégrer"
 
-#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:60
-#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:95
+#: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "University doesn't exist"
 msgstr "Cette établissement n'existe pas"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:192
-#: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:130
+#: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 #, python-format
 msgid "University with code <strong>%s</strong> does not exist."
 msgstr "L'établissement avec le code <strong>%s</strong> n'existe pas."
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:147
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Url"
 msgstr "Url"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:378
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 #, python-format
 msgid "User %s has been modified"
 msgstr "L'utilisateur %s a été modifié"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:62
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "User does not validate it email address"
 msgstr "L'utilisateur n'a pas validé son email"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:300
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "User grade changed."
 msgstr "La note de l'apprenant a été modifiée."
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:98
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "User has opted out key emails"
 msgstr "L'utilisateur s'est désinscrit des emails de ce cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:36
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "User name: "
 msgstr "Nom utilisateur :"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:278
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "User password changed"
 msgstr "Le mot de passe de l'utilisateur a été changé"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:440
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Wiki could not be "
 msgstr "Le wiki n'a pas pu être "
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:438
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Wiki was successfully "
 msgstr "Le wiki a bien été "
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:41
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "by"
 msgstr "par"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:23
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "by username, name or email"
 msgstr "par le nom d'utilisateur, le nom ou l'email"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:435
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "closed"
 msgstr "femé"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:39
-msgid "course"
-msgid_plural "courses"
-msgstr[0] "cours"
-msgstr[1] "cours"
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
+#, fuzzy
+msgid "courses"
+msgstr "cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:39
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "for your search pattern"
 msgstr "pour votre critère de recherche"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:435
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "opened"
 msgstr "ouvert"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:32
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "results"
 msgstr "résultats"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:28
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
 msgid "university or course name"
 msgstr "établissement ou nom de cours"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:29
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
 
@@ -532,4 +519,7 @@ msgstr "utilisateurs"
 #~ msgctxt "change-user-password"
 #~ msgid "Change password"
 #~ msgstr "Changer le mot de passe"
+
+#~ msgid "Comment as service client Permission"
+#~ msgstr "Permission de forum"
 

@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 1\n"
+"Project-Id-Version: France Université Numérique 2\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-16 17:48+0100\n"
-"PO-Revision-Date: 2015-12-16 17:48+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,39 +13,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:17
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:0
 msgid "Action"
 msgstr "Action"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:28
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:0
 msgid "Add subtitles"
 msgstr "Ajouter sous-titres"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/videoupload.js:123
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/videoupload.js:0
 msgid "Are you sure you want to delete this video?"
 msgstr "Etes-vous certain de vouloir supprimer cette vidéo ?"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:44
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:0
 msgid "Cancel upload"
 msgstr "Annuler envoi"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:41
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:0
 msgid "Change thumbnail"
 msgstr "Changer la vignette"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/list.underscore:10
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/list.underscore:0
 msgid "Created at"
 msgstr "Créée à"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:69
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:0
 msgid "Delete this video"
 msgstr "Supprimer cette vidéo"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:23
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:0
 msgid "Edit video title"
 msgstr "Modifier le titre de la vidéo"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/videoupload.js:132
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/videoupload.js:0
 msgid ""
 "Once this video is deleted, it will no longer be available in the courses"
 " that include it. This action is irreversible."
@@ -53,40 +53,42 @@ msgstr ""
 "Une fois que cette vidéo sera supprimée, elle ne sera plus disponible "
 "dans les cours qui l'ont déjà inclue. Cette action est irréversible."
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:63
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:0
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:50
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:0
 msgid "Publish this video"
 msgstr "Publier cette vidéo"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:6
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters.underscore:0
 msgid "Subtitles"
 msgstr "Sous-titres"
 
-# Translated in edx by 'Le nom complet visible sur vos certificats. Les autres
-# étudiants ne pourrons pas voir votre nom complet.'
-msgid ""
-"The name that appears on your certificates. Other learners never see your"
-" full name."
-msgstr ""
-"Le nom complet visible sur vos certificats. Les autres étudiants ne "
-"pourront pas voir votre nom complet."
-
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters-thumbnail.underscore:2
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters-thumbnail.underscore:0
 msgid "Thumbnail"
 msgstr "Vignette"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:56
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/video.underscore:0
 msgid "Unpublish this video"
 msgstr "Dé-publier cette vidéo"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/videoupload.js:517
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/videoupload.js:0
 msgid "Video parameters"
 msgstr "Paramètres vidéo"
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters-thumbnail.underscore:4
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters-thumbnail.underscore:0
 msgid "Video thumbnail"
 msgstr "Vignette de la vidéo"
+
+# Translated in edx by 'Le nom complet visible sur vos certificats. Les autres
+# étudiants ne pourront pas voir votre nom complet.'
+#~ msgid ""
+#~ "The name that appears on your "
+#~ "certificates. Other learners never see "
+#~ "your full name."
+#~ msgstr ""
+#~ "Le nom complet visible sur vos "
+#~ "certificats. Les autres étudiants ne "
+#~ "pourront pas voir votre nom complet."
 

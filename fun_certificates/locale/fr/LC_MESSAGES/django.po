@@ -2,10 +2,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 20\n"
+"Project-Id-Version: France Université Numérique 21\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-04 19:15+0100\n"
-"PO-Revision-Date: 2015-12-04 19:15+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -14,32 +14,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:174
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid " It does not certify that the learner was registered with {}."
 msgstr " Elle n'atteste pas que le participant était inscrit à/au {}."
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:180
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid ". The learner's identity has not been verified."
 msgstr ". L’identité du participant n’a pas été vérifiée."
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:103
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "ATTESTATION OF ACHIEVEMENT"
 msgstr "ATTESTATION DE SUIVI AVEC SUCCÈS"
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:162
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "FUN"
 msgstr ""
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:228
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "MOOC: Massive Open Online Course"
 msgstr "MOOC : cours en ligne"
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:164
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 #, python-format
 msgid "On the %m/%d/%Y"
 msgstr "Le %d/%m/%Y"
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:173
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid ""
 "The current document is not a degree or diploma and does not award "
 "credits (ECTS)."
@@ -47,20 +47,19 @@ msgstr ""
 "La présente attestation n’est pas un diplôme et ne confère pas de crédits"
 " (ECTS)."
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:183
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "The learner's identity has not been verified."
 msgstr "L’identité du participant n’a pas été vérifiée."
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:160
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "and published on the platform "
 msgstr "et diffusé sur la plate-forme "
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:133
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "has successfully completed the MOOC"
 msgstr "a suivi avec succès le MOOC"
 
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:149
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:154
+#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "proposed by "
 msgstr "proposé par "
 

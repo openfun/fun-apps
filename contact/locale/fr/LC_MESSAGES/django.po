@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 10\n"
+"Project-Id-Version: France Université Numérique 11\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-11-06 17:39+0100\n"
-"PO-Revision-Date: 2015-11-06 17:39+0000\n"
+"POT-Creation-Date: 2016-02-15 15:00+0100\n"
+"PO-Revision-Date: 2016-02-15 15:00+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,122 +13,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:41
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Accessibility for students with disabilities"
 msgstr "Une question sur l'accessibilité du site FUN pour les étudiants handicapés"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:44
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Business developement or institutional inquiry"
 msgstr "Une demande institutionnelle"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:42
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Certification and exams"
 msgstr "Les examens et les attestations"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:53
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Contact request - {}"
 msgstr "Contact - {}"
 
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form.html:14
+#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form.html:0
 msgid "Contact us"
 msgstr "Nous contacter"
 
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form.html:15
-msgid ""
-"Do you already follow one or several courses on {platform_name}? If you "
-"have questions, suggestions or difficulties about a course in particular?"
-" Post a comment on the related forum."
-msgstr ""
-"Vous suivez déjà un ou plusieurs cours sur {platform_name} ? Vous avez "
-"des questions, des suggestions ou des difficultés à propos d'un cours en "
-"particulier ? Postez un commentaire sur le forum relatif au cours en "
-"question."
-
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form.html:17
-msgid ""
-"Do you have a general question about {platform_name}? Visit our <a "
-"href='{faq_link}'>FAQ</a>. If you still need help, or if you would like "
-"to provide feedback about {platform_name} (which we encourage you to do),"
-" contact us using the form below."
-msgstr ""
-"Vous avez une question d'ordre général à propos de FUN ? Visitez notre <a"
-" href='{faq_link}'>rubrique FAQ</a>. Si vous avez encore besoin d'aide, "
-"ou si vous voulez nous faire part de vos impressions sur FUN (ce que nous"
-" vous encourageons à faire), contactez-nous via le formulaire ci-dessous."
-
-#: /edx/app/edxapp/fun-apps/contact/forms.py:12
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Email address"
 msgstr "Adresse email"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:22
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Example: +33 6 24 01 19 82"
 msgstr "Exemple : +33 6 24 01 19 82"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:18
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Example: John Doe"
 msgstr "Exemple: Pierre Maumont"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:14
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Example: john@example.com"
 msgstr "Exemple: pierre@exemple.fr"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:25
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Function"
 msgstr "Fonction"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:31
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Journalist"
 msgstr "Journaliste"
 
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form.html:43
-msgid "Mandatory field"
-msgstr "Champ obligatoire"
-
-#: /edx/app/edxapp/fun-apps/contact/forms.py:49
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Message"
 msgstr "Message"
 
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form_sent.html:10
+#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form_sent.html:0
 msgid "Message sent!"
 msgstr "Message envoyé !"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:43
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "My account"
 msgstr "Mon compte"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:37
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "My request is about"
 msgstr "Ma demande concerne"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:20
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Phone number"
 msgstr "Numéro de téléphone"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:39
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Registration and activation"
 msgstr "L'inscription et l'activation de mon compte"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:30
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Researcher"
 msgstr "Chercheur"
 
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form.html:42
-msgid "Send your message"
-msgstr "Envoyer votre message"
-
-#: /edx/app/edxapp/fun-apps/contact/forms.py:28
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Teacher"
 msgstr "Enseignant"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:29
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Teaching Engineer"
 msgstr "Ingénieur pédagogique"
 
-#: /edx/app/edxapp/fun-apps/contact/forms.py:40
+#: /edx/app/edxapp/fun-apps/contact/forms.py:0
 msgid "Technology problem"
 msgstr "Un problème technique rencontré sur FUN"
 
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form_sent.html:11
+#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form_sent.html:0
 msgid ""
 "Thank you for your message. It has been successfully recorded, we will "
 "answer you as soon as possible."
@@ -136,7 +105,47 @@ msgstr ""
 "Merci pour votre message. Nous l'avons bien reçu, et nous vous répondrons"
 " dès que possible."
 
-#: /edx/app/edxapp/fun-apps/contact/templates/contact/contact_form.html:22
-msgid "The following errors are preventing the message from being sent:"
-msgstr "Les erreurs suivantes se sont produites pendant l'envoi :"
+#~ msgid ""
+#~ "Do you already follow one or "
+#~ "several courses on {platform_name}? If "
+#~ "you have questions, suggestions or "
+#~ "difficulties about a course in "
+#~ "particular? Post a comment on the "
+#~ "related forum."
+#~ msgstr ""
+#~ "Vous suivez déjà un ou plusieurs "
+#~ "cours sur {platform_name} ? Vous avez"
+#~ " des questions, des suggestions ou "
+#~ "des difficultés à propos d'un cours "
+#~ "en particulier ? Postez un commentaire"
+#~ " sur le forum relatif au cours "
+#~ "en question."
+
+#~ msgid ""
+#~ "Do you have a general question "
+#~ "about {platform_name}? Visit our <a "
+#~ "href='{faq_link}'>FAQ</a>. If you still need"
+#~ " help, or if you would like to"
+#~ " provide feedback about {platform_name} "
+#~ "(which we encourage you to do), "
+#~ "contact us using the form below."
+#~ msgstr ""
+#~ "Vous avez une question d'ordre général"
+#~ " à propos de FUN ? Visitez "
+#~ "notre <a href='{faq_link}'>rubrique FAQ</a>. "
+#~ "Si vous avez encore besoin d'aide, "
+#~ "ou si vous voulez nous faire part"
+#~ " de vos impressions sur FUN (ce "
+#~ "que nous vous encourageons à faire), "
+#~ "contactez-nous via le formulaire ci-"
+#~ "dessous."
+
+#~ msgid "Mandatory field"
+#~ msgstr "Champ obligatoire"
+
+#~ msgid "Send your message"
+#~ msgstr "Envoyer votre message"
+
+#~ msgid "The following errors are preventing the message from being sent:"
+#~ msgstr "Les erreurs suivantes se sont produites pendant l'envoi :"
 
