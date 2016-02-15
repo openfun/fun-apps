@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 42\n"
+"Project-Id-Version: France Université Numérique 45\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2015-12-22 12:06+0100\n"
-"PO-Revision-Date: 2015-12-22 12:06+0000\n"
+"POT-Creation-Date: 2016-02-15 11:34+0100\n"
+"PO-Revision-Date: 2016-02-15 11:34+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -13,21 +13,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:52
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:607
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:664
 msgid "All themes"
 msgstr "Tous les thèmes"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:57
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:615
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:672
 msgid "All universities"
 msgstr "Tous les établissements"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:47
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:46
 msgid "Availability"
 msgstr "Disponibilité"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:63
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:72
 msgid "Certified training"
 msgstr "Formation certifiante"
 
@@ -45,8 +43,8 @@ msgstr "Les thématiques: "
 
 # Translated in edx by 'Cours'
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:11
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:554
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:564
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:611
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:621
 msgid "Courses"
 msgstr "Les cours"
 
@@ -63,8 +61,8 @@ msgstr "Fin des inscriptions: "
 msgid "Enrollment starts : "
 msgstr "Début des inscriptions: "
 
-#: /edx/app/edxapp/fun-apps/course_pages/views.py:53
-#: /edx/app/edxapp/fun-apps/course_pages/tests/test_feed.py:54
+#: /edx/app/edxapp/fun-apps/course_pages/views.py:50
+#: /edx/app/edxapp/fun-apps/course_pages/tests/test_feed.py:42
 msgid "Fun latest published courses"
 msgstr "Derniers cours publiés sur FUN"
 
@@ -72,7 +70,7 @@ msgstr "Derniers cours publiés sur FUN"
 msgid "Imminent end of enrollment"
 msgstr "Fin d'inscription imminente"
 
-#: /edx/app/edxapp/fun-apps/course_pages/views.py:55
+#: /edx/app/edxapp/fun-apps/course_pages/views.py:52
 msgid "Latests courses published on www.france-universite-numerique-mooc.fr"
 msgstr "Derniers cours publiés sur www.france-universite-numerique-mooc.fr"
 
@@ -88,8 +86,8 @@ msgstr "Nouveautés"
 msgid "Proposed by"
 msgstr "Cours proposé par"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:577
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:584
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:634
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:641
 msgid "Refine search results"
 msgstr "Affiner les résultats"
 
@@ -108,11 +106,11 @@ msgstr "Débute"
 msgid "Starts soon"
 msgstr "Démarre bientôt"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:52
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:54
 msgid "Themes"
 msgstr "Thèmes"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:57
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:63
 msgid "Universities"
 msgstr "Etablissements"
 
@@ -120,4 +118,12 @@ msgstr "Etablissements"
 #: /edx/app/edxapp/fun-apps/courses/forms.py:29
 msgid "University"
 msgstr "Établissement"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:55
+msgid "View <%= count %> themes"
+msgstr "Voir les <%= count %> thèmes"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:64
+msgid "View <%= count %> universities"
+msgstr "Voir les <%= count %> établissements"
 

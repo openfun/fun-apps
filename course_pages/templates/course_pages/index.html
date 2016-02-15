@@ -52,7 +52,7 @@ require(["jquery", "underscore", "backbone"],
             },
             {
                 title: '${_("Themes")}', name: 'subject', type: 'select', select: '#theme-select',
-                max: 8, all_button: "${_('All themes')}", overlay: '#all-themes-overlay',
+                max: 8, all_button: "${_('View <%= count %> themes')}", overlay: '#all-themes-overlay',
                 values: [
                     %for course_subject in course_subjects:
                     {value: "${course_subject.slug}", title: "${course_subject.get_short_name()}", count: ${course_subject.public_courses_count}},
@@ -61,7 +61,7 @@ require(["jquery", "underscore", "backbone"],
             },
             {
                 title: "${_('Universities')}", name: 'university', type: 'select', select: '#university-select',
-                max: 10, all_button: "${_('All universities')}", overlay: '#all-universities-overlay',
+                max: 10, all_button: "${_('View <%= count %> universities')}", overlay: '#all-universities-overlay',
                 values: [
                     %for university in universities:
                     {value: "${university.code}", title: "${university.get_short_name()}", count: ${university.public_courses_count}},
@@ -340,8 +340,14 @@ require(["jquery", "underscore", "backbone"],
                 this.$el.html($('<h2>').text(this.model.get('title')));
                 this.$el.append(this.valuecollectionview.render().el);
                 if (this.model.get('all_button')) {
-                    this.$el.append($('<span>').attr(
-                            {'class': 'btn btn-transparent btn-dark-bg btn-block btn-padded all-items'}).text(this.model.get('all_button')))
+                    var allButtonContent = "<i class='glyphicon glyphicon-plus'></i> ";
+                    allButtonContent += _.template(this.model.get("all_button"))({
+                        count: this.model.valuecollection.length
+                    });
+                    var allButton = $('<span>').attr({'class': 'btn btn-transparent btn-dark-bg btn-block btn-padded all-items'});
+                    allButton.html(allButtonContent);
+
+                    this.$el.append(allButton);
                 }
 
                 return this;
