@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 2\n"
+"Project-Id-Version: France Université Numérique 4\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-02-15 15:00+0100\n"
-"PO-Revision-Date: 2016-02-15 15:00+0000\n"
+"POT-Creation-Date: 2016-02-15 15:10+0100\n"
+"PO-Revision-Date: 2016-02-15 15:10+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -80,15 +80,4 @@ msgstr "Paramètres vidéo"
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/js/parameters-thumbnail.underscore:0
 msgid "Video thumbnail"
 msgstr "Vignette de la vidéo"
-
-# Translated in edx by 'Le nom complet visible sur vos certificats. Les autres
-# étudiants ne pourront pas voir votre nom complet.'
-#~ msgid ""
-#~ "The name that appears on your "
-#~ "certificates. Other learners never see "
-#~ "your full name."
-#~ msgstr ""
-#~ "Le nom complet visible sur vos "
-#~ "certificats. Les autres étudiants ne "
-#~ "pourront pas voir votre nom complet."
 
