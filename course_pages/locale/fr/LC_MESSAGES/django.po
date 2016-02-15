@@ -114,11 +114,6 @@ msgstr "Thèmes"
 msgid "Universities"
 msgstr "Etablissements"
 
-# Translated in edx by 'Université'
-#: /edx/app/edxapp/fun-apps/courses/forms.py:29
-msgid "University"
-msgstr "Établissement"
-
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:55
 msgid "View <%= count %> themes"
 msgstr "Voir les <%= count %> thèmes"
@@ -126,4 +121,3 @@ msgstr "Voir les <%= count %> thèmes"
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:64
 msgid "View <%= count %> universities"
 msgstr "Voir les <%= count %> établissements"
-

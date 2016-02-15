@@ -89,13 +89,6 @@ msgstr "Introduction"
 msgid "Set 0 if session doesn't make sense for this course."
 msgstr "Mettre à 0 s'il n'y a pas de notion de session pour ce cours."
 
-# Translated in edx by 'Commence'
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/big.html:36
-#: /edx/app/edxapp/fun-apps/courses/templates/courses/course-block/small.html:36
-msgctxt "course-block"
-msgid "Starts"
-msgstr "Débute"
-
 # Translated in edx by 'Université'
 #: /edx/app/edxapp/fun-apps/courses/forms.py:29
 msgid "University"
