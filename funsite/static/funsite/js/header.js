@@ -82,14 +82,9 @@
             if (pattern) {
                 window.location.href = '/cours/#search?' + $.param([
                     {name: 'query', value: pattern},
-                    {name: 'page', value: 1},
-                    {name: 'rpp', value: 50},
                 ]);
             } else {
-                window.location.href = '/cours/#filter?' + $.param([
-                    {name: 'page', value: 1},
-                    {name: 'rpp', value: 50},
-                ]);
+                window.location.href = '/cours/#';
             }
         }
     });

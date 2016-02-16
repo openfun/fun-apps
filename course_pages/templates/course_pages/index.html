@@ -85,53 +85,22 @@ require(["jquery", "underscore", "backbone"],
 
         var AppRouter = Backbone.Router.extend({
             routes: {
-                "(filter)": "initializeFilter",
-                "search?query=:query": "search",
+                "filter/:name/:slug?page=:page&rpp=:rpp": "filter",
+                "filter/:name/:slug": "filter",
+                "filter": "filter",
+                "": "filter",
                 "search?query=:query&page=:page&rpp=:rpp": "search",
-                "filter(/:name/:slug)(?page=:page&rpp=:rpp)": "filter",
+                "search?query=:query": "search",
             },
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
                 this.filter = options.filter;
-                this.listenTo(this.filter, 'change', this.updateUrl);
-            },
-            updateUrl: function() {
-                var url = "";
-                var selected = this.filter.get("selected");
-                var page = this.filter.get("currentPage");
-                var rpp = this.filter.get("resultsPerPage");
-                var query = this.filter.get("query");
-                var parameters = [];
-
-                // Action
-                if (selected) {
-                    url = 'filter/' + selected.criterionName() + '/' + selected.get('value');
-                } else if (query) {
-                    parameters.push({name: "query", value: query});
-                    url = 'search';
-                } else {
-                    url = 'filter';
-                }
-                // Optional parameters
-                if ((page && page != "1") || (rpp && rpp != "50")) {
-                    parameters.push({name: "page", value: page});
-                    parameters.push({name: "rpp", value: rpp});
-                }
-                if (parameters.length > 0) {
-                    url += '?' + $.param(parameters);
-                }
-
-                this.navigate(url, {trigger: false});
-            },
-            initializeFilter: function() {
-                this.filter.trigger("initialized")
             },
             search: function(query, page, rpp) {
                 var attributes = {
                     query: query,
                     selected: null,
                 }
-                this.filter.set("query", query);
                 if (rpp) {
                     attributes.resultsPerPage = parseInt(rpp);
                 }
@@ -144,13 +113,15 @@ require(["jquery", "underscore", "backbone"],
                 var attributes = {
                     query: null,
                 }
-                if (name && name !== 'page') {
+                if (name) {
                     var criterion = this.criterioncollection.findWhere({'name': name});
                     var value = criterion.getValue(slug);
                     var $select = $('select[id^="' + name + '"]');
                     $select.val(slug);
                     
                     attributes.selected = value;
+                } else {
+                    attributes.selected = null;
                 }
                 if (rpp) {
                     attributes.resultsPerPage = parseInt(rpp);
@@ -424,7 +395,33 @@ require(["jquery", "underscore", "backbone"],
             initialize: function(options) {
                 this.resultstats = options.resultstats;
                 this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.model, 'change', this.updateUrl);
                 this.listenTo(this.resultstats, 'change', this.render);
+            },
+            updateUrl: function() {
+                var url = "";
+                var selected = this.model.get("selected");
+                var query = this.model.get("query");
+                var page = this.model.get("currentPage");
+                var rpp = this.model.get("resultsPerPage");
+                var parameters = [];
+
+                // Action
+                if (selected) {
+                    url = 'filter/' + selected.criterionName() + '/' + selected.get('value');
+                } else if (query) {
+                    url = 'search';
+                    parameters.push({name: "query", value: query});
+                } else {
+                    url = 'filter';
+                }
+                if (page || rpp) {
+                    parameters.push({name: "page", value: page || 1});
+                    parameters.push({name: "rpp", value: rpp || 50});
+                }
+                url += '?' + $.param(parameters);
+
+                Backbone.history.navigate(url, {trigger: false});
             },
             events: {
                 "click .glyphicon-remove": "clearSelectedValue",
@@ -584,7 +581,6 @@ require(["jquery", "underscore", "backbone"],
 
                 this.refreshCourseRequest = null;
 
-                Backbone.history.start();
             },
             criterionSelected: function(value) {
                 this.filter.startNewSearch(value);
@@ -612,6 +608,8 @@ require(["jquery", "underscore", "backbone"],
             el: $('#course-search'),
             filters: FILTERS
         });
+        Backbone.history.start();
+        App.refreshCourses();
     });
 </script>
 </%block>
