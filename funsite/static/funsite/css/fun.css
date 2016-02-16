@@ -273,7 +273,7 @@ h3.big-title {
 }
 
 .btn.btn-padded {
-    padding: 12px;
+    padding: 12px 2px 12px 2px;
 }
 .btn.btn-spaced {
     margin-top: 40px;
