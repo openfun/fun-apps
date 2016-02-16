@@ -1,5 +1,15 @@
 # Changelog www.france-universite-numerique.fr
 
+## 3.6 18/02/2016
+- Recherche de cours par titre, sujet, université, enseignants ou description.
+- Backoffice : accélération de la recherche d'utilisateurs
+- Correction de la liste des langues dans la page de paramètres du compte
+- Rectification de la croix rouge et de la coche vert indiquant la validité d'une réponse à une question à choix multiples
+- Rectification des statistiques de répartition des réponses dans le tableau de bord de cours
+- Rectification des statistiques de répartition geographique des utilisateurs dans le tableau de bord de cours
+- Mise en cohérence du format des images utilisées pour les actualités
+- Affichage des langues de cours dans le syllabus
+
 
 ## 3.5 04/02/2016
 - Mise en cache des données de l'API Libcast pour améliorer la stabilité
