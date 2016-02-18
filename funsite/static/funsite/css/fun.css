@@ -653,7 +653,7 @@ ul.breadcrumbs li a:hover {
 
     text-align: center;
     width: 100%;
-    background-position: center center;
+    background-position: center top;
     background-repeat: no-repeat;
     padding: 0 20px;
 }
