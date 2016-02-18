@@ -28,6 +28,8 @@ INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
     'pure_pagination',
 
+    'payment',
+
     'forum_contributors',
     'selftest',
     'password_container', # this is an xblock we add to applications to allow syncdb of its models
@@ -99,6 +101,7 @@ MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
     FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'course_pages/templates',
+    FUN_BASE_ROOT / 'payment/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
     FUN_BASE_ROOT / 'newsfeed/templates',
@@ -188,6 +191,8 @@ PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
+
+FEATURES['ENABLE_PAYMENT_FAKE'] = True
 
 
 EDX_API_KEY = 'test'
