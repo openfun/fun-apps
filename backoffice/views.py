@@ -4,6 +4,7 @@ import csv
 from collections import namedtuple, defaultdict
 import datetime
 import logging
+import random
 import re
 
 from django.conf import settings
@@ -20,7 +21,8 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from pure_pagination import Paginator, PageNotAnInteger
 
 from bulk_email.models import Optout
-from certificates.models import GeneratedCertificate
+from capa.xqueue_interface import make_hashkey
+from certificates.models import GeneratedCertificate, CertificateStatuses
 from courseware.courses import course_image_url, get_courses, get_cms_course_link
 from edxmako.shortcuts import render_to_string
 from microsite_configuration import microsite
@@ -30,14 +32,18 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Use
 from xmodule_django.models import CourseKeyField
 from xmodule.modulestore.django import modulestore
 
+from backoffice.certificate_manager.utils import get_certificate_params
 from courses.models import Course, CourseUniversityRelation
 from courses.utils import get_about_section
-from newsfeed.models import Article
+from fun_certificates.generator import CertificateInfo
 from fun.utils import funwiki as wiki_utils
+from newsfeed.models import Article
 from universities.models import University
 
+from .certificate_manager.utils import generate_fun_certificate
 from .forms import SearchUserForm, UserForm, UserProfileForm, ArticleForm
 from .utils import get_course, group_required, get_course_key
+
 
 ABOUT_SECTION_FIELDS = ['effort', 'video']
 
@@ -287,19 +293,56 @@ def change_grade(request, user):
          request (HttpRequest): Contains the course id in request.POST['course-id'].
          user (User): The user attached to the certificate.
      """
-    course = get_course_key(request.POST['course-id'])
-    generated_certificate = GeneratedCertificate.objects.get(user=user, course_id=course)
+    course_id = get_course_key(request.POST['course-id'])
+    generated_certificate = GeneratedCertificate.objects.get(user=user, course_id=course_id)
     try:
         new_grade = float(request.POST['new-grade'])
     except ValueError:
         messages.error(request, _(u"Invalid certificate grade."))
+        return
     else:
         if not 0 <= new_grade <= 1:
             messages.error(request, _(u"Grades range from 0 to 1."))
         else:
             generated_certificate.grade = request.POST['new-grade']
             generated_certificate.save()
+            logger.info(u"Grade change: new grade: %d student: %s course: %s user: %s",
+                    new_grade, user.username, course_id, request.user.username)
             messages.success(request, _(u"User grade changed."))
+
+    if 'regenerate' in request.POST:
+        # Regenerate PDF and attach to already existing GeneratedCertificate,
+        # then force state to 'downloadable'.
+
+        regenerate_certificate(course_id, user, generated_certificate)
+        messages.success(request, _(u"Certificate was regenerated"))
+        logger.info(u"Certificate regeneration: new grade: %d student: %s course: %s user: %s",
+                new_grade, user.username, course_id, request.user.username)
+
+
+def regenerate_certificate(course_id, user, certificate):
+    """Generate or Regenerate PDF and attach to already existing GeneratedCertificate,
+    then force state to 'downloadable'.
+    """
+
+    (course, course_display_name, university, organization_logo,
+            certificate_base_filename, teachers,
+            certificate_language) = get_certificate_params(course_id)
+
+    if certificate.status != CertificateStatuses.downloadable:
+        certificate.key = make_hashkey(random.random())
+
+    certificate_filename = certificate_base_filename + certificate.key + ".pdf"
+    pdf = CertificateInfo(
+        user.get_profile().name, course_display_name,
+        university.name, organization_logo,
+        certificate_filename, teachers, language=certificate_language
+    )
+    pdf.generate()
+
+    certificate.status = CertificateStatuses.downloadable
+    certificate.download_url = settings.CERTIFICATE_BASE_URL + certificate_filename
+    certificate.save()
 
 
 def resend_activation_email(request, user):
@@ -371,8 +414,7 @@ def user_detail(request, username):
             continue  # enrollment can exists for course that does not exist anymore in mongo
         title = course.display_name
         course_roles = user_roles.get(key, [])
-        enrollments.append((title, enrollment.course_id, optout, course_roles))
-
+        enrollments.append((title, unicode(enrollment.course_id), optout, course_roles))
     if request.method == 'POST':
         if all([userform.is_valid(), userprofileform.is_valid()]):
             userform.save()

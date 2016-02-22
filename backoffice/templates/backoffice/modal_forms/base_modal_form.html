@@ -15,7 +15,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                    {% block modal-button %}
                     <button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
+                    {% endblock %}
                 </div>
             </div>
         </div>
