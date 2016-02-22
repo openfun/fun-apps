@@ -18,7 +18,7 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from courseware.tests.factories import StaffFactory, InstructorFactory
 from student.models import UserProfile
 
-from backoffice import views
+from backoffice import views_courses
 from fun.tests.utils import skipUnlessLms
 from universities.factories import UniversityFactory
 from courses.models import Course
@@ -115,14 +115,14 @@ class TestDeleteCourse(BaseCourseDetail):
         self.assertEqual(1, Course.objects.filter(key=self.course.id.to_deprecated_string()).count())
 
     def test_delete_course(self):
-        views.logger.warning = mock.Mock()
+        views_courses.logger.warning = mock.Mock()
         data = {'action': 'delete-course'}
         response = self.client.post(self.url, data, follow=True)
         self.assertEqual(None, modulestore().get_course(self.course.id))
         self.assertEqual(0, Course.objects.filter(key=self.course.id.to_deprecated_string()).count())
         self.assertIn(_(u"Course <strong>%s</strong> has been deleted.") % self.course.id,
                       response.content.decode('utf-8'))
-        self.assertEqual(1, views.logger.warning.call_count)
+        self.assertEqual(1, views_courses.logger.warning.call_count)
 
     def test_no_university(self):
         """In a course is not bound to an university, a alert should be shown."""
