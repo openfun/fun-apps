@@ -38,17 +38,14 @@ COURSE_FIELDS = [
     'studio_url'
 ]
 ABOUT_SECTION_FIELDS = ['effort', 'video']
-FunCourse = namedtuple('FunCourse', COURSE_FIELDS + ABOUT_SECTION_FIELDS)
+FunCourse = namedtuple('FunCourse', COURSE_FIELDS)
 CompleteFunCourse = namedtuple('CompleteFunCourse', COURSE_FIELDS + ABOUT_SECTION_FIELDS)
 
 
 @group_required('fun_backoffice')
 def courses_list(request):
-    search_pattern = request.GET.get('search')
-    course_infos = get_filtered_course_infos(search_pattern=search_pattern)
-
-    if request.method == 'POST':
-        # export as CSV
+    if request.method == 'POST': # export as CSV
+        course_infos = get_complete_courses_info()
         filename = 'export-cours-%s.csv' % datetime.datetime.now().strftime('%Y-%m-%d')
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
@@ -81,6 +78,9 @@ def courses_list(request):
             ]
             writer.writerow(row)
         return response
+    else:
+        search_pattern = request.GET.get('search')
+        course_infos = get_filtered_course_infos(search_pattern=search_pattern)
 
     return render(request, 'backoffice/courses.html', {
         'course_infos': course_infos,
@@ -95,8 +95,8 @@ def course_detail(request, course_key_string):
     States and responses from students are not yet deleted from mySQL
     (StudentModule, StudentModuleHistory are very big tables)."""
 
-    course_info = get_complete_course_info(course_key_string)
     ck = CourseKey.from_string(course_key_string)
+    course_info = get_complete_course_info(get_course(course_key_string))
     funcourse, _created = Course.objects.get_or_create(key=ck)
     try:
         university = University.objects.get(code=ck.org)
@@ -136,10 +136,8 @@ def course_detail(request, course_key_string):
 
 @group_required('fun_backoffice')
 def wiki(request, course_key_string, action=None):
-    course_info = get_complete_course_info(course_key_string)
-
-    ck = CourseKey.from_string(course_key_string)
-    course = modulestore().get_course(ck)
+    course = get_course(course_key_string)
+    course_info = get_course_infos([course])[0]
 
     base_page = wiki_utils.get_base_page(course)
 
@@ -167,24 +165,32 @@ def wiki(request, course_key_string, action=None):
         })
 
 def get_filtered_course_infos(search_pattern=None):
-    courses = modulestore().get_courses()
+    courses = get_sorted_courses()
     course_infos = get_course_infos(courses)
 
     if search_pattern:
         course_infos = [course for course in course_infos
-                if search_pattern in course.title
-                or search_pattern in course.course.id.to_deprecated_string()]
+                if search_pattern in course['title']
+                or search_pattern in course['course'].id.to_deprecated_string()]
 
     return course_infos
 
-def get_complete_course_info(course_key_string):
+def get_complete_courses_info():
+    return [get_complete_course_info(course) for course in get_sorted_courses()]
+
+def get_sorted_courses():
+    courses = modulestore().get_courses()
+    courses = sorted(courses, key=lambda course: course.number)
+    return courses
+
+def get_complete_course_info(course):
     """Complete course info for displaying the details of a course.
 
     Returns:
         CompleteFunCourse
     """
-    course = get_course(course_key_string)
     course_infos = get_course_infos([course])[0]
+    course_infos.update(get_about_sections(course))
     return CompleteFunCourse(**course_infos)
 
 def get_course_infos(course_descriptors):
@@ -201,35 +207,6 @@ def get_course_infos(course_descriptors):
         for course_descriptor in course_descriptors
     ]
 
-def get_course_info(course_descriptor, course, students_count):
-    """Returns a dict containing original edX course and some complementary properties."""
-    course_info = {
-        'course': course_descriptor,
-        'fun': course,
-        'course_image_url': course_image_url(course_descriptor),
-        'students_count': students_count,
-        'title': course_descriptor.display_name_with_default,
-        'university': course_descriptor.display_org_with_default,
-        'url': 'https://%s%s' % (
-            settings.LMS_BASE,
-            reverse('about_course', args=[course_descriptor.id.to_deprecated_string()])
-        ),
-        'studio_url': get_cms_course_link(course_descriptor),
-    }
-    course_info.update(get_about_sections(course_descriptor))
-    return course_info
-
-def get_course_enrollment_counts(course_descriptors_ids):
-    queryset = (
-        CourseEnrollment.objects
-        .filter(course_id__in=course_descriptors_ids)
-        .values('course_id')
-        .annotate(total=Count('course_id'))
-     )
-    return {
-        result['course_id']: result['total'] for result in queryset
-    }
-
 def get_about_sections(course_descriptor):
     about_sections = {
         field: get_about_section(course_descriptor, field) or ''
@@ -242,6 +219,33 @@ def get_about_sections(course_descriptor):
         except IndexError:
             pass
     return about_sections
+
+def get_course_info(course_descriptor, course, students_count):
+    """Returns a dict containing original edX course and some complementary properties."""
+    return {
+        'course': course_descriptor,
+        'fun': course,
+        'course_image_url': course_image_url(course_descriptor),
+        'students_count': students_count,
+        'title': course_descriptor.display_name_with_default,
+        'university': course_descriptor.display_org_with_default,
+        'url': 'https://%s%s' % (
+            settings.LMS_BASE,
+            reverse('about_course', args=[course_descriptor.id.to_deprecated_string()])
+        ),
+        'studio_url': get_cms_course_link(course_descriptor),
+    }
+
+def get_course_enrollment_counts(course_descriptors_ids):
+    queryset = (
+        CourseEnrollment.objects
+        .filter(course_id__in=course_descriptors_ids)
+        .values('course_id')
+        .annotate(total=Count('course_id'))
+     )
+    return {
+        result['course_id']: result['total'] for result in queryset
+    }
 
 def format_datetime(dt):
     FORMAT = '%Y-%m-%d %H:%M'
