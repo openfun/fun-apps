@@ -242,6 +242,7 @@ def get_course_enrollment_counts(course_descriptors_ids):
         .filter(course_id__in=course_descriptors_ids)
         .values('course_id')
         .annotate(total=Count('course_id'))
+        .order_by()
      )
     return {
         result['course_id']: result['total'] for result in queryset
