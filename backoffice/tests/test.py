@@ -72,13 +72,6 @@ class TestAuthentication(BaseBackoffice):
         response = self.client.get(self.list_url)
         self.assertEqual(302, response.status_code)
 
-    def test_users_belonging_to_group_should_login_and_see_no_published_course(self):
-        self.login_with_backoffice_group()
-        response = self.client.get(self.list_url)
-        self.assertEqual(200, response.status_code)
-        # user is not staff so he cannot see any published course
-        self.assertEqual(0, len(response.context['course_infos']))
-
     def test_staff_users_see_all_courses(self):
         self.user.groups.add(self.backoffice_group)
         self.user.is_staff = True

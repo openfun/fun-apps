@@ -15,7 +15,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from courses.models import Course, CourseUniversityRelation
 from courses.utils import get_about_section
-from courseware.courses import get_courses, course_image_url, get_cms_course_link
+from courseware.courses import course_image_url, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, CourseAccessRole
 from universities.models import University
@@ -45,8 +45,7 @@ CompleteFunCourse = namedtuple('CompleteFunCourse', COURSE_FIELDS + ABOUT_SECTIO
 @group_required('fun_backoffice')
 def courses_list(request):
     search_pattern = request.GET.get('search')
-    courses = get_courses(request.user)
-    course_infos = get_filtered_course_infos(courses, search_pattern=search_pattern)
+    course_infos = get_filtered_course_infos(search_pattern=search_pattern)
 
     if request.method == 'POST':
         # export as CSV
@@ -167,8 +166,9 @@ def wiki(request, course_key_string, action=None):
             'tab': 'courses',
         })
 
-def get_filtered_course_infos(courses, search_pattern=None):
-    course_infos = [FunCourse(**infos) for infos in get_course_infos(courses)]
+def get_filtered_course_infos(search_pattern=None):
+    courses = modulestore().get_courses()
+    course_infos = get_course_infos(courses)
 
     if search_pattern:
         course_infos = [course for course in course_infos
