@@ -28,7 +28,7 @@ class BaseCourseList(ModuleStoreTestCase):
 
         self.university = UniversityFactory.create()
         self.course1 = CourseFactory.create(number='001', display_name=u"unpublished",
-                                            ispublic=False)
+                                            ispublic=False, org=self.university.code)
 
         CourseAboutFactory.create(course_id=self.course1.id,
                                   course_runtime=self.course1.runtime)

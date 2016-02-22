@@ -12,12 +12,11 @@ from certificates.models import (
   CertificateStatuses as status,
 )
 
-from fun_certificates.management.commands.generate_fun_certificates import (
-    get_enrolled_students, generate_fun_certificate
-)
+from fun_certificates.management.commands.generate_fun_certificates import get_enrolled_students
 from backoffice.utils import get_course_key
 from backoffice.certificate_manager.utils import (
-    get_teachers_list_from_course, create_test_certificate, get_university_attached_to_course)
+    get_teachers_list_from_course, create_test_certificate, get_university_attached_to_course,
+    generate_fun_certificate)
 
 
 def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_input, action_name):

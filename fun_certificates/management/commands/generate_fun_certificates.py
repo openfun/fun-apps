@@ -14,73 +14,22 @@ from django.test.client import RequestFactory
 
 # edX modules
 from courseware import grades
-from xmodule.modulestore.django import modulestore
 from certificates.models import (
   certificate_status_for_student,
-  CertificateStatuses as status,
-  GeneratedCertificate)
-from student.models import UserProfile
-from capa.xqueue_interface import make_hashkey
-from universities.models import University
+  CertificateStatuses as status)
+
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys import InvalidKeyError
 
+from backoffice.certificate_manager.utils import get_certificate_params, generate_fun_certificate
 from fun_certificates.generator import CertificateInfo
-from courses.models import Course
+
 
 factory = RequestFactory()
 request = factory.get('/')
 request.session = {}
 
-def generate_fun_certificate(student,
-                             course_id,
-                             course_display_name, course,
-                             teachers,
-                             organization_display_name, organization_logo,
-                             certificate_base_filename, ignore_grades, new_grade, fail_flag):
-    """Generates a certificate for one student and one course."""
 
-    profile = UserProfile.objects.get(user=student)
-    student_name = unicode(profile.name).encode('utf-8')
-    # grade the student
-    cert, _created = GeneratedCertificate.objects.get_or_create(
-        user=student, course_id=course_id
-    )
-    request.user = student
-    grade = grades.grade(student, request, course)
-    cert.grade = grade['percent']
-    cert.user = student
-    cert.course_id = course_id
-    cert.name = profile.name
-    fail = False
-
-    if ignore_grades:
-        cert.grade = 1
-    elif new_grade:
-        fail = fail_flag
-        cert.grade = new_grade
-    elif grade['grade'] is None:
-        ## edx grading
-        fail = True
-
-    if fail:
-        cert.status = status.notpassing
-    else:
-        key = make_hashkey(random.random())
-        cert.key = key
-        certificate_filename = certificate_base_filename + key + ".pdf"
-        certificate_language = Course.get_course_language(unicode(course_id))
-        info = CertificateInfo(
-            student_name, course_display_name,
-            organization_display_name, organization_logo,
-            certificate_filename, teachers, language=certificate_language
-        )
-        info.generate()
-
-        cert.status = status.downloadable
-        cert.download_url = settings.CERTIFICATE_BASE_URL + certificate_filename
-    cert.save()
-    return cert.status
 
 class Command(BaseCommand):
 
@@ -150,10 +99,10 @@ class Command(BaseCommand):
 
         for course_id in ended_courses:
             # prefetch all chapters/sequentials by saying depth=2
-            course = modulestore().get_course(course_id, depth=2)
-            course_display_name = unicode(course.display_name).encode('utf-8')
-            university = University.objects.get(code=course.location.org)
-            certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
+
+            (course, course_display_name, university, logo_path,
+                    certificate_base_filename, _, _) = get_certificate_params(course_id)
+
             print "Fetching enrolled students for {0} ()".format(course_id)
             enrolled_students = get_enrolled_students(course_id, options['user'])
             total = enrolled_students.count()
@@ -168,10 +117,6 @@ class Command(BaseCommand):
             for count, student in enumerate(enrolled_students):
                 start = print_progress(count, total, start)
                 if options['force'] or (certificate_status_for_student(student, course_id)['status'] != status.downloadable):
-                    if university.certificate_logo:
-                        logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
-                    else:
-                        logo_path = None
                     new_status = generate_fun_certificate(
                         student, course_id, course_display_name, course,
                         options['teachers'], university.name, logo_path,

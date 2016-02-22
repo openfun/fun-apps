@@ -10,3 +10,8 @@
     <input type="text" class="form-control" name="new-grade">
     <br><br>
 {% endblock %}
+
+{% block modal-button %}
+<button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
+<button type="submit" name="regenerate" value="yes" class="btn btn-primary">{% trans "Confirm and regenerate" %}</button>
+{% endblock %}
