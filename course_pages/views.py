@@ -23,7 +23,7 @@ def courses_index(request, subject=None):
     languages = get_courses_per_language()
     return render_to_response('course_pages/index.html', {
         "course_subjects": annotate_with_public_courses(CourseSubject.objects.by_score()),
-        "universities": annotate_with_public_courses(University.objects.active().by_score()),
+        "universities": annotate_with_public_courses(University.objects.not_obsolete().by_score()),
         "languages": languages,
         "courses_count_start_soon": Course.objects.start_soon().count(),
         "courses_count_enrollment_ends_soon": Course.objects.enrollment_ends_soon().count(),

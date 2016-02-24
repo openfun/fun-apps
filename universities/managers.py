@@ -6,7 +6,7 @@ from fun.utils.managers import ChainableManager
 
 class UniversityQuerySet(models.query.QuerySet):
 
-    def active(self):
+    def not_obsolete(self):
         return self.filter(is_obsolete=False)
 
     def detail_page_enabled(self):
@@ -24,4 +24,4 @@ class UniversityManager(ChainableManager):
     queryset_class = UniversityQuerySet
 
     def featured(self, limit_to=7):
-        return self.active().with_related().by_score()[:limit_to]
+        return self.not_obsolete().with_related().by_score()[:limit_to]
