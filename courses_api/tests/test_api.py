@@ -8,12 +8,14 @@ from django.utils.timezone import now, timedelta
 
 from student.tests.factories import UserFactory
 
-from fun.tests.utils import skipUnlessLms
-from universities.factories import UniversityFactory
 
 from courses import choices as courses_choices
 from courses.models import CourseUniversityRelation
 from courses.tests.factories import CourseFactory, CourseSubjectFactory
+
+from fun.tests.utils import skipUnlessLms
+
+from universities.tests.factories import UniversityFactory
 
 
 @skipUnlessLms

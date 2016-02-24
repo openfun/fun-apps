@@ -20,9 +20,9 @@ from courseware.tests.factories import StaffFactory, InstructorFactory
 from student.models import UserProfile
 
 from backoffice import views
-from fun.tests.utils import skipUnlessLms
-from universities.factories import UniversityFactory
 from courses.models import Course
+from fun.tests.utils import skipUnlessLms
+from universities.tests.factories import UniversityFactory
 
 
 @skipUnlessLms
