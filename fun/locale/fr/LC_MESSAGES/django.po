@@ -192,15 +192,6 @@ msgstr "S'investir dans les discussions"
 msgid "Enter the username of the owner."
 msgstr "Rentrez le nom d'utilisateur du propriétaire."
 
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:0
-msgid ""
-"Enter your video ID (Note : DailyMotion Cloud, DailyMotion Classic and "
-"Youtube are supported. Still, the administrator may restrict the use to "
-"only one or two of these video web hosting services)"
-msgstr ""
-"Saisissez l'ID de votre video de teaser. (Notez que DailyMotion Cloud, "
-"DailyMotion Classic et Youtube sont supportés"
-
 # Translated in edx by 'Femme'
 msgid "Female"
 msgstr "Féminin"
@@ -424,10 +415,6 @@ msgstr "En attente"
 # Translated in edx by 'Écrire anonymement aux camarades de classe'
 msgid "post anonymously to classmates"
 msgstr "Ecrire anonymement aux camarades de classe"
-
-#: /edx/app/edxapp/fun-apps/fun/templates/cms/settings.html:0
-msgid "your video ID"
-msgstr "votre identifiant vidéo"
 
 # Translated in edx by 'Résumé général de {platform_name}'
 msgid "{platform_name}-wide Summary"
