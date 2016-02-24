@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 14\n"
+"Project-Id-Version: France Université Numérique 15\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-01-08 16:56+0100\n"
-"PO-Revision-Date: 2016-01-08 16:56+0000\n"
+"POT-Creation-Date: 2016-02-24 12:34+0100\n"
+"PO-Revision-Date: 2016-02-24 12:34+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -58,8 +58,8 @@ msgid "Logo to be displayed on the certificate document."
 msgstr "Logo à afficher sur le certificat"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:32
-msgid "Obsolete universities are not displayed on the site."
-msgstr "Les établissements obsolètes ne sont pas affichés sur le site."
+msgid "Obsolete universities do not have their logo displayed on the site."
+msgstr "Les logos des établissements obsolètes ne sont pas affichés sur le site."
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:34
 msgid "Only used if detail page is enabled"

@@ -10,7 +10,7 @@ class UniversityLandingView(mako.MakoTemplateMixin, ListView):
     context_object_name = 'universities'
 
     def get_queryset(self):
-        return University.objects.detail_page_enabled().not_obsolete().by_score()
+        return University.objects.not_obsolete().by_score()
 
 
 class UniversityDetailView(mako.MakoTemplateMixin, DetailView):
@@ -18,7 +18,7 @@ class UniversityDetailView(mako.MakoTemplateMixin, DetailView):
     context_object_name = 'university'
 
     def get_queryset(self):
-        return University.objects.detail_page_enabled().not_obsolete().with_related()
+        return University.objects.not_obsolete().with_related()
 
     def get_context_data(self, **kwargs):
         context = super(UniversityDetailView, self).get_context_data(**kwargs)

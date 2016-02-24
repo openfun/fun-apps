@@ -29,7 +29,7 @@ class University(models.Model):
         help_text=_('Enables the university detail page.'))
     is_obsolete = models.BooleanField(_('is obsolete'),
         default=False, db_index=True,
-        help_text=_('Obsolete universities are not displayed on the site.'))
+        help_text=_('Obsolete universities do not have their logo displayed on the site.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True, blank=True,
         help_text=_('Only used if detail page is enabled'))
     banner = models.ImageField(_('banner'), upload_to='universities', null=True,
