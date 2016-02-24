@@ -8,7 +8,8 @@ from django.test import TestCase
 from student.tests.factories import UserFactory
 
 from fun.tests.utils import skipUnlessLms
-from universities.factories import UniversityFactory
+from universities.tests.factories import UniversityFactory
+
 
 @skipUnlessLms
 class UniversityAPITest(TestCase):

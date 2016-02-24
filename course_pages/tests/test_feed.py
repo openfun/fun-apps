@@ -11,7 +11,7 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from fun.tests.utils import skipUnlessLms, RSSDeclarationMixin
 from courses.models import Course, CourseUniversityRelation
-from universities.factories import UniversityFactory
+from universities.tests.factories import UniversityFactory
 
 
 @skipUnlessLms

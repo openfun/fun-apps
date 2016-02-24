@@ -11,7 +11,7 @@ from xmodule.modulestore.tests.factories import CourseFactory, CourseAboutFactor
 
 from fun.tests.utils import skipUnlessLms
 from student.models import UserProfile
-from universities.factories import UniversityFactory
+from universities.tests.factories import UniversityFactory
 
 
 @skipUnlessLms
