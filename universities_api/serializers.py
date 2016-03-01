@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from fun_api import serializers as fun_serializers
 from universities.models import University
 
 
@@ -30,7 +31,7 @@ class PrivateUniversitySerializer(UniversitySerializer):
         )
 
 
-class UniversityUpdateSerializer(serializers.ModelSerializer):
+class UniversityUpdateSerializer(fun_serializers.UpdateSerializerMixin, serializers.ModelSerializer):
     score = serializers.IntegerField(required=False)
 
     class Meta:

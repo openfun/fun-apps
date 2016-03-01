@@ -3,6 +3,7 @@
 from rest_framework import serializers
 
 from courses.models import Course, CourseSubject
+from fun_api import serializers as fun_serializers
 from universities_api.serializers import UniversitySerializer, PrivateUniversitySerializer
 
 
@@ -87,7 +88,7 @@ class PrivateCourseSerializer(CourseSerializer):
         fields = CourseSerializer.Meta.fields + ('score', 'prevent_auto_update')
 
 
-class CourseUpdateSerializer(serializers.ModelSerializer):
+class CourseUpdateSerializer(fun_serializers.UpdateSerializerMixin, serializers.ModelSerializer):
     score = serializers.IntegerField(required=False)
 
     class Meta:
