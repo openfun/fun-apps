@@ -1,5 +1,18 @@
 # Changelog www.france-universite-numerique.fr
 
+## 3.7 03/03/2016
+- Précision de la charte de bonne conduite des apprenants
+- Page principale :
+    - Affichage de la tagline "L'excellence..." en une langue cohérente avec le reste du site
+    - Mise à jour à chaque rafraîchissement des actualités et des cours à la une
+    - Affichage des établissements "obsolètes", qu'ils disposent d'une page propre ou non
+- Backoffice :
+    - Recherche de cours plus rapide
+    - Ajout d'un bouton "Exorciser" pour prendre possession d'un utilisateur
+    - Re-génération du certificat d'un utilisateur pour lequel la note a changé
+    - Ajout de traductions manquantes
+- Faire en sorte qu'il soit impossible de mettre à jour les scores de certains cours
+
 ## 3.6 18/02/2016
 - Recherche de cours par titre, sujet, université, enseignants ou description.
 - Backoffice : accélération de la recherche d'utilisateurs
