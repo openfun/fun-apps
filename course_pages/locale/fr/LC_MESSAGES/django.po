@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 46\n"
+"Project-Id-Version: France Université Numérique 47\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 14:48+0100\n"
-"PO-Revision-Date: 2016-03-01 14:48+0000\n"
+"POT-Creation-Date: 2016-03-01 14:50+0100\n"
+"PO-Revision-Date: 2016-03-01 14:50+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"

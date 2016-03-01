@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 6\n"
+"Project-Id-Version: France Université Numérique 7\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-02-15 15:00+0100\n"
-"PO-Revision-Date: 2016-02-15 15:00+0000\n"
+"POT-Creation-Date: 2016-03-01 14:50+0100\n"
+"PO-Revision-Date: 2016-03-01 14:50+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -58,9 +58,18 @@ msgstr "Attestation"
 msgid "Certificate Management"
 msgstr "Gestion des attestations"
 
+#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#, fuzzy
+msgid "Certificate was regenerated"
+msgstr "Aucune attestation générée."
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Change password"
 msgstr "Changer le mot de passe"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_grade.html:0
+msgid "Confirm and regenerate"
+msgstr ""
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:0
 msgid "Confirm ban of user"
@@ -71,7 +80,7 @@ msgid "Confirm unban of user"
 msgstr "Confirmer la réintegration de l'utilisateur"
 
 #: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:0
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 #, python-format
 msgid "Course <strong>%s</strong> has been deleted."
 msgstr "Le cours <strong>%s</strong> a été supprimé"
@@ -110,7 +119,7 @@ msgstr "Télécharger les évaluations par les pairs"
 msgid "Draft"
 msgstr "Brouillon"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Effort"
 msgstr "Effort"
 
@@ -122,7 +131,7 @@ msgstr "L'adresse est verifiée"
 msgid "End"
 msgstr "Fin"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "End date"
 msgstr "Date de fin"
 
@@ -131,12 +140,12 @@ msgid "Enrolled students"
 msgstr "Etudiants inscrits"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Enrollment end"
 msgstr "Fin d'inscription"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Enrollment start"
 msgstr "Début d'inscription"
 
@@ -190,7 +199,7 @@ msgstr "ID :"
 msgid "Ident"
 msgstr "Identifiant"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Image"
 msgstr "Image"
 
@@ -247,7 +256,7 @@ msgstr "Pas de résultat pour cette recherche"
 msgid "Opt out"
 msgstr "Opt out"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Organisation code"
 msgstr "Code établissement"
 
@@ -297,7 +306,7 @@ msgstr "Renvoyer le mail d'activation"
 msgid "Restore wiki permissions"
 msgstr "Ouvrir le wiki en écriture"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Run"
 msgstr "Exécuter"
 
@@ -327,7 +336,7 @@ msgstr "Voir les contributions de l'utilisateur dans le forum du cours"
 msgid "Start"
 msgstr "Début"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Start date"
 msgstr "Date de début"
 
@@ -335,7 +344,7 @@ msgstr "Date de début"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Students count"
 msgstr "Nombre d'étudiants"
 
@@ -383,7 +392,7 @@ msgstr "Cet utilisateur a été exclu depuis :"
 msgid "This course does not belong to any university"
 msgstr "Ce cours n'est lié à aucun établissement"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "This course has no wiki"
 msgstr "Ce cours n'a pas de wiki."
 
@@ -406,7 +415,7 @@ msgstr "Cet utilisateur n'a pas de profile edX"
 
 # Translated in edx by 'Titre'
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Title"
 msgstr "Titre"
 
@@ -423,12 +432,12 @@ msgid "University doesn't exist"
 msgstr "Cette établissement n'existe pas"
 
 #: /edx/app/edxapp/fun-apps/backoffice/tests/test.py:0
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 #, python-format
 msgid "University with code <strong>%s</strong> does not exist."
 msgstr "L'établissement avec le code <strong>%s</strong> n'existe pas."
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Url"
 msgstr "Url"
 
@@ -457,11 +466,11 @@ msgstr "Nom utilisateur :"
 msgid "User password changed"
 msgstr "Le mot de passe de l'utilisateur a été changé"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Wiki could not be "
 msgstr "Le wiki n'a pas pu être "
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Wiki was successfully "
 msgstr "Le wiki a bien été "
 
@@ -473,7 +482,7 @@ msgstr "par"
 msgid "by username, name or email"
 msgstr "par le nom d'utilisateur, le nom ou l'email"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "closed"
 msgstr "femé"
 
@@ -486,7 +495,7 @@ msgstr "cours"
 msgid "for your search pattern"
 msgstr "pour votre critère de recherche"
 
-#: /edx/app/edxapp/fun-apps/backoffice/views.py:0
+#: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "opened"
 msgstr "ouvert"
 
