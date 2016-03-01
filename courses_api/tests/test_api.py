@@ -117,6 +117,17 @@ class CourseAPITest(TestCase):
         response = self.client.put(url, data)
         self.assertNotEqual(response.status_code, 200)
 
+    def test_cannot_update_course_if_set_as_prevent_auto_update(self):
+        self.login_as_admin()
+        self.active_1.prevent_auto_update = True
+        self.active_1.save()
+        data = {'score': 100}
+        url = reverse('fun-courses-api:courses-detail',
+            args=[self.active_1.id]
+        )
+        response = self.client.put(url, data)
+        self.assertNotEqual(response.status_code, 200)
+
     def test_only_display_courses_for_a_specific_university(self):
         university = UniversityFactory(code='test-university')
         UniversityFactory(code='another-university')
