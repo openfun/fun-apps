@@ -178,11 +178,11 @@ def resend_activation_email(request, user):
         settings.DEFAULT_FROM_EMAIL
     )
     user.email_user(subject, message, from_address)
-    logger.warning(u"Activation email has been resent to user %s at addresse: %s", user.username, user.email)
-    messages.success(
-        request,
-        _(u"Activation email has been resent to user %s at addresse: %s") % (user.username, user.email)
-    )
+    logger.warning(u"Activation email has been resent to user %s at addresse: %s",
+            user.username, user.email)
+    messages.success(request,
+            _(u"Activation email has been resent to user {username} at addresse: {email}".format(
+            username=user.username, email=user.email)))
 
 
 user_actions = {'ban-user' : ban_user,

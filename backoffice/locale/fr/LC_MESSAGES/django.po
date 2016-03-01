@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 7\n"
+"Project-Id-Version: France Université Numérique 10\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 14:50+0100\n"
-"PO-Revision-Date: 2016-03-01 14:50+0000\n"
+"POT-Creation-Date: 2016-03-01 15:14+0100\n"
+"PO-Revision-Date: 2016-03-01 15:14+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -22,9 +22,8 @@ msgid "Account created:"
 msgstr "Compte créé :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:0
-#, python-format
-msgid "Activation email has been resent to user %s at addresse: %s"
-msgstr "L'email d'activation de l'utilisateur %s a été renvoyé à l'adresse %s"
+msgid "Activation email has been resent to user {username} at addresse: {email}"
+msgstr "L'email d'activation de l'utilisateur {username} a été renvoyé à l'adresse {email}"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
 msgid "Article"
@@ -59,7 +58,6 @@ msgid "Certificate Management"
 msgstr "Gestion des attestations"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:0
-#, fuzzy
 msgid "Certificate was regenerated"
 msgstr "Aucune attestation générée."
 
@@ -69,7 +67,7 @@ msgstr "Changer le mot de passe"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_grade.html:0
 msgid "Confirm and regenerate"
-msgstr ""
+msgstr "Confirmer et régénérer"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:0
 msgid "Confirm ban of user"
@@ -487,7 +485,6 @@ msgid "closed"
 msgstr "femé"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses.html:0
-#, fuzzy
 msgid "courses"
 msgstr "cours"
 
@@ -510,25 +507,3 @@ msgstr "établissement ou nom de cours"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
-
-#~ msgid "Account creation date"
-#~ msgstr "Date de création du compte"
-
-#~ msgid "No certificates generated for this student."
-#~ msgstr "Aucune attestation générée pour cet apprenant."
-
-#~ msgid "displayed"
-#~ msgstr "affichés"
-
-# Translated in edx by 'Nom complet'
-#~ msgctxt "user-full-name"
-#~ msgid "Full name"
-#~ msgstr "Nom complet"
-
-#~ msgctxt "change-user-password"
-#~ msgid "Change password"
-#~ msgstr "Changer le mot de passe"
-
-#~ msgid "Comment as service client Permission"
-#~ msgstr "Permission de forum"
-
