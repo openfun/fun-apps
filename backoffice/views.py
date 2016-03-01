@@ -3,7 +3,6 @@
 from collections import defaultdict
 import logging
 import random
-import re
 
 from django.conf import settings
 from django.contrib import messages
@@ -19,7 +18,6 @@ from pure_pagination import Paginator, PageNotAnInteger
 from bulk_email.models import Optout
 from capa.xqueue_interface import make_hashkey
 from certificates.models import GeneratedCertificate, CertificateStatuses
-from courseware.courses import course_image_url, get_courses, get_cms_course_link
 from edxmako.shortcuts import render_to_string
 from microsite_configuration import microsite
 from student.models import CourseEnrollment, CourseAccessRole, UserStanding, UserProfile, Registration
@@ -27,14 +25,9 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Use
 from xmodule_django.models import CourseKeyField
 
 from backoffice.certificate_manager.utils import get_certificate_params
-from courses.models import Course, CourseUniversityRelation
-from courses.utils import get_about_section
 from fun_certificates.generator import CertificateInfo
-from fun.utils import funwiki as wiki_utils
 from newsfeed.models import Article
-from universities.models import University
 
-from .certificate_manager.utils import generate_fun_certificate
 from .forms import SearchUserForm, UserForm, UserProfileForm, ArticleForm
 from .utils import get_course, group_required, get_course_key
 
@@ -143,7 +136,7 @@ def regenerate_certificate(course_id, user, certificate):
     then force state to 'downloadable'.
     """
 
-    (course, course_display_name, university, organization_logo,
+    (_course, course_display_name, university, organization_logo,
             certificate_base_filename, teachers,
             certificate_language) = get_certificate_params(course_id)
 
