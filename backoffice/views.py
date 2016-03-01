@@ -181,7 +181,8 @@ def resend_activation_email(request, user):
     logger.warning(u"Activation email has been resent to user %s at addresse: %s", user.username, user.email)
     messages.success(
         request,
-        _(u"Activation email has been resent to user %s at addresse: %s") % (user.username, user.email)
+        _(u"Activation email has been resent to user {username} at addresse: {email}".format(
+                username=user.username, email=user.email))
     )
 
 
