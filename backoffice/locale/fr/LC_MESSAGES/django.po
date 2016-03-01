@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 10\n"
+"Project-Id-Version: France Université Numérique 12\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 15:14+0100\n"
-"PO-Revision-Date: 2016-03-01 15:14+0000\n"
+"POT-Creation-Date: 2016-03-01 15:45+0100\n"
+"PO-Revision-Date: 2016-03-01 15:45+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -23,7 +23,9 @@ msgstr "Compte créé :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Activation email has been resent to user {username} at addresse: {email}"
-msgstr "L'email d'activation de l'utilisateur {username} a été renvoyé à l'adresse {email}"
+msgstr ""
+"L'email d'activation de l'utilisateur {username} a été renvoyé à "
+"l'adresse {email}"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
 msgid "Article"
@@ -200,6 +202,10 @@ msgstr "Identifiant"
 #: /edx/app/edxapp/fun-apps/backoffice/views_courses.py:0
 msgid "Image"
 msgstr "Image"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Impersonate"
+msgstr "Exorciser"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/course.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/wiki.html:0
@@ -507,3 +513,4 @@ msgstr "établissement ou nom de cours"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
+

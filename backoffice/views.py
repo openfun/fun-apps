@@ -6,6 +6,7 @@ import random
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import Http404
@@ -241,6 +242,19 @@ def user_detail(request, username):
         'tab': 'users',
         'certificates' : certificates
         })
+
+
+@group_required('fun_backoffice')
+def impersonate_user(request, username):
+    user = get_object_or_404(User, username=username, is_superuser=False, is_active=True)
+
+    # We need to define the backend that was used to authenticate the user.
+    # This is a bit dirty; a possible workaround would be to add an
+    # authentication backend to the platform or to define user.backend as in
+    # the django.contrib.auth.authenticate function.
+    user.backend = None
+    login(request, user)
+    return redirect('/')
 
 
 @group_required('fun_backoffice')
