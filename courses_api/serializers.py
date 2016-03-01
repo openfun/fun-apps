@@ -84,7 +84,7 @@ class PrivateCourseSerializer(CourseSerializer):
     subjects = PrivateCourseSubjectSerializer()
 
     class Meta(CourseSerializer.Meta):
-        fields = CourseSerializer.Meta.fields + ('score',)
+        fields = CourseSerializer.Meta.fields + ('score', 'prevent_auto_update')
 
 
 class CourseUpdateSerializer(serializers.ModelSerializer):

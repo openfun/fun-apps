@@ -26,6 +26,7 @@ class PrivateUniversitySerializer(UniversitySerializer):
         fields = UniversitySerializer.Meta.fields + (
             'score',
             'partnership_level',
+            'prevent_auto_update',
         )
 
 
