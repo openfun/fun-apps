@@ -17,39 +17,10 @@ msgstr ""
 msgid "Active"
 msgstr "Actif"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
-msgid "Active contributors"
-msgstr "Contributeurs actifs"
-
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
-msgid "Add contributor"
-msgstr "Ajouter un contributeur"
-
 #: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
 msgid "Official"
 msgstr "Officiel"
 
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
-msgid "Official contributors"
-msgstr "Contributeurs officiels"
-
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
-msgid "Official forum contributors."
-msgstr "Contributeurs officiels du forum"
-
 #: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
 msgid "Recommended"
 msgstr "Recommandé"
-
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
-msgid "Recommended contributors"
-msgstr "Contributeurs recommandés"
-
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
-msgid "These forum contributors are recommended by instructor."
-msgstr "Ces contributeurs du forum sont recommandés par l'enseignant."
-
-#: /edx/app/edxapp/fun-apps/forum_contributors/templates/instructor/instructor_dashboard_2/membership.html:0
-msgid "These forum contributors are very active."
-msgstr "Contributeurs du forum particulièrement actifs"
-
