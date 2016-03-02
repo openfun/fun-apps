@@ -10,7 +10,7 @@ class UniversityLandingView(mako.MakoTemplateMixin, ListView):
     context_object_name = 'universities'
 
     def get_queryset(self):
-        return University.objects.not_obsolete().by_score()
+        return University.objects.featured()
 
 
 class UniversityDetailView(mako.MakoTemplateMixin, DetailView):

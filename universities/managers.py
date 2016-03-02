@@ -23,5 +23,9 @@ class UniversityQuerySet(models.query.QuerySet):
 class UniversityManager(ChainableManager):
     queryset_class = UniversityQuerySet
 
-    def featured(self, limit_to=7):
-        return self.not_obsolete().with_related().by_score()[:limit_to]
+    def featured(self, limit_to=None):
+        """Featured universities have a detail page and are not obsolete"""
+        qs = self.not_obsolete().detail_page_enabled().with_related().by_score()
+        if limit_to is not None:
+            qs = qs[:limit_to]
+        return qs

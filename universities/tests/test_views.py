@@ -16,7 +16,7 @@ class UniversityQuerysetsTests(TestCase):
         listed_universities = list(views.UniversityLandingView().get_queryset())
 
         self.assertTrue(u1 in listed_universities)
-        self.assertTrue(u2 in listed_universities)
+        self.assertFalse(u2 in listed_universities)
         self.assertFalse(u3 in listed_universities)
         self.assertFalse(u4 in listed_universities)
 
@@ -28,8 +28,8 @@ class UniversityQuerysetsTests(TestCase):
 
         featured_universities = list(models.University.objects.featured(4))
 
+        self.assertTrue(u1 in featured_universities)
+        self.assertFalse(u2 in featured_universities)
         self.assertFalse(u3 in featured_universities)
         self.assertFalse(u4 in featured_universities)
-        self.assertEqual(2, len(featured_universities))
-        self.assertEqual(u2, featured_universities[0])
-        self.assertEqual(u1, featured_universities[1])
+        self.assertEqual(1, len(featured_universities))
