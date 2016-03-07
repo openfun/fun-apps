@@ -2,8 +2,14 @@
 
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.forms import ModelForm, ModelChoiceField
 
 from .models import CourseTeacher, CertificateTeacher, Teacher
+
+
+class CourseTeacherRelationInlineForm(ModelForm):
+    model = CourseTeacher
+    teacher = ModelChoiceField(queryset=Teacher.objects.all().order_by("slug"))
 
 
 class CourseTeacherInline(admin.TabularInline):
@@ -12,6 +18,7 @@ class CourseTeacherInline(admin.TabularInline):
     for instance on course admin page.
     '''
     model = CourseTeacher
+    form = CourseTeacherRelationInlineForm
     extra = 1
 
 
