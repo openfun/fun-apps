@@ -8,12 +8,10 @@ from .models import CourseTeacher, CertificateTeacher, Teacher
 
 
 class CertificateTeacherRelationInlineForm(ModelForm):
-    model = CertificateTeacher
     teacher = ModelChoiceField(queryset=Teacher.objects.all().order_by("slug"))
 
 
 class CourseTeacherRelationInlineForm(ModelForm):
-    model = CourseTeacher
     teacher = ModelChoiceField(queryset=Teacher.objects.all().order_by("slug"))
 
 

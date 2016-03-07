@@ -12,7 +12,6 @@ from .models import Course, CourseSubject, CourseUniversityRelation
 
 
 class CourseUniversityRelationInlineForm(ModelForm):
-    model = CourseUniversityRelation
     university = ModelChoiceField(queryset=University.objects.all().order_by("name"))
 
 
