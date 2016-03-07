@@ -1,17 +1,25 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
+from django.forms import ModelForm, ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
 
 from teachers.admin import CourseTeacherInline, CertificateTeacherInline
+from universities.models import University
 
-from .models import Course, CourseSubject, CourseUniversityRelation
 from . import settings as courses_settings
+from .models import Course, CourseSubject, CourseUniversityRelation
+
+
+class CourseUniversityRelationInlineForm(ModelForm):
+    model = CourseUniversityRelation
+    university = ModelChoiceField(queryset=University.objects.all().order_by("name"))
 
 
 class CourseUniversityRelationInline(admin.TabularInline):
     model = CourseUniversityRelation
     extra = 1
+    form = CourseUniversityRelationInlineForm
 
 
 class CourseAdmin(admin.ModelAdmin):
