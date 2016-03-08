@@ -217,6 +217,9 @@ JWT_EXPIRATION = 30
 OAUTH_ENFORCE_SECURE = False
 OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
 
+# Append fun header script to verification pages
+PIPELINE_JS['rwd_header']['source_filenames'].append('funsite/js/header.js')
+
 # A user is verified if he has an approved SoftwareSecurePhotoVerification entry
 # this setting will create a dummy SoftwareSecurePhotoVerification for user in paybox success callback view
 # I think it's better to create a dummy one than to remove verifying process in edX
