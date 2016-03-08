@@ -194,10 +194,15 @@ PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
 
-FEATURES['ENABLE_PAYMENT_FAKE'] = False
+# Payment
+FEATURES["ENABLE_OAUTH2_PROVIDER"] = True
+FEATURES['ENABLE_PAYMENT_FAKE'] = True
+FEATURES["ENABLE_CREDIT_API"] = True
+FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
+FEATURES["ENABLE_MOBILE_REST_API"] = True
+FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = False
 
 PAID_COURSE_REGISTRATION_CURRENCY=["EUR", "€"]
-
 
 EDX_API_KEY = 'test'
 
@@ -217,14 +222,3 @@ OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
 # this setting will create a dummy SoftwareSecurePhotoVerification for user in paybox success callback view
 # I think it's better to create a dummy one than to remove verifying process in edX
 FUN_ECOMMERCE_AUTOMATIC_VERIFICATION = True
-
-
-FEATURES["ENABLE_CREDIT_API"] = True
-FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
-FEATURES["ENABLE_MOBILE_REST_API"] = True
-FEATURES["ENABLE_OAUTH2_PROVIDER"] = True
-FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = True
-FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
-FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
-FEATURES['ENABLE_COURSE_DISCOVERY'] = False
-
