@@ -36,7 +36,7 @@ class TestHomepage(TestCase):
     def test_unpublished_news_are_not_displayed(self):
         article = newsfactories.ArticleFactory.create(published=False)
         response = self.get_root_page()
-        self.assertFalse(str(article.title) in response.content)
+        self.assertFalse(unicode(article.title) in response.content.decode("utf8"))
 
     @setMicrositeTestSettings(FAKE_MICROSITE2)
     def test_news_from_different_microsite_are_not_displayed(self):
@@ -45,7 +45,7 @@ class TestHomepage(TestCase):
             published=True
         )
         response = self.get_root_page()
-        self.assertFalse(str(article.title) in response.content)
+        self.assertFalse(unicode(article.title) in response.content.decode("utf8"))
 
 
 class TestLoginPage(ModuleStoreTestCase):

@@ -160,10 +160,12 @@ GRADES_DOWNLOAD_ROUTING_KEY = None
 # Our new home page is so shiny and chrome that users must see it more often
 FEATURES['ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER'] = False
 
-# ??
+# used by pure-pagination app, https://github.com/jamespacileo/django-pure-pagination
+# for information about the constants : https://camo.githubusercontent.com/51defa6771f5db2826a1869eca7bed82d9fb3120/687474703a2f2f692e696d6775722e636f6d2f4c437172742e676966
 PAGINATION_SETTINGS = {
-    'PAGE_RANGE_DISPLAYED': 10,
-    'MARGIN_PAGES_DISPLAYED': 10,
+    # same formatting as in github issues, seems to be sane.
+    'PAGE_RANGE_DISPLAYED': 4,
+    'MARGIN_PAGES_DISPLAYED': 2,
 }
 
 NUMBER_DAYS_TOO_LATE = 31

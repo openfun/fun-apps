@@ -12,11 +12,17 @@ from staticfiles.storage import staticfiles_storage
 <%block name="title">${pgettext("fun-news", "News")}</%block>
 <%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 <%namespace name="newsfeed" file="./block.html"/>
+<%namespace name="pagination" file="./pagination.html"/>
+
 
 <%block name="content">
 <div class="breadcrumbs-wrapper">
     ${breadcrumbs.breadcrumbs(pgettext("fun-news", "News"))}
 </div>
+<%
+articles_list = articles.object_list[:]
+%>
+
 
 <h1 class="big-title text-center">
     ${_(u"All the news")}
@@ -25,42 +31,51 @@ from staticfiles.storage import staticfiles_storage
 <div class="fun-news news-list">
     ## featured news (only one, displayed regarding resolution)
 
+    %if articles.number == 1 :
     <div class="row">
         <div class="col-lg-36 hidden-sm hidden-xs">
-            % if articles:
-            ${newsfeed.news_block(articles[0], 'big')}
+            % if featured_article:
+            ${newsfeed.news_block(featured_article, 'big')}
             % endif
         </div>
     </div>
+    %endif
 
     <div class="row hidden-md hidden-lg">
+        % if featured_article:
         <div class="col-sm-36 text-center">
-            % if articles:
-            ${newsfeed.news_block(articles[0], 'primary')}
-            % endif
+            ${newsfeed.news_block(featured_article, 'primary')}
         </div>
+        % endif
+
         <div class="col-xs-36 hidden-lg hidden-md hidden-sm text-center">
 
-            % for article in articles[1:]:
+            % for article in articles_list:
                 ${newsfeed.news_block(article, 'primary')}
             % endfor
         </div>
     </div>
 
+    <%
+    left_articles = articles_list[0::2]
+    right_articles = articles_list[1::2]
+    %>
+
     ## chronologically displayed news (on 2 columns)
-    <div class="row hidden-xs">
-        <div class="col-sm-36 col-md-18 no-padding">
-            % for article in articles[1:12:2]:
+     <div class="row hidden-xs">
+         <div class="col-sm-36 col-md-18 no-padding">
+            % for article in left_articles:
                 ${newsfeed.news_block(article, 'secondary', 'left')}
             % endfor
         </div>
         <div class="col-sm-36 col-md-18 no-padding">
-            % for article in articles[2:12:2]:
+            % for article in right_articles:
                 ${newsfeed.news_block(article, 'secondary', 'right')}
             % endfor
         </div>
     </div>
 </div>
 
+${pagination.pages_list(articles)}
 
 </%block>
