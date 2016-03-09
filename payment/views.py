@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import json
 import logging
 
 import requests
@@ -14,13 +15,24 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
+from commerce import ecommerce_api_client
 from edxmako.shortcuts import render_to_response
 from verify_student.models import SoftwareSecurePhotoVerification
 
+from courses.models import Course
 
-from commerce import ecommerce_api_client
 
+def _get_order_from_ecommerce_api(user, order_id):
+    return ecommerce_api_client(user).orders(order_id).get()
 
+def _retrieve_annotated_order(user, order_id):
+    """Retrieve order from ecommerce api and annotate with course and course_key."""
+    order = _get_order_from_ecommerce_api(user, order_id)
+    attributes = order['lines'][0]['product']['attribute_values']
+    course_key = [d['value'] for d in attributes if d['name'] == 'course_key'][0]
+    order['course_key'] = course_key
+    order['course'] = Course.objects.get(key=order['course_key'])
+    return order
 
 
 @csrf_exempt
@@ -34,7 +46,8 @@ def paybox_success(request):
     if settings.FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION:
         response = requests.post(settings.ECOMMERCE_NOTIFICATION_URL, request.GET)
 
-
+    order = _retrieve_annotated_order(request.user, request.GET['reference-fun'])
+    
     if settings.FUN_ECOMMERCE_AUTOMATIC_VERIFICATION:
         if not SoftwareSecurePhotoVerification.objects.filter(user=request.user).exists():
             verif = SoftwareSecurePhotoVerification.objects.create(
@@ -46,6 +59,7 @@ def paybox_success(request):
             )
 
     return render_to_response('payment/success.html', {
+            'order': order,
 
     })
 
@@ -59,10 +73,11 @@ def paybox_error(request):
     if errorcode in ('0000', '00001'):
         raise Exception
 
-
+    order = _retrieve_annotated_order(request.user, request.GET['reference-fun'])
 
     return render_to_response('payment/error.html', {
         'errorcode': errorcode,
+        'order': order,
     })
 
 
@@ -73,7 +88,10 @@ def paybox_cancel(request):
     if request.GET['reponse-paybox'] != '00001':
         raise Exception
 
+    order = _retrieve_annotated_order(request.user, request.GET['reference-fun'])
+
     return render_to_response('payment/cancel.html', {
+        'order': order,
     })
 
 

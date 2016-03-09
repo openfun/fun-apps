@@ -1,16 +1,22 @@
 ## mako
-<%! from django.core.urlresolvers import reverse %>
+<%! 
+from django.core.urlresolvers import reverse 
 
-<html>
-<head><title>Payment Form</title>
-</head>
-<body>
+%>
 
-<p></p>
+<%inherit file="/payment/base.html" />
 
-<div class="result">Une erreur a eu lieu</div>
-<div class="errorcode">${ errorcode }</div>
 
-<a href="/dashboard">Dashboard</a>
+<%block name="title">Une erreur a eu lieu</%block>
+<%block name="breadcrumb_current_page">Une erreur a eu lieu</%block>
 
-</body>
+<%block name="message">
+    <h2>Une erreur a eu lieu</h2>
+    <p>
+    	Une erreur a eu lieu pendant le traitement de votre paiment de <strong>${order['total_excl_tax']} €</strong> pour le cours <strong>${order['course'].title}</strong>
+    </p>
+    <p>
+    Il s'agissait de la commande <strong>${order['number']}</strong>. Code d'erreur <strong class="errorcode">${ errorcode }</strong>
+    </p>
+
+</%block>

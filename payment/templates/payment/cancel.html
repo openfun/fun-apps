@@ -1,16 +1,22 @@
 ## mako
-<%! from django.core.urlresolvers import reverse %>
+<%! 
+from django.core.urlresolvers import reverse 
 
-<html>
-<head><title>Payment Form</title>
-</head>
-<body>
+%>
 
-<p></p>
+<%inherit file="/payment/base.html" />
 
-<div class="result">Abandon du paiement</div>
 
-<a href="/dashboard">Dashboard</a>
+<%block name="title">Abandon du paiement</%block>
+<%block name="breadcrumb_current_page">Abandon du paiement</%block>
 
-</body>
+<%block name="message">
+    <h2>Abandon du paiement</h2>
+    <p>
+    	La procedure de paiemnt pour le cours <strong>${order['course'].title}</strong> a été interompue.
+    </p>
+    <p>
+    Il s'agissait de la commande <strong>${order['number']}</strong>.
+    </p>
 
+</%block>
