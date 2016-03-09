@@ -9,12 +9,16 @@ from django.utils.translation import ugettext_lazy as _
 
 from edxmako.shortcuts import render_to_response
 
+from pure_pagination import Paginator, EmptyPage
 from microsite_configuration import microsite
 
 from fun.utils.views import staff_required
 
 from . import models
 
+
+
+ARTICLES_PER_PAGE = 10
 
 def get_articles():
     """
@@ -28,6 +32,32 @@ def get_articles():
     """
     return filter_queryset_for_site(models.Article.objects.viewable())
 
+def paginate(queryset, page_nb, article_per_page):
+    """
+    Returns :
+     * a page (a slice of the queryset), with the asked number of articles, at the right offset.
+     * the featured article if the first page is asked or None otherwise
+
+    Note: we use pure_pagination to handle all the complex stuff
+    """
+
+    featured = None
+    if page_nb == 1:
+        featured = queryset[:1]
+        featured = featured[0] if len(featured) > 0 else None
+
+    queryset = queryset[1:]
+    paginator = Paginator(queryset, article_per_page)
+
+    try:
+        paginated = paginator.page(page_nb)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        paginated = paginator.page(paginator.num_pages)
+
+    return paginated, featured
+
+
 def top_news(count=5):
     """Return Top count news if available or fill result list with None for further boolean evaluation."""
     articles = get_articles()[:count]
@@ -35,15 +65,27 @@ def top_news(count=5):
 
 def article_list(request):
     # We exclude the article that's selected in the featured section.
-    return render_articles(get_articles())
+    return render_articles(get_articles(), request.GET)
 
 @staff_required
 def article_list_preview(request, slug):
-    return render_articles(filter_queryset_for_site(models.Article.objects.published_or(slug=slug)))
+    qs = filter_queryset_for_site(models.Article.objects.published_or(slug=slug))
+    return render_articles(qs, request.GET)
 
-def render_articles(articles_queryset):
+def parse_request(get_dict):
+    page = get_dict.get("p", "")
+    page = int(page) if page.isdigit() else 1
+    nb_items = get_dict.get("n", "")
+    nb_items = int(nb_items) if nb_items.isdigit() else ARTICLES_PER_PAGE
+    return page, nb_items
+
+def render_articles(articles_queryset, get_dict):
+    page, nb_items = parse_request(get_dict)
+    articles, featured = paginate(articles_queryset, page, nb_items)
+
     return render_to_response('newsfeed/article/list.html', {
-        'articles': list(articles_queryset)
+        'articles': articles,
+        "featured_article": featured,
     })
 
 def filter_queryset_for_site(queryset):
