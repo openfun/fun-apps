@@ -1,19 +1,14 @@
 # Python modules
-import os
 import datetime
 from pytz import UTC
 from pprint import pprint
 from optparse import make_option
-import random
 
 # Django modules
 from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.test.client import RequestFactory
 
 # edX modules
-from courseware import grades
 from certificates.models import (
   certificate_status_for_student,
   CertificateStatuses as status)
@@ -22,13 +17,6 @@ from opaque_keys.edx.keys import CourseKey
 from opaque_keys import InvalidKeyError
 
 from backoffice.certificate_manager.utils import get_certificate_params, generate_fun_certificate
-from fun_certificates.generator import CertificateInfo
-
-
-factory = RequestFactory()
-request = factory.get('/')
-request.session = {}
-
 
 
 class Command(BaseCommand):

@@ -7,18 +7,19 @@ import random
 
 
 from django.conf import settings
+from django.test.client import RequestFactory # Importing from tests, I know, I know...
 
 from capa.xqueue_interface import make_hashkey
+from courseware import grades
 from instructor_task.models import InstructorTask
 from xmodule.modulestore.django import modulestore
 
-from certificates.models import GeneratedCertificate
+from certificates.models import GeneratedCertificate, CertificateStatuses
 from courses.models import Course
 from fun_certificates.generator import CertificateInfo
 from student.models import UserProfile
 from teachers.models import CertificateTeacher
 from universities.models import University
-
 
 
 def get_certificate_params(course_key):
@@ -70,7 +71,14 @@ def generate_fun_certificate(student,
     cert, _created = GeneratedCertificate.objects.get_or_create(
         user=student, course_id=course_id
     )
+
+
+    # TODO We need to create a request object manually. It's very ugly and we should
+    # do something about it.
+    request = RequestFactory().get('/')
+    request.session = {}
     request.user = student
+
     grade = grades.grade(student, request, course)
     cert.grade = grade['percent']
     cert.user = student
@@ -88,7 +96,7 @@ def generate_fun_certificate(student,
         fail = True
 
     if fail:
-        cert.status = status.notpassing
+        cert.status = CertificateStatuses.notpassing
     else:
         key = make_hashkey(random.random())
         cert.key = key
@@ -101,7 +109,7 @@ def generate_fun_certificate(student,
         )
         info.generate()
 
-        cert.status = status.downloadable
+        cert.status = CertificateStatuses.downloadable
         cert.download_url = settings.CERTIFICATE_BASE_URL + certificate_filename
     cert.save()
     return cert.status
@@ -113,7 +121,7 @@ def create_test_certificate(course, course_key, university):
     """
 
     (course, course_display_name, university, logo_path,
-            certificate_base_filename, teachers,
+            _certificate_base_filename, teachers,
             certificate_language) = get_certificate_params(course_key)
 
     key = make_hashkey(random.random())
