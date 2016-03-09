@@ -1,16 +1,21 @@
 ## mako
-<%! from django.core.urlresolvers import reverse %>
+<%!
+from django.core.urlresolvers import ugettext as _
+%>
 
-<html>
-<head><title>Payment Form</title>
-</head>
-<body>
+<%inherit file="/payment/base.html" />
 
-<p></p>
 
-<div class="result">Abandon du paiement</div>
+<%block name="title">Abandon du paiement</%block>
+<%block name="breadcrumb_current_page">Abandon du paiement</%block>
 
-<a href="/dashboard">Dashboard</a>
+<%block name="message">
+    <h2>Abandon du paiement</h2>
+    <p>
+    ${_("Payment order for the course <strong>{title}</strong> has been interrupted.").format(title=order_course.title)}
+    </p>
+    <p>
+    ${_("This was for the payment order <strong>{number}</strong>.").format(number=order['number'])}
+    </p>
 
-</body>
-
+</%block>

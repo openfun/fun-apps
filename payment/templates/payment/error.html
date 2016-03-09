@@ -1,16 +1,22 @@
 ## mako
-<%! from django.core.urlresolvers import reverse %>
+<%!
+from django.core.urlresolvers import ugettext as _
+%>
 
-<html>
-<head><title>Payment Form</title>
-</head>
-<body>
+<%inherit file="/payment/base.html" />
 
-<p></p>
 
-<div class="result">Une erreur a eu lieu</div>
-<div class="errorcode">${ errorcode }</div>
+<%block name="title">Une erreur a eu lieu</%block>
+<%block name="breadcrumb_current_page">Une erreur a eu lieu</%block>
 
-<a href="/dashboard">Dashboard</a>
+<%block name="message">
+    <h2>Une erreur a eu lieu</h2>
+    <p>
+    ${_("An error has occurred while processing your payment of <strong>{total} \\u20ac</strong> for the course <strong>{title}</strong>.").format(total=order['total_excl_tax'], title=order_course.title)}
+    </p>
+    <p>
+    ${_("This was for the payment order <strong>{number}</strong>.").format(number=order['number'])} 
+    ${_("Error code <strong class='errorcode'>{errorcode}</strong>.").format(errorcode=errorcode)}
+    </p>
 
-</body>
+</%block>
