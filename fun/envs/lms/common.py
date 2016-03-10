@@ -30,6 +30,7 @@ INSTALLED_APPS += (
     'pure_pagination',
 
     'payment',
+    'payment_api',
 
     'forum_contributors',
     'selftest',
@@ -223,4 +224,4 @@ PIPELINE_JS['rwd_header']['source_filenames'].append('funsite/js/header.js')
 # A user is verified if he has an approved SoftwareSecurePhotoVerification entry
 # this setting will create a dummy SoftwareSecurePhotoVerification for user in paybox success callback view
 # I think it's better to create a dummy one than to remove verifying process in edX
-FUN_ECOMMERCE_AUTOMATIC_VERIFICATION = True
+FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = False

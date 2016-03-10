@@ -1,21 +1,22 @@
 ## mako
 <%!
-from django.core.urlresolvers import ugettext as _
+from django.utils.translation import ugettext as _
 %>
 
 <%inherit file="/payment/base.html" />
 
 
-<%block name="title">Abandon du paiement</%block>
-<%block name="breadcrumb_current_page">Abandon du paiement</%block>
+<%block name="title">${_(u"Payment canceled")}</%block>
+<%block name="breadcrumb_current_page">${_(u"Payment canceled")}</%block>
 
 <%block name="message">
-    <h2>Abandon du paiement</h2>
+    <h2>${_(u"Payment canceled")}</h2>
     <p>
-    ${_("Payment order for the course <strong>{title}</strong> has been interrupted.").format(title=order_course.title)}
+        ${_(u"Payment order for the course has been interrupted.")}
+
     </p>
     <p>
-    ${_("This was for the payment order <strong>{number}</strong>.").format(number=order['number'])}
+    ${_(u"This was for the payment order <strong>{number}</strong>.").format(number=order_number)}
     </p>
 
 </%block>
