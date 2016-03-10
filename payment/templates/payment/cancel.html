@@ -1,4 +1,8 @@
 ## mako
+<%!
+from django.core.urlresolvers import ugettext as _
+%>
+
 <%inherit file="/payment/base.html" />
 
 
@@ -8,10 +12,10 @@
 <%block name="message">
     <h2>Abandon du paiement</h2>
     <p>
-    	La procedure de paiement pour le cours <strong>${order_course.title}</strong> a été interrompue.
+    ${_("Payment order for the course <strong>{title}</strong> has been interrupted.").format(title=order_course.title)}
     </p>
     <p>
-    Il s'agissait de la commande <strong>${order['number']}</strong>.
+    ${_("This was for the payment order <strong>{number}</strong>.").format(number=order['number'])}
     </p>
 
 </%block>

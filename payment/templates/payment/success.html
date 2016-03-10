@@ -1,4 +1,8 @@
 ## mako
+<%!
+from django.core.urlresolvers import ugettext as _
+%>
+
 <%inherit file="/payment/base.html" />
 
 
@@ -8,10 +12,9 @@
 <%block name="message">
     <h2>Paiement réussi</h2>
     <p>
-    	Votre paiement de <strong>${order['total_excl_tax']} €</strong> à bien été reçu pour le cours <strong>${order_course.title}</strong>
+        ${_("Your payment of <strong>{total} \\u20ac</strong> for the course <strong>{title}</strong> has been processed.").format(total=order['total_excl_tax'], title=order_course.title)}
     </p>
     <p>
-    Il s'agit de la commande <strong>${order['number']}</strong>
+        ${_("This is for the payment order <strong>{number}</strong>.").format(number=order['number'])}
     </p>
-
 </%block>
