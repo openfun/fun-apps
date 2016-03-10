@@ -38,12 +38,27 @@ class PayboxSystemViewsTest(TestCase):
             'appel-paybox': '16047443',
             'transaction-paybox': '7558206',
         }
-        self.api_response = {'number': 'FUN-100056', 'total_excl_tax': '10000', 'lines': [{'product': {'attribute_values': [{'name': 'course_key', 'value': self.course.key}]}}]}
+        self.api_response = {
+            'number': 'FUN-100056',
+            'total_excl_tax': '10000',
+            'lines': [
+                {
+                    'product': {
+                        'attribute_values': [
+                            {
+                                'name': 'course_key',
+                                'value': self.course.key
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
 
 
-    @patch('payment.views._get_order_from_ecommerce_api')
-    def test_callbackpage_success(self, function_mock):
-        function_mock.return_value = self.api_response
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_success(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
         self.params['reponse-paybox'] = '00000'
         response = self.client.get(reverse('payment-success'), self.params)
         self.assertEqual(200, response.status_code)
@@ -52,9 +67,9 @@ class PayboxSystemViewsTest(TestCase):
         soup = BeautifulSoup(response.content)
         self.assertEqual(u"Paiement réussi", soup.find('h2').text)
 
-    @patch('payment.views._get_order_from_ecommerce_api')
-    def test_callbackpage_success_already_verified(self, function_mock):
-        function_mock.return_value = self.api_response
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_success_already_verified(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
         SoftwareSecurePhotoVerification.objects.create(
                 user=self.user, display=False,
                 status='approved', reviewing_user=self.user,
@@ -65,27 +80,57 @@ class PayboxSystemViewsTest(TestCase):
         self.assertEqual(1,
                 SoftwareSecurePhotoVerification.objects.filter(user=self.user).count())
 
-    @patch('payment.views._get_order_from_ecommerce_api')
-    def test_callbackpage_false_success(self, function_mock):
-        function_mock.return_value = self.api_response
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_success_wrong_api_return_value(self, get_order_mock):
+        get_order_mock.return_value = {}
+        self.params['reponse-paybox'] = '00000'
+        response = self.client.get(reverse('payment-success'), self.params)
+        self.assertEqual(404, response.status_code)
+
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_success_empty_api_return_value(self, get_order_mock):
+        get_order_mock.return_value = {
+            'lines': []
+        }
+        self.params['reponse-paybox'] = '00000'
+        response = self.client.get(reverse('payment-success'), self.params)
+        self.assertEqual(404, response.status_code)
+
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_false_success(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
         self.params['reponse-paybox'] = '0000X'
-        with self.assertRaises(Exception):
-            response = self.client.get(reverse('payment-success'), self.params)
+        response = self.client.get(reverse('payment-success'), self.params)
+        self.assertEqual(400, response.status_code)
         self.assertEqual(0,
                 SoftwareSecurePhotoVerification.objects.filter(user=self.user).count())
 
-    @patch('payment.views._get_order_from_ecommerce_api')
-    def test_callbackpage_cancel(self, function_mock):
-        function_mock.return_value = self.api_response
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_success_missing_argument(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
+        self.params.pop('reponse-paybox')
+        response = self.client.get(reverse('payment-success'), self.params)
+        self.assertEqual(400, response.status_code)
+
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_cancel(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
         self.params['reponse-paybox'] = '00001'
         response = self.client.get(reverse('payment-cancel'), self.params)
         self.assertEqual(200, response.status_code)
         soup = BeautifulSoup(response.content)
         self.assertEqual(u"Abandon du paiement", soup.find('h2').text)
 
-    @patch('payment.views._get_order_from_ecommerce_api')
-    def test_callbackpage_error(self, function_mock):
-        function_mock.return_value = self.api_response
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_cancel_missing_argument(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
+        self.params.pop('reponse-paybox')
+        response = self.client.get(reverse('payment-cancel'), self.params)
+        self.assertEqual(400, response.status_code)
+
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_error(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
         errorcode = '00002'
         self.params['reponse-paybox'] = errorcode
         response = self.client.get(reverse('payment-error'), self.params)
@@ -93,6 +138,13 @@ class PayboxSystemViewsTest(TestCase):
         soup = BeautifulSoup(response.content)
         self.assertEqual(u"Une erreur a eu lieu", soup.find('h2').text)
         self.assertEqual(errorcode, soup.find('strong', class_='errorcode').text)
+
+    @patch('payment.views.get_order_or_404')
+    def test_callbackpage_error_missing_argument(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
+        self.params.pop('reponse-paybox')
+        response = self.client.get(reverse('payment-error'), self.params)
+        self.assertEqual(400, response.status_code)
 
     @patch('payment.views.requests')
     def test_ecommerce_proxy_notification(self, mock_requests):

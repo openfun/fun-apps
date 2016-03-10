@@ -1,9 +1,4 @@
 ## mako
-<%!
-from django.core.urlresolvers import reverse
-
-%>
-
 <%inherit file="/payment/base.html" />
 
 
@@ -13,7 +8,7 @@ from django.core.urlresolvers import reverse
 <%block name="message">
     <h2>Abandon du paiement</h2>
     <p>
-    	La procedure de paiement pour le cours <strong>${order['course'].title}</strong> a été interrompue.
+    	La procedure de paiement pour le cours <strong>${order_course.title}</strong> a été interrompue.
     </p>
     <p>
     Il s'agissait de la commande <strong>${order['number']}</strong>.

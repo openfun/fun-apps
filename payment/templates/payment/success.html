@@ -1,9 +1,4 @@
 ## mako
-<%! 
-from django.core.urlresolvers import reverse 
-
-%>
-
 <%inherit file="/payment/base.html" />
 
 
@@ -13,7 +8,7 @@ from django.core.urlresolvers import reverse
 <%block name="message">
     <h2>Paiement réussi</h2>
     <p>
-    	Votre paiement de <strong>${order['total_excl_tax']} €</strong> à bien été reçu pour le cours <strong>${order['course'].title}</strong>
+    	Votre paiement de <strong>${order['total_excl_tax']} €</strong> à bien été reçu pour le cours <strong>${order_course.title}</strong>
     </p>
     <p>
     Il s'agit de la commande <strong>${order['number']}</strong>
