@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
+import json
 
-from django.conf import settings
 from django.contrib.auth.models import User
+from django.core import mail
 from django.core.urlresolvers import reverse
-from django.http import QueryDict
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from mock import call, patch
+from mock import patch
 
 from student.models import UserProfile
 from verify_student.models import SoftwareSecurePhotoVerification
 
 from courses.models import Course
 from fun.tests.utils import skipUnlessLms
+
+from .utils import get_course
 
 
 @override_settings(FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION=False)
@@ -24,7 +26,7 @@ class PayboxSystemViewsTest(TestCase):
     def setUp(self):
         super(PayboxSystemViewsTest, self).setUp()
         self.user = User.objects.create(username='user', first_name='first_name',
-                last_name='last_name', is_active=True)
+                last_name='last_name', email='richard@example.com', is_active=True)
         self.user.set_password('test')
         self.user.save()
         UserProfile.objects.create(user=self.user)
@@ -40,7 +42,7 @@ class PayboxSystemViewsTest(TestCase):
         }
         self.api_response = {
             'number': 'FUN-100056',
-            'total_excl_tax': '10000',
+            'total_excl_tax': '100.00',
             'lines': [
                 {
                     'product': {
@@ -55,30 +57,14 @@ class PayboxSystemViewsTest(TestCase):
             ]
         }
 
-
     @patch('payment.views.get_order_or_404')
     def test_callbackpage_success(self, get_order_mock):
         get_order_mock.return_value = self.api_response
         self.params['reponse-paybox'] = '00000'
         response = self.client.get(reverse('payment-success'), self.params)
         self.assertEqual(200, response.status_code)
-        self.assertEqual(1,
-                SoftwareSecurePhotoVerification.objects.filter(user=self.user).count())
         soup = BeautifulSoup(response.content)
         self.assertEqual(u"Paiement réussi", soup.find('h2').text)
-
-    @patch('payment.views.get_order_or_404')
-    def test_callbackpage_success_already_verified(self, get_order_mock):
-        get_order_mock.return_value = self.api_response
-        SoftwareSecurePhotoVerification.objects.create(
-                user=self.user, display=False,
-                status='approved', reviewing_user=self.user,
-                reviewing_service='created by unit test')
-        self.params['reponse-paybox'] = '00000'
-        response = self.client.get(reverse('payment-success'), self.params)
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(1,
-                SoftwareSecurePhotoVerification.objects.filter(user=self.user).count())
 
     @patch('payment.views.get_order_or_404')
     def test_callbackpage_success_wrong_api_return_value(self, get_order_mock):
@@ -102,8 +88,6 @@ class PayboxSystemViewsTest(TestCase):
         self.params['reponse-paybox'] = '0000X'
         response = self.client.get(reverse('payment-success'), self.params)
         self.assertEqual(400, response.status_code)
-        self.assertEqual(0,
-                SoftwareSecurePhotoVerification.objects.filter(user=self.user).count())
 
     @patch('payment.views.get_order_or_404')
     def test_callbackpage_success_missing_argument(self, get_order_mock):
@@ -146,14 +130,39 @@ class PayboxSystemViewsTest(TestCase):
         response = self.client.get(reverse('payment-error'), self.params)
         self.assertEqual(400, response.status_code)
 
-    @patch('payment.views.requests')
-    def test_ecommerce_proxy_notification(self, mock_requests):
-        mock_requests.post.return_value.status_code = 200
-        errorcode = '00000'
-        self.params['reponse-paybox'] = errorcode
-        qd = QueryDict('', mutable=True)
-        qd.update(self.params)
-        response = self.client.post(reverse('payment-notification'), self.params)
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(mock_requests.post.call_args_list,
-                [call(settings.ECOMMERCE_NOTIFICATION_URL, qd)])
+    @patch('payment.utils.get_order')
+    def test_payment_notification_api(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
+        data = {'username': self.user.username,
+                'email': self.user.email,
+                'order_number': '0'}
+        response = self.client.post(reverse('fun-payment-api:payment-notification'),
+                json.dumps(data), 
+                content_type="application/json")
+        self.assertEqual(1,
+                SoftwareSecurePhotoVerification.objects.filter(
+                user=self.user).count())
+        self.assertEqual(1, len(mail.outbox))
+
+    @patch('payment.utils.get_order')
+    def test_payment_notification_api_already_verified(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
+        SoftwareSecurePhotoVerification.objects.create(
+                user=self.user, display=False,
+                status='approved', reviewing_user=self.user,
+                reviewing_service='created by unit test')
+        get_order_mock.return_value = self.api_response
+        data = {'username': self.user.username,
+                'email': self.user.email,
+                'order_number': '0'}
+        response = self.client.post(reverse('fun-payment-api:payment-notification'),
+                json.dumps(data), 
+                content_type="application/json")
+        self.assertEqual(1,
+                SoftwareSecurePhotoVerification.objects.filter(
+                user=self.user).count())
+        self.assertEqual(1, len(mail.outbox))
+
+    def test_utils_get_course(self):
+        self.assertEqual(self.course,
+            get_course(self.api_response))

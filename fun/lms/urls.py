@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 
     # fun api
     (r'^fun/api/token/', include('fun_api.urls', namespace='fun-api')),
+    (r'^fun/api/payment/', include('payment_api.urls', namespace='fun-payment-api')),
     (r'^fun/', include('courses_api.urls', namespace='fun-courses-api')),
     (r'^fun/', include('universities_api.urls', namespace='fun-universities-api')),
 

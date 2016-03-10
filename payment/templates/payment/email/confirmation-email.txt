@@ -1,0 +1,5 @@
+## mako
+
+Le réglement de ${order['total_excl_tax']} € HT pour votre inscription au cours ${course.title} a bien été pris en compte.
+
+TVA non applicable, Exonération Art. 261-4-4 du CGI.
