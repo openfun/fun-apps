@@ -17,8 +17,6 @@ from verify_student.models import SoftwareSecurePhotoVerification
 from courses.models import Course
 from fun.tests.utils import skipUnlessLms
 
-ecommerce_api_client = patch('payment.views.ecommerce_api_client')
-
 
 @override_settings(FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION=False)
 @skipUnlessLms
@@ -40,7 +38,7 @@ class PayboxSystemViewsTest(TestCase):
             'appel-paybox': '16047443',
             'transaction-paybox': '7558206',
         }
-        self.api_response = {'number': 'FUN-100056', 'total_excl_tax': '10000', 'lines': [{'product': {'attribute_values': [{'name': 'course_key', 'value': self.course.key}]}}]} 
+        self.api_response = {'number': 'FUN-100056', 'total_excl_tax': '10000', 'lines': [{'product': {'attribute_values': [{'name': 'course_key', 'value': self.course.key}]}}]}
 
 
     @patch('payment.views._get_order_from_ecommerce_api')

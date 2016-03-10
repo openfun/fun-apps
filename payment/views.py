@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -40,14 +40,15 @@ def _retrieve_annotated_order(user, order_id):
 def paybox_success(request):
     # http://localhost:8000/payment/success/?amount=10000&reference-fun=EDX-100056&autorisation=XXXXXX&reponse-paybox=00000&appel-paybox=16047443&transaction-paybox=7558206
 
-    if request.GET['reponse-paybox'] != '00000':
-        raise Exception
+    # TODO: find a smart way to factorize the control logic upon the 3 views
+    if request.GET['reponse-paybox'] != '00000' or not request.GET.get('reference-fun'):
+        return HttpResponseBadRequest
 
     if settings.FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION:
         response = requests.post(settings.ECOMMERCE_NOTIFICATION_URL, request.GET)
 
     order = _retrieve_annotated_order(request.user, request.GET['reference-fun'])
-    
+
     if settings.FUN_ECOMMERCE_AUTOMATIC_VERIFICATION:
         if not SoftwareSecurePhotoVerification.objects.filter(user=request.user).exists():
             verif = SoftwareSecurePhotoVerification.objects.create(
@@ -70,8 +71,8 @@ def paybox_error(request):
 
     errorcode = request.GET['reponse-paybox']
 
-    if errorcode in ('0000', '00001'):
-        raise Exception
+    if errorcode in ('0000', '00001') or not request.GET.get('reference-fun'):
+        return HttpResponseBadRequest
 
     order = _retrieve_annotated_order(request.user, request.GET['reference-fun'])
 
@@ -85,8 +86,8 @@ def paybox_error(request):
 @login_required
 def paybox_cancel(request):
     """User clicked on 'Cancel' before entering card information."""
-    if request.GET['reponse-paybox'] != '00001':
-        raise Exception
+    if request.GET['reponse-paybox'] != '00001' or not request.GET.get('reference-fun'):
+        return HttpResponseBadRequest
 
     order = _retrieve_annotated_order(request.user, request.GET['reference-fun'])
 
