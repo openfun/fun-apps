@@ -157,6 +157,16 @@ class ViewArticlesTest(TestCase):
         self.assertNotIn(titles[3], contents[2])
         self.assertNotIn(titles[4], contents[2])
 
+    def test_sql_number_of_queries_in_paginate_for_page_1(self):
+        qs = self.views.get_articles()
+        with self.assertNumQueries(2) as qe:
+            self.views.paginate(qs, 1, 10)
+
+    def test_sql_number_of_queries_in_paginate_for_page_2(self):
+        qs = self.views.get_articles()
+        with self.assertNumQueries(1):
+            self.views.paginate(qs, 2, 10)
+
     def test_admin_upload_url(self):
         upload_url = reverse('news-ckeditor-upload')
         browse_url = reverse('news-ckeditor-browse')
