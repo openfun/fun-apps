@@ -1,0 +1,62 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+%>
+<%inherit file="/payment/email/base.html" />
+
+
+<%block name="message">
+
+      <center><h1 style="font-size: 22px; color: #555;">
+        Confirmation de paiement
+      </h1></center>
+
+<p>
+<strong>
+Le réglement de ${order['total_excl_tax']} € HT pour votre inscription au cours ${course.title} a bien été pris en compte.
+</strong>
+</p>
+<p>
+TVA non applicable, Exonération Art. 261-4-4 du CGI.
+</p>
+<br><br>
+
+<p>
+Vous avez choisi de suivre le cours <strong>${course.title}</strong> en tant qu'étudiant avec vérification d'identité.
+Le certificat vérifié vous permettra de valoriser vos connaissances, d'améliorer votre employabilité et de promouvoir votre carrière.
+</p>
+<p>
+
+A l'issue de l'examen surveillé, intégré dans ce cours, et en cas de succès, vous :
+<ul>
+<li>
+  Recevrez un certificat émis par l'établissement créateur du MOOC.
+</li>
+<li>
+Pourrez ajouter ce certificat à votre CV, à votre lettre de motivation ou le partager directement sur les réseaux sociaux.
+</li>
+<li>
+Voici un bref rappel des conditions obligatoires de l'examen surveillé pour avoir la possibilité d'obtenir le certificat :
+</li>
+<li>
+L'examen surveillé est organisé par le prestataire ProctorU dans une partie du cours seulement visible pour les étudiants ayant choisi le parcours vérifié
+</li>
+<li>
+Vous devez être en possession de l'équipement nécessaire et compatible afin de pouvoir passer cet examen à distance (web cam, connexion internet suffisante). <a href="http://www.proctoru.com/testitout/">Cliquez ici</a> pour vérifier que votre équipement est suffisant.
+</li>
+<li>
+Vous devez être en possession d'une pièce d'identité officielle (passeport, carte d'identité...) au moment de l'examen
+</li>
+<li>
+Vous devez vous conformer aux règles de l'examen explicitées dans le cours.
+</li>
+
+</p>
+<p>
+En vous remerciant de votre confiance, nous vous souhaitons un bon MOOC !
+</p>
+
+<strong>
+L'équipe FUN
+</strong>
+</%block>

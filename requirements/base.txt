@@ -21,3 +21,6 @@ django-haystack==2.4.1
 -e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
 
 -e git+https://github.com/openfun/libcast-xblock.git@master#egg=libcast-xblock
+
+
+edx-rest-api-client==1.3.0

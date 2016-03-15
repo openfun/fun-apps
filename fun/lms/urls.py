@@ -15,6 +15,7 @@ from lms.urls import handler404, handler500 #pylint: disable=unused-import
 urlpatterns = patterns('',
     (r'^', include('funsite.urls')),
     (r'^', include('contact.urls', namespace='contact')),
+    (r'^payment/', include('payment.urls')),
     (r'^universities/', include('universities.urls')),
     (r'^news/', include('newsfeed.urls')),
     # as we override a theme static_page, it has to work whith and without trailing slash
@@ -23,6 +24,7 @@ urlpatterns = patterns('',
 
     # fun api
     (r'^fun/api/token/', include('fun_api.urls', namespace='fun-api')),
+    (r'^fun/api/payment/', include('payment_api.urls', namespace='fun-payment-api')),
     (r'^fun/', include('courses_api.urls', namespace='fun-courses-api')),
     (r'^fun/', include('universities_api.urls', namespace='fun-universities-api')),
 

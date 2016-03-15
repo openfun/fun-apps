@@ -33,3 +33,11 @@ FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 # by commenting line 79 (cache.set(cache_key, response, 60 * 3)) in file common/djangoapps/util/cache.py@cache_if_anonymous
 
 HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
+
+
+# development ecommerce settings
+
+# If your development environment is not exposed to internet and can not receive payment processor notification
+# by settings this to True, the success return page will generate the appropriate POST to ecommerce service
+FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = False
+FEATURES['ENABLE_AUTO_AUTH'] = True
