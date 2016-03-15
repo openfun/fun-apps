@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
+from datetime import datetime
 import json
 
 from django.contrib.auth.models import User
@@ -42,7 +43,10 @@ class PayboxSystemViewsTest(TestCase):
         }
         self.api_response = {
             'number': 'FUN-100056',
+            'user': self.user,
             'total_excl_tax': '100.00',
+            'total_incl_tax': '100.00',
+            'date_placed': datetime.now(),
             'lines': [
                 {
                     'product': {
@@ -137,7 +141,7 @@ class PayboxSystemViewsTest(TestCase):
                 'email': self.user.email,
                 'order_number': '0'}
         response = self.client.post(reverse('fun-payment-api:payment-notification'),
-                json.dumps(data), 
+                json.dumps(data),
                 content_type="application/json")
         self.assertEqual(1,
                 SoftwareSecurePhotoVerification.objects.filter(
@@ -156,7 +160,7 @@ class PayboxSystemViewsTest(TestCase):
                 'email': self.user.email,
                 'order_number': '0'}
         response = self.client.post(reverse('fun-payment-api:payment-notification'),
-                json.dumps(data), 
+                json.dumps(data),
                 content_type="application/json")
         self.assertEqual(1,
                 SoftwareSecurePhotoVerification.objects.filter(

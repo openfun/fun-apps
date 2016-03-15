@@ -1,0 +1,73 @@
+<%page args="order, course" />
+<%!
+from django.utils.translation import ugettext as _
+%>
+<br><br><br>
+
+<table width="100%" style="border-collapse: collapse; border: 1px solid black;">
+<tr>
+<td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <%include file="/funsite/static_templates/fun-address.html"/>
+</td>
+<td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    Date: ${order['date_placed'].strftime(_('%m/%d/%y %H:%M'))}<br>
+    Commande: ${order['number']}<br>
+    Contact facturation: ${order['user'].get_full_name()}<br>
+
+</td>
+</tr>
+
+<tr>
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    Description
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    Quantité
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    Prix unitaire
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    Prix HT
+    </td>
+</tr>
+
+<tr>
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    Inscription à ${course.title}
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    1
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${order['total_excl_tax']} €
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${order['total_excl_tax']} €
+    </td>
+</tr>
+
+<tr>
+    <td width="50" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+        <br>TVA non applicable, Exonération Art. 261-4-4 du CGI
+
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    &nbsp;
+    </td>
+
+    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    Prix HT: ${order['total_excl_tax']} €<br>
+    Prix TTC: ${order['total_incl_tax']} €<br>
+    </td>
+</tr>
+</table>
+
+<br><br><br>
