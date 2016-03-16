@@ -46,8 +46,19 @@
             </div>
         <% } %>
         
-        <div class="navigation-block results-per-page hidden-xs"> <%  /**** N per page ↓ ****/  %>
-            <span class="current-results-per-page">
+        <div class="navigation-block filter-dropdown hidden-xs sort-by"> <%  /**** Sort by ****/  %>
+            <span><%= gettext("Sort by")%> <%= sortByValues[sortBy].toLowerCase() %></span>
+            <span class="glyphicon glyphicon-menu-down"></span>
+
+            <ul class="hide-on-body-click">
+                <% for (var sortBy in sortByValues) { %>
+                <li class="color-iron" value="<%= sortBy %>"><%= sortByValues[sortBy] %></li>
+                <% } %>
+            </ul>
+        </div>
+
+        <div class="navigation-block filter-dropdown hidden-xs results-per-page"> <%  /**** N per page ↓ ****/  %>
+            <span>
                 <% if (resultsPerPage  <= 0) { %>
                     <%= gettext("all")%>
                 <% } else { %>
@@ -56,18 +67,18 @@
             </span>
             <span class="glyphicon glyphicon-menu-down"></span>
 
-            <ul class="results-per-page-choices">
+            <ul class="hide-on-body-click">
             <% for (var c = 0; c < resultsPerPageChoices.length; c++) { %>
                 <% if (resultsPerPageChoices[c] !== resultsPerPage) { %>
-                    <li class="color-iron change-results-per-page" value="<%= resultsPerPageChoices[c] %>">
+                    <li class="color-iron" value="<%= resultsPerPageChoices[c] %>">
                         <% if (resultsPerPageChoices[c] >= 0) { %>
                             <%= resultsPerPageChoices[c] %> <%= gettext("per page") %>
                         <% } else { %>
-                        <%= gettext("all") %>
-                <% } %>
+                            <%= gettext("all") %>
+                        <% } %>
                     </li>
-            <% } %>
                 <% } %>
+            <% } %>
             </ul>
         </div>
 

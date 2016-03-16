@@ -54,9 +54,8 @@ function checkCookie(name) {
             toggleAccessiblePopUpAria(false);
         }
 
-        if ($('.navigation-bar ul.results-per-page-choices').is(":visible")) {
-            $('.navigation-bar  ul.results-per-page-choices').hide();
-        }
+        // Hide elements on click outside of element
+        $('.hide-on-body-click:visible').hide();
     });
 
     function toggleDropdown(event) {

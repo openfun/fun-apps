@@ -1288,36 +1288,33 @@ ul.universities-list {
 .navigation-bar .page-list {
     margin-right: 20px;
 }
-.navigation-bar .results-per-page .glyphicon-menu-down {
-    float: right;
-    margin-left: 10px;
-    margin-right: 5px;
-}
-.navigation-bar .results-per-page {
+.navigation-bar .filter-dropdown {
      padding-left: 20px;
      padding-right: 15px;
      text-align: center;
+     margin-left: -3px;
 }
-
-/* Various light vertical alignments. */
-.navigation-bar .results-per-page .glyphicon-menu-down {
+.navigation-bar .filter-dropdown .glyphicon-menu-down {
+    float: right;
+    margin-left: 10px;
+    margin-right: 5px;
     padding-top: 2.5px;
 }
 
+/* Various light vertical alignments. */
 .navigation-bar .page-backward, .navigation-bar .page-forward {
     padding-top: 3px;
     vertical-align: top;
 }
 
-
-/* Pagination dropdown menu (results-per-page-choices)*/
-.navigation-bar .results-per-page {
-    position:relative;
+/* Search dropdown menus */
+.navigation-bar .filter-dropdown {
+    position: relative;
     outline: 1px solid #2579BE;
     cursor: pointer;
     min-width: 160px;
 }
-.navigation-bar  ul.results-per-page-choices {
+.navigation-bar .filter-dropdown ul {
     display: none;
     position: absolute;
     top: 60px;
@@ -1334,19 +1331,19 @@ ul.universities-list {
 }
 
 /* Pagination dropdown menu items */
-.navigation-bar .results-per-page-choices li {
+.navigation-bar .filter-dropdown li {
     height: 60px;
     font-size: 16px;
     padding-top: 21px;
     border-bottom: 1px solid #c8c8c8;
 }
-.navigation-bar .results-per-page-choices li:hover {
+.navigation-bar .filetr-dropdown li:hover {
     color: #2579BE;
     cursor: pointer;
     outline: solid 1px #2579BE;
     border-bottom: none;
 }
-.navigation-bar .results-per-page-choices li:last-child {
+.navigation-bar .filter-dropdown li:last-child {
     border-bottom: none;
 }
 
