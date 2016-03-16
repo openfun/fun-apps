@@ -1,6 +1,6 @@
 ## mako
-<%! 
-from django.core.urlresolvers import reverse 
+<%!
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
 %>
@@ -24,7 +24,7 @@ from django.utils.translation import ugettext as _
     <%block name="message"></%block>
 
     <P>
-    	<a href="${reverse('dashboard')}">Retourner au tableau de bord</a>
+    	<a href="${reverse('dashboard')}">${_(u"Return to dashboard")}</a>
     </p>
 </div>
 </%block>

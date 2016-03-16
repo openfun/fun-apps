@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 5\n"
+"Project-Id-Version: France Université Numérique 7\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-14 17:42+0100\n"
-"PO-Revision-Date: 2016-03-14 17:42+0000\n"
+"POT-Creation-Date: 2016-03-16 16:30+0100\n"
+"PO-Revision-Date: 2016-03-16 16:30+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -12,6 +12,19 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+#, python-format
+msgid "%m/%d/%y %H:%M"
+msgstr ""
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"After the proctored exam integrated into the course, and if successful, "
+"you will:"
+msgstr ""
+"A l'issue de l'examen surveillé, intégré dans ce cours, et en cas de "
+"succès, vous :"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/error.html:0
 msgid "An error has occurred"
@@ -21,9 +34,29 @@ msgstr "Une erreur a eu lieu"
 msgid "An error has occurred while processing your payment for the course."
 msgstr "Une erreur a eu lieu pendant le traitement de votre paiement."
 
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"Can add this certificate to your resume, your cover letter or share it "
+"directly on social networks."
+msgstr ""
+"Pourrez ajouter ce certificat à votre CV, à votre lettre de motivation ou"
+" le partager directement sur les réseaux sociaux."
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "Contact:"
+msgstr "Contact :"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "Date:"
+msgstr "Date :"
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/error.html:0
 msgid "Error code <strong class='errorcode'>{errorcode}</strong>."
 msgstr "Code d'erreur <strong class='errorcode'>{errorcode}</strong>."
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid "FUN Team"
+msgstr "L'équipe FUN"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/base.html:0
 msgid "FUN&#39;s Facebook account"
@@ -33,9 +66,21 @@ msgstr "Compte Facebook de FUN"
 msgid "FUN&#39;s Twitter account"
 msgstr "Compte Twitter de FUN"
 
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"Here is a brief reminder of the mandatory requirements regarding the "
+"proctored exam necessary to obtain the certificate:"
+msgstr ""
+"Voici un bref rappel des conditions obligatoires de l'examen surveillé "
+"pour avoir la possibilité d'obtenir le certificat :"
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/base.html:0
 msgid "Home"
 msgstr "Accueil"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "Order No:"
+msgstr "Commande :"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/cancel.html:0
 msgid "Payment canceled"
@@ -48,6 +93,48 @@ msgstr "La procédure de paiement pour le cours a été interrompue."
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/success.html:0
 msgid "Payment successful"
 msgstr "Paiement réussi"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "Price excl. tax:"
+msgstr "Prix HT :"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "Price incl. tax:"
+msgstr "Prix TTC :"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid "Receive a certificate issued by the institution that created the MOOC"
+msgstr "Recevrez un certificat émis par l'établissement créateur du MOOC."
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/base.html:0
+msgid "Return to dashboard"
+msgstr "Retourner au tableau de bord"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "Subscribe to"
+msgstr "Inscription à"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid "Thank you for your continued support, we wish you a good MOOC!"
+msgstr "En vous remerciant de votre confiance, nous vous souhaitons un bon MOOC !"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"The proctored exam is organized by the provider in ProctorU only visible "
+"part of the course for students who have chosen the path checked"
+msgstr ""
+"L'examen surveillé est organisé par le prestataire ProctorU dans une "
+"partie du cours seulement visible pour les étudiants ayant choisi le "
+"parcours vérifié"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"The verified certificate will allow you to enhance your knowledge, "
+"improve your employability and promote your career."
+msgstr ""
+"Valorisez vos nouvelles connaissances grâce à un certificat vérifié. Ce "
+"document vous permettra d’améliorer votre employabilité et de promouvoir "
+"votre carrière."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/success.html:0
 msgid "This is for the payment order <strong>{number}</strong>."
@@ -62,11 +149,66 @@ msgstr "Ce message est généré automatiquement, merci de ne pas y répondre."
 msgid "This was for the payment order <strong>{number}</strong>."
 msgstr "Il s'agissait de la commande <strong>{number}</strong>."
 
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "Unit price"
+msgstr "Prix unitaire"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+#, fuzzy
+msgid "VAT not applicable, Exemption Art. 261-4-4 CGI."
+msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
+msgid "VAT not applicable, Exemption. Art. 261-4-4 CGI"
+msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"You have chosen to follow the course <strong>{title}</strong> as a "
+"student with identity verification."
+msgstr ""
+"Vous avez choisi de suivre le cours <strong>{title}</strong> en tant "
+"qu'étudiant avec vérification d'identité."
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"You must be able to provide an official identity document (passport, "
+"identity card ...) at the time of examination"
+msgstr ""
+"Vous devez être en possession d'une pièce d'identité officielle "
+"(passeport, carte d'identité...) au moment de l'examen"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid "You must comply with the rules of the examination explained in the course."
+msgstr ""
+"Vous devez vous conformer aux règles de l'examen explicitées dans le "
+"cours."
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"You must own the necessary equipment in order to pass this remotely "
+"monitored examination (web cam, enough Internet connection). <a "
+"href='http://www.proctoru.com/testitout/'> </a> Click here to verify that"
+" your equipment is sufficient."
+msgstr ""
+"Vous devez être en possession de l'équipement nécessaire et compatible "
+"afin de pouvoir passer cet examen à distance (web cam, connexion internet"
+" suffisante). <a href='http://www.proctoru.com/testitout/'>Cliquez "
+"ici</a> pour vérifier que votre équipement est suffisant."
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/success.html:0
 msgid ""
-"Your payment of <strong>{total} \\u20ac</strong> for the course "
+"Your payment of <strong>{total} €</strong> for the course "
 "<strong>{title}</strong> has been processed."
 msgstr ""
-"Votre paiement de <strong>{total} \\u20ac</strong> pour le cours "
+"Votre paiement de <strong>{total} €</strong> pour le cours "
 "<strong>{title}</strong> a bien été reçu."
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"Your payment of {total_excl_tax} € for registration in {title} has been "
+"taken into account."
+msgstr ""
+"Votre paiement de {total_excl_tax} pour le cours "
+"{title}a bien été reçu."
 

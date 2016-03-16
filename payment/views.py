@@ -69,7 +69,7 @@ def paybox_error(request):
     if errorcode is None or errorcode in ('0000', '00001') or not request.GET.get('reference-fun'):
         return HttpResponseBadRequest()
 
-    # We can not retrieve an order from API if it's not validated, 
+    # We can not retrieve an order from API if it's not validated,
     # therefore we can not tell our user which course the failed to pay for !!
 
     order_number = request.GET['reference-fun']

@@ -8,56 +8,62 @@ from django.utils.translation import ugettext as _
 <%block name="message">
 
       <center><h1 style="font-size: 22px; color: #555;">
-        Confirmation de paiement
+        ${_(u"Payment confirmation")}
       </h1></center>
 
 <p>
 <strong>
-Le réglement de ${order['total_excl_tax']} € HT pour votre inscription au cours ${course.title} a bien été pris en compte.
+
+
+${_(u"Your payment of {total_excl_tax} € for registration in {title} has been taken into account.").format(total_excl_tax=order['total_excl_tax'], title=course.title)}
+
 </strong>
 </p>
 <p>
-TVA non applicable, Exonération Art. 261-4-4 du CGI.
+${_(u"VAT not applicable, Exemption Art. 261-4-4 CGI.")}
 </p>
 <br><br>
 
 <p>
-Vous avez choisi de suivre le cours <strong>${course.title}</strong> en tant qu'étudiant avec vérification d'identité.
-Le certificat vérifié vous permettra de valoriser vos connaissances, d'améliorer votre employabilité et de promouvoir votre carrière.
+${_(u"You have chosen to follow the course <strong>{title}</strong> as a student with identity verification.").format(title=course.title)}
+${_(u"The verified certificate will allow you to enhance your knowledge, improve your employability and promote your career.")}
 </p>
 <p>
 
-A l'issue de l'examen surveillé, intégré dans ce cours, et en cas de succès, vous :
+${_(u"After the proctored exam integrated into the course, and if successful, you will:")}
+
 <ul>
 <li>
-  Recevrez un certificat émis par l'établissement créateur du MOOC.
+${_(u"Receive a certificate issued by the institution that created the MOOC")}
+
 </li>
 <li>
-Pourrez ajouter ce certificat à votre CV, à votre lettre de motivation ou le partager directement sur les réseaux sociaux.
+${_(u"Can add this certificate to your resume, your cover letter or share it directly on social networks.")}
+</li>
+</ul>
+${_(u"Here is a brief reminder of the mandatory requirements regarding the proctored exam necessary to obtain the certificate:")}
+<ul>
+<li>
+${_(u"The proctored exam is organized by the provider in ProctorU only visible part of the course for students who have chosen the path checked")}
 </li>
 <li>
-Voici un bref rappel des conditions obligatoires de l'examen surveillé pour avoir la possibilité d'obtenir le certificat :
+${_(u"You must own the necessary equipment in order to pass this remotely monitored examination (web cam, enough Internet connection). <a href='http://www.proctoru.com/testitout/'> </a> Click here to verify that your equipment is sufficient.")}
 </li>
 <li>
-L'examen surveillé est organisé par le prestataire ProctorU dans une partie du cours seulement visible pour les étudiants ayant choisi le parcours vérifié
+${_(u"You must be able to provide an official identity document (passport, identity card ...) at the time of examination")}
 </li>
 <li>
-Vous devez être en possession de l'équipement nécessaire et compatible afin de pouvoir passer cet examen à distance (web cam, connexion internet suffisante). <a href="http://www.proctoru.com/testitout/">Cliquez ici</a> pour vérifier que votre équipement est suffisant.
-</li>
-<li>
-Vous devez être en possession d'une pièce d'identité officielle (passeport, carte d'identité...) au moment de l'examen
-</li>
-<li>
-Vous devez vous conformer aux règles de l'examen explicitées dans le cours.
+${_(u"You must comply with the rules of the examination explained in the course.")}
 </li>
 
 </p>
 <p>
-En vous remerciant de votre confiance, nous vous souhaitons un bon MOOC !
+${_(u"Thank you for your continued support, we wish you a good MOOC!")}
 </p>
 
 <strong>
-L'équipe FUN
+${_(u"FUN Team")}
+
 </strong>
 
 <% %>

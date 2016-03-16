@@ -10,34 +10,34 @@ from django.utils.translation import ugettext as _
     <%include file="/funsite/static_templates/fun-address.html"/>
 </td>
 <td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    Date: ${order['date_placed'].strftime(_('%m/%d/%y %H:%M'))}<br>
-    Commande: ${order['number']}<br>
-    Contact facturation: ${order['user'].get_full_name()}<br>
+    ${_(u"Date:" )} ${order['date_placed'].strftime(_('%m/%d/%y %H:%M'))}<br>
+    ${_(u"Order No:")} ${order['number']}<br>
+    ${_(u"Contact:")} ${order['user'].get_full_name()}<br>
 
 </td>
 </tr>
 
 <tr>
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    Description
+    ${_(u"Description")}
     </td>
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    Quantité
+    ${_(u"Quantity")}
     </td>
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    Prix unitaire
+    ${_(u"Unit price")}
     </td>
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    Prix HT
+    ${_(u"Price")}
     </td>
 </tr>
 
 <tr>
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    Inscription à ${course.title}
+    ${_(u"Subscribe to")} ${course.title}
     </td>
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
@@ -55,7 +55,7 @@ from django.utils.translation import ugettext as _
 
 <tr>
     <td width="50" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-        <br>TVA non applicable, Exonération Art. 261-4-4 du CGI
+        <br>${_(u"VAT not applicable, Exemption. Art. 261-4-4 CGI")}
 
     </td>
 
@@ -64,8 +64,8 @@ from django.utils.translation import ugettext as _
     </td>
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    Prix HT: ${order['total_excl_tax']} €<br>
-    Prix TTC: ${order['total_incl_tax']} €<br>
+    ${_(u"Price excl. tax:")} ${order['total_excl_tax']} €<br>
+    ${_(u"Price incl. tax:")} ${order['total_incl_tax']} €<br>
     </td>
 </tr>
 </table>
