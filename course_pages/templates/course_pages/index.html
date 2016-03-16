@@ -566,7 +566,7 @@ require(["jquery", "underscore", "backbone"],
                     model: this.filter,
                     el: this.$('.result-navigation'),
                     resultstats: resultstats,
-                });
+                }).render();
                 this.listenTo(this.filter, 'change', this.refreshCourses);
                 this.listenTo(this.filter, 'initialized', this.refreshCourses);
 
