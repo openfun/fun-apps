@@ -40,6 +40,11 @@ class CourseAPIView(mixins.ListModelMixin,
 
     By default, pagination is set to 10.
 
+    ## Ordering
+
+    The results may be sorted by name, enrollment start date or start date
+    using the `sort` API parameter.
+
     ## Extended List of Courses
 
     Only courses that are shown in the courses catalog are listed in the

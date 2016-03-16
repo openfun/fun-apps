@@ -96,6 +96,62 @@ class CourseAPITest(TestCase):
         self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_in_catalog.title)
 
+    def test_courses_are_sorted_by_title(self):
+        self.active_1.title = "z"
+        self.active_2.title = "a"
+        self.active_1.save()
+        self.active_2.save()
+
+        response = self.client.get(self.api_url, {
+            "sort": "title"
+        })
+        courses = json.loads(response.content)["results"]
+        self.assertLess(courses[0]["title"], courses[1]["title"])
+
+    def test_courses_are_sorted_by_enrollment_date(self):
+        self.active_1.score = 0
+        self.active_2.score = 1
+        self.active_1.enrollment_start_date = now() + timedelta(days=1)
+        self.active_2.enrollment_start_date = now()
+        self.active_1.save()
+        self.active_2.save()
+
+        response_increasing = self.client.get(self.api_url, {
+            "sort": "enrollment_start_date"
+        })
+        response_decreasing = self.client.get(self.api_url, {
+            "sort": "-enrollment_start_date"
+        })
+        courses_increasing = json.loads(response_increasing.content)["results"]
+        courses_decreasing = json.loads(response_decreasing.content)["results"]
+
+        self.assertLess(courses_increasing[0]["enrollment_start_date"],
+                        courses_increasing[1]["enrollment_start_date"])
+        self.assertGreater(courses_decreasing[0]["enrollment_start_date"],
+                           courses_decreasing[1]["enrollment_start_date"])
+
+    def test_courses_are_sorted_by_start_date(self):
+        self.active_1.score = 0
+        self.active_2.score = 1
+        self.active_1.start_date = now() + timedelta(days=1)
+        self.active_2.start_date = now()
+        self.active_1.save()
+        self.active_2.save()
+
+        response_increasing = self.client.get(self.api_url, {
+            "sort": "start_date"
+        })
+        response_decreasing = self.client.get(self.api_url, {
+            "sort": "-start_date"
+        })
+        courses_increasing = json.loads(response_increasing.content)["results"]
+        courses_decreasing = json.loads(response_decreasing.content)["results"]
+
+        self.assertLess(courses_increasing[0]["start_date"],
+                        courses_increasing[1]["start_date"])
+        self.assertGreater(courses_decreasing[0]["start_date"],
+                           courses_decreasing[1]["start_date"])
+
     def test_can_update_course_score_as_admin(self):
         self.login_as_admin()
         self.active_1.score = 0
