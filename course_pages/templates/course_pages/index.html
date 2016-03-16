@@ -462,7 +462,11 @@ require(["jquery", "underscore", "backbone"],
             }
         });
 
-        var Course = Backbone.Model.extend({});
+        var Course = Backbone.Model.extend({
+            defaults: {
+                "thumbnails": {}
+            }
+        });
         var CourseView = Backbone.View.extend({
             tagName: 'li',
             template: loadTemplate("small-course-block"),
