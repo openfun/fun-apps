@@ -8,6 +8,25 @@ from haystack.query import SearchQuerySet
 
 class CourseFilter(filters.BaseFilterBackend):
 
+    def order_by(self, request):
+        """Get the "sort" parameter from the request
+
+        Returns:
+            tuple: value that can be fed to a .order_by() directive.
+        """
+        sort_param = request.QUERY_PARAMS.get("sort")
+        if sort_param == "title":
+            return ("title",)
+        elif sort_param == "enrollment_start_date":
+            return ("enrollment_start_date",)
+        elif sort_param == "-enrollment_start_date":
+            return ("-enrollment_start_date",)
+        elif sort_param == "start_date":
+            return ("start_date",)
+        elif sort_param == "-start_date":
+            return ("-start_date",)
+        return ("-score",)
+
     def filter_queryset(self, request, queryset, view):
         university_codes = request.QUERY_PARAMS.getlist('university')
         subject_slugs = request.QUERY_PARAMS.getlist('subject')
@@ -35,4 +54,5 @@ class CourseFilter(filters.BaseFilterBackend):
         if full_text_query:
             results = SearchQuerySet().filter(content=full_text_query)
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
+        queryset = queryset.order_by(*self.order_by(request))
         return queryset
