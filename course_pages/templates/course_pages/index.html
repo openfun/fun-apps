@@ -85,10 +85,12 @@ require(["jquery", "underscore", "backbone"],
 
         var AppRouter = Backbone.Router.extend({
             routes: {
+                "filter/:name/:slug?page=:page&rpp=:rpp&sort=:sortBy": "filter",
                 "filter/:name/:slug?page=:page&rpp=:rpp": "filter",
                 "filter/:name/:slug": "filter",
                 "filter": "filter",
                 "": "filter",
+                "search?query=:query&page=:page&rpp=:rpp&sort=:sortBy": "search",
                 "search?query=:query&page=:page&rpp=:rpp": "search",
                 "search?query=:query": "search",
             },
@@ -96,7 +98,7 @@ require(["jquery", "underscore", "backbone"],
                 this.criterioncollection = options.criterioncollection;
                 this.filter = options.filter;
             },
-            search: function(query, page, rpp) {
+            search: function(query, page, rpp, sortBy) {
                 var attributes = {
                     query: query,
                     selected: null,
@@ -107,9 +109,12 @@ require(["jquery", "underscore", "backbone"],
                 if (page) {
                     attributes.currentPage = parseInt(page);
                 }
+                if (sortBy) {
+                    attributes.sortBy = sortBy;
+                }
                 this.filter.set(attributes);
             },
-            filter: function(name, slug, page, rpp) {
+            filter: function(name, slug, page, rpp, sortBy) {
                 var attributes = {
                     query: null,
                 }
@@ -128,6 +133,9 @@ require(["jquery", "underscore", "backbone"],
                 }
                 if (page) {
                     attributes.currentPage = parseInt(page);
+                }
+                if (sortBy) {
+                    attributes.sortBy = sortBy;
                 }
                 this.filter.set(attributes);
             },
@@ -376,13 +384,15 @@ require(["jquery", "underscore", "backbone"],
                 resultsPerPage: 50,
                 resultsPerPageChoices: [20, 50, 100, -1],
                 currentPage: 1,
-                query: null
+                query: null,
+                sortBy: "",
             },
             startNewSearch: function(value) {
                 this.set({
                     selected: value,
                     currentPage: 1,
                     query: null,
+                    sortBy: "",
                 });
             }
         });
@@ -404,6 +414,7 @@ require(["jquery", "underscore", "backbone"],
                 var query = this.model.get("query");
                 var page = this.model.get("currentPage");
                 var rpp = this.model.get("resultsPerPage");
+                var sortBy = this.model.get("sortBy");
                 var parameters = [];
 
                 // Action
@@ -419,14 +430,20 @@ require(["jquery", "underscore", "backbone"],
                     parameters.push({name: "page", value: page || 1});
                     parameters.push({name: "rpp", value: rpp || 50});
                 }
+                if (sortBy) {
+                    parameters.push({name: "sort", value: sortBy});
+                }
                 url += '?' + $.param(parameters);
 
                 Backbone.history.navigate(url, {trigger: false});
             },
             events: {
                 "click .glyphicon-remove": "clearSelectedValue",
-                "click .results-per-page": "toggleResultsPerPageChoices",
-                "click .change-results-per-page": "changeResultsPerPage",
+
+                "click .filter-dropdown": "toggleDropdown",
+                "click .filter-dropdown.results-per-page li": "setResultsPerPage",
+                "click .filter-dropdown.sort-by li": "setOrderBy",
+
                 "click .result-page": "changeCurrentPage",
             },
             template: loadTemplate("filter"),
@@ -434,20 +451,25 @@ require(["jquery", "underscore", "backbone"],
                 this.model.startNewSearch(null);
                 $('.small-device-filter select').prop('selectedIndex', 0);  // reset selects
             },
-            toggleResultsPerPageChoices: function(e) {
-                if ($(e.target).parents().is('.result-navigation-top')) {
-                    var resultsPerPageChoices = $(".result-navigation-top .navigation-bar  ul.results-per-page-choices");
+            toggleDropdown: function(e) {
+                var dropdown = $(e.target);
+                if(!dropdown.hasClass("filter-dropdown")) {
+                    // Clicks on inside elements should trigger events, too
+                    dropdown = dropdown.parent(".filter-dropdown");
                 }
-                else {
-                    var resultsPerPageChoices = $(".result-navigation-bottom .navigation-bar  ul.results-per-page-choices");
-                }
-                resultsPerPageChoices.css("width", $('.navigation-bar  .results-per-page').outerWidth());
-                resultsPerPageChoices.toggle();
+                var dropdownChoices = dropdown.find("ul");
+                dropdownChoices.css("width", dropdown.outerWidth());
+                dropdownChoices.toggle();
                 e.stopPropagation();
-             },
-            changeResultsPerPage: function(e) {
-                var resultsPerPage = parseInt($(e.target).attr("value"));
-                this.model.set("resultsPerPage", resultsPerPage);
+            },
+            setResultsPerPage: function(e) {
+                var value = parseInt($(e.target).attr("value"));
+                this.model.set("resultsPerPage", value);
+                e.stopPropagation();
+            },
+            setOrderBy: function(e) {
+                var value = $(e.target).attr("value");
+                this.model.set("sortBy", value);
                 e.stopPropagation();
             },
             changeCurrentPage: function(e) {
@@ -457,6 +479,14 @@ require(["jquery", "underscore", "backbone"],
                 var context = this.model.toJSON();
                 context.totalCount = this.resultstats.get("totalCount");
                 context.totalPageCount = Math.ceil(context.totalCount / context.resultsPerPage);
+                context.sortByValues = {
+                    "": "${_('Relevance')}",
+                    "title": "${_('Title')}",
+                    "start_date": "${_('Start date')}",
+                    //"-start_date": "${_('Start date (decreasing)')}",
+                    "start_enrollment_date": "${_('Enrollment date')}",
+                    //"-start_enrollment_date": "${_('Enrollment date (decreasing)')}",
+                }
                 this.$el.html(this.template(context));
                 return this;
             }
@@ -511,6 +541,12 @@ require(["jquery", "underscore", "backbone"],
                     parameters.push({
                         name: "query",
                         value: this.filter.get("query"),
+                    })
+                }
+                if (this.filter.get("sortBy")) {
+                    parameters.push({
+                        name: "sort",
+                        value: this.filter.get("sortBy"),
                     })
                 }
                 return "${reverse('fun-courses-api:%s-list' % CourseAPIRouter.BASENAME)}" + '?' + $.param(parameters);

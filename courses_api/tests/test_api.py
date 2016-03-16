@@ -152,6 +152,20 @@ class CourseAPITest(TestCase):
         self.assertGreater(courses_decreasing[0]["start_date"],
                            courses_decreasing[1]["start_date"])
 
+    def test_courses_are_sorted_by_score_with_incorrect_order_by(self):
+        self.active_1.score = 1
+        self.active_2.score = 2
+        self.active_1.title = "1"
+        self.active_2.title = "2"
+        self.active_1.save()
+        self.active_2.save()
+        response = self.client.get(self.api_url, {
+            "sort": "invalidvalue"
+        })
+        courses = json.loads(response.content)["results"]
+        self.assertEqual(self.active_2.title, courses[0]["title"])
+        self.assertEqual(self.active_1.title, courses[1]["title"])
+
     def test_can_update_course_score_as_admin(self):
         self.login_as_admin()
         self.active_1.score = 0

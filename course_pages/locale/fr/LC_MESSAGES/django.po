@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 47\n"
+"Project-Id-Version: FUN-MOOC 49\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 14:50+0100\n"
-"PO-Revision-Date: 2016-03-01 14:50+0000\n"
+"POT-Creation-Date: 2016-03-16 18:46+0100\n"
+"PO-Revision-Date: 2016-03-16 18:46+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -51,6 +51,14 @@ msgctxt "course-block"
 msgid "Ended"
 msgstr "Terminé"
 
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Enrollment date"
+msgstr "Date d'inscription"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Enrollment date (decreasing)"
+msgstr "Date d'inscription (décroissante)"
+
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/feed/feed.html:0
 msgid "Enrollment ends : "
 msgstr "Fin des inscriptions: "
@@ -87,6 +95,18 @@ msgstr "Cours proposé par"
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Refine search results"
 msgstr "Affiner les résultats"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Relevance"
+msgstr "Pertinence"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Start date"
+msgstr "Date de début"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Start date (decreasing)"
+msgstr "Date de début (décroissante)"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
 msgctxt "course-block"
