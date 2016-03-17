@@ -436,6 +436,10 @@ require(["jquery", "underscore", "backbone"],
                 url += '?' + $.param(parameters);
 
                 Backbone.history.navigate(url, {trigger: false});
+
+                // Trigger Google analytics event
+                var _gaq = (_gaq || []);
+                _gaq.push('_trackPageview', "${reverse('fun-courses:index')}" + "/" + url);
             },
             events: {
                 "click .glyphicon-remove": "clearSelectedValue",
