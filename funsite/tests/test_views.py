@@ -62,3 +62,11 @@ class TestLoginPage(ModuleStoreTestCase):
         }
         self.client.post(reverse('login'), post_params)
         self.assertTrue(CourseEnrollment.is_enrolled(user, course.id))
+
+
+@skipUnlessLms
+class TestSearchProvider(TestCase):
+
+    def test_render(self):
+        response = self.client.get(reverse('searchprovider.xml'))
+        self.assertEqual('text/xml', response.get('Content-Type'))

@@ -1,0 +1,12 @@
+## mako
+<?xml version="1.0" encoding="UTF-8"?>
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+   <ShortName>FUN MOOC</ShortName>
+   <Description>${_(u"Search courses on FUN")}</Description>
+   <InputEncoding>UTF-8</InputEncoding>
+   <Url type="text/html" template="${request.build_absolute_uri(reverse('fun-courses:index'))}#search?query={searchTerms}"/>
+</OpenSearchDescription>

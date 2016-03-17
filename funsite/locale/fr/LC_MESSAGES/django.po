@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 47\n"
+"Project-Id-Version: FUN-MOOC 49\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
 "POT-Creation-Date: 2016-03-22 15:03+0100\n"
 "PO-Revision-Date: 2016-03-22 15:03+0000\n"
@@ -114,6 +114,10 @@ msgstr "Fin d'inscription"
 msgctxt "course-about"
 msgid "Enrollment is closed"
 msgstr "Les inscriptions sont closes"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:0
+msgid "FUN course search"
+msgstr "Recherche de cours FUN"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:0
 msgid "FUN courses RSS feed"
@@ -237,6 +241,10 @@ msgstr "Des équipes de recherche en sciences cognitives et de l’éducation, h
 msgid "Search courses"
 msgstr "Rechercher un cours"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/searchprovider.xml:0
+msgid "Search courses on FUN"
+msgstr "Recherchez un cours sur FUN"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/static_templates/server-error.html:0
 msgid "Server error"
 msgstr "Erreur serveur"
@@ -321,4 +329,3 @@ msgstr "Vous pouvez également, pour des motifs légitimes, vous opposer au trai
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
 msgid "h/week"
 msgstr "h/semaine"
-
