@@ -235,7 +235,7 @@ msgstr "Des équipes de recherche en sciences cognitives et de l’éducation, h
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
 msgid "Search courses"
-msgstr "Recherche un cours"
+msgstr "Rechercher un cours"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/static_templates/server-error.html:0
 msgid "Server error"
