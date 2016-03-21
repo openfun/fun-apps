@@ -209,4 +209,3 @@ class PayboxSystemViewsTest(TestCase):
                 int(soup.find('span', class_='line-1-quantity').text.strip()))
         self.assertEqual(self.university.name,
                 soup.find('span', class_='line-1-course-university').text.strip())
-
