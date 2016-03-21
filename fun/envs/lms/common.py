@@ -18,11 +18,12 @@ INSTALLED_APPS += (
     'courses_api',
     'course_pages',
     'newsfeed',
+    'proctoru',
     'universities',
     'universities_api',
     'videoproviders',
-    'haystack',
 
+    'haystack',
     'easy_thumbnails',
     'bootstrapform',
     'ckeditor',
@@ -38,7 +39,7 @@ INSTALLED_APPS += (
     'teachers',
     'faq',
     'edx_gea',
-    )
+)
 
 ROOT_URLCONF = 'fun.lms.urls'
 
@@ -165,7 +166,8 @@ GRADES_DOWNLOAD_ROUTING_KEY = None
 FEATURES['ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER'] = False
 
 # used by pure-pagination app, https://github.com/jamespacileo/django-pure-pagination
-# for information about the constants : https://camo.githubusercontent.com/51defa6771f5db2826a1869eca7bed82d9fb3120/687474703a2f2f692e696d6775722e636f6d2f4c437172742e676966
+# for information about the constants :
+# https://camo.githubusercontent.com/51defa6771f5db2826a1869eca7bed82d9fb3120/687474703a2f2f692e696d6775722e636f6d2f4c437172742e676966
 PAGINATION_SETTINGS = {
     # same formatting as in github issues, seems to be sane.
     'PAGE_RANGE_DISPLAYED': 4,
@@ -204,7 +206,7 @@ FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
 FEATURES["ENABLE_MOBILE_REST_API"] = True
 FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = False
 
-PAID_COURSE_REGISTRATION_CURRENCY=["EUR", "€"]
+PAID_COURSE_REGISTRATION_CURRENCY = ["EUR", "€"]
 
 EDX_API_KEY = 'test'
 
