@@ -154,7 +154,6 @@ msgid "Unit price"
 msgstr "Prix unitaire"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
-#, fuzzy
 msgid "VAT not applicable, Exemption Art. 261-4-4 CGI."
 msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
 
