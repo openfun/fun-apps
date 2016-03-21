@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: France Université Numérique 7\n"
+"Project-Id-Version: FUN-MOOC 10\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-16 16:30+0100\n"
-"PO-Revision-Date: 2016-03-16 16:30+0000\n"
+"POT-Creation-Date: 2016-03-22 14:46+0100\n"
+"PO-Revision-Date: 2016-03-22 14:46+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -16,7 +16,7 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
 #, python-format
 msgid "%m/%d/%y %H:%M"
-msgstr ""
+msgstr "%d/%m/%y %H:%M"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
@@ -86,6 +86,11 @@ msgstr "Commande :"
 msgid "Payment canceled"
 msgstr "Abandon du paiement"
 
+# Translated in edx by ''
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid "Payment confirmation"
+msgstr "Confirmation de paiement"
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/cancel.html:0
 msgid "Payment order for the course has been interrupted."
 msgstr "La procédure de paiement pour le cours a été interrompue."
@@ -154,7 +159,6 @@ msgid "Unit price"
 msgstr "Prix unitaire"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
-#, fuzzy
 msgid "VAT not applicable, Exemption Art. 261-4-4 CGI."
 msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
 
@@ -208,7 +212,9 @@ msgstr ""
 msgid ""
 "Your payment of {total_excl_tax} € for registration in {title} has been "
 "taken into account."
-msgstr ""
-"Votre paiement de {total_excl_tax} pour le cours "
-"{title}a bien été reçu."
+msgstr "Votre paiement de {total_excl_tax} € pour le cours {title} a bien été reçu."
+
+#: /edx/app/edxapp/fun-apps/payment/utils.py:0
+msgid "[FUN-MOOC] Payment confirmation"
+msgstr "[FUN-MOOC] Confirmation de paiement"
 

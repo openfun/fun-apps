@@ -2,6 +2,7 @@
 <%!
 from django.utils.translation import ugettext as _
 from datetime import datetime
+import dateutil.parser
 %>
 <br><br><br>
 
@@ -11,9 +12,9 @@ from datetime import datetime
     <%include file="/funsite/static_templates/fun-address.html"/>
 </td>
 <td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    ${_(u"Date:" )} ${datetime.now().strftime(_('%m/%d/%y %H:%M'))}<br>
+    ${_(u"Date:" )} ${dateutil.parser.parse(order['date_placed']).strftime(_('%m/%d/%y %H:%M'))}<br>
     ${_(u"Order No:")} ${order['number']}<br>
-    ${_(u"Contact:")} <br>
+    ${_(u"Contact:")} <span class="user-full-name">${user.get_full_name() or user.username}</span><br>
 
 </td>
 </tr>
@@ -66,7 +67,7 @@ from datetime import datetime
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
     ${_(u"Price excl. tax:")} ${order['total_excl_tax']} €<br>
-    ${_(u"Price incl. tax:")} ${order['total_incl_tax']} €<br>
+    ${_(u"Price incl. tax:")} ${total_incl_tax} €<br>
     </td>
 </tr>
 </table>

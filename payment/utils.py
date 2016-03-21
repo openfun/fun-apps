@@ -2,6 +2,8 @@
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
+from django.utils.translation import ugettext_lazy as _
+from django.utils import translation
 
 from edxmako.shortcuts import render_to_string
 
@@ -26,10 +28,12 @@ def send_confirmation_email(user, order_number):
     context = {}
     context['order'] = order
     context['course'] = course
-    context['recipient'] = user.email
-    subject = u"[FUN-MOOC] Confirmation de paiement"
-    text_content = render_to_string('payment/email/confirmation-email.txt', context)
-    html_content = render_to_string('payment/email/confirmation-email.html', context)
+    context['user'] = user
+    context['total_incl_tax'] = order['total_excl_tax']  # we do not know yet how we will handle taxes in the future...
+    subject = _(u"[FUN-MOOC] Payment confirmation")
+    with translation.override(user.profile.language):
+        text_content = render_to_string('payment/email/confirmation-email.txt', context)
+        html_content = render_to_string('payment/email/confirmation-email.html', context)
     email = EmailMultiAlternatives(
             subject=subject,
             body=text_content,
