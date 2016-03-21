@@ -7,10 +7,11 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 
 INSTALLED_APPS += (
     'fun',
-    'universities',
+    'proctoru',
     'videoproviders',
     'courses',
     'haystack',
+    'universities',
 
     'easy_thumbnails',
     'ckeditor',
@@ -64,7 +65,8 @@ FEATURES['SUBDOMAIN_BRANDING'] = False
 FEATURES['SUBDOMAIN_COURSE_LISTINGS'] = False
 FEATURES['USE_CUSTOM_THEME'] = False
 
-# index courseware content in 'courseware_index' and course meta information in 'course_info' after every modification in studio
+# index courseware content in 'courseware_index' and course meta information in
+# 'course_info' after every modification in studio
 FEATURES['ENABLE_COURSEWARE_INDEX'] = True
 
 
