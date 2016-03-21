@@ -42,8 +42,8 @@ def paybox_success(request):
 
     E.g arguments: amount=10000&reference-fun=EDX-100056&autorisation=XXXXXX&reponse-paybox=00000&appel-paybox=16047443&transaction-paybox=7558206
     """
-
     # TODO: find a smart way to factorize the control logic upon the 3 views
+
     if request.GET.get('reponse-paybox') != '00000' or not request.GET.get('reference-fun'):
         return HttpResponseBadRequest()
 
