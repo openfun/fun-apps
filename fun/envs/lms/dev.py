@@ -39,5 +39,5 @@ HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
 
 # If your development environment is not exposed to internet and can not receive payment processor notification
 # by settings this to True, the success return page will generate the appropriate POST to ecommerce service
-FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = False
+FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = True
 FEATURES['ENABLE_AUTO_AUTH'] = True

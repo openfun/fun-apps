@@ -44,6 +44,7 @@ def paybox_success(request):
     """
 
     # TODO: find a smart way to factorize the control logic upon the 3 views
+
     if request.GET.get('reponse-paybox') != '00000' or not request.GET.get('reference-fun'):
         return HttpResponseBadRequest()
 
