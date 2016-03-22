@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 46\n"
+"Project-Id-Version: FUN-MOOC 47\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 14:50+0100\n"
-"PO-Revision-Date: 2016-03-01 14:50+0000\n"
+"POT-Creation-Date: 2016-03-22 15:03+0100\n"
+"PO-Revision-Date: 2016-03-22 15:03+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -22,6 +22,10 @@ msgstr "A propos de FUN"
 msgid "About..."
 msgstr "A propos"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
+msgid "Add course to Cart ({price})"
+msgstr ""
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:0
 #: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:0
@@ -36,6 +40,11 @@ msgstr "Toutes les actualités"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:0
 msgid "All universities"
 msgstr "Tous les établissements"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
+msgctxt "course-about"
+msgid "Already in your cart"
+msgstr ""
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
 msgid ""
@@ -66,6 +75,13 @@ msgid "Classes End"
 msgstr "Fin du cours"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
+msgid ""
+"Collected data are subjected to automatic processing intended to enable "
+"user registration, learning activities, evaluations, and certificate "
+"delivery."
+msgstr "Les informations recueillies font l’objet d’un traitement informatique destiné à permettre l’inscription, le suivi des cours, la participation aux activités pédagogiques et aux évaluations, la délivrance d’attestations et/ou de certificats."
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
 msgid "Confidentiality"
 msgstr "Confidentialité"
 
@@ -76,6 +92,10 @@ msgstr "Créer un compte"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:0
 msgid "Create my {platform_name} account"
 msgstr "Créer mon compte {platform_name}"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
+msgid "Data recipients are:"
+msgstr ""
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:0
 msgid "Do you already have an account?"
@@ -140,6 +160,14 @@ msgstr "Je viens de m'inscrire pour {title} via {account}: {url}"
 msgid "I just registered for {title} through {platform} {url}"
 msgstr "Je viens de m'inscrire pour {title} via {platform} {url}"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
+msgid ""
+"In accordance with the law «&nbsp;informatique et libertés&nbsp;» (data "
+"protection act) of  January 6th, 1978, modified in 2004, you have the "
+"right to access and modify information related to you, and might exert "
+"this right by contacting:"
+msgstr "Conformément à la loi «&nbsp;informatique et libertés&nbsp;» du 6 janvier 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer en vous adressant à :"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:0
 msgid "Log in to your {platform_name} account"
 msgstr "Connexion à votre compte {platform_name}"
@@ -199,6 +227,12 @@ msgstr ""
 msgid "Registration closed"
 msgstr "Inscription close"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
+msgid ""
+"Research teams authorized by the Ministry of higher education, collecting"
+" anonymized data."
+msgstr "Des équipes de recherche en sciences cognitives et de l’éducation, habilitées par le ministère en charge de l’Enseignement supérieur, pour les données d’usage anonymisées."
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
 msgid "Search courses"
 msgstr "Recherche un cours"
@@ -218,6 +252,12 @@ msgstr "Inscrivez-vous sur FUN !"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:0
 msgid "Sign up to {platform_name}"
 msgstr "Inscription à {platform_name}"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
+msgid ""
+"Teachers and their teams as well as data controllers representatives in "
+"organizations issuing courses."
+msgstr "Les enseignants des équipes pédagogiques et les représentants officiels des établissements porteurs des cours, pour les données à caractère personnel."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/legal.html:0
@@ -271,6 +311,12 @@ msgstr "Vous n'avez pas de compte ?"
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/login-overlay.html:0
 msgid "You have an account"
 msgstr "Vous avez un compte ?"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
+msgid ""
+"You hold the right, for any legitimate needs, to oppose the processing of"
+" any of your personal data."
+msgstr "Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
 msgid "h/week"
