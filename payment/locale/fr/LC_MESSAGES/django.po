@@ -193,7 +193,7 @@ msgid ""
 msgstr ""
 "Vous devez être en possession de l'équipement nécessaire et compatible "
 "afin de pouvoir passer cet examen à distance (web cam, connexion internet"
-" suffisante). <a href='http://www.proctoru.com/testitout/'>Cliquez "
+" suffisante). <a href='http://www.proctoru.com/testitout/index_fr.php'>Cliquez "
 "ici</a> pour vérifier que votre équipement est suffisant."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/success.html:0
