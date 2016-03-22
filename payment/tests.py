@@ -18,7 +18,7 @@ from verify_student.models import SoftwareSecurePhotoVerification
 from courses.models import Course
 from fun.tests.utils import skipUnlessLms
 
-from .utils import get_course
+from .utils import get_course, send_confirmation_email
 
 
 @override_settings(FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION=False)
@@ -30,7 +30,7 @@ class PayboxSystemViewsTest(TestCase):
                 last_name='last_name', email='richard@example.com', is_active=True)
         self.user.set_password('test')
         self.user.save()
-        UserProfile.objects.create(user=self.user)
+        UserProfile.objects.create(user=self.user, language='fr')
         self.client.login(username=self.user.username, password='test')
         self.course = Course.objects.create(key='FUN/0002/session1', title=u"course title")
         self.params = {
@@ -147,6 +147,8 @@ class PayboxSystemViewsTest(TestCase):
                 SoftwareSecurePhotoVerification.objects.filter(
                 user=self.user).count())
         self.assertEqual(1, len(mail.outbox))
+        self.assertEqual(True,
+                mail.outbox[0].message().is_multipart())
 
     @patch('payment.utils.get_order')
     def test_payment_notification_api_already_verified(self, get_order_mock):
@@ -170,3 +172,24 @@ class PayboxSystemViewsTest(TestCase):
     def test_utils_get_course(self):
         self.assertEqual(self.course,
             get_course(self.api_response))
+
+    @patch('payment.utils.get_order')
+    def test_confirmation_email_language(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
+        send_confirmation_email(self.user, 'FUN-100056')
+        self.assertEqual(1, len(mail.outbox))
+        soup = BeautifulSoup(mail.outbox[0].message().as_string())
+        # default user's language is fr
+        self.assertEqual(u"Confirmation de paiement",
+                soup.find('h1', class_='title').text.strip())
+        # create new user, with language en
+        mail.outbox = []
+        user_en = User.objects.create(username='user_en', first_name='first_name',
+                last_name='last_name', email='richard@example.co.uk', is_active=True)
+        UserProfile.objects.create(user=user_en, language='en')
+        send_confirmation_email(user_en, 'FUN-100056')
+        soup = BeautifulSoup(mail.outbox[0].message().as_string())
+        self.assertEqual(u"Payment confirmation",
+                soup.find('h1', class_='title').text.strip())
+
+
