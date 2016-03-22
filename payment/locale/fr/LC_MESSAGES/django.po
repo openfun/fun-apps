@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 10\n"
+"Project-Id-Version: FUN-MOOC 15\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-22 14:46+0100\n"
-"PO-Revision-Date: 2016-03-22 14:46+0000\n"
+"POT-Creation-Date: 2016-03-23 11:36+0100\n"
+"PO-Revision-Date: 2016-03-23 11:36+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -36,8 +36,8 @@ msgstr "Une erreur a eu lieu pendant le traitement de votre paiement."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
-"Can add this certificate to your resume, your cover letter or share it "
-"directly on social networks."
+"Be able to add this certificate to your resume, your cover letter or "
+"share it directly on social networks."
 msgstr ""
 "Pourrez ajouter ce certificat à votre CV, à votre lettre de motivation ou"
 " le partager directement sur les réseaux sociaux."
@@ -74,9 +74,22 @@ msgstr ""
 "Voici un bref rappel des conditions obligatoires de l'examen surveillé "
 "pour avoir la possibilité d'obtenir le certificat :"
 
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"Highlight your newly acquired knowledge with a certificate. This document"
+" will improve your employability and promote your career."
+msgstr ""
+"Valorisez vos nouvelles connaissances grâce à un certificat. Ce document "
+"vous permettra d'améliorer votre employabilité et de promouvoir votre "
+"carrière."
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/base.html:0
 msgid "Home"
 msgstr "Accueil"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid "Obtain a certificate issued by the institution that created the MOOC"
+msgstr "Obtiendrez un certificat émis par l'établissement créateur du MOOC."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
 msgid "Order No:"
@@ -107,10 +120,6 @@ msgstr "Prix HT :"
 msgid "Price incl. tax:"
 msgstr "Prix TTC :"
 
-#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
-msgid "Receive a certificate issued by the institution that created the MOOC"
-msgstr "Recevrez un certificat émis par l'établissement créateur du MOOC."
-
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/base.html:0
 msgid "Return to dashboard"
 msgstr "Retourner au tableau de bord"
@@ -125,21 +134,12 @@ msgstr "En vous remerciant de votre confiance, nous vous souhaitons un bon MOOC 
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
-"The proctored exam is organized by the provider in ProctorU only visible "
-"part of the course for students who have chosen the path checked"
+"The proctored exam is organized by the ProctorU provider in a part of the"
+" course visible only for students who have selected the certified track"
 msgstr ""
 "L'examen surveillé est organisé par le prestataire ProctorU dans une "
 "partie du cours seulement visible pour les étudiants ayant choisi le "
-"parcours vérifié"
-
-#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
-msgid ""
-"The verified certificate will allow you to enhance your knowledge, "
-"improve your employability and promote your career."
-msgstr ""
-"Valorisez vos nouvelles connaissances grâce à un certificat vérifié. Ce "
-"document vous permettra d’améliorer votre employabilité et de promouvoir "
-"votre carrière."
+"parcours certifiant"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/success.html:0
 msgid "This is for the payment order <strong>{number}</strong>."
@@ -158,21 +158,17 @@ msgstr "Il s'agissait de la commande <strong>{number}</strong>."
 msgid "Unit price"
 msgstr "Prix unitaire"
 
-#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
-msgid "VAT not applicable, Exemption Art. 261-4-4 CGI."
-msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
-
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
 msgid "VAT not applicable, Exemption. Art. 261-4-4 CGI"
 msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
-"You have chosen to follow the course <strong>{title}</strong> as a "
-"student with identity verification."
+"You have chosen to follow the course <strong>{title}</strong> in order to"
+" obtain a certificate."
 msgstr ""
-"Vous avez choisi de suivre le cours <strong>{title}</strong> en tant "
-"qu'étudiant avec vérification d'identité."
+"Vous avez choisi de suivre le cours <strong>{title}</strong> en ayant "
+"pour objectif l'obtention un certificat."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
@@ -190,15 +186,13 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
-"You must own the necessary equipment in order to pass this remotely "
-"monitored examination (web cam, enough Internet connection). <a "
-"href='http://www.proctoru.com/testitout/'> </a> Click here to verify that"
-" your equipment is sufficient."
+"You must verify that your equipment is compatible by <a "
+"href='http://www.proctoru.com/testitout/' target='_blank'>clicking "
+"here</a>."
 msgstr ""
-"Vous devez être en possession de l'équipement nécessaire et compatible "
-"afin de pouvoir passer cet examen à distance (web cam, connexion internet"
-" suffisante). <a href='http://www.proctoru.com/testitout/'>Cliquez "
-"ici</a> pour vérifier que votre équipement est suffisant."
+"Vous devez vérifier que votre équipement est compatible en <a "
+"href='http://www.proctoru.com/testitout/index_fr.php' "
+"target='_blank'>cliquant ici</a>."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/success.html:0
 msgid ""
@@ -212,9 +206,18 @@ msgstr ""
 msgid ""
 "Your payment of {total_excl_tax} € for registration in {title} has been "
 "taken into account."
-msgstr "Votre paiement de {total_excl_tax} € pour le cours {title} a bien été reçu."
+msgstr ""
+"Votre paiement de {total_excl_tax} € pour le cours {title} a bien été "
+"reçu."
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid "Your receipt can be found at the end of this email."
+msgstr "Votre reçu se trouve à la fin de cet email."
 
 #: /edx/app/edxapp/fun-apps/payment/utils.py:0
 msgid "[FUN-MOOC] Payment confirmation"
 msgstr "[FUN-MOOC] Confirmation de paiement"
+
+#~ msgid "VAT not applicable, Exemption Art. 261-4-4 CGI."
+#~ msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
 
