@@ -38,7 +38,8 @@ def send_confirmation_email(user, order_number):
             subject=subject,
             body=text_content,
             from_email=settings.PAYMENT_SUPPORT_EMAIL,
-            to=[user.email, settings.PAYMENT_ADMIN],
+            to=[user.email],
+            bcc=[settings.PAYMENT_ADMIN],
         )
     email.attach_alternative(html_content, "text/html")
     email.send()
