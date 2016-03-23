@@ -35,7 +35,8 @@ def get_teaser(video_id):
         video_id (str)
     """
     if len(video_id) > 20:
-        # Studio saves in mongo youtube urls with dmcloud id, we have to extract dmclouid to build correct url
+        # Studio saves in Mongo a Youtube urls with DailyMotion ID,
+        # we have to extract DailyMotion ID to build correct url
         try:
             dm_id = re.compile(r'/([\d\w]+)\?').search(video_id).groups()[0]
         except AttributeError:
