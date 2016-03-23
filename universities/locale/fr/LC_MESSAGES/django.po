@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 17\n"
+"Project-Id-Version: FUN-MOOC 18\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 14:50+0100\n"
-"PO-Revision-Date: 2016-03-01 14:50+0000\n"
+"POT-Creation-Date: 2016-04-04 15:31+0200\n"
+"PO-Revision-Date: 2016-04-04 15:31+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -16,18 +16,6 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/universities/choices.py:0
 msgid "Academic Partner"
 msgstr "Partenaire Académique"
-
-#: /edx/app/edxapp/fun-apps/universities/models.py:0
-msgid "DM API Key"
-msgstr "Dailymotion API key"
-
-#: /edx/app/edxapp/fun-apps/universities/models.py:0
-msgid "DM User ID"
-msgstr "Dailymotion User ID"
-
-#: /edx/app/edxapp/fun-apps/universities/admin.py:0
-msgid "Dailymotion Cloud"
-msgstr "Dailymotion Cloud"
 
 #: /edx/app/edxapp/fun-apps/universities/admin.py:0
 msgid "Displayed On Site | Banner | Description"
@@ -140,4 +128,3 @@ msgstr ""
 "françaises qui le souhaitent de dispenser leurs cours en ligne. Ces "
 "établissements sont de plus en plus nombreux à proposer des formations "
 "sur {platform_name} :"
-
