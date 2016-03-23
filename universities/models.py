@@ -35,8 +35,6 @@ class University(models.Model):
     banner = models.ImageField(_('banner'), upload_to='universities', null=True,
         blank=True)
     description = RichTextField(_('description'), blank=True)
-    dm_user_id = models.CharField(_('DM User ID'), max_length=255, blank=True)
-    dm_api_key = models.CharField(_('DM API Key'), max_length=255, blank=True)
     partnership_level = models.CharField(_('partnership level'), max_length=255,
         choices=universities_choices.UNIVERSITY_PARTNERSHIP_LEVEL, blank=True,
         db_index=True)
