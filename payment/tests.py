@@ -15,8 +15,9 @@ from mock import patch
 from student.models import UserProfile
 from verify_student.models import SoftwareSecurePhotoVerification
 
-from courses.models import Course
+from courses.models import Course, CourseUniversityRelation
 from fun.tests.utils import skipUnlessLms
+from universities.tests.factories import UniversityFactory
 
 from .utils import get_course, send_confirmation_email
 
@@ -32,7 +33,11 @@ class PayboxSystemViewsTest(TestCase):
         self.user.save()
         UserProfile.objects.create(user=self.user, language='fr')
         self.client.login(username=self.user.username, password='test')
-        self.course = Course.objects.create(key='FUN/0002/session1', title=u"course title")
+        self.course = Course.objects.create(key='FUN/0002/session1', title=u"course title",)
+        self.university = UniversityFactory(name=u"FÛN")
+        CourseUniversityRelation.objects.create(
+                course=self.course, university=self.university)
+
         self.params = {
             'amount': '10000',
             'reference-fun': 'FUN-100056',
@@ -182,8 +187,6 @@ class PayboxSystemViewsTest(TestCase):
                 soup.find('h1', class_='title').text.strip())
         self.assertEqual(self.user.get_full_name(),
                 soup.find('span', class_='user-full-name').text.strip())
-
-
         # create new user, with language en
         mail.outbox = []
         user_en = User.objects.create(username='user_en', first_name='first_name',
@@ -194,4 +197,16 @@ class PayboxSystemViewsTest(TestCase):
         self.assertEqual(u"Payment confirmation",
                 soup.find('h1', class_='title').text.strip())
 
+    @patch('payment.utils.get_order')
+    def test_confirmation_email_bill(self, get_order_mock):
+        get_order_mock.return_value = self.api_response
+        send_confirmation_email(self.user, 'FUN-100056')
+        self.assertEqual(1, len(mail.outbox))
+        soup = BeautifulSoup(mail.outbox[0].message().as_string())
+        self.assertEqual(self.course.title,
+                soup.find('span', class_='line-1-course-title').text.strip())
+        self.assertEqual(1,
+                int(soup.find('span', class_='line-1-quantity').text.strip()))
+        self.assertEqual(self.university.name,
+                soup.find('span', class_='line-1-course-university').text.strip())
 

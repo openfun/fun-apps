@@ -38,25 +38,25 @@ import dateutil.parser
 </tr>
 
 <tr>
-    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    ${_(u"Subscribe to")} ${course.title}
+    <td width="35%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    ${_(u"Subscribe to")} <span class="line-1-course-title">${course.title}</span> / <span class="line-1-course-university">${course.get_first_university()}</span>
+    </td>
+
+    <td width="15%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <span class="line-1-quantity">1</span>
     </td>
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    1
+    <span class="line-1-price-excl-tax">${order['total_excl_tax']}</span> €
     </td>
 
     <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    ${order['total_excl_tax']} €
-    </td>
-
-    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    ${order['total_excl_tax']} €
+    <span class="line-1-price-incl-tax">${order['total_excl_tax']}</span> €
     </td>
 </tr>
 
 <tr>
-    <td width="50" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
         <br>${_(u"VAT not applicable, Exemption. Art. 261-4-4 CGI")}
 
     </td>
