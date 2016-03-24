@@ -31,7 +31,7 @@ class PayboxSystemViewsTest(TestCase):
                 last_name='last_name', email='richard@example.com', is_active=True)
         self.user.set_password('test')
         self.user.save()
-        UserProfile.objects.create(user=self.user, language='fr')
+        UserProfile.objects.create(user=self.user, language='fr', name=u"Robert Cash")
         self.client.login(username=self.user.username, password='test')
         self.course = Course.objects.create(key='FUN/0002/session1', title=u"course title",)
         self.university = UniversityFactory(name=u"FÛN")
@@ -185,8 +185,6 @@ class PayboxSystemViewsTest(TestCase):
         # default user's language is fr
         self.assertEqual(u"Confirmation de paiement",
                 soup.find('h1', class_='title').text.strip())
-        self.assertEqual(self.user.get_full_name(),
-                soup.find('span', class_='user-full-name').text.strip())
         # create new user, with language en
         mail.outbox = []
         user_en = User.objects.create(username='user_en', first_name='first_name',
@@ -209,4 +207,5 @@ class PayboxSystemViewsTest(TestCase):
                 int(soup.find('span', class_='line-1-quantity').text.strip()))
         self.assertEqual(self.university.name,
                 soup.find('span', class_='line-1-course-university').text.strip())
-
+        self.assertEqual(self.user.profile.name,
+                soup.find('span', class_='user-full-name').text.strip())
