@@ -143,7 +143,7 @@ msgid ""
 msgstr ""
 "Note : le pays 'Inconnu' fait référence aux utilisateurs n'ayant pas "
 "renseigné leur pays d'origine. Ces données sont collectées de manière "
-"purement déclaratives."
+"purement déclarative."
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-content.html:0
 msgid "Number of enrollments"
