@@ -1,5 +1,15 @@
 # Changelog www.fun-mooc.fr
 
+## 3.9 24/03/2016
+- Ajout du xBlock ProctorU
+- Ajustements divers sur le système de paiement: wording, email de confirmation..
+
+## 3.8 17/03/2016
+- Mise en production du système de cours payant
+- Changement du nom de domaine principal: fun-mooc.fr
+- Ajout de la pagination sur la page des actualités
+- Retrait des pages HTML surchargées dans `fun-apps` pour un fork dans `edx-platform`
+
 ## 3.7 03/03/2016
 - Précision de la charte de bonne conduite des apprenants
 - Page principale :
