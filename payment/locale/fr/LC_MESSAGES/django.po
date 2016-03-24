@@ -74,15 +74,6 @@ msgstr ""
 "Voici un bref rappel des conditions obligatoires de l'examen surveillé "
 "pour avoir la possibilité d'obtenir le certificat :"
 
-#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
-msgid ""
-"Highlight your newly acquired knowledge with a certificate. This document"
-" will improve your employability and promote your career."
-msgstr ""
-"Valorisez vos nouvelles connaissances grâce à un certificat. Ce document "
-"vous permettra d'améliorer votre employabilité et de promouvoir votre "
-"carrière."
-
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/base.html:0
 msgid "Home"
 msgstr "Accueil"
