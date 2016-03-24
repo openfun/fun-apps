@@ -14,17 +14,16 @@ import dateutil.parser
 <td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
     ${_(u"Date:" )} ${dateutil.parser.parse(order['date_placed']).strftime(_('%m/%d/%y %H:%M'))}<br>
     ${_(u"Order No:")} ${order['number']}<br>
-    ${_(u"Contact:")} <span class="user-full-name">${user.get_full_name() or user.username}</span><br>
-
+    ${_(u"Contact:")} <span class="user-full-name">${user.profile.name or user.email}</span><br>
 </td>
 </tr>
 
 <tr>
-    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <td width="40%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
     ${_(u"Description")}
     </td>
 
-    <td width="25%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <td width="10%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
     ${_(u"Quantity")}
     </td>
 
@@ -38,11 +37,11 @@ import dateutil.parser
 </tr>
 
 <tr>
-    <td width="35%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <td width="40%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
     ${_(u"Subscribe to")} <span class="line-1-course-title">${course.title}</span> / <span class="line-1-course-university">${course.get_first_university()}</span>
     </td>
 
-    <td width="15%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
+    <td width="10%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
     <span class="line-1-quantity">1</span>
     </td>
 
