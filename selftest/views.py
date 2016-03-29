@@ -20,11 +20,17 @@ from .forms import EmailForm
 from selftest.tasks import trigger_worker_error
 
 
-repositories = ['edx-platform', 'fun-config', 'fun-apps',
-        '../forum/cs_comments_service', 'venvs/edxapp/src/edx-ora2']
+repositories = [
+        'edx-platform', 'fun-config', 'fun-apps',
+        '../forum/cs_comments_service',
+        'venvs/edxapp/src/edx-ora2',
+        'venvs/edxapp/src/proctoru-xblock',
+        'venvs/edxapp/src/libcast-xblock',
+        'venvs/edxapp/src/edx-gea',
+        ]
 
 
-#@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_superuser)
 def selftest_index(request):
     if not request.user.is_superuser:
         raise Http404
@@ -55,6 +61,8 @@ def selftest_index(request):
             ))
         except Exception as e:
             revisions[repo] = mark_safe("<strong>Unknown</strong> %r" % e)
+
+
     return render(request, 'selftest/index.html', {
         'emailform': emailform,
         'misc': misc,
@@ -78,6 +86,8 @@ def server_error(request):
         raise Http404
     raise Exception("This is an intentional 500 (server error).")
 
+
+@user_passes_test(lambda u: u.is_superuser)
 def worker_error(request):
     task = trigger_worker_error.apply_async()
     messages.add_message(request, messages.INFO, "Request sent. Task id: {}".format(task.id))
