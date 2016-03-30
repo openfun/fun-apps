@@ -4,8 +4,11 @@ from collections import namedtuple
 
 from django.utils.translation import ugettext as _
 
-BreadcrumbsItem = namedtuple('BreadcrumbsItem', ['path', 'name'])
+from course_modes.models import CourseMode
+from opaque_keys.edx.keys import CourseKey
 
+
+BreadcrumbsItem = namedtuple('BreadcrumbsItem', ['path', 'name'])
 
 def breadcrumbs(url, current_page):
     """
@@ -37,3 +40,18 @@ def breadcrumbs(url, current_page):
     result.append(BreadcrumbsItem(path='#', name=current_page))
     return result
 
+
+def is_paid_course(course_id):
+    """
+    Returns available course modes for course.
+    Args:
+        course_id: string like org/number/session
+    Return:
+        dict of coursemode: price: {'verified': 100, 'honor': 0}
+    """
+    course_modes = {}
+    course_key = CourseKey.from_string(course_id)
+    modes = CourseMode.objects.filter(course_id=course_key).values('mode_slug', 'min_price')
+    if modes:
+        course_modes = {mode['mode_slug']: mode['min_price'] for mode in modes}
+    return course_modes

@@ -8,6 +8,7 @@ from courseware.courses import course_image_url, get_course_about_section
 from microsite_configuration import microsite
 
 from fun.utils import get_fun_course, get_teaser, registration_datetime_text
+from funsite.utils import is_paid_course
 %>
 
 <%inherit file="/funsite/parts/base-fixed-width.html" />
@@ -118,6 +119,8 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
 <%
     fun_course = get_fun_course(course)
+    course_modes = is_paid_course(fun_course.key)
+    first_university = fun_course.get_first_university()
 
     # FUN: from themes/fun/templates/courseware/course_about.html
     # TODO: improve
@@ -176,9 +179,6 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
                 <div class="course-about-university-logo">
 
-                    <%
-                    first_university = fun_course.get_first_university()
-                    %>
                     % if first_university:
                         % if first_university.detail_page_enabled:
                             <a href="${first_university.get_absolute_url()}">
@@ -224,7 +224,11 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
                             %endif
                         %else:
                             <div class="register-course-button">
-                                <a href="#" class="register"><span>${_("Register")}</span></a>
+                                % if 'honor' not in course_modes and 'verified' in course_modes:
+                                    <a href="#" class="register"><span>${_(u"Register: {price} €").format(price=course_modes['verified'])}</span></a>
+                                % else:
+                                    <a href="#" class="register"><span>${_("Register")}</span></a>
+                                % endif
                             </div>
                         %endif
                         <div class="register-error"></div>
@@ -295,6 +299,19 @@ from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 
                         </div>
                         <div class="col-xxs-36 col-xs-18 col-sm-36 col-lg-18">
+                            % if 'verified' in course_modes:
+                            <div class="course-info diploma">
+                                <ul>
+                                <li>
+                                    <strong>${_("Certification")}</strong>
+                                </li>
+                                <li>
+                                    ${_(u"Get a certificate for {price} €").format(price=course_modes['verified'])}
+                                </li>
+                                </ul>
+                            </div>
+                            % endif
+
 
                             % if get_course_about_section(course, "effort"):
                             <div class="course-info letter">
