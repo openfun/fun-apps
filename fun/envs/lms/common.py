@@ -18,7 +18,6 @@ INSTALLED_APPS += (
     'courses_api',
     'course_pages',
     'newsfeed',
-    'proctoru',
     'universities',
     'universities_api',
     'videoproviders',
@@ -40,6 +39,7 @@ INSTALLED_APPS += (
     'faq',
     'edx_gea',
 )
+install_proctoru_if_available(INSTALLED_APPS)
 
 ROOT_URLCONF = 'fun.lms.urls'
 

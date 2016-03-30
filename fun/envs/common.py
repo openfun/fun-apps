@@ -340,3 +340,10 @@ def configure_haystack(elasticsearch_conf):
             'INDEX_NAME': 'haystack',
         },
     }
+
+def install_proctoru_if_available(installed_apps):
+    try:
+        import proctoru # pylint: disable=import-error,unused-import,unused-variable
+        installed_apps.append('proctoru')
+    except ImportError:
+        pass

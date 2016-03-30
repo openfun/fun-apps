@@ -7,7 +7,6 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 
 INSTALLED_APPS += (
     'fun',
-    'proctoru',
     'videoproviders',
     'courses',
     'haystack',
@@ -20,6 +19,7 @@ INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
     'edx_gea'
 )
+install_proctoru_if_available(INSTALLED_APPS)
 
 ROOT_URLCONF = 'fun.cms.urls'
 
