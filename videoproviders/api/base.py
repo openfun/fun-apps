@@ -137,6 +137,7 @@ class BaseClient(object):
                 {
                     'id': ...,
                     'created_at': ...,
+                    'created_at_timestamp': ...,
                     'title':  ...,
                     'thumbnail_url': ...,
                     'status': ...,

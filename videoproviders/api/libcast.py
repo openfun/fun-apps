@@ -184,10 +184,12 @@ class Client(BaseClient):
             external_link = self.urls.flavor_url(slug, 'SD')
 
         published_at = resource.find('published_at').text
-        created_at = self.timestamp_to_str(int(published_at)) if published_at else None
+        created_at_timestamp = int(published_at) if published_at else None
+        created_at = self.timestamp_to_str(created_at_timestamp) if created_at_timestamp else None
         return {
             'id': slug,
             'created_at': created_at,
+            'created_at_timestamp': created_at_timestamp,
             'title':  resource.find('title').text,
             'subtitles': self.get_resource_subtitles(resource),
             'status': status,
