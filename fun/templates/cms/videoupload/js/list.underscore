@@ -1,4 +1,4 @@
-<div style='text-align: center; width: 100%' class="syncing">
+<div style='text-align: center; width: 100%; display: none;' class="syncing">
     <i class='icon fa fa-refresh fa-spin'></i>
 </div>
 
@@ -6,9 +6,9 @@
   <thead>
     <tr>
       <th class="preview"><%- gettext("Preview") %></th>
-      <th class="title"><%- gettext("Title") %></th>
-      <th><%- gettext("Created at") %></th>
-      <th class="id"><%- gettext("ID") %></th>
+      <th class="title" data-sortby="title"><span class="sort-indicator"></span> <%- gettext("Title") %></th>
+      <th data-sortby="created_at_timestamp"><span class="sort-indicator"></span> <%- gettext("Created at") %></th>
+      <th class="id" data-sortby="id"><span class="sort-indicator"></span>ID</th>
       <th><%- gettext("Status") %></th>
       <th class="actions"><%- gettext("Actions") %></th>
     </tr>

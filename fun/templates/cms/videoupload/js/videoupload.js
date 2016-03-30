@@ -9,6 +9,7 @@ def reverse_course(handler_name, kwargs=None):
   kwargs['course_key_string'] = unicode(context_course.id)
   return reverse(handler_name, kwargs=kwargs)
 %>
+<%namespace name='static' file='../../static_content.html'/>
 
 require(["jquery", "underscore", "backbone", "gettext",
          "js/utils/templates", "js/views/modals/base_modal", "js/views/feedback_notification",
@@ -72,6 +73,7 @@ require(["jquery", "underscore", "backbone", "gettext",
     var Video = Backbone.Model.extend({
       defaults: {
         created_at: "",
+        created_at_timestamp: null,
         embed_url: "",
         video_sources: [],
         external_link: "",
@@ -116,7 +118,6 @@ require(["jquery", "underscore", "backbone", "gettext",
         return data.videos;
       }
     });
-    var Videos = new VideoCollection;
 
     var VideoDeleteModalView = BaseModal.extend({
       options: $.extend({}, BaseModal.prototype.options, {
@@ -317,16 +318,23 @@ require(["jquery", "underscore", "backbone", "gettext",
       template: TemplateUtils.loadTemplate("videoupload-list"),
 
       initialize: function() {
-        this.listenTo(Videos, 'request', this.syncing);
-        this.listenTo(Videos, 'sync', this.synced);
-        this.listenTo(Videos, 'add', this.addOne);
-        this.listenTo(Videos, 'syncError', this.syncError);
+        this.sortedBy = "created_at_timestamp";
+        this.sortedOrder = -1;
+        this.listenTo(this.collection, 'request', this.syncing);
+        this.listenTo(this.collection, 'sync', this.synced);
+        this.listenTo(this.collection, 'add', this.addOne);
+        this.listenTo(this.collection, 'syncError', this.syncError);
+        this.listenTo(this.collection, 'sort', this.render);
         this.render();
-        Videos.fetch();
+        this.collection.fetch();
+      },
+
+      events: {
+          "click [data-sortby]": "clickOnSortBy"
       },
 
       syncing: function(model_or_collection) {
-        if (model_or_collection === Videos) {
+        if (model_or_collection === this.collection) {
             this.$(".syncing").show();
             this.$(".synced").hide();
         }
@@ -334,29 +342,76 @@ require(["jquery", "underscore", "backbone", "gettext",
       },
 
       synced: function(model_or_collection) {
-        if (model_or_collection === Videos) {
+        if (model_or_collection === this.collection) {
             this.$(".syncing").hide();
             this.$(".synced").show();
+            this.sort();
+            this.render();
         }
         return this;
       },
 
       render: function() {
         this.$el.html(this.template());
-        return this;
-      },
 
-      addOne: function(video) {
-        var videoView = new VideoView({model: video});
-        // Note that this will always display the newest elements first.
-        this.$('tbody').prepend(videoView.render().el);
+        // Re-draw sort arrows
+        this.$("th[data-sortby] .sort-indicator").html("<img src='${static.url('datatables/images/sort_both.png')}'>");
+        if (this.sortedBy) {
+            var imgSrc = this.sortedOrder === 1 ? "${static.url('datatables/images/sort_asc.png')}" : "${static.url('datatables/images/sort_desc.png')}";
+            this.$("th[data-sortby='" + this.sortedBy + "'] .sort-indicator").html("<img src='" + imgSrc + "'>");
+        }
+
+        // Display each video
+        var that = this;
+        this.collection.each(function(video) {
+            var videoView = new VideoView({model: video});
+            that.$('tbody').append(videoView.render().el);
+        });
+        return this;
       },
 
       syncError: function(error) {
         popError(error);
       },
+
+      clickOnSortBy: function(e) {
+          var sortBy = $(e.target).attr("data-sortby");
+          if (!sortBy) {
+              // Click inside of "data-sortby" element
+              sortBy = $(e.target).parents("[data-sortby]").attr("data-sortby");
+          }
+          if (sortBy === this.sortedBy) {
+              // Click on same criterion twice inverts the order
+              this.sortedOrder = -this.sortedOrder;
+          } else {
+              // When we change the order we sort by ascending values
+              this.sortedOrder = 1;
+          }
+          this.sortedBy = sortBy;
+          this.sort();
+      },
+      sort: function() {
+          var that = this;
+          this.collection.comparator = function(v1, v2) {
+              function getValue(video) {
+                  // Function of one Video element that returns the value from
+                  // which the collection should be sorted.
+                  var value = video.get(that.sortedBy);
+                  if (value.toLowerCase) {
+                      value = value.toLowerCase();
+                  }
+                  return value;
+              }
+              var val1 = getValue(v1);
+              var val2 = getValue(v2);
+              if(val1 === val2) {
+                  return 0;
+              }
+              return val1 < val2 ? -that.sortedOrder : that.sortedOrder;
+          };
+          this.collection.sort();
+      },
     });
-    var VideoCollectionApp = new VideoCollectionView;
 
     var VideoUploadFormView = Backbone.View.extend({
       events: {
@@ -386,7 +441,7 @@ require(["jquery", "underscore", "backbone", "gettext",
           title: videoFile.name,
           status: "preparing"
         });
-        Videos.add(video);
+        this.collection.add(video);
         var currentUploadRequest = null;
         this.listenToOnce(video, "destroy", function() {
           if (currentUploadRequest) {
@@ -447,8 +502,6 @@ require(["jquery", "underscore", "backbone", "gettext",
         });
       },
     });
-    var VideoUploadForm = new VideoUploadFormView({el: $("#videoupload-form")});
-
 
     var Subtitle = Backbone.Model.extend({
     });
@@ -634,5 +687,16 @@ require(["jquery", "underscore", "backbone", "gettext",
         });
       },
     });
+
+    // Initialize objects
+    var Videos = new VideoCollection;
+    var VideoUploadForm = new VideoUploadFormView({
+        el: $("#videoupload-form"),
+        collection: Videos
+    });
+    var VideoCollectionApp = new VideoCollectionView({
+        collection: Videos
+    });
+
   }
 );
