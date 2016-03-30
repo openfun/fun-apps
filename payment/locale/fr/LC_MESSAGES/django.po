@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 9\n"
+"Project-Id-Version: FUN-MOOC 11\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-22 10:01+0100\n"
-"PO-Revision-Date: 2016-03-22 10:01+0000\n"
+"POT-Creation-Date: 2016-03-30 10:13+0200\n"
+"PO-Revision-Date: 2016-03-30 10:13+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -205,9 +205,8 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
 "Your payment of {total_excl_tax} € for registration in {title} has been "
-msgstr ""
-"Votre paiement de {total_excl_tax} € pour le cours "
-"{title}a bien été reçu."
+"taken into account."
+msgstr "Votre paiement de {total_excl_tax} € pour le cours {title} a bien été reçu."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid "Your receipt can be found at the end of this email."
