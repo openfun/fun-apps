@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 47\n"
+"Project-Id-Version: FUN-MOOC 49\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-22 15:03+0100\n"
-"PO-Revision-Date: 2016-03-22 15:03+0000\n"
+"POT-Creation-Date: 2016-03-30 10:14+0200\n"
+"PO-Revision-Date: 2016-03-30 10:14+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -28,7 +28,7 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:0
-#: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:0
+#: /edx/app/edxapp/fun-apps/funsite/tests/test_utils.py:0
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:0
 msgid "All courses"
 msgstr "Tous les cours"
@@ -68,6 +68,10 @@ msgstr ""
 "l'utilisation de cookies permettant d'améliorer votre expérience "
 "utilisateur"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
+msgid "Certification"
+msgstr "Certificat"
+
 # Translated in edx by 'Fin des cours'
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
 msgctxt "course-about"
@@ -79,7 +83,11 @@ msgid ""
 "Collected data are subjected to automatic processing intended to enable "
 "user registration, learning activities, evaluations, and certificate "
 "delivery."
-msgstr "Les informations recueillies font l’objet d’un traitement informatique destiné à permettre l’inscription, le suivi des cours, la participation aux activités pédagogiques et aux évaluations, la délivrance d’attestations et/ou de certificats."
+msgstr ""
+"Les informations recueillies font l’objet d’un traitement informatique "
+"destiné à permettre l’inscription, le suivi des cours, la participation "
+"aux activités pédagogiques et aux évaluations, la délivrance "
+"d’attestations et/ou de certificats."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
 msgid "Confidentiality"
@@ -131,6 +139,10 @@ msgstr "FUN :"
 msgid "Forgotten password?"
 msgstr "Mot de passe oublié ?"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
+msgid "Get a certificate for {price} €"
+msgstr "Obtenez un certificat pour {price} €"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:0
 msgid "Higher Education Excellence. Online, Free and Open Courses"
@@ -143,7 +155,7 @@ msgid "Highlighted courses"
 msgstr "Les cours à la une"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:0
-#: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:0
+#: /edx/app/edxapp/fun-apps/funsite/tests/test_utils.py:0
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:0
 msgid "Home"
 msgstr "Accueil"
@@ -166,7 +178,11 @@ msgid ""
 "protection act) of  January 6th, 1978, modified in 2004, you have the "
 "right to access and modify information related to you, and might exert "
 "this right by contacting:"
-msgstr "Conformément à la loi «&nbsp;informatique et libertés&nbsp;» du 6 janvier 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer en vous adressant à :"
+msgstr ""
+"Conformément à la loi «&nbsp;informatique et libertés&nbsp;» du 6 janvier"
+" 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de "
+"rectification aux informations qui vous concernent, que vous pouvez "
+"exercer en vous adressant à :"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:0
 msgid "Log in to your {platform_name} account"
@@ -194,7 +210,7 @@ msgstr "Mes cours"
 # Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:0
-#: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:0
+#: /edx/app/edxapp/fun-apps/funsite/tests/test_utils.py:0
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:0
 msgid "News"
 msgstr "Actualités"
@@ -211,6 +227,10 @@ msgstr "Politique de confidentialité"
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
 msgid "Read more"
 msgstr "En savoir plus"
+
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
+msgid "Register: {price} €"
+msgstr "S'inscrire : {price} €"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
 msgid ""
@@ -231,7 +251,10 @@ msgstr "Inscription close"
 msgid ""
 "Research teams authorized by the Ministry of higher education, collecting"
 " anonymized data."
-msgstr "Des équipes de recherche en sciences cognitives et de l’éducation, habilitées par le ministère en charge de l’Enseignement supérieur, pour les données d’usage anonymisées."
+msgstr ""
+"Des équipes de recherche en sciences cognitives et de l’éducation, "
+"habilitées par le ministère en charge de l’Enseignement supérieur, pour "
+"les données d’usage anonymisées."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
 msgid "Search courses"
@@ -257,7 +280,10 @@ msgstr "Inscription à {platform_name}"
 msgid ""
 "Teachers and their teams as well as data controllers representatives in "
 "organizations issuing courses."
-msgstr "Les enseignants des équipes pédagogiques et les représentants officiels des établissements porteurs des cours, pour les données à caractère personnel."
+msgstr ""
+"Les enseignants des équipes pédagogiques et les représentants officiels "
+"des établissements porteurs des cours, pour les données à caractère "
+"personnel."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/legal.html:0
@@ -290,7 +316,7 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:0
-#: /edx/app/edxapp/fun-apps/funsite/tests/test_breadcrumbs.py:0
+#: /edx/app/edxapp/fun-apps/funsite/tests/test_utils.py:0
 #: /edx/app/edxapp/fun-apps/funsite/utils.py:0
 msgid "Universities"
 msgstr "Les établissements"
@@ -316,7 +342,9 @@ msgstr "Vous avez un compte ?"
 msgid ""
 "You hold the right, for any legitimate needs, to oppose the processing of"
 " any of your personal data."
-msgstr "Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant."
+msgstr ""
+"Vous pouvez également, pour des motifs légitimes, vous opposer au "
+"traitement des données vous concernant."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
 msgid "h/week"

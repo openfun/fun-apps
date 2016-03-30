@@ -4,9 +4,12 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.translation import ugettext as _
 
+from course_modes.models import CourseMode
+from opaque_keys.edx.keys import CourseKey
+
 from fun.tests.utils import skipUnlessLms
 
-from ..utils import breadcrumbs
+from ..utils import breadcrumbs, is_paid_course
 
 
 @skipUnlessLms
@@ -58,3 +61,24 @@ class TestBreadcrumbs(TestCase):
         breadcrumbs_list = breadcrumbs(url, u"Accounts/Login")
         self.assertEqual(breadcrumbs_list,
                 [('/', _("Home")), ('#', u"Accounts/Login")],)
+
+
+@skipUnlessLms
+class TestCourseModes(TestCase):
+    def setUp(self):
+        self.coursekey1 = CourseKey.from_string('course1/fun/session1')
+        self.coursekey2 = CourseKey.from_string('course2/fun/session1')
+        CourseMode.objects.create(course_id=self.coursekey1, mode_slug='verified', min_price=100)
+        CourseMode.objects.create(course_id=self.coursekey2, mode_slug='honor', min_price=0)
+        CourseMode.objects.create(course_id=self.coursekey2, mode_slug='verified', min_price=100)
+
+    def test_is_paid_course(self):
+        course_modes = is_paid_course(str(self.coursekey1))
+        self.assertEqual(100, course_modes['verified'])
+
+        course_modes = is_paid_course(str(self.coursekey2))
+        self.assertEqual(100, course_modes['verified'])
+        self.assertEqual(0, course_modes['honor'])
+
+        course_modes = is_paid_course('dummy/key/fun')
+        self.assertEqual({}, course_modes)
