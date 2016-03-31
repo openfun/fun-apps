@@ -1,12 +1,16 @@
+# -*- coding: utf-8 -*-
 import json
 
 from django.core.urlresolvers import reverse
+
+import mock
 
 from courseware.tests.factories import InstructorFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
 from fun.tests.utils import skipUnlessCms
+from videoproviders.api.base import ClientError
 
 
 @skipUnlessCms
@@ -24,3 +28,14 @@ class TestVideoUpload(ModuleStoreTestCase):
         data = json.loads(response.content)
 
         self.assertIn("error", data)
+
+    @mock.patch("videoproviders.api.libcast.Client.update_video_title")
+    def test_failing_video_title_change(self, mock_update_video_title):
+        mock_update_video_title.side_effect = ClientError(u"dummy error")
+        response = self.client.post(reverse("videoupload:video", kwargs={
+            "course_key_string": self.course.id, "video_id": "dummy_video_id"
+        }))
+        data = json.loads(response.content)
+
+        self.assertIn("error", data)
+        self.assertEqual(u'Impossible de changer le titre de la vidéo : dummy error', data["error"])

@@ -3,7 +3,7 @@ from datetime import datetime
 import requests
 
 from django.utils import formats
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext as _
 
 from fun.utils import get_course
 
