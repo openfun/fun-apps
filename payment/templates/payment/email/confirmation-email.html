@@ -13,14 +13,14 @@ from django.utils.translation import ugettext as _
 
 <p>
 <strong>
-${_(u"Your payment of {total_excl_tax} € for registration in {title} has been taken into account.").format(total_excl_tax=order['total_excl_tax'], title=course.title)}
+${_(u"Your payment of {total_excl_tax} € for registration in {title} has been taken into account.").format(total_excl_tax=order['total_excl_tax'], title=ordered_course.title)}
 ${_(u"Your receipt can be found at the end of this email.")}
 </strong>
 </p>
 <br><br>
 
 <p>
-${_(u"You have chosen to follow the course <strong>{title}</strong> in order to obtain a certificate.").format(title=course.title)}
+${_(u"You have chosen to follow the course <strong>{title}</strong> in order to obtain a certificate.").format(title=ordered_course.title)}
 ${_(u"Celebrate your achievement through a certificate. This document will help you to demonstrate the skills you have acquired in this MOOC, boost your CV and your career or prepare for further professional development.")}
 </p>
 
@@ -43,6 +43,6 @@ ${_(u"Here is a brief reminder of the mandatory requirements regarding the proct
 
 <strong>${_(u"FUN Team")}</strong>
 
-<%include file="bill.html" args="order=order, course=course" />
+<%include file="bill.html" args="order=order, course=ordered_course" />
 
 </%block>

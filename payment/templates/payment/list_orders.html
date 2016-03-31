@@ -1,0 +1,61 @@
+## mako
+<%!
+    import dateutil.parser
+
+    from django.core.urlresolvers import reverse
+    from django.utils.translation import ugettext as _
+
+    from payment.utils import format_date_order
+
+%>
+
+<%inherit file="/payment/base_large.html" />
+
+
+<%block name="title">${_(u"Order information")}</%block>
+<%block name="breadcrumb_current_page">${_(u"Order information")}</%block>
+
+
+<%block name="message">
+
+    <h1 class="big-title text-center">${_("Order History")}</h1>
+
+    <div class="single-column text-center">
+
+        %if not order_history:
+            <p class="order-error">
+                ${_("An error has occurred, please retry later.")}
+            </p>
+
+        %elif len(order_history[u"results"]):
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>${_("Order Number")}</th>
+                    <th>${_("Order Date")}</th>
+                    <th>${_("Price")}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    % for order in order_history[u"results"]:
+                        <%
+                            date = format_date_order(order, _('%m/%d/%y'))
+                        %>
+                        <tr>
+                            <td class="order_id"><a href="${reverse('payment:detail-receipt', kwargs={'order_id':order["number"]})}" class="edit-name">${order["number"]}</a></td>
+                            <td class="order_date">${date}</td>
+                            <td class="order_price">${u"{p} €".format(p=order['total_excl_tax'])}</td>
+                        </tr>
+
+                        </p>
+                    % endfor
+                </tbody>
+            </table>
+        %else:
+            <p class="order-empty">
+                ${_("You have not yet registered to a certified exam.")}
+            </p>
+        % endif
+    </div>
+
+</%block>

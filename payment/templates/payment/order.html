@@ -1,0 +1,94 @@
+## mako
+<%!
+    from django.utils.translation import ugettext as _
+
+    from staticfiles.storage import staticfiles_storage
+%>
+
+<%inherit file="/payment/base_large.html" />
+
+
+<%block name="title">${_(u"Order information")}</%block>
+<%block name="breadcrumb_current_page">${_(u"Order information")}</%block>
+<%block name="css_extra">
+    <link rel="stylesheet" type="text/css" href="${staticfiles_storage.url('payment/css/order.css')}">
+</%block>
+
+<%block name="message">
+
+    <div class="container visible-print print-logo">
+        <div class="row">
+            <div class="col-md-9 image vcenter">
+                <img src="/static/funsite/images/logos/fun195.png" alt="Logo FUN">
+            </div>
+            <div class="col-md-9 vcenter">
+                <p class="color-fun-blue heavy-weight">
+                    ${_(u"The Freedom to Study")}
+                </p> <br>
+                <p>
+                    ${_(u"GIP FUN-MOOC")}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    %if order:
+        <h1 class="big-title text-center">${_(u"Receipt: {order_number}").format(order_number=order["number"])}</h1>
+    %else:
+        <h1 class="big-title text-center order-error">${_(u"Receipt: {order_number}").format(order_number=order_id)}</h1>
+    %endif
+
+    %if order:
+        <%
+            course_start_time = ordered_course.start_date_display
+            course_end_time = ordered_course.end_date_display
+        %>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-23">
+                    <h3 class="course-title-info" id="course-title">
+                        <span class="course-registration-title">${_('Registration for:')}</span>
+                        <span class="course-display-name">${ ordered_course.title }</span>
+                    </h3>
+
+                    <p class="color-iron" aria-describedby="course-title">
+                        <span class="course-dates-title">
+                            % if course_start_time or course_end_time:
+                            ${_("Course Dates")}:
+                            %endif
+                        </span>
+                        <span class="course-display-dates">
+                        % if course_start_time:
+                            ${course_start_time}
+                        %endif
+                          -
+                          % if course_end_time:
+                              ${course_end_time}
+                          %endif
+                      </span>
+                    </p>
+                </div>
+                <div class="col-sm-13 image">
+                    <img class="img-responsive center-block image-course" src="${ordered_course.get_thumbnail_url('small')}"
+                         alt="${ordered_course.title} Image"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="color-iron">
+                <%include file="/payment/email/bill.html" args="total_incl_tax=total_incl_tax, order=order, course=course_" />
+        </div>
+
+        <div class="hidden-print clear-space">
+            <input type="button" onclick="window.print();" value="${_('Print this receipt')}"/>
+        </div>
+    %else:
+        <div class="order-error">
+            ${_("An error has occurred, please retry later.")}
+        </div>
+    %endif
+
+
+</%block>
+

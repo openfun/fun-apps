@@ -1,8 +1,8 @@
 <%page args="order, course" />
 <%!
 from django.utils.translation import ugettext as _
-from datetime import datetime
-import dateutil.parser
+
+from payment.utils import format_date_order
 %>
 <br><br><br>
 
@@ -12,7 +12,7 @@ import dateutil.parser
     <%include file="/funsite/static_templates/fun-address.html"/>
 </td>
 <td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    ${_(u"Date:" )} ${dateutil.parser.parse(order['date_placed']).strftime(_('%m/%d/%y %H:%M'))}<br>
+    ${_(u"Date:" )} ${format_date_order(order, _('%m/%d/%y %H:%M'))}<br>
     ${_(u"Order No:")} ${order['number']}<br>
     ${_(u"Contact:")} <span class="user-full-name">${user.profile.name or user.email}</span><br>
 </td>
@@ -38,7 +38,7 @@ import dateutil.parser
 
 <tr>
     <td width="40%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
-    ${_(u"Subscribe to")} <span class="line-1-course-title">${course.title}</span> / <span class="line-1-course-university">${course.get_first_university()}</span>
+    ${_(u"Subscribe to")} <span class="line-1-course-title">${ordered_course.title}</span> / <span class="line-1-course-university">${ordered_course.get_first_university()}</span>
     </td>
 
     <td width="10%" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">

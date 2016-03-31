@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 <%block name="message">
     <h2>${_(u"Payment successful")}</h2>
     <p>
-    	${_(u"Your payment of <strong>{total} €</strong> for the course <strong>{title}</strong> has been processed.").format(total=order['total_excl_tax'], title=order_course.title)}
+    	${_(u"Your payment of <strong>{total} €</strong> for the course <strong>{title}</strong> has been processed.").format(total=order['total_excl_tax'], title=ordered_course.title)}
     </p>
     <p>
     ${_(u"This is for the payment order <strong>{number}</strong>.").format(number=order['number'])}

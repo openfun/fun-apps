@@ -1,0 +1,38 @@
+/* Change the table border color for the bill without changing bill.html */
+td{
+    border-color: #ddd!important;
+}
+
+.print-logo{
+    margin-bottom: 5em;
+}
+
+.print-logo > .row > .image img {
+    width:130px;
+    height: auto;
+}
+
+@media print {
+    #top-menu, .fun-footer, .breadcrumbs {
+        display: none !important;
+    }
+}
+
+.image-course {
+    width:160px;
+    height: auto;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.debug{
+    border: 1px solid black ;
+}
+
+.clear-space{
+    margin-bottom: 2em;
+}

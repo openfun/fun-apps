@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 import requests
+from requests.exceptions import ConnectionError
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -13,7 +16,11 @@ import slumber.exceptions
 
 from edxmako.shortcuts import render_to_response
 
-from .utils import get_order, get_course
+from commerce import ecommerce_api_client
+
+from .utils import get_order, get_course, get_order_context
+
+logger = logging.getLogger(__name__)
 
 
 def get_order_or_404(user, order_id):
@@ -56,7 +63,7 @@ def paybox_success(request):
 
     return render_to_response('payment/success.html', {
         'order': order,
-        'order_course': course,
+        'ordered_course': course,
     })
 
 
@@ -92,3 +99,26 @@ def paybox_cancel(request):
     return render_to_response('payment/cancel.html', {
         'order_number': order_number,
     })
+
+
+@login_required
+def detail_receipt(request, order_id):
+    order = get_order_or_404(request.user, order_id)
+    if not order:
+        return render_to_response("payment/order.html", {"order": None, 'order_id': order_id})
+    course = get_course_or_404(order)
+    context = get_order_context(request.user, order, course)
+    return render_to_response('payment/order.html', context)
+
+
+@login_required
+def list_receipts(request):
+    api = ecommerce_api_client(request.user)
+    try:
+        order_history = api.orders().get()
+    except ConnectionError as e:
+        logger.exception(e)
+        order_history = []
+
+    return render_to_response('payment/list_orders.html', {"order_history": order_history})
+
