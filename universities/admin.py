@@ -28,12 +28,6 @@ class UniversityAdmin(admin.ModelAdmin):
                 'prevent_auto_update',
             )
         }),
-        (_('Dailymotion Cloud'), {
-            'fields': (
-                ('dm_user_id',),
-                ('dm_api_key',),
-            )
-        }),
         (_('Displayed On Site | Banner | Description'), {
             'fields': (
                 ('detail_page_enabled',),
@@ -45,7 +39,6 @@ class UniversityAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [
-        videoproviders.admin.DailymotionAuthAdminInline,
         videoproviders.admin.LibcastAuthAdminInline,
     ]
 
