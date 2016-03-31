@@ -8,7 +8,7 @@ import requests.auth
 from time import time
 
 from django.core.cache import get_cache
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext as _
 
 from fun.utils.i18n import language_name
 import videoproviders.subtitles
