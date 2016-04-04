@@ -39,7 +39,7 @@ INSTALLED_APPS += (
     'faq',
     'edx_gea',
 )
-install_proctoru_if_available(INSTALLED_APPS)
+INSTALLED_APPS += get_proctoru_app_if_available()
 
 ROOT_URLCONF = 'fun.lms.urls'
 
