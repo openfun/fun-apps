@@ -603,7 +603,7 @@ class CachedResource(object):
     CACHE = get_cache("libcast_resources")
 
     # Number of seconds before a cached resource entry expires
-    EXPIRES_IN_SECONDS = 24*60*60
+    EXPIRES_IN_SECONDS = 30*24*60*60
 
     def __init__(self, course_key_string, resource_slug):
         """
