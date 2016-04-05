@@ -61,7 +61,7 @@ msgstr "Gestion des attestations"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views.py:0
 msgid "Certificate was regenerated"
-msgstr "Aucune attestation générée."
+msgstr "Attestation regénérée"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Change password"
