@@ -137,9 +137,12 @@ def regenerate_certificate(course_id, user, certificate):
     then force state to 'downloadable'.
     """
 
-    (_course, course_display_name, university, organization_logo,
-            certificate_base_filename, teachers,
-            certificate_language) = get_certificate_params(course_id)
+    (
+        _course, course_display_name,
+        university, organization_logo,
+        certificate_base_filename, teachers,
+        certificate_language
+    ) = get_certificate_params(course_id)
 
     if certificate.status != CertificateStatuses.downloadable:
         certificate.key = make_hashkey(random.random())

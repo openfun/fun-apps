@@ -12,10 +12,12 @@ from instructor_task.api_helper import AlreadyRunningError
 from backoffice.utils import get_course_key, get_course
 from backoffice.views import group_required
 from fun_instructor.instructor_task_api.submit_tasks import submit_generate_certificate
-from utils import (get_running_instructor_tasks,
-                  filter_instructor_task,
-                  create_test_certificate,
-                  get_university_attached_to_course)
+from .utils import (
+    get_running_instructor_tasks,
+    filter_instructor_task,
+    create_test_certificate,
+    get_university_attached_to_course
+)
 
 
 @group_required('fun_backoffice')
@@ -31,9 +33,12 @@ def certificate_dashboard(request, course_key_string):
     course = get_course(course_key_string)
 
     # generate list of pending background tasks and filter the output
-    instructor_tasks = filter_instructor_task(get_running_instructor_tasks(course_key, task_type='certificate-generation'))
-    instructor_tasks_history = filter_instructor_task(get_instructor_task_history(course_key, task_type='certificate-generation',
-                                                                                  usage_key=None, student=None))
+    instructor_tasks = filter_instructor_task(
+        get_running_instructor_tasks(course_key, task_type='certificate-generation')
+    )
+    instructor_tasks_history = filter_instructor_task(
+        get_instructor_task_history(course_key, task_type='certificate-generation', usage_key=None, student=None)
+    )
 
     return render(request, 'backoffice/certificate.html', {
             'course': course,
@@ -54,7 +59,7 @@ def generate_test_certificate(request, course_key_string):
 
     university = get_university_attached_to_course(course)
     if university is not None:
-        certificate = create_test_certificate(course, course_key, university)
+        certificate = create_test_certificate(course_key)
         return certificate_file_response(certificate)
     else:
         messages.warning(request, _("University doesn't exist"))

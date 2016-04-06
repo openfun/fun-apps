@@ -11,7 +11,7 @@ from xmodule.modulestore.django import modulestore
 
 def get_course(course_key_string):
     """
-    Return the edX course object  for a given course_key.
+    Return the edX course object for a given course key, passed as string.
     """
     ck = get_course_key(course_key_string)
     course = modulestore().get_course(ck, depth=0)
@@ -19,10 +19,14 @@ def get_course(course_key_string):
 
 def get_course_key(course_key_string):
     """
-    Return the edX course object  for a given course_key.
+    Return the edX CourseKey object for a given course key, passed as string.
+
+    Args:
+        course_key_string (str)
+    Returns:
+        course_key (CourseKey)
     """
-    ck = CourseKey.from_string(course_key_string)
-    return ck
+    return CourseKey.from_string(course_key_string)
 
 def group_required(*group_names):
     """Requires user membership in at least one of the groups passed in."""
