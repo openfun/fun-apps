@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
-from datetime import datetime
 import json
+
+from bs4 import BeautifulSoup
 
 from django.contrib.auth.models import User
 from django.core import mail
@@ -143,7 +143,7 @@ class PayboxSystemViewsTest(TestCase):
         data = {'username': self.user.username,
                 'email': self.user.email,
                 'order_number': '0'}
-        response = self.client.post(reverse('fun-payment-api:payment-notification'),
+        self.client.post(reverse('fun-payment-api:payment-notification'),
                 json.dumps(data),
                 content_type="application/json")
         self.assertEqual(1,
@@ -164,7 +164,7 @@ class PayboxSystemViewsTest(TestCase):
         data = {'username': self.user.username,
                 'email': self.user.email,
                 'order_number': '0'}
-        response = self.client.post(reverse('fun-payment-api:payment-notification'),
+        self.client.post(reverse('fun-payment-api:payment-notification'),
                 json.dumps(data),
                 content_type="application/json")
         self.assertEqual(1,

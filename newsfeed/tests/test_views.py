@@ -157,7 +157,7 @@ class ViewArticlesTest(TestCase):
 
     def test_sql_number_of_queries_in_paginate_for_page_1(self):
         qs = self.views.get_articles()
-        with self.assertNumQueries(2) as qe:
+        with self.assertNumQueries(2):
             self.views.paginate(qs, 1, 10)
 
     def test_sql_number_of_queries_in_paginate_for_page_2(self):

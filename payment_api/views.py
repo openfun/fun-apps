@@ -31,12 +31,12 @@ class PaymentNotificationAPIView(APIView):
             user = User.objects.get(email=request.DATA['email'])
             logger.info('Received success notification from ecommerce service for user %s', user.username)
             if not SoftwareSecurePhotoVerification.objects.filter(user=user).exists():
-                verif = SoftwareSecurePhotoVerification.objects.create(
-                        user=user,
-                        display=False,
-                        status='approved',
-                        reviewing_service='Automatic Paybox',)
-
+                SoftwareSecurePhotoVerification.objects.create(
+                    user=user,
+                    display=False,
+                    status='approved',
+                    reviewing_service='Automatic Paybox',
+                )
             send_confirmation_email(user, request.DATA['order_number'])
             logger.info('Created SoftwareSecurePhotoVerification object and sent FUN confirmation email to user %s',
                     user.username)

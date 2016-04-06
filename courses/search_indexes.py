@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import datetime
-
 from django.conf import settings
 
 from haystack import indexes
@@ -11,7 +9,6 @@ from opaque_keys.edx.keys import CourseKey
 from xmodule.modulestore.django import modulestore
 
 from .models import Course
-from .utils import get_about_section
 
 
 class ConfigurableElasticBackend(elasticsearch_backend.ElasticsearchSearchBackend):
@@ -31,7 +28,7 @@ class ConfigurableElasticBackend(elasticsearch_backend.ElasticsearchSearchBacken
         analyzer explicitly defined."""
 
         content_field_name, mapping = super(ConfigurableElasticBackend, self).build_schema(fields)
-        for field_name, field_class in fields.items():
+        for _field_name, field_class in fields.items():
             field_mapping = mapping[field_class.index_fieldname]
 
             if field_mapping['type'] == 'string' and field_class.indexed:
