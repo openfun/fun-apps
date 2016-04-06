@@ -11,13 +11,13 @@ from instructor_task.api_helper import AlreadyRunningError
 
 from backoffice.utils import get_course_key, get_course
 from backoffice.views import group_required
-from fun_instructor.instructor_task_api.submit_tasks import submit_generate_certificate
 from .utils import (
-    get_running_instructor_tasks,
-    filter_instructor_task,
     create_test_certificate,
-    get_university_attached_to_course
+    filter_instructor_task,
+    get_running_instructor_tasks,
+    get_university_attached_to_course,
 )
+from fun_instructor.instructor_task_api.submit_tasks import submit_generate_certificate
 
 
 @group_required('fun_backoffice')
@@ -52,12 +52,8 @@ def generate_test_certificate(request, course_key_string):
     """
     Return the HttpResponse for downloading the certificate pdf file.
     """
-
-    # TODO: only one function that return both the course and the course_key
     course_key = get_course_key(course_key_string)
-    course = get_course(course_key_string)
-
-    university = get_university_attached_to_course(course)
+    university = get_university_attached_to_course(course_key)
     if university is not None:
         certificate = create_test_certificate(course_key)
         return certificate_file_response(certificate)
@@ -84,10 +80,7 @@ def generate_certificate(request, course_key_string):
     Submit the certificate-generation task to the instructor task api,
     then redirect to the certificate dashboard.
     """
-
-    # TODO: only one function that return both the course and the course_key
     course_key = get_course_key(course_key_string)
-    course = get_course(course_key_string)
 
     # this input dict as to be passed the celery task to operate
     # the instructor_task update api
@@ -96,7 +89,7 @@ def generate_certificate(request, course_key_string):
                   'problem_url' : '',
                   'email_id' : ''}
 
-    if not get_university_attached_to_course(course):
+    if not get_university_attached_to_course(course_key):
         messages.warning(request, _("University doesn't exist"))
         return redirect('backoffice:certificate-dashboard', course_key_string)
     try:
