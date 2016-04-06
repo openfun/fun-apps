@@ -49,7 +49,6 @@ class TestNews(ModuleStoreTestCase):
     # CMS tests settings do not have FAKE_MICROSITE dict which makes skipUnlessLms to be ignored...
     #@setMicrositeTestSettings()
     #def test_get_microsite_news_from_different_microsite(self):
-    #    import ipdb; ipdb.set_trace()
     #    self.user.usersignupsource_set.create(site=settings.FAKE_MICROSITE['SITE_NAME'])
     #    self.user.save()
     #    news = ArticleFactory.create()

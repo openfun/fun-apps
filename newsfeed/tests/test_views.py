@@ -89,7 +89,6 @@ class ViewArticlesTest(TestCase):
             art = factories.ArticleFactory.create(published=True)
             articles.append(art)
 
-        # import ipdb; ipdb.set_trace()
         articles_per_page = 2
 
         #  we have 3 pages
@@ -103,7 +102,6 @@ class ViewArticlesTest(TestCase):
 
         # we test that a page contains the right articles but also that it doesn't contain articles of other pages
         #  page 1
-        # import ipdb;ipdb.set_trace();
         self.assertIn(titles[-1], contents[0])
         self.assertIn(titles[-2], contents[0])
         self.assertIn(titles[-3], contents[0])
