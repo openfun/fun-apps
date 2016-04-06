@@ -441,9 +441,8 @@ ul.breadcrumbs li a:hover {
     .register-page .right {
         right: -36px; /* stick column to border */
     }
-
-
 }
+
 
 @media (max-width: 1279px) {
     .main-width {
@@ -454,6 +453,7 @@ ul.breadcrumbs li a:hover {
     .compensate-right-column {
         margin-left: -100px;
     }
+
 
     .criteria-overlay ul {
         -moz-column-count: 2;
@@ -1988,4 +1988,47 @@ div.article {
 }
 .modal {
     z-index: 4000; /* bootstrap modal has to overtake ours */
+}
+
+
+@media (max-width: 830px) and (min-width: 768px)  {
+    .news-detail .right {
+        width: 280px;
+    }
+    .news-detail .left {
+        padding-left: 100px;
+        padding-right: 20px;
+    }
+    .course-about .right {
+        width: 280px;
+    }
+    .course-about .right .register-course-button {
+        font-size: 16px;
+    }
+    .course-about .left {
+        padding-left: 105px;
+        padding-right: 15px;
+    }
+}
+
+@media (max-width: 920px) and (min-width: 831px) {
+    .news-detail .right {
+        width: 300px;
+    }
+
+    .news-detail .left {
+        padding-left: 80px;
+        padding-right: 20px;
+    }
+
+    .course-about .right {
+        width: 300px;
+    }
+    .course-about .right .register-course-button {
+        font-size: 18px;
+    }
+    .course-about .left {
+        padding-left: 100px;
+        padding-right: 30px;
+    }
 }
