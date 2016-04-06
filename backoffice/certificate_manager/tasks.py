@@ -2,8 +2,10 @@
 This file contains backoffice tasks that are designed to perform background operations on the running state of a course.
 """
 
-from time import time
 import os
+from time import time
+
+from django.contrib.auth.models import User
 
 from instructor_task.tasks_helper import TaskProgress
 from xmodule.modulestore.django import modulestore
@@ -12,7 +14,6 @@ from certificates.models import (
   CertificateStatuses as status,
 )
 
-from fun_certificates.management.commands.generate_fun_certificates import get_enrolled_students
 from backoffice.utils import get_course_key
 from backoffice.certificate_manager.utils import (
     get_teachers_list_from_course, create_test_certificate, get_university_attached_to_course,
@@ -20,8 +21,15 @@ from backoffice.certificate_manager.utils import (
 
 
 def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_input, action_name):
+    generate_course_certificates(course_id, action_name)
+
+def generate_course_certificates(course_id, action_name):
     """
-    Generate a certificate for graduated students
+    Generate a certificate for all students that graduated from the course
+
+    Args:
+        course_id (CourseKey)
+        action_name (str): some string to monitor the task progress
     """
 
     course = modulestore().get_course(course_id, depth=2)
@@ -67,4 +75,9 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
             all_status[status.downloadable] += 1
 
     return task_progress.update_task_state(extra_meta=all_status)
+
+def get_enrolled_students(course_id):
+    return User.objects.filter(
+        courseenrollment__course_id=course_id, profile__isnull=False
+    ).prefetch_related("groups").order_by('username')
 
