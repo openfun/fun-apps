@@ -2,7 +2,6 @@
 This file contains backoffice tasks that are designed to perform background operations on the running state of a course.
 """
 
-import os
 from time import time
 
 from django.contrib.auth.models import User
@@ -15,11 +14,17 @@ from certificates.models import (
 )
 
 from backoffice.certificate_manager.utils import (
-    get_teachers_list_from_course, create_test_certificate, get_university_attached_to_course,
-    generate_fun_certificate)
+    create_test_certificate,
+    generate_fun_certificate,
+    get_teachers_list_from_course,
+    get_university_attached_to_course,
+)
 
 
 def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_input, action_name):
+    """
+    Function called by the instructor task API for certificate generation
+    """
     generate_course_certificates(course_id, action_name)
 
 def generate_course_certificates(course_id, action_name):
@@ -42,7 +47,7 @@ def generate_course_certificates(course_id, action_name):
 
     for student_status in iter_generated_course_certificates(course_id):
         task_progress.attempted += 1
-        if student_status == status.downloadable:
+        if student_status is None:
             task_progress.skipped += 1
         else:
             task_progress.succeeded += 1
@@ -51,32 +56,26 @@ def generate_course_certificates(course_id, action_name):
 
 def iter_generated_course_certificates(course_id):
     """
-    Generate a certificate for all students that graduated from the course
+    Iterate on the certificates generated for all students that graduated from
+    the course. Certificates are regenerated when necessary i.e: when the pdf
+    file does not already exist.
 
     Args:
         course_id (CourseKey)
-        action_name (str): some string to monitor the task progress
+    Yields:
+        status (str): one of CertificateStatuses. Yields None if the
+            certificate was skipped.
     """
 
     course = modulestore().get_course(course_id, depth=2)
-    course_display_name = unicode(course.display_name).encode('utf-8')
-    university = get_university_attached_to_course(course)
-    certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
-
+    university = get_university_attached_to_course(course_id)
     teachers = get_teachers_list_from_course(unicode(course_id))
 
     for student in get_enrolled_students(course_id):
         if certificate_status_for_student(student, course_id)['status'] != status.downloadable:
-            if university.certificate_logo:
-                logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
-            else:
-                logo_path = None
             student_status = generate_fun_certificate(
-                student, course_id,
-                course_display_name, course,
-                teachers, university.name,
-                logo_path, certificate_base_filename,
-                False, False, False
+                student, course,
+                teachers, university,
             )
             yield student_status
         else:

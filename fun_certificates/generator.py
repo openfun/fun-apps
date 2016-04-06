@@ -48,16 +48,26 @@ class CertificateInfo(object):
 
     def __init__(
         self, full_name, course_name,
-        organization, organization_logo,
+        organization,
         filename, teachers, language
     ):
         self.full_name = full_name
         self.course_name = course_name
         self.organization = organization
-        self.organization_logo = organization_logo
         self.filename = filename
         self.teachers = teachers
         self._ = translation(language if language else "fr").ugettext
+
+    @property
+    def organization_logo(self):
+        if self.organization and self.organization.certificate_logo:
+            return os.path.join(self.organization.certificate_logo.url,
+                                self.organization.certificate_logo.path)
+        return None
+
+    @property
+    def organization_name(self):
+        return self.organization.name or ""
 
     @property
     def pdf_file_name(self):
@@ -65,7 +75,7 @@ class CertificateInfo(object):
 
     @property
     def organizationNameTooLong(self):
-        return len(self.organization) > 33
+        return len(self.organization_name) > 33
 
     @property
     def courseNameTooLong(self):
@@ -145,15 +155,15 @@ class CertificateInfo(object):
 
         textobject.setFillColorRGB(127./256, 127./256, 127./256)
         if (self.organizationNameTooLong):
-            indexReturnLine = self.organization.rfind(" ", 0, 33)
+            indexReturnLine = self.organization_name.rfind(" ", 0, 33)
             textobject.textOut(self._("proposed by "))
             textobject.setFillColorRGB(0, 0, 0)
-            textobject.textLine(self.organization[:indexReturnLine])
-            textobject.textLine(self.organization[indexReturnLine+1:])
+            textobject.textLine(self.organization_name[:indexReturnLine])
+            textobject.textLine(self.organization_name[indexReturnLine+1:])
         else:
             textobject.textOut(self._("proposed by "))
             textobject.setFillColorRGB(0, 0, 0)
-            textobject.textLine(self.organization)
+            textobject.textLine(self.organization_name)
         textobject.setFillColorRGB(0, 0, 0)
 
         textobject.setFillColorRGB(127./256, 127./256, 127./256)
@@ -171,7 +181,7 @@ class CertificateInfo(object):
         textobject.setFillColorRGB(0, 0, 0)
         legalMentions = (
             self._("The current document is not a degree or diploma and does not award credits (ECTS).") +
-            self._(" It does not certify that the learner was registered with {}.").format(self.organization)
+            self._(" It does not certify that the learner was registered with {}.").format(self.organization_name)
         )
         if (len(legalMentions) > 169):
             indexReturnLine = legalMentions.rfind(" ", 0, 169)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from celery.states import READY_STATES
 import json
 import os
 import random
 
+from celery.states import READY_STATES
 
 from django.conf import settings
 from django.test.client import RequestFactory # Importing from tests, I know, I know...
@@ -17,7 +17,6 @@ from xmodule.modulestore.django import modulestore
 from certificates.models import GeneratedCertificate, CertificateStatuses
 from courses.models import Course
 from fun_certificates.generator import CertificateInfo
-from student.models import UserProfile
 from teachers.models import CertificateTeacher
 from universities.models import University
 
@@ -27,13 +26,11 @@ def get_certificate_params(course_key):
     to create certificate.
 
     Args:
-        course_key: course if org/number/session
+        course_key (CourseKey)
 
     returns:
-        course: modulestore course
         course_display_name: course name
         university: University model or None
-        organization_logo: path of the university logo
         teachers: queryset of certificate teachers
         certificate_language: language
     """
@@ -41,39 +38,24 @@ def get_certificate_params(course_key):
     course = modulestore().get_course(course_key, depth=2)
     course_display_name = unicode(course.display_name).encode('utf-8')
     try:
-        university = get_university_attached_to_course(course)
+        university = get_university_attached_to_course(course_key)
     except University.DoesNotExist:
         # Note: this is probably a very bad idea, since we are going to use the
         # university.name attribute in the rest of the certificate generation.
         university = None
-    if university and university.certificate_logo:
-        logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
-    else:
-        logo_path = None
-    certificate_base_filename = "attestation_suivi_" + (unicode(course.id).replace('/', '_')) + '_'
 
     teachers = get_teachers_list_from_course(course_key)
     certificate_language = Course.get_course_language(unicode(course_key))
 
-    return (course, course_display_name, university, logo_path,
-            certificate_base_filename, teachers, certificate_language)
+    return (course_display_name, university, teachers, certificate_language)
 
-
-def generate_fun_certificate(student,
-                             course_id,
-                             course_display_name, course,
-                             teachers,
-                             organization_display_name, organization_logo,
-                             certificate_base_filename, ignore_grades, new_grade, fail_flag):
+def generate_fun_certificate(student, course, teachers, university):
     """Generates a certificate for one student and one course."""
 
-    profile = UserProfile.objects.get(user=student)
-    student_name = unicode(profile.name).encode('utf-8')
     # grade the student
     cert, _created = GeneratedCertificate.objects.get_or_create(
-        user=student, course_id=course_id
+        user=student, course_id=course.id
     )
-
 
     # TODO We need to create a request object manually. It's very ugly and we should
     # do something about it.
@@ -84,35 +66,28 @@ def generate_fun_certificate(student,
     grade = grades.grade(student, request, course)
     cert.grade = grade['percent']
     cert.user = student
-    cert.course_id = course_id
-    cert.name = profile.name
-    fail = False
+    cert.course_id = course.id
+    cert.name = student.profile.name
 
-    if ignore_grades:
-        cert.grade = 1
-    elif new_grade:
-        fail = fail_flag
-        cert.grade = new_grade
-    elif grade['grade'] is None:
-        ## edx grading
-        fail = True
-
-    if fail:
+    if grade['grade'] is None:
         cert.status = CertificateStatuses.notpassing
     else:
-        key = make_hashkey(random.random())
-        cert.key = key
-        certificate_filename = certificate_base_filename + key + ".pdf"
-        certificate_language = Course.get_course_language(unicode(course_id))
-        info = CertificateInfo(
-            student_name, course_display_name,
-            organization_display_name, organization_logo,
-            certificate_filename, teachers, language=certificate_language
+        key = make_certificate_hash_key()
+        certificate_filename = "attestation_suivi_{}_{}.pdf".format(
+            (unicode(course.id).replace('/', '_')),
+            key
         )
-        info.generate()
+        cert.key = key
+        certificate_language = Course.get_course_language(unicode(course.id))
+        course_display_name = unicode(course.display_name).encode('utf-8')
 
-        cert.status = CertificateStatuses.downloadable
-        cert.download_url = settings.CERTIFICATE_BASE_URL + certificate_filename
+        CertificateInfo(
+            student.profile.name, course_display_name,
+            university,
+            certificate_filename, teachers, language=certificate_language
+        ).generate()
+
+        set_certificate_filename(cert, certificate_filename)
     cert.save()
     return cert.status
 
@@ -123,18 +98,15 @@ def create_test_certificate(course_key):
     """
 
     (
-        course, course_display_name, university, logo_path,
-        _certificate_base_filename, teachers,
-        certificate_language
+        course_display_name,
+        university,
+        teachers, certificate_language
     ) = get_certificate_params(course_key)
 
-    key = make_hashkey(random.random())
-    filename = "TEST_attestation_suivi_%s_%s.pdf" % (
-        unicode(course.id).replace('/', '_'), key
-    )
-
+    certificate_filename = make_certificate_filename(course_key, prefix="TEST_")
     certificate = CertificateInfo(settings.STUDENT_NAME_FOR_TEST_CERTIFICATE,
-                                  course_display_name, university.name, logo_path, filename, teachers,
+                                  course_display_name, university,
+                                  certificate_filename, teachers,
                                   language=certificate_language)
     certificate.generate()
 
@@ -178,9 +150,29 @@ def get_teachers_list_from_course(course_key):
     return teachers_list
 
 
-def get_university_attached_to_course(course):
+def get_university_attached_to_course(course_id):
     """
     Get the university attached to a course return 'None' if not found
+
+    Args:
+        course_id (CourseKey)
     """
-    fun_course = Course.objects.get(key=unicode(course.id))
+    fun_course = Course.objects.get(key=unicode(course_id))
     return fun_course.get_first_university()
+
+def make_certificate_filename(course_id, key=None, prefix=""):
+    key = key or make_certificate_hash_key()
+    course_id = unicode(course_id).replace('/', '_')
+    return "{}attestation_suivi_{}_{}.pdf".format(
+        prefix,
+        course_id,
+        key
+    )
+
+def make_certificate_hash_key():
+    return make_hashkey(random.random())
+
+def set_certificate_filename(certificate, filename):
+    certificate.status = CertificateStatuses.downloadable
+    certificate.download_url = os.path.join(settings.CERTIFICATE_BASE_URL, filename)
+    return certificate

@@ -2,7 +2,6 @@
 
 from collections import defaultdict
 import logging
-import random
 
 from django.conf import settings
 from django.contrib import messages
@@ -17,7 +16,6 @@ from django.utils.translation import ugettext_lazy as _
 from pure_pagination import Paginator, PageNotAnInteger
 
 from bulk_email.models import Optout
-from capa.xqueue_interface import make_hashkey
 from certificates.models import GeneratedCertificate, CertificateStatuses
 from edxmako.shortcuts import render_to_string
 from microsite_configuration import microsite
@@ -25,10 +23,15 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Use
 
 from xmodule_django.models import CourseKeyField
 
-from backoffice.certificate_manager.utils import get_certificate_params
 from fun_certificates.generator import CertificateInfo
 from newsfeed.models import Article
 
+from .certificate_manager.utils import (
+    get_certificate_params,
+    make_certificate_hash_key,
+    make_certificate_filename,
+    set_certificate_filename,
+)
 from .forms import SearchUserForm, UserForm, UserProfileForm, ArticleForm
 from .utils import get_course, group_required, get_course_key
 
@@ -138,25 +141,21 @@ def regenerate_certificate(course_id, user, certificate):
     """
 
     (
-        _course, course_display_name,
-        university, organization_logo,
-        certificate_base_filename, teachers,
-        certificate_language
+        course_display_name,
+        university,
+        teachers, certificate_language
     ) = get_certificate_params(course_id)
 
     if certificate.status != CertificateStatuses.downloadable:
-        certificate.key = make_hashkey(random.random())
+        certificate.key = make_certificate_hash_key()
 
-    certificate_filename = certificate_base_filename + certificate.key + ".pdf"
-    pdf = CertificateInfo(
+    certificate_filename = make_certificate_filename(course_id, key=certificate.key)
+    CertificateInfo(
         user.get_profile().name, course_display_name,
-        university.name, organization_logo,
+        university,
         certificate_filename, teachers, language=certificate_language
-    )
-    pdf.generate()
-
-    certificate.status = CertificateStatuses.downloadable
-    certificate.download_url = settings.CERTIFICATE_BASE_URL + certificate_filename
+    ).generate()
+    set_certificate_filename(certificate, certificate_filename)
     certificate.save()
 
 
