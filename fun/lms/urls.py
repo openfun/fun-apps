@@ -61,6 +61,11 @@ urlpatterns = patterns('',
 
     # Ora2 file upload
     url(r'^openassessment/storage', include(openassessment.fileupload.urls)),
+
+    # Download pdf certificates: this is necessary when the nginx server is not
+    # available to redirect to the certificates directory, such as in development
+    # mode
+    (r'^attestations/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.CERTIFICATES_DIRECTORY}),
 )
 
 # Ckeditor - Used by Univerity app
