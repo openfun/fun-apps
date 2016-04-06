@@ -1,9 +1,5 @@
-from datetime import timedelta
-from time import time
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.utils.timezone import now
 
 
 class AuthManager(models.Manager):

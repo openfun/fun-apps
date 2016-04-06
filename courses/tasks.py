@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-from dateutil.parser import parse as dateutil_parse
 
 from celery import shared_task
 
