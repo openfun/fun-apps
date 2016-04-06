@@ -8,9 +8,11 @@ from django.core.urlresolvers import reverse
 from certificates.models import GeneratedCertificate
 from certificates.tests.factories import GeneratedCertificateFactory
 from student.models import UserStanding, Registration
-from student.tests.factories import UserFactory, UserProfileFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
+from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
+from courses.tests.factories import CourseFactory as FunCourseFactory, CourseUniversityRelationFactory
 from fun.tests.utils import skipUnlessLms
+from universities.tests.factories import UniversityFactory
 
 from .test_course_list import BaseCourseList
 
@@ -136,6 +138,12 @@ class TestUsers(BaseCourseList):
         self.assertEqual(certificate.grade, '0.8')
 
     def test_change_and_regenerate_grade(self):
+        # Proper university and course objects need to be created in order to
+        # generate the pdf files
+        fun_course = FunCourseFactory(key=unicode(self.course1.id))
+        fun_university = UniversityFactory.create()
+        CourseUniversityRelationFactory(course=fun_course, university=fun_university)
+
         generated_certificate = self._create_certificate(self.course1, 0.8)
         certificate = self._change_certificate_grade(generated_certificate, 0.9, True)
         self.assertEqual(certificate.grade, '0.9')

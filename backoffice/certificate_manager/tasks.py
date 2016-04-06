@@ -14,7 +14,6 @@ from certificates.models import (
   CertificateStatuses as status,
 )
 
-from backoffice.utils import get_course_key
 from backoffice.certificate_manager.utils import (
     get_teachers_list_from_course, create_test_certificate, get_university_attached_to_course,
     generate_fun_certificate)
@@ -25,6 +24,33 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
 
 def generate_course_certificates(course_id, action_name):
     """
+    Generate course certificates while monitoring the progress in the admin in
+    a TaskProgress object.
+    """
+    # generate a test certificate
+    test_certificate = create_test_certificate(course_id)
+
+    # generate real certificate for students
+    task_progress = TaskProgress(action_name, get_enrolled_students_count(course_id), time())
+
+    progress_status = {
+        status.notpassing: 0,
+        status.error: 0,
+        status.downloadable: 0,
+        'test_certificate_filename' : test_certificate.filename
+    }
+
+    for student_status in iter_generated_course_certificates(course_id):
+        task_progress.attempted += 1
+        if student_status == status.downloadable:
+            task_progress.skipped += 1
+        else:
+            task_progress.succeeded += 1
+        progress_status[student_status] += 1
+        task_progress.update_task_state(extra_meta=progress_status)
+
+def iter_generated_course_certificates(course_id):
+    """
     Generate a certificate for all students that graduated from the course
 
     Args:
@@ -33,48 +59,31 @@ def generate_course_certificates(course_id, action_name):
     """
 
     course = modulestore().get_course(course_id, depth=2)
-    course_key = get_course_key(str(course_id))
     course_display_name = unicode(course.display_name).encode('utf-8')
     university = get_university_attached_to_course(course)
     certificate_base_filename = "attestation_suivi_" + (course_id.to_deprecated_string().replace('/', '_')) + '_'
 
-    start_time = time()
-    status_interval = 1
-    enrolled_students = get_enrolled_students(course_id)
-    teachers = get_teachers_list_from_course(course_id.to_deprecated_string())
-    task_progress = TaskProgress(action_name, enrolled_students.count(), start_time)
+    teachers = get_teachers_list_from_course(unicode(course_id))
 
-    # generate a test certificate
-    test_certificate = create_test_certificate(course_key)
-
-    all_status = {status.notpassing: 0,
-                  status.error: 0,
-                  status.downloadable: 0,
-                  'test_certificate_filename' : test_certificate.filename}
-
-    for student in enrolled_students:
-        task_progress.attempted += 1
-        if task_progress.attempted % status_interval == 0:
-            task_progress.update_task_state(extra_meta=all_status)
+    for student in get_enrolled_students(course_id):
         if certificate_status_for_student(student, course_id)['status'] != status.downloadable:
             if university.certificate_logo:
                 logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
             else:
                 logo_path = None
-            student_status = generate_fun_certificate(student, course_id,
-                                                  course_display_name, course,
-                                                  teachers, university.name,
-                                                  logo_path, certificate_base_filename,
-                                                  False, False, False)
-            if student_status:
-                all_status[student_status] += 1
-                task_progress.succeeded += 1
-            else:
-                task_progress.failed += 1
+            student_status = generate_fun_certificate(
+                student, course_id,
+                course_display_name, course,
+                teachers, university.name,
+                logo_path, certificate_base_filename,
+                False, False, False
+            )
+            yield student_status
         else:
-            all_status[status.downloadable] += 1
+            yield status.downloadable
 
-    return task_progress.update_task_state(extra_meta=all_status)
+def get_enrolled_students_count(course_id):
+    return get_enrolled_students(course_id).count()
 
 def get_enrolled_students(course_id):
     return User.objects.filter(
