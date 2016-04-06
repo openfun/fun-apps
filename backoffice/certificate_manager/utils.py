@@ -32,7 +32,7 @@ def get_certificate_params(course_key):
     returns:
         course: modulestore course
         course_display_name: course name
-        university: University model
+        university: University model or None
         organization_logo: path of the university logo
         teachers: queryset of certificate teachers
         certificate_language: language
@@ -41,14 +41,16 @@ def get_certificate_params(course_key):
     course = modulestore().get_course(course_key, depth=2)
     course_display_name = unicode(course.display_name).encode('utf-8')
     try:
-        university = University.objects.get(code=course.location.org)
+        university = get_university_attached_to_course(course)
     except University.DoesNotExist:
+        # Note: this is probably a very bad idea, since we are going to use the
+        # university.name attribute in the rest of the certificate generation.
         university = None
     if university and university.certificate_logo:
         logo_path = os.path.join(university.certificate_logo.url, university.certificate_logo.path)
     else:
         logo_path = None
-    certificate_base_filename = "attestation_suivi_" + (course.id.to_deprecated_string().replace('/', '_')) + '_'
+    certificate_base_filename = "attestation_suivi_" + (unicode(course.id).replace('/', '_')) + '_'
 
     teachers = get_teachers_list_from_course(course_key)
     certificate_language = Course.get_course_language(unicode(course_key))
@@ -115,25 +117,25 @@ def generate_fun_certificate(student,
     return cert.status
 
 
-def create_test_certificate(course, course_key, university):
+def create_test_certificate(course_key):
     """
     Generate the pdf certicate, save it on disk
     """
 
-    (course, course_display_name, university, logo_path,
-            _certificate_base_filename, teachers,
-            certificate_language) = get_certificate_params(course_key)
+    (
+        course, course_display_name, university, logo_path,
+        _certificate_base_filename, teachers,
+        certificate_language
+    ) = get_certificate_params(course_key)
 
     key = make_hashkey(random.random())
     filename = "TEST_attestation_suivi_%s_%s.pdf" % (
-        course.id.to_deprecated_string().replace('/', '_'), key
+        unicode(course.id).replace('/', '_'), key
     )
 
     certificate = CertificateInfo(settings.STUDENT_NAME_FOR_TEST_CERTIFICATE,
                                   course_display_name, university.name, logo_path, filename, teachers,
-                                  language=certificate_language
-    )
-
+                                  language=certificate_language)
     certificate.generate()
 
     return certificate

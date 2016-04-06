@@ -45,7 +45,7 @@ def generate_course_certificates(course_id, action_name):
     task_progress = TaskProgress(action_name, enrolled_students.count(), start_time)
 
     # generate a test certificate
-    test_certificate = create_test_certificate(course, course_key, university)
+    test_certificate = create_test_certificate(course_key)
 
     all_status = {status.notpassing: 0,
                   status.error: 0,
