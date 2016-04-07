@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.utils.timezone import now
 
 from rest_framework import filters
 
@@ -48,5 +49,10 @@ class CourseFilter(filters.BaseFilterBackend):
         if full_text_query:
             results = SearchQuerySet().filter(content=full_text_query)
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
-        queryset = queryset.order_by(self.order_by_param(request))
+
+        # Put archived courses at the end
+        queryset = queryset.extra(select={'is_ended': 'end_date < "{}"'.format(now())})
+
+        queryset = queryset.order_by('is_ended', self.order_by_param(request))
+
         return queryset
