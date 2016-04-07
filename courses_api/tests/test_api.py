@@ -22,24 +22,31 @@ from universities.tests.factories import UniversityFactory
 class CourseAPITest(TestCase):
 
     def setUp(self):
+        next_week = now() + timedelta(days=7)
         self.api_url = reverse('fun-courses-api:courses-list')
-        self.active_1 = CourseFactory(title='active course 1',
+        self.active_1 = CourseFactory(
+            title='active course 1',
             show_in_catalog=True,
             is_active=True,
+            end_date=next_week,
         )
-        self.active_2 = CourseFactory(title='active course 2',
+        self.active_2 = CourseFactory(
+            title='active course 2',
             show_in_catalog=True,
             is_active=True,
+            end_date=next_week,
         )
         self.not_active = CourseFactory(
             title='course not active',
             show_in_catalog=True,
             is_active=False,
+            end_date=next_week,
         )
         self.not_in_catalog = CourseFactory(
             title='course not in catalog',
             show_in_catalog=False,
             is_active=True,
+            end_date=next_week,
         )
         self.user = UserFactory(username='user', password='password') # user with profile
 
@@ -333,3 +340,18 @@ class CourseAPITest(TestCase):
         self.assertEqual(1, len(data['results']))
         self.assertEqual(self.active_1.title, data['results'][0]['title'])
 
+    def test_ended_courses_are_listed_at_the_end(self):
+        yesterday = now() - timedelta(days=1)
+        tomorrow = now() + timedelta(days=1)
+        self.active_1.end_date = yesterday
+        self.active_2.end_date = tomorrow
+        self.active_1.score = self.active_2.score + 1
+        self.active_1.save()
+        self.active_2.save()
+
+        response = self.client.get(self.api_url, {})
+        data = json.loads(response.content)
+
+        self.assertEqual(2, data["count"])
+        self.assertEqual(self.active_2.id, data["results"][0]["id"])
+        self.assertEqual(self.active_1.id, data["results"][1]["id"])
