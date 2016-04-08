@@ -1874,7 +1874,9 @@ ul.universities-list {
         margin-bottom: 18px
 
     }
+
     .course-about .description section.social-networks div {
+        padding-left: 34px;
         margin: 8px 0 8px 0;
     }
     .course-about .description section.social-networks div a {
@@ -1882,12 +1884,22 @@ ul.universities-list {
         text-decoration: none;
     }
     .course-about .description section.social-networks div.facebook {
-        padding-left: 34px;
         background: url('../images/icones/small-facebook.png') 0px 0px no-repeat;
     }
     .course-about .description section.social-networks div.twitter {
-        padding-left: 34px;
         background: url('../images/icones/small-twitter.png') 0px 0px no-repeat;
+    }
+    .course-about .description section.social-networks div.google-plus {
+        background: url('../images/icones/small-gplus.png') 0px 0px no-repeat;
+    }
+    .course-about .description section.social-networks div.linkedin {
+        background: url('../images/icones/small-linkedin.png') 0px 0px no-repeat;
+    }
+    .course-about .description section.social-networks div.blog {
+        background: url('../images/icones/small-blog.png') 0px 0px no-repeat;
+    }
+    .course-about .description section.social-networks div.tumblr {
+        background: url('../images/icones/small-tumblr.png') 0px 0px no-repeat;
     }
 
 
