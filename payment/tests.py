@@ -24,7 +24,7 @@ from universities.tests.factories import UniversityFactory
 from .utils import get_course, send_confirmation_email, get_order_context, format_date_order, get_order
 
 
-def ecommerce_api_response(course_key_string):
+def ecommerce_order_api_response(course_key_string):
     return {
         'number': 'FUN-100056',
         'total_excl_tax': '100.00',
@@ -42,6 +42,24 @@ def ecommerce_api_response(course_key_string):
             }
         ]
     }
+
+ecommerce_basket_api_response = {
+    "id": 130,
+    "date_created": "2016-04-01T12:32:34Z",
+    "lines": [
+        {
+            "product": {
+                "attribute_values": [
+                    {
+                        "name": "course_key",
+                        "value": "FUN/0002/session1"
+                    },
+                ],
+            },
+            "price_excl_tax": "100.00",
+        }
+    ]
+}
 
 
 def ecommerce_api_listing_course(course):
@@ -63,7 +81,7 @@ class AbstractPaymentTest(TestCase):
         self.university = UniversityFactory(name=u"FÛN")
         CourseUniversityRelation.objects.create(
             course=self.course, university=self.university)
-        self.api_response = ecommerce_api_response(self.course.key)
+        self.api_response = ecommerce_order_api_response(self.course.key)
 
 
 class PayboxSystemViewsTest(AbstractPaymentTest):
@@ -117,9 +135,9 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
         response = self.client.get(reverse('payment:success'), self.params)
         self.assertEqual(400, response.status_code)
 
-    @patch('payment.views.get_order_or_404')
+    @patch('payment.views.get_basket_or_404')
     def test_callbackpage_cancel(self, get_order_mock):
-        get_order_mock.return_value = self.api_response
+        get_order_mock.return_value = ecommerce_basket_api_response
         self.params['reponse-paybox'] = '00001'
         response = self.client.get(reverse('payment:cancel'), self.params)
         self.assertEqual(200, response.status_code)
@@ -133,9 +151,9 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
         response = self.client.get(reverse('payment:cancel'), self.params)
         self.assertEqual(400, response.status_code)
 
-    @patch('payment.views.get_order_or_404')
-    def test_callbackpage_error(self, get_order_mock):
-        get_order_mock.return_value = self.api_response
+    @patch('payment.views.get_basket_or_404')
+    def test_callbackpage_error(self, get_basket_mock):
+        get_basket_mock.return_value = ecommerce_basket_api_response
         errorcode = '00002'
         self.params['reponse-paybox'] = errorcode
         response = self.client.get(reverse('payment:error'), self.params)
@@ -145,8 +163,8 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
         self.assertEqual(errorcode, soup.find('strong', class_='errorcode').text)
 
     @patch('payment.views.get_order_or_404')
-    def test_callbackpage_error_missing_argument(self, get_order_mock):
-        get_order_mock.return_value = self.api_response
+    def test_callbackpage_error_missing_argument(self, get_basket_mock):
+        get_basket_mock.return_value = self.api_response
         self.params.pop('reponse-paybox')
         response = self.client.get(reverse('payment:error'), self.params)
         self.assertEqual(400, response.status_code)

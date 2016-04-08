@@ -11,16 +11,20 @@ from django.utils.translation import ugettext as _
 
 <%block name="message">
     <h2>${_(u"An error has occurred")}</h2>
+    <br><br><br><br>
     <p>
         ${_(u"An error has occurred while processing your payment for the course.")}
-      </p>
-      <p>
-      ${_(u"This was for the payment order <strong>{number}</strong>.").format(number=order_number)}
-      </p>
-      <p>
-      ${_(u"Error code <strong class='errorcode'>{errorcode}</strong>.").format(errorcode=errorcode)}
-      </p>
-
+    </p>
+    <p>
+        ${_(u"Your payment of <strong>{total} €</strong> for the course <strong>{title}</strong> failed.").format(total=total_excl_tax, title=basket_course.title)}
+    </p>
+    <p>
+        ${_(u"This was for the payment order <strong>{number}</strong>.").format(number=order_number)}
+    </p>
+    <p>
+        ${_(u"Error code <strong class='errorcode'>{errorcode}</strong>.").format(errorcode=errorcode)}
+    </p>
+    <br><br><br><br>
 
 
 </%block>

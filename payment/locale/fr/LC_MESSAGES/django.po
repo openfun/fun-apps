@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 28\n"
+"Project-Id-Version: FUN-MOOC 12\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-08 10:07+0200\n"
-"PO-Revision-Date: 2016-04-08 10:07+0000\n"
+"POT-Creation-Date: 2016-04-08 10:20+0200\n"
+"PO-Revision-Date: 2016-04-08 10:20+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -176,7 +176,6 @@ msgid "This is was automatically generated email, please do not reply."
 msgstr "Ce message est généré automatiquement, merci de ne pas y répondre."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/cancel.html:0
-#: /edx/app/edxapp/fun-apps/payment/templates/payment/error.html:0
 msgid "This was for the payment order <strong>{number}</strong>."
 msgstr "Il s'agissait de la commande <strong>{number}</strong>."
 
@@ -224,6 +223,15 @@ msgstr ""
 "href='http://www.proctoru.com/testitout/index_fr.php' "
 "target='_blank'>cliquant ici</a>."
 
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/cancel.html:0
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/error.html:0
+msgid ""
+"Your payment of <strong>{total} €</strong> for the course "
+"<strong>{title}</strong> failed."
+msgstr ""
+"Votre paiement de <strong>{total} €</strong> pour le cours "
+"<strong>{title}</strong> a echoué, votre compte n'a pas été débité."
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/success.html:0
 msgid ""
 "Your payment of <strong>{total} €</strong> for the course "
@@ -248,5 +256,3 @@ msgstr "Votre reçu se trouve à la fin de cet email."
 msgid "[FUN-MOOC] Payment confirmation"
 msgstr "[FUN-MOOC] Confirmation de paiement"
 
-#~ msgid "VAT not applicable, Exemption Art. 261-4-4 CGI."
-#~ msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"

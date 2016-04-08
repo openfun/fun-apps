@@ -28,8 +28,13 @@ def get_order(user, order_id):
     return order
 
 
-def get_course(order):
-    attributes = order['lines'][0]['product']['attribute_values']
+def get_basket(user, order_id):
+    return ecommerce_api_client(user).baskets(order_id).get()
+
+
+def get_course(order_or_basket):
+    """Retrieve course from order or basket product properties."""
+    attributes = order_or_basket['lines'][0]['product']['attribute_values']
     course_key = [d['value'] for d in attributes if d['name'] == 'course_key'][0]
     return Course.objects.get(key=course_key)
 

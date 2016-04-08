@@ -18,7 +18,7 @@ from edxmako.shortcuts import render_to_response
 
 from commerce import ecommerce_api_client
 
-from .utils import get_order, get_course, get_order_context
+from .utils import get_order, get_course, get_basket, get_order_context
 
 logger = logging.getLogger(__name__)
 
@@ -30,13 +30,20 @@ def get_order_or_404(user, order_id):
         raise Http404()
 
 
-def get_course_or_404(order):
-    """Retrieve course corresponding to order.
+def get_basket_or_404(user, order_id):
+    try:
+        return get_basket(user, order_id)
+    except (slumber.exceptions.HttpNotFoundError, slumber.exceptions.HttpClientError):
+        raise Http404()
+
+
+def get_course_or_404(order_or_basket):
+    """Retrieve course corresponding to order or basket.
 
     If the course does not exist, this will raise a 404 error.
     """
     try:
-        course = get_course(order)
+        course = get_course(order_or_basket)
     except (KeyError, IndexError, ObjectDoesNotExist):
         raise Http404
     return course
@@ -76,13 +83,15 @@ def paybox_error(request):
     if errorcode is None or errorcode in ('0000', '00001') or not request.GET.get('reference-fun'):
         return HttpResponseBadRequest()
 
-    # We can not retrieve an order from API if it's not validated,
-    # therefore we can not tell our user which course the failed to pay for !!
-
     order_number = request.GET['reference-fun']
+    basket = get_basket_or_404(request.user, order_number)
+    course = get_course_or_404(basket)
+    total_excl_tax = basket['lines'][0]['price_excl_tax']
 
     return render_to_response('payment/error.html', {
         'errorcode': errorcode,
+        'total_excl_tax': total_excl_tax,
+        'basket_course': course,
         'order_number': order_number,
     })
 
@@ -95,8 +104,13 @@ def paybox_cancel(request):
         return HttpResponseBadRequest()
 
     order_number = request.GET['reference-fun']
+    basket = get_basket_or_404(request.user, order_number)
+    course = get_course_or_404(basket)
+    total_excl_tax = basket['lines'][0]['price_excl_tax']
 
     return render_to_response('payment/cancel.html', {
+        'total_excl_tax': total_excl_tax,
+        'basket_course': course,
         'order_number': order_number,
     })
 
