@@ -55,8 +55,10 @@ class CourseFilter(filters.BaseFilterBackend):
         # Note: we are putting raw sql in the extra(...) statement. To do that,
         # we need the proper datetime formatting, which varies for every db.
         formatted_now = connection.ops.value_to_db_datetime(now())
-        queryset = queryset.extra(select={'is_ended': 'end_date < "{}"'.format(formatted_now)})
+        queryset = queryset.extra(select={
+            'is_archived': 'end_date < "{now}" OR enrollment_end_date < "{now}"'.format(now=formatted_now)
+        })
 
-        queryset = queryset.order_by('is_ended', self.order_by_param(request))
+        queryset = queryset.order_by('is_archived', self.order_by_param(request))
 
         return queryset

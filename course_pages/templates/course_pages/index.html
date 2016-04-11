@@ -484,12 +484,11 @@ require(["jquery", "underscore", "backbone"],
                 context.totalCount = this.resultstats.get("totalCount");
                 context.totalPageCount = Math.ceil(context.totalCount / context.resultsPerPage);
                 context.sortByValues = {
-                    "": "${_('Relevance')}",
+                    "": "${_('Default')}",
                     "title": "${_('Title')}",
                     "start_date": "${_('Start date')}",
                     //"-start_date": "${_('Start date (decreasing)')}",
-                    "start_enrollment_date": "${_('Enrollment date')}",
-                    //"-start_enrollment_date": "${_('Enrollment date (decreasing)')}",
+                    //"start_enrollment_date": "${_('Enrollment date')}",
                 }
                 this.$el.html(this.template(context));
                 return this;
