@@ -85,11 +85,12 @@ require(["jquery", "underscore", "backbone"],
 
         var AppRouter = Backbone.Router.extend({
             routes: {
-                "filter/:name/:slug?page=:page&rpp=:rpp&sort=:sortBy": "filter",
-                "filter/:name/:slug?page=:page&rpp=:rpp": "filter",
-                "filter/:name/:slug": "filter",
-                "filter": "filter",
-                "": "filter",
+                "filter/:name/:slug?page=:page&rpp=:rpp&sort=:sortBy": "filterByAvailability",
+                "filter/:name/:slug?page=:page&rpp=:rpp": "filterByAvailability",
+                "filter/:name/:slug": "filterByAvailability",
+                "filter": "filterByAvailability",
+                "": "filterByAvailability",
+                "filter?page=:page&rpp=:rpp&sort=:sortBy": "sort",
                 "search?query=:query&page=:page&rpp=:rpp&sort=:sortBy": "search",
                 "search?query=:query&page=:page&rpp=:rpp": "search",
                 "search?query=:query": "search",
@@ -114,7 +115,10 @@ require(["jquery", "underscore", "backbone"],
                 }
                 this.filter.set(attributes);
             },
-            filter: function(name, slug, page, rpp, sortBy) {
+            sort: function(page, rpp, sortBy) {
+                return this.filterByAvailability(null, null, page, rpp, sortBy);
+            },
+            filterByAvailability: function(name, slug, page, rpp, sortBy) {
                 var attributes = {
                     query: null,
                 }
