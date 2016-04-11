@@ -1210,6 +1210,25 @@ ul.universities-list {
     margin-bottom: 18px;
 }
 
+.course-list-table .spinner {
+  margin: 50px;
+  height: 48px;
+  width: 48px;
+  animation: spinner-rotate 1.0s infinite linear;
+  border: 8px solid white;
+  border-top-color: #white;
+  border-right-color: white;
+  border-bottom-color: #F83336;
+  border-left-color: #F83336;
+  border-radius: 50%;
+}
+
+@keyframes spinner-rotate {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}
+
+
 
 
 .small-device-filter select {
@@ -2044,3 +2063,4 @@ div.article {
         padding-right: 30px;
     }
 }
+

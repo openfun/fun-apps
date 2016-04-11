@@ -570,11 +570,11 @@ require(["jquery", "underscore", "backbone"],
                 this.$el.append(view.render().el);
             },
             syncing: function() {
-                this.$el.html("<img src='${STATIC_URL}images/spinner.gif' class='syncing' alt='loading...'>");
+                this.$el.html("<div class='spinner'></div>");
             },
             render: function() {
                 // Remove spinner
-                this.$el.find('.syncing').remove();
+                this.$el.find('.spinner').remove();
                 // clear previously added fake blocks
                 this.$el.find('.fake').remove();
                 // add some fake blocks to get correct alignment on last line
