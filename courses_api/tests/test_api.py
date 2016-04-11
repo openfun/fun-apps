@@ -355,3 +355,21 @@ class CourseAPITest(TestCase):
         self.assertEqual(2, data["count"])
         self.assertEqual(self.active_2.id, data["results"][0]["id"])
         self.assertEqual(self.active_1.id, data["results"][1]["id"])
+
+    def test_enrollment_ended_courses_are_listed_at_the_end(self):
+        yesterday = now() - timedelta(days=1)
+        tomorrow = now() + timedelta(days=1)
+        self.active_1.end_date = tomorrow
+        self.active_2.end_date = tomorrow
+        self.active_1.enrollment_end_date = yesterday
+        self.active_2.enrollment_end_date = tomorrow
+        self.active_1.score = self.active_2.score + 1
+        self.active_1.save()
+        self.active_2.save()
+
+        response = self.client.get(self.api_url, {})
+        data = json.loads(response.content)
+
+        self.assertEqual(2, data["count"])
+        self.assertEqual(self.active_2.id, data["results"][0]["id"])
+        self.assertEqual(self.active_1.id, data["results"][1]["id"])

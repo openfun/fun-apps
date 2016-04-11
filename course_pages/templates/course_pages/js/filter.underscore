@@ -47,7 +47,7 @@
         <% } %>
         
         <div class="navigation-block filter-dropdown hidden-xs sort-by"> <%  /**** Sort by ****/  %>
-            <span><%= gettext("Sort by")%> <%= sortByValues[sortBy].toLowerCase() %></span>
+            <span><%= gettext("Sort by:")%> <%= sortByValues[sortBy] %></span>
             <span class="glyphicon glyphicon-menu-down"></span>
 
             <ul class="hide-on-body-click">

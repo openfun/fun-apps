@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 32\n"
+"Project-Id-Version: FUN-MOOC 33\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-16 18:46+0100\n"
-"PO-Revision-Date: 2016-03-16 18:46+0000\n"
+"POT-Creation-Date: 2016-04-11 16:01+0200\n"
+"PO-Revision-Date: 2016-04-11 16:01+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -23,8 +23,8 @@ msgid "Learn more"
 msgstr "En savoir plus"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/filter.underscore:0
-msgid "Sort by"
-msgstr "Trier par"
+msgid "Sort by:"
+msgstr "Trier par :"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
 msgctxt "course-block"
