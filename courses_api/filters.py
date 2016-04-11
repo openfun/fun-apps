@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.db import connection
 from django.utils.timezone import now
 
 from rest_framework import filters
@@ -51,7 +52,10 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
 
         # Put archived courses at the end
-        queryset = queryset.extra(select={'is_ended': 'end_date < "{}"'.format(now())})
+        # Note: we are putting raw sql in the extra(...) statement. To do that,
+        # we need the proper datetime formatting, which varies for every db.
+        formatted_now = connection.ops.value_to_db_datetime(now())
+        queryset = queryset.extra(select={'is_ended': 'end_date < "{}"'.format(formatted_now)})
 
         queryset = queryset.order_by('is_ended', self.order_by_param(request))
 
