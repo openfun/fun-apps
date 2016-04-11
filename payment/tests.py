@@ -333,5 +333,5 @@ class FacturationViewsTest(AbstractPaymentTest):
         response = self.client.get(reverse('payment:list-receipts'))
         soup = BeautifulSoup(response.content)
 
-        self.assertIn(u"Vous n'avez pas encore souscrit à d'examen certifiant.",
+        self.assertIn(u"Vous n'avez pas encore souscrit à un examen certifiant.",
                          soup.find("p", {"class": "order-empty"}).text)

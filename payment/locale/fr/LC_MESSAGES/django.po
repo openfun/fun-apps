@@ -197,7 +197,7 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/list_orders.html:0
 msgid "You have not yet registered to a certified exam."
-msgstr "Vous n'avez pas encore souscrit à d'examen certifiant."
+msgstr "Vous n'avez pas encore souscrit à un examen certifiant."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
