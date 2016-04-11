@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.utils.timezone import now
 
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import date as django_localize_date
+from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
@@ -10,6 +11,14 @@ from jsonfield.fields import JSONField
 
 from . import choices as courses_choices
 from .managers import CourseSubjectManager, CourseManager
+
+
+def localize_date(date_time):
+    """Use Django template filter `date` to localize datetime and display month
+    in full text in user's language."""
+    if not date_time:
+        return ''
+    return django_localize_date(date_time, ugettext(u'b d Y'))
 
 
 class Course(models.Model):
@@ -113,27 +122,19 @@ class Course(models.Model):
 
     @property
     def start_date_display(self):
-        if not self.start_date:
-            return ''
-        return self.start_date.strftime(ugettext(u'%b %d %Y'))
+        return localize_date(self.start_date)
 
     @property
     def end_date_display(self):
-        if not self.end_date:
-            return ''
-        return self.end_date.strftime(ugettext(u'%b %d %Y'))
+        return localize_date(self.end_date)
 
     @property
     def enrollment_start_date_display(self):
-        if not self.enrollment_start_date:
-            return ''
-        return self.enrollment_start_date.strftime(ugettext(u'%b %d %Y'))
+        return localize_date(self.enrollment_start_date)
 
     @property
     def enrollment_end_date_display(self):
-        if not self.enrollment_end_date:
-            return ''
-        return self.enrollment_end_date.strftime(ugettext(u'%b %d %Y'))
+        return localize_date(self.enrollment_end_date)
 
     @property
     def enrollment_ended(self):
