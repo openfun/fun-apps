@@ -80,7 +80,7 @@ def paybox_error(request):
     """Called on transaction error."""
     errorcode = request.GET.get('reponse-paybox')
 
-    if errorcode is None or errorcode in ('0000', '00001') or not request.GET.get('reference-fun'):
+    if errorcode is None or errorcode in ('00000', '00001') or not request.GET.get('reference-fun'):
         return HttpResponseBadRequest()
 
     order_number = request.GET['reference-fun']
@@ -100,7 +100,7 @@ def paybox_error(request):
 @login_required
 def paybox_cancel(request):
     """User clicked on 'Cancel' before entering card information."""
-    if request.GET.get('reponse-paybox') != '00001' or not request.GET.get('reference-fun'):
+    if request.GET.get('reponse-paybox') not in ('00001', '00004') or not request.GET.get('reference-fun'):
         return HttpResponseBadRequest()
 
     order_number = request.GET['reference-fun']
