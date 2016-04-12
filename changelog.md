@@ -1,5 +1,11 @@
 # Changelog www.fun-mooc.fr
 
+## 3.10 14/04/2016
+- Amélioration des pages de paiement échec et abandon.
+- Ajout de la possibilité de trier les cours selon differents critères
+- Tri des video dans le dashboard d'upload
+- Accès utilisateur à l'historique des paiements de certificats dans le dashboard
+
 ## 3.9 24/03/2016
 - Ajout du xBlock ProctorU
 - Ajustements divers sur le système de paiement: wording, email de confirmation..
