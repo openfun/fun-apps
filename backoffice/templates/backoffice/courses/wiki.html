@@ -1,4 +1,4 @@
-{% extends 'backoffice/base.html' %}
+{% extends 'backoffice/courses/base-detail.html' %}
 {% load url from future %}
 {% load i18n course staticfiles %}
 
@@ -20,25 +20,8 @@ li>span.closed {
 </style>
 {% endblock %}
 
-{% block content %}
 
-<h1>{{ course_info.course.display_name_with_default }}</h1>
-
-
-<div role="tabpanel">
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation"><a href="{% url 'backoffice:course-detail' course_key_string %}">{% trans "Information" %}</a></li>
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Wiki" %}</a></li>
-  </ul>
-
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-
-    <div role="tabpanel" class="tab-pane active" id="wiki">
-
+{% block tab_content %}
       <div class="row">
         <div class="col-md-12">
 
@@ -67,12 +50,5 @@ li>span.closed {
           </form>
         </div>
       </div>
-    </div>
 
-  </div>
-
-
-</div>
-
-
-{% endblock %}
+{% endblock tab_content %}

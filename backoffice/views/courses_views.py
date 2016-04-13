@@ -22,7 +22,7 @@ from universities.models import University
 from xmodule.modulestore.django import modulestore
 
 from fun.utils import funwiki as wiki_utils
-from .utils import get_course, group_required
+from ..utils import get_course, group_required
 
 
 logger = logging.getLogger(__name__)
@@ -82,7 +82,7 @@ def courses_list(request):
         search_pattern = request.GET.get('search')
         course_infos = get_filtered_course_infos(search_pattern=search_pattern)
 
-    return render(request, 'backoffice/courses.html', {
+    return render(request, 'backoffice/courses/list.html', {
         'course_infos': course_infos,
         'pattern': search_pattern,
         'tab': 'courses',
@@ -126,11 +126,12 @@ def course_detail(request, course_key_string):
 
     roles = CourseAccessRole.objects.filter(course_id=ck)
 
-    return render(request, 'backoffice/course.html', {
+    return render(request, 'backoffice/courses/detail.html', {
             'course_info': course_info,
             'university': university,
             'roles': roles,
             'tab': 'courses',
+            'subtab': 'home',
         })
 
 
@@ -156,12 +157,13 @@ def wiki(request, course_key_string, action=None):
     if any(pages):
         pages, html = wiki_utils.render_html_tree(pages, '')
 
-    return render(request, 'backoffice/wiki.html', {
+    return render(request, 'backoffice/courses/wiki.html', {
             'course_key_string': course_key_string,
             'course_info': course_info,
             'pages': pages,
             'html': html,
             'tab': 'courses',
+            'subtab': 'wiki',
         })
 
 def get_filtered_course_infos(search_pattern=None):
