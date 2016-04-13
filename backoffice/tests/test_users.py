@@ -10,6 +10,7 @@ from certificates.tests.factories import GeneratedCertificateFactory
 from student.models import UserStanding, Registration
 from student.tests.factories import UserFactory, CourseEnrollmentFactory, CourseAccessRoleFactory
 
+from course_modes.models import CourseMode
 from courses.tests.factories import CourseFactory as FunCourseFactory, CourseUniversityRelationFactory
 from fun.tests.utils import skipUnlessLms
 from universities.tests.factories import UniversityFactory
@@ -49,7 +50,7 @@ class TestUsers(BaseCourseList):
         self.assertEqual(response.context['enrollments'][0][1],
                          unicode(self.course1.id))
         self.assertEqual(response.context['enrollments'][0][2], False)
-        self.assertEqual(set(response.context['enrollments'][0][3]), set([u'test_role']))
+        self.assertEqual(set(response.context['enrollments'][0][4]), set([u'test_role']))
 
     def test_change_user_detail(self):
         data = {
@@ -181,3 +182,18 @@ class TestUsers(BaseCourseList):
         self.client.post(reverse('backoffice:user-detail', args=[self.user2.username]), data)
         self.assertEquals(len(mail.outbox), 1)
 
+    def test_user_change_course_mode(self):
+        CourseMode.objects.create(course_id=self.course1.id, mode_slug='honor', mode_display_name=u"honor")
+        CourseMode.objects.create(course_id=self.course1.id, mode_slug='verified', mode_display_name=u"verified")
+        CourseEnrollmentFactory(course_id=self.course1.id, user=self.user2, mode='honor')
+
+        response = self.client.get(reverse('backoffice:user-detail', args=[self.user2.username]))
+        self.assertEqual(response.context['enrollments'][0][3], 'honor')
+        data = {
+            'action': 'change-mode',
+            'course-id': unicode(self.course1.id),
+            'course-mode': 'verified',
+        }
+        self.client.post(reverse('backoffice:user-detail', args=[self.user2.username]), data)
+        response = self.client.get(reverse('backoffice:user-detail', args=[self.user2.username]))
+        self.assertEqual(response.context['enrollments'][0][3], 'verified')
