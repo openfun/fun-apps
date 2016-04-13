@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls import include, url, patterns
 
 
-urlpatterns = patterns('backoffice.views_courses',
+urlpatterns = patterns('backoffice.views.courses_views',
     url(r'^$', 'courses_list', name='courses-list'),
     url(r'^course/{}?$'.format(settings.COURSE_KEY_PATTERN),
             'course_detail', name='course-detail'),
@@ -12,15 +12,19 @@ urlpatterns = patterns('backoffice.views_courses',
             'wiki', name='course-wiki'),
 )
 
-urlpatterns += patterns('backoffice.views',
+urlpatterns += patterns('backoffice.views.users_views',
     url(r'^users/$', 'user_list', name='user-list'),
     url(r'^user/(?P<username>[^/]+)/$', 'user_detail', name='user-detail'),
     url(r'^impersonate/(?P<username>.+)/$', 'impersonate_user', name='impersonate-user'),
+)
 
+urlpatterns += patterns('backoffice.views.news_views',
     url(r'^news/$', 'news_list', name='news-list'),
     url(r'^news/create/$', 'news_detail', name='news-create'),
     url(r'^news/(?P<news_id>\d+)/$', 'news_detail', name='news-detail'),
+)
 
+urlpatterns += patterns('backoffice.views.views',
     url(
         r'^course/submissions/{}/'.format(settings.COURSE_KEY_PATTERN),
         include('backoffice.ora2_submissions.urls', namespace="ora2-submissions")
