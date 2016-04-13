@@ -3,6 +3,8 @@
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 
+from pure_pagination import Paginator, PageNotAnInteger
+
 from microsite_configuration import microsite
 from opaque_keys.edx.keys import CourseKey
 from student.models import UserSignupSource
@@ -39,3 +41,17 @@ def group_required(*group_names):
                 return True
         return False
     return user_passes_test(in_groups)
+
+
+LIMIT_BY_PAGE = 100
+
+def order_and_paginate_queryset(request, queryset, default_order):
+    order = request.GET.get('order', default_order)
+    direction = '-' if 'd' in request.GET else ''
+    try:
+        page = request.GET.get('page', 1)
+    except PageNotAnInteger:
+        page = 1
+    queryset = queryset.order_by(direction + order)
+    paginator = Paginator(queryset, LIMIT_BY_PAGE, request=request)
+    return paginator.page(page)
