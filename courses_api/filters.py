@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django.db import connection
-from django.utils.timezone import now
-
 from rest_framework import filters
 
 from haystack.query import SearchQuerySet
@@ -53,14 +50,8 @@ class CourseFilter(filters.BaseFilterBackend):
             results = SearchQuerySet().filter(content=full_text_query)
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
 
-        # Put archived courses at the end
-        # Note: we are putting raw sql in the extra(...) statement. To do that,
-        # we need the proper datetime formatting, which varies for every db.
-        formatted_now = connection.ops.value_to_db_datetime(now())
-        queryset = queryset.extra(select={
-            'is_archived': 'end_date < "{now}" OR enrollment_end_date < "{now}"'.format(now=formatted_now)
-        })
-
-        queryset = queryset.order_by('is_archived', self.order_by_param(request))
+        # Put courses for which enrollment is over at the end
+        queryset = queryset.annotate_with_is_enrollment_over()
+        queryset = queryset.order_by('is_enrollment_over', self.order_by_param(request))
 
         return queryset

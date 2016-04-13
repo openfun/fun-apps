@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 
-from django.db import models
+from django.db import connection, models
 from django.db.models import Q
 from django.utils.timezone import now, timedelta
 
@@ -76,8 +76,21 @@ class CourseQuerySet(models.query.QuerySet):
         """
         return self.public().filter(
             Q(enrollment_start_date__lte=now()) | Q(enrollment_start_date__isnull=True),
-            Q(enrollment_end_date__gte=now()) |Q(enrollment_end_date__isnull=True) ,
+            Q(enrollment_end_date__gte=now()) |Q(enrollment_end_date__isnull=True),
         )
+
+    def annotate_with_is_enrollment_over(self):
+        """
+        Add a 'is_enrollment_over' attribute to all results.
+        """
+        # Note: we are putting raw sql in the extra(...) statement. To do that,
+        # we need the proper datetime formatting, which varies for every db.
+        formatted_now = connection.ops.value_to_db_datetime(now())
+        return self.extra(select={
+            'is_enrollment_over': (
+                '(enrollment_end_date IS NOT NULL AND enrollment_end_date < "{now}")'
+            ).format(now=formatted_now)
+        })
 
     def by_score(self):
         return self.public().order_by('-score')
