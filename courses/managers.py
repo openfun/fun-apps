@@ -70,6 +70,15 @@ class CourseQuerySet(models.query.QuerySet):
             Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True)
         )
 
+    def current(self):
+        """
+        A course that is currently opened for enrollment.
+        """
+        return self.public().filter(
+            Q(enrollment_start_date__lte=now()) | Q(enrollment_start_date__isnull=True),
+            Q(enrollment_end_date__gte=now()) |Q(enrollment_end_date__isnull=True) ,
+        )
+
     def by_score(self):
         return self.public().order_by('-score')
 
