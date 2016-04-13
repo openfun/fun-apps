@@ -1,14 +1,14 @@
 {% load i18n %}
 <form method="POST" method=".">{% csrf_token %}
+    <div class="modal fade" id="{{ modal_id }}"> tabindex="-1" role="dialog" aria-labelledby="{{ modal_id }}-label" aria-hidden="true">
     {% block input-form %}{% endblock %}
-    <div class="modal fade"  id="{{ modal_id }}"> tabindex="-1" role="dialog" aria-labelledby="{{ modal_id }}-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="{{ modal_id }}-label">{% trans "Please confirm" %}</h4>
+                    <h4 class="modal-title" id="{{ modal_id }}-label">{% block modal-title %}{% trans "Please confirm" %}{% endblock %}</h4>
                 </div>
                 <div class="modal-body">
                     {% block modal-body %}{% endblock %}
