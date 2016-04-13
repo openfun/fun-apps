@@ -47,6 +47,8 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.enrollment_ends_soon()
         if 'new' in availability:
             queryset = queryset.new()
+        if 'current' in availability:
+            queryset = queryset.current()
         if full_text_query:
             results = SearchQuerySet().filter(content=full_text_query)
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])

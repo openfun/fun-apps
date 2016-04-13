@@ -316,6 +316,46 @@ class CourseAPITest(TestCase):
         self.assertNotContains(response, self.active_1.title)
         self.assertContains(response, self.active_2.title)
 
+    def test_filter_by_current_exclude_upcoming_course(self):
+        self.active_1.enrollment_start_date = now() - timedelta(days=1)
+        self.active_1.enrollment_end_date = now() + timedelta(days=1)
+        self.active_1.save()
+        self.active_2.enrollment_start_date = now() + timedelta(days=1)
+        self.active_2.enrollment_end_date = now() + timedelta(days=3)
+        self.active_2.save()
+        filter_data = {'availability': 'current'}
+        response = self.client.get(self.api_url, filter_data)
+        self.assertContains(response, self.active_1.title)
+        self.assertNotContains(response, self.active_2.title)
+
+    def test_filter_by_current_exclude_past_course(self):
+        self.active_1.enrollment_start_date = now() - timedelta(days=1)
+        self.active_1.enrollment_end_date = now() + timedelta(days=1)
+        self.active_1.save()
+        self.active_2.enrollment_start_date = now() - timedelta(days=3)
+        self.active_2.enrollment_end_date = now() - timedelta(days=1)
+        self.active_2.save()
+        filter_data = {'availability': 'current'}
+        response = self.client.get(self.api_url, filter_data)
+        self.assertContains(response, self.active_1.title)
+        self.assertNotContains(response, self.active_2.title)
+
+    def test_filter_by_current_include_null_enrollment_start_date(self):
+        self.active_1.enrollment_start_date = None
+        self.active_1.enrollment_end_date = now() + timedelta(days=1)
+        self.active_1.save()
+        filter_data = {'availability': 'current'}
+        response = self.client.get(self.api_url, filter_data)
+        self.assertContains(response, self.active_1.title)
+
+    def test_filter_by_current_include_null_enrollment_end_date(self):
+        self.active_1.enrollment_start_date = now() - timedelta(days=1)
+        self.active_1.enrollment_end_date = None
+        self.active_1.save()
+        filter_data = {'availability': 'current'}
+        response = self.client.get(self.api_url, filter_data)
+        self.assertContains(response, self.active_1.title)
+
     def test_public_api_results_do_not_include_score(self):
         self.client.logout()
         response = self.client.get(self.api_url)

@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 50\n"
+"Project-Id-Version: FUN-MOOC 51\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-11 16:01+0200\n"
-"PO-Revision-Date: 2016-04-11 16:01+0000\n"
+"POT-Creation-Date: 2016-04-14 12:10+0200\n"
+"PO-Revision-Date: 2016-04-14 12:10+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -45,6 +45,10 @@ msgstr "Les thématiques: "
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Courses"
 msgstr "Les cours"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Current"
+msgstr "Ouvert aux inscriptions"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Default"
@@ -134,3 +138,4 @@ msgstr "Voir les <%= count %> thèmes"
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "View <%= count %> universities"
 msgstr "Voir les <%= count %> établissements"
+
