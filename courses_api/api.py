@@ -30,6 +30,7 @@ class CourseAPIView(mixins.ListModelMixin,
         * `availability=end-soon`
         * `availability=enrollment-ends-soon`
         * `availability=new`
+        * `availability=current`
 
     ## Pagination
 
