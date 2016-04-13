@@ -1,4 +1,4 @@
-{% extends 'backoffice/base.html' %}
+{% extends 'backoffice/courses/base-detail.html' %}
 {% load url from future %}
 {% load i18n course staticfiles %}
 
@@ -10,25 +10,8 @@
 </style>
 {% endblock %}
 
-{% block content %}
 
-<h1>{{ course_info.course.display_name_with_default }}</h1>
-{% if course_info.course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
-{% if course_info.course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
-
-
-<div role="tabpanel">
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{% trans "Information" %}</a></li>
-    <li role="presentation"><a href="{% url 'backoffice:course-wiki' course_info.course.id %}">{% trans "Wiki" %}</a></li>
-  </ul>
-
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
+{% block tab_content %}
 
       <div class="row">
         <div class="col-md-9">
@@ -80,18 +63,10 @@
           <a id="delete-course" class="btn btn-danger" data-toggle="modal" data-target="#delete-course-modal">{% trans "Delete this course" %}</a>
         </div>
       </div>
-
-    </div>
-
-
-  </div>
+{% endblock tab_content %}
 
 
-</div>
-
-
-
-
+{% block modal_content %}
 <!-- Modal -->
 <form action="{% url 'backoffice:course-detail' course_info.course.id %}" method="POST">
 <input type="hidden" name="action" value="delete-course">
@@ -118,5 +93,6 @@
   </div>
 </div>
 </form>
+{% endblock modal_content %}
 
-{% endblock %}
+
