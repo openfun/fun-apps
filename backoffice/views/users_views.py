@@ -15,6 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from bulk_email.models import Optout
 from certificates.models import GeneratedCertificate, CertificateStatuses
+from course_modes.models import CourseMode
 from edxmako.shortcuts import render_to_string
 from microsite_configuration import microsite
 from student.models import CourseEnrollment, CourseAccessRole, UserStanding, UserProfile, Registration
@@ -164,10 +165,26 @@ def resend_activation_email(request, user):
             username=user.username, email=user.email)))
 
 
+def change_course_mode(request, user):
+    """Change user enrollment mode to course. honor or verified."""
+
+    course_id = get_course_key(request.POST['course-id'])
+    mode = request.POST['course-mode']
+    if CourseMode.objects.filter(course_id=course_id, mode_slug=mode).exists():
+        update = CourseEnrollment.objects.filter(user=user, course_id=course_id
+                ).update(mode=mode)
+        if update == 1:
+            messages.success(request, _(u"User's course enrollment for <strong>%s</strong> has been set to <strong>%s</strong>") % (
+                course_id, mode))
+            logger.warning(u"User %s CourseMode for course %s set to %s",
+                user.username, course_id, mode)
+
+
 user_actions = {'ban-user' : ban_user,
                 'change-password' : change_password,
                 'change-grade' : change_grade,
                 'resend-activation': resend_activation_email,
+                'change-mode': change_course_mode,
                 }
 
 @group_required('fun_backoffice')
@@ -203,6 +220,11 @@ def user_detail(request, username):
     for car in CourseAccessRole.objects.filter(user=user).exclude(course_id=CourseKeyField.Empty):
         user_roles[unicode(car.course_id)].append(car.role)
 
+    course_modes = defaultdict(list)
+    modes = CourseMode.objects.all()
+    for course in modes:
+        course_modes[unicode(course.course_id)].append([course.mode_slug, course.min_price])
+
     for enrollment in CourseEnrollment.objects.filter(user=user):
         key = unicode(enrollment.course_id)
         optout = key in optouts
@@ -211,7 +233,7 @@ def user_detail(request, username):
             continue  # enrollment can exists for course that does not exist anymore in mongo
         title = course.display_name
         course_roles = user_roles.get(key, [])
-        enrollments.append((title, unicode(enrollment.course_id), optout, course_roles))
+        enrollments.append((title, unicode(enrollment.course_id), optout, enrollment.mode, course_roles))
     if request.method == 'POST':
         if all([userform.is_valid(), userprofileform.is_valid()]):
             userform.save()
@@ -225,7 +247,8 @@ def user_detail(request, username):
         'enrollments': enrollments,
         'disabled': disabled,
         'tab': 'users',
-        'certificates' : certificates
+        'certificates' : certificates,
+        'course_modes': course_modes,
         })
 
 
