@@ -73,14 +73,14 @@ require(["jquery", "underscore", "backbone", "gettext",
     var Video = Backbone.Model.extend({
       defaults: {
         created_at: "",
-        created_at_timestamp: null,
+        created_at_timestamp: 0,
         embed_url: "",
         video_sources: [],
         external_link: "",
         error: "",
         subtitles: [],
         title: "",
-        encoding_progress: null,
+        encoding_progress: 0,
       },
 
       url: function() {
