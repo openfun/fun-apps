@@ -48,9 +48,15 @@ class FAQTest(ModuleStoreTestCase):
         self.assertEqual(200, response.status_code)
 
         soup = BeautifulSoup(response.content)
+        breadcrumbs = soup.find("ul", {"class": "breadcrumbs"}).find_all("li")
+
         self.assertEqual(u"Article 1",
                 soup.find('div', class_='article').find('h1').text)
         self.assertEqual(u"Article body 1",
                 soup.find('div', class_='article').find('p').text.strip())
 
-
+        self.assertEqual(4, len(breadcrumbs))
+        self.assertEqual(u"Accueil", breadcrumbs[0].text.strip())
+        self.assertEqual(u"Aide", breadcrumbs[1].text.strip())
+        self.assertEqual(u"Category name 1", breadcrumbs[2].text.strip())
+        self.assertEqual(u"Section 1", breadcrumbs[3].text.strip())

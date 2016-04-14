@@ -16,6 +16,7 @@ from staticfiles.storage import staticfiles_storage
 
 
     <ul class="breadcrumbs">
+        <li><a href="${reverse('root')}">${_("Home")}</a></li>
         <li><a href="${reverse('faq:index')}">${_("Help")}</a></li>
         <li><a href="${reverse('faq:index')}#${article['category']['id']}">${article['category']['name']}</a></li>
         <li><a href="${reverse('faq:index')}#${article['section']['id']}">${article['section']['name']}</a></li>
