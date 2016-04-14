@@ -487,7 +487,7 @@ class Client(BaseClient):
     def get_upload_url(self):
         etree = parse_xml(self.safe_post(
             self.urls.upload_links_path(self.directory_slug),
-            _("Could not fetch upload url")
+            message=_("Could not fetch upload url")
         ))
         return {
             "url": etree.find("link[@rel='json']").attrib["href"],
