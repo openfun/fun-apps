@@ -437,9 +437,11 @@ require(["jquery", "underscore", "backbone", "gettext",
 
       uploadToNewUrl: function(videoFile) {
         var that = this;
+        var now = new Date();
         var video = new Video({
           title: videoFile.name,
-          status: "preparing"
+          status: "preparing",
+          created_at_timestamp: now.getTime(), 
         });
         this.collection.add(video);
         var currentUploadRequest = null;
