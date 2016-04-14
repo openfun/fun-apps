@@ -25,7 +25,7 @@ def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_inp
     """
     Function called by the instructor task API for certificate generation
     """
-    generate_course_certificates(course_id, action_name)
+    return generate_course_certificates(course_id, action_name)
 
 def generate_course_certificates(course_id, action_name):
     """
@@ -45,6 +45,7 @@ def generate_course_certificates(course_id, action_name):
         'test_certificate_filename' : test_certificate.filename
     }
 
+    task_progress.update_task_state(extra_meta=progress_status)
     for student_status in iter_generated_course_certificates(course_id):
         task_progress.attempted += 1
         if student_status is None:
@@ -53,6 +54,7 @@ def generate_course_certificates(course_id, action_name):
             task_progress.succeeded += 1
         progress_status[student_status] += 1
         task_progress.update_task_state(extra_meta=progress_status)
+    return task_progress.update_task_state(extra_meta=progress_status)
 
 def iter_generated_course_certificates(course_id):
     """
