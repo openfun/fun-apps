@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 41\n"
+"Project-Id-Version: FUN-MOOC 42\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-11 18:31+0200\n"
-"PO-Revision-Date: 2016-04-11 18:31+0000\n"
+"POT-Creation-Date: 2016-04-18 12:31+0200\n"
+"PO-Revision-Date: 2016-04-18 12:31+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -152,8 +152,8 @@ msgid "order"
 msgstr "ordre"
 
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
-msgid "prevent automatic update"
-msgstr "pas de mise à jour automatique"
+msgid "prevent score automatic update"
+msgstr "empêcher la mise à jour automatique du score"
 
 #: /edx/app/edxapp/fun-apps/courses/admin.py:0
 msgid "preview"

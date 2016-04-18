@@ -137,9 +137,6 @@ class Command(BaseCommand):
         key = course_handler.key
         self.stdout.write('Updating data for course {}\n'.format(key))
         course, was_created =  Course.objects.get_or_create(key=key)
-        if course.prevent_auto_update:
-            self.stdout.write('Skipping updates for {}\n'.format(key))
-            return None
         if was_created or assign_universities:
             university = course_handler.assign_university(course)
             if university:
