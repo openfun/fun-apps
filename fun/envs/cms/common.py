@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
 
+from celery.schedules import crontab
+
 from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
@@ -81,8 +83,12 @@ SITE_VARIANT = 'cms'
 # Django `manage.py` with: `celery beat -l INFO`.
 # Ex: `fun cms.dev celery beat -l INFO`
 CELERYBEAT_SCHEDULE = {
-    'update-courses-meta-data-every-30-minutes': {
+    'update-courses-meta-data-periodically': {
         'task': 'courses.tasks.update_courses_meta_data',
-        'schedule': timedelta(minutes=30),
+        'schedule': timedelta(hours=3),
+    },
+    'update-search-index-every-day': {
+        'task': 'fun.tasks.update_search_index',
+        'schedule': crontab(hour=2, minute=30, day_of_week='*'),
     },
 }
