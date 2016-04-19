@@ -22,7 +22,7 @@ from universities.models import University
 from xmodule.modulestore.django import modulestore
 
 from fun.utils import funwiki as wiki_utils
-from ..utils import get_course, group_required
+from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
 
 
 logger = logging.getLogger(__name__)
@@ -35,7 +35,8 @@ COURSE_FIELDS = [
     'title',
     'university',
     'url',
-    'studio_url'
+    'studio_url',
+    'modes',
 ]
 ABOUT_SECTION_FIELDS = ['effort', 'video']
 FunCourse = namedtuple('FunCourse', COURSE_FIELDS)
@@ -96,8 +97,12 @@ def course_detail(request, course_key_string):
     (StudentModule, StudentModuleHistory are very big tables)."""
 
     ck = CourseKey.from_string(course_key_string)
+
+    mode_count = get_enrollment_mode_count(ck)
+    print mode_count
     course_info = get_complete_course_info(get_course(course_key_string))
     funcourse, _created = Course.objects.get_or_create(key=ck)
+
     try:
         university = University.objects.get(code=ck.org)
     except University.DoesNotExist:
@@ -130,6 +135,7 @@ def course_detail(request, course_key_string):
             'course_info': course_info,
             'university': university,
             'roles': roles,
+            'mode_count': mode_count,
             'tab': 'courses',
             'subtab': 'home',
         })
@@ -195,7 +201,9 @@ def get_complete_course_info(course):
     course_infos.update(get_about_sections(course))
     return CompleteFunCourse(**course_infos)
 
+
 def get_course_infos(course_descriptors):
+    course_modes = get_course_modes()
     course_descriptor_ids = [course_descriptor.id for course_descriptor in course_descriptors]
     courses = Course.objects.filter(key__in=course_descriptor_ids)
     course_enrollment_counts = get_course_enrollment_counts(course_descriptor_ids)
@@ -204,7 +212,8 @@ def get_course_infos(course_descriptors):
         get_course_info(
             course_descriptor,
             course_dict.get(course_descriptor.id.to_deprecated_string()),
-            course_enrollment_counts.get(course_descriptor.id.to_deprecated_string(), 0)
+            course_enrollment_counts.get(course_descriptor.id.to_deprecated_string(), 0),
+            course_modes,
         )
         for course_descriptor in course_descriptors
     ]
@@ -222,7 +231,7 @@ def get_about_sections(course_descriptor):
             pass
     return about_sections
 
-def get_course_info(course_descriptor, course, students_count):
+def get_course_info(course_descriptor, course, students_count, course_modes):
     """Returns a dict containing original edX course and some complementary properties."""
     return {
         'course': course_descriptor,
@@ -236,6 +245,7 @@ def get_course_info(course_descriptor, course, students_count):
             reverse('about_course', args=[course_descriptor.id.to_deprecated_string()])
         ),
         'studio_url': get_cms_course_link(course_descriptor),
+        'modes': course_modes[unicode(course_descriptor.id)] if course_modes else [],
     }
 
 def get_course_enrollment_counts(course_descriptors_ids):

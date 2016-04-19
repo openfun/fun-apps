@@ -19,9 +19,21 @@
           <div class="course-info">
             <h2> {% trans 'Course information' %} </h2>
             <p>
-              <strong>{% trans "Students enrolled in this course: " %}</strong>{{ course.students_count }}
+              <strong>{% trans "Students enrolled in this course: " %}</strong>{{ course_info.students_count }}
             </p>
+
+            {% if mode_count %}
+              <strong>{% trans "This course has enrollment modes: " %}</strong>
+              <ul>
+              {% for mode, count in mode_count.items %}
+                <li>{{ mode }}: {{ count }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+
             <p>
+              <strong>{% trans "Roles: " %}</strong>
+
               {% regroup roles|dictsort:"role" by role as roles_list %}
               <ul>
                 {% for role in roles_list %}
