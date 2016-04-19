@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Count
 
 from pure_pagination import Paginator, PageNotAnInteger
 
+from course_modes.models import CourseMode
 from microsite_configuration import microsite
 from opaque_keys.edx.keys import CourseKey
-from student.models import UserSignupSource
+from student.models import CourseEnrollment, UserSignupSource
 from xmodule.modulestore.django import modulestore
 
 
@@ -55,3 +59,33 @@ def order_and_paginate_queryset(request, queryset, default_order):
     queryset = queryset.order_by(direction + order)
     paginator = Paginator(queryset, LIMIT_BY_PAGE, request=request)
     return paginator.page(page)
+
+
+def get_course_modes():
+    """Returns a dict of existing course modes:
+        {'org/session/number': ['verified', 'honor'],}
+    """
+    modes = CourseMode.objects.all()
+    course_modes = defaultdict(list)
+    for mode in modes:
+        course_modes[unicode(mode.course_id)].append(mode.mode_slug)
+    return course_modes
+
+
+def get_enrollment_mode_count(course_key):
+    """Return dict of enrollments counts for modes.
+        {'honor': 12, 'verified: 0'}
+    """
+    course_modes = get_course_modes()  # retrieve all course modes
+    if course_modes[unicode(course_key)]:
+        # count enrollments for each course mode for given course (this will NOT find mode with 0 enrollments)
+        enrollments = {enrollment['mode']: enrollment['count']
+                for enrollment in CourseEnrollment.objects.filter(course_id=course_key
+                ).values('mode').annotate(count=Count('id'))}
+
+    # build convenient dict like {'honor': 12, 'verified': 0}
+    mode_count = {}
+    for mode in course_modes[unicode(course_key)]:
+        mode_count[mode] = enrollments[mode] if mode in enrollments else 0
+
+    return mode_count

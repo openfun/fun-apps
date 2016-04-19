@@ -50,6 +50,7 @@
                     <th>{% trans 'Enrollment start' %}</th>
                     <th>{% trans 'Enrollment end' %}</th>
                     <th>{% trans 'Enrollments' %}</th>
+                    <th>{% trans 'Mode' %}</th>
                     <th>{% trans 'See' %}</th>
                 </tr>
             </thead>
@@ -71,6 +72,9 @@
                     <td data-order="{{ course_info.course.enrollment_start|date:'ymd' }}">{{ course_info.course.enrollment_start|date:'d/m/y' }}</td>
                     <td data-order="{{ course_info.course.enrollment_end|date:'ymd' }}">{{ course_info.course.enrollment_end|date:'d/m/y' }}</td>
                     <td>{{ course_info.students_count }}</td>
+                    <td>
+                        {% if course_info.modes %}<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{% endif %}
+                    </td>
                     <td>
                         <a target="_blank" href="{{ course_info.url }}" title="{% trans 'See course' %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                     </td>
