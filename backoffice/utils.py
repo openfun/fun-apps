@@ -73,8 +73,9 @@ def get_course_modes():
 
 
 def get_enrollment_mode_count(course_key):
-    """Return dict of enrollments counts for modes.
+    """Returns dict of enrollments counts for modes if course has modes else empty dict.
         {'honor': 12, 'verified: 0'}
+
     """
     course_modes = get_course_modes()  # retrieve all course modes
     if course_modes[unicode(course_key)]:
