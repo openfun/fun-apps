@@ -99,7 +99,7 @@ def course_detail(request, course_key_string):
     ck = CourseKey.from_string(course_key_string)
 
     mode_count = get_enrollment_mode_count(ck)
-    print mode_count
+
     course_info = get_complete_course_info(get_course(course_key_string))
     funcourse, _created = Course.objects.get_or_create(key=ck)
 
@@ -138,6 +138,19 @@ def course_detail(request, course_key_string):
             'mode_count': mode_count,
             'tab': 'courses',
             'subtab': 'home',
+        })
+
+
+@group_required('fun_backoffice')
+def verified(request, course_key_string, action=None):
+    course = get_course(course_key_string)
+    course_info = get_course_infos([course])[0]
+
+    return render(request, 'backoffice/courses/verified.html', {
+            'course_key_string': course_key_string,
+            'course_info': course_info,
+            'tab': 'courses',
+            'subtab': 'verified',
         })
 
 
