@@ -6,12 +6,16 @@ from StringIO import StringIO
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 
+from course_modes.models import CourseMode
+from student.tests.factories import CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, CourseAboutFactory, ABOUT_ATTRIBUTES
 
 from fun.tests.utils import skipUnlessLms
 from student.models import UserProfile
 from universities.tests.factories import UniversityFactory
+
+from ..utils import get_course_modes, get_enrollment_mode_count
 
 
 @skipUnlessLms
@@ -51,3 +55,29 @@ class TestExportCoursesList(BaseCourseList):
         course = rows[1]
         self.assertIn("www.youtube.com/embed/testing-video-link", course)
         self.assertIn(ABOUT_ATTRIBUTES['effort'], course)
+
+
+class TestCoursesModeUtils(BaseCourseList):
+    def setUp(self):
+        super(TestCoursesModeUtils, self).setUp()
+        CourseMode.objects.create(course_id=self.course1.id, mode_slug='honor', mode_display_name=u"honor")
+        CourseMode.objects.create(course_id=self.course1.id, mode_slug='verified', mode_display_name=u"verified")
+        CourseEnrollmentFactory(course_id=self.course1.id, mode='honor')
+
+    def test_get_course_modes(self):
+        course_modes = get_course_modes()
+        self.assertIn(unicode(self.course1.id), course_modes)
+        self.assertNotIn(unicode(self.course2.id), course_modes)
+        self.assertEqual(set(['verified', 'honor']),
+                set(course_modes[unicode(self.course1.id)]))
+
+    def test_get_enrollment_mode_count(self):
+        mode_count = get_enrollment_mode_count(self.course2.id)
+        self.assertEqual({}, mode_count)
+
+        mode_count = get_enrollment_mode_count(self.course1.id)
+        self.assertEqual({'honor': 1, 'verified': 0}, mode_count)
+
+        CourseEnrollmentFactory(course_id=self.course1.id, mode='verified')
+        mode_count = get_enrollment_mode_count(self.course1.id)
+        self.assertEqual({'honor': 1, 'verified': 1}, mode_count)
