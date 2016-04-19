@@ -8,6 +8,8 @@ urlpatterns = patterns('backoffice.views.courses_views',
     url(r'^$', 'courses_list', name='courses-list'),
     url(r'^course/{}?$'.format(settings.COURSE_KEY_PATTERN),
             'course_detail', name='course-detail'),
+    url(r'^verified/{}?$'.format(settings.COURSE_KEY_PATTERN),
+            'verified', name='course-verified'),
     url(r'^wiki/{}/(?P<action>[^/]+)?$'.format(settings.COURSE_KEY_PATTERN),
             'wiki', name='course-wiki'),
 )
