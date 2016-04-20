@@ -233,7 +233,8 @@ def user_detail(request, username):
             continue  # enrollment can exists for course that does not exist anymore in mongo
         title = course.display_name
         course_roles = user_roles.get(key, [])
-        enrollments.append((title, unicode(enrollment.course_id), optout, enrollment.mode, course_roles))
+        enrollments.append((title, unicode(enrollment.course_id), optout, enrollment.mode,
+                course_roles, enrollment.is_active))
     if request.method == 'POST':
         if all([userform.is_valid(), userprofileform.is_valid()]):
             userform.save()
