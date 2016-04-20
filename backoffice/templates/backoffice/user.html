@@ -16,6 +16,14 @@
 }
 .user-indents h3 strong {
 }
+.unenrolled, .unenrolled a {
+  color: #bbb;
+}
+.unenrolled span.label {
+  background-color: #bbb;
+  color: white;
+}
+
 </style>
 {% endblock %}
 
@@ -98,11 +106,11 @@
                 <th>{% trans "Opt out" %}</th>
                 <th>{% trans "Forum" %}</th>
             </tr>
-            {% for title, key, optout, mode, roles in enrollments %}
-            <tr>
+            {% for title, key, optout, mode, roles, active in enrollments %}
+            <tr{% if not active %} class="unenrolled"{% endif %}>
                 <td colspan="4">{{ title }}</td>
             </tr>
-            <tr>
+            <tr{% if not active %} class="unenrolled"{% endif %}>
                 <td class="no-border">
                     <a href="{% url 'about_course' key %}">{{ key }}</a>
                 </td>
@@ -129,7 +137,7 @@
                 </td>
             </tr>
             {% if roles %}
-            <tr>
+            <tr{% if not active %} class="unenrolled"{% endif %}>
                 <td colspan="3" class="no-border">
                 {% for role in roles %}
                     <span class="label label-primary">{{ role }}</span>
