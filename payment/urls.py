@@ -8,4 +8,7 @@ urlpatterns = patterns('payment.views',
     url(r'^error/$', 'paybox_error', name="error"),
     url(r'^receipt/$', 'list_receipts', name="list-receipts"),
     url(r'^receipt/(?P<order_id>\w*\-\d*)/$', 'detail_receipt', name="detail-receipt"),
+
+    url(r'^terms/$', 'get_payment_terms', name="get-payment-terms"),
+    url(r'^terms/accept/$', 'accept_payment_terms', name="accept-payment-terms"),
 )
