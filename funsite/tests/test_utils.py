@@ -50,6 +50,12 @@ class TestBreadcrumbs(TestCase):
         self.assertEqual(breadcrumbs_list,
                 [('/', _("Home")), (reverse('universities-landing'), _(u"Universities")), ('#', u"FUN Paris V")],)
 
+    def test_terms_page(self):
+        url = reverse('payment:terms-page')
+        breadcrumbs_list = breadcrumbs(url, _("Verified exam terms and conditions"))
+        self.assertEqual(breadcrumbs_list,
+                [('/', _("Home")), ('#', _("Verified exam terms and conditions"))],)
+
     def test_login_page(self):
         # login page exists at /login and /accounts/login yeah !
         url = '/login'

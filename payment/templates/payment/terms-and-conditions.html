@@ -1,0 +1,45 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
+
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%block name="title">${_("Verified exam terms and conditions")}</%block>
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
+<%block name="page_content">
+    ${breadcrumbs.breadcrumbs(_("Verified exam terms and conditions"))}
+
+    <section class="terms-and-conditions">
+      <article>
+
+        % if force:
+            <div class="display-fun-payment-terms">
+              <div class="display-fun-payment-terms-header">
+                ${_("Please read and accept terms and conditions")}
+              </div>
+
+              <div class="display-fun-payment-terms-text">
+
+                  ${terms.text}
+
+              </div>
+
+              <div class="display-fun-payment-terms-footer">
+                <form action="${reverse('payment:accept-terms')}" method="POST">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
+                    <button type="submit" id="validate-terms" class="btn-terms">${_("Accept")}</button>
+                </form>
+              </div>
+
+            </div>
+        % else:
+            ${terms.text}
+        % endif
+
+        </article>
+    </section>
+
+  </%block>

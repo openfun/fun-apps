@@ -11,6 +11,7 @@ from django.utils import translation
 from requests.exceptions import ConnectionError
 
 from edxmako.shortcuts import render_to_string
+from student.models import CourseEnrollment
 
 from commerce import ecommerce_api_client
 
@@ -69,3 +70,9 @@ def send_confirmation_email(user, order_number):
 
 def format_date_order(order, format):
     return dateutil.parser.parse(order['date_placed']).strftime(format)
+
+
+def user_is_concerned_by_payment_terms(user):
+    """Returns True if user has enrolled to verified courses and not yet passed exam."""
+    # TODO RM: verify if exam is passed
+    return CourseEnrollment.objects.filter(mode='verified').exists()
