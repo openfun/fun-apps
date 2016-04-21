@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import json
-import logging
 
 from bs4 import BeautifulSoup
 
@@ -21,7 +20,8 @@ from courses.models import Course, CourseUniversityRelation
 from fun.tests.utils import skipUnlessLms
 from universities.tests.factories import UniversityFactory
 
-from .utils import get_course, send_confirmation_email, get_order_context, format_date_order, get_order
+from ..utils import (get_course, send_confirmation_email, get_order_context,
+        format_date_order, get_order)
 
 
 def ecommerce_order_api_response(course_key_string):
@@ -334,4 +334,4 @@ class FacturationViewsTest(AbstractPaymentTest):
         soup = BeautifulSoup(response.content)
 
         self.assertIn(u"Vous n'avez pas encore souscrit à un examen certifiant.",
-                         soup.find("p", {"class": "order-empty"}).text)
+                soup.find("p", {"class": "order-empty"}).text)

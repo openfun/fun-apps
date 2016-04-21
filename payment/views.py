@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import json
 import logging
 
 import requests
@@ -8,9 +9,10 @@ from requests.exceptions import ConnectionError
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-
-from django.http import HttpResponseBadRequest, Http404
+from django.http import HttpResponseBadRequest, Http404, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST, require_GET
+from django.utils.translation import gettext
 
 import slumber.exceptions
 
@@ -18,9 +20,13 @@ from edxmako.shortcuts import render_to_response
 
 from commerce import ecommerce_api_client
 
-from .utils import get_order, get_course, get_basket, get_order_context
+from .models import TermsAndConditions
+from .utils import (get_order, get_course, get_basket, get_order_context,
+        user_is_concerned_by_payment_terms)
 
 logger = logging.getLogger(__name__)
+
+PAYMENT_TERMS = 'verified_certificate'
 
 
 def get_order_or_404(user, order_id):
@@ -136,3 +142,30 @@ def list_receipts(request):
 
     return render_to_response('payment/list_orders.html', {"order_history": order_history})
 
+
+@require_GET
+@login_required
+def get_payment_terms(request):
+    """Return last payment terms and condition is necessary."""
+    data = {}
+    if user_is_concerned_by_payment_terms(request.user):
+        terms = TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS,
+                request.user)
+        if terms:
+            data['text'] = terms.text
+            data['datetime'] = terms.datetime.strftime(gettext('%m/%d/%y'))
+            data['version'] = terms.version
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@require_POST
+@login_required
+def accept_payment_terms(request):
+    """User accept payment terms and conditions."""
+    data = {}
+    if user_is_concerned_by_payment_terms(request.user):
+        terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
+        terms.accept(request.user)
+        data['accepted'] = terms.version
+    return HttpResponse(json.dumps(data), content_type="application/json")
