@@ -1,0 +1,104 @@
+{
+  "duplicated":
+  {
+    "message": "",
+    "response_code": 1,
+    "data": [
+      {
+        "ProctorNotes": "Reservation cancelled created by Matt Jaeh at  4:30pm UTC on Mar 25, 2016; Fulfillment created by Matt Jaeh at  4:26pm UTC on Mar 25, 2016; ",
+        "IncidentReport": false,
+        "Authenticated": false,
+        "Test": "Cours Run",
+        "Student": "KVDSQTVG",
+        "CheckID": false,
+        "exam_id": "",
+        "Escalated": false,
+        "SchoolNotes": "Password is - password Exam Notes - Closed Book",
+        "StartDate": "2016-03-25T16:35:00Z",
+        "LoginVerified": false,
+        "EndDate": "2016-03-25T16:50:00Z",
+        "UniqueId": "26",
+        "TestSubmitted": false,
+        "ReservationNo": 2724493,
+        "StudentNotes": null
+      },
+      {
+        "ProctorNotes": "Reservation cancelled created by Matt Jaeh at  4:30pm UTC on Mar 25, 2016; Fulfillment created by Matt Jaeh at  4:26pm UTC on Mar 25, 2016; ",
+        "IncidentReport": false,
+        "Authenticated": false,
+        "Test": "Cours Run",
+        "Student": "KVDSQTVG",
+        "CheckID": false,
+        "exam_id": "",
+        "Escalated": false,
+        "SchoolNotes": "Password is - password Exam Notes - Closed Book",
+        "StartDate": "2016-03-25T16:35:00Z",
+        "LoginVerified": false,
+        "EndDate": "2016-03-25T16:50:00Z",
+        "UniqueId": "26",
+        "TestSubmitted": false,
+        "ReservationNo": 2724493,
+        "StudentNotes": null
+      }
+    ]
+  },
+
+  "empty":
+  {
+    "response_code": 1,
+    "message": "",
+    "data": []
+  },
+
+
+  "student-aggregation":
+   {
+    "message": "",
+     "response_code": 1,
+    "data": [
+      {
+        "ProctorNotes": "Reservation created",
+        "IncidentReport": false,
+        "Authenticated": false,
+        "Test": "Cours Run",
+        "Student": "KVDSQTVG",
+        "CheckID": false,
+        "exam_id": "",
+        "Escalated": false,
+        "SchoolNotes": "Password is - password Exam Notes - Closed Book",
+        "StartDate": "2016-03-25T16:35:00Z",
+        "LoginVerified": false,
+        "EndDate": "2016-03-25T16:50:00Z",
+        "UniqueId": "26",
+        "TestSubmitted": false,
+        "ReservationNo": 2724493,
+        "StudentNotes": null
+      },
+      {
+        "ProctorNotes": "Reservation cancelled",
+        "IncidentReport": false,
+        "Authenticated": false,
+        "Test": "Cours Run",
+        "Student": "KVDSQTVG",
+        "CheckID": false,
+        "exam_id": "",
+        "Escalated": false,
+        "SchoolNotes": "Password is - password Exam Notes - Closed Book",
+        "StartDate": "2016-03-25T16:35:00Z",
+        "LoginVerified": false,
+        "EndDate": "2016-03-25T16:50:00Z",
+        "UniqueId": "26",
+        "TestSubmitted": false,
+        "ReservationNo": 2724493,
+        "StudentNotes": null
+      }
+    ]
+  },
+
+  "stall":
+    {"data": "",
+     "message": "stale request",
+     "response_code": 2,
+     "time_sent": ""
+    }
+}
