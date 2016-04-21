@@ -1,0 +1,23 @@
+{% extends 'backoffice/courses/base-detail.html' %}
+{% load url from future %}
+{% load i18n course staticfiles %}
+
+{% block extra_head %}
+{% endblock %}
+
+
+{% block tab_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container">
+                <div>
+                    An error happenend :
+                </div>
+                <div>
+                    {{ error }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock tab_content %}
