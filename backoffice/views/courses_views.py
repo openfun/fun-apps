@@ -23,6 +23,7 @@ from xmodule.modulestore.django import modulestore
 
 from fun.utils import funwiki as wiki_utils
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
+from ..utils_proctorU_api import get_protectU_students
 
 
 logger = logging.getLogger(__name__)
@@ -41,7 +42,6 @@ COURSE_FIELDS = [
 ABOUT_SECTION_FIELDS = ['effort', 'video']
 FunCourse = namedtuple('FunCourse', COURSE_FIELDS)
 CompleteFunCourse = namedtuple('CompleteFunCourse', COURSE_FIELDS + ABOUT_SECTION_FIELDS)
-
 
 @group_required('fun_backoffice')
 def courses_list(request):
@@ -143,12 +143,27 @@ def course_detail(request, course_key_string):
 
 @group_required('fun_backoffice')
 def verified(request, course_key_string, action=None):
+
     course = get_course(course_key_string)
     course_info = get_course_infos([course])[0]
+    ck = CourseKey.from_string(course_key_string)
+
+    registered_users = get_protectU_students(course=ck.course, run=ck.run)
+
+    if "error" in registered_users:
+        return render(request, 'backoffice/courses/verified_error.html', {
+            'tab': 'courses',
+            'subtab': 'verified',
+            'course_key_string': course_key_string,
+            'course_info': course_info,
+            'error':registered_users["error"]
+        })
+
 
     return render(request, 'backoffice/courses/verified.html', {
             'course_key_string': course_key_string,
             'course_info': course_info,
+            'students': registered_users,
             'tab': 'courses',
             'subtab': 'verified',
         })

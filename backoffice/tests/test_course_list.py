@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 
 from course_modes.models import CourseMode
-from student.tests.factories import CourseEnrollmentFactory
+from student.tests.factories import CourseEnrollmentFactory, UserFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, CourseAboutFactory, ABOUT_ATTRIBUTES
 
@@ -15,8 +15,8 @@ from fun.tests.utils import skipUnlessLms
 from student.models import UserProfile
 from universities.tests.factories import UniversityFactory
 
-from ..utils import get_course_modes, get_enrollment_mode_count
-
+from ..utils import get_course_modes
+from ..utils import get_enrollment_mode_count
 
 @skipUnlessLms
 class BaseCourseList(ModuleStoreTestCase):
@@ -41,6 +41,21 @@ class BaseCourseList(ModuleStoreTestCase):
                              display_name=u"published", ispublic=True)
         self.list_url = reverse('backoffice:courses-list')
 
+
+class VerifiedCourseList(BaseCourseList):
+    def setUp(self):
+        super(VerifiedCourseList, self).setUp()
+        CourseMode.objects.create(course_id=self.course1.id, mode_slug='honor', mode_display_name=u"honor")
+        CourseMode.objects.create(course_id=self.course1.id, mode_slug='verified', mode_display_name=u"verified")
+        CourseEnrollmentFactory(course_id=self.course1.id, mode='honor')
+
+        self.course3 = CourseFactory.create(org=self.university.code, number='003',
+                             display_name=u"published", ispublic=True)
+        CourseMode.objects.create(course_id=self.course3.id, mode_slug='honor', mode_display_name=u"honor")
+        CourseMode.objects.create(course_id=self.course3.id, mode_slug='verified', mode_display_name=u"verified")
+        CourseEnrollmentFactory(course_id=self.course3.id, mode='honor')
+
+
 class TestExportCoursesList(BaseCourseList):
     def get_csv_response_rows(self, response):
         response_content = StringIO(response.content)
@@ -57,13 +72,7 @@ class TestExportCoursesList(BaseCourseList):
         self.assertIn(ABOUT_ATTRIBUTES['effort'], course)
 
 
-class TestCoursesModeUtils(BaseCourseList):
-    def setUp(self):
-        super(TestCoursesModeUtils, self).setUp()
-        CourseMode.objects.create(course_id=self.course1.id, mode_slug='honor', mode_display_name=u"honor")
-        CourseMode.objects.create(course_id=self.course1.id, mode_slug='verified', mode_display_name=u"verified")
-        CourseEnrollmentFactory(course_id=self.course1.id, mode='honor')
-
+class TestCoursesModeUtils(VerifiedCourseList):
     def test_get_course_modes(self):
         course_modes = get_course_modes()
         self.assertIn(unicode(self.course1.id), course_modes)
