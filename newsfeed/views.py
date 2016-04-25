@@ -83,9 +83,13 @@ def render_articles(articles_queryset, get_dict):
     page, nb_items = parse_request(get_dict)
     articles, featured = paginate(articles_queryset, page, nb_items)
 
+    start = 1 + (page-1)*nb_items + (0 if articles.number==1 else 1)
+    end = len(articles.object_list) + start - (1 if articles.number!=1 else 0)
+
     return render_to_response('newsfeed/article/list.html', {
         'articles': articles,
         "featured_article": featured,
+        'nb_items': {"start": start, "end": end},
     })
 
 def filter_queryset_for_site(queryset):

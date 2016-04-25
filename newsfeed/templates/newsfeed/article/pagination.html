@@ -3,42 +3,63 @@
 from django.utils.translation import ugettext as _
 %>
 
-<%def name="pages_list(article)">
+<%def name="pages_list(article, nb_items)">
 
-<div class="text-center">
-  <nav>
-    <ul class="pagination">
-      % if articles.has_previous():
-        <li class="page-item">
-          <a class="page-link" href="?p=${articles.previous_page_number()}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-      %endif
+<div class="row">
+    <div class="col-lg-6"></div>
+    <div class="col-lg-24">
+        <div class="result-navigation result-navigation-top">
+            <div class="navigation-bar color-denim-blue">
+                <div class="navigation-left">
+                    <div class="navigation-block total-count">
+                        <span> ${_("News {} to {}").format(nb_items["start"], nb_items["end"])}</span>
+                    </div>
+                </div>
 
-      %for page in articles.pages():
-        %if page is not None:
-          % if page == articles.number:
-           <li class="active"><a href="?p=${page}">${page}</a></li>
-          %else:
-          <li><a href="?p=${page}">${page}</a></li>
-          %endif
-        %else:
-          <li><span>...</span></li>
-        %endif
-      %endfor
 
-      % if articles.has_next():
-        <li class="page-item">
-          <a class="page-link" href="?p=${articles.next_page_number()}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-      % endif
-    </ul>
-  </nav>
+                <div class="navigation-right">
+                    <div class="navigation-block page-list">
+
+                        <div class="color-iron pages">
+
+                            % if articles.has_previous():
+                                <a class="color-denim-blue" href="?p=${articles.previous_page_number()}">
+                                    <span class="result-page clickable glyphicon glyphicon-menu-left page-backward"></span>
+                                </a>
+                            %endif
+
+
+                            %for page in articles.pages():
+                                %if page is not None:
+                                    % if page == articles.number:
+                                        <span><strong>
+                                            <a class="color-denim-blue" href="?p=${page}">${page}</a>
+                                        </strong></span>
+                                    %else:
+                                        <span class="result-page clickable">
+                                        <a class="color-iron" href="?p=${page}">${page}</a>
+                                    </span>
+                                    %endif
+                                %else:
+                                    <span>...</span>
+                                %endif
+                            %endfor
+
+                            % if articles.has_next():
+                                <a class="color-denim-blue" href="?p=${articles.next_page_number()}">
+                                    <span class="result-page clickable glyphicon glyphicon-menu-right page-forward"></span>
+                                </a>
+                            % endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6"></div>
 </div>
+
+## </div>
+
 
 </%def>
