@@ -31,7 +31,7 @@ def breadcrumbs(url, current_page):
 
     items = url.split('/')[1:]  # split and remove first backslash
 
-    if len(items) > 1 and items[1] and items[0] != 'accounts':
+    if len(items) > 1 and items[1] and items[0] not in ['accounts', 'payment']:
         if items[0] == 'courses':
             items[0] = 'cours'
 

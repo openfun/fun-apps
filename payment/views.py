@@ -143,6 +143,16 @@ def list_receipts(request):
     return render_to_response('payment/list_orders.html', {"order_history": order_history})
 
 
+def payment_terms_page(request):
+    """Page to show newer version of payment terms and conditions."""
+
+    terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
+
+    return render_to_response('payment/terms-and-conditions.html',
+            {'terms': terms})
+
+
+
 @require_GET
 @login_required
 def get_payment_terms(request):

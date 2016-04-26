@@ -1,0 +1,22 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+%>
+
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%block name="title">${_("Verified exam terms and conditions")}</%block>
+<%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+
+<%block name="page_content">
+    ${breadcrumbs.breadcrumbs(_("Verified exam terms and conditions"))}
+
+    <section>
+      <article>
+
+      ${terms.text}
+
+        </article>
+    </section>
+
+  </%block>
