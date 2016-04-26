@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 42\n"
+"Project-Id-Version: FUN-MOOC 44\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-18 12:31+0200\n"
-"PO-Revision-Date: 2016-04-18 12:31+0000\n"
+"POT-Creation-Date: 2016-04-27 11:21+0200\n"
+"PO-Revision-Date: 2016-04-27 11:21+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -77,6 +77,10 @@ msgstr "Intermédiaire"
 #: /edx/app/edxapp/fun-apps/courses/choices.py:0
 msgid "Introductory"
 msgstr "Introduction"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:0
+msgid "Percentage, between 0 and 1"
+msgstr "Pourcentage, entre 0 et 1"
 
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "Set 0 if session doesn't make sense for this course."
@@ -202,4 +206,8 @@ msgstr "titre"
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "university display name"
 msgstr "nom d'affichage de l'établissement"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:0
+msgid "verified certificate passing grade"
+msgstr "note d'obtention certificat vérifié"
 
