@@ -343,6 +343,9 @@ def configure_haystack(elasticsearch_conf):
         },
     }
 
+PROCTORU_API = 'x.proctoru.com'  # preprod api
+PROCTORU_TOKEN = 'f0ef8b49-51e6-4009-8db3-6b87d77f40d1'  # preprod auth token
+
 def get_proctoru_app_if_available():
     try:
         import proctoru # pylint: disable=import-error,unused-import,unused-variable
