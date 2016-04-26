@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 12\n"
+"Project-Id-Version: FUN-MOOC 13\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-08 10:20+0200\n"
-"PO-Revision-Date: 2016-04-08 10:20+0000\n"
+"POT-Creation-Date: 2016-04-26 18:21+0200\n"
+"PO-Revision-Date: 2016-04-26 18:21+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -14,6 +14,7 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/list_orders.html:0
+#: /edx/app/edxapp/fun-apps/payment/views.py:0
 #, python-format
 msgid "%m/%d/%y"
 msgstr "%d/%m/%y"
@@ -22,6 +23,10 @@ msgstr "%d/%m/%y"
 #, python-format
 msgid "%m/%d/%y %H:%M"
 msgstr "%d/%m/%y %H:%M"
+
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "Acceptance date"
+msgstr "Date d'acceptation"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
@@ -150,6 +155,18 @@ msgstr "Retourner au tableau de bord"
 msgid "Subscribe to"
 msgstr "Inscription à"
 
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "Terms and conditions"
+msgstr "Règlement"
+
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "Terms and conditions content (HTML allowed)"
+msgstr "Contenu du règlement en HTML"
+
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "Terms and conditions version (semver)"
+msgstr "Verison du règlement"
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid "Thank you for your continued support, we wish you a good MOOC!"
 msgstr "En vous remerciant de votre confiance, nous vous souhaitons un bon MOOC !"
@@ -176,6 +193,7 @@ msgid "This is was automatically generated email, please do not reply."
 msgstr "Ce message est généré automatiquement, merci de ne pas y répondre."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/cancel.html:0
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/error.html:0
 msgid "This was for the payment order <strong>{number}</strong>."
 msgstr "Il s'agissait de la commande <strong>{number}</strong>."
 
@@ -183,9 +201,17 @@ msgstr "Il s'agissait de la commande <strong>{number}</strong>."
 msgid "Unit price"
 msgstr "Prix unitaire"
 
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "User terms and conditions acceptance"
+msgstr "Acceptations du règlement"
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
 msgid "VAT not applicable, Exemption. Art. 261-4-4 CGI"
 msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
+msgid "Verified exam terms and conditions"
+msgstr "Règlement d’examen certifiant"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
