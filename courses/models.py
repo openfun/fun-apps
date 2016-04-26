@@ -58,6 +58,8 @@ class Course(models.Model):
     enrollment_end_date = models.DateTimeField(verbose_name=_('enrollment end date'),
         db_index=True, null=True, blank=True)
     thumbnails_info = JSONField(_('thumbnails info'), blank=True, null=True)
+    certificate_passing_grade = models.FloatField(_('verified certificate passing grade'),
+        null=True, blank=True, help_text=(_('Percentage, between 0 and 1')))
 
     objects = CourseManager()
 
