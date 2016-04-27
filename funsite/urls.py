@@ -3,7 +3,8 @@
 from django.conf.urls import patterns, url
 
 
-static_pages = ['about', 'honor', 'legal', 'privacy', 'tos', 'register_info']
+static_pages = ['about', 'honor', 'legal', 'privacy', 'tos', 'register_info',
+        'proctoru']
 
 urls = [
     url(r'^{}/?$'.format(name), 'direct_to_template',
