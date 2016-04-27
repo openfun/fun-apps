@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 49\n"
+"Project-Id-Version: FUN-MOOC 50\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-30 10:14+0200\n"
-"PO-Revision-Date: 2016-03-30 10:14+0000\n"
+"POT-Creation-Date: 2016-04-19 11:32+0200\n"
+"PO-Revision-Date: 2016-04-19 11:32+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -14,6 +14,8 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/about.html:0
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/proctoru.html:0
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/verified.html:0
 msgid "About FUN"
 msgstr "A propos de FUN"
 
@@ -228,6 +230,10 @@ msgstr "Veuillez vous connecter pour accéder à votre compte et à vos cours"
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/proctoru.html:0
+msgid "ProctorU"
+msgstr "Le service d'examen à distance"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
 msgid "Read more"
 msgstr "En savoir plus"
@@ -334,6 +340,10 @@ msgstr "Les établissements"
 msgid "Usage policy"
 msgstr "Charte utilisateurs"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/verified.html:0
+msgid "Verified exam"
+msgstr "Règlement d’examen certifiant"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
 msgid "Welcome to FUN"
 msgstr "Bienvenue sur FUN"
@@ -357,3 +367,4 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
 msgid "h/week"
 msgstr "h/semaine"
+
