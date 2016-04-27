@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+PAYMENT_TERMS = 'verified_certificate'
+
 
 class TermsAndConditions(models.Model):
     name = models.CharField(max_length=100, verbose_name=_(u"Name"))
@@ -67,4 +69,3 @@ class UserAcceptance(models.Model):
     class Meta:
         verbose_name = _(u"User terms and conditions acceptance")
         unique_together = ['user', 'terms']
-

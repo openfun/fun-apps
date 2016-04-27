@@ -22,13 +22,11 @@ from edxmako.shortcuts import render_to_response
 
 from commerce import ecommerce_api_client
 
-from .models import TermsAndConditions
+from .models import TermsAndConditions, PAYMENT_TERMS
 from .utils import (get_order, get_course, get_basket, get_order_context,
         user_is_concerned_by_payment_terms)
 
 logger = logging.getLogger(__name__)
-
-PAYMENT_TERMS = 'verified_certificate'
 
 
 def get_order_or_404(user, order_id):
