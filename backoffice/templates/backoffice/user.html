@@ -16,12 +16,20 @@
 }
 .user-indents h3 strong {
 }
+.unenrolled, .unenrolled a {
+  color: #bbb;
+}
+.unenrolled span.label {
+  background-color: #bbb;
+  color: white;
+}
+
 </style>
 {% endblock %}
 
 {% block extr_js %}
     <script>
-     $('#change-grade').on('show.bs.modal', function(e) {
+     $('#change-grade,#change-mode').on('show.bs.modal', function(e) {
          var course_id = e.relatedTarget.dataset['courseId']
          $('[name=course-id]').attr("value", course_id)
      });
@@ -94,30 +102,42 @@
             <table class="table table-condensed">
             <tr>
                 <th>{% trans "Course" %}</th>
+                <th>{% trans "Mode" %}</th>
                 <th>{% trans "Opt out" %}</th>
                 <th>{% trans "Forum" %}</th>
             </tr>
-            {% for title, key, optout, roles in enrollments %}
-            <tr>
-                <td>{{ title }}</td>
-                <td class="text-center">
+            {% for title, key, optout, mode, roles, active in enrollments %}
+            <tr{% if not active %} class="unenrolled"{% endif %}>
+                <td colspan="4">{{ title }}</td>
+            </tr>
+            <tr{% if not active %} class="unenrolled"{% endif %}>
+                <td class="no-border">
+                    <a href="{% url 'about_course' key %}">{{ key }}</a>
+                </td>
+                <td class="no-border">
+                    {% if key in course_modes %}
+                      <a class="btn"><span id="change-mode-button"
+                          data-course-id="{{key}}"
+                          class="glyphicon glyphicon-{% if mode == 'verified' %}euro{% else %}ok{% endif %}"
+                          data-toggle="modal"
+                          data-target="#change-mode"
+                          title="{% if mode == 'verified' %}Verified{% else %}Honor{% endif %}"
+                          ></span></a>
+                    {% endif %}
+                </td>
+                <td class="text-center no-border">
                     {% if optout %}
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" title="{% trans 'User has opted out key emails' %}"></span>
                     {% endif %}
                 </td>
-                <td class="text-center">
+                <td class="text-center no-border">
                     <a target="_blank" href="{% url 'user_profile' key userform.instance.id %}">
                         <span title="{% trans 'See user contributions to course forum' %}"class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </a>
                 </td>
             </tr>
-            <tr>
-                <td colspan="3" class="no-border">
-                    <a href="{% url 'about_course' key %}">{{ key }}</a>
-                </td>
-            </tr>
             {% if roles %}
-            <tr>
+            <tr{% if not active %} class="unenrolled"{% endif %}>
                 <td colspan="3" class="no-border">
                 {% for role in roles %}
                     <span class="label label-primary">{{ role }}</span>
@@ -168,7 +188,14 @@
                 {% for certificate in certificates %}
                     <tr>
                         <td>{{ certificate.course_id }}</td>
-                        <td> {{ certificate.grade }} <a class="btn"><span id='change-grade-button' data-course-id="{{certificate.course_id}}" class='glyphicon glyphicon-pencil' data-toggle="modal" data-target="#change-grade"></span></a></td>
+                        <td> {{ certificate.grade }}
+                            <a class="btn"><span id='change-grade-button'
+                                data-course-id="{{certificate.course_id}}"
+                                class='glyphicon glyphicon-pencil'
+                                data-toggle="modal"
+                                data-target="#change-grade">
+                            </span></a>
+                        </td>
                         <td>{{ certificate.status }}</td>
                         <td><a href="{{ certificate.download_url }}"><span class='glyphicon glyphicon-download-alt'></span></a></td>
                     </tr>
@@ -183,5 +210,6 @@
 {% include "backoffice/modal_forms/change_password.html" with modal_id="change-password" %}
 {% include "backoffice/modal_forms/ban_user.html" with modal_id="ban-user" %}
 {% include "backoffice/modal_forms/change_grade.html" with modal_id="change-grade" %}
+{% include "backoffice/modal_forms/change_mode.html" with modal_id="change-mode" %}
 
 {% endblock %}

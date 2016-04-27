@@ -13,10 +13,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from pure_pagination import Paginator, PageNotAnInteger
-
 from bulk_email.models import Optout
 from certificates.models import GeneratedCertificate, CertificateStatuses
+from course_modes.models import CourseMode
 from edxmako.shortcuts import render_to_string
 from microsite_configuration import microsite
 from student.models import CourseEnrollment, CourseAccessRole, UserStanding, UserProfile, Registration
@@ -24,35 +23,20 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Use
 from xmodule_django.models import CourseKeyField
 
 from fun_certificates.generator import CertificateInfo
-from newsfeed.models import Article
 
-from .certificate_manager.utils import (
+from ..certificate_manager.utils import (
     get_certificate_params,
     make_certificate_hash_key,
     make_certificate_filename,
     set_certificate_filename,
 )
-from .forms import SearchUserForm, UserForm, UserProfileForm, ArticleForm
-from .utils import get_course, group_required, get_course_key
+from ..forms import SearchUserForm, UserForm, UserProfileForm
+from ..utils import get_course, group_required, get_course_key, order_and_paginate_queryset
 
 
-ABOUT_SECTION_FIELDS = ['effort', 'video']
 
 logger = logging.getLogger(__name__)
 
-LIMIT_BY_PAGE = 100
-
-
-def order_and_paginate_queryset(request, queryset, default_order):
-    order = request.GET.get('order', default_order)
-    direction = '-' if 'd' in request.GET else ''
-    try:
-        page = request.GET.get('page', 1)
-    except PageNotAnInteger:
-        page = 1
-    queryset = queryset.order_by(direction + order)
-    paginator = Paginator(queryset, LIMIT_BY_PAGE, request=request)
-    return paginator.page(page)
 
 
 @group_required('fun_backoffice')
@@ -181,10 +165,26 @@ def resend_activation_email(request, user):
             username=user.username, email=user.email)))
 
 
+def change_course_mode(request, user):
+    """Change user enrollment mode to course. honor or verified."""
+
+    course_id = get_course_key(request.POST['course-id'])
+    mode = request.POST['course-mode']
+    if CourseMode.objects.filter(course_id=course_id, mode_slug=mode).exists():
+        update = CourseEnrollment.objects.filter(user=user, course_id=course_id
+                ).update(mode=mode)
+        if update == 1:
+            messages.success(request, _(u"User's course enrollment for <strong>%s</strong> has been set to <strong>%s</strong>") % (
+                course_id, mode))
+            logger.warning(u"User %s CourseMode for course %s set to %s",
+                user.username, course_id, mode)
+
+
 user_actions = {'ban-user' : ban_user,
                 'change-password' : change_password,
                 'change-grade' : change_grade,
                 'resend-activation': resend_activation_email,
+                'change-mode': change_course_mode,
                 }
 
 @group_required('fun_backoffice')
@@ -220,6 +220,11 @@ def user_detail(request, username):
     for car in CourseAccessRole.objects.filter(user=user).exclude(course_id=CourseKeyField.Empty):
         user_roles[unicode(car.course_id)].append(car.role)
 
+    course_modes = defaultdict(list)
+    modes = CourseMode.objects.all()
+    for course in modes:
+        course_modes[unicode(course.course_id)].append([course.mode_slug, course.min_price])
+
     for enrollment in CourseEnrollment.objects.filter(user=user):
         key = unicode(enrollment.course_id)
         optout = key in optouts
@@ -228,7 +233,8 @@ def user_detail(request, username):
             continue  # enrollment can exists for course that does not exist anymore in mongo
         title = course.display_name
         course_roles = user_roles.get(key, [])
-        enrollments.append((title, unicode(enrollment.course_id), optout, course_roles))
+        enrollments.append((title, unicode(enrollment.course_id), optout, enrollment.mode,
+                course_roles, enrollment.is_active))
     if request.method == 'POST':
         if all([userform.is_valid(), userprofileform.is_valid()]):
             userform.save()
@@ -242,7 +248,8 @@ def user_detail(request, username):
         'enrollments': enrollments,
         'disabled': disabled,
         'tab': 'users',
-        'certificates' : certificates
+        'certificates' : certificates,
+        'course_modes': course_modes,
         })
 
 
@@ -257,44 +264,3 @@ def impersonate_user(request, username):
     user.backend = None
     login(request, user)
     return redirect('/')
-
-
-@group_required('fun_backoffice')
-def news_list(request):
-    articles = Article.objects.all().order_by('-created_at')
-    if settings.FEATURES['USE_MICROSITES']:
-        articles = articles.filter(microsite=microsite.get_value('SITE_NAME'))
-
-    articles = order_and_paginate_queryset(request, articles, 'created_at')
-
-    return render(request, 'backoffice/articles.html', {
-        'articles': articles,
-        'tab': 'news',
-    })
-
-
-@group_required('fun_backoffice')
-def news_detail(request, news_id=None):
-    if news_id:
-        search_query = {
-            'id': news_id
-        }
-        if settings.FEATURES['USE_MICROSITES']:
-            search_query['microsite'] = microsite.get_value('SITE_NAME')
-        article = get_object_or_404(Article, **search_query)
-    else:
-        article = None
-
-    if request.method == 'POST':
-        form = ArticleForm(data=request.POST, files=request.FILES, instance=article)
-        if form.is_valid():
-            form.save()
-            if article is None:
-                return redirect('backoffice:news-detail', news_id=form.instance.id)
-    else:
-        form = ArticleForm(instance=article)
-
-    return render(request, 'backoffice/article.html', {
-        'form': form,
-        'tab': 'news',
-    })

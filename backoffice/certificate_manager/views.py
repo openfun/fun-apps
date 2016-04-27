@@ -10,7 +10,8 @@ from instructor_task.api import get_instructor_task_history
 from instructor_task.api_helper import AlreadyRunningError
 
 from backoffice.utils import get_course_key, get_course
-from backoffice.views import group_required
+
+from ..utils import group_required
 from .utils import (
     create_test_certificate,
     filter_instructor_task,

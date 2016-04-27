@@ -1,0 +1,61 @@
+{% extends 'backoffice/base.html' %}
+{% load url from future %}
+{% load i18n course staticfiles %}
+
+
+{% block content %}
+
+<h1>{{ course_info.course.display_name_with_default }}</h1>
+{% if course_info.course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
+{% if course_info.course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
+
+
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="{% if subtab == 'home' %}active{% endif %}">
+        <a href="{% url 'backoffice:course-detail' course_info.course.id %}">
+            {% trans "Information" %}
+        </a>
+    </li>
+    <li role="presentation" class="{% if subtab == 'wiki' %}active{% endif %}">
+        <a href="{% url 'backoffice:course-wiki' course_info.course.id %}">
+            {% trans "Wiki" %}
+        </a>
+    </li>
+
+    {% if mode_count or subtab == 'verified' %}
+    <li role="presentation" class="{% if subtab == 'verified' %}active{% endif %}">
+        <a href="{% url 'backoffice:course-verified' course_info.course.id %}">
+            {% trans "Verified users" %}
+        </a>
+    </li>
+    {% endif %}
+
+
+  </ul>
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="{{ subtab }}">
+
+
+        {% block tab_content %}
+        {% endblock tab_content %}
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+
+{% block modal_content %}
+{% endblock modal_content %}
+
+{% endblock content %}
