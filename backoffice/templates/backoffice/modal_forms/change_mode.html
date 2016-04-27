@@ -1,0 +1,20 @@
+{% extends 'backoffice/modal_forms/base_modal_form.html' %}
+{% load i18n %}
+{% block input-form %}
+    <input type="hidden" name="action" value="change-mode">
+    <input type="hidden" name="course-id" value="">
+{% endblock %}
+
+{% block modal-title %}{% trans "Change mode" %}{% endblock %}
+{% block modal-body %}
+    <h4>{% trans "Select new mode for student enrollment to this course" %}</h4>
+    <select name="course-mode">
+        <option value="honor">Honor</option>
+        <option value="verified">Verified</option>
+    </select>
+    <br><br>
+{% endblock %}
+
+{% block modal-button %}
+<button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
+{% endblock %}
