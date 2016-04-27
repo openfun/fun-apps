@@ -2,6 +2,7 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import striptags
+from django.conf import settings
 from django.core.urlresolvers import reverse
 %>
 
@@ -19,7 +20,7 @@ ${breadcrumbs.breadcrumbs(_("Contact"))}
     <h2>${_('Contact us')}</h2>
     <br><br>
     <p>
-    Pour nous contacter, merci de bien vouloir écrire à l'adresse <a href="mailto:contact@france-universite-numerique-mooc.fr">contact@france-universite-numerique-mooc.fr</a> en indiquant en plus de votre message, vos <strong>nom, prénom, numéro de téléphone, et fonction</strong>.
+    Pour nous contacter, merci de bien vouloir écrire à l'adresse <a href="mailto:${settings.CONTACT_EMAIL}">${settings.CONTACT_EMAIL}</a> en indiquant en plus de votre message, vos <strong>nom, prénom, numéro de téléphone, et fonction</strong>.
     <br><br>
     Le support technique FUN vous repondra le plus rapidement possible.
 
