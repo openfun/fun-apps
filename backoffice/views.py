@@ -25,6 +25,7 @@ from xmodule_django.models import CourseKeyField
 
 from fun_certificates.generator import CertificateInfo
 from newsfeed.models import Article
+from payment.models import TermsAndConditions, PAYMENT_TERMS
 
 from .certificate_manager.utils import (
     get_certificate_params,
@@ -95,10 +96,12 @@ def ban_user(request, user):
     user_account.standing_last_changed_at = timezone.now()
     user_account.save()
 
+
 def change_password(request, user):
     user.set_password(request.POST['new-password'])
     user.save()
     messages.success(request, _(u"User password changed"))
+
 
 def change_grade(request, user):
     """ Change a certificate grade per user, per course.
@@ -181,11 +184,24 @@ def resend_activation_email(request, user):
             username=user.username, email=user.email)))
 
 
-user_actions = {'ban-user' : ban_user,
-                'change-password' : change_password,
-                'change-grade' : change_grade,
+user_actions = {'ban-user': ban_user,
+                'change-password': change_password,
+                'change-grade': change_grade,
                 'resend-activation': resend_activation_email,
                 }
+
+
+def get_accepted_payment_terms(user):
+    accepted = TermsAndConditions.version_accepted(PAYMENT_TERMS, user)
+    latest = TermsAndConditions.get_latest(PAYMENT_TERMS)
+    ok = False
+    if accepted and latest:
+        ok = accepted.terms.version == latest.version
+    payment_terms = {'accepted': accepted,
+                      'latest': latest,
+                      'ok': ok}
+    return payment_terms
+
 
 @group_required('fun_backoffice')
 def user_detail(request, username):
@@ -229,6 +245,8 @@ def user_detail(request, username):
         title = course.display_name
         course_roles = user_roles.get(key, [])
         enrollments.append((title, unicode(enrollment.course_id), optout, course_roles))
+
+
     if request.method == 'POST':
         if all([userform.is_valid(), userprofileform.is_valid()]):
             userform.save()
@@ -242,7 +260,8 @@ def user_detail(request, username):
         'enrollments': enrollments,
         'disabled': disabled,
         'tab': 'users',
-        'certificates' : certificates
+        'certificates': certificates,
+        'payment_terms': get_accepted_payment_terms(user),
         })
 
 

@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 12\n"
+"Project-Id-Version: FUN-MOOC 13\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 15:45+0100\n"
-"PO-Revision-Date: 2016-03-01 15:45+0000\n"
+"POT-Creation-Date: 2016-04-27 15:35+0200\n"
+"PO-Revision-Date: 2016-04-27 15:35+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -16,6 +16,14 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "A certificate generation is already running"
 msgstr "Une génération d'attestation est déjà en cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Accepted terms: "
+msgstr "Conditions acceptées"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Accepted: "
+msgstr "Accepté : "
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Account created:"
@@ -231,6 +239,10 @@ msgstr "Dernière connexion :"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Last file generated on: "
 msgstr "Dernier fichier généré à :"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Latest: "
+msgstr "Dernière : "
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Name: "
