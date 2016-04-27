@@ -70,6 +70,14 @@
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;<span class="label label-warning">{% trans "User does not validate it email address" %}</span>
                   {% endif %}</p>
               </div>
+              <label class="col-sm-5 control-label">{% trans "Accepted terms: " %}</label>
+              <div class="col-sm-7">
+                  <p class="form-control-static">
+                  {% trans "Accepted: " %}{{ payment_terms.accepted.terms.version|default:"--" }} /
+                  {% trans "Latest: " %}{{ payment_terms.latest.version|default:"--" }}
+                  {% if payment_terms.ok %}<span class="label label-success">OK</span>{% endif %}
+                  </p>
+              </div>
 
               {% if userform.instance.is_active and not userform.instance.is_superuser %}
                   <div class="col-sm-5"></div>

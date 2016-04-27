@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 13\n"
+"Project-Id-Version: FUN-MOOC 14\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-18 15:26+0200\n"
-"PO-Revision-Date: 2016-04-18 15:26+0000\n"
+"POT-Creation-Date: 2016-04-29 17:06+0200\n"
+"PO-Revision-Date: 2016-04-29 17:07+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -16,6 +16,14 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "A certificate generation is already running"
 msgstr "Une génération d'attestation est déjà en cours"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Accepted terms: "
+msgstr "Conditions acceptées"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Accepted: "
+msgstr "Accepté : "
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Account created:"
@@ -236,6 +244,10 @@ msgid "Last file generated on: "
 msgstr "Dernier fichier généré à :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Latest: "
+msgstr "Dernière : "
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Name: "
 msgstr "Nom :"
 
@@ -312,6 +324,10 @@ msgstr "Renvoyer le mail d'activation"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/wiki.html:0
 msgid "Restore wiki permissions"
 msgstr "Ouvrir le wiki en écriture"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
+msgid "Roles: "
+msgstr ""
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Run"
@@ -403,6 +419,11 @@ msgstr "Cet utilisateur a été exclu depuis :"
 msgid "This course does not belong to any university"
 msgstr "Ce cours n'est lié à aucun établissement"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
+#, fuzzy
+msgid "This course has enrollment modes: "
+msgstr "Aucune inscription"
+
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "This course has no wiki"
 msgstr "Ce cours n'a pas de wiki."
@@ -482,8 +503,13 @@ msgstr "Le mot de passe de l'utilisateur a été changé"
 msgid ""
 "User's course enrollment for <strong>%s</strong> has been set to "
 "<strong>%s</strong>"
-msgstr "Le mode d'inscription de l'utilisateur pour le cours <strong>%s</strong>"
-"a été mis à <strong>%s</strong>"
+msgstr ""
+"Le mode d'inscription de l'utilisateur pour le cours <strong>%s</strong>a"
+" été mis à <strong>%s</strong>"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/base-detail.html:0
+msgid "Verified users"
+msgstr ""
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Wiki could not be "
