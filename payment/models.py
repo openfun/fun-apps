@@ -28,16 +28,18 @@ class TermsAndConditions(models.Model):
 
     @classmethod
     def get_latest(cls, name):
-        return TermsAndConditions.objects.filter(name=name).latest('datetime')
+        try:
+            return TermsAndConditions.objects.filter(name=name).latest('datetime')
+        except TermsAndConditions.DoesNotExist:
+            return None
 
     @classmethod
     def user_has_to_accept_new_version(cls, name, user):
-        try:
-            latest = TermsAndConditions.get_latest(name=name)
-            if latest.version == '0':  # terms of version 0 are considered as accepted
-                return False
-        except TermsAndConditions.DoesNotExist:
-            return False # terms do not exists yet, user is ok
+        latest = TermsAndConditions.get_latest(name=name)
+        if latest is None:
+            return False  # terms do not exists yet, user is ok
+        if latest.version == '0':  # terms of version 0 are considered as accepted
+            return False
         accepted = TermsAndConditions.version_accepted(name, user)
         if accepted and accepted.terms.version == latest.version:
             return False   # user already has accepted latest version

@@ -156,7 +156,7 @@ def payment_terms_page(request):
 @require_GET
 @login_required
 def get_payment_terms(request):
-    """Return last payment terms and condition is necessary."""
+    """Return last payment terms and condition if necessary."""
     data = {}
     if user_is_concerned_by_payment_terms(request.user):
         terms = TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS,
