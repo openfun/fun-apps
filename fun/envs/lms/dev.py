@@ -41,7 +41,7 @@ HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
 # by settings this to True, the success return page will generate the appropriate POST to ecommerce service
 FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = True
 FEATURES['ENABLE_AUTO_AUTH'] = True
-ECOMMERCE_API_URL = "http://localhost:8080/api/v2/"
-ECOMMERCE_PUBLIC_URL_ROOT = "http://localhost:8080"
-ECOMMERCE_NOTIFICATION_URL = 'http://localhost:8080/payment/paybox/notify/'
-JWT_ISSUER = "http://localhost:8000/oauth2"
+ECOMMERCE_API_URL = "http://ecomdev.local/api/v2/"
+ECOMMERCE_PUBLIC_URL_ROOT = "http://ecomdev.local"
+ECOMMERCE_NOTIFICATION_URL = 'http://ecomdev.local/payment/paybox/notify/'
+JWT_ISSUER = "http://funbox.local:8000/oauth2"
