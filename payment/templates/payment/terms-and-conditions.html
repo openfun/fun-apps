@@ -14,7 +14,23 @@ from django.utils.translation import ugettext as _
     <section>
       <article>
 
-      ${terms.text}
+        <div class="display-fun-payment-terms">
+          <div class="display-fun-payment-terms-header">
+            ${_("Please read and accept terms and conditions")}
+          </div>
+
+          <div class="display-fun-payment-terms-text">
+
+              ${terms.text}
+
+          </div>
+
+          <div class="display-fun-payment-terms-footer">
+            <span id="validate-terms" class="btn-terms" href="">${_("Accept")}</span>
+          </div>
+
+        </div>
+
 
         </article>
     </section>
