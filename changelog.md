@@ -1,5 +1,20 @@
 # Changelog www.fun-mooc.fr
 
+## 3.11 28/04/2016
+- Backoffice: Possibilité de passer du mode 'honor' au mode 'verified' pour un
+  apprenant inscrit à un cours. Pour tester les cours payants sans avoir à
+  mettre sa CB.
+- Backoffice: Le résultat des tâches de génération des certificats est
+  maintenant de nouveau affiché dans le backoffice.
+- Backoffice: Redéfinition du flag 'Prevent auto update' qui s'appelle
+  maintenant "Empêcher la mise à jour automatique du score" et n'empêche plus
+  la synchronisation entre studio et backoffice.
+- LMS: Ajout d'un nouveau filtre "Ouvert aux inscriptions" dans le filtre
+  disponibilité.
+- LMS: Les cours sans date de fin d'inscription n'apparaissent plus en premier.
+- LMS: Améliorations des performances du studio du bac à sable.
+- LMS: Mise à jour du xBlock proctorU dans sa version 1.4.
+
 ## 3.10 14/04/2016
 - Amélioration des pages de paiement échec et abandon.
 - Ajout de la possibilité de trier les cours selon differents critères
