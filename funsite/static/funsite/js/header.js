@@ -17,6 +17,7 @@ function checkCookie(name) {
 (function() {
     /* select current page menu item */
     var page = window.location.pathname.split('/')[1];
+
     $('#sandwich-overlay [data-location="'+ page +'"]').addClass('selected');
 
     /* Handle FUN overlays closing by clicking X */
@@ -101,5 +102,17 @@ function checkCookie(name) {
             }
         }
     });
+
+    // if user need to accept newer version of payment terms and condition
+    // redirect him to terms page.
+    if (page =='dashboard') {
+        $.get("/payment/terms/get/?no-text=",
+            function(data) {
+                if (data.version) {
+                    window.location.pathname = '/payment/terms/force/'
+                }
+            }
+        );
+    }
 
  })();
