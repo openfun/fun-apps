@@ -400,5 +400,53 @@ a.no-decoration:visited {
     margin: 60px auto !important;
 }
 
-/** EXTRA **/
+/** Payment terms and conditions **/
 
+
+.display-fun-payment-terms {
+    padding-top: 20px;
+    color: black;
+    font-family: 'Raleway', sans-serif;
+
+}
+
+.display-fun-payment-terms-header {
+    height: 36px;
+    font-weight: 500;
+    font-size: 15px;
+    color: white;
+    background-color: #F83336;
+    padding: 10px;
+}
+
+.display-fun-payment-terms-text {
+    padding: 12px 6px 6px;
+    font-weight: 300;
+    height: 300px;
+    overflow-y: scroll;
+    font-size: 13px;
+    background-color: white;
+}
+section.terms-and-conditions .display-fun-payment-terms-text {
+    height: inherit;  /* do not force container height */
+    overflow-y: inherit;
+}
+
+.display-fun-payment-terms-footer {
+    height: 48px;
+    text-align: right;
+    background-color: #3877BC;
+    padding: 7px 14px;
+    margin-bottom: 18px;
+}
+
+.btn-terms {
+    padding: 4px 12px 4px 12px;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    background-color: #3877BC;
+    font-weight: 400;
+    font-size: 16px;
+    display: inline-block;
+}

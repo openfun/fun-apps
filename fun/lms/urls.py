@@ -9,7 +9,7 @@ from django.views.generic import RedirectView
 import openassessment.fileupload.urls
 
 # Important: We have to import edx routes to error pages
-from lms.urls import handler404, handler500 #pylint: disable=unused-import
+from lms.urls import handler404, handler500  # pylint: disable=unused-import
 
 
 urlpatterns = patterns('',
@@ -34,13 +34,12 @@ urlpatterns = patterns('',
         r'^courses/$',
         RedirectView.as_view(url=reverse_lazy('fun-courses:index'))
     ),
-                       url(r'^courses$', RedirectView.as_view(url=reverse_lazy('fun-courses:index'))),
+    url(r'^courses$', RedirectView.as_view(url=reverse_lazy('fun-courses:index'))),
 
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),
     url(r'^courses/{}/fun/dashboard/'.format(settings.COURSE_ID_PATTERN),
-        include('course_dashboard.urls', namespace='course-dashboard')
-    ),
+        include('course_dashboard.urls', namespace='course-dashboard')),
     url(r'^courses/fun/dashboard/', include('course_dashboard.urls_global', namespace='course-dashboard-global')),
 
     # Grade downloads
