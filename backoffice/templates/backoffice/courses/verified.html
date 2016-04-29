@@ -24,6 +24,8 @@
                             <th>Authenticated</th>
                             <th>IncidentReport</th>
                             <th>Escalated</th>
+                            <th>Exam grade</th>
+                            <th>Exam Passed</th>
                         </tr>
                     </thead>
 
@@ -109,6 +111,20 @@
                                         <span class="label label-success">{{ reports.0.Escalated }}</span>
                                     {% else %}
                                         <span class="label label-warning">{{ reports.0.Escalated }}</span>
+                                    {% endif %}
+                                </td>
+
+                                {# Exam grade (number) #}
+                                <td class="exam_grade" style="vertical-align: middle;">
+                                    {{ reports.0.fun_exam_grade }}
+                                </td>
+
+                                {# Exam passed (bool) #}
+                                <td class="exam_passed" style="vertical-align: middle;">
+                                    {% if not reports.0.fun_exam_pass %}
+                                        <span class="label label-warning">{{ reports.0.fun_exam_pass }}</span>
+                                    {% else %}
+                                        <span class="label label-success">{{ reports.0.fun_exam_pass }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
