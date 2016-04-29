@@ -168,7 +168,8 @@ def get_payment_terms(request):
         terms = TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS,
                 request.user)
         if terms:
-            data['text'] = terms.text
+            if 'no-text' not in request.GET:  # dashboard request do not need the text
+                data['text'] = terms.text
             data['datetime'] = terms.datetime.strftime(gettext('%m/%d/%y'))
             data['version'] = terms.version
 
