@@ -8,9 +8,6 @@ from courseware import grades as courseware_grades
 from student.models import CourseEnrollment
 
 
-store = modulestore()
-
-
 ASSIGNMENT_VALID_SHORT_NAMES = ('certificat avg', 'certificat')
 
 
@@ -37,7 +34,7 @@ class StudentCertificateHelper(object):
         self.student_username = student_username
         self.passing_grade = passing_grade
         self.course_key = CourseKey.from_string(course_key_string)
-        self.course = store.get_course(self.course_key)
+        self.course = modulestore().get_course(self.course_key)
         self.student = User.objects.get(username=self.student_username)
         self.grade = None
 
