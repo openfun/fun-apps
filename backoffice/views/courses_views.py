@@ -148,7 +148,7 @@ def verified(request, course_key_string, action=None):
     course_info = get_course_infos([course])[0]
     ck = CourseKey.from_string(course_key_string)
 
-    registered_users = get_protectU_students(course=ck.course, run=ck.run)
+    registered_users = get_protectU_students(course_name=ck.course, course_run=ck.run)
 
     if "error" in registered_users:
         return render(request, 'backoffice/courses/verified_error.html', {
