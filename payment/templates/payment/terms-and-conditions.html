@@ -1,5 +1,6 @@
 ## mako
 <%!
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 %>
 
@@ -11,26 +12,32 @@ from django.utils.translation import ugettext as _
 <%block name="page_content">
     ${breadcrumbs.breadcrumbs(_("Verified exam terms and conditions"))}
 
-    <section>
+    <section class="terms-and-conditions">
       <article>
 
-        <div class="display-fun-payment-terms">
-          <div class="display-fun-payment-terms-header">
-            ${_("Please read and accept terms and conditions")}
-          </div>
+        % if force:
+            <div class="display-fun-payment-terms">
+              <div class="display-fun-payment-terms-header">
+                ${_("Please read and accept terms and conditions")}
+              </div>
 
-          <div class="display-fun-payment-terms-text">
+              <div class="display-fun-payment-terms-text">
 
-              ${terms.text}
+                  ${terms.text}
 
-          </div>
+              </div>
 
-          <div class="display-fun-payment-terms-footer">
-            <span id="validate-terms" class="btn-terms" href="">${_("Accept")}</span>
-          </div>
+              <div class="display-fun-payment-terms-footer">
+                <form action="${reverse('payment:accept-terms')}" method="POST">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
+                    <button type="submit" id="validate-terms" class="btn-terms">${_("Accept")}</button>
+                </form>
+              </div>
 
-        </div>
-
+            </div>
+        % else:
+            ${terms.text}
+        % endif
 
         </article>
     </section>

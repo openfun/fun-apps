@@ -44,7 +44,7 @@ class TermsAndConditions(models.Model):
         if accepted and accepted.terms.version == latest.version:
             return False   # user already has accepted latest version
         else:
-            return latest # user has to accept latest version
+            return latest  # user has to accept latest version
 
     def accept(self, user):
         accepted, created = UserAcceptance.objects.get_or_create(terms=self, user=user)

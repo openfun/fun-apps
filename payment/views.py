@@ -9,7 +9,9 @@ from requests.exceptions import ConnectionError
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseBadRequest, Http404, HttpResponse
+from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 from django.utils.translation import gettext
@@ -143,14 +145,18 @@ def list_receipts(request):
     return render_to_response('payment/list_orders.html', {"order_history": order_history})
 
 
-def payment_terms_page(request):
-    """Page to show newer version of payment terms and conditions."""
+def payment_terms_page(request, force):
+    """Page to show newer version of payment terms and conditions
+       or force user to accept new version."""
+    force = (force and request.user.is_authenticated and
+            TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS, request.user))
 
     terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
 
-    return render_to_response('payment/terms-and-conditions.html',
-            {'terms': terms})
-
+    return render_to_response('payment/terms-and-conditions.html', {
+            'terms': terms,
+            'force': force,
+            })
 
 
 @require_GET
@@ -178,4 +184,8 @@ def accept_payment_terms(request):
         terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
         terms.accept(request.user)
         data['accepted'] = terms.version
-    return HttpResponse(json.dumps(data), content_type="application/json")
+
+    if request.is_ajax():
+        return HttpResponse(json.dumps(data), content_type="application/json")
+    else:
+        return redirect(reverse('dashboard'))
