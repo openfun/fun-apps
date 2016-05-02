@@ -32,8 +32,9 @@ class TestVerifiedTab(VerifiedCourseList):
         user = UserFactory(last_name="26")
 
         resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
-                                                        course_run="Run")
-        self.assertEqual(1, len(resp["26"]))
+                                                        course_run="Run",
+                                                        student_grades={})
+        self.assertEqual(1, len(resp[26]))
 
 
     @patch("backoffice.utils_proctorU_api.query_api")
@@ -41,7 +42,8 @@ class TestVerifiedTab(VerifiedCourseList):
         mock_api.return_value = proctorU_api_result("empty")
 
         resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
-                                                        course_run="Run")
+                                                        course_run="Run",
+                                                        student_grades={})
         self.assertEqual("Empty response from the API", resp["error"])
 
 
@@ -51,10 +53,11 @@ class TestVerifiedTab(VerifiedCourseList):
         user = UserFactory(last_name="26")
 
         resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
-                                                        course_run="Run")
-        self.assertEqual(2, len(resp["26"]))
-        self.assertEqual("Reservation created", resp["26"][0]["ProctorNotes"])
-        self.assertEqual("Reservation cancelled", resp["26"][1]["ProctorNotes"])
+                                                        course_run="Run",
+                                                        student_grades={})
+        self.assertEqual(2, len(resp[26]))
+        self.assertEqual("Reservation created", resp[26][0]["ProctorNotes"])
+        self.assertEqual("Reservation cancelled", resp[26][1]["ProctorNotes"])
 
 
     @patch("backoffice.utils_proctorU_api.query_api")
@@ -63,8 +66,11 @@ class TestVerifiedTab(VerifiedCourseList):
         user = UserFactory(last_name="26")
 
         resp = utils_proctorU_api.get_protectU_students(course_name="No one",
-                                                        course_run="likes me")
-        self.assertIn("No student for course", resp["error"])
+                                                        course_run="likes me",
+                                                        student_grades={})
+        self.assertIn("id", resp["warn"])
+        self.assertIn("start", resp["warn"])
+        self.assertIn("end", resp["warn"])
 
 
     # @patch("backoffice.utils_proctorU_api.query_api")
