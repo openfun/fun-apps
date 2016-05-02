@@ -15,17 +15,17 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>ProcterU Id</th>
-                            <th>ProctorNotes</th>
-                            <th>Reservation Nb</th>
-                            <th>Checked Id</th>
-                            <th>Exam start date</th>
-                            <th>Authenticated</th>
-                            <th>IncidentReport</th>
-                            <th>Escalated</th>
-                            <th>Exam grade</th>
-                            <th>Exam Passed</th>
+                            <th>{% trans 'User' %}</th>
+                            <th>{% trans 'ProcterU Id' %}</th>
+                            <th>{% trans 'ProctorNotes' %}</th>
+                            <th>{% trans 'Reservation Nb' %}</th>
+                            <th>{% trans 'Checked Id' %}</th>
+                            <th>{% trans 'Exam start date' %}</th>
+                            <th>{% trans 'Authenticated' %}</th>
+                            <th>{% trans 'IncidentReport' %}</th>
+                            <th>{% trans 'Escalated' %}</th>
+                            <th>{% trans 'Exam grade' %}</th>
+                            <th>{% trans 'Exam Passed' %}</th>
                         </tr>
                     </thead>
 
@@ -62,7 +62,7 @@
 
                                 {# ReservationNo #}
                                 <td class="reservation-no" style="vertical-align: middle;">
-                                                                    <ul class="list-group" style="margin-top: 1em;">
+                                    <ul class="list-group" style="margin-top: 1em;">
                                     {% for report in reports %}
                                         {% if "cancelled" in report.ProctorNotes %}
                                             <li class="list-group-item list-group-item-warning"> {{  report.ReservationNo }} </li>

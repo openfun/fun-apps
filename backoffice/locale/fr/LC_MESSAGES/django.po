@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 13\n"
+"Project-Id-Version: FUN-MOOC 19\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-18 15:26+0200\n"
-"PO-Revision-Date: 2016-04-18 15:26+0000\n"
+"POT-Creation-Date: 2016-05-02 14:31+0200\n"
+"PO-Revision-Date: 2016-05-02 14:31+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -12,6 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+
+#: /edx/app/edxapp/fun-apps/backoffice/utils_proctorU_api.py:0
+#, python-format
+msgid "%m/%d/%y %H:%M"
+msgstr "%d/%m/%y %H:%M"
 
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "A certificate generation is already running"
@@ -27,9 +32,17 @@ msgstr ""
 "L'email d'activation de l'utilisateur {username} a été renvoyé à "
 "l'adresse {email}"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+msgid "An error happenend"
+msgstr "Une erreur est survenue"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
 msgid "Article"
 msgstr "Article"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "Authenticated"
+msgstr "Authentifié"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/base.html:0
 msgid "Backoffice"
@@ -70,6 +83,10 @@ msgstr "Changer le mode"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Change password"
 msgstr "Changer le mot de passe"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "Checked Id"
+msgstr "Carte d'identité vérifiée"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_grade.html:0
 msgid "Confirm and regenerate"
@@ -166,6 +183,27 @@ msgstr "Entrez la nouvelle note (comprise entre 0 et 1) :"
 msgid "Enter new password"
 msgstr "Saisissez le nouveau mot de passe"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "Escalated"
+msgstr "Remontée de problèmes"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "Exam Passed"
+msgstr "Examen réussit"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "Exam grade"
+msgstr "Note à l'examen"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+#, fuzzy
+msgid "Exam start date"
+msgstr "Date de début"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+msgid "For debug purposes, see the following information:"
+msgstr "Voir les infos de débug ci-dessous : "
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Forum"
 msgstr "Forum"
@@ -210,6 +248,10 @@ msgstr "Image"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Impersonate"
 msgstr "Exorciser"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "IncidentReport"
+msgstr "Rapport d'incident"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/base-detail.html:0
 msgid "Information"
@@ -295,6 +337,23 @@ msgstr "Prévisualiser la page des actualités"
 msgid "Previous Certificate Tasks"
 msgstr "Historique des générations d'attestations"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "ProcterU Id"
+msgstr "Identifiant ProctorU"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "ProctorNotes"
+msgstr "Notes du surveillant"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+#, python-format
+msgid ""
+"ProctorU API is empty for course %(course_id)s between %(date_start)s and"
+" %(date_end)s."
+msgstr ""
+"L'API ProctorU est vide pour le cours : %(course_id)s entre "
+"%(date_start)s et %(date_end)s."
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/base-detail.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/list.html:0
@@ -309,9 +368,17 @@ msgstr "Fermer le wiki en écriture"
 msgid "Resend activation email"
 msgstr "Renvoyer le mail d'activation"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified.html:0
+msgid "Reservation Nb"
+msgstr "N° de réservation"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/wiki.html:0
 msgid "Restore wiki permissions"
 msgstr "Ouvrir le wiki en écriture"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
+msgid "Roles: "
+msgstr ""
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Run"
@@ -395,6 +462,14 @@ msgstr "Suspension temporaire de compte"
 msgid "Temporary account suspensions"
 msgstr "Suspensions temporaires de compte"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+msgid ""
+"There is nothing to display, no students were registered for this course "
+"in ProctorU."
+msgstr ""
+"Il n'y a rien a afficher, aucun étudiant n'est inscrit sur ProctorU pour "
+"ce cours."
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "This account is disabled since:"
 msgstr "Cet utilisateur a été exclu depuis :"
@@ -402,6 +477,11 @@ msgstr "Cet utilisateur a été exclu depuis :"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
 msgid "This course does not belong to any university"
 msgstr "Ce cours n'est lié à aucun établissement"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
+#, fuzzy
+msgid "This course has enrollment modes: "
+msgstr "Aucune inscription"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "This course has no wiki"
@@ -482,8 +562,13 @@ msgstr "Le mot de passe de l'utilisateur a été changé"
 msgid ""
 "User's course enrollment for <strong>%s</strong> has been set to "
 "<strong>%s</strong>"
-msgstr "Le mode d'inscription de l'utilisateur pour le cours <strong>%s</strong>"
-"a été mis à <strong>%s</strong>"
+msgstr ""
+"Le mode d'inscription de l'utilisateur pour le cours <strong>%s</strong>a"
+" été mis à <strong>%s</strong>"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/base-detail.html:0
+msgid "Verified users"
+msgstr "Utilisateurs certifiés"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Wiki could not be "
