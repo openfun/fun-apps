@@ -4,9 +4,12 @@ from django.test import TestCase
 
 from student.tests.factories import UserFactory
 
+from fun.tests.utils import skipUnlessLms
+
 from ..models import TermsAndConditions, UserAcceptance
 
 
+@skipUnlessLms
 class TermsAndConditionTest(TestCase):
     def setUp(self):
         self.user = UserFactory()
@@ -52,7 +55,6 @@ class TermsAndConditionTest(TestCase):
         terms = TermsAndConditions.user_has_to_accept_new_version(
                 name='test1', user=self.user)
         self.assertEqual(False, terms)
-
 
     def test_version_zero(self):
         """if a terms has a version 0 we want to considere it as automaticaly accepted."""
