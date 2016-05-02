@@ -420,6 +420,7 @@ a.no-decoration:visited {
 }
 
 .display-fun-payment-terms-text {
+    text-align: left;
     padding: 12px 6px 6px;
     font-weight: 300;
     height: 300px;
@@ -427,6 +428,18 @@ a.no-decoration:visited {
     font-size: 13px;
     background-color: white;
 }
+.display-fun-payment-terms-text h1 {
+    font-size: 28px;
+    text-align: left;
+    line-height: 26px;
+}
+.display-fun-payment-terms-text h2 {
+    font-size: 24px;
+}
+.display-fun-payment-terms-text h3 {
+    font-size: 20px;
+}
+
 section.terms-and-conditions .display-fun-payment-terms-text {
     height: inherit;  /* do not force container height */
     overflow-y: inherit;
