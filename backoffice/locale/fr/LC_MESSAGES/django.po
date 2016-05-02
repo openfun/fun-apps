@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 14\n"
+"Project-Id-Version: FUN-MOOC 17\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-29 17:06+0200\n"
-"PO-Revision-Date: 2016-04-29 17:07+0000\n"
+"POT-Creation-Date: 2016-05-02 13:31+0200\n"
+"PO-Revision-Date: 2016-05-02 13:31+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -12,6 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+
+#: /edx/app/edxapp/fun-apps/backoffice/utils_proctorU_api.py:0
+#, python-format
+msgid "%m/%d/%y %H:%M"
+msgstr "%d/%m/%y %H:%M"
 
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "A certificate generation is already running"
@@ -34,6 +39,10 @@ msgid "Activation email has been resent to user {username} at addresse: {email}"
 msgstr ""
 "L'email d'activation de l'utilisateur {username} a été renvoyé à "
 "l'adresse {email}"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+msgid "An error happenend"
+msgstr "UNe erreur est survenue"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
 msgid "Article"
@@ -174,6 +183,10 @@ msgstr "Entrez la nouvelle note (comprise entre 0 et 1) :"
 msgid "Enter new password"
 msgstr "Saisissez le nouveau mot de passe"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+msgid "For debug purposes, see the following information:"
+msgstr "Voir les infos de débug ci-dessous : "
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Forum"
 msgstr "Forum"
@@ -307,6 +320,14 @@ msgstr "Prévisualiser la page des actualités"
 msgid "Previous Certificate Tasks"
 msgstr "Historique des générations d'attestations"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+msgid ""
+"ProctorU API is empty for course %(course_id)s between %(date_start)s and"
+" %(date_end)s."
+msgstr ""
+"L'API ProctorU est vide pour le cours : %(course_id)s entre "
+"%(date_start)s et %(date_end)s."
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/articles.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/base-detail.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/list.html:0
@@ -410,6 +431,14 @@ msgstr "Suspension temporaire de compte"
 #: /edx/app/edxapp/fun-apps/backoffice/admin.py:0
 msgid "Temporary account suspensions"
 msgstr "Suspensions temporaires de compte"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+msgid ""
+"There is nothing to display, no students were registered for this course "
+"in ProctorU."
+msgstr ""
+"Il n'y a rien a afficher, aucun étudiant n'est inscript sur ProctorU pour"
+" ce cours."
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "This account is disabled since:"

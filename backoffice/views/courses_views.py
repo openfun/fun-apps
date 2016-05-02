@@ -160,7 +160,21 @@ def verified(request, course_key_string, action=None):
             'subtab': 'verified',
             'course_key_string': course_key_string,
             'course_info': course_info,
-            'error':registered_users["error"]
+            'error': registered_users["error"],
+            "warn": False,
+        })
+
+    if "warn" in registered_users:
+        return render(request, 'backoffice/courses/verified_error.html', {
+            'tab': 'courses',
+            'subtab': 'verified',
+            'course_key_string': course_key_string,
+            'course_info': course_info,
+            "error": False,
+            'warn': True,
+            "course_id": registered_users["warn"]["id"],
+            "date_start": registered_users["warn"]["start"],
+            "date_end": registered_users["warn"]["end"],
         })
 
 

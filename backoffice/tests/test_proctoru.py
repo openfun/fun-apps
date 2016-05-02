@@ -34,7 +34,7 @@ class TestVerifiedTab(VerifiedCourseList):
         resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
                                                         course_run="Run",
                                                         student_grades={})
-        self.assertEqual(1, len(resp["26"]))
+        self.assertEqual(1, len(resp[26]))
 
 
     @patch("backoffice.utils_proctorU_api.query_api")
@@ -55,9 +55,9 @@ class TestVerifiedTab(VerifiedCourseList):
         resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
                                                         course_run="Run",
                                                         student_grades={})
-        self.assertEqual(2, len(resp["26"]))
-        self.assertEqual("Reservation created", resp["26"][0]["ProctorNotes"])
-        self.assertEqual("Reservation cancelled", resp["26"][1]["ProctorNotes"])
+        self.assertEqual(2, len(resp[26]))
+        self.assertEqual("Reservation created", resp[26][0]["ProctorNotes"])
+        self.assertEqual("Reservation cancelled", resp[26][1]["ProctorNotes"])
 
 
     @patch("backoffice.utils_proctorU_api.query_api")
@@ -68,7 +68,9 @@ class TestVerifiedTab(VerifiedCourseList):
         resp = utils_proctorU_api.get_protectU_students(course_name="No one",
                                                         course_run="likes me",
                                                         student_grades={})
-        self.assertIn("No student for course", resp["error"])
+        self.assertIn("id", resp["warn"])
+        self.assertIn("start", resp["warn"])
+        self.assertIn("end", resp["warn"])
 
 
     # @patch("backoffice.utils_proctorU_api.query_api")

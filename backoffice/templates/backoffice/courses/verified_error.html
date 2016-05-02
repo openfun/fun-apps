@@ -10,12 +10,30 @@
     <div class="row">
         <div class="col-md-12">
             <div class="container">
-                <div>
-                    An error happenend :
+                {% if error %}
+                <h3>
+                    {% trans 'An error happenend' %}
+                </h3>
+                <div class="alert alert-danger">
+                    {% trans 'For debug purposes, see the following information:' %}
+                    <p>
+                        {{ error }}
+                    </p>
                 </div>
-                <div>
-                    {{ error }}
+                {% endif %}
+
+                {% if warn %}
+                <h3>
+                    {% trans 'There is nothing to display, no students were registered for this course in ProctorU.' %}
+                </h3>
+                <div class="warn-infos alert alert-info">
+                    {% trans 'For debug purposes, see the following information:' %}
+                    <div>
+                        {% blocktrans %}ProctorU API is empty for course {{course_id}} between {{date_start}} and {{date_end}}.{% endblocktrans %}
+                    </div>
                 </div>
+                {% endif %}
+
             </div>
 
         </div>
