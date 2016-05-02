@@ -146,7 +146,7 @@ def list_receipts(request):
 def payment_terms_page(request, force):
     """Page to show newer version of payment terms and conditions
        or force user to accept new version."""
-    force = (force and request.user.is_authenticated and
+    force = (force and request.user.is_authenticated() and
             TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS, request.user))
 
     terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
