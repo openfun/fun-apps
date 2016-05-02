@@ -24,7 +24,7 @@ class TermsAndConditions(models.Model):
     @classmethod
     def version_accepted(cls, name, user):
         try:
-            return UserAcceptance.objects.get(terms__name=name, user=user)
+            return UserAcceptance.objects.filter(terms__name=name, user=user).latest('datetime')
         except UserAcceptance.DoesNotExist:
             return None
 

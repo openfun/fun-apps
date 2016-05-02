@@ -162,14 +162,17 @@ def payment_terms_page(request, force):
 def get_payment_terms(request):
     """Return last payment terms and condition if necessary."""
     data = {}
-    if user_is_concerned_by_payment_terms(request.user):
+    terms = None
+    if 'always' in request.GET:
+        terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
+    elif user_is_concerned_by_payment_terms(request.user):
         terms = TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS,
-                request.user)
-        if terms:
-            if 'no-text' not in request.GET:  # dashboard request do not need the text
-                data['text'] = terms.text
-            data['datetime'] = terms.datetime.strftime(gettext('%m/%d/%y'))
-            data['version'] = terms.version
+                    request.user)
+    if terms:
+        if 'no-text' not in request.GET:  # dashboard request do not need the text
+            data['text'] = terms.text
+        data['datetime'] = terms.datetime.strftime(gettext('%m/%d/%y'))
+        data['version'] = terms.version
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
@@ -177,7 +180,8 @@ def get_payment_terms(request):
 @require_POST
 @login_required
 def accept_payment_terms(request):
-    """User accept payment terms and conditions."""
+    """User accept payment terms and conditions.
+    Set a cookie to prevent verification at each request"""
     data = {}
     if user_is_concerned_by_payment_terms(request.user):
         terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
@@ -187,4 +191,6 @@ def accept_payment_terms(request):
     if request.is_ajax():
         return HttpResponse(json.dumps(data), content_type="application/json")
     else:
-        return redirect(reverse('dashboard'))
+        response = redirect(reverse('dashboard'))
+        response.set_cookie(PAYMENT_TERMS, 'ok', max_age=300)
+        return response
