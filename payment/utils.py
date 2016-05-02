@@ -75,4 +75,4 @@ def format_date_order(order, format):
 def user_is_concerned_by_payment_terms(user):
     """Returns True if user has enrolled to verified courses and not yet passed exam."""
     # TODO RM: verify if exam is passed
-    return CourseEnrollment.objects.filter(mode='verified').exists()
+    return CourseEnrollment.objects.filter(user=user, mode='verified').exists()
