@@ -179,7 +179,8 @@ def get_payment_terms(request):
 @require_POST
 @login_required
 def accept_payment_terms(request):
-    """User accept payment terms and conditions."""
+    """User accept payment terms and conditions.
+    Set a cookie to prevent verification at each request"""
     data = {}
     if user_is_concerned_by_payment_terms(request.user):
         terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
@@ -189,4 +190,6 @@ def accept_payment_terms(request):
     if request.is_ajax():
         return HttpResponse(json.dumps(data), content_type="application/json")
     else:
-        return redirect(reverse('dashboard'))
+        response = redirect(reverse('dashboard'))
+        response.set_cookie(PAYMENT_TERMS, 'ok', max_age=86400)
+        return response

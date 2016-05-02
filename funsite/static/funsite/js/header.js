@@ -105,7 +105,7 @@ function checkCookie(name) {
 
     // if user need to accept newer version of payment terms and condition
     // redirect him to terms page.
-    if (page =='dashboard') {
+    if ((window.location.pathname !== '/payment/terms/force/') && (!checkCookie('verified_certificate'))) {
         $.get("/payment/terms/get/?no-text=",
             function(data) {
                 if (data.version) {
