@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 13\n"
+"Project-Id-Version: FUN-MOOC 16\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-26 18:21+0200\n"
-"PO-Revision-Date: 2016-04-26 18:21+0000\n"
+"POT-Creation-Date: 2016-05-02 14:41+0200\n"
+"PO-Revision-Date: 2016-05-02 14:41+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -23,6 +23,11 @@ msgstr "%d/%m/%y"
 #, python-format
 msgid "%m/%d/%y %H:%M"
 msgstr "%d/%m/%y %H:%M"
+
+# Translated in edx by 'J'accepte'
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
+msgid "Accept"
+msgstr "J'accepte"
 
 #: /edx/app/edxapp/fun-apps/payment/models.py:0
 msgid "Acceptance date"
@@ -131,6 +136,12 @@ msgstr "La procédure de paiement pour le cours a été interrompue."
 msgid "Payment successful"
 msgstr "Paiement réussi"
 
+# Translated in edx by 'Veuillez lire et accepter les conditions
+# d'utilisation'
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
+msgid "Please read and accept terms and conditions"
+msgstr "Veuillez lire et accepter les conditions d'utilisation"
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
 msgid "Price excl. tax:"
 msgstr "Prix HT :"
@@ -212,6 +223,14 @@ msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
 msgid "Verified exam terms and conditions"
 msgstr "Règlement d’examen certifiant"
+
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
+msgid ""
+"You are redirected to this page because our terms and conditions have "
+"changed, please read and accept them before you proceed."
+msgstr ""
+"Vous êtes redirigés sur cette page car nos conditions d'utilisation ont "
+"changé, veuillez les lire et les accepter avant de continuer."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
