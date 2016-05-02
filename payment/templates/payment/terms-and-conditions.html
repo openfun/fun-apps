@@ -16,6 +16,10 @@ from django.utils.translation import ugettext as _
       <article>
 
         % if force:
+        <br><br>
+        <p>${_(u"You are redirected to this page because our terms and conditions have changed, please read and accept them before you proceed.")}</p>
+
+
             <div class="display-fun-payment-terms">
               <div class="display-fun-payment-terms-header">
                 ${_("Please read and accept terms and conditions")}
