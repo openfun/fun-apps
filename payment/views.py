@@ -165,8 +165,11 @@ def get_payment_terms(request):
     """Return last payment terms and condition if necessary."""
     data = {}
     if user_is_concerned_by_payment_terms(request.user):
-        terms = TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS,
-                request.user)
+        if 'always' in request.GET:
+            terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
+        else:
+            terms = TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS,
+                    request.user)
         if terms:
             if 'no-text' not in request.GET:  # dashboard request do not need the text
                 data['text'] = terms.text
