@@ -19,6 +19,11 @@ class TermsAndConditionsAdmin(admin.ModelAdmin):
 
 admin.site.register(TermsAndConditions, TermsAndConditionsAdmin)
 
-admin.site.register(UserAcceptance)
+class UserAcceptanceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'terms', 'datetime',)
+    search_fields = ['user__username']
+    raw_id_fields = ['user']
+
+admin.site.register(UserAcceptance, UserAcceptanceAdmin)
 
 
