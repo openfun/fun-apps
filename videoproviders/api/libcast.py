@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import json
-import lxml.etree
 import logging
 import os
+from time import time
+
+import lxml.etree
 import requests
 import requests.auth
-from time import time
 
 from django.core.cache import get_cache
 from django.utils.translation import ugettext as _
@@ -156,6 +157,10 @@ class Client(BaseClient):
     def get_resource(self, slug):
         return parse_xml(self.safe_get(
             self.urls.resource_path(slug),
+            params={
+                "without-views": "true",
+                "without-usages": "true",
+            },
             message=_("Could not fetch video")
         ))
 
