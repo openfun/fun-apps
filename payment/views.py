@@ -194,5 +194,5 @@ def accept_payment_terms(request):
         return HttpResponse(json.dumps(data), content_type="application/json")
     else:
         response = redirect(reverse('dashboard'))
-        response.set_cookie(PAYMENT_TERMS, 'ok', max_age=86400)
+        response.set_cookie(PAYMENT_TERMS, 'ok', max_age=300)  # 5mn
         return response
