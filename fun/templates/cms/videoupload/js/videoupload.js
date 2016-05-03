@@ -455,8 +455,6 @@ require(["jquery", "underscore", "backbone", "gettext",
           var fileSize = videoFile.size;
           var chunkSize = UploadChunkMegabytes*1024*1024;
           var chunkCount = Math.ceil(fileSize / chunkSize);
-          ajaxSettings.unsetHeaders();
-          ajaxSettings.unsetNotify();
           video.setStatus("uploading");
           // Upload chunks sequentially
           that.listenTo(video, "ready-to-upload-chunk", function(c) {
@@ -466,6 +464,9 @@ require(["jquery", "underscore", "backbone", "gettext",
             formData.append(uploadParams.file_parameter_name, chunkFile);
             formData.append('chunk', c);
             formData.append('chunks', chunkCount);
+
+            ajaxSettings.unsetHeaders();
+            ajaxSettings.unsetNotify();
             currentUploadRequest = $.ajax({
               url: uploadParams.url,
               data: formData,
@@ -479,7 +480,7 @@ require(["jquery", "underscore", "backbone", "gettext",
                 xhr.upload.addEventListener("progress", function(event) {
                   if (event.lengthComputable) {
                     var progress = event.loaded + c*chunkSize;
-                    video.trigger("uploading-progress", progress * 100 / fileSize)
+                    video.trigger("uploading-progress", progress * 100 / fileSize);
                   }
                 });
                 return xhr;
