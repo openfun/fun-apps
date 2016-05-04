@@ -45,6 +45,7 @@ class StudentCertificateHelper(object):
         request = RequestFactory().get('/')
         request.session = {}
         request.user = self.student
+        # TODO: A lot of SQL introduced by this line
         grades = courseware_grades.grade(self.student, request, self.course)
         sections_grades = grades['section_breakdown']
         for section in sections_grades:
@@ -103,11 +104,10 @@ class CourseCertificateHelper(object):
         grade passes the certificate passing grade.
         '''
         student_grades = {}
-        student_usernames = [
-            e.user.username for e
-            in CourseEnrollment.objects.filter(
-                mode='verified', course_id=self.course_key)
-        ]
+        student_usernames = CourseEnrollment.objects.filter(
+            mode='verified', course_id=self.course_key
+        ).values_list('user__username', flat=True)
+
         for username in student_usernames:
             helper = StudentCertificateHelper(
                 self.course_key_string,
