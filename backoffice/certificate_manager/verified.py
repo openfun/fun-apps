@@ -103,11 +103,10 @@ class CourseCertificateHelper(object):
         grade passes the certificate passing grade.
         '''
         student_grades = {}
-        student_usernames = [
-            e.user.username for e
-            in CourseEnrollment.objects.filter(
-                mode='verified', course_id=self.course_key)
-        ]
+        student_usernames = CourseEnrollment.objects.filter(
+            mode='verified', course_id=self.course_key
+        ).values_list('user__username', flat=True)
+
         for username in student_usernames:
             helper = StudentCertificateHelper(
                 self.course_key_string,
