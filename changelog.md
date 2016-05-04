@@ -1,5 +1,12 @@
 # Changelog www.fun-mooc.fr
 
+## 3.12 03/05/2016
+- Backoffice:
+    - Mises en évidence des cours auxquels un utilsateurs est désinscrit
+    - Affichage des cours ayant un mode payant
+    - Page de statut des utilisateurs inscrits à un cours payant (état proctoring, note obtenue etc...)
+- Gestion de versions du règlement d'examen certifiant
+
 ## 3.11 28/04/2016
 - Backoffice: Possibilité de passer du mode 'honor' au mode 'verified' pour un
   apprenant inscrit à un cours. Pour tester les cours payants sans avoir à
