@@ -109,6 +109,7 @@ MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'forum_contributors/templates',
     FUN_BASE_ROOT / 'newsfeed/templates',
+    FUN_BASE_ROOT / 'fun_certificates/templates',
 ] + MAKO_TEMPLATES['main']
 
 # Add funsite templates directory to Django templates finder.

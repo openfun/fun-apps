@@ -1,0 +1,58 @@
+<%! from django.utils.translation import ugettext as _ %>
+<%namespace name='static' file='../static_content.html'/>
+<%
+from django.conf import settings
+from django.core.urlresolvers import reverse
+
+from courses.models import Course
+fun_course = Course.objects.get(key=unicode(course_id))
+fun_university = fun_course.get_first_university()
+fun_logo_src = certificate_data['org_logo_path'] or fun_university.certificate_logo.url or fun_university.logo.url
+
+import django.utils.translation
+with django.utils.translation.override('fr'):
+    fun_certificate_date_issued = "{day} {month} {year}".format(
+        day=certificate_modified_date.day,
+        month=_(certificate_modified_date.strftime("%B")),
+        year=certificate_modified_date.year
+    )
+%>
+
+<main class="accomplishment accomplishment-main">
+
+    <div class="wrapper-accomplishment-rendering">
+        <div class="accomplishment-rendering">
+            <img src="${STATIC_URL}fun_certificates/images/palmes.png" alt="Palmes" class="centered">
+            <img src="${STATIC_URL}fun_certificates/images/certificat.png" alt="Certificat" class="centered" style="margin-top: -8px;">
+
+            <p style="float: right; margin-right: 215px; margin-top: 6px; font-size: 17.5px;">Délivré le ${fun_certificate_date_issued}</p><br>
+            <p style="margin-top: 34px; margin-bottom: 10px; font-size: 38px;" class="centered">${accomplishment_copy_name}</p>
+            <p style="font-size: 17px; margin-bottom: 0;" class="centered">a suivi avec succès le MOOC</p>
+            <p style="font-size: 34px;" class="centered">${accomplishment_copy_course_name}</p>
+            <div style="float: left; width: 50%;">
+                <p style="font-size: 20px; margin-bottom: 10px;" class="centered">${fun_course.university_name}</p>
+                <img src="${fun_logo_src}" alt="Logo établissement" class="centered" style="max-width: 340px; max-height: 85px;">
+                % if certificate_data['signatories']:
+                    ## For now, we display only the first of the signatories. This will probably have to change whenever we'll generate attestation in html format.
+                    <div class="centered" style="max-width: 250px;">
+                        <img src="${certificate_data['signatories'][0]['signature_image_path']}" alt="signature" class="centered" style="margin-top: 28px; max-height: 50px;">
+                        <hr>
+                        <p class="centered" style="font-size: 14px;">
+                            ${certificate_data['signatories'][0]['name']}<br>
+                            ${certificate_data['signatories'][0]['title']}<br>
+                            ${certificate_data['signatories'][0]['organization']}
+                        </p>
+                    </div>
+                % endif
+            </div>
+            <div style="float: right; width: 50%;">
+                <p class="centered" style="font-size: 13px; margin-bottom: 5px;">L'identité de la personne<br>a été vérifiée durant<br>l'examen final surveillé</p>
+                <img class="centered" src="${STATIC_URL}fun_certificates/images/fun.png" alt="Certificat vérifié">
+                <p class="centered" style="font-size: 13px;">
+                Vérifier la validité de ce certificat et les informations associées<br>
+                ${request.build_absolute_uri(reverse('cert_html_view', kwargs={ "user_id": accomplishment_user_id, "course_id": course_id}))}
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
