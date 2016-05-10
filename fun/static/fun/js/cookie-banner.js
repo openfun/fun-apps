@@ -35,7 +35,7 @@
     }
 
     function manageCookieBanner(event) {
-        if(checkCookie(cookieName) != cookieValue && checkCookie("edxloggedin") !== "true") {
+        if(checkCookie(cookieName) != cookieValue) {
             addCookieBanner();
             document.getElementsByClassName('cookie-banner-button')[0].addEventListener("click", removeDiv);
             animateBanner();
