@@ -29,7 +29,8 @@ course_mode_class = course_mode if course_mode else ''
         .accomplishment-rendering {
             border-top: 0;
 
-            background-image: url('${STATIC_URL}fun_certificates/images/contours.png');
+            /* Override background from edx */
+            background: #ffffff url('${STATIC_URL}fun_certificates/images/contours.png') no-repeat right top !important;
             width: 1170px;
             height: 809px;
 
