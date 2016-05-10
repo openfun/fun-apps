@@ -95,7 +95,7 @@ class Client(BaseClient):
 
     VISIBILITY_HIDDEN = 'hidden'
     VISIBILITY_VISIBLE = 'visible'
-    DEFAULT_TIMEOUT_SECONDS = 10
+    DEFAULT_TIMEOUT_SECONDS = 30
 
     def __init__(self, course_key_string):
         super(Client, self).__init__(course_key_string)
@@ -392,11 +392,19 @@ class Client(BaseClient):
     ####################
 
     def request(self, endpoint, method='GET', params=None, files=None, headers=None):#pylint: disable=too-many-arguments
+        timeout = self.DEFAULT_TIMEOUT_SECONDS
+
+        # This is awful but we need to increase the timeout for a specific
+        # endpoint: listing files in an account that has many folders in its
+        # root folder takes a very long time.
+        if endpoint == self.urls.root_directory_path():
+            timeout = timeout * 3
+
         url = self.urls.libcast_url(endpoint)
         func = getattr(requests, method.lower())
         kwargs = {
             'auth': self.auth,
-            'timeout': self.DEFAULT_TIMEOUT_SECONDS,
+            'timeout': timeout,
             'headers': headers,
         }
         if method.upper() == 'GET':
