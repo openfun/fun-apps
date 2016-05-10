@@ -8,9 +8,9 @@ PAYMENT_TERMS = 'verified_certificate'
 
 
 class TermsAndConditions(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_(u"Name"))
+    name = models.CharField(max_length=100, verbose_name=_(u"Name"), db_index=True)
     version = models.CharField(max_length=12, verbose_name=_(u"Terms and conditions version (semver)"))
-    datetime = models.DateTimeField(auto_now_add=True, verbose_name=_(u"Acceptance date"))
+    datetime = models.DateTimeField(auto_now_add=True, verbose_name=_(u"Acceptance date"), db_index=True)
     text = models.TextField(verbose_name=_(u"Terms and conditions content (HTML allowed)"))
 
     def __unicode__(self):
@@ -61,7 +61,7 @@ class TermsAndConditions(models.Model):
 class UserAcceptance(models.Model):
     user = models.ForeignKey(User, related_name='terms_accepted')
     terms = models.ForeignKey(TermsAndConditions, related_name='accepted')
-    datetime = models.DateTimeField(auto_now=True, verbose_name=_(u"Acceptance date"))
+    datetime = models.DateTimeField(auto_now=True, verbose_name=_(u"Acceptance date"), db_index=True)
 
     def __unicode__(self):
         return u"%s: %s v%s" % (self.user.username, self.terms.name, self.terms.version)
