@@ -449,9 +449,8 @@ msgid "This course does not belong to any university"
 msgstr "Ce cours n'est lié à aucun établissement"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
-#, fuzzy
 msgid "This course has enrollment modes: "
-msgstr "Aucune inscription"
+msgstr "Ce cours a des modes d'inscription :"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "This course has no wiki"
