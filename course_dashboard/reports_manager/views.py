@@ -32,7 +32,10 @@ def dashboard(request, course_id):
     """
     course_key = get_course_key(course_id)
     answers_distribution_reports = get_reports_from_course(course_key)
-    running_reports_generation = get_running_instructor_tasks(course_key, 'answers-distribution-report-generation')
+    running_reports_generation = get_running_instructor_tasks(
+        course_key,
+        ['answers-distribution-report-generation']
+    )
     return render(request, 'course_dashboard/reports_manager/dashboard.html',
                   {"course_id": course_id,
                    "answers_distribution_reports" : answers_distribution_reports,

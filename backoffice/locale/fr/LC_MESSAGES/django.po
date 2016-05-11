@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 17\n"
+"Project-Id-Version: FUN-MOOC 19\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-05-02 13:31+0200\n"
-"PO-Revision-Date: 2016-05-02 13:31+0000\n"
+"POT-Creation-Date: 2016-05-11 15:32+0200\n"
+"PO-Revision-Date: 2016-05-11 15:32+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -68,10 +68,6 @@ msgstr "Résultat de groupe de tâches Celery"
 msgid "Celery taskset results"
 msgstr "Résultats de groupes de tâches Celery"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
-msgid "Certificate"
-msgstr "Attestation"
-
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
 msgid "Certificate Management"
 msgstr "Gestion des attestations"
@@ -85,6 +81,7 @@ msgid "Change mode"
 msgstr "Changer le mode"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgctxt "change-user-password"
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
@@ -191,12 +188,18 @@ msgstr "Voir les infos de débug ci-dessous : "
 msgid "Forum"
 msgstr "Forum"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
+# Translated in edx by 'Nom complet'
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:0
+msgctxt "user-full-name"
+msgid "Full name"
+msgstr "Nom complet"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate-confirm-modal-dialog.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Generate"
 msgstr "Générer"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate-confirm-modal-dialog.html:0
 msgid "Generate certificate"
 msgstr "Génération des attestations"
 
@@ -211,6 +214,10 @@ msgstr "Générer un nouveau dump des évaluations par les pairs"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Generate test certificate"
 msgstr "Générer une attestation de test"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
+msgid "Generate verified certificates"
+msgstr "Générer les certificats vérifiés"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/users_views.py:0
 msgid "Grades range from 0 to 1."
@@ -284,6 +291,10 @@ msgstr "Pas de résultat"
 msgid "No result for this search pattern"
 msgstr "Pas de résultat pour cette recherche"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
+msgid "Non Verified"
+msgstr "Non Vérifé"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Opt out"
 msgstr "Opt out"
@@ -304,7 +315,7 @@ msgstr "Génération d'attestations en cours"
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate-confirm-modal-dialog.html:0
 msgid "Please confirm that you really want to generate a certificate for course:"
 msgstr "Veuillez confirmer la génération des certificats pour le cours :"
 
@@ -321,6 +332,7 @@ msgid "Previous Certificate Tasks"
 msgstr "Historique des générations d'attestations"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
+#, python-format
 msgid ""
 "ProctorU API is empty for course %(course_id)s between %(date_start)s and"
 " %(date_end)s."
@@ -348,7 +360,7 @@ msgstr "Ouvrir le wiki en écriture"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
 msgid "Roles: "
-msgstr ""
+msgstr "Rôles : "
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Run"
@@ -357,6 +369,10 @@ msgstr "Exécuter"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Sample"
 msgstr "Échantillon"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
+msgid "Sample file"
+msgstr "Fichier échantillon"
 
 # Translated in edx by 'Enregistrer'
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/article.html:0
@@ -437,8 +453,8 @@ msgid ""
 "There is nothing to display, no students were registered for this course "
 "in ProctorU."
 msgstr ""
-"Il n'y a rien a afficher, aucun étudiant n'est inscrit sur ProctorU pour"
-" ce cours."
+"Il n'y a rien a afficher, aucun étudiant n'est inscrit sur ProctorU pour "
+"ce cours."
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "This account is disabled since:"
@@ -480,7 +496,7 @@ msgid "Title"
 msgstr "Titre"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
-msgid "Total Duration (sec)"
+msgid "Total Duration (sec) "
 msgstr "Durée totale (sec)"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
@@ -537,7 +553,7 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/base-detail.html:0
 msgid "Verified users"
-msgstr ""
+msgstr "Utilisateurs vérifiés"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Wiki could not be "
@@ -582,4 +598,7 @@ msgstr "établissement ou nom de cours"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
+
+#~ msgid "Certificate"
+#~ msgstr "Attestation"
 

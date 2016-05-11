@@ -16,7 +16,7 @@
             this.update_progress = __bind(this.update_progress, this);
             this.get_status = __bind(this.get_status, this);
             this.element = element;
-            this.entries = $(element).find('.task-progress-entry')
+            this.entries = $(element).find('.task-progress-entry');
             if (window.queuePollerID) {
                 window.clearTimeout(window.queuePollerID);
             }
@@ -33,46 +33,48 @@
             // Response should be a dict with an entry for each requested task_id,
             // with a "task-state" and "in_progress" key and optionally a "message"
             // and a "task_progress.duration" key.
-	    var response = jQuery.parseJSON(response)
+            response = jQuery.parseJSON(response);
             var something_in_progress = false;
 
-	    // get the sample certificate base path 
-	    certificate_base_url = $('#generate_test_certificate_button').data().certificateBaseUrl
+            // get the sample certificate base path 
 
-            for (task_id in response) {
+            for (var task_id in response) {
                 var task_dict = response[task_id];
-		// find the corresponding entry, and update it:
-                entry = $(_this.element).find('[data-task-id="' + task_id + '"]');
-		try {
-		    var test_certificate_filename = task_dict.task_progress.test_certificate_filename; }
-		catch(err) {
-		    var test_certificate_filename = "N/A";
-		}
-                entry.find('.task-certificate-pdf').attr("href", certificate_base_url + test_certificate_filename)
-		try {
-                    entry.find('.task-enrolled-students').text(task_dict.task_progress.total)
-                    entry.find('.task-certified-students').text(task_dict.task_progress.downloadable)
-                    entry.find('.task-not-certified-students').text(task_dict.task_progress.notpassing)
-		   }
-		catch(err) {
-                    entry.find('.task-enrolled-students').text(0)
-                    entry.find('.task-certified-students').text(0)
-                    entry.find('.task-not-certified-students').text(0)
-		}
+                // find the corresponding entry, and update it:
+                var entry = $(_this.element).find('[data-task-id="' + task_id + '"]');
+                try {
+                    var testCertificateFilename = task_dict.task_progress.test_certificate_filename;
+                    var certificateBaseUrl = $('#generate_test_certificate_button').data().certificateBaseUrl;
+                    entry.find('.task-certificate-pdf').attr("href", certificateBaseUrl + testCertificateFilename);
+                }
+                catch(err) {
+                    // Fail silently... TODO
+                }
+                try {
+                    entry.find('.task-enrolled-students').text(task_dict.task_progress.total);
+                    entry.find('.task-certified-students').text(task_dict.task_progress.downloadable);
+                    entry.find('.task-not-certified-students').text(task_dict.task_progress.notpassing);
+                }
+                catch(err) {
+                    // TODO What kind of error are we supposed to have?
+                    entry.find('.task-enrolled-students').text(0);
+                    entry.find('.task-certified-students').text(0);
+                    entry.find('.task-not-certified-students').text(0);
+                }
 
-                entry.find('.task-state').text(task_dict.task_state)
+                entry.find('.task-state').text(task_dict.task_state);
 
-                var duration_value = (task_dict.task_progress && task_dict.task_progress.duration_ms
-                                        && Math.round(task_dict.task_progress.duration_ms/1000)) || 'unknown'
-                entry.find('.task-duration').text(duration_value);
+                // Set task duration
+                var durationValue = (task_dict.task_progress && task_dict.task_progress.duration_ms && Math.round(task_dict.task_progress.duration_ms/1000)) || 'unknown';
+                entry.find('.task-duration').text(durationValue);
 
                 // if the task is complete, then change the entry so it won't
                 // be queried again.  Otherwise set a flag.
                 if (task_dict.in_progress === true) {
                     something_in_progress = true;
                 } else {
-                    entry.data('inProgress', "False")
-		    location.reload()
+                    entry.data('inProgress', "False");
+                    location.reload();
                 }
             }
 
@@ -86,39 +88,33 @@
                 delete window.queuePollerID;
 
             }
-        }
+        };
         InstructorTaskProgress.prototype.get_status = function() {
             var _this = this;
-            var task_ids = [];
+            var tasksInProgressIds = [];
 
             // Construct the array of ids to get status for, by
             // including the subset of entries that are still in progress.
             this.entries.each(function(idx, element) {
                 var task_id = $(element).data('taskId');
-                var in_progress = $(element).data('inProgress');
-                if (in_progress="True") {
-                    task_ids.push(task_id);
-                }
+                tasksInProgressIds.push(task_id);
             });
 
             // Make call to get status for these ids.
             // Note that the keyname here ends up with "[]" being appended
             // in the POST parameter that shows up on the Django server.
             // TODO: add error handler.
-            var ajax_url = '/instructor_task_status/';
-            var data = {'task_ids': task_ids };
-            $.get(ajax_url, data).done(this.update_progress);
+            $.get('/instructor_task_status/', {
+                task_ids: tasksInProgressIds 
+            }).done(this.update_progress);
         };
 
         return InstructorTaskProgress;
     })();
-
 }).call(this);
 
 // once the page is rendered, create the progress object
-var instructorTaskProgress;
-
 $(document).ready(function() {
-    instructorTaskProgress = new InstructorTaskProgress($('#task-progress-wrapper'));
+    var instructorTaskProgress = new InstructorTaskProgress($('#task-progress-wrapper'));
 });
 

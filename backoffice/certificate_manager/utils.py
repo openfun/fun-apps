@@ -160,11 +160,17 @@ def filter_instructor_task(instructor_tasks):
             }
     return instructor_tasks
 
-def get_running_instructor_tasks(course_id, task_type):
+def get_running_instructor_tasks(course_id, task_types):
     """
     Returns a query of InstructorTask objects of running tasks for a given course and task type
+
+    Args:
+        course_id (CourseKey)
+        task_types (list)
     """
-    instructor_tasks = InstructorTask.objects.filter(course_id=course_id, task_type=task_type)
+    instructor_tasks = InstructorTask.objects.filter(
+        course_id=course_id, task_type__in=task_types
+    )
     # exclude states that are "ready" (i.e. not "running", e.g. failure, success, revoked):
     for state in READY_STATES:
         instructor_tasks = instructor_tasks.exclude(task_state=state)

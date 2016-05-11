@@ -18,35 +18,38 @@ from .utils import (
     get_running_instructor_tasks,
     get_university_attached_to_course,
 )
-from fun_instructor.instructor_task_api.submit_tasks import submit_generate_certificate
+from fun_instructor.instructor_task_api.submit_tasks import (
+    submit_generate_certificate, submit_generate_verified_certificate
+)
 
 
 @group_required('fun_backoffice')
 def certificate_dashboard(request, course_key_string):
-    """
-    Will display
-    . Two panels, pending and previous certificate generation tasks.
-    . Two buttons : one two generate a test certificate and the other to trigger a certificate generation task.
-    """
+    """Certificate management dashboard for the support team."""
 
-    # TODO: only one function that return both the course and the course_key
     course_key = get_course_key(course_key_string)
     course = get_course(course_key_string)
 
     # generate list of pending background tasks and filter the output
+    task_types = ['certificate-generation', 'verified-certificate-generation']
     instructor_tasks = filter_instructor_task(
-        get_running_instructor_tasks(course_key, task_type='certificate-generation')
-    )
-    instructor_tasks_history = filter_instructor_task(
-        get_instructor_task_history(course_key, task_type='certificate-generation', usage_key=None, student=None)
+        get_running_instructor_tasks(course_key, task_types)
     )
 
+    # Get list of tasks sorted by decreasing id
+    instructor_tasks_history = []
+    for task_type in task_types:
+        instructor_tasks_history += list(filter_instructor_task(
+           get_instructor_task_history(course_key, task_type=task_type, usage_key=None, student=None)
+        ))
+    instructor_tasks_history.sort(key=lambda x: -x.id)
+
     return render(request, 'backoffice/certificate.html', {
-            'course': course,
-            'certificate_base_url' : settings.CERTIFICATE_BASE_URL,
-            'instructor_tasks' : instructor_tasks,
-            'instructor_tasks_history' : instructor_tasks_history,
-        })
+        'course': course,
+        'certificate_base_url' : settings.CERTIFICATE_BASE_URL,
+        'instructor_tasks' : instructor_tasks,
+        'instructor_tasks_history' : instructor_tasks_history,
+    })
 
 @group_required('fun_backoffice')
 def generate_test_certificate(request, course_key_string):
@@ -76,25 +79,21 @@ def certificate_file_response(certificate):
 
 
 @group_required('fun_backoffice')
-def generate_certificate(request, course_key_string):
+def generate_certificate(request, course_key_string, verified=False):
     """
     Submit the certificate-generation task to the instructor task api,
     then redirect to the certificate dashboard.
     """
     course_key = get_course_key(course_key_string)
 
-    # this input dict as to be passed the celery task to operate
-    # the instructor_task update api
-    # see (get_task_completion_info lms/djangoapps/instructor_task/views.py)
-    input_args = {'student' : '',
-                  'problem_url' : '',
-                  'email_id' : ''}
-
     if not get_university_attached_to_course(course_key):
         messages.warning(request, _("University doesn't exist"))
         return redirect('backoffice:certificate-dashboard', course_key_string)
     try:
-        submit_generate_certificate(request, course_key, input_args)
+        if verified:
+            submit_generate_verified_certificate(request, course_key)
+        else:
+            submit_generate_certificate(request, course_key)
         return redirect('backoffice:certificate-dashboard', course_key_string)
     except AlreadyRunningError:
         messages.warning(request, _("A certificate generation is already running"))

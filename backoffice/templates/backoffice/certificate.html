@@ -19,7 +19,8 @@
 <h2>{{ course.display_name_with_default }}</h2>
 
 <a class="btn btn-primary"  id="generate_test_certificate_button" href="{% url 'backoffice:generate-test-certificate' course.id %}" data-certificate-base-url="{{certificate_base_url}}">{% trans 'Generate test certificate' %} </a>
-<a class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">  {% trans 'Generate certificates' %} </a>
+<a class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">{% trans 'Generate certificates' %}</a>
+<a class="btn btn-danger" id="generate_verified_certificate_button" data-toggle="modal" data-target="#verified-certificate-generation-modal">{% trans 'Generate verified certificates' %}</a>
 
 <!-- First Panel : pending certificate generations tasks -->
 
@@ -31,21 +32,25 @@
       <div id="task-progress-wrapper">
         <table class="table">
           <tr>
-            <th>{% trans "Certificate"%}</th>
-            <th>{% trans "Enrolled students"%}</th>
-            <th>{% trans "Students with certificate"%}</th>
-            <th>{% trans "Students without certificate"%}</th>
-            <th>{% trans "Task State"%}</th>
+            <th>{% trans "Type" %}</th>
+            <th>{% trans "Sample file" %}</th>
+            <th>{% trans "Enrolled students" %}</th>
+            <th>{% trans "Students with certificate" %}</th>
+            <th>{% trans "Students without certificate" %}</th>
+            <th>{% trans "Task State" %}</th>
             <th>{% trans "Task Start" %}</th>
-            <th>{% trans "Total Duration (sec)"%}</th>
-            <th>{% trans "Requester"%}</th>
+            <th>{% trans "Total Duration (sec) "%}</th>
+            <th>{% trans "Requester" %}</th>
           </tr>
           {% for instructor_task in instructor_tasks %}
             <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
               data-task-id="{{instructor_task.task_id}}"
               data-in-progress="true">
+              <td>{% if instructor_task.task_type == 'certificate-generation' %}{% trans "Non Verified" %}{% else %}{% trans "Verified" %}{% endif %}</td>
               <td>
-                <a class="task-certificate-pdf"  href=""> {% trans "Sample" %} </a>
+                {% if instructor_task.task_type == 'certificate-generation' %}
+                    <a class="task-certificate-pdf" href="">{% trans "Sample" %}</a>
+                {% endif %}
               </td>
               <td class="task-enrolled-students">{{instructor_task.task_output.total}}</td>
               <td class="task-certified-students">{{instructor_task.task_output.downloadable}}</td>
@@ -66,63 +71,58 @@
 {% if instructor_tasks_history and instructor_tasks_history|length > 0 %}
   {% if instructor_tasks and instructor_tasks_history|length == 1 and instructor_tasks_history.0.task_id == instructor_tasks.0.task_id %}
   {% else %}
-   <div class="panel panel-info">
-     <div class="panel-heading">  {% trans "Previous Certificate Tasks"%}</div>
-       <div id="task-progress-wrapper-history">
-         <table class="table">
-           <tr>
-             <th>{% trans "Certificate"%}</th>
-             <th>{% trans "Enrolled students"%}</th>
-             <th>{% trans "Students with certificate"%}</th>
-             <th>{% trans "Students without certificate"%}</th>
-             <th>{% trans "Task State"%}</th>
-             <th>{% trans "Task Start" %}</th>
-             <th>{% trans "Requester"%}</th>
-           </tr>
-           {% for instructor_task in instructor_tasks_history %}
-             {% if instructor_tasks and instructor_task.task_id == instructor_tasks.0.task_id %}
-             {% else %}
-               <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
-                  data-task-id="{{instructor_task.task_id}}"
-                  data-in-progress="true">
-                 <td class="task-certificate-pdf">
-                   <a href="{{certificate_base_url}}{{instructor_task.task_output.test_certificate_filename}}">{% trans "Sample" %}</a>
-                 </td>
-                 <td class="task-enrolled-students">{{instructor_task.task_output.total}}</td>
-                 <td class="task-certified-students">{{instructor_task.task_output.downloadable}}</td>
-                 <td class="task-not-certified-students">{{instructor_task.task_output.notpassing}}</td>
-                 <td class="task-state">{{instructor_task.task_state}}</td>
-                 <td>{{instructor_task.created}}</td>
-                 <td>{{instructor_task.requester}}</td>
-               </tr>
-             {% endif %}
-           {% endfor %}
-         </table>
-       </div>
-   </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">  {% trans "Previous Certificate Tasks"%}</div>
+        <div id="task-progress-wrapper-history">
+          <table class="table">
+            <tr>
+              <th>{% trans "Type" %}</th>
+              <th>{% trans "Sample file" %}</th>
+              <th>{% trans "Enrolled students"%}</th>
+              <th>{% trans "Students with certificate"%}</th>
+              <th>{% trans "Students without certificate"%}</th>
+              <th>{% trans "Task State"%}</th>
+              <th>{% trans "Task Start" %}</th>
+              <th>{% trans "Requester"%}</th>
+            </tr>
+            {% for instructor_task in instructor_tasks_history %}
+              {% if instructor_tasks and instructor_task.task_id == instructor_tasks.0.task_id %}
+              {% else %}
+                <tr id="task-progress-entry-{{forloop.counter}}" class="task-progress-entry"
+                   data-task-id="{{instructor_task.task_id}}"
+                   data-in-progress="true">
+                  <td>{% if instructor_task.task_type == 'certificate-generation' %}{% trans "Non Verified" %}{% else %}{% trans "Verified" %}{% endif %}</td>
+                  <td class="task-certificate-pdf">
+                    {% if instructor_task.task_type == 'certificate-generation' %}
+                        <a href="{{certificate_base_url}}{{instructor_task.task_output.test_certificate_filename}}">{% trans "Sample" %}</a>
+                    {% endif %}
+                  </td>
+                  <td class="task-enrolled-students">{{instructor_task.task_output.total}}</td>
+                  <td class="task-certified-students">{{instructor_task.task_output.downloadable}}</td>
+                  <td class="task-not-certified-students">{{instructor_task.task_output.notpassing}}</td>
+                  <td class="task-state">{{instructor_task.task_state}}</td>
+                  <td>{{instructor_task.created}}</td>
+                  <td>{{instructor_task.requester}}</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </table>
+        </div>
+    </div>
   {% endif %}
 {% endif %}
 
 <!-- Modal call when #generate_certificate_button is pressed -->
 
-<form action="{% url 'backoffice:generate-certificate' course.id %}" method="GET">
-<div class="modal fade" id="certificate-generation-modal" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title"> {% trans "Generate certificate" %} </h4>
-      </div>
-      <div class="modal-body">
-        {% trans "Please confirm that you really want to generate a certificate for course:" %}<br>
-        <h4>{{ course.display_name_with_default }}</h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
-        <button type="submit" class="btn btn-danger">{% trans "Generate" %}</button>
-      </div>
+<form action="{% url 'backoffice:generate-certificates' course.id %}" method="GET">
+    <div class="modal fade" id="certificate-generation-modal" tabindex="-1" role="dialog"  aria-hidden="true">
+        {% include "backoffice/certificate-confirm-modal-dialog.html" %}
     </div>
-  </div>
-</div>
+</form>
+<form action="{% url 'backoffice:generate-verified-certificates' course.id %}" method="GET">
+    <div class="modal fade" id="verified-certificate-generation-modal" tabindex="-1" role="dialog"  aria-hidden="true">
+        {% include "backoffice/certificate-confirm-modal-dialog.html" %}
+    </div>
 </form>
 
 {% endblock %}
