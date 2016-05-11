@@ -174,6 +174,8 @@ def get_payment_terms(request):
         data['datetime'] = terms.datetime.strftime(gettext('%m/%d/%y'))
         data['version'] = terms.version
 
+    from django.shortcuts import render
+    return render(request, 'funsite/static_templates/about.html')
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 

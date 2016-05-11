@@ -79,6 +79,7 @@ def extract_infos(report):
         "ProctorNotes": report["ProctorNotes"],
         "UniqueId": report["UniqueId"],
         "ReservationNo": report["ReservationNo"],
+        "TestSubmitted": report["Authenticated"],
         "CheckID": report["CheckID"],
         "StartDate": format_date(report["StartDate"]),
         "Authenticated": report["Authenticated"],
@@ -90,7 +91,7 @@ def extract_infos(report):
     }
     return tmp
 
-def get_protectU_students(course_name, course_run, student_grades):
+def get_protectU_students(course_name, course_run, student_grades=None):
     data = request_infos()
 
     student_activity = query_api(requests.post,
@@ -106,7 +107,7 @@ def get_protectU_students(course_name, course_run, student_grades):
     return aggregate_reports_per_user(filtered_reports, student_grades)
 
 
-def aggregate_reports_per_user(filtered_reports, student_grades):
+def aggregate_reports_per_user(filtered_reports, student_grades=None):
     """
     Aggregate the lines present in the API according the user.
     The API returns a line for each events, but we are really interested in the "profile" for each user.
@@ -116,7 +117,7 @@ def aggregate_reports_per_user(filtered_reports, student_grades):
 
     :param filtered_reports: iterable with the ProctorU reports filtered with the course of interest
     :param student_grades: dictionary with the student username as key and info about their exam grade in values
-    :return: dict with the proctorU user ID as key and the list of "actions" / reports for this user
+    :return: dict with the fun username as key and the list of "actions" / reports for this user
     """
     filtered_reports.sort(key=lambda d: d["Student"])
 
@@ -140,6 +141,7 @@ def aggregate_reports_per_user(filtered_reports, student_grades):
     else:
         fun_users = User.objects.filter(id__in=identifiers)
 
+    res = {}
     for user in fun_users:
         if not is_in_prod():
             id_ = int(user.last_name)  # Ugly! : in dev we added the production primary key in the filed last name
@@ -149,15 +151,18 @@ def aggregate_reports_per_user(filtered_reports, student_grades):
         url = reverse("backoffice:user-detail", args=[user.username])
         event_users[id_][0]["fun_user_url"] = url
 
-        try:
-            grade, passed = student_grades[user.username]["grade"], student_grades[user.username]["passed"]
-        except KeyError:
-            mess = "User {} is not in student_grades".format(user.username)
-            logger.info(mess)
-        else:
-            event_users[id_][0]["fun_exam_grade"] = grade
-            event_users[id_][0]["fun_exam_pass"] = passed
-    return event_users
+        if student_grades:
+            try:
+                grade, passed = student_grades[user.username]["grade"], student_grades[user.username]["passed"]
+            except KeyError:
+                mess = "User {} is not in student_grades".format(user.username)
+                logger.info(mess)
+            else:
+                event_users[id_][0]["fun_exam_grade"] = grade
+                event_users[id_][0]["fun_exam_pass"] = passed
+        res[user.username] = event_users[id_]
+
+    return res
 
 
 def filter_reports_for_course(course_name, course_run, api_query, student_activity):

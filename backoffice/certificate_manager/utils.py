@@ -20,6 +20,8 @@ from fun_certificates.generator import CertificateInfo
 from teachers.models import CertificateTeacher
 from universities.models import University
 
+from .verified import get_student_certificate_grade
+
 
 def get_certificate_params(course_key):
     """Returns required information to pass to CertificateInfo
@@ -65,8 +67,6 @@ def generate_fun_certificate(student, course, teachers, university):
 
     grade = grades.grade(student, request, course)
     cert.grade = grade['percent']
-    cert.user = student
-    cert.course_id = course.id
     cert.name = student.profile.name
 
     if grade['grade'] is None:
@@ -90,6 +90,38 @@ def generate_fun_certificate(student, course, teachers, university):
         set_certificate_filename(cert, certificate_filename)
     cert.save()
     return cert.status
+
+
+def generate_fun_verified_certificate(student, course):
+    """Generates a certificate for one student and one course."""
+
+    grade = get_student_certificate_grade(course.id, student)
+    passing_grade = Course.objects.get(key=unicode(course.id)).certificate_passing_grade
+    if passing_grade is None:
+        # TODO catch this exception, somewhere
+        raise CertificateGenerationError(
+            "Cannot assign certificate for course with no minimal certificate passing grade"
+        )
+    cert, _created = GeneratedCertificate.objects.get_or_create(
+        user=student, course_id=course.id,
+    )
+    cert.name = student.profile.name
+
+    # TODO : tests avec proctorU + logique certificats / attestation
+    if grade is None or grade < passing_grade:
+        cert.status = CertificateStatuses.notpassing
+    else:
+        cert.status = CertificateStatuses.downloadable
+        # TODO: Why do we need to cast here ?
+        cert.grade = '{0:.2f}'.format(grade)
+        cert.mode = GeneratedCertificate.MODES.verified
+    cert.save()
+    return cert.status
+
+
+class CertificateGenerationError(Exception):
+    # TODO should this be here?
+    pass
 
 
 def create_test_certificate(course_key):

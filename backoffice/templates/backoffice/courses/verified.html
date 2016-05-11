@@ -30,7 +30,7 @@
                     </thead>
 
                     <tbody>
-                        {% for student_id, reports in students.items %}
+                        {% for student_username, reports in students.items %}
                             {%if reports %}
                             <tr>
                                 {# User #}
@@ -45,7 +45,7 @@
                                 </td>
 
                                 {# ProctorU Id #}
-                                <td class="proctorU-id" style="vertical-align: middle;">{{ student_id }}</td>
+                                <td class="proctorU-id" style="vertical-align: middle;">{{ reports.0.UniqueId }}</td>
 
                                 {# ProctorNotes #}
                                 <td class="proctor-notes" style="vertical-align: middle;">

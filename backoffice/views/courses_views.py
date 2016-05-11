@@ -22,7 +22,7 @@ from universities.models import University
 from xmodule.modulestore.django import modulestore
 
 from fun.utils import funwiki as wiki_utils
-from ..certificate_manager import verified as verifiedHelpers
+from ..certificate_manager.verified import get_verified_student_grades
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
 from ..utils_proctorU_api import get_protectU_students
 
@@ -147,12 +147,12 @@ def verified(request, course_key_string, action=None):
 
     course = get_course(course_key_string)
     course_info = get_course_infos([course])[0]
-    ck = CourseKey.from_string(course_key_string)
 
-    helper = verifiedHelpers.CourseCertificateHelper(course_key_string=course_key_string, passing_grade=0.16)
-    students_grades = helper.get_student_grades()
+    students_grades = get_verified_student_grades(course.id)
 
-    registered_users = get_protectU_students(course_name=ck.course, course_run=ck.run, student_grades=students_grades)
+    registered_users = get_protectU_students(
+        course_name=course, course_run=course.id.run, student_grades=students_grades
+    )
 
     if "error" in registered_users:
         return render(request, 'backoffice/courses/verified_error.html', {

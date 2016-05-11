@@ -13,11 +13,11 @@ from certificates.models import (
   CertificateStatuses as status,
 )
 
-from backoffice.certificate_manager.utils import (
-    create_test_certificate,
-    generate_fun_certificate,
-    get_teachers_list_from_course,
-    get_university_attached_to_course,
+from .utils import (
+        create_test_certificate,
+        generate_fun_certificate,
+        get_teachers_list_from_course,
+        get_university_attached_to_course,
 )
 
 

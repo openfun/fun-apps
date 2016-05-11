@@ -29,12 +29,12 @@ class TestVerifiedTab(VerifiedCourseList):
     @patch("backoffice.utils_proctorU_api.query_api")
     def test_proctorU_api_parsing_duplicated(self, mock_api):
         mock_api.return_value = proctorU_api_result("duplicated")
-        user = UserFactory(last_name="26")
+        user = UserFactory(last_name="26", username="plop")
 
         resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
                                                         course_run="Run",
                                                         student_grades={})
-        self.assertEqual(1, len(resp[26]))
+        self.assertEqual(1, len(resp["plop"]))
 
 
     @patch("backoffice.utils_proctorU_api.query_api")
@@ -50,14 +50,14 @@ class TestVerifiedTab(VerifiedCourseList):
     @patch("backoffice.utils_proctorU_api.query_api")
     def test_proctorU_api_user_aggregation(self, mock_api):
         mock_api.return_value = proctorU_api_result("student-aggregation")
-        user = UserFactory(last_name="26")
+        user = UserFactory(last_name="26", username="plop")
 
         resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
                                                         course_run="Run",
                                                         student_grades={})
-        self.assertEqual(2, len(resp[26]))
-        self.assertEqual("Reservation created", resp[26][0]["ProctorNotes"])
-        self.assertEqual("Reservation cancelled", resp[26][1]["ProctorNotes"])
+        self.assertEqual(2, len(resp["plop"]))
+        self.assertEqual("Reservation created", resp["plop"][0]["ProctorNotes"])
+        self.assertEqual("Reservation cancelled", resp["plop"][1]["ProctorNotes"])
 
 
     @patch("backoffice.utils_proctorU_api.query_api")
