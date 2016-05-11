@@ -24,7 +24,7 @@ from xmodule.modulestore.django import modulestore
 from fun.utils import funwiki as wiki_utils
 from ..certificate_manager.verified import get_verified_student_grades
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
-from ..utils_proctorU_api import get_protectU_students
+from ..utils_proctorU_api import get_proctorU_students
 
 
 logger = logging.getLogger(__name__)
@@ -150,7 +150,7 @@ def verified(request, course_key_string, action=None):
 
     students_grades = get_verified_student_grades(course.id)
 
-    registered_users = get_protectU_students(
+    registered_users = get_proctorU_students(
         course_name=course, course_run=course.id.run, student_grades=students_grades
     )
 

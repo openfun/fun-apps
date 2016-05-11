@@ -10,7 +10,7 @@ from instructor_task.tasks_helper import TaskProgress
 from xmodule.modulestore.django import modulestore
 from opaque_keys.edx.keys import CourseKey
 
-from ..utils_proctorU_api import get_protectU_students
+from ..utils_proctorU_api import get_proctorU_students
 from .utils import (
         generate_fun_verified_certificate,
         generate_fun_certificate,
@@ -129,5 +129,5 @@ def get_proctoru_reports(course_id):
         }
     """
     ck = CourseKey.from_string(unicode(course_id))
-    registered_users = get_protectU_students(course_name=ck.course, course_run=ck.run, student_grades=None)
+    registered_users = get_proctorU_students(course_name=ck.course, course_run=ck.run, student_grades=None)
     return registered_users

@@ -91,7 +91,7 @@ def extract_infos(report):
     }
     return tmp
 
-def get_protectU_students(course_name, course_run, student_grades=None):
+def get_proctorU_students(course_name, course_run, student_grades=None):
     data = request_infos()
 
     student_activity = query_api(requests.post,

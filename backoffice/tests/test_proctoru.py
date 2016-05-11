@@ -24,14 +24,14 @@ def proctorU_api_result(test_key):
 class TestVerifiedTab(VerifiedCourseList):
     def setUp(self):
         super(TestVerifiedTab, self).setUp()
-        self.get_protectU_students = utils_proctorU_api.get_protectU_students
+        self.get_proctorU_students = utils_proctorU_api.get_proctorU_students
     
     @patch("backoffice.utils_proctorU_api.query_api")
     def test_proctorU_api_parsing_duplicated(self, mock_api):
         mock_api.return_value = proctorU_api_result("duplicated")
         user = UserFactory(last_name="26", username="plop")
 
-        resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
+        resp = utils_proctorU_api.get_proctorU_students(course_name="Cours",
                                                         course_run="Run",
                                                         student_grades={})
         self.assertEqual(1, len(resp["plop"]))
@@ -41,7 +41,7 @@ class TestVerifiedTab(VerifiedCourseList):
     def test_proctorU_api_parsing_empty_response(self, mock_api):
         mock_api.return_value = proctorU_api_result("empty")
 
-        resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
+        resp = utils_proctorU_api.get_proctorU_students(course_name="Cours",
                                                         course_run="Run",
                                                         student_grades={})
         self.assertEqual("Empty response from the API", resp["error"])
@@ -52,7 +52,7 @@ class TestVerifiedTab(VerifiedCourseList):
         mock_api.return_value = proctorU_api_result("student-aggregation")
         user = UserFactory(last_name="26", username="plop")
 
-        resp = utils_proctorU_api.get_protectU_students(course_name="Cours",
+        resp = utils_proctorU_api.get_proctorU_students(course_name="Cours",
                                                         course_run="Run",
                                                         student_grades={})
         self.assertEqual(2, len(resp["plop"]))
@@ -65,7 +65,7 @@ class TestVerifiedTab(VerifiedCourseList):
         mock_api.return_value = proctorU_api_result("student-aggregation")
         user = UserFactory(last_name="26")
 
-        resp = utils_proctorU_api.get_protectU_students(course_name="No one",
+        resp = utils_proctorU_api.get_proctorU_students(course_name="No one",
                                                         course_run="likes me",
                                                         student_grades={})
         self.assertIn("id", resp["warn"])
@@ -75,14 +75,14 @@ class TestVerifiedTab(VerifiedCourseList):
 
     # @patch("backoffice.utils_proctorU_api.query_api")
     # @patch("backoffice.utils_proctorU_api.get_proctorU_header")
-    # @patch("backoffice.utils_proctorU_api.get_protectU_students")
+    # @patch("backoffice.utils_proctorU_api.get_proctorU_students")
     # def test_proctorU_api_view(self, mock_PU_stud, mock_header, mock_api):
     #     utils_proctorU_api.procterU_installed = True
     #     user = UserFactory(last_name="26")
     #
     #     mock_header.return_value = ""
     #     mock_api.return_value = proctorU_api_result("student-aggregation")
-    #     mock_PU_stud.return_value = self.get_protectU_students(course_name="Cours",
+    #     mock_PU_stud.return_value = self.get_proctorU_students(course_name="Cours",
     #                                                            course_run="Run")
     #
     #     response = self.client.get(reverse('backoffice:course-verified', args=[unicode(self.course3.id)]))
