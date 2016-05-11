@@ -4,6 +4,10 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+accomplishment_course_title =  accomplishment_copy_course_name
+if certificate_data and certificate_data.get('course_title', ''):
+    accomplishment_course_title =  certificate_data.get('course_title', '')
+
 from courses.models import Course
 fun_course = Course.objects.get(key=unicode(course_id))
 fun_university = fun_course.get_first_university()
@@ -28,7 +32,7 @@ with django.utils.translation.override('fr'):
             <p style="float: right; margin-right: 215px; margin-top: 6px; font-size: 17.5px;">Délivré le ${fun_certificate_date_issued}</p><br>
             <p style="margin-top: 34px; margin-bottom: 10px; font-size: 38px;" class="centered">${accomplishment_copy_name}</p>
             <p style="font-size: 17px; margin-bottom: 0;" class="centered">a suivi avec succès le MOOC</p>
-            <p style="font-size: 34px;" class="centered">${accomplishment_copy_course_name}</p>
+            <p style="font-size: 34px;" class="centered">${accomplishment_course_title}</p>
             <div style="float: left; width: 50%;">
                 <p style="font-size: 20px; margin-bottom: 10px;" class="centered">${fun_course.university_name}</p>
                 <img src="${fun_logo_src}" alt="Logo établissement" class="centered" style="max-width: 340px; max-height: 85px;">
