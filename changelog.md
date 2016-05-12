@@ -1,5 +1,29 @@
 # Changelog www.fun-mooc.fr
 
+3.13 11/05/2016
+
+- Analytics :
+    - Suppression de XITI dans le code
+    - Possibilité de refuser les cookies de tracking
+- Certificats vérifiés / attestations :
+    - La délivrance des certificats prent en compte les informations de proctorU et la note à l'examen certifié (génération d'un attestation si possible le cas échéant)
+    - On peut générer des certificats depuis le backoffice
+    - Les certificats sont générés sous forme de page web (imprimables correctement)
+    - La CA peut personnaliser depuis le CMS les informations (signatures, logos...) apparaissant sur le certificat, les non admins ne voient pas le menu
+    - On peut regarder les informations sur la certification (note, statut proctorU) dans le backoffice
+- Vidéos :
+    - Amélioration des performances lors des appels à libcast, ce qui devrait dimunuer le nombre de timeout observés
+    - Résolution de problèmes concernant l'upload de vidéos pesant plus de 64 Mo
+    - Augmentation du timeout toléré lors de la récupération des vidéos d'un cours dans le studio, notamment lors du premier accès pour un cours venant d'être créé
+- Droits d'accès / rôles plate-forme :
+    - Création d'un rôle d'éditeur d'actualités pour édition via l'admin django sans avoir les droits admins
+- Conditions d'utilisation :
+    - Amélioration des performances
+- Autres :
+    - Amélioration de la traduction dans la page d'acceptation des conditions de paiement (/payment/terms/agreement/)
+    - La pagination de la page de news utilise un style FUN
+
+
 ## 3.12 03/05/2016
 - Backoffice:
     - Mises en évidence des cours auxquels un utilsateurs est désinscrit
