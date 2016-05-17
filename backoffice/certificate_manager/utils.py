@@ -112,6 +112,7 @@ def generate_fun_verified_certificate(student, course):
         cert.status = CertificateStatuses.notpassing
     else:
         cert.status = CertificateStatuses.downloadable
+        cert.download_url = ""
         # TODO: Why do we need to cast here ?
         cert.grade = '{0:.2f}'.format(grade)
         cert.mode = GeneratedCertificate.MODES.verified
