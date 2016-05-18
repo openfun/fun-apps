@@ -420,3 +420,15 @@ msgstr "Ecrire anonymement aux camarades de classe"
 msgid "{platform_name}-wide Summary"
 msgstr "{platform_name}-Sommaire général"
 
+# FUN customization for verified certificate: /cms/templates/settings_graders.html
+msgid "Settings for verified certificate"
+msgstr "Paramètres pour les certificats vérifiés"
+
+# FUN customization for verified certificate: /cms/templates/settings_graders.html
+msgid "Verified Certificate Minimum Grade:"
+msgstr "Note d'obtention minimum pour les certificats vérifiés :"
+
+# FUN customization for verified certificate: /cms/templates/settings_graders.html
+msgid "Minimum passing grade in percent"
+msgstr "Note d'obtention minimum en pourcentage"
+
