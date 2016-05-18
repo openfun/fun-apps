@@ -7,6 +7,9 @@ from util.date_utils import strftime_localized
 
 <%page args="course"/>
 <div class="course-block big-course center-block">
+    % if course.has_verified_course_mode:
+    <span class="verified"></span>
+    % endif
     <div class="top">
         % if course.session_display:
             <div class="type">

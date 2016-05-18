@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 44\n"
+"Project-Id-Version: FUN-MOOC 45\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-27 11:21+0200\n"
-"PO-Revision-Date: 2016-04-27 11:21+0000\n"
+"POT-Creation-Date: 2016-05-18 10:20+0200\n"
+"PO-Revision-Date: 2016-05-18 10:20+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -28,6 +28,10 @@ msgstr "Thème de cours"
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "Course Subjects"
 msgstr "Thèmes de cours"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:0
+msgid "Course has verified mode"
+msgstr "Le cours a un mode vérifié"
 
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "Course key"
@@ -79,6 +83,10 @@ msgid "Introductory"
 msgstr "Introduction"
 
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
+msgid "No auto update"
+msgstr "Pas de maj. auto."
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "Percentage, between 0 and 1"
 msgstr "Pourcentage, entre 0 et 1"
 
@@ -90,6 +98,10 @@ msgstr "Mettre à 0 s'il n'y a pas de notion de session pour ce cours."
 #: /edx/app/edxapp/fun-apps/courses/forms.py:0
 msgid "University"
 msgstr "Établissement"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:0
+msgid "Verified mode"
+msgstr "Mode vérifié"
 
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "b d Y"

@@ -704,6 +704,19 @@ ul.breadcrumbs li a:hover {
     font-weight: 400;
     color: #656667;
 }
+.course-block span.verified {
+    position: absolute;
+    width: 50px;
+    height: 37px;
+    background: url('../images/icones/verified-course.png') no-repeat;
+    z-index: 1;
+}
+.course-block .small-course span.verified {
+    left: 25px;
+}
+.course-block .big-course span.verified {
+    left: 28px;
+}
 .course-block .footer {
     margin-left: 0;
     position: relative;

@@ -62,6 +62,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'session_number',
             'session_display',
             'thumbnails',
+            'has_verified_course_mode',
         )
 
     def get_main_university(self, obj):

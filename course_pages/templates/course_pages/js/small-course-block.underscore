@@ -1,4 +1,7 @@
 <div class="course-block small-course center-block">
+    <% if (has_verified_course_mode) { %>
+    <span class="verified"></span>
+    <%} %>
     <div class="top">
         <% if (session_display) { %>
             <div class="type">

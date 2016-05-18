@@ -9,6 +9,7 @@ from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 
 from courseware.courses import get_course_about_section
+from course_modes.models import CourseMode
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator
@@ -161,6 +162,8 @@ class Command(BaseCommand):
         course.enrollment_start_date = mongo_course.enrollment_start
         course.enrollment_end_date = mongo_course.enrollment_end
         course.end_date = mongo_course.end
+        course.has_verified_course_mode = CourseMode.objects.filter(
+                course_id=mongo_course.id, mode_slug='verified').exists()
         course.save()
         self.stdout.write('Updated course {}\n'.format(key))
         return None

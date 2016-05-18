@@ -6,6 +6,9 @@ from django.utils.translation import ugettext as _
 
 <%page args="course"/>
 <div class="course-block small-course center-block">
+    % if course.has_verified_course_mode:
+    <span class="verified"></span>
+    % endif
     <div class="top">
         % if course.session_display:
             <div class="type">

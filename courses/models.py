@@ -44,8 +44,8 @@ class Course(models.Model):
         default=True, db_index=True, help_text=_('Controls whether a course is '
         'listed in the courses catalog page'))
     is_active = models.BooleanField(verbose_name=_('is active'), default=False)
-    prevent_auto_update = models.BooleanField(
-        verbose_name=_('prevent score automatic update'), default=False)
+    prevent_auto_update = models.BooleanField(verbose_name=_('No auto update'),
+        help_text=_('prevent score automatic update'), default=False)
     session_number = models.PositiveIntegerField(_('session'), default=1,
         help_text=_("Set 0 if session doesn't make sense for this course."))
     score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
@@ -60,6 +60,8 @@ class Course(models.Model):
     thumbnails_info = JSONField(_('thumbnails info'), blank=True, null=True)
     certificate_passing_grade = models.FloatField(_('verified certificate passing grade'),
         null=True, blank=True, help_text=(_('Percentage, between 0 and 1')))
+    has_verified_course_mode = models.BooleanField(default=False,
+        verbose_name=_('Verified mode'), help_text=_('Course has verified mode') )
 
     objects = CourseManager()
 
