@@ -10,6 +10,7 @@ from django.conf import settings
 from django.test.client import RequestFactory # Importing from tests, I know, I know...
 
 from capa.xqueue_interface import make_hashkey
+from certificates.api import emit_certificate_event
 from courseware import grades
 from instructor_task.models import InstructorTask
 from xmodule.modulestore.django import modulestore
@@ -89,7 +90,24 @@ def generate_fun_certificate(student, course, teachers, university):
 
         set_certificate_filename(cert, certificate_filename)
     cert.save()
+
+    trigger_tracking_log(cert, course, student)
+
     return cert.status
+
+
+def trigger_tracking_log(cert, course, student):
+    """
+    Log the certificate generation for a certificate, a course and a student in
+    EDX tracking logs (same process as in EDX).
+    """
+    if cert.status in [CertificateStatuses.generating, CertificateStatuses.downloadable]:
+        emit_certificate_event('created', student, course.id, course, {
+            'user_id': student.id,
+            'course_id': unicode(course.id),
+            'certificate_id': cert.verify_uuid,
+            'enrollment_mode': cert.mode,
+        })
 
 
 def generate_fun_verified_certificate(student, course):
@@ -118,6 +136,9 @@ def generate_fun_verified_certificate(student, course):
         cert.grade = '{0:.2f}'.format(grade)
         cert.mode = GeneratedCertificate.MODES.verified
     cert.save()
+
+    trigger_tracking_log(cert, course, student)
+
     return cert.status
 
 
