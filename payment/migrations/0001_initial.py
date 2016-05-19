@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
 
 
 class Migration(SchemaMigration):
@@ -30,7 +28,6 @@ class Migration(SchemaMigration):
         # Adding unique constraint on 'UserAcceptance', fields ['user', 'terms']
         db.create_unique('payment_useracceptance', ['user_id', 'terms_id'])
 
-
     def backwards(self, orm):
         # Removing unique constraint on 'UserAcceptance', fields ['user', 'terms']
         db.delete_unique('payment_useracceptance', ['user_id', 'terms_id'])
@@ -40,7 +37,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'UserAcceptance'
         db.delete_table('payment_useracceptance')
-
 
     models = {
         'auth.group': {

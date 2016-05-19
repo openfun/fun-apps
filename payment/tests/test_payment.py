@@ -176,9 +176,9 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
                 'email': self.user.email,
                 'order_number': '0'}
 
-        response = self.client.post(reverse('fun-payment-api:payment-notification'),
-                                    json.dumps(data),
-                                    content_type="application/json")
+        self.client.post(reverse('fun-payment-api:payment-notification'),
+                json.dumps(data),
+                content_type="application/json")
         self.assertEqual(1,
                          SoftwareSecurePhotoVerification.objects.filter(
                              user=self.user).count())
@@ -197,9 +197,9 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
         data = {'username': self.user.username,
                 'email': self.user.email,
                 'order_number': '0'}
-        response = self.client.post(reverse('fun-payment-api:payment-notification'),
-                                    json.dumps(data),
-                                    content_type="application/json")
+        self.client.post(reverse('fun-payment-api:payment-notification'),
+                json.dumps(data),
+                content_type="application/json")
         self.assertEqual(1,
                          SoftwareSecurePhotoVerification.objects.filter(
                              user=self.user).count())

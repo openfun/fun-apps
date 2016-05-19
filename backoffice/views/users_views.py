@@ -35,9 +35,7 @@ from ..forms import SearchUserForm, UserForm, UserProfileForm
 from ..utils import get_course, group_required, get_course_key, order_and_paginate_queryset
 
 
-
 logger = logging.getLogger(__name__)
-
 
 
 @group_required('fun_backoffice')
@@ -183,7 +181,6 @@ def change_course_mode(request, user):
                 user.username, course_id, mode)
 
 
-
 user_actions = {'ban-user': ban_user,
                 'change-password': change_password,
                 'change-grade': change_grade,
@@ -199,8 +196,8 @@ def get_accepted_payment_terms(user):
     if accepted and latest:
         ok = accepted.terms.version == latest.version
     payment_terms = {'accepted': accepted,
-                      'latest': latest,
-                      'ok': ok}
+            'latest': latest,
+            'ok': ok}
     return payment_terms
 
 
@@ -268,8 +265,7 @@ def user_detail(request, username):
         'tab': 'users',
         'certificates': certificates,
         'course_modes': course_modes,
-        'payment_terms': get_accepted_payment_terms(user),
-        })
+        'payment_terms': get_accepted_payment_terms(user)})
 
 
 @group_required('fun_backoffice')

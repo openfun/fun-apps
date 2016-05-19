@@ -54,9 +54,9 @@ def generate_course_verified_certificates(course_id, action_name):
 
 def iter_generated_course_verified_certificates(course_id):
     """
-    Iterate on the certificates generated for all students that graduated from
-    the course. Certificates are regenerated when necessary i.e: when the pdf
-    file does not already exist.
+    Iterate on students enrolled to verified certificate for the course.
+    Certificates are regenerated if all conditions are ok. Proctoru validated the exam
+    and grade is good enough, if not a pdf certificate is generated.
 
     Args:
         course_id (CourseKey)

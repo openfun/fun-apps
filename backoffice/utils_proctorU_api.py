@@ -25,40 +25,36 @@ API_URLS = {
     "edit_student": "/api/editStudent",
 }
 
-BASE_URL = "https://"+settings.PROCTORU_API
+BASE_URL = "https://" + settings.PROCTORU_API
 HEADER = {"Authorization-Token": settings.PROCTORU_TOKEN}
 
 def query_api(request_method, url, data):
     data["time_sent"] = datetime.datetime.utcnow().isoformat()
 
     try:
-        student_activity = request_method(
-                url,
-                data=data,
-                headers=HEADER
-            ).content
+        student_activity = request_method(url, data=data, headers=HEADER).content
     except requests.ConnectionError as e:
-            logger.exception(e)
-            return {"error": "Connection error while connecting to {}".format(url)}
+        logger.exception(e)
+        return {"error": "Connection error while connecting to {}".format(url)}
 
     student_activity_json = json.loads(student_activity)
     if student_activity_json["response_code"] != 1:
-        if student_activity_json["message"] == "stale request" :
+        if student_activity_json["message"] == "stale request":
             logger.error("Error in ProctorU API configuration, received : stale request")
-            return {"error":student_activity_json["message"]}
+            return {"error": student_activity_json["message"]}
         else:
-            logger.error("ProctorU API error, message : {}".format(student_activity_json["message"]) )
-            return {"error":student_activity_json["message"]}
+            logger.error("ProctorU API error, message : {}".format(student_activity_json["message"]))
+            return {"error": student_activity_json["message"]}
 
     return student_activity_json
 
 
 def is_in_prod():
     """
-    Utility function to tell in we are in test, dev ou prepro / prod settings.
+    Utility function to tell in we are in test, dev or preprod/prod settings.
     We don't query the users the same way according the setup.
 
-    :return: boolean are we in preprod / prod or not
+    :return: boolean are we in preprod/prod or not
     """
     try:
         settings.TEST_ROOT  # are we in test mode ?

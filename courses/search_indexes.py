@@ -10,7 +10,7 @@ from xmodule.modulestore.django import modulestore
 
 from .models import Course
 
-
+# pylint: disable=W0232
 class ConfigurableElasticBackend(elasticsearch_backend.ElasticsearchSearchBackend):
     """Override Hastack default backend to use our own ES configuration
     as DEFAULT_SETTINGS constant is hardcoded ."""
@@ -32,10 +32,8 @@ class ConfigurableElasticBackend(elasticsearch_backend.ElasticsearchSearchBacken
             field_mapping = mapping[field_class.index_fieldname]
 
             if field_mapping['type'] == 'string' and field_class.indexed:
-                if not hasattr(field_class, 'facet_for') and not \
-                                  field_class.field_type in('ngram', 'edge_ngram'):
-                    field_mapping['analyzer'] = getattr(field_class, 'analyzer',
-                                                            self.DEFAULT_ANALYZER)
+                if not hasattr(field_class, 'facet_for') and not field_class.field_type in('ngram', 'edge_ngram'):
+                    field_mapping['analyzer'] = getattr(field_class, 'analyzer', self.DEFAULT_ANALYZER)
             mapping.update({field_class.index_fieldname: field_mapping})
         return (content_field_name, mapping)
 

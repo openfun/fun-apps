@@ -93,7 +93,8 @@ def generate_fun_certificate(student, course, teachers, university):
 
 
 def generate_fun_verified_certificate(student, course):
-    """Generates a certificate for one student and one course."""
+    """Generates a verified certificate.,
+    if the student's grade is greater or equal to course's passing grade."""
 
     grade = get_student_certificate_grade(course.id, student)
     passing_grade = Course.objects.get(key=unicode(course.id)).certificate_passing_grade

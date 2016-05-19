@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
 
 
 class Migration(SchemaMigration):
@@ -11,11 +9,9 @@ class Migration(SchemaMigration):
         # Adding index on 'UserAcceptance', fields ['datetime']
         db.create_index('payment_useracceptance', ['datetime'])
 
-
     def backwards(self, orm):
         # Removing index on 'UserAcceptance', fields ['datetime']
         db.delete_index('payment_useracceptance', ['datetime'])
-
 
     models = {
         'auth.group': {
