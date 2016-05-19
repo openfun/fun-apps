@@ -1637,6 +1637,16 @@ ul.universities-list {
     text-align: center;
 }
 
+.course-about .course-image span.verified {
+    left: 0;
+    position: absolute;
+    width: 60px;
+    height: 45px;
+    background: url('../images/icones/verified-course60.png') no-repeat;
+    z-index: 1;
+}
+
+
 .course-about .right .register-course-button {
     background-color: #3877BC;
     color: white;

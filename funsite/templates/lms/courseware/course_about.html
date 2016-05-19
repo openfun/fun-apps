@@ -172,7 +172,8 @@ from funsite.utils import is_paid_course
                 <div class="line text-center hidden-sm hidden-md hidden-lg">
                     <span></span>
                 </div>
-                <div class="course-image hidden-lg hidden-sm hidden-md hidden-lg">
+                <div class="course-image hidden-lg hidden-sm hidden-md">
+                    <span class="verified"></span>
                     <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
@@ -191,7 +192,8 @@ from funsite.utils import is_paid_course
                 </div>
 
                 <div class="course-image hidden-md hidden-sm hidden-xs">
-                    <div class="video-button"></div>
+                        <span class="verified"></span>
+                        <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }">
                 </div>
 
@@ -399,6 +401,7 @@ from funsite.utils import is_paid_course
 
 
                 <div class="course-image hidden-lg hidden-xs">
+                    <span class="verified"></span>
                     <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
