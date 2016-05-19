@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 
 from course_modes.models import CourseMode
-from student.tests.factories import CourseEnrollmentFactory, UserFactory
+from student.tests.factories import CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, CourseAboutFactory, ABOUT_ATTRIBUTES
 
@@ -17,6 +17,7 @@ from universities.tests.factories import UniversityFactory
 
 from ..utils import get_course_modes
 from ..utils import get_enrollment_mode_count
+
 
 @skipUnlessLms
 class BaseCourseList(ModuleStoreTestCase):

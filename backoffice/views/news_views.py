@@ -1,21 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext_lazy as _
 
 from microsite_configuration import microsite
 
 from newsfeed.models import Article
 
 from ..forms import ArticleForm
-from ..utils import get_course, group_required, order_and_paginate_queryset
-
-
+from ..utils import group_required, order_and_paginate_queryset
 
 
 @group_required('fun_backoffice')
