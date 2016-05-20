@@ -22,8 +22,7 @@ from .test_course_list import BaseCourseList
 class TestUsers(BaseCourseList):
     def setUp(self):
         super(TestUsers, self).setUp()
-
-        self.user2 = UserFactory(username='user1') # user with profile
+        self.user2 = UserFactory(username='user1')  # user with profile
         self.user3 = User.objects.create(username='user2')  # user without profile should not appear
 
     def test_user_list(self):

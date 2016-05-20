@@ -46,6 +46,10 @@ urlpatterns = patterns('',
     url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN), include('fun_instructor.urls')),
     url(r'^get-grades/{}/(?P<filename>.+.csv)'.format(settings.COURSE_ID_PATTERN), 'fun_instructor.views.get_grades'),
 
+    # fun certificates
+    (r'^', include('fun_certificates.urls')),
+
+
     # Override edx-platform urls
     url(r'^blog$', handler404),
     url(r'^donate$', handler404),

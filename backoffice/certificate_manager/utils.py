@@ -7,7 +7,7 @@ import random
 from celery.states import READY_STATES
 
 from django.conf import settings
-from django.test.client import RequestFactory # Importing from tests, I know, I know...
+from django.test.client import RequestFactory  # Importing from tests, I know, I know...
 
 from capa.xqueue_interface import make_hashkey
 from certificates.api import emit_certificate_event
@@ -51,6 +51,7 @@ def get_certificate_params(course_key):
     certificate_language = Course.get_course_language(unicode(course_key))
 
     return (course_display_name, university, teachers, certificate_language)
+
 
 def generate_fun_certificate(student, course, teachers, university):
     """Generates a certificate for one student and one course."""
@@ -167,6 +168,7 @@ def create_test_certificate(course_key):
 
     return certificate
 
+
 def filter_instructor_task(instructor_tasks):
     """
     Parse instructor_task.task_output string to a json dict
@@ -177,11 +179,12 @@ def filter_instructor_task(instructor_tasks):
             instructor_task.task_output = json.loads(instructor_task.task_output)
         else:
             instructor_task.task_output = {
-                'total' : 0,
-                'downloadable' : 0,
+                'total': 0,
+                'downloadable': 0,
                 'notpassing': 0
             }
     return instructor_tasks
+
 
 def get_running_instructor_tasks(course_id, task_types):
     """
@@ -205,7 +208,7 @@ def get_teachers_list_from_course(course_key):
     Return the teachers/title list attached to course
     """
 
-    teachers = [certificate_teacher.teacher for certificate_teacher in \
+    teachers = [certificate_teacher.teacher for certificate_teacher in
         CertificateTeacher.objects.filter(course__key=str(course_key)).select_related("teacher")]
     teachers_list = [u"{}/{}".format(teacher.full_name, teacher.title) for teacher in teachers]
     return teachers_list
@@ -221,6 +224,7 @@ def get_university_attached_to_course(course_id):
     fun_course = Course.objects.get(key=unicode(course_id))
     return fun_course.get_first_university()
 
+
 def make_certificate_filename(course_id, key=None, prefix=""):
     key = key or make_certificate_hash_key()
     course_id = unicode(course_id).replace('/', '_')
@@ -230,8 +234,10 @@ def make_certificate_filename(course_id, key=None, prefix=""):
         key
     )
 
+
 def make_certificate_hash_key():
     return make_hashkey(random.random())
+
 
 def set_certificate_filename(certificate, filename):
     certificate.status = CertificateStatuses.downloadable
