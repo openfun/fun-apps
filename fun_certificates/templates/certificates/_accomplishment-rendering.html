@@ -4,15 +4,6 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-accomplishment_course_title =  accomplishment_copy_course_name
-if certificate_data and certificate_data.get('course_title', ''):
-    accomplishment_course_title =  certificate_data.get('course_title', '')
-
-from courses.models import Course
-fun_course = Course.objects.get(key=unicode(course_id))
-fun_university = fun_course.get_first_university()
-fun_logo_src = certificate_data['org_logo_path'] or fun_university.certificate_logo.url or fun_university.logo.url
-
 import django.utils.translation
 with django.utils.translation.override('fr'):
     fun_certificate_date_issued = "{day} {month} {year}".format(
@@ -20,6 +11,18 @@ with django.utils.translation.override('fr'):
         month=_(certificate_modified_date.strftime("%B")),
         year=certificate_modified_date.year
     )
+
+from fun_certificates.utils import get_encoded_cert_id
+
+from courses.models import Course
+fun_course = Course.objects.get(key=unicode(course_id))
+fun_university = fun_course.get_first_university()
+fun_logo_src = certificate_data['org_logo_path'] or fun_university.certificate_logo.url or fun_university.logo.url
+
+accomplishment_course_title =  accomplishment_copy_course_name
+if certificate_data and certificate_data.get('course_title', ''):
+    accomplishment_course_title =  certificate_data.get('course_title', '')
+
 %>
 
 <main class="accomplishment accomplishment-main">
@@ -54,7 +57,7 @@ with django.utils.translation.override('fr'):
                 <img class="centered" src="${STATIC_URL}fun_certificates/images/fun.png" alt="Certificat vérifié">
                 <p class="centered" style="font-size: 13px;">
                 Vérifier la validité de ce certificat et les informations associées<br>
-                ${request.build_absolute_uri(reverse('cert_html_view', kwargs={ "user_id": accomplishment_user_id, "course_id": course_id}))}
+                ${request.build_absolute_uri(reverse('short-cert-url', args=[get_encoded_cert_id(settings.SECRET_KEY, course_id, accomplishment_user_id)]))}
                 </p>
             </div>
         </div>
