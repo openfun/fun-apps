@@ -22,6 +22,24 @@ with django.utils.translation.override('fr'):
     )
 %>
 
+<style>
+    @media print {
+        .accomplishment {
+            zoom: 80%;
+            margin-down: 200px;
+            transform: scale(.8);
+        }
+    }
+</style>
+##
+## <style>
+##     @media print {
+##         .wrapper-accomplishment-rendering {
+##             margin-left: 100px;
+##         }
+##     }
+## </style>
+
 <main class="accomplishment accomplishment-main">
 
     <div class="wrapper-accomplishment-rendering">
