@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
 
@@ -29,6 +29,8 @@ def certificate_dashboard(request, course_key_string):
 
     course_key = get_course_key(course_key_string)
     course = get_course(course_key_string)
+    if course is None:
+        raise Http404
 
     # generate list of pending background tasks and filter the output
     task_types = ['certificate-generation', 'verified-certificate-generation']

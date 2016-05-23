@@ -9,7 +9,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -98,10 +98,11 @@ def course_detail(request, course_key_string):
     (StudentModule, StudentModuleHistory are very big tables)."""
 
     ck = CourseKey.from_string(course_key_string)
-
+    course = get_course(course_key_string)
+    if course is None:
+        raise Http404
     mode_count = get_enrollment_mode_count(ck)
-
-    course_info = get_complete_course_info(get_course(course_key_string))
+    course_info = get_complete_course_info(course)
     funcourse, _created = Course.objects.get_or_create(key=ck)
 
     try:
