@@ -191,21 +191,30 @@
                     <th>{% trans "Course" %}</th>
                     <th>{% trans "Grade" %} </th>
                     <th>{% trans "Status" %}</th>
-                    <th>{% trans "Pdf" %}</th>
+                    <th>{% trans "Certificate" %}</th>
                 </tr>
                 {% for certificate in certificates %}
                     <tr>
-                        <td>{{ certificate.course_id }}</td>
-                        <td> {{ certificate.grade }}
+                        <td>{{ certificate.cert.course_id }}</td>
+                        <td> {{ certificate.cert.grade }}
                             <a class="btn"><span id='change-grade-button'
-                                data-course-id="{{certificate.course_id}}"
+                                data-course-id="{{certificate.cert.course_id}}"
                                 class='glyphicon glyphicon-pencil'
                                 data-toggle="modal"
                                 data-target="#change-grade">
                             </span></a>
                         </td>
-                        <td>{{ certificate.status }}</td>
-                        <td><a href="{{ certificate.download_url }}"><span class='glyphicon glyphicon-download-alt'></span></a></td>
+                        <td>{{ certificate.cert.status }}</td>
+                        <td>
+                            {% if certificate.cert.status == 'downloadable' %}
+                                {% if certificate.cert.mode == 'verified' %}
+                                    <a href="{% url 'short-cert-url' certificate.hashid %}" target="_blank" title="{% trans 'View verified certificate' %}"><span class='glyphicon glyphicon-bookmark'></span></a>
+                                {% else %}
+                                    <a href="{{ certificate.cert.download_url }}" title="{% trans 'Download PDF' %}"><span class='glyphicon glyphicon-download-alt'></span></a>
+                                {% endif %}
+                            {% endif %}
+
+                        </td>
                     </tr>
                 {% empty %}
                     <tr><td colspan="4">{% trans "No certificates generated." %}</td></tr>

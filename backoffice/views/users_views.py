@@ -23,6 +23,7 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Use
 from xmodule_django.models import CourseKeyField
 
 from fun_certificates.generator import CertificateInfo
+from fun_certificates.utils import cert_id_encode
 from payment.models import TermsAndConditions, PAYMENT_TERMS
 
 from ..certificate_manager.utils import (
@@ -201,6 +202,11 @@ def get_accepted_payment_terms(user):
     return payment_terms
 
 
+def hashid_for_verified(cert):
+    if cert.mode == GeneratedCertificate.MODES.verified:
+        return cert_id_encode(settings.SECRET_KEY, cert.id)
+
+
 @group_required('fun_backoffice')
 def user_detail(request, username):
     if settings.FEATURES['USE_MICROSITES']:
@@ -220,7 +226,8 @@ def user_detail(request, username):
             messages.error(request, _(u"Invalid user action."))
         return redirect('backoffice:user-detail', username=username)
 
-    certificates = GeneratedCertificate.objects.filter(user=user)
+    certificates = [{'cert': cert, 'hashid': hashid_for_verified(cert)}
+            for cert in GeneratedCertificate.objects.filter(user=user)]
 
     userform = UserForm(instance=user, data=request.POST or None)
     userprofileform = UserProfileForm(instance=user.profile, data=request.POST or None)
