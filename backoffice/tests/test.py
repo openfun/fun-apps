@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
 import csv
-import mock
 from StringIO import StringIO
+
+from bs4 import BeautifulSoup
+import mock
 
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
@@ -67,10 +68,21 @@ class BaseCourseDetail(BaseTestCase):
 
 
 class TestAuthentication(BaseBackoffice):
+    def test_non_logged_in_users_should_not_access_the_backoffice(self):
+        self.client.logout()
+        response = self.client.get(self.list_url, follow=True)
+        # Verify there is only one redirect to the login page
+        self.assertEqual(1, len(response.redirect_chain))
+        self.assertEqual(302, response.redirect_chain[0][1])
+        self.assertEqual("http://testserver" + reverse('signin_user') + "?next={}".format(self.list_url),
+                         response.redirect_chain[0][0])
+
     def test_users_not_belonging_to_group_should_not_login(self):
         self.client.login(username=self.user.username, password=self.password)
-        response = self.client.get(self.list_url)
-        self.assertEqual(302, response.status_code)
+        response = self.client.get(self.list_url, follow=True)
+        # Users that have already logged-in should not be redirected to the
+        # login page; instead, they should see a 404 page.
+        self.assertEqual(404, response.status_code)
 
     def test_staff_users_see_all_courses(self):
         self.user.groups.add(self.backoffice_group)
