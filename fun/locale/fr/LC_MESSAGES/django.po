@@ -432,3 +432,43 @@ msgstr "Note d'obtention minimum pour les certificats vérifiés :"
 msgid "Minimum passing grade in percent"
 msgstr "Note d'obtention minimum en pourcentage"
 
+# Translated in edx by ''
+#. Translators: This line is displayed to a user who has completed a course
+#. and achieved a certification
+msgid "{fullname}, you've earned a certificate!"
+msgstr "{fullname}, vous avez obtenu un certificat !"
+
+# Translated in edx by ''
+msgid ""
+"The Public Interest Group (GIP) FUN-MOOC is the operator of the platform FUN.<br>Its missions are:<ul><li>Supporting the development of training, taking full advantage of the digital leverage, and accessible to all</li><li>Encouraging to place digital learning at the heart of student backgrounds, professions of higher education and research</li><li>Provide shared facilities and services supporting institutions' digital initiatives</li><li>Promote the visibility of the French service offering in training and digital resources</li></ul>"
+msgstr ""
+"Le Groupement d'Intérêt Public (GIP) FUN-MOOC est l'opérateur de la "
+"plateforme FUN.<br>Ses missions sont les suivantes :<ul><li>Accompagner "
+"le développement des formations tirant pleinement profit du levier "
+"numérique et accessibles au plus grand nombre</li><li>Inciter à placer le"
+" numérique au cœur du parcours étudiant et des métiers de l'enseignement "
+"supérieur et de la recherche</li><li>Offrir des moyens et services "
+"mutualisés en soutien aux initiatives numériques des "
+"établissements</li><li>Promouvoir la visibilité de l'offre française de "
+"formations et ressources numériques</li></ul>"
+
+# Translated in edx by ''
+#. Translators: This line congratulates the user and instructs them to share
+#. their accomplishment on social networks
+msgid ""
+"Congratulations! This page summarizes all of the details of what you've "
+"accomplished. Show it off to family, friends, and colleagues in your "
+"social and professional networks."
+msgstr ""
+"Félicitations ! Cette page résume les détails de ce que vous avez effectué."
+" Montrez la à votre famille, vos amis ou vos collègues en la partageant "
+"sur les réseaux sociaux."
+
+# Translated in edx by ''
+msgid "Learn more about {platform_name}"
+msgstr "En savoir plus sur {platform_name}"
+
+# Translated in edx by ''
+msgid "Print Certificate"
+msgstr "Imprimer le certificat"
+
