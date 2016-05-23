@@ -5,7 +5,6 @@ from django.test import TestCase
 from django.test.utils import override_settings
 
 from certificates.models import GeneratedCertificate, CertificateStatuses, CertificateHtmlViewConfiguration
-from opaque_keys.edx.keys import CourseKey
 from student.tests.factories import UserFactory, CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
@@ -36,7 +35,7 @@ class ViewTests(ModuleStoreTestCase, HelperMethods):
         super(ViewTests, self).setUp()
         self.course = CourseFactory(org='fun', course='course', number='0001',
                 display_name=u"verified course", ispublic=True)
-        ck = CourseKey.from_string(unicode(self.course.id))
+        ck = self.course.id
         self.fun_course = FunCourseFactory(key=unicode(ck))
         self.user = UserFactory(username='user1')  # user with profile
 
