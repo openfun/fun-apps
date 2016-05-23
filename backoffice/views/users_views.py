@@ -22,6 +22,7 @@ from student.models import CourseEnrollment, CourseAccessRole, UserStanding, Use
 
 from xmodule_django.models import CourseKeyField
 
+from courses.models import Course
 from fun_certificates.generator import CertificateInfo
 from fun_certificates.utils import cert_id_encode
 from payment.models import TermsAndConditions, PAYMENT_TERMS
@@ -113,9 +114,18 @@ def change_grade(request, user):
 
     if 'regenerate' in request.POST:
         # Regenerate PDF and attach to already existing GeneratedCertificate,
-        # then force state to 'downloadable'.
+        # then force state to 'downloadable' for honor certificate.
+        # For verified ones, we just update GeneratedCertificate according to new grade
 
-        regenerate_certificate(course_id, user, generated_certificate)
+        if generated_certificate.mode == GeneratedCertificate.MODES.verified:
+            course = Course.objects.get(key=course_id)
+            if new_grade >= course.certificate_passing_grade:
+                generated_certificate.status = CertificateStatuses.downloadable
+            else:
+                generated_certificate.status = CertificateStatuses.notpassing
+            generated_certificate.save()
+        else:
+            regenerate_certificate(course_id, user, generated_certificate)
         messages.success(request, _(u"Certificate was regenerated"))
         logger.info(u"Certificate regeneration: new grade: %d student: %s course: %s user: %s",
                 new_grade, user.username, course_id, request.user.username)
