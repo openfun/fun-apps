@@ -5,6 +5,7 @@ from collections import defaultdict
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Count
+from django.http import Http404
 
 from pure_pagination import Paginator, PageNotAnInteger
 
@@ -43,7 +44,13 @@ def group_required(*group_names):
                     return UserSignupSource.objects.filter(user=user,
                             site=microsite.get_value('SITE_NAME')).exists()
                 return True
+            else:
+                # 403 errors are not properly handled. As a consequence, we
+                # prefer to display a 404 page.
+                raise Http404()
+        # Redirect to login page
         return False
+
     return user_passes_test(in_groups)
 
 
