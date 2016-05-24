@@ -35,7 +35,7 @@ if certificate_data and certificate_data.get('course_title', ''):
             <p style="float: right; margin-right: 215px; margin-top: 6px; font-size: 17.5px;">Délivré le ${fun_certificate_date_issued}</p><br>
             <p style="margin-top: 34px; margin-bottom: 10px; font-size: 38px;" class="centered">${accomplishment_copy_name}</p>
             <p style="font-size: 17px; margin-bottom: 0;" class="centered">a suivi avec succès le MOOC</p>
-            <p style="font-size: 34px;" class="centered">${accomplishment_course_title}</p>
+            <p style="font-size: 32px;" class="centered">${accomplishment_course_title}</p>
             <div style="float: left; width: 50%;">
                 <p style="font-size: 20px; margin-bottom: 10px;" class="centered">${fun_course.university_name}</p>
                 <img src="${fun_logo_src}" alt="Logo établissement" class="centered" style="max-width: 340px; max-height: 85px;">
@@ -44,7 +44,7 @@ if certificate_data and certificate_data.get('course_title', ''):
                     <div class="centered" style="max-width: 250px;">
                         <img src="${certificate_data['signatories'][0]['signature_image_path']}" alt="signature" class="centered" style="margin-top: 28px; max-height: 50px;">
                         <hr>
-                        <p class="centered" style="font-size: 14px;">
+                        <p class="centered" style="font-size: 12px; font-weight: bold">
                             ${certificate_data['signatories'][0]['name']}<br>
                             ${certificate_data['signatories'][0]['title']}<br>
                             ${certificate_data['signatories'][0]['organization']}
@@ -55,8 +55,8 @@ if certificate_data and certificate_data.get('course_title', ''):
             <div style="float: right; width: 50%;">
                 <p class="centered" style="font-size: 13px; margin-bottom: 5px;">L'identité de la personne<br>a été vérifiée durant<br>l'examen final surveillé</p>
                 <img class="centered" src="${STATIC_URL}fun_certificates/images/fun.png" alt="Certificat vérifié">
-                <p class="centered" style="font-size: 13px;">
-                Vérifier la validité de ce certificat et les informations associées<br>
+                <p class="centered" style="font-size: 12px;">
+                Vérifier la validité de ce certificat et les informations associées :<br>
                 ${request.build_absolute_uri(reverse('short-cert-url', args=[get_encoded_cert_id(settings.SECRET_KEY, course_id, accomplishment_user_id)]))}
                 </p>
             </div>
