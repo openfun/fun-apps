@@ -1,6 +1,15 @@
 # Changelog www.fun-mooc.fr
 
-3.13 11/05/2016
+## 3.14 26/05/2016
+- Certificats verifiés:
+    + Génération 
+    + Le backoffice permet de visualiser et de changer la note
+    + Ajout de trackinglogs
+    + Saisi de la note d'obtention dans le studio
+    + Divers wording relatifs à l'adaptation à notre workflow
+- Suppression des informations nominatives sur les apprenants des exports du dashboard concepteur
+
+## 3.13 11/05/2016
 
 - Analytics :
     - Suppression de XITI dans le code
