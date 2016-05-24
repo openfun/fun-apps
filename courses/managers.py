@@ -76,7 +76,7 @@ class CourseQuerySet(models.query.QuerySet):
         """
         return self.public().filter(
             Q(enrollment_start_date__lte=now()) | Q(enrollment_start_date__isnull=True),
-            Q(enrollment_end_date__gte=now()) |Q(enrollment_end_date__isnull=True),
+            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True),
         )
 
     def annotate_with_is_enrollment_over(self):

@@ -39,8 +39,8 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
             shutil.rmtree(settings.SHARED_ROOT)
 
     def _launch_task(self):
-        task_input = {'problem_id' : self.problem_module.location.name,
-                      'running_report_name' : self.running_report_name}
+        task_input = {'problem_id': self.problem_module.location.name,
+                      'running_report_name': self.running_report_name}
 
         with patch('instructor_task.tasks_helper._get_current_task'):
             generate_answers_distribution_report(None, self.course.id,

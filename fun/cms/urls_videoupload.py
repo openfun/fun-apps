@@ -33,4 +33,3 @@ urlpatterns = patterns('fun.cms.views.videoupload',
     # dashboard
     url(format_video_pattern(r'^$'), 'home', name='home'),
 )
-

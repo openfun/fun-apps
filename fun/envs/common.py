@@ -53,7 +53,7 @@ LANGUAGE_CODE = 'fr'
 LANGUAGES = (
     ('fr', 'Français'),
     ('en', 'English'),
-    ('de-de', 'Deutsch'), # codes have to match edX's ones (lms.envs.common.LANGUAGES)
+    ('de-de', 'Deutsch'),  # codes have to match edX's ones (lms.envs.common.LANGUAGES)
 )
 # EdX rely on this code to display current language to user, when not yet set in preferences
 # This is probably a bug because user with an english browser, will have the english i18n
@@ -122,7 +122,7 @@ LOCAL_LOGLEVEL = 'INFO'
 LOGGING_ENV = 'sandbox'
 LOG_DIR = '/edx/var/logs/edx'
 
-### Max size of asset uploads to GridFS
+# Max size of asset uploads to GridFS
 MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = 30
 
 SEGMENT_IO_LMS = True
@@ -130,7 +130,7 @@ PAID_COURSE_REGISTRATION_CURRENCY = ["usd", "$"]
 SEGMENT_IO_LMS = True
 
 # Locale path
-LOCALIZED_APPS = sorted([path.split("/")[-2] for path in glob(FUN_BASE_ROOT / "*/locale")])
+LOCALIZED_APPS = sorted([p.split("/")[-2] for p in glob(FUN_BASE_ROOT / "*/locale")])
 LOCALE_PATHS = tuple(
     [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_APPS] +
     [
@@ -143,13 +143,12 @@ LOCALE_PATHS = tuple(
 PASSWORD_MIN_LENGTH = 8
 PASSWORD_MAX_LENGTH = 30
 PASSWORD_COMPLEXITY = {
-      'UPPER' : 1,
-      'LOWER' : 1,
+      'UPPER': 1,
+      'LOWER': 1,
       'DIGITS': 1
 }
 
-
-####### This force Edx Studio to use our own video provider Xblock on default button
+# This force Edx Studio to use our own video provider Xblock on default button
 FUN_DEFAULT_VIDEO_PLAYER = 'libcast_xblock'
 
 def prefer_fun_xmodules(identifier, entry_points):
@@ -196,7 +195,7 @@ CMS_BASE = ''
 CODE_JAIL = {
     "limits": {
         "REALTIME": 5,
-        "VMEM": 50*1000*1000,
+        "VMEM": 50 * 1000 * 1000,
     },
     "python_bin": "",
     "user": "sandbox"
@@ -299,7 +298,7 @@ def update_logging_config(logging_config):
     logging_config['handlers']['sentry'] = {
         'level': 'ERROR',
         'class': 'raven.handlers.logging.SentryHandler',
-        'dsn': '',# don't forget to update this once you know the sentry dsn
+        'dsn': '',  # don't forget to update this once you know the sentry dsn
     }
     if 'sentry' not in logging_config['loggers']['']['handlers']:
         logging_config['loggers']['']['handlers'].append('sentry')
@@ -348,7 +347,7 @@ PROCTORU_TOKEN = 'f0ef8b49-51e6-4009-8db3-6b87d77f40d1'  # preprod auth token
 
 def get_proctoru_app_if_available():
     try:
-        import proctoru # pylint: disable=import-error,unused-import,unused-variable
+        import proctoru  # pylint: disable=import-error,unused-import,unused-variable
         return ('proctoru',)
     except ImportError:
         return ()

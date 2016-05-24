@@ -48,7 +48,7 @@ class CourseAPITest(TestCase):
             is_active=True,
             end_date=next_week,
         )
-        self.user = UserFactory(username='user', password='password') # user with profile
+        self.user = UserFactory(username='user', password='password')  # user with profile
 
     def login_as_admin(self):
         self.user.is_staff = True

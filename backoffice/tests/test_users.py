@@ -124,7 +124,7 @@ class TestUsers(BaseCourseList):
         """
 
         data = {'action': u"change-grade",
-                'course-id' : unicode(certificate.course_id),
+                'course-id': unicode(certificate.course_id),
                 'new-grade': str(new_grade)}
         if regenerate:
             data['regenerate'] = 'yes'

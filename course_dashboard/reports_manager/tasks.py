@@ -115,4 +115,3 @@ def generate_answers_distribution_report(_entry_id, course_descriptor, _task_inp
     path = get_path(_task_input['running_report_name'], problem.location)
     write_csv(header_row, data_rows, ancestors_row, path)
     return task_progress.update_task_state({'succeeded': 1})
-

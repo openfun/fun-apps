@@ -5,9 +5,9 @@ from django.conf import settings
 NUMBER_DAYS_TOO_LATE = getattr(settings, 'NUMBER_DAYS_TOO_LATE', 7)
 
 FUN_THUMBNAIL_OPTIONS = getattr(settings, 'FUN_THUMBNAIL_OPTIONS', {
-    'avatar': { 'size': (270, 150), 'crop': True  },
-    'small': { 'size': (150, 100), 'crop': 'smart' },
-    'mini': { 'size': (50, 50), 'crop': 'smart' },
+    'avatar': {'size': (270, 150), 'crop': True},
+    'small': {'size': (150, 100), 'crop': 'smart'},
+    'mini': {'size': (50, 50), 'crop': 'smart'},
 })
 
 COURSE_ADMIN_READ_ONLY_FIELDS = getattr(settings, 'COURSE_ADMIN_READ_ONLY_FIELDS',

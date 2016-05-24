@@ -9,7 +9,7 @@ from . import urls_videoupload
 # Behind the scene Django determines the 404 view and the 500 view
 # by looking for handler404, handler500 in your root URLconf.
 # That's why we import handlers here.
-from cms.urls import handler404, handler500 # pylint: disable=unused-import
+from cms.urls import handler404, handler500  # pylint: disable=unused-import
 
 
 urlpatterns = patterns('',

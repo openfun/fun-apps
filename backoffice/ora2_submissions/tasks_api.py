@@ -10,7 +10,7 @@ def submit_preparation_task(request, course_key):
         tasks.PREPARATION_TASK_TYPE,
         prepare_ora2_submissions_task,
         course_key,
-        None,# task_input,
+        None,
         get_task_key(course_key)
     )
 

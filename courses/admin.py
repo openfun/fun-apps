@@ -85,7 +85,7 @@ class CourseSubjectAdmin(admin.ModelAdmin):
         template = u"""<img src="{url}" style="max-height: 48px;" />"""
         url = obj.image.url if obj.image else ''
         return template.format(url=url)
-    preview.short_description=_('preview')
+    preview.short_description = _('preview')
     preview.allow_tags = True
 
 admin.site.register(Course, CourseAdmin)

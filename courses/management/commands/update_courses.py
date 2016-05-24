@@ -137,7 +137,7 @@ class Command(BaseCommand):
         course_handler = CourseHandler(mongo_course)
         key = course_handler.key
         self.stdout.write('Updating data for course {}\n'.format(key))
-        course, was_created =  Course.objects.get_or_create(key=key)
+        course, was_created = Course.objects.get_or_create(key=key)
         if was_created or assign_universities:
             university = course_handler.assign_university(course)
             if university:

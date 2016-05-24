@@ -29,7 +29,7 @@ class QuestionMonitor(object):
         template_file (str) : The template file corresponding to the questions.
      """
 
-    def  __init__(self, id, question_tree, context):
+    def __init__(self, id, question_tree, context):
         self.id = id
         self.question_tree = question_tree
         self.context = context

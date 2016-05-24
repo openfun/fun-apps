@@ -34,7 +34,7 @@ INSTALLED_APPS += (
 
     'forum_contributors',
     'selftest',
-    'password_container', # this is an xblock we add to applications to allow syncdb of its models
+    'password_container',  # this is an xblock we add to applications to allow syncdb of its models
     'teachers',
     'faq',
     'edx_gea',

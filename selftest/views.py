@@ -69,7 +69,6 @@ def selftest_index(request):
         'settings': get_safe_settings(),
         'environ': os.environ,
         'revisions': revisions,
-
     })
 
 

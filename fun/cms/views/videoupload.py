@@ -216,4 +216,3 @@ def json_error_response(title, message):
     return JsonResponse({
         "error": title + u" " + message
     })
-

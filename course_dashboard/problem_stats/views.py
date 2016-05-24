@@ -33,11 +33,11 @@ def index(request, course_id):
     course_tree = utils.build_course_tree(course)
 
     tracker.emit("course_dashboard.problem_stats.views.index",
-                 {'task-time' : time.time() - start_time})
+                 {'task-time': time.time() - start_time})
 
     return render(request, 'problem_stats/index.html', {
         "course_id": course_id,
-        "course_tree_data" : json.dumps(course_tree)
+        "course_tree_data": json.dumps(course_tree)
     })
 
 @ensure_valid_course_key
@@ -61,6 +61,6 @@ def get_stats(request, course_id, problem_id):
     problem_monitor = ProblemMonitor(problem)
     problem_monitor.get_student_answers()
     tracker.emit("course_dashboard.problem_stats.views.get_stats",
-                 {'task-time' : time.time() - start_time})
+                 {'task-time': time.time() - start_time})
 
     return HttpResponse(problem_monitor.get_html())

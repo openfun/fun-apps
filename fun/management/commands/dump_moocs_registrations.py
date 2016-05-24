@@ -83,7 +83,6 @@ and if he got the certification. Below the csv structure :
         for student in students:
             data_row = [student.id, student.user.date_joined.strftime("%d-%m-%Y")]
             for course in courses:
-                #print(course.id._key)
                 try:
                     CourseEnrollment.objects.get(user=student.user, course_id=course.id,
                                                  user__is_superuser=False)

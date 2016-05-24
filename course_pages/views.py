@@ -96,4 +96,3 @@ class CoursesFeed(Feed):
             'enrollment_start_date': course.enrollment_start_date.isoformat() if course.enrollment_start_date else '',
             'enrollment_end_date': course.enrollment_end_date.isoformat() if course.enrollment_end_date else '',
         }
-

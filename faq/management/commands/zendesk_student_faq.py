@@ -43,12 +43,12 @@ class Command(BaseCommand):
                     dest='token',
                     type='string'),
                     )
+
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
         self._log = False
         self.username = ''
         self.token = ''
-
 
     def _query_zendesk(self, url):
         response = requests.get(ZENDESK_BASE_API + url,

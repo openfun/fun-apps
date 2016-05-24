@@ -45,7 +45,6 @@ class BaseCourseDashboardTestCase(ModuleStoreTestCase):
         response_content.seek(0)
         return [row for row in csv.reader(response_content)]
 
-
     def _generate_modules_tree(self, module, *args):
         if not args:
             self.problem_module = module
@@ -56,7 +55,7 @@ class BaseCourseDashboardTestCase(ModuleStoreTestCase):
                                                 display_name=None),
                                     *args[1:])
 
-    #TODO merge this function with the _generate_modules_tree
+    # TODO merge this function with the _generate_modules_tree
     def _generate_modules_tree_with_display_names(self, module, *args):
         if not args:
             self.problem_module = module

@@ -61,7 +61,7 @@ class Course(models.Model):
     certificate_passing_grade = models.FloatField(_('verified certificate passing grade'),
         null=True, blank=True, help_text=(_('Percentage, between 0 and 1')))
     has_verified_course_mode = models.BooleanField(default=False,
-        verbose_name=_('Verified mode'), help_text=_('Course has verified mode') )
+        verbose_name=_('Verified mode'), help_text=_('Course has verified mode'))
 
     objects = CourseManager()
 
@@ -151,7 +151,6 @@ class Course(models.Model):
     @property
     def course_ended(self):
         return now() > self.end_date if self.end_date else False
-
 
 
 class CourseSubject(models.Model):

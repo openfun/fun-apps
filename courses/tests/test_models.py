@@ -93,4 +93,3 @@ class TestCourseSubject(TestCase):
         self.assertEqual(True, queryset.get(id=course_enrollment_ended.id).is_enrollment_over)
         self.assertEqual(False, queryset.get(id=course_enrollment_not_ended.id).is_enrollment_over)
         self.assertEqual(False, queryset.get(id=course_open.id).is_enrollment_over)
-

@@ -44,7 +44,7 @@ class TeacherAdmin(admin.ModelAdmin):
         template = u"""<img src="{url}" style="max-height: 48px;" />"""
         url = obj.profile_image.url if obj.profile_image else ''
         return template.format(url=url)
-    preview.short_description=_('preview')
+    preview.short_description = _('preview')
     preview.allow_tags = True
 
 

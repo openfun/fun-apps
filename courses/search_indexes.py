@@ -10,7 +10,7 @@ from xmodule.modulestore.django import modulestore
 
 from .models import Course
 
-# pylint: disable=W0232
+# pylint: disable=W0223
 class ConfigurableElasticBackend(elasticsearch_backend.ElasticsearchSearchBackend):
     """Override Hastack default backend to use our own ES configuration
     as DEFAULT_SETTINGS constant is hardcoded ."""

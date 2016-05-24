@@ -19,7 +19,6 @@ class WikiTestCase(ModuleStoreTestCase):
     def setUp(self):
         super(WikiTestCase, self).setUp(create_user=True)
 
-
     def test_get_activity(self):
         from course_wiki.views import get_or_create_root
         from course_wiki.utils import course_wiki_slug

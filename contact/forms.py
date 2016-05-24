@@ -9,18 +9,13 @@ from contact_form.forms import ContactForm as BaseContactForm
 
 
 class ContactForm(BaseContactForm):
-    email = forms.EmailField(max_length=100, label=_('Email address'),
-                             widget=forms.TextInput(
-                                 attrs={"class": "form-control", "placeholder": _('Example: john@example.com')}
-                             ))
-    name = forms.CharField(max_length=100, label=_('Name'),
-                           widget=forms.TextInput(
-                               attrs={"class": "form-control", "placeholder": _('Example: John Doe')}
-                           ))
+    email = forms.EmailField(max_length=100, label=_('Email address'), widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": _('Example: john@example.com')}))
+    name = forms.CharField(max_length=100, label=_('Name'), widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": _('Example: John Doe')}))
     phone = forms.CharField(label=_('Phone number'), required=False, max_length=100,
-                           widget=forms.TextInput(
-                               attrs={"class": "form-control", "placeholder": _('Example: +33 6 24 01 19 82')}
-                           ))
+            widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": _('Example: +33 6 24 01 19 82')}))
     function = forms.ChoiceField(
         label=_('Function'), required=False, choices=(
             ('', ''),

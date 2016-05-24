@@ -39,6 +39,7 @@ def enrollments_per_day(course_key_string=None, since=None):
         .annotate(enrollment_count=Count("pk"))
         .order_by(period_name)
     )
+
     def dateify(date):
         if isinstance(date, datetime):
             return date
@@ -196,7 +197,6 @@ class EnrollmentStats(object):
     def daily_average(self):
         """Average enrollments per day"""
         return self.total() * 1. / self.day_span()
-
 
 
 class CertificateStats(object):

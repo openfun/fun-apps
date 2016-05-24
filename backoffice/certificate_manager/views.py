@@ -42,15 +42,16 @@ def certificate_dashboard(request, course_key_string):
     instructor_tasks_history = []
     for task_type in task_types:
         instructor_tasks_history += list(filter_instructor_task(
-           get_instructor_task_history(course_key, task_type=task_type, usage_key=None, student=None)
+            get_instructor_task_history(
+            course_key, task_type=task_type, usage_key=None, student=None)
         ))
     instructor_tasks_history.sort(key=lambda x: -x.id)
 
     return render(request, 'backoffice/certificate.html', {
         'course': course,
-        'certificate_base_url' : settings.CERTIFICATE_BASE_URL,
-        'instructor_tasks' : instructor_tasks,
-        'instructor_tasks_history' : instructor_tasks_history,
+        'certificate_base_url': settings.CERTIFICATE_BASE_URL,
+        'instructor_tasks': instructor_tasks,
+        'instructor_tasks_history': instructor_tasks_history,
     })
 
 @group_required('fun_backoffice')

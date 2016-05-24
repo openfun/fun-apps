@@ -104,7 +104,7 @@ class TestGenerateCertificate(BaseBackoffice):
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
         data = {
-            'full_name' : u'super élève',
+            'full_name': u'super élève',
         }
         response = self.client.post(url, data)
         self.assertEqual('application/pdf', response._headers['content-type'][1])

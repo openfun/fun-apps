@@ -11,4 +11,3 @@ DJKOMBU_POLLING_INTERVAL = 1.0
 MIDDLEWARE_CLASSES = tuple(
     c for c in MIDDLEWARE_CLASSES
     if c != 'django.middleware.transaction.TransactionMiddleware')
-

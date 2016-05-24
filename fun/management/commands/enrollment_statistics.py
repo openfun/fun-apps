@@ -37,7 +37,6 @@ class Command(BaseCommand):
         context['new_course_distribution'] = CourseEnrollment.objects.filter(created__gt=period
                 ).values('course_id').annotate(count=Count('course_id')).order_by('course_id')
 
-
         context['subject'] = u"[FUN] Statistiques d'inscription pour la période du %s au %s" % (
                 period.strftime(SHORT_DATE_FORMAT), today.strftime(SHORT_DATE_FORMAT))
         html_content = render_to_string('fun/emails/stats_email.html', context)
@@ -54,6 +53,3 @@ class Command(BaseCommand):
             email.send()
         except SMTPRecipientsRefused:
             logger.error(u"Stat email could not be sent(%s).", context['subject'])
-
-
-

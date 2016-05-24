@@ -42,7 +42,7 @@ def generate_course_certificates(course_id, action_name):
         status.notpassing: 0,
         status.error: 0,
         status.downloadable: 0,
-        'test_certificate_filename' : test_certificate.filename
+        'test_certificate_filename': test_certificate.filename
     }
 
     task_progress.update_task_state(extra_meta=progress_status)
@@ -90,4 +90,3 @@ def get_enrolled_students(course_id):
     return User.objects.filter(
         courseenrollment__course_id=course_id, profile__isnull=False
     ).prefetch_related("groups").order_by('username')
-

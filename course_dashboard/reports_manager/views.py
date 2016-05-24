@@ -38,8 +38,8 @@ def dashboard(request, course_id):
     )
     return render(request, 'course_dashboard/reports_manager/dashboard.html',
                   {"course_id": course_id,
-                   "answers_distribution_reports" : answers_distribution_reports,
-                   "running_reports_generation" : running_reports_generation})
+                   "answers_distribution_reports": answers_distribution_reports,
+                   "running_reports_generation": running_reports_generation})
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')
@@ -59,8 +59,8 @@ def generate(request, course_id, problem_id):
 
     running_report_name = build_answers_distribution_report_name(problem)
 
-    input_args = {'problem_id' : problem_id,
-                  'running_report_name' : running_report_name}
+    input_args = {'problem_id': problem_id,
+                  'running_report_name': running_report_name}
 
     try:
         submit_generate_answers_distribution_report(request, course_key, input_args)

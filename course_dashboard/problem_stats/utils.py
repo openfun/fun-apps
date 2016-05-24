@@ -14,7 +14,7 @@ def fetch_problems(store, course_key):
     Return:
          list: A list of problems (CapaDescriptor).
      """
-    qualifiers = {'qualifiers' : {'category' : 'problem'}}
+    qualifiers = {'qualifiers': {'category': 'problem'}}
     return store.get_items(course_key, **qualifiers)
 
 def fetch_problem(store, course_key, problem_id):

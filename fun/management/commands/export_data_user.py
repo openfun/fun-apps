@@ -20,7 +20,7 @@ from student.models import UserProfile
 logger = logging.getLogger(__name__)
 
 
-#to run it just do ~/edx-platform$ ./manage.py lms export_data_user --settings=fun.lms_sloop --username=the_username
+# to run it just do ~/edx-platform$ ./manage.py lms export_data_user --settings=fun.lms_sloop --username=the_username
 
 class Command(BaseCommand):
     help = """
@@ -70,12 +70,10 @@ class Command(BaseCommand):
         ),
     )
 
-
-
     def handle(self, *args, **options):
-        if options['username'] == None:
+        if not options['username']:
             raise CommandError("Option `--username=...` must be specified.")
-        if options['file'] == None:
+        if not options['file']:
             filename = "export_%s.log" %options['username']
         else:
             filename = options['file']
@@ -91,7 +89,6 @@ class Command(BaseCommand):
         if options['host']:
             host = options['host']
             print u"Using %s as host address" %host
-
 
         user_mongo = None
         password_mongo = None

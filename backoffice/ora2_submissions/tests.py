@@ -18,11 +18,11 @@ class TestDownloadOra2Submissions(BaseBackoffice):
         super(TestDownloadOra2Submissions, self).setUp()
         self.login_with_backoffice_group()
         self.status_url = reverse("backoffice:ora2-submissions:status",
-                                   args=[self.course.id.to_deprecated_string()])
+                args=[self.course.id.to_deprecated_string()])
         self.prepare_url = reverse("backoffice:ora2-submissions:prepare",
-                                   args=[self.course.id.to_deprecated_string()])
+                args=[self.course.id.to_deprecated_string()])
         self.download_url = reverse("backoffice:ora2-submissions:download",
-                                    args=[self.course.id.to_deprecated_string()])
+                args=[self.course.id.to_deprecated_string()])
 
     def test_unauthorized_user_has_no_access(self):
         self.client.logout()

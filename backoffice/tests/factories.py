@@ -11,4 +11,3 @@ class MicrositeUserFactory(DjangoModelFactory):
     FACTORY_FOR = UserSignupSource
 
     user = factory.SubFactory(UserFactory)
-

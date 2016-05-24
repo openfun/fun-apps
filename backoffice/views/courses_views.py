@@ -46,7 +46,7 @@ CompleteFunCourse = namedtuple('CompleteFunCourse', COURSE_FIELDS + ABOUT_SECTIO
 
 @group_required('fun_backoffice')
 def courses_list(request):
-    if request.method == 'POST': # export as CSV
+    if request.method == 'POST':  # export as CSV
         course_infos = get_complete_courses_info()
         filename = 'export-cours-%s.csv' % datetime.datetime.now().strftime('%Y-%m-%d')
         response = HttpResponse(content_type='text/csv')
@@ -177,7 +177,6 @@ def verified(request, course_key_string, action=None):
             "date_start": registered_users["warn"]["start"],
             "date_end": registered_users["warn"]["end"],
         })
-
 
     return render(request, 'backoffice/courses/verified.html', {
             'course_key_string': course_key_string,
@@ -310,4 +309,3 @@ def get_course_enrollment_counts(course_descriptors_ids):
 def format_datetime(dt):
     FORMAT = '%Y-%m-%d %H:%M'
     return dt.strftime(FORMAT) if dt else ''
-
