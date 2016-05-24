@@ -472,3 +472,11 @@ msgstr "En savoir plus sur {platform_name}"
 msgid "Print Certificate"
 msgstr "Imprimer le certificat"
 
+# FUN customization for user enrolled for verified certificate with pdf attestation
+# /lms/templates/dashboard/_dashboard_certificate_information.html
+msgid "Your verified certificate is waiting to be generated or you have not met "
+"the conditions to obtain a certificate. <br>However, you can download the "
+"attestation of achievement."
+msgstr "Votre certificat verifié est en attente de génération ou vous n'avez "
+"pas rempli les conditions nécessaires pour l'obtenir.<br>"
+"Cependant vous pouvez télécharger l'attestation de suivi."
