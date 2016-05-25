@@ -3,16 +3,17 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ModelForm, ModelChoiceField
+from chosen import forms as chosenforms
 
 from .models import CourseTeacher, CertificateTeacher, Teacher
 
 
 class CertificateTeacherRelationInlineForm(ModelForm):
-    teacher = ModelChoiceField(queryset=Teacher.objects.all().order_by("slug"))
+    teacher = chosenforms.ChosenModelChoiceField(queryset=Teacher.objects.all().order_by("slug"))
 
 
 class CourseTeacherRelationInlineForm(ModelForm):
-    teacher = ModelChoiceField(queryset=Teacher.objects.all().order_by("slug"))
+    teacher = chosenforms.ChosenModelChoiceField(queryset=Teacher.objects.all().order_by("slug"))
 
 
 class CourseTeacherInline(admin.TabularInline):
