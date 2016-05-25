@@ -25,6 +25,27 @@ if certificate_data and certificate_data.get('course_title', ''):
 
 %>
 
+<style>
+    @media print {
+        .accomplishment {
+            zoom: 80%;
+            margin-down: 200px;
+            transform: scale(.8);
+            page-break-inside: avoid;
+            page-break-after: avoid;
+
+        }
+    }
+</style>
+##
+## <style>
+##     @media print {
+##         .wrapper-accomplishment-rendering {
+##             margin-left: 100px;
+##         }
+##     }
+## </style>
+
 <main class="accomplishment accomplishment-main">
 
     <div class="wrapper-accomplishment-rendering">
