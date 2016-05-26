@@ -5,6 +5,8 @@ import sys
 
 from django.core.management.base import BaseCommand
 
+from xmodule.modulestore.django import modulestore
+
 from backoffice.certificate_manager.verified import get_enrolled_verified_students
 from backoffice.utils import get_course_key, get_course
 from backoffice import utils_proctorU_api
@@ -20,24 +22,25 @@ class Command(BaseCommand):
             help='File where the output will be written / defaults to stdout when not provided'),
         make_option("--course_key_string",
             help='CourseKeyString of the course to analyse'),
-        make_option('--proctoru_endpoint',
+        make_option('--proctoru_base',
                     default=False,
-            help='Proctoru endpoint to reach / defaults to the one in config'),
+            help='Proctoru base url to reach / defaults to the one in config'),
         make_option('--proctoru_token',
                     default=False,
             help='Proctoru token to use / defaults to the one in config'),
 
     )
 
-    def handle(self, filename, course_key_string, proctoru_endpoint, proctoru_token, *args, **options):
+    def handle(self, filename, course_key_string, proctoru_base, proctoru_token, *args, **options):
         course_key = get_course_key(course_key_string)
         verified_students = get_enrolled_verified_students(course_key)
 
-        course = get_course(course_key_string)
-        proctoru_reports = utils_proctorU_api.get_proctorU_students(
-            #course_name=course.id.course, course_run=course.id.run
-            course_name="FUN103", course_run="FUNV3", endpoint=proctoru_endpoint, token=proctoru_token
-        )
+        proctoru_API = utils_proctorU_api.API(course_name=course_key.course,
+                                              course_run=course_key.run,
+                                              base_url=proctoru_base,
+                                              token=proctoru_token)
+        proctoru_reports = proctoru_API.get_proctoru_students()
+
         if "warn" in proctoru_reports:
             sys.exit("ProctorU is empty for this course, is everything OK?")
         if "error" in proctoru_reports:

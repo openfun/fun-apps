@@ -24,7 +24,7 @@ from xmodule.modulestore.django import modulestore
 from fun.utils import funwiki as wiki_utils
 from ..certificate_manager.verified import get_verified_student_grades
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
-from ..utils_proctorU_api import get_proctorU_students
+from ..utils_proctorU_api import API as proctoruAPI
 
 
 logger = logging.getLogger(__name__)
@@ -151,21 +151,20 @@ def verified(request, course_key_string, action=None):
 
     students_grades = get_verified_student_grades(course.id)
 
-    registered_users = get_proctorU_students(
-        course_name=course.id.course, course_run=course.id.run, student_grades=students_grades
-    )
+    api = proctoruAPI(course_name=course.name, course_run=course.run)
+    proctoru_reports = api.get_proctorU_students()
 
-    if "error" in registered_users:
+    if "error" in proctoru_reports:
         return render(request, 'backoffice/courses/verified_error.html', {
             'tab': 'courses',
             'subtab': 'verified',
             'course_key_string': course_key_string,
             'course_info': course_info,
-            'error': registered_users["error"],
+            'error': proctoru_reports["error"],
             "warn": False,
         })
 
-    if "warn" in registered_users:
+    if "warn" in proctoru_reports:
         return render(request, 'backoffice/courses/verified_error.html', {
             'tab': 'courses',
             'subtab': 'verified',
@@ -173,15 +172,15 @@ def verified(request, course_key_string, action=None):
             'course_info': course_info,
             "error": False,
             'warn': True,
-            "course_id": registered_users["warn"]["id"],
-            "date_start": registered_users["warn"]["start"],
-            "date_end": registered_users["warn"]["end"],
+            "course_id": proctoru_reports["warn"]["id"],
+            "date_start": proctoru_reports["warn"]["start"],
+            "date_end": proctoru_reports["warn"]["end"],
         })
 
     return render(request, 'backoffice/courses/verified.html', {
             'course_key_string': course_key_string,
             'course_info': course_info,
-            'students': registered_users,
+            'students': proctoru_reports,
             'tab': 'courses',
             'subtab': 'verified',
         })
