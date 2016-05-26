@@ -56,6 +56,11 @@ class VerifiedCourseList(BaseCourseList):
         CourseMode.objects.create(course_id=self.course3.id, mode_slug='verified', mode_display_name=u"verified")
         CourseEnrollmentFactory(course_id=self.course3.id, mode='honor')
 
+        self.course4 = CourseFactory.create(org=self.university.code, number='004',
+                             display_name=u"published", ispublic=True)
+        CourseMode.objects.create(course_id=self.course4.id, mode_slug='verified', mode_display_name=u"verified")
+
+
 
 class TestExportCoursesList(BaseCourseList):
     def get_csv_response_rows(self, response):

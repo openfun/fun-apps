@@ -10,7 +10,7 @@ from instructor_task.tasks_helper import TaskProgress
 from xmodule.modulestore.django import modulestore
 from opaque_keys.edx.keys import CourseKey
 
-from ..utils_proctorU_api import get_proctorU_students
+from ..utils_proctorU_api import API as proctoruAPI
 from .utils import (
         generate_fun_verified_certificate,
         generate_fun_certificate,
@@ -73,7 +73,8 @@ def iter_generated_course_verified_certificates(course_id):
     teachers = get_teachers_list_from_course(unicode(course_id))
 
     # Get information from ProctorU
-    proctoru_reports = get_proctoru_reports(course_id)
+    api = proctoruAPI(course_name=course.id.course, course_run=course.id.run)
+    proctoru_reports = api.get_proctoru_students()
 
     for student in get_enrolled_verified_students(course_id):
         # Note that if a certificate was generated and proctoru changed its

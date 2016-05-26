@@ -34,6 +34,13 @@ def get_enrolled_verified_students_count(course_id):
 
 def get_enrolled_verified_students(course_id):
     return User.objects.filter(courseenrollment__course_id=course_id).order_by('username')
+    """Queryset of active users enrolled in course"""
+    return User.objects.filter(
+        is_active=True,
+        courseenrollment__course_id=course_id,
+        courseenrollment__is_active=True,
+        courseenrollment__mode__in=CourseMode.VERIFIED_MODES,
+    ).order_by('username')
 
 def get_verified_student_grades(course_id):
     """Compute grades of all verified students for a course
