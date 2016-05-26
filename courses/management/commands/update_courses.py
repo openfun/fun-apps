@@ -162,8 +162,6 @@ class Command(BaseCommand):
         course.enrollment_start_date = mongo_course.enrollment_start
         course.enrollment_end_date = mongo_course.enrollment_end
         course.end_date = mongo_course.end
-        course.has_verified_course_mode = CourseMode.objects.filter(
-                course_id=mongo_course.id, mode_slug='verified').exists()
         course.save()
         self.stdout.write('Updated course {}\n'.format(key))
         return None

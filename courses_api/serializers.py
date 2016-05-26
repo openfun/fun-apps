@@ -36,6 +36,7 @@ class CourseSerializer(serializers.ModelSerializer):
     course_ended = serializers.BooleanField(source='course_ended')
     course_started = serializers.BooleanField(source='course_started')
     university_name = serializers.CharField(source='university_name')
+    has_verified_course_mode = serializers.SerializerMethodField('get_has_verified_course_mode')
 
     class Meta:
         model = Course
@@ -75,6 +76,8 @@ class CourseSerializer(serializers.ModelSerializer):
             return None
         return self.university_serializer_class(instance=main_university).data
 
+    def get_has_verified_course_mode(self, obj):
+        return obj.has_verified_course_mode
 
 class PrivateCourseSerializer(CourseSerializer):
     '''

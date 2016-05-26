@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from time import time
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import date as django_localize_date
@@ -7,6 +9,7 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
+from course_modes.models import CourseMode
 from jsonfield.fields import JSONField
 
 from . import choices as courses_choices
@@ -60,10 +63,31 @@ class Course(models.Model):
     thumbnails_info = JSONField(_('thumbnails info'), blank=True, null=True)
     certificate_passing_grade = models.FloatField(_('verified certificate passing grade'),
         null=True, blank=True, help_text=(_('Percentage, between 0 and 1')))
-    has_verified_course_mode = models.BooleanField(default=False,
-        verbose_name=_('Verified mode'), help_text=_('Course has verified mode'))
 
     objects = CourseManager()
+
+    # Cache the courses that have a verified mode. This allows us to write
+    # course.has_verified_mode by running just one additional sql query for all
+    # courses. This cache is local to the runtime and should expire frequently.
+    _verified_course_key_strings_cache = [
+        set(), # set of all course_key_string for courses that have a verified mode
+        0      # timestamp at which this cache was last updated
+    ]
+
+
+    @property
+    def has_verified_course_mode(self):
+        """Return True if the course has at least one verified course mode.
+
+        This information is collected from a cache that has an expire period of 10s.
+        """
+        if time() - self._verified_course_key_strings_cache[1] > 10:
+            verified_course_modes = CourseMode.objects.filter(mode_slug__in=CourseMode.VERIFIED_MODES)
+            Course._verified_course_key_strings_cache = (
+                set([unicode(course_mode.course_id) for course_mode in verified_course_modes]),
+                time()
+            )
+        return self.key in Course._verified_course_key_strings_cache[0]
 
     class Meta:
         ordering = ('-score',)

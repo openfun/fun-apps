@@ -13,5 +13,5 @@ FUN_THUMBNAIL_OPTIONS = getattr(settings, 'FUN_THUMBNAIL_OPTIONS', {
 COURSE_ADMIN_READ_ONLY_FIELDS = getattr(settings, 'COURSE_ADMIN_READ_ONLY_FIELDS',
     ('key', 'title', 'image_url', 'university_display_name', 'show_in_catalog',
     'start_date', 'end_date', 'enrollment_start_date', 'enrollment_end_date',
-    'thumbnails_info', 'has_verified_course_mode')
+    'thumbnails_info')
 )
