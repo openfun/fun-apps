@@ -28,14 +28,23 @@ API_URLS = {
 BASE_URL = "https://" + settings.PROCTORU_API
 HEADER = {"Authorization-Token": settings.PROCTORU_TOKEN}
 
-def query_api(request_method, url, data):
+def query_api(request_method, url, data, header):
     data["time_sent"] = datetime.datetime.utcnow().isoformat()
 
     try:
-        student_activity = request_method(url, data=data, headers=HEADER).content
+        resp = request_method(url, data=data, headers=header)
+        student_activity = resp.content
     except requests.ConnectionError as e:
         logger.exception(e)
         return {"error": "Connection error while connecting to {}".format(url)}
+    except requests.exceptions.SSLError as e:
+        logger.exception(e)
+        return {"error": "SSL error while connecting to {}".format(url)}
+
+    if resp.status_code == 500:
+        mess = "Error 500 in proctorU api for url : {}".format(url)
+        logger.error(mess)
+        return {"error": mess}
 
     student_activity_json = json.loads(student_activity)
     if student_activity_json["response_code"] != 1:
@@ -87,12 +96,21 @@ def extract_infos(report):
     }
     return tmp
 
-def get_proctorU_students(course_name, course_run, student_grades=None):
+def get_proctorU_students(course_name, course_run, student_grades=None, endpoint=None, token=None):
     data = request_infos()
 
+    if endpoint:
+        url = endpoint + API_URLS["client_activity_report"]
+    else:
+        url = BASE_URL + API_URLS["client_activity_report"]
+
+    if token:
+        header = {"Authorization-Token": token}
+    else :
+        header = HEADER
     student_activity = query_api(requests.post,
-                                 BASE_URL + API_URLS["client_activity_report"],
-                                 data)
+                                 url,
+                                 data, header)
     if "error" in student_activity:
         return student_activity
 
@@ -156,6 +174,7 @@ def aggregate_reports_per_user(filtered_reports, student_grades=None):
             else:
                 event_users[id_][0]["fun_exam_grade"] = grade
                 event_users[id_][0]["fun_exam_pass"] = passed
+        event_users[id_][0]["user"] = user
         res[user.username] = event_users[id_]
 
     return res
@@ -172,19 +191,19 @@ def filter_reports_for_course(course_name, course_run, api_query, student_activi
     :param student_activity: dict with the API response
     :return: dict with the API response about the course
     """
-    exam_id = "{} {}".format(course_name, course_run)
+    proctoru_test_id = "{} {}".format(unicode(course_name), course_run)
     reports = student_activity["data"]
     if not reports:
         mess = "Empty response from the API"
         logger.info(mess)
         return {"error": mess}
-    filtered_reports = [report for report in reports if exam_id in report["Test"]]
+    filtered_reports = [report for report in reports if proctoru_test_id in report["Test"]]
     if not filtered_reports:
-        mess = "No student for course {} between {} and {}".format(exam_id,
+        mess = "No student for course {} between {} and {}".format(proctoru_test_id,
                                                                    api_query["start_date"],
                                                                    api_query["end_date"])
         logger.info(mess)
-        return {"warn": {"id": exam_id,
+        return {"warn": {"id": proctoru_test_id,
                          "start": format_date(api_query["start_date"]),
                          "end": format_date(api_query["end_date"])}}
     return filtered_reports
