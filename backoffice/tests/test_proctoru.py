@@ -22,57 +22,59 @@ def proctorU_api_result(test_key):
 class TestVerifiedTab(VerifiedCourseList):
     def setUp(self):
         super(TestVerifiedTab, self).setUp()
-        self.get_proctorU_students = utils_proctorU_api.get_proctorU_students
+        self.api = utils_proctorU_api.API(course_name="Cours", course_run="Run")
 
-    @patch("backoffice.utils_proctorU_api.query_api")
+    @patch("backoffice.utils_proctorU_api.API.query_api")
     def test_proctorU_api_parsing_duplicated(self, mock_api):
         mock_api.return_value = proctorU_api_result("duplicated")
         UserFactory(last_name="26", username="plop")
 
-        resp = utils_proctorU_api.get_proctorU_students(course_name="Cours",
-                                                        course_run="Run",
-                                                        student_grades={})
+        resp = self.api.get_proctoru_students()
         self.assertEqual(1, len(resp["plop"]))
 
-    @patch("backoffice.utils_proctorU_api.query_api")
+    @patch("backoffice.utils_proctorU_api.API.query_api")
     def test_proctorU_api_parsing_empty_response(self, mock_api):
         mock_api.return_value = proctorU_api_result("empty")
 
-        resp = utils_proctorU_api.get_proctorU_students(course_name="Cours",
-                                                        course_run="Run",
-                                                        student_grades={})
+        resp = self.api.get_proctoru_students()
         self.assertEqual("Empty response from the API", resp["error"])
 
-    @patch("backoffice.utils_proctorU_api.query_api")
+    @patch("backoffice.utils_proctorU_api.API.query_api")
     def test_proctorU_api_user_aggregation(self, mock_api):
         mock_api.return_value = proctorU_api_result("student-aggregation")
         UserFactory(last_name="26", username="plop")
 
-        resp = utils_proctorU_api.get_proctorU_students(course_name="Cours",
-                                                        course_run="Run",
-                                                        student_grades={})
+        resp = self.api.get_proctoru_students()
         self.assertEqual(2, len(resp["plop"]))
         self.assertEqual("Reservation created", resp["plop"][0]["ProctorNotes"])
         self.assertEqual("Reservation cancelled", resp["plop"][1]["ProctorNotes"])
 
-    @patch("backoffice.utils_proctorU_api.query_api")
+    @patch("backoffice.utils_proctorU_api.API.query_api")
     def test_proctorU_api_no_users_in_course(self, mock_api):
         mock_api.return_value = proctorU_api_result("student-aggregation")
         UserFactory(last_name="26")
 
-        resp = utils_proctorU_api.get_proctorU_students(course_name="No one",
-                                                        course_run="likes me",
-                                                        student_grades={})
+        api = utils_proctorU_api.API(course_name="No one", course_run="likes me")
+        resp = api.get_proctoru_students()
         self.assertIn("id", resp["warn"])
         self.assertIn("start", resp["warn"])
         self.assertIn("end", resp["warn"])
 
     def test_proctorU_query_api(self):
-        ResponseRequest = namedtuple("ResponseRequest", "content")
+        ResponseRequest = namedtuple("ResponseRequest", ["content", "status_code"])
         val = json.dumps({"test": "val", "response_code": 1})
-        respMock = ResponseRequest(content=val)
+        respMock = ResponseRequest(content=val, status_code=200)
         request_mock = Mock(return_value=respMock)
-        data = {}
-        resp = utils_proctorU_api.query_api(request_mock, "example.com", data)
+        api = utils_proctorU_api.API(course_name="Cours", course_run="Run", base_url="http://example.com/")
+        resp = api.query_api(request_mock, "http://example.com/api")
         self.assertEqual(json.loads(val), resp)
-        self.assertIn("time_sent", data)
+        self.assertIn("time_sent", api.request_data)
+
+    def test_proctorU_resp500(self):
+        ResponseRequest = namedtuple("ResponseRequest", ["content", "status_code"])
+        val = json.dumps({"test": "val", "response_code": 1})
+        respMock = ResponseRequest(content=val, status_code=500)
+        request_mock = Mock(return_value=respMock)
+        api = utils_proctorU_api.API(course_name="Cours", course_run="Run", base_url="http://example.com/")
+        resp = api.query_api(request_mock, "http://example.com/api")
+        self.assertIn("error", resp)
