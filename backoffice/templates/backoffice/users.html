@@ -40,10 +40,10 @@
     <table class="table table-condensed" id="user-list">
         <thead>
             <tr>
-                <th>{% order_col "profile__name" "Full name" "Full name" %}</th>
-                <th>{% order_col "username" "Username" "Username" %}</th>
-                <th>{% order_col "email" "Email" "Email" %}</th>
-                <th>{% order_col "date_joined" "Account creation date" "Account creation date" %}</th>
+                <th>{% order_col "name" "Full name" "Full name" %}</th>
+                <th>{% order_col "user__username" "Username" "Username" %}</th>
+                <th>{% order_col "user__email" "Email" "Email" %}</th>
+                <th>{% order_col "user__date_joined" "Account creation date" "Account creation date" %}</th>
             </tr>
         </thead>
 
