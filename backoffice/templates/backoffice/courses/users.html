@@ -1,0 +1,79 @@
+{% extends 'backoffice/courses/base-detail.html' %}
+{% load url from future %}
+{% load i18n course staticfiles %}
+
+{% block extra_head %}
+
+<style type="text/css">
+    .top30 { margin-top:30px; }
+    .bot30 { margin-bottom:30px; }
+</style>
+
+{% endblock %}
+
+
+{% block tab_content %}
+<div class="row top30 bot30">
+    <div class="col-xs-4">
+        <form method="GET" action=".">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1">{% trans 'Search' %}</span>
+                <input class="form-control" placeholder="{% trans 'name or username or email' %}" aria-describedby="search" value="{{ search|default:'' }}" name="search" type="text">
+            </div>
+        </form>
+    </div>
+
+    <div class="col-xs-4">
+        <form method="POST">{% csrf_token %}
+            <button class="btn btn-info" >{% trans "Download CSV" %}</button>
+        </form>
+    </div>
+
+    <div class="col-xs-4"></div>
+</div>
+
+
+{% if users.object_list %}
+     <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>{% trans "Username" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Email" %}</th>
+                </tr>
+                </thead>
+    
+                <tbody>
+                {% for user in users.object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backoffice:user-detail' user.username %}">
+                            {{ user.username }}
+                        </a>
+                    </td>
+                    <td>{{ user.profile.name }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    {# The following renders the pagination html #}
+    <div id="pagination">
+        {{ users.render }}
+    </div>
+{% else %}
+    {% if search %}
+        <div class="alert alert-warning"> {% trans "No user found for this search: " %} {{ search }} </div>
+    {% else %}
+        <div class="alert alert-warning"> {% trans "No user in this course." %}</div>
+    {% endif %}
+
+{% endif %}
+
+
+{% endblock tab_content %}

@@ -183,11 +183,11 @@ def csv_response(header_row, data_rows, filename):
         elif isinstance(data, datetime):
             return data.strftime('%Y/%m/%d')
         else:
-            return data
+            return u"{}".format(data)
 
     response_content = StringIO()
     writer = csv.writer(response_content)
-    writer.writerow(header_row)
+    writer.writerow([field.encode('utf-8') for field in header_row])
     for data_row in data_rows:
         writer.writerow([encode_data(d) for d in data_row])
     response_content.seek(0)
