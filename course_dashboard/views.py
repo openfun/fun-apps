@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import csv
 from collections import defaultdict
 from datetime import datetime
-from StringIO import StringIO
 import time
 
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.formats import date_format
 
@@ -17,6 +14,7 @@ from courseware.courses import get_course_by_id
 from opaque_keys.edx.keys import CourseKey
 from util.views import ensure_valid_course_key
 
+from fun.utils.export_data import csv_response
 from fun.utils.views import staff_required, staff_required_or_level
 from fun.utils.countries import get_country_name
 
@@ -176,25 +174,6 @@ def wiki_activity(request, course_id):
         "course_id": course_id,
     })
 
-def csv_response(header_row, data_rows, filename):
-    def encode_data(data):
-        if isinstance(data, unicode):
-            return data.encode('utf-8')
-        elif isinstance(data, datetime):
-            return data.strftime('%Y/%m/%d')
-        else:
-            return data
-
-    response_content = StringIO()
-    writer = csv.writer(response_content)
-    writer.writerow(header_row)
-    for data_row in data_rows:
-        writer.writerow([encode_data(d) for d in data_row])
-    response_content.seek(0)
-
-    response = HttpResponse(response_content.read(), content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
-    return response
 
 def formatted_dates(date_list):
     """Formats a (date, value) list for usage in a template.

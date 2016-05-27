@@ -19,19 +19,21 @@
             {% trans "Information" %}
         </a>
     </li>
+    <li role="presentation" class="{% if subtab == 'users' %}active{% endif %}">
+        <a href="{% url 'backoffice:course-enrolled-users' course_info.course.id %}">
+            {% trans "Users" %}
+        </a>
+    </li>
     <li role="presentation" class="{% if subtab == 'wiki' %}active{% endif %}">
         <a href="{% url 'backoffice:course-wiki' course_info.course.id %}">
             {% trans "Wiki" %}
         </a>
     </li>
-
     <li role="presentation" class="{% if subtab == 'verified' %}active{% endif %}">
         <a href="{% url 'backoffice:course-verified' course_info.course.id %}">
             {% trans "Verified users" %}
         </a>
     </li>
-
-
   </ul>
 
 

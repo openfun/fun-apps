@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import csv
 from collections import namedtuple
 import datetime
 import logging
@@ -8,20 +7,22 @@ import re
 from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.db.models import Count
-from django.http import HttpResponse, Http404
+from django.db.models import Count, Q
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext, ugettext_lazy as _
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from courses.models import Course, CourseUniversityRelation
 from courses.utils import get_about_section
 from courseware.courses import course_image_url, get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
-from student.models import CourseEnrollment, CourseAccessRole
+from student.models import CourseEnrollment, CourseAccessRole, User
 from universities.models import University
 from xmodule.modulestore.django import modulestore
 
 from fun.utils import funwiki as wiki_utils
+from fun.utils.export_data import csv_response
 from ..certificate_manager.verified import get_verified_student_grades
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
 from ..utils_proctorU_api import get_reports_from_interval
@@ -47,38 +48,25 @@ CompleteFunCourse = namedtuple('CompleteFunCourse', COURSE_FIELDS + ABOUT_SECTIO
 @group_required('fun_backoffice')
 def courses_list(request):
     if request.method == 'POST':  # export as CSV
-        course_infos = get_complete_courses_info()
-        filename = 'export-cours-%s.csv' % datetime.datetime.now().strftime('%Y-%m-%d')
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=%s' % filename
-        writer = csv.writer(response)
         csv_header = [ugettext(u"Title"), ugettext(u"University"), ugettext(u"Organisation code"),
                 ugettext(u"Course"), ugettext(u"Run"), ugettext(u"Start date"), ugettext(u"End date"),
                 ugettext(u"Enrollment start"), ugettext(u"Enrollment end"), ugettext(u"Students count"),
                 ugettext(u"Effort"), ugettext(u"Image"), ugettext(u"Video"), ugettext(u"Url")]
-        writer.writerow([field.encode('utf-8') for field in csv_header])
 
-        for course_info in course_infos:
-            row = [
-                course_info.title.encode('utf-8'),
-                course_info.university.encode('utf-8'),
-                course_info.course.id.org.encode('utf-8'),
-                course_info.course.id.course.encode('utf-8'),
-                course_info.course.id.run.encode('utf-8'),
-                format_datetime(course_info.course.start),
-                format_datetime(course_info.course.end),
-                format_datetime(course_info.course.enrollment_start),
-                format_datetime(course_info.course.enrollment_end),
-                course_info.students_count,
-                course_info.effort.encode('utf-8'),
-                'https://%s%s' % (
-                    settings.LMS_BASE,
-                    course_info.course_image_url.encode("utf-8")
-                ),
-                course_info.video,
-                course_info.url
-            ]
-            writer.writerow(row)
+        filename = 'export-cours-%s.csv' % datetime.datetime.now().strftime('%Y-%m-%d')
+        course_infos = get_complete_courses_info()
+
+        rows = [
+            (ci.title, ci.university, ci.course.id.org, ci.course.id.course, ci.course.id.run,
+             format_datetime(ci.course.start), format_datetime(ci.course.end),
+             format_datetime(ci.course.enrollment_start), format_datetime(ci.course.enrollment_end),
+             ci.students_count, ci.effort,' https://%s%s' % (settings.LMS_BASE, ci.course_image_url), ci.video, ci.url
+             )
+            for ci in course_infos
+        ]
+
+        response = csv_response(csv_header, rows, filename)
+
         return response
     else:
         search_pattern = request.GET.get('search')
@@ -141,6 +129,53 @@ def course_detail(request, course_key_string):
             'tab': 'courses',
             'subtab': 'home',
         })
+
+
+@group_required('fun_backoffice')
+def enrolled_users(request, course_key_string):
+    course = get_course(course_key_string)
+    course_info = get_course_infos([course])[0]
+    User.objects.select_related('profile')
+    users = User.objects.filter(courseenrollment__course_id=course.id,
+                                 courseenrollment__is_active=True).select_related('profile').order_by('username')
+
+    search_pattern = request.GET.get('search')
+    if  search_pattern:
+        users = users.filter(Q(username__icontains=search_pattern) |
+                               Q(email__icontains=search_pattern) |
+                               Q(profile__name__icontains=search_pattern))
+
+    if request.method == 'POST':  # export as CSV
+        course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
+        filename = 'export-email-usernames-{course}-{date}'.format(date=datetime.datetime.now().strftime('%Y-%m-%d'),
+                                                                   course=course_code)
+        if search_pattern:
+            filename += "-search_{}".format(search_pattern)
+        filename += ".csv"
+
+        csv_header = [ugettext(u"Username"), ugettext(u"Name"), ugettext(u"Email")]
+        rows = [(u.username, u.profile.name, u.email) for u in users]
+        response = csv_response(csv_header, rows, filename)
+
+        return response
+    else:
+        paginator = Paginator(users, request=request, per_page=100)
+        try:
+            users = paginator.page(request.GET.get('page', 1))
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+
+        return render(request, 'backoffice/courses/users.html', {
+            'course_key_string': course_key_string,
+            'course_info': course_info,
+            'tab': 'courses',
+            'subtab': 'users',
+            'users': users,
+            'search': search_pattern
+        })
+
 
 
 @group_required('fun_backoffice')
@@ -310,3 +345,21 @@ def get_course_enrollment_counts(course_descriptors_ids):
 def format_datetime(dt):
     FORMAT = '%Y-%m-%d %H:%M'
     return dt.strftime(FORMAT) if dt else ''
+
+# def create_csv(csv_header, filename, rows):
+#     response = HttpResponse(content_type='text/csv')
+#     response['Content-Disposition'] = 'attachment; filename=%s' % filename
+#     writer = csv.writer(response)
+#     writer.writerow([field.encode('utf-8') for field in csv_header])
+#
+#     for row in rows:
+#         row_converted = []
+#         for s in row:
+#             try:
+#                 row_converted.append(s.encode("utf8"))
+#             except AttributeError:
+#                 row_converted.append(u"{}".format(s))
+#
+#         writer.writerow(row_converted)
+#
+#     return response, writer
