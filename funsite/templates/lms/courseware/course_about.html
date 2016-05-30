@@ -173,7 +173,9 @@ from funsite.utils import is_paid_course
                     <span></span>
                 </div>
                 <div class="course-image hidden-lg hidden-sm hidden-md">
+                    % if fun_course.has_verified_course_mode:
                     <span class="verified"></span>
+                    % endif
                     <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
@@ -192,8 +194,10 @@ from funsite.utils import is_paid_course
                 </div>
 
                 <div class="course-image hidden-md hidden-sm hidden-xs">
-                        <span class="verified"></span>
-                        <div class="video-button"></div>
+                    % if fun_course.has_verified_course_mode:
+                    <span class="verified"></span>
+                    % endif
+                    <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }">
                 </div>
 
@@ -401,7 +405,9 @@ from funsite.utils import is_paid_course
 
 
                 <div class="course-image hidden-lg hidden-xs">
+                    % if fun_course.has_verified_course_mode:
                     <span class="verified"></span>
+                    % endif
                     <div class="video-button"></div>
                     <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
