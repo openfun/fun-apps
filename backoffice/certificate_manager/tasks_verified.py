@@ -8,7 +8,6 @@ from time import time
 from certificates.models import CertificateStatuses
 from instructor_task.tasks_helper import TaskProgress
 from xmodule.modulestore.django import modulestore
-from opaque_keys.edx.keys import CourseKey
 
 from ..utils_proctorU_api import get_proctorU_students
 from .utils import (
@@ -18,6 +17,7 @@ from .utils import (
         get_university_attached_to_course,
 )
 from .verified import get_enrolled_verified_students, get_enrolled_verified_students_count
+
 
 def generate_verified_certificate(_xmodule_instance_args, _entry_id, course_id, _task_input, action_name):
     """
@@ -73,7 +73,7 @@ def iter_generated_course_verified_certificates(course_id):
     teachers = get_teachers_list_from_course(unicode(course_id))
 
     # Get information from ProctorU
-    proctoru_reports = get_proctoru_reports(course_id)
+    proctoru_reports = get_proctorU_students(course_id.course, course_id.run, student_grades=None)
 
     for student in get_enrolled_verified_students(course_id):
         # Note that if a certificate was generated and proctoru changed its
@@ -116,18 +116,3 @@ def is_proctoru_ok(proctoru_student_reports):
         )
     else:
         return False
-
-
-def get_proctoru_reports(course_id):
-    """
-    Get the proctorU reports for this course for all users.
-
-    Returns:
-        {
-            student1_username: [reports],
-            student2_username: [reports],
-        }
-    """
-    ck = CourseKey.from_string(unicode(course_id))
-    registered_users = get_proctorU_students(course_name=ck.course, course_run=ck.run, student_grades=None)
-    return registered_users
