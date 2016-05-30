@@ -152,7 +152,7 @@ def verified(request, course_key_string, action=None):
     students_grades = get_verified_student_grades(course.id)
 
     registered_users = get_proctorU_students(
-        course_name=course, course_run=course.id.run, student_grades=students_grades
+        course.id.course, course.id.run, students_grades
     )
 
     if "error" in registered_users:
