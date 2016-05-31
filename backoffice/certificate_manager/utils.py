@@ -3,6 +3,7 @@
 import json
 import os
 import random
+import logging
 
 from celery.states import READY_STATES
 
@@ -22,6 +23,8 @@ from teachers.models import CertificateTeacher
 from universities.models import University
 
 from .verified import get_student_certificate_grade
+
+logger = logging.getLogger(__name__)
 
 
 def get_certificate_params(course_key):
@@ -116,6 +119,7 @@ def generate_fun_verified_certificate(student, course):
     if the student's grade is greater or equal to course's passing grade."""
 
     grade = get_student_certificate_grade(course.id, student)
+    logger.info("trying to generate verified certificate for course: {} - student:{} - grade: {}...".format(unicode(course.id), student, grade))
     passing_grade = Course.objects.get(key=unicode(course.id)).certificate_passing_grade
     if passing_grade is None:
         # TODO catch this exception, somewhere
@@ -130,12 +134,14 @@ def generate_fun_verified_certificate(student, course):
     # TODO : tests avec proctorU + logique certificats / attestation
     if grade is None or grade < passing_grade:
         cert.status = CertificateStatuses.notpassing
+        logger.info("verified certificate not created, insuffisant grade, student {} not passing - grade: {} - min grade: {}...".format(student, grade, passing_grade))
     else:
         cert.status = CertificateStatuses.downloadable
         cert.download_url = ""
         # TODO: Why do we need to cast here ?
         cert.grade = '{0:.2f}'.format(grade)
         cert.mode = GeneratedCertificate.MODES.verified
+        logger.info("verified certificate created for student: {}".format(student))
     cert.save()
 
     trigger_tracking_log(cert, course, student)

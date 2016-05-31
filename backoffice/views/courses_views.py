@@ -24,7 +24,7 @@ from xmodule.modulestore.django import modulestore
 from fun.utils import funwiki as wiki_utils
 from ..certificate_manager.verified import get_verified_student_grades
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
-from ..utils_proctorU_api import get_proctorU_students
+from ..utils_proctorU_api import get_reports_from_interval
 
 
 logger = logging.getLogger(__name__)
@@ -154,9 +154,7 @@ def verified(request, course_key_string, action=None):
     today = datetime.datetime.today()
     begin = today - datetime.timedelta(100)
 
-    registered_users = get_proctorU_students(
-        course.id.course, course.id.run, begin=begin, student_grades=students_grades
-    )
+    registered_users = get_reports_from_interval(course.id.course, course.id.run, begin)
 
     if "error" in registered_users:
         return render(request, 'backoffice/courses/verified_error.html', {
@@ -227,8 +225,8 @@ def get_filtered_course_infos(search_pattern=None):
 
     if search_pattern:
         course_infos = [course for course in course_infos
-                if search_pattern in course['title']
-                or search_pattern in course['course'].id.to_deprecated_string()]
+                        if search_pattern in course['title']
+                        or search_pattern in course['course'].id.to_deprecated_string()]
 
     return course_infos
 
