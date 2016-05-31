@@ -28,7 +28,7 @@ def simulate_procotru_multiple_resp(first_resps):
     :param first_resps: the first responses to send
     :yield: the API response
     """
-    empty = {"message": "", "response_code": 1, "data": []}
+    empty = {"message": "", "response_code": 1, "data": None}
     for resp in first_resps:
         yield resp
     while True:
@@ -41,16 +41,16 @@ class TestVerifiedTab(VerifiedCourseList):
         mock_api.return_value = proctorU_api_result("duplicated")
         UserFactory(last_name="26", username="plop")
 
-        start_date = datetime.datetime(day=01, month=04, year=01)
-        resp = utils_proctorU_api.get_proctorU_students("Cours", "Run", start_date, student_grades={})
+        start_date = datetime.datetime(day=01, month=04, year=2015)
+        resp = utils_proctorU_api.get_reports_from_interval("Cours", "Run", start_date)
         self.assertEqual(1, len(resp["plop"]))
 
     @patch("backoffice.utils_proctorU_api.query_api")
     def test_proctorU_api_parsing_empty_response(self, mock_api):
         mock_api.return_value = proctorU_api_result("empty")
 
-        start_date = datetime.datetime(day=01, month=04, year=01)
-        resp = utils_proctorU_api.get_proctorU_students("Cours", "Run", start_date, student_grades={})
+        start_date = datetime.datetime(day=01, month=04, year=2015)
+        resp = utils_proctorU_api.get_reports_from_interval("Cours", "Run", start_date)
         self.assertEqual("Empty response from the API", resp["error"])
 
     @patch("backoffice.utils_proctorU_api.query_api")
@@ -60,7 +60,7 @@ class TestVerifiedTab(VerifiedCourseList):
 
         today = datetime.datetime.today()
         begin = today - datetime.timedelta(100)
-        resp = utils_proctorU_api.get_proctorU_students("Cours", "Run", begin, student_grades={})
+        resp = utils_proctorU_api.get_reports_from_interval("Cours", "Run", begin)
         self.assertEqual(2, len(resp["plop"]))
         self.assertEqual("Reservation created", resp["plop"][0]["ProctorNotes"])
         self.assertEqual("Reservation cancelled", resp["plop"][1]["ProctorNotes"])
@@ -70,16 +70,16 @@ class TestVerifiedTab(VerifiedCourseList):
         mock_api.return_value = proctorU_api_result("student-aggregation")
         UserFactory(last_name="26")
 
-        start_date = datetime.datetime(day=01, month=04, year=01)
-        resp = utils_proctorU_api.get_proctorU_students("No one", "likes me", start_date, student_grades={})
+        start_date = datetime.datetime(day=01, month=04, year=2015)
+        resp = utils_proctorU_api.get_reports_from_interval("No one", "likes me", start_date)
         self.assertIn("id", resp["warn"])
         self.assertIn("start", resp["warn"])
         self.assertIn("end", resp["warn"])
 
     def test_proctorU_query_api(self):
-        ResponseRequest = namedtuple("ResponseRequest", "content")
+        ResponseRequest = namedtuple("ResponseRequest", ("content", "status_code"))
         val = json.dumps({"test": "val", "response_code": 1})
-        respMock = ResponseRequest(content=val)
+        respMock = ResponseRequest(content=val, status_code=200)
         request_mock = Mock(return_value=respMock)
         data = {}
         resp = utils_proctorU_api.query_api(request_mock, "example.com", data)
@@ -93,7 +93,8 @@ class TestVerifiedTab(VerifiedCourseList):
 
         today = datetime.datetime.today()
         begin = today - datetime.timedelta(100)
-        resp = utils_proctorU_api.get_proctorU_students("Cours", "Run", begin, student_grades={})
+        end = begin + datetime.timedelta(20)
+        resp = utils_proctorU_api.get_reports_from_interval("Cours", "Run", begin, request_end_date=end)
         self.assertEqual(4, len(resp["plop"]))
         self.assertEqual("Reservation created1", resp["plop"][0]["ProctorNotes"])
         self.assertEqual("Reservation cancelled1", resp["plop"][1]["ProctorNotes"])
@@ -118,3 +119,30 @@ class TestProctoruUtils(BaseTestCase):
         dr = list(utils_proctorU_api.split_large_date_range(start_date, end_date, 200))
         self.assertEqual(1, len(dr))
         self.assertEqual(end_date, dr[-1][1])
+
+    def test_proctoru_reports_verification(self):
+
+        proctoru_report_1 = [
+            {"Authenticated": False, "TestSubmitted": False, "Escalated": False, "IncidentReport": False},
+            {"Authenticated": False, "TestSubmitted": False, "Escalated": False, "IncidentReport": False},
+        ]
+        is_ok_1 = utils_proctorU_api.is_proctoru_ok(proctoru_report_1)
+
+        proctoru_report_2 = [
+            {"Authenticated": True, "TestSubmitted": False, "Escalated": False, "IncidentReport": False},
+            {"Authenticated": True, "TestSubmitted": True, "Escalated": False, "IncidentReport": False},
+        ]
+        is_ok_2 = utils_proctorU_api.is_proctoru_ok(proctoru_report_2)
+
+        proctoru_report_3 = [
+            {"Authenticated": True, "TestSubmitted": False, "Escalated": True, "IncidentReport": False},
+        ]
+        is_ok_3 = utils_proctorU_api.is_proctoru_ok(proctoru_report_3)
+
+        proctoru_report_4 = []
+        is_ok_4 = utils_proctorU_api.is_proctoru_ok(proctoru_report_4)
+
+        self.assertEqual(False, is_ok_1)
+        self.assertEqual(True, is_ok_2)
+        self.assertEqual(False, is_ok_3)
+        self.assertEqual(False, is_ok_4)
