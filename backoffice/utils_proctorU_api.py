@@ -1,8 +1,10 @@
 from collections import defaultdict
 import datetime
 import dateutil
+from dateutil import relativedelta
 import json
 import logging
+import os
 
 import requests
 
@@ -28,24 +30,48 @@ API_URLS = {
 BASE_URL = "https://" + settings.PROCTORU_API
 HEADER = {"Authorization-Token": settings.PROCTORU_TOKEN}
 
+
+def split_large_date_range(start_date, end_date, increment):
+    """
+    Split a date range in multiple time intervals of increment days
+
+    :param start_date: start of the interval
+    :param end_date: end of the interval
+    :param increment: value to increment (int)
+    :yield: tuples with sub interval start and end [(start_date, int1), (int1, int2), ... , (int_n, end_date)]
+    """
+    cur = start_date
+    delta = relativedelta.relativedelta(days=increment)
+    while cur + delta < end_date:
+        yield cur, cur + delta
+        cur += delta
+    if cur != end_date:
+        yield cur, end_date
+
 def query_api(request_method, url, data):
     data["time_sent"] = datetime.datetime.utcnow().isoformat()
 
+    logger.info("sending request to proctoru API, url: {} - header:{} - data:{}".format(url, HEADER, data))
     try:
-        student_activity = request_method(url, data=data, headers=HEADER).content
+        resp = request_method(url, data=data, headers=HEADER)
     except requests.ConnectionError as e:
         logger.exception(e)
         return {"error": "Connection error while connecting to {}".format(url)}
 
+    if resp.status_code == 500:
+        mess = "Proctoru resp: {} -- data {}".format(resp.content, data)
+        logger.error(mess)
+        return {"error": mess}
+
+    student_activity = resp.content
     student_activity_json = json.loads(student_activity)
     if student_activity_json["response_code"] != 1:
         if student_activity_json["message"] == "stale request":
-            logger.error("Error in ProctorU API configuration, received : stale request")
+            logger.error("Error in ProctorU API configuration, received : stale request -- data: {}".format(data))
             return {"error": student_activity_json["message"]}
         else:
-            logger.error("ProctorU API error, message : {}".format(student_activity_json["message"]))
+            logger.error("ProctorU API error, message : {} -- data: {}".format(student_activity_json["message"], data))
             return {"error": student_activity_json["message"]}
-
     return student_activity_json
 
 
@@ -87,23 +113,68 @@ def extract_infos(report):
     }
     return tmp
 
-def get_proctorU_students(course_name, course_run, student_grades=None):
-    data = request_infos()
 
-    student_activity = query_api(requests.post,
-                                 BASE_URL + API_URLS["client_activity_report"],
-                                 data)
-    if "error" in student_activity:
-        return student_activity
+def get_reports_from_ids(course_name, course_run, student_ids):
+    """ Query proctoru API from a list of student ids
+    :param course_name: name of the course (for proctoru identification)
+    :param course_run: run of the course (for proctoru identification)
+    :param student_ids: list of student ids enrolled in verified mode with proctoru reservation
+    :return: the aggregated reports for course per user
+    """
+    student_activities = []
+    logger.info("starting proctoru query from student ids: {}".format(student_ids))
 
-    filtered_reports = filter_reports_for_course(course_name, course_run, data, student_activity)
-    if "error" in filtered_reports or "warn" in filtered_reports:
+    for student_id in student_ids:
+        student_activity = query_api(requests.post,
+                                     BASE_URL + API_URLS["client_activity_report"],
+                                     request_infos(None, None, student_pk=student_id))
+        if "error" in student_activity:
+            if "student not found" not in student_activity["error"].lower():
+                # if student is not found, we continue, else we return
+                return student_activity
+        else:
+            student_activities.append(student_activity)
+
+    filtered_reports = filter_reports_for_course(course_name, course_run, None, None, student_activities)
+    if {"warn", "error"}.intersection(filtered_reports.keys()) :  # something went wrong
         return filtered_reports
 
-    return aggregate_reports_per_user(filtered_reports, student_grades)
+    return aggregate_reports_per_user(filtered_reports["results"])
 
 
-def aggregate_reports_per_user(filtered_reports, student_grades=None):
+def get_reports_from_interval(course_name, course_run, request_start_date, request_end_date=None):
+    """ Query proctoru API from a start_date and an end_date
+    :param course_name: string with the name of the course (course.id.name)
+    :param course_run: string with the run of the course (course.id.run)
+    :param request_start_date: datetime object, specify the start of the interval
+    :param request_end_date: datetime object, specify the end of the interval
+    :param student_grades: dict with {user : {"passed": True / False, "grade": 0 <= x <= 1}
+    :return: dict {user: [report1, report2, ...]}
+    """
+    student_activities = []
+    if not request_end_date:
+        request_end_date = datetime.datetime.today()
+    interval = 10
+
+    logger.info("starting proctoru query from interval with begin: {} and end: {}".format(request_start_date, request_end_date))
+
+    for start, end in split_large_date_range(request_start_date, request_end_date, interval):
+        student_activity = query_api(requests.post,
+                                     BASE_URL + API_URLS["client_activity_report"],
+                                     request_infos(start, end))
+        if "error" in student_activity:
+            return student_activity
+
+        student_activities.append(student_activity)
+
+    filtered_reports = filter_reports_for_course(course_name, course_run, request_start_date, request_end_date, student_activities)
+    if {"warn", "error"}.intersection(filtered_reports.keys()) :  # something went wrong
+        return filtered_reports
+
+    return aggregate_reports_per_user(filtered_reports["results"])
+
+
+def aggregate_reports_per_user(filtered_reports):
     """
     Aggregate the lines present in the API according the user.
     The API returns a line for each events, but we are really interested in the "profile" for each user.
@@ -147,59 +218,87 @@ def aggregate_reports_per_user(filtered_reports, student_grades=None):
         url = reverse("backoffice:user-detail", args=[user.username])
         event_users[id_][0]["fun_user_url"] = url
 
-        if student_grades:
-            try:
-                grade, passed = student_grades[user.username]["grade"], student_grades[user.username]["passed"]
-            except KeyError:
-                mess = "User {} is not in student_grades".format(user.username)
-                logger.info(mess)
-            else:
-                event_users[id_][0]["fun_exam_grade"] = grade
-                event_users[id_][0]["fun_exam_pass"] = passed
         res[user.username] = event_users[id_]
 
     return res
 
-
-def filter_reports_for_course(course_name, course_run, api_query, student_activity):
+def filter_reports_for_course(course_name, course_run, start_date, end_date, student_activities):
     """
     Only keep the course of interest from the API query.
     This should be done API side, but it is not possible for the moment :(
 
     :param course_name: str course ID
     :param course_run: str session ID
-    :param api_query: dict with the API request (contains the dates for the logs)
-    :param student_activity: dict with the API response
+    :param start_date: datetime object with the starting date of the query (for the logs)
+    :param end_date: datetime object with the ending date of the query (for the logs)
+    :param student_activities: list of dicts with the API response
     :return: dict with the API response about the course
     """
     exam_id = "{} {}".format(course_name, course_run)
-    reports = student_activity["data"]
+    reports = []
+    for student_activity in student_activities:
+        if "data" in student_activity and student_activity["data"]:
+            reports += student_activity.get('data', [])
+
     if not reports:
         mess = "Empty response from the API"
         logger.info(mess)
         return {"error": mess}
-    filtered_reports = [report for report in reports if exam_id in report["Test"]]
+
+    filtered_reports = [report for report in reports if exam_id in report["Test"]]  # "Test" is the name of the exam in proctoru API
     if not filtered_reports:
-        mess = "No student for course {} between {} and {}".format(exam_id,
-                                                                   api_query["start_date"],
-                                                                   api_query["end_date"])
+        mess = "No student for course {} between {} and {}".format(exam_id, start_date, end_date)
         logger.info(mess)
         return {"warn": {"id": exam_id,
-                         "start": format_date(api_query["start_date"]),
-                         "end": format_date(api_query["end_date"])}}
-    return filtered_reports
+                         "start": format_date(str(start_date)),
+                         "end": format_date(str(end_date))}}
+    return {"results": filtered_reports}
 
 
 def format_date(date_str):
-    return dateutil.parser.parse(date_str).strftime(_('%m/%d/%y %H:%M'))
+    """ Tries to translate and format a ISO date
+    :param date_str: raw string
+    :return: the translated date or None
+    """
+    try:
+        return dateutil.parser.parse(date_str).strftime(_('%m/%d/%y %H:%M'))
+    except ValueError:  # sometimes we got no dates in string
+        return None
 
-def request_infos():
-    start = datetime.datetime.today() - datetime.timedelta(days=100)
-    end = datetime.datetime.today() + datetime.timedelta(days=100)
-    start_date = start.isoformat()
-    end_date = end.isoformat()
-    data = {
-        "end_date": end_date,
-        "start_date": start_date,
-    }
+def request_infos(begin, end, student_pk=None):
+    """
+    Creates the dic with correctly formatted information
+    :param begin: the date of the beginning of the request
+    :param end: the date of the end of the request
+    :param student_pk: the "proctoru student unique ID" (ie : primary key for us) of a student
+    :return: a dictionary properly configured
+    """
+    data = {}
+
+    if begin:
+        data["start_date"] = begin.isoformat()
+    if end:
+        data["end_date"] = end.isoformat()
+    if student_pk:
+        data["student_id"] = student_pk
+
     return data
+
+
+def is_proctoru_ok(proctoru_student_reports):
+    """Check ProctorU accept conditions from the reports
+
+    As a debug feature, this function will return True for all students when
+    the PROCTORU_ALL_STUDENTS_OK environment variable is defined. This is a
+    temporary measure that should be removed when we don't need it anymore.
+    (i.e: when we have found a way to abstract ourselves from the ProctorU API)
+    """
+    if os.environ.get("PROCTORU_ALL_STUDENTS_OK"):
+        return True
+
+    authenticated = any([report.get("Authenticated", False) for report in proctoru_student_reports])
+    submitted = any([report.get("TestSubmitted", False) for report in proctoru_student_reports])
+    escalated = any([report.get("Escalated", False) for report in proctoru_student_reports])
+    incident = any([report.get("IncidentReport", False) for report in proctoru_student_reports])
+
+    return authenticated and submitted and not escalated and not incident

@@ -4,6 +4,8 @@ from courseware import grades as courseware_grades
 from student.models import User, CourseMode
 from xmodule.modulestore.django import modulestore
 
+from proctoru.models import ProctoruUser
+
 from courses.models import Course
 
 ASSIGNMENT_VALID_SHORT_NAMES = ('certificat avg', 'certificat')
@@ -61,3 +63,8 @@ def get_verified_student_grades(course_id):
             'grade': grade,
         }
     return student_grades
+
+def enrolled_proctoru_students(course_id):
+    enrolled = get_enrolled_verified_students(course_id)
+    proctoru_students = ProctoruUser.objects.filter(student__in=enrolled)
+    return proctoru_students.values_list("student__pk", flat=True)
