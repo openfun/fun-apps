@@ -1,6 +1,7 @@
 from collections import defaultdict
 import datetime
 import dateutil
+from  dateutil import relativedelta
 import json
 import logging
 
@@ -27,6 +28,24 @@ API_URLS = {
 
 BASE_URL = "https://" + settings.PROCTORU_API
 HEADER = {"Authorization-Token": settings.PROCTORU_TOKEN}
+
+
+def split_large_date_range(start_date, end_date, increment):
+    """
+    Split a date range in multiple time intervals of increment days
+
+    :param start_date: start of the interval
+    :param end_date: end of the interval
+    :param increment: value to increment (int)
+    :yield: tuples with sub interval start and end [(start_date, int1), (int1, int2), ... , (int_n, end_date)]
+    """
+    cur = start_date
+    delta = relativedelta.relativedelta(days=increment)
+    while cur + delta < end_date:
+        yield cur, cur + delta
+        cur += delta
+    if cur != end_date:
+        yield cur, end_date
 
 def query_api(request_method, url, data):
     data["time_sent"] = datetime.datetime.utcnow().isoformat()
@@ -87,17 +106,29 @@ def extract_infos(report):
     }
     return tmp
 
-def get_proctorU_students(course_name, course_run, student_grades=None):
-    data = request_infos()
+def get_proctorU_students(course_name, course_run, request_start_date, student_grades=None):
+    """
+    :param course_name: string with the name of the course (course.id.name)
+    :param course_run: string with the run of the course (course.id.run)
+    :param request_start_date: datetime object, specify the start of the interval
+    :param student_grades: dict with {user : {"passed": True / False, "grade": 0 <= x <= 1}
+    :return: dict {user: [report1, report2, ...]}
+    """
+    student_activities = []
+    request_end_date = datetime.datetime.today()
+    interval = 20
 
-    student_activity = query_api(requests.post,
-                                 BASE_URL + API_URLS["client_activity_report"],
-                                 data)
-    if "error" in student_activity:
-        return student_activity
+    for start, end in split_large_date_range(request_start_date, request_end_date, interval):
+        student_activity = query_api(requests.post,
+                                     BASE_URL + API_URLS["client_activity_report"],
+                                     request_infos(start, end))
+        if "error" in student_activity:
+            return student_activity
 
-    filtered_reports = filter_reports_for_course(course_name, course_run, data, student_activity)
-    if "error" in filtered_reports or "warn" in filtered_reports:
+        student_activities.append(student_activity)
+
+    filtered_reports = filter_reports_for_course(course_name, course_run, request_start_date, request_end_date, student_activities)
+    if isinstance(filtered_reports, dict): # error
         return filtered_reports
 
     return aggregate_reports_per_user(filtered_reports, student_grades)
@@ -161,42 +192,50 @@ def aggregate_reports_per_user(filtered_reports, student_grades=None):
     return res
 
 
-def filter_reports_for_course(course_name, course_run, api_query, student_activity):
+def filter_reports_for_course(course_name, course_run, start_date, end_date, student_activities):
     """
     Only keep the course of interest from the API query.
     This should be done API side, but it is not possible for the moment :(
 
     :param course_name: str course ID
     :param course_run: str session ID
-    :param api_query: dict with the API request (contains the dates for the logs)
-    :param student_activity: dict with the API response
+    :param start_date: datetime object with the starting date of the query (for the logs)
+    :param end_date: datetime object with the ending date of the query (for the logs)
+    :param student_activities: list of dicts with the API response
     :return: dict with the API response about the course
     """
     exam_id = "{} {}".format(course_name, course_run)
-    reports = student_activity["data"]
+    reports = []
+    for student_activity in student_activities:
+        reports += student_activity.get('data', [])
+
     if not reports:
         mess = "Empty response from the API"
         logger.info(mess)
         return {"error": mess}
+
     filtered_reports = [report for report in reports if exam_id in report["Test"]]
     if not filtered_reports:
-        mess = "No student for course {} between {} and {}".format(exam_id,
-                                                                   api_query["start_date"],
-                                                                   api_query["end_date"])
+        mess = "No student for course {} between {} and {}".format(exam_id, start_date, end_date)
         logger.info(mess)
         return {"warn": {"id": exam_id,
-                         "start": format_date(api_query["start_date"]),
-                         "end": format_date(api_query["end_date"])}}
+                         "start": format_date(str(start_date)),
+                         "end": format_date(str(end_date))}}
     return filtered_reports
 
 
 def format_date(date_str):
     return dateutil.parser.parse(date_str).strftime(_('%m/%d/%y %H:%M'))
 
-def request_infos():
-    start = datetime.datetime.today() - datetime.timedelta(days=100)
-    end = datetime.datetime.today() + datetime.timedelta(days=100)
-    start_date = start.isoformat()
+def request_infos(begin, end):
+    """
+    Creates the dic with correctly formatted information
+    :param begin: the date of the beginning of the request
+    :param end: the date of the end of the request
+    :return: a dictionary properly configured
+    """
+
+    start_date = begin.isoformat()
     end_date = end.isoformat()
     data = {
         "end_date": end_date,

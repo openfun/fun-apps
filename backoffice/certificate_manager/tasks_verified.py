@@ -4,6 +4,7 @@ This file contains backoffice tasks that are designed to perform background oper
 
 import os
 from time import time
+import datetime
 
 from certificates.models import CertificateStatuses
 from instructor_task.tasks_helper import TaskProgress
@@ -73,7 +74,9 @@ def iter_generated_course_verified_certificates(course_id):
     teachers = get_teachers_list_from_course(unicode(course_id))
 
     # Get information from ProctorU
-    proctoru_reports = get_proctorU_students(course_id.course, course_id.run, student_grades=None)
+    today = datetime.datetime.today()
+    begin = today - datetime.timedelta(300)
+    proctoru_reports = get_proctorU_students(course_id.course, course_id.run, begin=begin, student_grades=None)
 
     for student in get_enrolled_verified_students(course_id):
         # Note that if a certificate was generated and proctoru changed its

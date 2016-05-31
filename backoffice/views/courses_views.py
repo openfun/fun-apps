@@ -151,8 +151,11 @@ def verified(request, course_key_string, action=None):
 
     students_grades = get_verified_student_grades(course.id)
 
+    today = datetime.datetime.today()
+    begin = today - datetime.timedelta(100)
+
     registered_users = get_proctorU_students(
-        course.id.course, course.id.run, students_grades
+        course.id.course, course.id.run, begin=begin, student_grades=students_grades
     )
 
     if "error" in registered_users:
