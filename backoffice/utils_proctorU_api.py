@@ -215,7 +215,7 @@ def filter_reports_for_course(course_name, course_run, start_date, end_date, stu
         logger.info(mess)
         return {"error": mess}
 
-    filtered_reports = [report for report in reports if exam_id in report["Test"]]
+    filtered_reports = [report for report in reports if exam_id in report["Test"]]  # 'Test' is how ProctorU call exams
     if not filtered_reports:
         mess = "No student for course {} between {} and {}".format(exam_id, start_date, end_date)
         logger.info(mess)
