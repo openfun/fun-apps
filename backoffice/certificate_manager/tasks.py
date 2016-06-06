@@ -3,6 +3,7 @@ This file contains backoffice tasks that are designed to perform background oper
 """
 
 from time import time
+import datetime
 
 from django.contrib.auth.models import User
 
@@ -13,12 +14,17 @@ from certificates.models import (
   CertificateStatuses as status,
 )
 
+from student.models import CourseEnrollment
+
 from .utils import (
+        generate_fun_verified_certificate,
         create_test_certificate,
         generate_fun_certificate,
         get_teachers_list_from_course,
         get_university_attached_to_course,
 )
+from ..utils_proctorU_api import get_proctorU_students
+from utils_proctoru import is_proctoru_ok
 
 
 def generate_certificate(_xmodule_instance_args, _entry_id, course_id, _task_input, action_name):
@@ -73,12 +79,40 @@ def iter_generated_course_certificates(course_id):
     university = get_university_attached_to_course(course_id)
     teachers = get_teachers_list_from_course(unicode(course_id))
 
+    # Get information from ProctorU
+    today = datetime.datetime.today()
+    begin = today - datetime.timedelta(300)
+    proctoru_reports = get_proctorU_students(
+        course_id.course, course_id.run, begin, student_grades=None
+    )
+
     for student in get_enrolled_students(course_id):
-        if certificate_status_for_student(student, course_id)['status'] != status.downloadable:
-            student_status = generate_fun_certificate(
-                student, course,
-                teachers, university,
-            )
+        course_enrollment = CourseEnrollment.objects.get(
+            course_id=course_id, user=student
+        )
+        generated_certificate = certificate_status_for_student(
+            student, course_id
+        )
+        if generated_certificate.get('status') != status.downloadable:
+            if course_enrollment.mode == 'honor':
+                student_status = generate_fun_certificate(
+                    student, course,
+                    teachers, university,
+                )
+            elif course_enrollment.mode == 'verified':
+                proctoru_student_reports = proctoru_reports.get(
+                    student.username, []
+                )
+                if is_proctoru_ok(proctoru_student_reports):
+                    student_status = generate_fun_verified_certificate(
+                        student, course
+                    )
+                    if student_status == status.notpassing:
+                        # Attempt to generate non-verified certificate
+                        student_status = generate_fun_certificate(
+                            student, course,
+                            teachers, university,
+                        )
             yield student_status
         else:
             yield status.downloadable
