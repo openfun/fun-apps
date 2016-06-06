@@ -207,7 +207,8 @@ def filter_reports_for_course(course_name, course_run, start_date, end_date, stu
     exam_id = "{} {}".format(course_name, course_run)
     reports = []
     for student_activity in student_activities:
-        reports += student_activity.get('data', [])
+        data = student_activity.get('data')
+        reports += data or []
 
     if not reports:
         mess = "Empty response from the API"
