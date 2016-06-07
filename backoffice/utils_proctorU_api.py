@@ -128,7 +128,7 @@ def get_proctorU_students(course_name, course_run, request_start_date, student_g
         student_activities.append(student_activity)
 
     filtered_reports = filter_reports_for_course(course_name, course_run, request_start_date, request_end_date, student_activities)
-    if isinstance(filtered_reports, dict): # error
+    if isinstance(filtered_reports, dict):  # error
         return filtered_reports
 
     return aggregate_reports_per_user(filtered_reports, student_grades)
@@ -207,14 +207,15 @@ def filter_reports_for_course(course_name, course_run, start_date, end_date, stu
     exam_id = "{} {}".format(course_name, course_run)
     reports = []
     for student_activity in student_activities:
-        reports += student_activity.get('data', [])
+        if student_activity.get('data'):
+            reports += student_activity.get('data', [])
 
     if not reports:
         mess = "Empty response from the API"
         logger.info(mess)
         return {"error": mess}
 
-    filtered_reports = [report for report in reports if exam_id in report["Test"]]
+    filtered_reports = [report for report in reports if exam_id in report["Test"]]  # 'Test' is how ProctorU call exams
     if not filtered_reports:
         mess = "No student for course {} between {} and {}".format(exam_id, start_date, end_date)
         logger.info(mess)

@@ -453,7 +453,7 @@ msgid ""
 "There is nothing to display, no students were registered for this course "
 "in ProctorU."
 msgstr ""
-"Il n'y a rien a afficher, aucun étudiant n'est inscrit sur ProctorU pour "
+"Il n'y a rien à afficher, aucun étudiant n'est inscrit sur ProctorU pour "
 "ce cours."
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
