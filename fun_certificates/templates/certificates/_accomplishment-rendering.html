@@ -44,7 +44,7 @@ if certificate_data and certificate_data.get('course_title', ''):
                     <div class="centered" style="max-width: 250px;">
                         <img src="${certificate_data['signatories'][0]['signature_image_path']}" alt="signature" class="centered" style="margin-top: 28px; max-height: 50px;">
                         <hr>
-                        <p class="centered" style="font-size: 12px; font-weight: bold">
+                        <p class="centered" style="font-size: 12px; font-style: italic;">
                             ${certificate_data['signatories'][0]['name']}<br>
                             ${certificate_data['signatories'][0]['title']}<br>
                             ${certificate_data['signatories'][0]['organization']}
@@ -54,7 +54,7 @@ if certificate_data and certificate_data.get('course_title', ''):
             </div>
             <div style="float: right; width: 50%;">
                 <p class="centered" style="font-size: 13px; margin-bottom: 5px;">L'identité de la personne<br>a été vérifiée durant<br>l'examen final surveillé</p>
-                <img class="centered" src="${STATIC_URL}fun_certificates/images/fun.png" alt="Certificat vérifié">
+                <img class="centered" src="${STATIC_URL}fun_certificates/images/tampon-fun.png" alt="Certificat vérifié">
                 <p class="centered" style="font-size: 12px;">
                 Vérifier la validité de ce certificat et les informations associées :<br>
                 ${request.build_absolute_uri(reverse('short-cert-url', args=[get_encoded_cert_id(settings.SECRET_KEY, course_id, accomplishment_user_id)]))}

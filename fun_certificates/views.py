@@ -11,7 +11,7 @@ from .utils import cert_id_decode
 
 
 def short_cert_url(request, encoded_cert_id):
-    """Retrieve GeneratedCertificate from its encoded id and returns
+    """Retrieve GeneratedCertificate from its encoded short id and returns
     edX's view content for it."""
     cert = get_object_or_404(GeneratedCertificate,
         id=cert_id_decode(settings.SECRET_KEY, encoded_cert_id),
