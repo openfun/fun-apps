@@ -59,11 +59,24 @@ ul.top-footer li a:visited {
     border-top-color: #374C61;
 }
 
-.bottom-footer a.logo-fun,.bottom-footer .fun-social-networks {
+.bottom-footer a.logo-fun {
     display: inline-block;
 }
 
-.bottom-footer .fun-social-networks a {
+.bottom-footer ul.fun-footer-icons {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.bottom-footer ul.fun-footer-icons li {
+    float: left;
+    margin-right: 20px;
+}
+.bottom-footer .fun-footer-icons li a.logo-social {
+    margin-top: 5px;
+}
+
+.bottom-footer .fun-footer-icons a {
     display: inline-block;
     padding-top: 5px;
 }
@@ -81,10 +94,6 @@ ul.top-footer li a:visited {
     display: inline-block;
 }
 
-.top-footer .left-md-footer,
-.top-footer .right-md-footer {
-    display: inline-block;
-}
 
 .top-footer li {
     display: inline;

@@ -7,7 +7,6 @@ from staticfiles.storage import staticfiles_storage
 %>
 
 <%page args="base_application"/>
-
 <div class="fun-footer">
     <div class="${'funsite-footer-width' if base_application=='funsite' else 'courseware-width'}">
 
@@ -52,17 +51,31 @@ from staticfiles.storage import staticfiles_storage
             </div>
         </ul>
         <div class="bottom-footer">
-                <a class='logo-fun' href="/">
-                    <img  src="${staticfiles_storage.url('funsite/images/logos/fun45.png')}" alt="Logo FUN">
-                </a>
-                <div class="fun-social-networks">
-                    <a class='logo-facebook' href="${settings.PLATFORM_FACEBOOK_ACCOUNT}" target="_blank" rel="noreferrer">
+            <ul class="fun-footer-icons" >
+                <li>
+                    <a class="logo-fun" href="/">
+                        <img  src="${staticfiles_storage.url('funsite/images/logos/fun45.png')}" alt="Logo FUN">
+                    </a>
+                </li>
+                <li>
+                    <a class="logo-facebook logo-social" href="${settings.PLATFORM_FACEBOOK_ACCOUNT}" target="_blank" rel="noreferrer">
                         <img src="${staticfiles_storage.url('funsite/images/logos/facebook32.png')}" alt="Facebook">
                     </a>
-                    <a class='logo-twitter' href="https://twitter.com/${settings.PLATFORM_TWITTER_ACCOUNT}" target="_blank" rel="noreferrer">
+                </li>
+                <li>
+                    <a class="logo-twitter logo-social" href="https://twitter.com/${settings.PLATFORM_TWITTER_ACCOUNT}" target="_blank" rel="noreferrer">
                         <img src="${staticfiles_storage.url('funsite/images/logos/twitter32.png')}" alt="Twitter">
                     </a>
-                </div>
+                </li>
+            </ul>
+
+            <div class="fun-social-networks">
+            <a class="logo-twitter logo-edx" href="https://edx.org" target="_blank">
+                <img src="${staticfiles_storage.url('funsite/images/logos/edx-openedx-logo-tag-dark140.png')}" alt="edX.org">
+            </a>
+            </div>
+
+
         </div>
     </div>
 </div>
