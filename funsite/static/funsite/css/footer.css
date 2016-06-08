@@ -62,7 +62,9 @@ ul.top-footer li a:visited {
 .bottom-footer a.logo-fun {
     display: inline-block;
 }
-
+.bottom-footer a.logo-edx img {
+    margin-top: 5px;
+}
 .bottom-footer ul.fun-footer-icons {
     margin: 0;
     padding-left: 0;
