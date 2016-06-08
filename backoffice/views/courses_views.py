@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import csv
 from collections import namedtuple
 import datetime
 import logging
@@ -9,7 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.db.models import Count, Q
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext, ugettext_lazy as _
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -23,7 +22,7 @@ from universities.models import University
 from xmodule.modulestore.django import modulestore
 
 from fun.utils import funwiki as wiki_utils
-from course_dashboard.views import csv_response
+from fun.utils.views import csv_response
 from ..certificate_manager.verified import get_verified_student_grades
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
 from ..utils_proctorU_api import get_proctorU_students
