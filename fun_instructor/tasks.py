@@ -15,7 +15,6 @@ from instructor_task.tasks_helper import (
 )
 
 from backoffice.certificate_manager.tasks import generate_certificate
-from backoffice.certificate_manager.tasks_verified import generate_verified_certificate
 from course_dashboard.reports_manager.tasks import generate_answers_distribution_report
 from backoffice.ora2_submissions.tasks import prepare_ora2_submissions
 
@@ -28,17 +27,6 @@ def generate_certificate_task_class(entry_id, xmodule_instance_args):
     
     action_name = ugettext_noop('certified')
     task_fn = partial(generate_certificate, xmodule_instance_args)
-    return run_main_task(entry_id, task_fn, action_name)
-
-
-@task(base=BaseInstructorTask)
-def generate_verified_certificate_task_class(entry_id, xmodule_instance_args):
-    """
-    Task class used in . TODO
-    """
-
-    action_name = ugettext_noop('verifiedCertified')
-    task_fn = partial(generate_verified_certificate, xmodule_instance_args)
     return run_main_task(entry_id, task_fn, action_name)
 
 

@@ -20,7 +20,7 @@ msgstr "%d/%m/%y %H:%M"
 
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "A certificate generation is already running"
-msgstr "Une génération d'attestation est déjà en cours"
+msgstr "Une génération de certificat est déjà en cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Accepted terms: "
@@ -70,11 +70,11 @@ msgstr "Résultats de groupes de tâches Celery"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
 msgid "Certificate Management"
-msgstr "Gestion des attestations"
+msgstr "Gestion des certificats"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/users_views.py:0
 msgid "Certificate was regenerated"
-msgstr "Attestation regénérée"
+msgstr "Certificats regénérée"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_mode.html:0
 msgid "Change mode"
@@ -201,11 +201,11 @@ msgstr "Générer"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate-confirm-modal-dialog.html:0
 msgid "Generate certificate"
-msgstr "Génération des attestations"
+msgstr "Génération des certificats"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Generate certificates"
-msgstr "Générer les attestations"
+msgstr "Générer les certificats"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Generate new dump of open assessment submissions:"
@@ -309,7 +309,7 @@ msgstr "Pdf"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Pending Certificate Tasks"
-msgstr "Génération d'attestations en cours"
+msgstr "Génération de certificats en cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/base_modal_form.html:0
 msgid "Please confirm"
@@ -329,7 +329,7 @@ msgstr "Prévisualiser la page des actualités"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Previous Certificate Tasks"
-msgstr "Historique des générations d'attestations"
+msgstr "Historique des générations des certificats"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
 #, python-format
@@ -422,11 +422,11 @@ msgstr "Utilisateurs inscrits à ce cours : "
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Students with certificate"
-msgstr "Apprenants ayant obtenu l'attestation"
+msgstr "Apprenants ayant obtenu un certificat"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Students without certificate"
-msgstr "Apprenants n'ayant pas obtenu l'attestation"
+msgstr "Apprenants n'ayant pas obtenu le certificat"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Submissions dump is being generated..."
@@ -598,7 +598,4 @@ msgstr "établissement ou nom de cours"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
-
-#~ msgid "Certificate"
-#~ msgstr "Attestation"
 
