@@ -480,3 +480,7 @@ msgid "Your verified certificate is waiting to be generated or you have not met 
 msgstr "Votre certificat verifié est en attente de génération ou vous n'avez "
 "pas rempli les conditions nécessaires pour l'obtenir.<br>"
 "Cependant vous pouvez télécharger l'attestation de suivi."
+
+# Added by FUN on the certificate display section of the student dashboad
+msgid "View certificate"
+msgstr "Voir le certificat"
