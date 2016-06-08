@@ -1,8 +1,25 @@
 # Changelog www.fun-mooc.fr
 
+## 3.15 08/06/2016
+
+- Comptabilité :
+    - téléchargement de relevé de transaction comptable #2704
+    - résolution d'un problème empéchant de s'inscrire en mode vérifié si une date d'expiration est définie dans le LMS #2863
+
+- Certification:
+    - possibilité de générer des certificats vérifiés pour un cours avec vérification du service de surveillance d'examen
+    - requetage du service de surveillance des examens (proctoru) par utilisateur ou par interval #2975
+    - changement de la mise en page des certificats #2982
+    - fusion des méthodes de générations des attestations / certificats vérifiés (le bouton générer les attestations dans le backoffice génère tout)
+
+- Autre :
+    - backoffice, résolution de la disparition de l'onglet "utilisateurs vérifiés" #2976
+    - ajout du logo OpenEDX dans le footer #2408
+
+
 ## 3.14 26/05/2016
 - Certificats verifiés:
-    + Génération 
+    + Génération
     + Le backoffice permet de visualiser et de changer la note
     + Ajout de trackinglogs
     + Saisi de la note d'obtention dans le studio
