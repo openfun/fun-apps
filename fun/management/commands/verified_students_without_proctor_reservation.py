@@ -4,7 +4,7 @@ import csv
 from optparse import make_option
 import sys
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 
 from backoffice.certificate_manager.verified import get_enrolled_verified_students
 from backoffice.utils import get_course
@@ -24,11 +24,17 @@ class Command(BaseCommand):
         make_option('--filename',
                     default=False,
             help='File where the output will be written / defaults to stdout when not provided'),
-        make_option("--course_key_string",
+        make_option("--course-key-string",
             help='CourseKeyString of the course to analyse'),
     )
 
-    def handle(self, filename, course_key_string, *args, **options):
+    def handle(self, *args, **options):
+        print(options)
+        if options["course_key_string"]:
+            course_key_string = options["course_key_string"]
+        else:
+            raise CommandError("Option `--course-key-string=...` must be specified.")
+
         course = get_course(course_key_string)
 
         verified_students = get_enrolled_verified_students(course.id).select_related("profile")
@@ -43,8 +49,8 @@ class Command(BaseCommand):
         header = ("Name", "Username", "Email")
         rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
 
-        if filename:
-            with open(filename, "w") as f:
+        if options['filename']:
+            with open(options['filename'], "w") as f:
                 write_csv(f, header, rows)
         else:
             write_csv(sys.stdout, header, rows)
