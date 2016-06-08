@@ -9,12 +9,12 @@ from django.utils.formats import date_format
 
 from wiki.models import URLPath, Article
 
-from fun.utils.views import csv_response
 from course_wiki.utils import course_wiki_slug
 from courseware.courses import get_course_by_id
 from opaque_keys.edx.keys import CourseKey
 from util.views import ensure_valid_course_key
 
+from fun.utils.export_data import csv_response
 from fun.utils.views import staff_required, staff_required_or_level
 from fun.utils.countries import get_country_name
 
