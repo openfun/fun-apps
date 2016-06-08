@@ -9,7 +9,6 @@ from instructor_task.api_helper import submit_task
 from fun_instructor.tasks import generate_certificate_task_class
 from fun_instructor.tasks import (
     answers_distribution_report_generation_task_class,
-    generate_verified_certificate_task_class
 )
 
 
@@ -18,17 +17,6 @@ def submit_generate_certificate(request, course_key):
 
     task_type = 'certificate-generation'
     task_class = generate_certificate_task_class
-    task_input = {}
-    task_key = ""
-
-    return submit_task(request, task_type, task_class, course_key, task_input, task_key)
-
-
-def submit_generate_verified_certificate(request, course_key):
-    """ Request to generate certificate as a background task. """
-
-    task_type = 'verified-certificate-generation'
-    task_class = generate_verified_certificate_task_class
     task_input = {}
     task_key = ""
 

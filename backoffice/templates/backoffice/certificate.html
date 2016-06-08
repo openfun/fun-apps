@@ -20,7 +20,6 @@
 
 <a class="btn btn-primary"  id="generate_test_certificate_button" href="{% url 'backoffice:generate-test-certificate' course.id %}" data-certificate-base-url="{{certificate_base_url}}">{% trans 'Generate test certificate' %} </a>
 <a class="btn btn-danger" id="generate_certificate_button" data-toggle="modal" data-target="#certificate-generation-modal">{% trans 'Generate certificates' %}</a>
-<a class="btn btn-danger" id="generate_verified_certificate_button" data-toggle="modal" data-target="#verified-certificate-generation-modal">{% trans 'Generate verified certificates' %}</a>
 
 <!-- First Panel : pending certificate generations tasks -->
 
@@ -116,11 +115,6 @@
 
 <form action="{% url 'backoffice:generate-certificates' course.id %}" method="GET">
     <div class="modal fade" id="certificate-generation-modal" tabindex="-1" role="dialog"  aria-hidden="true">
-        {% include "backoffice/certificate-confirm-modal-dialog.html" %}
-    </div>
-</form>
-<form action="{% url 'backoffice:generate-verified-certificates' course.id %}" method="GET">
-    <div class="modal fade" id="verified-certificate-generation-modal" tabindex="-1" role="dialog"  aria-hidden="true">
         {% include "backoffice/certificate-confirm-modal-dialog.html" %}
     </div>
 </form>
