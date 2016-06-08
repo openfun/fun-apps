@@ -40,7 +40,7 @@ class Command(BaseCommand):
         # Thus we can fail to spot some people without reservations
         enrolled_students_not_proctoru = set(verified_students) - set(proctoru_students)
 
-        header = ("Student name", "Username", "Email")
+        header = ("Name", "Username", "Email")
         rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
 
         if filename:
