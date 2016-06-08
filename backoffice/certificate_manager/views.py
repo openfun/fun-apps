@@ -19,7 +19,7 @@ from .utils import (
     get_university_attached_to_course,
 )
 from fun_instructor.instructor_task_api.submit_tasks import (
-    submit_generate_certificate, submit_generate_verified_certificate
+    submit_generate_certificate,
 )
 
 
@@ -82,7 +82,7 @@ def certificate_file_response(certificate):
 
 
 @group_required('fun_backoffice')
-def generate_certificate(request, course_key_string, verified=False):
+def generate_certificate(request, course_key_string):
     """
     Submit the certificate-generation task to the instructor task api,
     then redirect to the certificate dashboard.
@@ -93,10 +93,7 @@ def generate_certificate(request, course_key_string, verified=False):
         messages.warning(request, _("University doesn't exist"))
         return redirect('backoffice:certificate-dashboard', course_key_string)
     try:
-        if verified:
-            submit_generate_verified_certificate(request, course_key)
-        else:
-            submit_generate_certificate(request, course_key)
+        submit_generate_certificate(request, course_key)
         return redirect('backoffice:certificate-dashboard', course_key_string)
     except AlreadyRunningError:
         messages.warning(request, _("A certificate generation is already running"))

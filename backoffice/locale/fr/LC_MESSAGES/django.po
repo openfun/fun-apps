@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 20\n"
+"Project-Id-Version: FUN-MOOC 19\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-06-06 17:54+0200\n"
-"PO-Revision-Date: 2016-06-06 17:54+0000\n"
+"POT-Creation-Date: 2016-05-11 15:32+0200\n"
+"PO-Revision-Date: 2016-05-11 15:32+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -20,7 +20,7 @@ msgstr "%d/%m/%y %H:%M"
 
 #: /edx/app/edxapp/fun-apps/backoffice/certificate_manager/views.py:0
 msgid "A certificate generation is already running"
-msgstr "Une génération d'attestation est déjà en cours"
+msgstr "Une génération de certificat est déjà en cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Accepted terms: "
@@ -68,23 +68,20 @@ msgstr "Résultat de groupe de tâches Celery"
 msgid "Celery taskset results"
 msgstr "Résultats de groupes de tâches Celery"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
-msgid "Certificate"
-msgstr "Attestations"
-
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
 msgid "Certificate Management"
-msgstr "Gestion des attestations"
+msgstr "Gestion des certificats"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/users_views.py:0
 msgid "Certificate was regenerated"
-msgstr "Attestation regénérée"
+msgstr "Certificats regénérée"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/change_mode.html:0
 msgid "Change mode"
 msgstr "Changer le mode"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgctxt "change-user-password"
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
@@ -200,6 +197,12 @@ msgstr "Voir les infos de débug ci-dessous : "
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "Forum"
 msgstr "Forum"
+
+# Translated in edx by 'Nom complet'
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:0
+msgctxt "user-full-name"
+msgid "Full name"
+msgstr "Nom complet"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate-confirm-modal-dialog.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
@@ -318,9 +321,13 @@ msgstr "Opt out"
 msgid "Organisation code"
 msgstr "Code établissement"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Pdf"
+msgstr "Pdf"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Pending Certificate Tasks"
-msgstr "Génération d'attestations en cours"
+msgstr "Génération de certificats en cours"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/base_modal_form.html:0
 msgid "Please confirm"
@@ -340,7 +347,7 @@ msgstr "Prévisualiser la page des actualités"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Previous Certificate Tasks"
-msgstr "Historique des générations d'attestations"
+msgstr "Historique des générations des certificats"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
 #, python-format
@@ -617,12 +624,4 @@ msgstr "établissement ou nom de cours"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
-
-# Translated in edx by 'Nom complet'
-#~ msgctxt "user-full-name"
-#~ msgid "Full name"
-#~ msgstr "Nom complet"
-
-#~ msgid "Pdf"
-#~ msgstr "Pdf"
 
