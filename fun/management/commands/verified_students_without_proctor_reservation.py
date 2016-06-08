@@ -1,6 +1,8 @@
 # pylint: disable=missing-docstring
 
+import csv
 from optparse import make_option
+import sys
 
 from django.core.management.base import BaseCommand
 
@@ -8,6 +10,13 @@ from backoffice.certificate_manager.verified import get_enrolled_verified_studen
 from backoffice.utils import get_course
 
 from proctoru.models import ProctoruUser
+
+
+def write_csv(file_handler, header, rows):
+    writer = csv.writer(file_handler)
+    writer.writerow(header)
+    for row in rows:
+        writer.writerow(row)
 
 
 class Command(BaseCommand):
@@ -22,7 +31,7 @@ class Command(BaseCommand):
     def handle(self, filename, course_key_string, *args, **options):
         course = get_course(course_key_string)
 
-        verified_students = get_enrolled_verified_students(course.id)
+        verified_students = get_enrolled_verified_students(course.id).select_related("profile")
         proctoru_students = ProctoruUser.objects.filter(student__in=verified_students).values_list("student", flat=True)
 
         # TODO : not the best way to get students without reservations :
@@ -31,10 +40,11 @@ class Command(BaseCommand):
         # Thus we can fail to spot some people without reservations
         enrolled_students_not_proctoru = set(verified_students) - set(proctoru_students)
 
+        header = ("Student name", "Username", "Email")
+        rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
+
         if filename:
             with open(filename, "w") as f:
-                for student in enrolled_students_not_proctoru:
-                    f.write("{}\t{}\n".format(student.username, student.email))
+                write_csv(f, header, rows)
         else:
-            for student in enrolled_students_not_proctoru:
-                print("{}\t{}".format(student.username, student.email))
+            write_csv(sys.stdout, header, rows)
