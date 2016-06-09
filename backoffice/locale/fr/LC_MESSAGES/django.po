@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 19\n"
+"Project-Id-Version: FUN-MOOC 20\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-05-11 15:32+0200\n"
-"PO-Revision-Date: 2016-05-11 15:32+0000\n"
+"POT-Creation-Date: 2016-06-09 07:55+0200\n"
+"PO-Revision-Date: 2016-06-09 07:55+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -68,6 +68,10 @@ msgstr "Résultat de groupe de tâches Celery"
 msgid "Celery taskset results"
 msgstr "Résultats de groupes de tâches Celery"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Certificate"
+msgstr "Certificat"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
 msgid "Certificate Management"
 msgstr "Gestion des certificats"
@@ -81,7 +85,6 @@ msgid "Change mode"
 msgstr "Changer le mode"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
-msgctxt "change-user-password"
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
@@ -125,7 +128,6 @@ msgid "Download"
 msgstr "Télécharger"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
-#, fuzzy
 msgid "Download CSV"
 msgstr "Télécharger le CSV"
 
@@ -134,7 +136,6 @@ msgid "Download ORA2 submissions"
 msgstr "Télécharger les évaluations par les pairs ORA2"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
-#, fuzzy
 msgid "Download PDF"
 msgstr "Télécharger le PDF"
 
@@ -198,12 +199,6 @@ msgstr "Voir les infos de débug ci-dessous : "
 msgid "Forum"
 msgstr "Forum"
 
-# Translated in edx by 'Nom complet'
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/modal_forms/ban_user.html:0
-msgctxt "user-full-name"
-msgid "Full name"
-msgstr "Nom complet"
-
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate-confirm-modal-dialog.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/ora2_submissions/status.html:0
 msgid "Generate"
@@ -224,10 +219,6 @@ msgstr "Générer un nouveau dump des évaluations par les pairs"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Generate test certificate"
 msgstr "Générer une attestation de test"
-
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
-msgid "Generate verified certificates"
-msgstr "Générer les certificats vérifiés"
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/users_views.py:0
 msgid "Grades range from 0 to 1."
@@ -320,10 +311,6 @@ msgstr "Opt out"
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Organisation code"
 msgstr "Code établissement"
-
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
-msgid "Pdf"
-msgstr "Pdf"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Pending Certificate Tasks"
@@ -624,4 +611,3 @@ msgstr "établissement ou nom de cours"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
-
