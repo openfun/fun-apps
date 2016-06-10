@@ -6,6 +6,8 @@ import sys
 
 from django.core.management.base import BaseCommand, CommandError
 
+from student.models import User
+
 from backoffice.certificate_manager.verified import get_enrolled_verified_students
 from backoffice.utils import get_course
 
@@ -16,7 +18,7 @@ def write_csv(file_handler, header, rows):
     writer = csv.writer(file_handler)
     writer.writerow(header)
     for row in rows:
-        writer.writerow(row)
+        writer.writerow([s.encode("utf8") for s in row])
 
 
 class Command(BaseCommand):
@@ -38,13 +40,14 @@ class Command(BaseCommand):
         course = get_course(course_key_string)
 
         verified_students = get_enrolled_verified_students(course.id).select_related("profile")
-        proctoru_students = ProctoruUser.objects.filter(student__in=verified_students).values_list("student", flat=True)
+        proctoru_registered_user = ProctoruUser.objects.filter(student__in=verified_students)
+        students_registered_in_proctoru = User.objects.filter(proctoruuser__in=proctoru_registered_user)
 
         # TODO : not the best way to get students without reservations :
         #  * inscriptions in proctoru model is not bound to course (false negative)
         #  * we can't spot people who registered and cancelled their reservation
         # Thus we can fail to spot some people without reservations
-        enrolled_students_not_proctoru = set(verified_students) - set(proctoru_students)
+        enrolled_students_not_proctoru = set(verified_students) - set(students_registered_in_proctoru)
 
         header = ("Name", "Username", "Email")
         rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
