@@ -84,16 +84,16 @@ def iter_generated_course_certificates(course_id):
     proctoru_reports = get_reports_from_ids(course_id.course, course_id.run, student_ids=student_ids)
 
     for student in get_enrolled_students(course_id):
-        generated_certificate = certificate_status_for_student(student, course_id)
-        if generated_certificate.get('status') == status.downloadable:
-            yield status.downloadable
+        logger.info("processing certificate for student: {}".format(student))
         course_enrollment = CourseEnrollment.objects.get(course_id=course_id, user=student)
+
+        student_status = status.notpassing
         if course_enrollment.mode == 'honor':
             student_status = generate_fun_certificate(
                 student, course,
                 teachers, university,
             )
-        if course_enrollment.mode == 'verified':
+        elif course_enrollment.mode == 'verified':
             # Note that if a certificate was generated and proctoru changed its
             # accept conditions (from True to False), then the existing certificate
             # will probably not be removed.
@@ -105,15 +105,19 @@ def iter_generated_course_certificates(course_id):
                 logger.info("proctoru ok for student: {}".format(student.username))
                 student_status = generate_fun_verified_certificate(student, course)
             if not qualifies_proctoru or student_status == status.notpassing:
-                    logger.info("student not qualified by proctoru or not "
-                        "passing: {}".format(student.username))
-                    # Fails getting a verified certificate ? Then we try getting
-                    # him a non-verified certificate.
-                    student_status = generate_fun_certificate(
-                        student, course,
-                        teachers, university,
-                    )
-            yield student_status
+                logger.info("student not qualified by proctoru or not "
+                            "passing: {}".format(student.username))
+                # Fails getting a verified certificate ? Then we try getting
+                # him a non-verified certificate.
+                student_status = generate_fun_certificate(
+                    student, course,
+                    teachers, university,
+                )
+        else:
+            message = "Unknown course mode for {}: {}".format(student.username, course_enrollment.mode)
+            logger.error(message)
+
+        yield student_status
 
 def get_enrolled_students_count(course_id):
     return get_enrolled_students(course_id).count()

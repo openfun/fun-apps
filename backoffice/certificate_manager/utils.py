@@ -94,6 +94,7 @@ def generate_fun_certificate(student, course, teachers, university):
 
         set_certificate_filename(cert, certificate_filename)
     cert.save()
+    logger.info("Honor certificate status for student {}: {}".format(student.username, cert.status))
 
     trigger_tracking_log(cert, course, student)
 
@@ -116,7 +117,11 @@ def trigger_tracking_log(cert, course, student):
 
 def generate_fun_verified_certificate(student, course, force_grade=False):
     """Generates a verified certificate.,
-    if the student's grade is greater or equal to course's passing grade."""
+    if the student's grade is greater or equal to course's passing grade.
+
+    We can force the creation of a certificate with the optionnal parameter grade
+    (can be useful in specific users certificate generation (ie : backoffice or management command)
+    """
 
     grade = force_grade or get_student_certificate_grade(course.id, student)
     logger.info("trying to generate verified certificate for course: {} - student:{} - grade: {}...".format(unicode(course.id), student, grade))
