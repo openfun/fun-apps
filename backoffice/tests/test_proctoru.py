@@ -142,7 +142,15 @@ class TestProctoruUtils(BaseTestCase):
         proctoru_report_4 = []
         is_ok_4 = utils_proctorU_api.is_proctoru_ok(proctoru_report_4)
 
+        proctoru_report_5 = [
+            {"Authenticated": True, "TestSubmitted": False, "Escalated": False, "IncidentReport": False},
+            {"Authenticated": True, "TestSubmitted": True, "Escalated": True, "IncidentReport": False},
+            {"Authenticated": True, "TestSubmitted": True, "Escalated": False, "IncidentReport": False},
+        ]
+        is_ok_5 = utils_proctorU_api.is_proctoru_ok(proctoru_report_5)
+
         self.assertEqual(False, is_ok_1)
         self.assertEqual(True, is_ok_2)
         self.assertEqual(False, is_ok_3)
         self.assertEqual(False, is_ok_4)
+        self.assertEqual(True, is_ok_5)

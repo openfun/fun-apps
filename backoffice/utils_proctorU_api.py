@@ -296,9 +296,8 @@ def is_proctoru_ok(proctoru_student_reports):
     if os.environ.get("PROCTORU_ALL_STUDENTS_OK"):
         return True
 
-    authenticated = any([report.get("Authenticated", False) for report in proctoru_student_reports])
-    submitted = any([report.get("TestSubmitted", False) for report in proctoru_student_reports])
-    escalated = any([report.get("Escalated", False) for report in proctoru_student_reports])
-    incident = any([report.get("IncidentReport", False) for report in proctoru_student_reports])
-
-    return authenticated and submitted and not escalated and not incident
+    for report in proctoru_student_reports:
+        ok = report.get("Authenticated", False) and report.get("TestSubmitted", False) and not report.get("Escalated", False) and not report.get("IncidentReport", False)
+        if ok:
+            return True
+    return False
