@@ -31,7 +31,6 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        print(options)
         if options["course_key_string"]:
             course_key_string = options["course_key_string"]
         else:

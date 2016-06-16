@@ -114,11 +114,11 @@ def trigger_tracking_log(cert, course, student):
         })
 
 
-def generate_fun_verified_certificate(student, course):
+def generate_fun_verified_certificate(student, course, force_grade=False):
     """Generates a verified certificate.,
     if the student's grade is greater or equal to course's passing grade."""
 
-    grade = get_student_certificate_grade(course.id, student)
+    grade = force_grade or get_student_certificate_grade(course.id, student)
     logger.info("trying to generate verified certificate for course: {} - student:{} - grade: {}...".format(unicode(course.id), student, grade))
     passing_grade = Course.objects.get(key=unicode(course.id)).certificate_passing_grade
     if passing_grade is None:
