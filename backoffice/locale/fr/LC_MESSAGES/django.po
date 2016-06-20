@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 20\n"
+"Project-Id-Version: FUN-MOOC 33\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-06-09 07:55+0200\n"
-"PO-Revision-Date: 2016-06-09 07:55+0000\n"
+"POT-Creation-Date: 2016-06-21 11:37+0200\n"
+"PO-Revision-Date: 2016-06-21 11:37+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -127,10 +127,6 @@ msgstr "Supprimer ce cours"
 msgid "Download"
 msgstr "Télécharger"
 
-#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
-msgid "Download CSV"
-msgstr "Télécharger le CSV"
-
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/detail.html:0
 msgid "Download ORA2 submissions"
 msgstr "Télécharger les évaluations par les pairs ORA2"
@@ -167,6 +163,10 @@ msgstr "Date de fin"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/certificate.html:0
 msgid "Enrolled students"
 msgstr "Etudiants inscrits"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
+msgid "Enrolled users CSV"
+msgstr "CSV des utilisateurs inscrits"
 
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/list.html:0
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
@@ -453,6 +453,12 @@ msgstr "Suspension temporaire de compte"
 msgid "Temporary account suspensions"
 msgstr "Suspensions temporaires de compte"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
+msgid "The CSV below is not the best way to get students without reservations:"
+msgstr ""
+"Le CSV ci-dessous n'est pas la meilleure façon d'obtenir les étudiants "
+"sans réservation : "
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/verified_error.html:0
 msgid ""
 "There is nothing to display, no students were registered for this course "
@@ -493,6 +499,14 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "This user does not have edX profile"
 msgstr "Cet utilisateur n'a pas de profile edX"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
+msgid ""
+"Thus we can fail to spot some people without reservations, nevertheless, "
+"all the people listed don't have a reservation."
+msgstr ""
+"Nous pouvons donc louper des personnes sans réservation, cependant, tous "
+"les gens listés n'ont pas de réservation."
 
 # Translated in edx by 'Titre'
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/list.html:0
@@ -560,9 +574,17 @@ msgstr ""
 msgid "Verified users"
 msgstr "Utilisateurs vérifiés"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
+msgid "Verified users without proctorU reservation"
+msgstr "Utilisateurs vérifiés sans réservation ProctorU"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
 msgid "View verified certificate"
 msgstr "Afficher le certificat vérifié"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
+msgid "We are working on an improved way of getting these users."
+msgstr "Nous travaillons sur une meilleure façon de récupérer ces utilisateurs."
 
 #: /edx/app/edxapp/fun-apps/backoffice/views/courses_views.py:0
 msgid "Wiki could not be "
@@ -600,6 +622,12 @@ msgstr "nom d'utilisateur, nom ou email"
 msgid "opened"
 msgstr "ouvert"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
+msgid "registration in proctoru model is not specific to course (false negative)"
+msgstr ""
+"l'enregistrement dans le modèle proctoru n'est pas spécifique à un cours "
+"(faux négatif)"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "results"
 msgstr "résultats"
@@ -611,3 +639,10 @@ msgstr "établissement ou nom de cours"
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/users.html:0
 msgid "users"
 msgstr "utilisateurs"
+
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/users.html:0
+msgid "we can't spot people who registered and cancelled their reservation"
+msgstr ""
+"on ne considère pas les personnes qui ont réservé puis annulé leur "
+"réservation"
+

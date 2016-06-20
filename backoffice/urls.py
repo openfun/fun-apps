@@ -14,6 +14,8 @@ urlpatterns = patterns('backoffice.views.courses_views',
             'wiki', name='course-wiki'),
     url(r'^enrolled/{}?/$'.format(settings.COURSE_KEY_PATTERN),
             'enrolled_users', name='course-enrolled-users'),
+    url(r'^users-no-reservation/{}?/$'.format(settings.COURSE_KEY_PATTERN),
+            'users_without_proctoru_reservation', name='users-without-proctoru-reservation'),
 )
 
 urlpatterns += patterns('backoffice.views.users_views',
