@@ -28,6 +28,7 @@ from fun_certificates.utils import cert_id_encode
 from payment.models import TermsAndConditions, PAYMENT_TERMS
 
 from ..certificate_manager.utils import (
+    generate_fun_verified_certificate,
     get_certificate_params,
     make_certificate_hash_key,
     make_certificate_filename,
@@ -116,14 +117,11 @@ def change_grade(request, user):
         # Regenerate PDF and attach to already existing GeneratedCertificate,
         # then force state to 'downloadable' for honor certificate.
         # For verified ones, we just update GeneratedCertificate according to new grade
+        course_enrollment = get_object_or_404(CourseEnrollment, course_id=course_id, user=user)
 
-        if generated_certificate.mode == GeneratedCertificate.MODES.verified:
-            course = Course.objects.get(key=course_id)
-            if new_grade >= course.certificate_passing_grade:
-                generated_certificate.status = CertificateStatuses.downloadable
-            else:
-                generated_certificate.status = CertificateStatuses.notpassing
-            generated_certificate.save()
+        if course_enrollment.mode == 'verified':
+            course = get_course(unicode(course_id))
+            generate_fun_verified_certificate(user, course, new_grade)
         else:
             regenerate_certificate(course_id, user, generated_certificate)
         messages.success(request, _(u"Certificate was regenerated"))
