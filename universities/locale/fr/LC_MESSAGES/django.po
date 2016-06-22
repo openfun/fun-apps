@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 18\n"
+"Project-Id-Version: FUN-MOOC 24\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-04 15:31+0200\n"
-"PO-Revision-Date: 2016-04-04 15:31+0000\n"
+"POT-Creation-Date: 2016-06-22 16:57+0200\n"
+"PO-Revision-Date: 2016-06-22 16:57+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -58,8 +58,10 @@ msgid "Partner"
 msgstr "Paternaire"
 
 #: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:0
-msgid "The universities and schools present on {platform_name}"
-msgstr "Les universités et écoles françaises présentes sur {platform_name}"
+msgid "The universities, schools and academic partners on {platform_name}"
+msgstr ""
+"Les universités, écoles et autres partenaires académiques sur "
+"{platform_name}"
 
 #: /edx/app/edxapp/fun-apps/universities/models.py:0
 msgctxt "University model"
@@ -120,11 +122,13 @@ msgstr "nom court"
 
 #: /edx/app/edxapp/fun-apps/universities/templates/universities/index.html:0
 msgid ""
-"{platform_name}'s goal is to allow universities and schools to publish "
-"their courses online. The list of universities proposing courses on "
-"{platform_name} is continuously getting larger:"
+"{platform_name}'s goal is to allow French and foreign universities, "
+"schools and academic partners to publish their courses online. The list "
+"of universities proposing courses on {platform_name} is continuously "
+"getting larger:"
 msgstr ""
-"{platform_name} a pour vocation de permettre aux universités et écoles "
-"françaises qui le souhaitent de dispenser leurs cours en ligne. Ces "
-"établissements sont de plus en plus nombreux à proposer des formations "
-"sur {platform_name} :"
+"{platform_name} a pour vocation de permettre aux universités, écoles et "
+"partenaires académiques français ou étrangers qui le souhaitent de "
+"dispenser leurs cours en ligne. Ces établissements sont de plus en plus "
+"nombreux à proposer des formations sur {platform_name} :"
+
