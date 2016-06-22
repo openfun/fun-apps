@@ -1,5 +1,17 @@
 # Changelog www.fun-mooc.fr
 
+## 3.16 23/06/2016
+
+- Certification
+  - amélioration de la façon de considérer la triche à un examen surveillé (certains utilisateurs étaient considérés comme tricheurs alors que non)
+  - possibilité de générer des certificats pour des utilisateurs spécifiques (backoffice et commande de management)
+  - possibilité de télécharger la liste des étudiants vérifiés non inscrit à une session d'examen surveillé depuis le backoffice
+  - correction de 2 bugs dans la génération des attestations dans le backoffice (les informations remontées étaient mauvaises et nécessité de lancer la génération plusieurs fois)
+
+- Autres
+  - changement de la formulation dans la page "Universités"
+
+
 ## 3.15 08/06/2016
 
 - Comptabilité :
