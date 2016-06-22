@@ -113,7 +113,7 @@ class TestUsers(BaseCourseList):
                                                   course_id=course.id,
                                                   grade=str(grade))
 
-    def _change_certificate_grade(self, certificate, new_grade, regenerate=False):
+    def _change_certificate_grade(self, certificate, new_grade, user, regenerate=False):
         """ Changes the certificate grade.
 
         Args:
@@ -128,13 +128,13 @@ class TestUsers(BaseCourseList):
                 'new-grade': str(new_grade)}
         if regenerate:
             data['regenerate'] = 'yes'
-        self.client.post(reverse('backoffice:user-detail', args=[self.user2.username]),
+        self.client.post(reverse('backoffice:user-detail', args=[user.username]),
                          data)
-        return GeneratedCertificate.objects.get(user=self.user2)
+        return GeneratedCertificate.objects.get(user=user)
 
     def test_change_grade(self):
         certificate = self._change_certificate_grade(self._create_certificate(self.course1, 0.3),
-                                                     0.8)
+                                                     0.8, self.user2)
         self.assertEqual(certificate.grade, '0.8')
 
     def test_change_and_regenerate_grade(self):
@@ -143,21 +143,22 @@ class TestUsers(BaseCourseList):
         fun_course = FunCourseFactory(key=unicode(self.course1.id))
         fun_university = UniversityFactory.create()
         CourseUniversityRelationFactory(course=fun_course, university=fun_university)
+        CourseEnrollmentFactory(course_id=self.course1.id, user=self.user2)
 
         generated_certificate = self._create_certificate(self.course1, 0.8)
-        certificate = self._change_certificate_grade(generated_certificate, 0.9, True)
+        certificate = self._change_certificate_grade(generated_certificate, 0.9, self.user2, True)
         self.assertEqual(certificate.grade, '0.9')
         # GeneratedCertificateFactory do not create pdf certificate so download_url is blank,
         # call to _change_certificate_grade with regenerate=True create pdf and set download_url
         cert_url = certificate.download_url
         self.assertNotEqual(generated_certificate.download_url, cert_url)
         # Regenerate certificate, url should remain the same
-        certificate = self._change_certificate_grade(generated_certificate, 0.99, True)
+        certificate = self._change_certificate_grade(generated_certificate, 0.99, self.user2, True)
         self.assertEqual(cert_url, certificate.download_url)
 
     def test_invalid_grade(self):
         certificate = self._change_certificate_grade(self._create_certificate(self.course1, 0.3),
-                                                     "SUPERGRADE!!!!")
+                                                     "SUPERGRADE!!!!", self.user2)
         self.assertEqual(certificate.grade, '0.3')
 
     def test_resend_activation_email_button(self):

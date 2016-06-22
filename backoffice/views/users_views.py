@@ -143,6 +143,7 @@ def regenerate_certificate(course_id, user, certificate):
     if certificate.status != CertificateStatuses.downloadable:
         certificate.key = make_certificate_hash_key()
 
+    certificate.mode = GeneratedCertificate.MODES.honor
     certificate_filename = make_certificate_filename(course_id, key=certificate.key)
     CertificateInfo(
         user.get_profile().name, course_display_name,
