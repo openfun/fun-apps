@@ -187,31 +187,31 @@ def enrolled_users(request, course_key_string):
 
 @group_required('fun_backoffice')
 def users_without_proctoru_reservation(request, course_key_string):
-        if not INSTALLED_PU:
-            return HttpResponse('ProctorU xblock not installed')
+    if not INSTALLED_PU:
+        return HttpResponse('ProctorU xblock not installed')
 
-        if request.method == 'POST':  # export as CSV
-            course = get_course(course_key_string)
+    if request.method == 'POST':  # export as CSV
+        course = get_course(course_key_string)
 
-            verified_students = get_enrolled_verified_students(course.id).select_related("profile")
-            proctoru_registered_user = ProctoruUser.objects.filter(student__in=verified_students)
-            students_registered_in_proctoru = User.objects.filter(proctoruuser__in=proctoru_registered_user)
+        verified_students = get_enrolled_verified_students(course.id).select_related("profile")
+        proctoru_registered_user = ProctoruUser.objects.filter(student__in=verified_students)
+        students_registered_in_proctoru = User.objects.filter(proctoruuser__in=proctoru_registered_user)
 
-            # TODO : not the best way to get students without reservations :
-            #  * inscriptions in proctoru model is not bound to course (false negative)
-            #  * we can't spot people who registered and cancelled their reservation
-            # Thus we can fail to spot some people without reservations
-            enrolled_students_not_proctoru = set(verified_students) - set(students_registered_in_proctoru)
+        # TODO : not the best way to get students without reservations :
+        #  * inscriptions in proctoru model is not bound to course (false negative)
+        #  * we can't spot people who registered and cancelled their reservation
+        # Thus we can fail to spot some people without reservations
+        enrolled_students_not_proctoru = set(verified_students) - set(students_registered_in_proctoru)
 
-            header = ("Name", "Username", "Email")
-            rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
-            course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
-            filename = 'export-verified-users-without-PU-reservations-{course}-{date}'.format(
-                date=datetime.datetime.now().strftime('%Y-%m-%d'),
-                course=course_code)
+        header = ("Name", "Username", "Email")
+        rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
+        course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
+        filename = 'export-verified-users-without-PU-reservations-{course}-{date}'.format(
+            date=datetime.datetime.now().strftime('%Y-%m-%d'),
+            course=course_code)
 
-            response = csv_response(header, rows, filename)
-            return response
+        response = csv_response(header, rows, filename)
+        return response
 
 
 @group_required('fun_backoffice')
@@ -219,8 +219,6 @@ def verified(request, course_key_string, action=None):
 
     course = get_course(course_key_string)
     course_info = get_course_infos([course])[0]
-
-    students_grades = get_verified_student_grades(course.id)
 
     today = datetime.datetime.today()
     begin = today - datetime.timedelta(100)
