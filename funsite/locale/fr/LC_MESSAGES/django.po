@@ -325,7 +325,7 @@ msgstr "Les thématiques"
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/login.html:0
 msgid "This is the e-mail address you used to register with {platform}"
 msgstr ""
-"Veuillez saisir l'adresse email que vous avez utilisé pour vous inscrire "
+"Veuillez saisir l'adresse email que vous avez utilisée pour vous inscrire "
 "sur {platform}"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/sandwich-overlay.html:0
