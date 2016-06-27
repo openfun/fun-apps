@@ -171,17 +171,17 @@ class Client(BaseClient):
             file_obj (etree)
         """
         visibility = resource.find('visibility').text
-        status = 'published' if visibility == 'visible' else 'ready'
+        status = self.STATUS_PUBLISHED if visibility == 'visible' else self.STATUS_READY
         encoding_progress = None
         if file_obj is not None:
             encoding_status = file_obj.find('encoding_status').text
             if encoding_status != 'finished':
-                status = 'processing'
+                status = self.STATUS_PROCESSING
                 encoding_progress = file_obj.find('encoding_progress')
                 if encoding_progress is not None:
                     encoding_progress = "%.2f" % float(encoding_progress.text)
         slug = resource.find('slug').text
-        if status == "processing":
+        if status == self.STATUS_PROCESSING:
             video_sources = []
             external_link = ""
         else:
@@ -530,7 +530,7 @@ class Client(BaseClient):
         )
         return {}
 
-    def get_video_subtitles(self, video_id):
+    def iter_subtitles(self, video_id):
         resource = self.get_resource(video_id)
         return self.get_resource_subtitles(resource)
 

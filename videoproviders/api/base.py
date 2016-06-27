@@ -5,7 +5,10 @@ import requests
 from django.utils import formats
 from django.utils.translation import ugettext as _
 
+from opaque_keys.edx.keys import CourseKey
+
 from fun.utils import get_course
+from fun.utils.i18n import language_name
 
 
 class MissingCredentials(Exception):
@@ -22,11 +25,19 @@ class MissingCredentials(Exception):
 class ClientError(Exception):
     pass
 
+class MissingVideo(Exception):
+    pass
+
 
 class BaseClient(object):
     """Base class from which video provider clients all inherit."""
 
+    STATUS_PROCESSING = 'processing'
+    STATUS_READY = 'ready'
+    STATUS_PUBLISHED = 'published'
+
     def __init__(self, course_key_string):
+        self.course_id = CourseKey.from_string(course_key_string)
         self.course_module = get_course(course_key_string)
         self._auth = None
 
@@ -40,10 +51,6 @@ class BaseClient(object):
     def org(self):
         return self.course_id.org
 
-    @property
-    def course_id(self):
-        return self.course_module.id
-
     def timestamp_to_str(self, timestamp):
         return formats.date_format(
             datetime.fromtimestamp(timestamp),
@@ -53,6 +60,14 @@ class BaseClient(object):
     def get_videos(self):
         """Return a list of videos for the course."""
         return list(self.iter_videos())
+
+    def get_subtitles(self, video_id):
+        subtitles = []
+        for subtitle in self.iter_subtitles(video_id):
+            if "language_label" not in subtitle:
+                subtitle["language_label"] = language_name(subtitle['language'])
+            subtitles.append(subtitle)
+        return subtitles
 
     def upload_thumbnail(self, video_id, file_object):
         thumbnail_url = self.upload_file(file_object)
@@ -197,6 +212,7 @@ class BaseClient(object):
 
     def unpublish_video(self, video_id):
         """Unpublish a video after it has been published"""
+        raise NotImplementedError()
 
     def set_thumbnail(self, video_id, url):
         """Set the video thumbnail
@@ -206,8 +222,16 @@ class BaseClient(object):
         """
         raise NotImplementedError()
 
-    def get_video_subtitles(self, video_id):
-        """Get the subtitles associated to a video"""
+    def iter_subtitles(self, video_id):
+        """Iterate on the subtitles associated to a video.
+
+        Each subtitle is expected to have the format:
+            {
+                'id': <subtitle_id>,
+                'language': <language code>,
+                'url': <subtitle_href>,
+            }
+        """
         raise NotImplementedError()
 
     def upload_subtitle(self, video_id, file_object, language):

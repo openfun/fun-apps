@@ -1,0 +1,30 @@
+{
+    "kind": "youtube#playlistItemListResponse", 
+    "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/oJND9IWY3J7LcoQKPaVK_q0byDY\"", 
+    "pageInfo": {
+        "totalResults": 1
+    },
+    "items": [
+        {
+            "snippet": {
+                "playlistId": "playlistid1", 
+                "title": "Title 1", 
+                "resourceId": {
+                    "kind": "youtube#video", 
+                    "videoId": "videoid1"
+                }, 
+                "channelId": "channelid", 
+                "publishedAt": "2016-07-04T10:50:42.000Z", 
+                "channelTitle": "FUN-MOOC", 
+                "position": 0, 
+                "description": ""
+            }, 
+            "status": {
+                "privacyStatus": "unlisted"
+            }, 
+            "kind": "youtube#playlistItem", 
+            "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/yczMuIjlzpmn-0CN6msOliPEnVs\"", 
+            "id": "playlistitemid1"
+        }
+    ]
+}

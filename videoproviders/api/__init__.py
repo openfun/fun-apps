@@ -1,4 +1,11 @@
+import importlib
+
 from .base import MissingCredentials, ClientError
+
+
+VIDEO_CLIENT_MODULE = "videoproviders.api.youtube"
+VIDEO_CLIENT_CLASS = "Client"
+
 
 def get_client(course_key_string):
     """Return the API client most appropriate for this course
@@ -6,6 +13,5 @@ def get_client(course_key_string):
     Return:
         client: instance of a BaseClient child class.
     """
-    if True:
-        from . import libcast
-        return libcast.Client(course_key_string)
+    module = importlib.import_module(VIDEO_CLIENT_MODULE)
+    return getattr(module, VIDEO_CLIENT_CLASS)(course_key_string)

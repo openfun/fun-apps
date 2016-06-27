@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls import url, include, patterns
 
 import openassessment.fileupload.urls
-from . import urls_videoupload
+from . import urls_videoupload, urls_youtube
 
 # Behind the scene Django determines the 404 view and the 500 view
 # by looking for handler404, handler500 in your root URLconf.
@@ -18,6 +18,9 @@ urlpatterns = patterns('',
 
     # Videoupload dashboard
     (r'^videoupload/{}/'.format(settings.COURSE_KEY_PATTERN), include(urls_videoupload, namespace='videoupload')),
+
+    # Youtube-specific urls
+    (r'^youtube/{}/'.format(settings.COURSE_KEY_PATTERN), include(urls_youtube, namespace='youtube')),
 )
 
 

@@ -18,7 +18,6 @@ require(["jquery", "underscore", "backbone", "gettext",
     TemplateUtils, BaseModal, NotificationView,
     videojs, libcast) {
 
-    var UploadChunkMegabytes = 64;
     var ajaxSettings = (function() {
       var headers = {};
 
@@ -452,56 +451,39 @@ require(["jquery", "underscore", "backbone", "gettext",
         });
         $.getJSON('${reverse_course("videoupload:upload-url")}', function(uploadParams) {
           video.setStatus("prepared", uploadParams);
-          var fileSize = videoFile.size;
-          var chunkSize = UploadChunkMegabytes*1024*1024;
-          var chunkCount = Math.ceil(fileSize / chunkSize);
           video.setStatus("uploading");
-          // Upload chunks sequentially
-          that.listenTo(video, "ready-to-upload-chunk", function(c) {
-            var chunkBlob = videoFile.slice(c*chunkSize, Math.min(fileSize, (c+1)*chunkSize));
-            var chunkFile = new File([chunkBlob], videoFile.name);
-            var formData = new FormData();
-            formData.append(uploadParams.file_parameter_name, chunkFile);
-            formData.append('chunk', c);
-            formData.append('chunks', chunkCount);
-
-            ajaxSettings.unsetHeaders();
-            ajaxSettings.unsetNotify();
-            currentUploadRequest = $.ajax({
-              url: uploadParams.url,
-              data: formData,
-              type: 'POST',
-              contentType: false,
-              processData: false,
-              crossDomain: true,
-              xhr: function() {
-                // Track upload progress
-                var xhr = new window.XMLHttpRequest();
-                xhr.upload.addEventListener("progress", function(event) {
-                  if (event.lengthComputable) {
-                    var progress = event.loaded + c*chunkSize;
-                    video.trigger("uploading-progress", progress * 100 / fileSize);
-                  }
-                });
-                return xhr;
-              },
-              success: function(data){
-                if (data.error) {
-                  video.setError(data.error)
-                } else {
-                  if (c == chunkCount - 1) {
-                    video.setStatus("uploaded", data);
-                  } else {
-                    video.trigger("ready-to-upload-chunk", c+1);
-                  }
+          var formData = new FormData();
+          formData.append(uploadParams.file_parameter_name, videoFile);
+          ajaxSettings.resetHeaders();// required for csrf token
+          ajaxSettings.unsetNotify();
+          currentUploadRequest = $.ajax({
+            url: uploadParams.url,
+            data: formData,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            xhr: function() {
+              // Track upload progress
+              var xhr = new window.XMLHttpRequest();
+              xhr.upload.addEventListener("progress", function(event) {
+                if (event.lengthComputable) {
+                  var progress = event.loaded * 100. / (event.total + 0.0001);
+                  video.trigger("uploading-progress", progress);
                 }
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                video.setError(errorThrown);
-              },
-            });
+              });
+              return xhr;
+            },
+            success: function(data) {
+              if (data.error) {
+                video.setError(data.error)
+              } else {
+                video.setStatus("uploaded", data);
+              }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              video.setError(errorThrown);
+            },
           });
-          video.trigger("ready-to-upload-chunk", 0);
         });
       },
     });

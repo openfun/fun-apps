@@ -2,8 +2,8 @@ from django.conf.urls import url, patterns
 
 def format_video_pattern(pattern):
     return pattern.format(
-        video=r'(?P<video_id>[a-z0-9.\-_]+)',
-        subtitle=r'(?P<subtitle_id>[a-z0-9.\-_]+)',
+        video=r'(?P<video_id>[a-zA-Z0-9.\-_]+)',
+        subtitle=r'(?P<subtitle_id>[a-zA-Z0-9.\-_]+)',
     )
 
 urlpatterns = patterns('fun.cms.views.videoupload',
@@ -12,7 +12,7 @@ urlpatterns = patterns('fun.cms.views.videoupload',
     url(format_video_pattern(r'^api/videos$'), 'get_videos', name='videos'),
 
     # video
-    url(format_video_pattern(r'^api/files/upload$'), 'file_upload', name='upload-url'),
+    url(format_video_pattern(r'^api/files/upload$'), 'file_upload_url', name='upload-url'),
     url(format_video_pattern(r'^api/video/create$'), 'create_video', name='create-video'),
     url(format_video_pattern(r'^api/video/publish$'), 'publish_video', name='publish-video'),
     url(format_video_pattern(r'^api/video/unpublish$'), 'unpublish_video', name='unpublish-video'),

@@ -118,7 +118,7 @@ def update_video(request, api_client, video_id):
 
 @has_write_access_to_course
 @catch_missing_credentials_error
-def file_upload(request, course_key_string):
+def file_upload_url(request, course_key_string):
     api_client = get_client(course_key_string)
     try:
         return JsonResponse(api_client.get_upload_url())
@@ -180,7 +180,7 @@ def video_subtitles(request, course_key_string, video_id):
     api_client = get_client(course_key_string)
     if method_is(request, 'GET'):
         try:
-            return JsonResponse(api_client.get_video_subtitles(video_id))
+            return JsonResponse(api_client.get_subtitles(video_id))
         except ClientError as e:
             return json_error_response(_("Could not fetch video subtitles:"), e.message)
     elif method_is(request, 'POST'):

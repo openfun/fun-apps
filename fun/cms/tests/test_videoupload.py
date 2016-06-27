@@ -13,6 +13,7 @@ from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
 from fun.tests.utils import skipUnlessCms
+from videoproviders.api import VIDEO_CLIENT_CLASS, VIDEO_CLIENT_MODULE
 from videoproviders.api.base import ClientError
 from videoproviders.models import VideoUploaderDeactivationPeriod
 
@@ -33,7 +34,7 @@ class TestVideoUpload(ModuleStoreTestCase):
 
         self.assertIn("error", data)
 
-    @mock.patch("videoproviders.api.libcast.Client.update_video_title")
+    @mock.patch(VIDEO_CLIENT_MODULE + "." + VIDEO_CLIENT_CLASS +".update_video_title")
     def test_failing_video_title_change(self, mock_update_video_title):
         mock_update_video_title.side_effect = ClientError(u"dummy error")
         response = self.client.post(reverse("videoupload:video", kwargs={
