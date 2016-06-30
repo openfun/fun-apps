@@ -62,8 +62,8 @@ class TestVerifiedTab(VerifiedCourseList):
         begin = today - datetime.timedelta(100)
         resp = utils_proctorU_api.get_reports_from_interval("Cours", "Run", begin)
         self.assertEqual(2, len(resp["plop"]))
-        self.assertEqual("Reservation created", resp["plop"][0]["ProctorNotes"])
-        self.assertEqual("Reservation cancelled", resp["plop"][1]["ProctorNotes"])
+        self.assertIn("Reservation created", resp["plop"][0]["ProctorNotes"])
+        self.assertIn("Reservation cancelled", resp["plop"][1]["ProctorNotes"])
 
     @patch("backoffice.utils_proctorU_api.query_api")
     def test_proctorU_api_no_users_in_course(self, mock_api):
@@ -96,10 +96,10 @@ class TestVerifiedTab(VerifiedCourseList):
         end = begin + datetime.timedelta(20)
         resp = utils_proctorU_api.get_reports_from_interval("Cours", "Run", begin, request_end_date=end)
         self.assertEqual(4, len(resp["plop"]))
-        self.assertEqual("Reservation created1", resp["plop"][0]["ProctorNotes"])
-        self.assertEqual("Reservation cancelled1", resp["plop"][1]["ProctorNotes"])
-        self.assertEqual("Reservation created2", resp["plop"][2]["ProctorNotes"])
-        self.assertEqual("Reservation cancelled2", resp["plop"][3]["ProctorNotes"])
+        self.assertIn("Reservation created1", resp["plop"][0]["ProctorNotes"])
+        self.assertIn("Reservation cancelled1", resp["plop"][1]["ProctorNotes"])
+        self.assertIn("Reservation created2", resp["plop"][2]["ProctorNotes"])
+        self.assertIn("Reservation cancelled2", resp["plop"][3]["ProctorNotes"])
 
 
 class TestProctoruUtils(BaseTestCase):
