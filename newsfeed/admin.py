@@ -14,6 +14,7 @@ class ArticleAdminForm(forms.ModelForm):
 
     class Meta:
         model = models.Article
+        exclude = []
         widgets = {
             "title": forms.TextInput(attrs={"size": 100})
         }
