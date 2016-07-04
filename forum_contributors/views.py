@@ -10,7 +10,7 @@ from courseware.courses import get_course_by_id
 from django_comment_client.utils import has_forum_access
 from django_comment_common.models import Role, FORUM_ROLE_ADMINISTRATOR
 from instructor.access import update_forum_role
-from instructor.views.api import require_level, require_query_params
+from instructor.views.api import require_level
 from instructor.views.tools import get_student_from_identifier
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from util.json_request import JsonResponse
@@ -42,7 +42,7 @@ def _check_rights(course_id, user, rolename):
         )
 
     # filter out unsupported for roles
-    if not rolename in CUSTOM_ROLES:
+    if rolename not in CUSTOM_ROLES:
         raise UnauthorizedAccessError(strip_tags(
             "Unrecognized FUN special rolename '{}'.".format(rolename)
         ))
@@ -70,7 +70,6 @@ def _check_custom_roles(course_id):
 @ensure_csrf_cookie
 @cache_control(no_cache=True, no_store=True, must_revalidate=True)
 @require_level('staff')
-@require_query_params('rolename')
 def list_special_forum_contributors(request, course_id):
 
     rolename = request.GET.get('rolename')
@@ -94,7 +93,6 @@ def list_special_forum_contributors(request, course_id):
 @ensure_csrf_cookie
 @cache_control(no_cache=True, no_store=True, must_revalidate=True)
 @require_level('staff')
-@require_query_params('rolename')
 def modify_special_forum_contributors(request, course_id):
 
     unique_student_identifier = request.GET.get('unique_student_identifier')
