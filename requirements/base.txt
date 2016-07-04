@@ -1,5 +1,5 @@
 django-bootstrap-form==3.2
-django-ckeditor-updated==4.2.8
+django-ckeditor-updated==4.4.4
 django-contact-form==1.0
 django-solo==1.0.3
 pycaption==0.4.6
