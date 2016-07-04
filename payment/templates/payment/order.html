@@ -1,9 +1,9 @@
 ## mako
 <%!
     from django.utils.translation import ugettext as _
-
-    from staticfiles.storage import staticfiles_storage
 %>
+
+<%namespace name='static' file='/static_content.html'/>
 
 <%inherit file="/payment/base_large.html" />
 
@@ -11,7 +11,7 @@
 <%block name="title">${_(u"Order information")}</%block>
 <%block name="breadcrumb_current_page">${_(u"Order information")}</%block>
 <%block name="css_extra">
-    <link rel="stylesheet" type="text/css" href="${staticfiles_storage.url('payment/css/order.css')}">
+    <link rel="stylesheet" type="text/css" href="${static.url('payment/css/order.css')}">
 </%block>
 
 <%block name="message">
