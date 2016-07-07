@@ -43,7 +43,6 @@ MICROSITE_TEST_HOSTNAME = 'testmicrosite.testserver'
 from .. import test
 
 
-SOUTH_TESTS_MIGRATE = False  # To disable migrations and use syncdb instead
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = test.nose_args(REPO_ROOT, 'lms')
 

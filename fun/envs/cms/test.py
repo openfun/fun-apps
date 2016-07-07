@@ -10,7 +10,6 @@ logging.getLogger("edxmako.shortcuts").setLevel(logging.ERROR)
 from .. import test
 from path import path
 
-SOUTH_TESTS_MIGRATE = False  # To disable migrations and use syncdb instead
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = test.nose_args(REPO_ROOT, 'cms')
 
