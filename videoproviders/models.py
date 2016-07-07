@@ -32,3 +32,12 @@ class LibcastCourseSettings(models.Model):
 
     class Meta:
         verbose_name_plural = _("Libcast course settings")
+
+
+class VideoUploaderDeactivationPeriod(models.Model):
+    """
+    Define periods of time during which the CMS videoupload dashboard cannot be
+    accessed.
+    """
+    start_time = models.DateTimeField(verbose_name=_("Start time"), db_index=True)
+    end_time = models.DateTimeField(verbose_name=_("End time"), db_index=True)

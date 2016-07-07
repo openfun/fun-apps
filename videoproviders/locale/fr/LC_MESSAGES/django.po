@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 11\n"
+"Project-Id-Version: FUN-MOOC 14\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 14:50+0100\n"
-"PO-Revision-Date: 2016-03-01 14:50+0000\n"
+"POT-Creation-Date: 2016-07-07 17:30+0200\n"
+"PO-Revision-Date: 2016-07-07 17:30+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -16,14 +16,6 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
 msgid "API key"
 msgstr "Clé d'API"
-
-#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
-msgid "API secret"
-msgstr "Secret d'API"
-
-#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
-msgid "Access token"
-msgstr "Token d'accès"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
 msgid "Associated university"
@@ -61,7 +53,6 @@ msgstr "Impossible de supprimer la vidéo"
 msgid "Could not fetch file"
 msgstr "Impossible de récupérer le fichier"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/dm.py:0
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "Could not fetch upload url"
 msgstr "Impossible de récupérer une url de téléversement"
@@ -94,6 +85,10 @@ msgstr "Impossible d'analyser la réponse"
 msgid "Could not upload subtitle"
 msgstr "Impossible de téléverser le sous-titre"
 
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "End time"
+msgstr "Heure de fin"
+
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "High Definition (720p)"
 msgstr "Haute définition (720p)"
@@ -110,14 +105,6 @@ msgstr "Slug de répertoire Libcast"
 msgid "Libcast stream slug"
 msgstr "Slug de stream Libcast"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/api/dm.py:0
-msgid "Missing url parameter"
-msgstr "Paramètre url manquant"
-
-#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
-msgid "Refresh token"
-msgstr "Rafraîchir le token"
-
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "Smartphone (320p)"
 msgstr "Smartphone (320p)"
@@ -125,6 +112,10 @@ msgstr "Smartphone (320p)"
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "Standard (512p)"
 msgstr "Standard (512p)"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "Start time"
+msgstr "Heure de début"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/forms.py:0
 msgid "Subtitle file (SRT files only)"
@@ -148,19 +139,10 @@ msgstr ""
 msgid "Thumbnail file"
 msgstr "Fichier vignette"
 
-#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
-msgid "Token expiry time"
-msgstr "Date d'expiration du token"
-
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "Undefined file slug"
 msgstr "Slug de fichier indéfini"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
-msgid "Username (email address)"
-msgstr "Nom d'utilisateur (adresse email)"
-
-#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
 msgid "Username (not the email address)"
 msgstr "Nom d'utilisateur (pas l'adresse email)"
-

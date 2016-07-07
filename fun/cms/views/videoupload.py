@@ -4,7 +4,9 @@ import json
 
 from django.shortcuts import Http404
 from django.utils.translation import ugettext as _
+from django.utils.formats import date_format, time_format
 from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 from edxmako.shortcuts import render_to_response
 from util.json_request import JsonResponse
@@ -12,6 +14,7 @@ from util.json_request import JsonResponse
 from fun.utils import get_course
 from videoproviders.api import get_client, MissingCredentials, ClientError
 from videoproviders.forms import SubtitleForm, ThumbnailForm
+from videoproviders.models import VideoUploaderDeactivationPeriod
 from ..utils.views import has_write_access_to_course
 
 
@@ -32,6 +35,22 @@ def catch_missing_credentials_error(view_func):
 @catch_missing_credentials_error
 def home(request, course_key_string):
     course_module = get_course(course_key_string)
+
+    if not request.user.is_staff and not request.user.is_superuser:
+        # Are we in a deactivation period?
+        now = timezone.now()
+        deactivations = VideoUploaderDeactivationPeriod.objects.filter(
+            start_time__lte=now, end_time__gte=now
+        ).order_by('-end_time')
+        if deactivations:
+            deactivation = deactivations[0]
+            end_date = date_format(deactivation.end_time)
+            end_time = time_format(deactivation.end_time)
+            return render_to_response('videoupload/deactivated.html', {
+                "context_course": course_module,
+                "end_date": end_date,
+                "end_time": end_time,
+            })
     return render_to_response('videoupload/index.html', {
         "context_course": course_module,
     })

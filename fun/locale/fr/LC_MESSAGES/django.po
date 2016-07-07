@@ -339,6 +339,15 @@ msgstr "Merci pour votre inscription !"
 msgid "The page that you were looking for was not found."
 msgstr "La page que vous recherchez n'a pas été trouvée."
 
+#: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/deactivated.html:0
+msgid ""
+"The video upload dashboard has been temporarily disabled because of an "
+"operation of maintenance. It will be re-enabled on {end_date} at "
+"{end_time}."
+msgstr "Le tableau de bord d'upload de vidéos a été temporairement désactivé à "
+"cause d'une opération de maintenance. Il sera réactivé le {end_date} à "
+"{end_time}"
+
 # Translated in edx by 'Cet article a été modifié pour la dernière fois:'
 msgid "This article was last modified:"
 msgstr "Cet article a été modifié :"
