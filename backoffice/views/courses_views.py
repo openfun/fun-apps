@@ -206,7 +206,7 @@ def users_without_proctoru_reservation(request, course_key_string):
             header = ("Name", "Username", "Email")
             rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
             course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
-            filename = 'export-verified-users-without-PU-reservations-{course}-{date}'.format(
+            filename = 'export-verified-users-without-PU-reservations-{course}-{date}.csv'.format(
                 date=datetime.datetime.now().strftime('%Y-%m-%d'),
                 course=course_code)
 
