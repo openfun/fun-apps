@@ -1,0 +1,27 @@
+<%inherit file="../base.html" />
+<%!
+from django.utils.translation import ugettext as _
+from videoproviders.forms import SubtitleForm, ThumbnailForm
+%>
+<%namespace name='static' file='../static_content.html'/>
+
+<%block name="title">${_("Video Uploads")}</%block>
+
+<%block name="bodyclass">is-signedin course view-videouploads</%block>
+
+<%block name="content">
+<div class="wrapper-mast wrapper">
+    <header class="mast has-actions has-subtitle">
+        <h1 class="page-header">
+            <small class="subtitle">${_("Content")}</small>
+            ${_("Video uploads")}
+        </h1>
+    </header>
+</div>
+
+<div class="wrapper-content wrapper">
+    <section class="content view-uploads">
+        <p>${_("The video upload dashboard has been temporarily disabled because of an operation of maintenance. It will be re-enabled on {end_date} at {end_time}.").format(end_date=end_date, end_time=end_time)}</p>
+    </section>
+</div>
+</%block>
