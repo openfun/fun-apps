@@ -11,6 +11,7 @@ from django.db.models import Count, Q
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.views.decorators.http import require_POST
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from courses.models import Course, CourseUniversityRelation
@@ -26,7 +27,7 @@ from fun.utils.export_data import csv_response
 
 from ..certificate_manager.verified import get_verified_student_grades, get_enrolled_verified_students
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
-from ..utils_proctorU_api import get_reports_from_interval
+from ..utils_proctorU_api import get_mongo_reports, students_registered_in_pu, users_with_cancelled_reservations
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +46,7 @@ COURSE_FIELDS = [
     'students_count',
     'title',
     'university',
+
     'url',
     'studio_url',
     'modes',
@@ -145,13 +147,13 @@ def enrolled_users(request, course_key_string):
     course_info = get_course_infos([course])[0]
     User.objects.select_related('profile')
     users = User.objects.filter(courseenrollment__course_id=course.id,
-                                 courseenrollment__is_active=True).select_related('profile').order_by('username')
+                                courseenrollment__is_active=True).select_related('profile').order_by('username')
 
     search_pattern = request.GET.get('search')
-    if  search_pattern:
+    if search_pattern:
         users = users.filter(Q(username__icontains=search_pattern) |
-                               Q(email__icontains=search_pattern) |
-                               Q(profile__name__icontains=search_pattern))
+                             Q(email__icontains=search_pattern) |
+                             Q(profile__name__icontains=search_pattern))
 
     if request.method == 'POST':  # export as CSV
         course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
@@ -185,47 +187,45 @@ def enrolled_users(request, course_key_string):
         })
 
 
+@require_POST
 @group_required('fun_backoffice')
 def users_without_proctoru_reservation(request, course_key_string):
-        if not INSTALLED_PU:
-            return HttpResponse('ProctorU xblock not installed')
+    if not INSTALLED_PU:
+        return HttpResponse('ProctorU xblock not installed')
 
-        if request.method == 'POST':  # export as CSV
-            course = get_course(course_key_string)
+    course = get_course(course_key_string)
+    reports, last_update = get_mongo_reports(course.id)
+    if "warn" in reports or "error" in reports:
+        logger.error(reports)
+        return HttpResponse('Something went wrong : {}'.format(reports))
 
-            verified_students = get_enrolled_verified_students(course.id).select_related("profile")
-            proctoru_registered_user = ProctoruUser.objects.filter(student__in=verified_students)
-            students_registered_in_proctoru = User.objects.filter(proctoruuser__in=proctoru_registered_user)
+    # étudiants vérifiés - étudiants inscrit à PU (liste des étudiants avec un rapport) + étudiants sans résa
+    # => ça donne : pas inscrit PU + sans résa
+    verified_students = get_enrolled_verified_students(course.id).select_related("profile")
+    students_not_registered_in_pu = set(verified_students) - set(students_registered_in_pu(reports))
+    cancelled_reservations = set(users_with_cancelled_reservations(reports))
 
-            # TODO : not the best way to get students without reservations :
-            #  * inscriptions in proctoru model is not bound to course (false negative)
-            #  * we can't spot people who registered and cancelled their reservation
-            # Thus we can fail to spot some people without reservations
-            enrolled_students_not_proctoru = set(verified_students) - set(students_registered_in_proctoru)
+    enrolled_students_not_proctoru = set(students_not_registered_in_pu).union(cancelled_reservations)
 
-            header = ("Name", "Username", "Email")
-            rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
-            course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
-            filename = 'export-verified-users-without-PU-reservations-{course}-{date}.csv'.format(
-                date=datetime.datetime.now().strftime('%Y-%m-%d'),
-                course=course_code)
 
-            response = csv_response(header, rows, filename)
-            return response
+    header = ("Name", "Username", "Email")
+    rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
+    course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
+    filename = 'export-verified-users-without-PU-reservations-{course}-{date}'.format(
+        date=datetime.datetime.now().strftime('%Y-%m-%d'),
+        course=course_code)
+
+    response = csv_response(header, rows, filename)
+    return response
+
 
 
 @group_required('fun_backoffice')
 def verified(request, course_key_string, action=None):
-
     course = get_course(course_key_string)
     course_info = get_course_infos([course])[0]
 
-    students_grades = get_verified_student_grades(course.id)
-
-    today = datetime.datetime.today()
-    begin = today - datetime.timedelta(100)
-
-    registered_users = get_reports_from_interval(course.id.course, course.id.run, begin)
+    registered_users, last_update = get_mongo_reports(course.id)
 
     if "error" in registered_users:
         return render(request, 'backoffice/courses/verified_error.html', {
@@ -235,6 +235,7 @@ def verified(request, course_key_string, action=None):
             'course_info': course_info,
             'error': registered_users["error"],
             "warn": False,
+            "last_update": last_update,
         })
 
     if "warn" in registered_users:
@@ -248,6 +249,7 @@ def verified(request, course_key_string, action=None):
             "course_id": registered_users["warn"]["id"],
             "date_start": registered_users["warn"]["start"],
             "date_end": registered_users["warn"]["end"],
+            "last_update": last_update,
         })
 
     return render(request, 'backoffice/courses/verified.html', {
@@ -256,6 +258,7 @@ def verified(request, course_key_string, action=None):
             'students': registered_users,
             'tab': 'courses',
             'subtab': 'verified',
+            "last_update": last_update,
         })
 
 
@@ -381,21 +384,3 @@ def get_course_enrollment_counts(course_descriptors_ids):
 def format_datetime(dt):
     FORMAT = '%Y-%m-%d %H:%M'
     return dt.strftime(FORMAT) if dt else ''
-
-# def create_csv(csv_header, filename, rows):
-#     response = HttpResponse(content_type='text/csv')
-#     response['Content-Disposition'] = 'attachment; filename=%s' % filename
-#     writer = csv.writer(response)
-#     writer.writerow([field.encode('utf-8') for field in csv_header])
-#
-#     for row in rows:
-#         row_converted = []
-#         for s in row:
-#             try:
-#                 row_converted.append(s.encode("utf8"))
-#             except AttributeError:
-#                 row_converted.append(u"{}".format(s))
-#
-#         writer.writerow(row_converted)
-#
-#     return response, writer

@@ -7,14 +7,19 @@ import logging
 import os
 
 import requests
+import pymongo
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
+from fun.utils.mongo import connect_to_mongo
+
 logger = logging.getLogger(__name__)
 
+MONGO = settings.CONTENTSTORE['DOC_STORE_CONFIG']
+COLLECTION = 'cached_api_proctoru'
 
 API_URLS = {
     "get_time_zone": "/api/getTimeZoneList",
@@ -29,6 +34,41 @@ API_URLS = {
 
 BASE_URL = "https://" + settings.PROCTORU_API
 HEADER = {"Authorization-Token": settings.PROCTORU_TOKEN}
+
+
+def get_proctoru_api_collection(drop=False):
+    db = connect_to_mongo()
+    if drop:
+        db.connection[MONGO['db']].drop_collection(COLLECTION)
+    else:
+        db.connection[MONGO['db']]
+
+    return db[COLLECTION]
+
+
+def get_mongo_reports(course_key):
+    """
+    Query mongo to get the cached version of PU API
+    Args:
+        course_key: the course_key_object for the wanted course
+
+    Returns: a tuple (dict, datetime)
+     * dict : the aggregated reports for verified users, with student grades
+     * datetime : the time the cache was updated last
+    """
+    cached_api_proctoru = get_proctoru_api_collection()
+
+    mongo_datas = cached_api_proctoru.find_one()
+    student_activities = mongo_datas["reports"]
+    student_grades = mongo_datas["grades"][unicode(course_key)]
+    last_updated = mongo_datas["last_update"]
+
+    filtered_reports = filter_reports_for_course(course_key.course, course_key.run, None, None, student_activities)
+    if {"warn", "error"}.intersection(filtered_reports.keys()) :  # something went wrong
+        return filtered_reports, last_updated
+
+    res = aggregate_reports_per_user(filtered_reports["results"], student_grades)
+    return res, last_updated
 
 
 def split_large_date_range(start_date, end_date, increment):
@@ -98,8 +138,8 @@ def is_in_prod():
 def extract_infos(report):
     tmp = {
         "Student": report["Student"],
-        "ProctorNotes": report["ProctorNotes"],
         "UniqueId": report["UniqueId"],
+        "ProctorNotes": "",
         "ReservationNo": report["ReservationNo"],
         "TestSubmitted": report["Authenticated"],
         "CheckID": report["CheckID"],
@@ -111,6 +151,11 @@ def extract_infos(report):
         "fun_exam_grade": None,
         "fun_exam_pass": None,
     }
+
+    if report["ProctorNotes"] :
+        stripped = report["ProctorNotes"].strip()
+        tmp["ProctorNotes"] = [remark.strip() for remark in stripped.split(";") if remark]
+
     return tmp
 
 
@@ -148,7 +193,6 @@ def get_reports_from_interval(course_name, course_run, request_start_date, reque
     :param course_run: string with the run of the course (course.id.run)
     :param request_start_date: datetime object, specify the start of the interval
     :param request_end_date: datetime object, specify the end of the interval
-    :param student_grades: dict with {user : {"passed": True / False, "grade": 0 <= x <= 1}
     :return: dict {user: [report1, report2, ...]}
     """
     student_activities = []
@@ -174,7 +218,7 @@ def get_reports_from_interval(course_name, course_run, request_start_date, reque
     return aggregate_reports_per_user(filtered_reports["results"])
 
 
-def aggregate_reports_per_user(filtered_reports):
+def aggregate_reports_per_user(filtered_reports, student_grades={}):
     """
     Aggregate the lines present in the API according the user.
     The API returns a line for each events, but we are really interested in the "profile" for each user.
@@ -182,10 +226,16 @@ def aggregate_reports_per_user(filtered_reports):
     ProctorU API seems bugged, it contains duplicated lines (usually consecutive), so we also remove the consecutive
     duplicates.
 
+    A user can have mutliple reservations, for instance when he didn't present to the exam or when there are some
+    connection issues with the proctor. A reservation contains one or multiple proctorNotes
+    We want to sort the reports according their reservation number, in a descending way (the most recent is the first).
+
     :param filtered_reports: iterable with the ProctorU reports filtered with the course of interest
     :param student_grades: dictionary with the student username as key and info about their exam grade in values
     :return: dict with the fun username as key and the list of "actions" / reports for this user
     """
+    student_grades = student_grades or {}
+
     filtered_reports.sort(key=lambda d: d["Student"])
 
     first_report = filtered_reports[0]
@@ -208,19 +258,42 @@ def aggregate_reports_per_user(filtered_reports):
     else:
         fun_users = User.objects.filter(id__in=identifiers)
 
+    for user in event_users:
+        event_users[user].sort(key=lambda x: -x["ReservationNo"])
+
     res = {}
     for user in fun_users:
+        user_info = {}
         if not is_in_prod():
             id_ = int(user.last_name)  # Ugly! : in dev we added the production primary key in the filed last name
         else:
             id_ = user.id
 
         url = reverse("backoffice:user-detail", args=[user.username])
-        event_users[id_][0]["fun_user_url"] = url
+        user_info["fun_user_url"] = url
 
+        if user.username in student_grades:
+            user_info["fun_exam_grade"] = student_grades[user.username]["grade"]
+            user_info["fun_exam_pass"] = student_grades[user.username]["passed"]
+
+        event_users[id_][0].update(user_info)
         res[user.username] = event_users[id_]
 
     return res
+
+
+def users_with_cancelled_reservations(aggregated_reports):
+    usernames = []
+    for username in aggregated_reports:
+        last_reports = aggregated_reports[username][0]["ProctorNotes"]
+        last_remark = last_reports[0]
+
+        if "cancelled" in last_remark:
+            usernames.append(username)
+
+    students = User.objects.filter(username__in=usernames)
+    return students
+
 
 def filter_reports_for_course(course_name, course_run, start_date, end_date, student_activities):
     """
@@ -252,6 +325,7 @@ def filter_reports_for_course(course_name, course_run, start_date, end_date, stu
         return {"warn": {"id": exam_id,
                          "start": format_date(str(start_date)),
                          "end": format_date(str(end_date))}}
+
     return {"results": filtered_reports}
 
 
@@ -301,3 +375,9 @@ def is_proctoru_ok(proctoru_student_reports):
         if ok:
             return True
     return False
+
+
+def students_registered_in_pu(reports):
+    usernames = reports.keys()
+    students = User.objects.filter(username__in=usernames)
+    return students

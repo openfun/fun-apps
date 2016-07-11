@@ -14,16 +14,6 @@
 
 {% block tab_content %}
 
-<div class="alert alert-warning">
-    {% trans "The CSV below is not the best way to get students without reservations:" %}
-    <ul>
-        <li>{% trans "registration in proctoru model is not specific to course (false negative)" %}</li>
-        <li>{% trans "we can't spot people who registered and cancelled their reservation" %}</li>
-    </ul>
-    {% trans "Thus we can fail to spot some people without reservations, nevertheless, all the people listed don't have a reservation." %} <br>
-    {% trans "We are working on an improved way of getting these users."  %}
-</div>
-
 <div class="row top30 bot30">
     <div class="col-xs-4">
         <form method="GET" action=".">

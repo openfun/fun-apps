@@ -12,6 +12,10 @@
 
             <div class="container">
 
+            <h3 class="text-info">
+                {% trans "Last update of the cache:" %} {{ last_update }}
+            </h3>
+
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -51,12 +55,33 @@
                                 <td class="proctor-notes" style="vertical-align: middle;">
                                     <ul class="list-group" style="margin-top: 1em;">
                                     {% for report in reports %}
-                                                {% if "cancelled" in report.ProctorNotes %}
-                                                    <li class="list-group-item list-group-item-warning"> {{  report.ProctorNotes }} </li>
-                                                {% else %}
-                                                    <li class="list-group-item list-group-item-success"> {{  report.ProctorNotes }} </li>
-                                                {% endif %}
-                                            {% endfor %}
+                                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                                            <ul class="list-group" style="margin-top: 1em;">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="{{ reports.0.UniqueId }}-{{ forloop.counter0 }}-heading">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{ reports.0.UniqueId }}-{{ forloop.counter0 }}" aria-expanded="true" aria-controls="{{ reports.0.UniqueId }}-{{ forloop.counter0 }}">
+                                                            {% if "cancelled" in report.ProctorNotes.0 %}
+                                                                <li class="list-group-item list-group-item-warning"> {{  report.ProctorNotes.0 }} </li>
+                                                            {% else %}
+                                                                <li class="list-group-item list-group-item-success"> {{  report.ProctorNotes.0 }} </li>
+                                                            {% endif %}
+
+                                                        </a>
+                                                    </div>
+
+                                                    <div id="{{ reports.0.UniqueId }}-{{ forloop.counter0 }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ reports.0.UniqueId }}-{{ forloop.counter0 }}">
+                                                        {% for remark in report.ProctorNotes|slice:"1:" %}
+                                                            {% if "cancelled" in remark %}
+                                                                <li class="list-group-item list-group-item-warning"> {{  remark }} </li>
+                                                            {% else %}
+                                                                <li class="list-group-item list-group-item-success"> {{  remark }} </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    {% endfor %}
                                     </ul>
                                 </td>
 
