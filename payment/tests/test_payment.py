@@ -14,7 +14,7 @@ from mock import patch
 from requests.exceptions import ConnectionError
 
 from student.models import UserProfile
-from verify_student.models import SoftwareSecurePhotoVerification
+from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
 
 from courses.models import Course, CourseUniversityRelation
 from fun.tests.utils import skipUnlessLms
