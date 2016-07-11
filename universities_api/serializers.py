@@ -24,7 +24,13 @@ class PrivateUniversitySerializer(UniversitySerializer):
     '''
 
     class Meta(UniversitySerializer.Meta):
-        fields = UniversitySerializer.Meta.fields + (
+        fields = (
+            'id',
+            'name',
+            'code',
+            'logo',
+            'detail_page_enabled',
+            'banner',
             'score',
             'partnership_level',
             'prevent_auto_update',

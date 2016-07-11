@@ -16,7 +16,7 @@ class UniversityAPITest(TestCase):
 
     def setUp(self):
         self.api_url = reverse('fun-universities-api:universities-list')
-        self.user = UserFactory(username='user', password='password') # user with profile
+        self.user = UserFactory(username='user', password='password')  # user with profile
         self.univ_1 = UniversityFactory(code='test-university-1')
         self.univ_2 = UniversityFactory(code='test-university-2')
 
