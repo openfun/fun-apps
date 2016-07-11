@@ -16,8 +16,10 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from courses.models import Course, CourseUniversityRelation
 from courses.utils import get_about_section
-from courseware.courses import course_image_url, get_cms_course_link
+from courseware.courses import get_cms_course_link
+
 from opaque_keys.edx.keys import CourseKey
+from openedx.core.lib.courses import course_image_url
 from student.models import CourseEnrollment, CourseAccessRole, User
 from universities.models import University
 from xmodule.modulestore.django import modulestore
