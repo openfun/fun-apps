@@ -182,7 +182,7 @@ class CourseSubject(models.Model):
         help_text=_('Displayed where space is rare - on side panel for instance.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True)
     description = RichTextField(_('description'), blank=True)
-    featured = models.BooleanField(verbose_name=_('featured'), db_index=True)
+    featured = models.BooleanField(verbose_name=_('featured'), db_index=True, default=False)
     image = models.ImageField(_("image"), upload_to="courses",
         null=True, blank=True)
     score = models.PositiveIntegerField(_('score'), default=0, db_index=True)
