@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('djcelery', '__first__'),
-        ('student', '0005_auto_20160531_1653'),
+        ('student', '__first__'),
     ]
 
     operations = [
