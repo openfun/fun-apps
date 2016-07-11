@@ -70,7 +70,7 @@ class CourseAPIView(mixins.ListModelMixin,
 
     @property
     def extended_list(self):
-        extended_list = self.request.QUERY_PARAMS.get('extended_list')
+        extended_list = self.request.query_params.get('extended_list')
         return is_true(extended_list)
 
     def get_permissions(self):
@@ -88,9 +88,9 @@ class CourseAPIView(mixins.ListModelMixin,
             return CourseSerializer
 
     def get_queryset(self):
-        queryset = super(CourseAPIView, self).get_queryset()
-        queryset = queryset.filter(is_active=True)  # Not active means deleted.
-        queryset = queryset.with_related()
         if not (self.is_admin and self.extended_list):
-            queryset = queryset.public()
+            queryset = Course.objects.with_related().public()
+        else:
+            queryset = Course.objects.with_related()
+        queryset = queryset.filter(is_active=True)
         return queryset

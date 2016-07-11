@@ -25,18 +25,18 @@ class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     university_serializer_class = UniversitySerializer
-    main_university = serializers.SerializerMethodField('get_main_university')
+    main_university = serializers.SerializerMethodField()
     universities = UniversitySerializer()
     subjects = CourseSubjectSerializer()
-    session_display = serializers.CharField(source='session_display')
+    session_display = serializers.CharField()
     thumbnails = serializers.CharField(source='thumbnails_info')
-    start_date_display = serializers.CharField(source='start_date_display')
-    enrollment_ended = serializers.BooleanField(source='enrollment_ended')
-    end_date_display = serializers.CharField(source='end_date_display')
-    course_ended = serializers.BooleanField(source='course_ended')
-    course_started = serializers.BooleanField(source='course_started')
-    university_name = serializers.CharField(source='university_name')
-    has_verified_course_mode = serializers.SerializerMethodField('get_has_verified_course_mode')
+    start_date_display = serializers.CharField()
+    enrollment_ended = serializers.BooleanField()
+    end_date_display = serializers.CharField()
+    course_ended = serializers.BooleanField()
+    course_started = serializers.BooleanField()
+    university_name = serializers.CharField()
+    has_verified_course_mode = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
@@ -84,7 +84,7 @@ class PrivateCourseSerializer(CourseSerializer):
     Presents data accessible to authenticated admin users.
     '''
     university_serializer_class = PrivateUniversitySerializer
-    main_university = serializers.SerializerMethodField('get_main_university')
+    main_university = serializers.SerializerMethodField()
     universities = PrivateUniversitySerializer()
     subjects = PrivateCourseSubjectSerializer()
 
