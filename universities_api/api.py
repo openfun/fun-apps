@@ -36,3 +36,6 @@ class UniversityAPIView(mixins.ListModelMixin,
                 return PrivateUniversitySerializer
         if self.action in ('retrieve', 'list'):
             return UniversitySerializer
+
+    def get_queryset(self):
+        return University.objects.all()

@@ -13,7 +13,7 @@ class CourseFilter(filters.BaseFilterBackend):
         Returns:
             str: value that can be fed to a .order_by() directive.
         """
-        sort_param = request.QUERY_PARAMS.get("sort")
+        sort_param = request.query_params.get("sort")
         allowed_sort_params = ('enrollment_start_date', 'score', 'start_date', 'title',)
         for allowed_param in allowed_sort_params:
             if sort_param == allowed_param or sort_param == '-' + allowed_param:
@@ -21,12 +21,12 @@ class CourseFilter(filters.BaseFilterBackend):
         return '-score'
 
     def filter_queryset(self, request, queryset, view):
-        university_codes = request.QUERY_PARAMS.getlist('university')
-        subject_slugs = request.QUERY_PARAMS.getlist('subject')
-        levels = request.QUERY_PARAMS.getlist('level')
-        languages = request.QUERY_PARAMS.getlist('language')
-        availability = request.QUERY_PARAMS.getlist('availability')
-        full_text_query = request.QUERY_PARAMS.get('query', None)
+        university_codes = request.query_params.getlist('university')
+        subject_slugs = request.query_params.getlist('subject')
+        levels = request.query_params.getlist('level')
+        languages = request.query_params.getlist('language')
+        availability = request.query_params.getlist('availability')
+        full_text_query = request.query_params.get('query', None)
 
         if university_codes:
             queryset = queryset.filter(universities__code__in=university_codes)
