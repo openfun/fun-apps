@@ -180,10 +180,10 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded
 # by funsite/templates/funsite/parts/base.html and css/lms-main.css
 
-PIPELINE_CSS['style-main-v1']['source_filenames'].append('fun/css/cookie-banner.css')
-PIPELINE_CSS['style-main-v1']['source_filenames'].append('funsite/css/header.css')
-PIPELINE_CSS['style-main-v1']['source_filenames'].append('funsite/css/footer.css')
-PIPELINE_CSS['style-main-v1']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
+PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 
 # js/lms-application.js
 PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
