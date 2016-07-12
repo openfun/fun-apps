@@ -5,11 +5,12 @@ import logging
 from django.contrib.auth.models import User
 
 from rest_framework import status
-from rest_framework.authentication import OAuth2Authentication, SessionAuthentication
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from oauth2_provider.ext.rest_framework import OAuth2Authentication
 
-from verify_student.models import SoftwareSecurePhotoVerification
+from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
 
 from payment.utils import send_confirmation_email
 
@@ -26,9 +27,9 @@ class PaymentNotificationAPIView(APIView):
     authentication_classes = (OAuth2Authentication, SessionAuthentication)
 
     def post(self, request, format=None):
-        serializer = PaymentNotificationSerializer(data=request.DATA)
+        serializer = PaymentNotificationSerializer(data=request.data)
         if serializer.is_valid():
-            user = User.objects.get(email=request.DATA['email'])
+            user = User.objects.get(email=request.data['email'])
             logger.info('Received success notification from ecommerce service for user %s', user.username)
             if not SoftwareSecurePhotoVerification.objects.filter(user=user).exists():
                 SoftwareSecurePhotoVerification.objects.create(
@@ -37,7 +38,7 @@ class PaymentNotificationAPIView(APIView):
                     status='approved',
                     reviewing_service='Automatic Paybox',
                 )
-            send_confirmation_email(user, request.DATA['order_number'])
+            send_confirmation_email(user, request.data['order_number'])
             logger.info('Created SoftwareSecurePhotoVerification object and sent FUN confirmation email to user %s',
                     user.username)
             return Response()

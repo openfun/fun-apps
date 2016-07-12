@@ -10,6 +10,8 @@ easy-thumbnails==2.2
 django-haystack==2.4.1
 hashids==1.1.0
 
+django-oauth-toolkit==0.10.0
+
 # Password Container XBlock
 -e git+https://github.com/openfun/password-container-xblock.git@master#egg=password_container
 -e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
