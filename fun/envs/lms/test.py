@@ -68,3 +68,8 @@ FEATURES['USE_MICROSITES'] = False
 
 # Disable costly calls to publish signals
 COURSE_SIGNALS_DISABLED = True
+
+# From Django 1.7 `syndb` do not exists anymore then `migrate` is used to create db
+# it makes test database creation very long.
+# See: https://groups.google.com/d/msg/django-developers/PWPj3etj3-U/QTpjBvD2QMcJ
+MIGRATION_MODULES = dict((app, '%s.fake_migrations' % app) for app in INSTALLED_APPS)

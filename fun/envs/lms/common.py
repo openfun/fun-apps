@@ -176,6 +176,7 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 # easy-thumbnails
 #SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
 
+
 # Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded
 # by funsite/templates/funsite/parts/base.html and css/lms-main.css
