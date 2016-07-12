@@ -13,7 +13,7 @@ from requests.exceptions import ConnectionError
 from edxmako.shortcuts import render_to_string
 from student.models import CourseEnrollment
 
-from commerce import ecommerce_api_client
+from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
 
 from courses.models import Course
 
