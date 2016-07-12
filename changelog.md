@@ -1,5 +1,21 @@
 # Changelog www.fun-mooc.fr
 
+## 3.17 12/07/2016
+
+- Upload video
+    - Il est maintenant possible de désactiver l'interface d'upload des vidéos.
+    - On rajoute un intervalle de dates pendant lesquelles les vidéos ne seront pas
+      disponibles.
+
+- ProctorU
+    - Faire apparaître les étudiants qui ont pris RDV et annulé ensuite pour un examen.
+        - Corrigé un bug (dû à l'API) sur la page /backoffice/verified/
+        - Ajouté une extension au nom de fichier pour qu'il s'ouvre directement dans Excel/Libreoffice
+    - Rectification des liens dans le manuel proctorU
+    - Mettre en cache sur notre plateforme les infos de l'API proctoru pour faire moins de requêtes
+      sur leur serveur distant.
+
+
 ## 3.16 23/06/2016
 
 - Certification
