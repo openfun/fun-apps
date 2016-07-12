@@ -146,7 +146,7 @@ def regenerate_certificate(course_id, user, certificate):
     certificate.mode = GeneratedCertificate.MODES.honor
     certificate_filename = make_certificate_filename(course_id, key=certificate.key)
     CertificateInfo(
-        user.get_profile().name, course_display_name,
+        user.profile.name, course_display_name,
         university,
         certificate_filename, teachers, language=certificate_language
     ).generate()
@@ -237,9 +237,9 @@ def user_detail(request, username):
 
     certificates = [{'cert': cert, 'hashid': hashid_for_verified(cert)}
             for cert in GeneratedCertificate.objects.filter(user=user)]
-
     userform = UserForm(instance=user, data=request.POST or None)
-    userprofileform = UserProfileForm(instance=user.profile, data=request.POST or None)
+    userprofileform = UserProfileForm(instance=user.profile if hasattr(user, 'profile') else None,
+            data=request.POST or None)
 
     disabled = UserStanding.objects.filter(user=user,
                                            account_status=UserStanding.ACCOUNT_DISABLED)
