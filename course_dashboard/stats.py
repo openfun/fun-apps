@@ -43,7 +43,7 @@ def enrollments_per_day(course_key_string=None, since=None):
     def dateify(date):
         if isinstance(date, datetime):
             return date
-        return datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        return datetime.strptime(date, "%Y-%m-%d")
 
     results = [(dateify(result[period_name]), result['enrollment_count']) for result in query]
     return add_days_with_no_enrollments(results)
