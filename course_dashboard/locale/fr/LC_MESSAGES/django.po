@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 3\n"
+"Project-Id-Version: FUN-MOOC 5\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-03-01 14:50+0100\n"
-"PO-Revision-Date: 2016-03-01 14:50+0000\n"
+"POT-Creation-Date: 2016-07-20 10:20+0200\n"
+"PO-Revision-Date: 2016-07-20 10:20+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -95,6 +95,10 @@ msgstr "Jour avec le plus d'inscriptions :"
 msgid "Download raw CSV data"
 msgstr "Télécharger les données CSV brutes"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
+msgid "Enrollment mode"
+msgstr "Type d'inscription"
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats-global.html:0
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/enrollment-stats.html:0
 msgid "Enrollments per day"
@@ -157,6 +161,14 @@ msgstr "Nombre d'apprenants"
 msgid "Number of new threads"
 msgstr "Nombre de nouveaux fils de discussion"
 
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
+msgid "Number of non-passing students"
+msgstr "Nombre d'étudiants n'ayant pas réussi"
+
+#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
+msgid "Number of passing students"
+msgstr "Nombre d'étudiants ayant réussi"
+
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/wiki-activity.html:0
 msgid "Page creations by day"
 msgstr "Nombre de pages créées par jour"
@@ -206,14 +218,6 @@ msgstr "Deuxième pays"
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:0
 msgid "Student map"
 msgstr "Carte des apprenants"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
-msgid "Students with certificate"
-msgstr "Apprenants avec attestation"
-
-#: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/certificate-stats.html:0
-msgid "Students without certificate"
-msgstr "Apprenants sans attestation"
 
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_course.html:0
 #: /edx/app/edxapp/fun-apps/course_dashboard/templates/course_dashboard/base_global.html:0
@@ -270,7 +274,4 @@ msgstr "pages modifiées"
 #, python-format
 msgid "students enrolled over %d days"
 msgstr "apprenants inscrits en %d jours"
-
-#~ msgid "Day with least enrollments:"
-#~ msgstr "Jour avec le moins d'inscriptions :"
 

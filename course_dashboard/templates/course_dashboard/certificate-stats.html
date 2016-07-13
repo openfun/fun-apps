@@ -3,26 +3,55 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from course_dashboard.problem_stats.utils import percentage %>
 
+
+<%block name="extra_head">
+    <style>
+        table.centered td, .centered{
+            text-align: center;
+        }
+    </style>
+</%block>
+
+
 <%block name="content">
     %if total:
-        <table class="table">
-            <tr class="success">
-                <th>${_("Students with certificate")}</th>               
-                <td>${passing}</td>
-                <td>${percentage(passing, total)}%</td>
+        <table class="table centered">
+            <tr class="centered">
+                <th></th>
+                <th class="centered" colspan="2">${_("Enrollment mode")}</th>
+                <th></th>
             </tr>
-            <tr class="danger">
-                <th>${_("Students without certificate")} </th>
-                <td>${not_passing}</td>
-                <td>${percentage(not_passing, total)}%</td>
+
+            <tr class="centered">
+                <th></th>
+                <th class="centered">${_("Verified")}</th>
+                <th class="centered">${_("Honor")}</th>
+                <th class="centered">${_("Total")}</th>
             </tr>
+
             <tr>
-                <th>${_("Total")} </th>
-                <td>${total}</td>
-                <td>100%</td>
+                <th>${_("Number of passing students")}</th>
+                <td id="verified-passing">${verified["passing"] }</td>
+                <td id="honor-passing">${honor["passing"] }</td>
+                <td id="total-passing">${passing}</td>
+            </tr>
+
+            <tr>
+                <th>${_("Number of non-passing students")}</th>
+                <td id="verified-not-passing">${verified["not_passing"] }</td>
+                <td id="honor-not-passing">${honor["not_passing"] }</td>
+                <td id="total-not-passing">${not_passing}</td>
+            </tr>
+
+            <tr>
+                <th>Total</th>
+                <td id="total-verified">${verified["passing"] + verified["not_passing"]}</td>
+                <td id="total-honor">${honor["passing"] + honor["not_passing"]}</td>
+                <td id="total">${total}</td>
             </tr>
         </table>
     %else:
         ${_("Certificates have not been generated yet.")}
     %endif
+
 </%block>

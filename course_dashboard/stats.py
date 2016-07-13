@@ -213,5 +213,18 @@ class CertificateStats(object):
         """Return the number of available certificates"""
         return self.certificates.filter(status=CertificateStatuses.downloadable).count()
 
+    def honor(self):
+        honor_certs = self.certificates.filter(mode=GeneratedCertificate.MODES.honor)
+        return {
+            "passing": honor_certs.filter(status=CertificateStatuses.downloadable).count(),
+            "not_passing": honor_certs.filter(status=CertificateStatuses.notpassing).count(),
+        }
+
+    def verified(self):
+        verified_certs = self.certificates.filter(mode=GeneratedCertificate.MODES.verified)
+        return {
+            "passing": verified_certs.filter(status=CertificateStatuses.downloadable).count(),
+            "not_passing": verified_certs.filter(status=CertificateStatuses.notpassing).count(),
+        }
     def total(self):
         return self.certificates.count()

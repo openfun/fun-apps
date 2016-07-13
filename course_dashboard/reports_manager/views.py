@@ -38,6 +38,7 @@ def dashboard(request, course_id):
     )
     return render(request, 'course_dashboard/reports_manager/dashboard.html',
                   {"course_id": course_id,
+                   "active_tab": "reports",
                    "answers_distribution_reports": answers_distribution_reports,
                    "running_reports_generation": running_reports_generation})
 

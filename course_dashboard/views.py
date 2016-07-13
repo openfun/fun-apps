@@ -208,10 +208,14 @@ def date_to_js_timestamp(date):
 @ensure_valid_course_key
 @staff_required_or_level('staff')
 def certificate_stats(request, course_id):
-    """Return basic certificate stats (success, failure)."""
+    """Return basic certificate stats (success, failure), split by enrollment mode."""
     certif_stats = stats.CertificateStats(course_id)
     return render(request, 'course_dashboard/certificate-stats.html',
                   {'course_id': course_id,
                    'passing': certif_stats.passing(),
+                   'verified': certif_stats.verified(),
                    'not_passing': certif_stats.not_passing(),
-                   'total':certif_stats.total()})
+                   'honor': certif_stats.honor(),
+                   'total':certif_stats.total(),
+                   'active_tab': 'certificate_stats',
+                   })
