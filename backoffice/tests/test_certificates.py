@@ -55,7 +55,7 @@ class CertificateTests(ModuleStoreTestCase):
 
     def test_generate_course_certificates(self):
         self.configure_course()
-        CourseEnrollmentFactory(course_id=self.course.id, user=self.user)
+        CourseEnrollmentFactory(course_id=self.course.id, user=self.user, mode='honor')
 
         certificate_count_before = GeneratedCertificate.objects.count()
         with patch('instructor_task.tasks_helper._get_current_task'):
