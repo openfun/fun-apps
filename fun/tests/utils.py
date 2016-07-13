@@ -32,7 +32,7 @@ class RSSDeclarationMixin():
         url = reverse('root')
         response = self.client.get(url)
         soup = BeautifulSoup(response.content)
-        declarations = soup.select('head > link[type="application/rss+xml"]')  # get all rss declarations
+        declarations = soup.select('link[type="application/rss+xml"]')  # get all rss declarations
         self.assertTrue(any([declaration.attrs['href'] == self.url for declaration in declarations]))
 
     def test_feed(self):
