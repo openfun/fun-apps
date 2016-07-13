@@ -13,7 +13,6 @@ PREVIEW_LMS_BASE = LMS_BASE
 MEDIA_ROOT = "/edx/var/edxapp/uploads"
 
 DEBUG = True
-TEMPLATE_DEBUG = True
 
 # By default don't use a worker, execute tasks as if they were local functions
 CELERY_ALWAYS_EAGER = True
