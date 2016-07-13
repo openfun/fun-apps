@@ -157,7 +157,7 @@ class Client(BaseClient):
                 created_at = self.timestamp_to_str(created_at_timestamp)
 
                 upload_status = video['status']['uploadStatus']
-                status = self.STATUS_PUBLISHED if upload_status == 'processed' else self.STATUS_PROCESSING
+                status = self.STATUS_READY if upload_status == 'processed' else self.STATUS_PROCESSING
                 video_id = video['id']
                 yield {
                     'id': video_id,
@@ -233,22 +233,12 @@ class Client(BaseClient):
         }).execute()
         return {}
 
-    def publish_video(self, video_id):
-        # A video is automatically published on youtube so we don't do anything here.
-        # We could use this method to make videos public, but that would allow
-        # course staff to make public any video.
-        # TODO Actually, we should probably remove the "publish" button on the dashboard.
-        return {}
-
     def create_video(self, payload, title=None):
         # We don't need to do anything here, because we handle the upload
         # ourselves. Also, the video was added to the playlist right after the
         # upload. Note that the upload call should return a dictionary
         # containing an ID, otherwise the following will not work.
         return self.get_video(payload["id"])
-
-    def unpublish_video(self, video_id):
-        return {}
 
     def set_thumbnail(self, video_id, url):
         # We do not support that for youtube.

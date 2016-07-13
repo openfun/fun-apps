@@ -17,7 +17,7 @@
   <% } %>
   <input value="<%= title %>" class="togglable invisible">
 
-  <% if (status === "ready" || status === "published") { %>
+  <% if (status === "ready") { %>
     <ul class="actions-list togglable">
       <li class="action-item action-edit-title">
         <a class="action-button" href="#" onclick="return false;" data-tooltip="<%= gettext('Edit video title') %>"><i class="icon fa fa-pencil"></i></a>
@@ -45,19 +45,7 @@
     </li>
     <% } %>
 
-    <% if (status === "ready" || status === "created") { %>
-    <li class="action-item action-publish">
-      <a class="action-button" href="#" onclick="return false;" data-tooltip="<%= gettext('Publish this video') %>"><i class="icon fa fa-eye"></i> <span class="sr"><%= gettext('Publish this video') %></span></a>
-    </li>
-    <% } %>
-
-    <% if (status === "published") { %>
-    <li class="action-item action-unpublish">
-      <a class="action-button" href="#" onclick="return false;" data-tooltip="<%= gettext('Unpublish this video') %>"><i class="icon fa fa-eye-slash"></i> <span class="sr"><%= gettext('Unpublish this video') %></span></a>
-    </li>
-    <% } %>
-
-    <% if (status === "created" || status === "ready" || status === "published") { %>
+    <% if (status === "created" || status === "ready") { %>
     <li class="action-item action-parameters">
       <!-- <i class="icon fa fa-cog"></i> -->
       <a class="action-button" href="#" onclick="return false;" data-tooltip="<%= gettext('Parameters') %>"><i class="icon fa fa-cog"></i> <span class="sr"><%= gettext('Parameters') %></span></a>

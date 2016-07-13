@@ -170,8 +170,7 @@ class Client(BaseClient):
             resource (etree)
             file_obj (etree)
         """
-        visibility = resource.find('visibility').text
-        status = self.STATUS_PUBLISHED if visibility == 'visible' else self.STATUS_READY
+        status = self.STATUS_READY
         encoding_progress = None
         if file_obj is not None:
             encoding_status = file_obj.find('encoding_status').text
@@ -515,12 +514,6 @@ class Client(BaseClient):
         resource = self.create_resource(file_slug, title)
         file_obj = self.get_resource_file(resource)
         return self.convert_resource_to_video(resource, file_obj)
-
-    def publish_video(self, video_id):
-        return self.set_video_visibility(video_id, self.VISIBILITY_VISIBLE)
-
-    def unpublish_video(self, video_id):
-        return self.set_video_visibility(video_id, self.VISIBILITY_HIDDEN)
 
     def set_video_visibility(self, video_id, visibility):
         self.safe_put(

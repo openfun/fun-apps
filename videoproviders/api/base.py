@@ -34,7 +34,6 @@ class BaseClient(object):
 
     STATUS_PROCESSING = 'processing'
     STATUS_READY = 'ready'
-    STATUS_PUBLISHED = 'published'
 
     def __init__(self, course_key_string):
         self.course_id = CourseKey.from_string(course_key_string)
@@ -204,14 +203,6 @@ class BaseClient(object):
             payload (dict): data returned by the video upload call.
             title (str): Title of the video to create.
         """
-        raise NotImplementedError()
-
-    def publish_video(self, video_id):
-        """Publish a video after it has been created"""
-        raise NotImplementedError()
-
-    def unpublish_video(self, video_id):
-        """Unpublish a video after it has been published"""
         raise NotImplementedError()
 
     def set_thumbnail(self, video_id, url):

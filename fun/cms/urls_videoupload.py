@@ -14,8 +14,6 @@ urlpatterns = patterns('fun.cms.views.videoupload',
     # video
     url(format_video_pattern(r'^api/files/upload$'), 'file_upload_url', name='upload-url'),
     url(format_video_pattern(r'^api/video/create$'), 'create_video', name='create-video'),
-    url(format_video_pattern(r'^api/video/publish$'), 'publish_video', name='publish-video'),
-    url(format_video_pattern(r'^api/video/unpublish$'), 'unpublish_video', name='unpublish-video'),
 
     # subtitles
     # It is important that the endpoint for a single url has the same root as

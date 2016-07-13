@@ -144,35 +144,6 @@ def create_video(request, course_key_string):
     except ClientError as e:
         return json_error_response(_("Could not create video:"), e.message)
 
-@require_POST
-@has_write_access_to_course
-@catch_missing_credentials_error
-def publish_video(request, course_key_string):
-    video_id = request.POST.get("video_id")
-    title = request.POST.get("title")
-    if not video_id or not title:
-        raise Http404()
-
-    api_client = get_client(course_key_string)
-    try:
-        return JsonResponse(api_client.publish_video(video_id))
-    except ClientError as e:
-        return json_error_response(_("Could not publish video:"), e.message)
-
-@require_POST
-@has_write_access_to_course
-@catch_missing_credentials_error
-def unpublish_video(request, course_key_string):
-    video_id = request.POST.get("video_id")
-    if not video_id:
-        raise Http404()
-
-    api_client = get_client(course_key_string)
-    try:
-        return JsonResponse(api_client.unpublish_video(video_id))
-    except ClientError as e:
-        return json_error_response(_("Could not unpublish video:"), e.message)
-
 @has_write_access_to_course
 @catch_missing_credentials_error
 def video_subtitles(request, course_key_string, video_id):

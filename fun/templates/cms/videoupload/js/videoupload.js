@@ -68,7 +68,7 @@ require(["jquery", "underscore", "backbone", "gettext",
     }
 
     // Status workflow for a video:
-    // preparing -> prepared -> uploading -> uploaded -> creating -> created -> processing -> ready -> published -> deleted
+    // preparing -> prepared -> uploading -> uploaded -> creating -> created -> processing -> ready -> deleted
     var Video = Backbone.Model.extend({
       defaults: {
         created_at: "",
@@ -99,7 +99,7 @@ require(["jquery", "underscore", "backbone", "gettext",
 
       wasUploaded: function() {
         var videoStatus = this.get("status");
-        return videoStatus === "published" || videoStatus === "ready";
+        return videoStatus === "ready";
       },
 
       videoId: function() {
@@ -153,8 +153,6 @@ require(["jquery", "underscore", "backbone", "gettext",
         "keyup .title input": "onEditTitle",
         "click .action-delete": "onClickDelete",
         "click .action-cancel": "onClickCancel",
-        "click .action-publish": "onClickPublish",
-        "click .action-unpublish": "onClickUnpublish",
         "click .action-parameters": "onClickParameters",
       },
 
@@ -165,8 +163,6 @@ require(["jquery", "underscore", "backbone", "gettext",
         this.listenTo(this.model, 'destroy', this.remove);
         this.listenTo(this.model, 'uploading-progress', this.uploadingProgress);
         this.listenTo(this.model, 'status-uploaded', this.createVideo);
-        this.listenTo(this.model, 'status-publishing', this.publishVideo);
-        this.listenTo(this.model, 'status-unpublishing', this.unpublishVideo);
       },
 
       render: function() {
@@ -230,14 +226,6 @@ require(["jquery", "underscore", "backbone", "gettext",
         this.model.destroy();
       },
 
-      onClickPublish: function(e) {
-        this.model.setStatus("publishing");
-      },
-
-      onClickUnpublish: function(e) {
-        this.model.setStatus("unpublishing");
-      },
-
       onClickParameters: function(e) {
         var parameterView = new ParameterView({model: this.model});
         parameterView.show();
@@ -271,25 +259,6 @@ require(["jquery", "underscore", "backbone", "gettext",
 
       uploadingProgress: function(percent) {
         this.$(".progressbar").progressbar({value: percent});
-      },
-
-      publishVideo: function() {
-        this.post('${reverse_course("videoupload:publish-video")}',
-          {
-            title: this.model.get("title"),
-            video_id: this.model.get("id"),
-          },
-          "published"
-        );
-      },
-
-      unpublishVideo: function() {
-        this.post('${reverse_course("videoupload:unpublish-video")}',
-          {
-            video_id: this.model.get("id"),
-          },
-          "ready"
-        );
       },
 
       post: function(url, postData, successStatus) {
