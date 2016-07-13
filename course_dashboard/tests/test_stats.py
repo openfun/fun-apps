@@ -125,7 +125,7 @@ class StatsTestCase(BaseCourseDashboardTestCase):
                             course=self.course)
         self.assertEqual(stats.active_enrollments().count(), 1)
 
-    def test_certificate_stats(self):
+    def test_certificate_honor_stats(self):
         GeneratedCertificateFactory(course_id=self.course.id, user=self.user,
                                     status=CertificateStatuses.notpassing)
         GeneratedCertificateFactory(course_id=self.course.id, user=UserFactory(),
@@ -133,6 +133,37 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         certificate_stats = stats.CertificateStats(unicode(self.course.id))
         self.assertEqual(certificate_stats.not_passing(), 1)
         self.assertEqual(certificate_stats.passing(), 1)
+        self.assertEqual(certificate_stats.total(), 2)
+
+    def test_certificate_verified_stats(self):
+        GeneratedCertificateFactory(course_id=self.course.id, user=self.user,
+                                    status=CertificateStatuses.notpassing)
+        GeneratedCertificateFactory(course_id=self.course.id, user=UserFactory(),
+                                    status=CertificateStatuses.downloadable)
+
+        GeneratedCertificateFactory(course_id=self.course.id, user=UserFactory(),
+                                    status=CertificateStatuses.notpassing, mode="verified")
+        GeneratedCertificateFactory(course_id=self.course.id, user=UserFactory(),
+                                    status=CertificateStatuses.downloadable, mode="verified")
+
+
+        certificate_stats = stats.CertificateStats(unicode(self.course.id))
+        self.assertEqual(certificate_stats.not_passing(), 2)
+        self.assertEqual(certificate_stats.passing(), 2)
+
+        self.assertEqual(certificate_stats.verified()["passing"], 1)
+        self.assertEqual(certificate_stats.verified()["not_passing"], 1)
+
+        self.assertEqual(certificate_stats.honor()["passing"], 1)
+        self.assertEqual(certificate_stats.honor()["not_passing"], 1)
+
+        total_passing = certificate_stats.passing()
+        total_not_passing = certificate_stats.not_passing()
+        self.assertEqual(certificate_stats.verified()["passing"]+certificate_stats.honor()["passing"], total_passing)
+        self.assertEqual(certificate_stats.verified()["not_passing"]+certificate_stats.honor()["not_passing"], total_not_passing)
+
+        self.assertEqual(certificate_stats.total(), 4)
+
 
     def test_certificate_stats_with_no_generated_certificates(self):
         certificate_stats = stats.CertificateStats(unicode(self.course.id))

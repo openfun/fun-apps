@@ -37,7 +37,8 @@ def index(request, course_id):
 
     return render(request, 'problem_stats/index.html', {
         "course_id": course_id,
-        "course_tree_data": json.dumps(course_tree)
+        "course_tree_data": json.dumps(course_tree),
+        'active_tab': 'answers_distribution'
     })
 
 @ensure_valid_course_key
