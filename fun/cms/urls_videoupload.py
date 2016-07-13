@@ -1,10 +1,11 @@
 from django.conf.urls import url, patterns
 
+from videoproviders.patterns import SUBTITLE_ID_PATTERN, VIDEO_ID_PATTERN
+
 def format_video_pattern(pattern):
-    return pattern.format(
-        video=r'(?P<video_id>[a-zA-Z0-9.\-_]+)',
-        subtitle=r'(?P<subtitle_id>[a-zA-Z0-9.\-_]+)',
-    )
+    video = r'(?P<video_id>{})'.format(VIDEO_ID_PATTERN)
+    subtitle = r'(?P<subtitle_id>{})'.format(SUBTITLE_ID_PATTERN)
+    return pattern.format(video=video, subtitle=subtitle)
 
 urlpatterns = patterns('fun.cms.views.videoupload',
     # videos

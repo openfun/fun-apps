@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 14\n"
+"Project-Id-Version: FUN-MOOC 16\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-07-07 17:30+0200\n"
-"PO-Revision-Date: 2016-07-07 17:30+0000\n"
+"POT-Creation-Date: 2016-07-13 10:12+0200\n"
+"PO-Revision-Date: 2016-07-13 10:12+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -18,8 +18,20 @@ msgid "API key"
 msgstr "Clé d'API"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "Access token"
+msgstr "Jeton d'accès"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
 msgid "Associated university"
 msgstr "Établissement associé"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "Client ID"
+msgstr "Client ID"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "Client secret"
+msgstr "Client secret"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "Could not change video title"
@@ -105,6 +117,22 @@ msgstr "Slug de répertoire Libcast"
 msgid "Libcast stream slug"
 msgstr "Slug de stream Libcast"
 
+#: /edx/app/edxapp/fun-apps/videoproviders/api/youtube.py:0
+msgid ""
+"Maximum supported video title length is 100 characters. Cannot set title "
+"with {count} characters"
+msgstr ""
+"La longueur maximale d'un titre de vidéo est de 100 caractères. "
+"Impossible de définir un titre avec {count} caractères."
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "Playlist ID"
+msgstr "ID Playlist"
+
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "Refresh token"
+msgstr "Jeton de rafraîchissement"
+
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "Smartphone (320p)"
 msgstr "Smartphone (320p)"
@@ -139,6 +167,10 @@ msgstr ""
 msgid "Thumbnail file"
 msgstr "Fichier vignette"
 
+#: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
+msgid "Token expiry"
+msgstr "Expiration du jeton"
+
 #: /edx/app/edxapp/fun-apps/videoproviders/api/libcast.py:0
 msgid "Undefined file slug"
 msgstr "Slug de fichier indéfini"
@@ -146,3 +178,4 @@ msgstr "Slug de fichier indéfini"
 #: /edx/app/edxapp/fun-apps/videoproviders/models.py:0
 msgid "Username (not the email address)"
 msgstr "Nom d'utilisateur (pas l'adresse email)"
+

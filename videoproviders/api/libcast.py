@@ -190,6 +190,7 @@ class Client(BaseClient):
         published_at = resource.find('published_at').text
         created_at_timestamp = int(published_at) if published_at else None
         created_at = self.timestamp_to_str(created_at_timestamp) if created_at_timestamp else None
+
         return {
             'id': slug,
             'created_at': created_at,

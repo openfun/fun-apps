@@ -131,6 +131,17 @@ class YoutubeTests(BaseYoutubeTestCase):
         self.assertEqual("Video title 1", videos[0]["title"])
         self.assertEqual("4 juillet 2016 13:12:12", videos[0]["created_at"])
 
+    def test_iter_video_encoding_in_progress(self):
+        self.create_course_settings()
+        self.youtube_client.auth.playlistItems = mock_list_service(fixtures.get_json_content(
+            "youtube/playlist_items1.json"
+        ))
+        self.youtube_client.auth.videos = mock_list_service(fixtures.get_json_content(
+            "youtube/video1_in_progress.json"
+        ))
+        videos = self.youtube_client.get_videos()
+        self.assertEqual(66.6, videos[0]["encoding_progress"])
+
     def test_generate_subtitle_name(self):
         self.youtube_client.auth.captions = mock_list_service({
             "items": [
@@ -215,6 +226,16 @@ class YoutubeCmsTests(BaseYoutubeTestCase):
         response = self.client.get(self.subtitle_download_url)
         self.assertEqual(200, response.status_code)
         self.assertEqual("vtt content here", response.content)
+
+    def test_reverse_subtitle_url_with_complex_id(self):
+        subtitle_id = "VOlQLBC_Vxz1R2fVli6aj0FbSjwYVrSpp212rQRPxkw="
+        self.assertIsNotNone(reverse(
+            'youtube:download_subtitle',
+            kwargs={
+                "course_key_string": "org/num/run",
+                "subtitle_id": subtitle_id
+            }
+        ))
 
     def test_get_upload_url(self):
         upload_url = self.youtube_client.get_upload_url()

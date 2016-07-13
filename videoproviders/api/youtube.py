@@ -15,10 +15,24 @@ from ..models import YoutubeAuth, YoutubeCourseSettings
 
 from .base import BaseClient, ClientError, MissingVideo, MissingCredentials
 
-# TODO translate error messages
-
 
 class Client(BaseClient):
+    """
+    This is the client for the Youtube video provider. Each university has its
+    own account and its own credentials. Course videos are stored in playlists
+    named witht the course ID.
+
+    The Youtube API is rate-limited, so we should be careful not to make too
+    many calls per day. Quotas are reset at 9am (French time) every day.
+
+    Note that video upload has to go through the FUN servers, as opposed to the
+    way libcast or dmcloud used to work. So we need to add a few views to the
+    CMS in order to have a working video uploader.
+    """
+
+    # NOTE for now, there is no error management while communicating with the
+    # Youtube API. We should handle errors once we have figured how and what
+    # errors are triggered.
 
     # In France, the Youtube category code for education is 27, as per
     # https://developers.google.com/youtube/v3/docs/videoCategories/list#try-it
@@ -149,7 +163,7 @@ class Client(BaseClient):
             video_ids_partial = video_ids[start_index:start_index+index_offset]
             for video in iter_page_items(
                     self.auth.videos().list,
-                    part="id,snippet,status",
+                    part="id,snippet,status,processingDetails",
                     id=','.join(video_ids_partial)
             ):
                 created_at_datetime = parse_datetime(video['snippet']['publishedAt'])
@@ -159,16 +173,24 @@ class Client(BaseClient):
                 upload_status = video['status']['uploadStatus']
                 status = self.STATUS_READY if upload_status == 'processed' else self.STATUS_PROCESSING
                 video_id = video['id']
+
+                encoding_progress = None
+                if status == self.STATUS_PROCESSING:
+                    progress = video['processingDetails'].get('processingProgress')
+                    if progress:
+                        parts_processed = int(progress['partsProcessed'])
+                        parts_total = int(progress['partsTotal'])
+                        encoding_progress = parts_processed * 100. / parts_total
+
                 yield {
                     'id': video_id,
                     'created_at': created_at,
-                    # TODO we should modify the base class to insert the timestamp automatically
                     'created_at_timestamp': created_at_timestamp,
                     'title':  video['snippet']['title'],
                     'thumbnail_url': "",
                     'status': status,
-                    #'encoding_progress': "TODO",
-                    'embed_url': "https://www.youtube.com/embed/{}".format(video_id),
+                    'encoding_progress': encoding_progress,
+                    'embed_url': "https://www.youtube.com/embed/{}?rel=0&amp;showinfo=0".format(video_id),
                     'video_sources': [],
                     'external_link': "https://www.youtube.com/watch?v={}".format(video_id),
                 }
@@ -310,7 +332,6 @@ class Client(BaseClient):
         }
 
     def upload_video(self, file_object):
-        # TODO: error management: what if video upload fails?
         # 1) Upload video
         video = self.auth.videos().insert(
             part="snippet,status",

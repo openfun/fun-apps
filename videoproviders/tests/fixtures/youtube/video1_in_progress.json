@@ -1,0 +1,47 @@
+{
+    "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/l6s1oof4ia19O2PNQ-OuV7nKY1A\"", 
+    "kind": "youtube#videoListResponse", 
+    "items": [
+        {
+            "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/7mNEfcEflEb3PIXytL_iTDl_ROo\"", 
+            "id": "videoid1", 
+            "kind": "youtube#video", 
+            "processingDetails": {
+                "editorSuggestionsAvailability": "inProgress", 
+                "fileDetailsAvailability": "available", 
+                "processingIssuesAvailability": "available", 
+                "processingProgress": {
+                    "partsProcessed": "666", 
+                    "partsTotal": "1000", 
+                    "timeLeftMs": "250"
+                }, 
+                "processingStatus": "processing", 
+                "tagSuggestionsAvailability": "inProgress", 
+                "thumbnailsAvailability": "inProgress"
+            }, 
+            "snippet": {
+                "categoryId": "27", 
+                "channelId": "UCQG3mM7yl8i4kHZ_NOGdIOA", 
+                "channelTitle": "PSL PSL", 
+                "description": "", 
+                "localized": {
+                    "description": "", 
+                    "title": "Localized video title 1"
+                }, 
+                "publishedAt": "2016-07-04T12:12:12.666Z", 
+                "title": "Video title 1" 
+            }, 
+            "status": {
+                "embeddable": true, 
+                "license": "youtube", 
+                "privacyStatus": "unlisted", 
+                "publicStatsViewable": true, 
+                "uploadStatus": "uploaded"
+            }
+        }
+    ],
+    "pageInfo": {
+        "resultsPerPage": 1, 
+        "totalResults": 1
+    }
+}

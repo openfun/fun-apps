@@ -1,33 +1,33 @@
 {
+    "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/l6s1oof4ia19O2PNQ-OuV7nKY1A\"", 
+    "kind": "youtube#videoListResponse", 
     "items": [
         {
+            "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/7mNEfcEflEb3PIXytL_iTDl_ROo\"", 
+            "id": "videoid1",
+            "kind": "youtube#video", 
             "snippet": {
-                "title": "Video title 1", 
-                "channelId": "channelid1", 
-                "publishedAt": "2016-07-04T12:12:12.666Z", 
-                "liveBroadcastContent": "none", 
-                "channelTitle": "FUN-MOOC", 
                 "categoryId": "22",
+                "channelId": "channelid1", 
+                "channelTitle": "FUN-MOOC", 
+                "description": "",
+                "liveBroadcastContent": "none", 
                 "localized": {
                     "description": "", 
                     "title": "Localized video title 1"
                 }, 
-                "description": ""
+                "title": "Video title 1", 
+                "publishedAt": "2016-07-04T12:12:12.666Z" 
             }, 
             "status": {
+                "embeddable": true,
+                "license": "youtube", 
                 "publicStatsViewable": true, 
                 "privacyStatus": "unlisted", 
-                "uploadStatus": "processed", 
-                "license": "youtube", 
-                "embeddable": true
-            }, 
-            "kind": "youtube#video", 
-            "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/7mNEfcEflEb3PIXytL_iTDl_ROo\"", 
-            "id": "videoid1"
+                "uploadStatus": "processed"
+            }
         }
     ], 
-    "kind": "youtube#videoListResponse", 
-    "etag": "\"5g01s4-wS2b4VpScndqCYc5Y-8k/l6s1oof4ia19O2PNQ-OuV7nKY1A\"", 
     "pageInfo": {
         "resultsPerPage": 1, 
         "totalResults": 1
