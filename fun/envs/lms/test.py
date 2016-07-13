@@ -6,6 +6,7 @@ ENVIRONMENT = 'test'
 ############# Disable useless logging
 import logging
 logging.getLogger("backoffice.views").setLevel(logging.ERROR)
+logging.getLogger("edxmako.shortcuts").setLevel(logging.ERROR)
 
 ################ Microsite test settings
 

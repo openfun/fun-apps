@@ -2,6 +2,10 @@ from .dev import *
 
 ENVIRONMENT = 'test'
 
+############# Disable useless logging
+import logging
+logging.getLogger("edxmako.shortcuts").setLevel(logging.ERROR)
+
 ############ If you modify settings below this line don't forget to modify them both in lms/test.py and cms/test.py
 from .. import test
 from path import path
