@@ -52,23 +52,40 @@ def get_mongo_reports(course_key):
     Args:
         course_key: the course_key_object for the wanted course
 
-    Returns: a tuple (dict, datetime)
+    Returns: a dict ("data": dict, "last_update": datetime)
      * dict : the aggregated reports for verified users, with student grades
      * datetime : the time the cache was updated last
+
+    Error returns : dict ("data": the reason of the error, "last_update": None or the datetime object of the last mongo update)
+     * When we can't get the info in mongo
+     * error created by filter_reports_for_course or aggregate_reports_per_user
     """
     cached_api_proctoru = get_proctoru_api_collection()
 
     mongo_datas = cached_api_proctoru.find_one()
+    if not mongo_datas:
+        pb = {"id": "Mongo database is empty, come back later",
+              "start": None,
+              "end": None}
+        return {"data": {"warn": pb}, "last_update": None}
+
     student_activities = mongo_datas["reports"]
-    student_grades = mongo_datas["grades"][unicode(course_key)]
+    try:
+        student_grades = mongo_datas["grades"][unicode(course_key)]
+    except KeyError:
+        pb = {"id": "Course {} not found".format(unicode(course_key)),
+                         "start": None,
+                         "end": None}
+        return {"data": {"warn": pb}, "last_update": None}
+
     last_updated = mongo_datas["last_update"]
 
     filtered_reports = filter_reports_for_course(course_key.course, course_key.run, None, None, student_activities)
     if {"warn", "error"}.intersection(filtered_reports.keys()) :  # something went wrong
-        return filtered_reports, last_updated
+        return {"data":filtered_reports, "last_update":last_updated}
 
-    res = aggregate_reports_per_user(filtered_reports["results"], student_grades)
-    return res, last_updated
+    reports_aggregated = aggregate_reports_per_user(filtered_reports["results"], student_grades)
+    return {"data": reports_aggregated, "last_update": last_updated}
 
 
 def split_large_date_range(start_date, end_date, increment):
@@ -247,9 +264,15 @@ def aggregate_reports_per_user(filtered_reports, student_grades={}):
     prec_json = filtered_reports[0]
     for report in filtered_reports[1:]:
         tmp = extract_infos(report)
+        if not("UniqueId" in report and report["UniqueId"]):
+            prec_json = report
+            logger.error("PU report without UniqueId: {}".format(report))
+            continue
+
+        id_ = int(report["UniqueId"])
         if report != prec_json:
-            event_users[int(report["UniqueId"])].append(tmp)
-            identifiers.append(int(report["UniqueId"]))
+            event_users[id_].append(tmp)
+            identifiers.append(id_)
         prec_json = report
 
     event_users = dict(event_users)
