@@ -225,7 +225,9 @@ def verified(request, course_key_string, action=None):
     course = get_course(course_key_string)
     course_info = get_course_infos([course])[0]
 
-    registered_users, last_update = get_mongo_reports(course.id)
+    mongo_reports = get_mongo_reports(course.id)
+    registered_users = mongo_reports["data"]
+    last_update = mongo_reports["last_update"]
 
     if "error" in registered_users:
         return render(request, 'backoffice/courses/verified_error.html', {

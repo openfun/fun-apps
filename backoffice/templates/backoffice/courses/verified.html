@@ -132,7 +132,7 @@
 
                                 {# Escalated (bool) #}
                                 <td class="escalated" style="vertical-align: middle;">
-                                    {% if not reports.0.IncidentReport %}
+                                    {% if not reports.0.Escalated %}
                                         <span class="label label-success">{{ reports.0.Escalated }}</span>
                                     {% else %}
                                         <span class="label label-warning">{{ reports.0.Escalated }}</span>

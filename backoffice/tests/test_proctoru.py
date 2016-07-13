@@ -7,6 +7,7 @@ import os
 
 from mock import patch, Mock
 
+from opaque_keys.edx.keys import CourseKey
 from student.tests.factories import UserFactory
 
 from .. import utils_proctorU_api
@@ -154,3 +155,72 @@ class TestProctoruUtils(BaseTestCase):
         self.assertEqual(False, is_ok_3)
         self.assertEqual(False, is_ok_4)
         self.assertEqual(True, is_ok_5)
+
+
+class TestMongoCaching(BaseTestCase):
+
+    def mock_mongo_data(self, mongo_data):
+        class MongoMock():
+            def __init__(self, data):
+                self.data = data
+
+            def find_one(self):
+                return self.data
+        return MongoMock(mongo_data)
+
+    @patch("backoffice.utils_proctorU_api.get_proctoru_api_collection")
+    def test_reports_are_well_formatted_when_ok(self, mock_mongo):
+        ck = CourseKey.from_string("org/Cours/Run")
+
+        mongo_data = {"reports": proctorU_api_result("multiple_queries"),
+                      "last_update": 2,
+                      "grades": {
+                          unicode(ck): {
+                              "26": 1
+                          }}}
+        mock_mongo.return_value = self.mock_mongo_data(mongo_data)
+
+        UserFactory(last_name="26", username="plop")
+        reports = utils_proctorU_api.get_mongo_reports(ck)
+
+        self.assertIn("data", reports.keys())
+        self.assertIn("last_update", reports.keys())
+
+        self.assertIn("Reservation created1", reports["data"]["plop"][0]["ProctorNotes"])
+        self.assertEqual(2, reports["last_update"])
+
+
+    @patch("backoffice.utils_proctorU_api.get_proctoru_api_collection")
+    def test_no_reports_in_mongo(self, mock_mongo):
+        ck = CourseKey.from_string("org/Cours/Run")
+
+        mock_mongo.return_value = self.mock_mongo_data(None)
+
+        UserFactory(last_name="26", username="plop")
+        reports = utils_proctorU_api.get_mongo_reports(ck)
+
+        self.assertIn("data", reports.keys())
+        self.assertIn("last_update", reports.keys())
+
+        self.assertIn("Mongo database is empty, come back later", reports["data"]["warn"]["id"])
+
+    @patch("backoffice.utils_proctorU_api.get_proctoru_api_collection")
+    def test_no_grades_in_mongo(self, mock_mongo):
+        ck = CourseKey.from_string("org/Cours/Run")
+
+        mongo_data = {"reports": proctorU_api_result("multiple_queries"),
+                      "last_update": 2,
+                      "grades": {
+                          "wrong/course": {
+                            "26": 1
+                      }}}
+        mock_mongo.return_value = self.mock_mongo_data(mongo_data)
+
+        UserFactory(last_name="26", username="plop")
+        reports = utils_proctorU_api.get_mongo_reports(ck)
+
+        self.assertIn("data", reports.keys())
+        self.assertIn("last_update", reports.keys())
+
+        self.assertIn("Course org/Cours/Run not found", reports["data"]["warn"]["id"])
+
