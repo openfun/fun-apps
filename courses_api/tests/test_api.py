@@ -179,11 +179,11 @@ class CourseAPITest(TestCase):
         self.login_as_admin()
         self.active_1.score = 0
         self.active_1.save()
-        data = {'score': 100}
+        data = json.dumps({'score': 100})
         url = reverse('fun-courses-api:courses-detail',
             args=[self.active_1.id]
         )
-        response = self.client.put(url, data)
+        response = self.client.put(url, data, content_type='application/json')
         response_data = json.loads(response.content)
         self.assertEqual(100, response_data['score'])
 
