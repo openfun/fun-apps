@@ -26,7 +26,7 @@ class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     university_serializer_class = UniversitySerializer
     universities = UniversitySerializer(many=True)
-    subjects = CourseSubjectSerializer()
+    subjects = CourseSubjectSerializer(many=True)
     thumbnails = serializers.CharField(source='thumbnails_info')
 
     class Meta:
@@ -77,7 +77,7 @@ class PrivateCourseSerializer(CourseSerializer):
     university_serializer_class = PrivateUniversitySerializer
     main_university = serializers.SerializerMethodField()
     universities = PrivateUniversitySerializer(many=True)
-    subjects = PrivateCourseSubjectSerializer()
+    subjects = PrivateCourseSubjectSerializer(many=True)
 
     class Meta(CourseSerializer.Meta):
         fields = CourseSerializer.Meta.fields + ('score', 'prevent_auto_update')

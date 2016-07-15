@@ -1,5 +1,6 @@
 from rest_framework import viewsets, mixins
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from courses.models import Course
@@ -61,6 +62,7 @@ class CourseAPIView(mixins.ListModelMixin,
     paginate_by = 100
     paginate_by_param = 'rpp'
     max_paginate_by = None
+    parser_classes = (JSONParser,)
 
     @property
     def is_admin(self):
