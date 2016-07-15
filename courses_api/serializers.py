@@ -26,6 +26,7 @@ class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     university_serializer_class = UniversitySerializer
     universities = UniversitySerializer(many=True)
+    main_university = serializers.SerializerMethodField()
     subjects = CourseSubjectSerializer(many=True)
     thumbnails = serializers.CharField(source='thumbnails_info')
 
