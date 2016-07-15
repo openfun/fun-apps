@@ -24,8 +24,8 @@ class UpdateSerializerMixin(object):
     '''
 
     def validate(self, data):
-        if self.object.prevent_auto_update:
+        if self.instance.prevent_auto_update:
             raise serializers.ValidationError(
-                'Updating "{}" is not allowed'.format(self.object)
+                'Updating "{}" is not allowed'.format(self.instance)
             )
         return data
