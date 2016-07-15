@@ -57,7 +57,6 @@ class CourseAPIView(mixins.ListModelMixin,
 
     '''
     filter_backends = (CourseFilter,)
-    model = Course
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     paginate_by = 100
     paginate_by_param = 'rpp'
