@@ -22,6 +22,7 @@ from student.models import UserProfile
 
 from backoffice.views import courses_views
 from courses.models import Course
+from courses.tests.factories import CourseUniversityRelationFactory, CourseFactory as FunCourseFactory
 from fun.tests.utils import skipUnlessLms
 from universities.tests.factories import UniversityFactory
 
@@ -33,13 +34,18 @@ class BaseTestCase(ModuleStoreTestCase):
         self.course = None
         self.backoffice_group = None
 
-    def init(self, is_superuser, university_code):
+    def init(self, is_superuser, university_code=None):
         self.backoffice_group, _created = Group.objects.get_or_create(name='fun_backoffice')
         self.user.is_staff = False
         self.user.is_superuser = is_superuser
         self.user.save()
         UserProfile.objects.create(user=self.user)
         self.course = CourseFactory.create(org=university_code)
+
+        self.fun_course = FunCourseFactory.create(key=unicode(self.course.scope_ids.usage_id.course_key))
+        if university_code:
+            self.university = UniversityFactory.create(slug=university_code, code=university_code)
+            CourseUniversityRelationFactory(course=self.fun_course, university=self.university)
 
     def login(self):
         self.client.login(username=self.user.username, password=self.password)
@@ -48,8 +54,7 @@ class BaseTestCase(ModuleStoreTestCase):
 class BaseBackoffice(BaseTestCase):
     def setUp(self):
         super(BaseBackoffice, self).setUp()
-        self.university = UniversityFactory.create()
-        self.init(False, self.university.code)
+        self.init(False, 'fun')
         self.list_url = reverse('backoffice:courses-list')
 
     def login_with_backoffice_group(self):
@@ -64,7 +69,7 @@ class BaseCourseDetail(BaseTestCase):
         self.user.groups.add(self.backoffice_group)
         set_user_preference(self.user, LANGUAGE_KEY, 'en-en')
         self.client.login(username=self.user.username, password=self.password)
-        self.url = reverse('backoffice:course-detail', args=[self.course.id.to_deprecated_string()])
+        self.url = reverse('backoffice:course-detail', args=[unicode(self.course.scope_ids.usage_id.course_key)])
 
 
 class TestAuthentication(BaseBackoffice):
@@ -100,7 +105,7 @@ class TestGenerateCertificate(BaseBackoffice):
         self.login_with_backoffice_group()
 
     def test_certificate(self):
-        url = reverse('backoffice:generate-test-certificate', args=[self.course.id.to_deprecated_string()])
+        url = reverse('backoffice:generate-test-certificate', args=[unicode(self.course.scope_ids.usage_id.course_key)])
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
         data = {
@@ -119,14 +124,14 @@ class TestDeleteCourse(BaseCourseDetail):
         """A fun Course object should be automaticaly created if it does not already exist."""
         response = self.client.get(self.url)
         self.assertEqual(200, response.status_code)
-        self.assertEqual(1, Course.objects.filter(key=self.course.id.to_deprecated_string()).count())
+        self.assertEqual(1, Course.objects.filter(key=unicode(self.course.scope_ids.usage_id.course_key)).count())
 
     def test_delete_course(self):
         courses_views.logger.warning = mock.Mock()
         data = {'action': 'delete-course'}
         response = self.client.post(self.url, data, follow=True)
         self.assertEqual(None, modulestore().get_course(self.course.id))
-        self.assertEqual(0, Course.objects.filter(key=self.course.id.to_deprecated_string()).count())
+        self.assertEqual(0, Course.objects.filter(key=unicode(self.course.scope_ids.usage_id.course_key)).count())
         self.assertIn(_(u"Course <strong>%s</strong> has been deleted.") % self.course.id,
                       response.content.decode('utf-8'))
         self.assertEqual(1, courses_views.logger.warning.call_count)
@@ -153,7 +158,6 @@ class TestRenderRoles(BaseCourseDetail):
                          ['instructor', 'staff'])
 
 class TestExportCoursesList(BaseBackoffice):
-
     def test_export(self):
         self.user.is_superuser = True
         self.user.is_staff = True
@@ -166,7 +170,6 @@ class TestExportCoursesList(BaseBackoffice):
 
         response_content = StringIO(response.content)
         data = [row for row in csv.reader(response_content)]
-
         self.assertEqual(2, len(data))
         course = data[1]
         self.assertEqual(self.university.code, course[2])
