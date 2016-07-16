@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from oauth2_provider.ext.rest_framework import OAuth2Authentication
+from rest_framework_oauth.authentication import OAuth2Authentication
 
 from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
 
