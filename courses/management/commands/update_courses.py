@@ -147,7 +147,7 @@ class Command(BaseCommand):
                 self.stdout.write('\t No university assigned '
                 'to "{}"\n'.format(key))
         course.is_active = True
-        course.show_in_catalog = bool(mongo_course.ispublic)
+        #course.show_in_catalog = bool(mongo_course.ispublic)
         course.university_display_name = course_handler.university_name
         course.title = course_handler.title
         course.image_url = course_handler.image_url
