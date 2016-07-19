@@ -50,7 +50,7 @@ msgstr "Ajouter"
 
 #: /edx/app/edxapp/fun-apps/fun/templates/cms/videoupload/index.html:0
 msgid "Add videos to your course"
-msgstr "Ajouter la vidéo à votre cours"
+msgstr "Ajouter des vidéos à votre cours"
 
 # Translated in edx by 'Admin'
 msgid "Admin"

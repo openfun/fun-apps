@@ -10,65 +10,65 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
 <%block name="header_extras">
 <link rel="stylesheet" type="text/css" href="${static.url('fun/js/vendor/videojs/video-js.min.css')}" />
 <style>
-  .content-primary.videoupload table, .modal-window.videoupload-parameters .modal-content table {
+  .videoupload table, .modal-window.videoupload-parameters .modal-content table {
     background-color: #ffffff;
     width: 100%;
     text-align: left;
     table-layout: fixed;
   }
-  .content-primary.videoupload table th.preview {
+  .videoupload table th.preview {
       width: 350px;
   }
-  .content-primary.videoupload table tbody tr:nth-child(odd) {
+  .videoupload table tbody tr:nth-child(odd) {
     background: #eee;
   }
-  .content-primary.videoupload table th {
+  .videoupload table th {
     font-weight: bold;
     padding-right: 20px;
     vertical-align: middle;
   }
-  .content-primary.videoupload table th.title {
+  .videoupload table th.title {
     width: 180px;
   }
-  .content-primary.videoupload table th.actions,
-  .content-primary.videoupload table td.actions {
+  .videoupload table th.actions,
+  .videoupload table td.actions {
     width: 80px;
     text-align: center;
     padding-right: 0;
   }
-  .content-primary.videoupload table td {
+  .videoupload table td {
     padding-right: 10px;
     vertical-align: middle;
   }
-  .content-primary.videoupload table td.title {
+  .videoupload table td.title {
     max-width: 200px;
     word-break: break-all;
   }
-  .content-primary.videoupload table td.id {
+  .videoupload table td.id {
     word-break: break-all;
   }
-  .content-primary.videoupload .invisible {
+  .videoupload .invisible {
     display: none;
   }
-  .content-primary.videoupload .ui-widget-content {
+  .videoupload .ui-widget-content {
     border: 1px solid #aaaaaa;
     background-color: #ffffff;
     color: #222222;
   }
-  .content-primary.videoupload .ui-widget-header {
+  .videoupload .ui-widget-header {
     border: 1px solid #aaaaaa;
     background-color: #cccccc;
     color: #222222;
     font-weight: bold;
   }
-  .content-primary.videoupload .ui-corner-all {
+  .videoupload .ui-corner-all {
     border-radius: 4px;
   }
-  .content-primary.videoupload .ui-corner-left {
+  .videoupload .ui-corner-left {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
   }
-  .content-primary.videoupload .actions-list .action-item {
+  .videoupload .actions-list .action-item {
     display: list-item;
   }
   [class*="view-"] .modal-actions {
@@ -123,8 +123,8 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
 <div class="wrapper-mast wrapper">
   <header class="mast has-actions has-subtitle">
     <h1 class="page-header">
-      <small class="subtitle">${_("Content")}</small>
       ${_("Video uploads")}
+      <small class="subtitle">${_("Add videos to your course")}</small>
     </h1>
     <nav class="nav-actions" aria-label="${_('Page Actions')}">
       <div id="upload-video-button">
@@ -139,15 +139,9 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
 
 <div class="wrapper-content wrapper">
   <section class="content view-uploads">
-    <article class="content-primary videoupload" role="main">
+    <article class="videoupload" role="main">
       <div id="videoupload-list"></div>
     </article>
-    <aside class="content-supplementary" role="complementary">
-      <div class="bit">
-        <h3>${_("Add videos to your course")}</h3>
-        <p>${_("All uploaded videos are sent to our storage backend.")}</p>
-      </div>
-    </aside>
   </section>
 </div>
 </%block>
