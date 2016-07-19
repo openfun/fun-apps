@@ -103,7 +103,7 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <script src="${static.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
     <script src="${static.url('funsite/owl.carousel/owl.carousel.min.js')}"></script>
     <script type="text/javascript" src="${static.url('js/vendor/require.js')}"></script>
-    <script type="text/javascript" src="${static.url('require-config-lms.js')}"></script>
+    <script type="text/javascript" src="${static.url('lms/js/require-config.js')}"></script>
     <script>
         require.config({paths: {
                 underscore: '/static/js/vendor/underscore-min',
@@ -111,7 +111,7 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
             }});
     </script>
 
-    <script type="text/javascript" src="/jsi18n/"></script>
+    <script type="text/javascript" src="/i18n.js"></script>
     <script type="text/javascript" src="${static.url('js/src/utility.js')}"></script>
     <script type="text/javascript" src="${static.url('funsite/js/fun.js')}"></script>
     <script type="text/javascript" src="${static.url('fun/js/cookie-banner.js')}"></script>
@@ -119,3 +119,6 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <%block name="js_extra"/>
   </body>
 </html>
+
+
+
