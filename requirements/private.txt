@@ -1,1 +1,1 @@
--e git+ssh://git@github.com/openfun/ProctorU-xBlock.git@0.5.1#egg=proctoru-xblock
+-e git+ssh://git@github.com/openfun/ProctorU-xBlock.git@0.5.2#egg=proctoru-xblock
