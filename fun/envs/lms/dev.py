@@ -43,3 +43,5 @@ ECOMMERCE_API_URL = "http://ecomdev.local/api/v2/"
 ECOMMERCE_PUBLIC_URL_ROOT = "http://ecomdev.local"
 ECOMMERCE_NOTIFICATION_URL = 'http://ecomdev.local/payment/paybox/notify/'
 JWT_ISSUER = "http://funbox.local:8000/oauth2"
+
+PIPELINE_ENABLED = False  # set to False this settings will use originals CSS files instead of aggregated one
