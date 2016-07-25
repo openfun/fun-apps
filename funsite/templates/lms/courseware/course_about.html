@@ -10,6 +10,7 @@ from microsite_configuration import microsite
 
 from fun.utils import get_fun_course, get_teaser, registration_datetime_text
 from funsite.utils import is_paid_course
+
 %>
 
 <%inherit file="/funsite/parts/base-fixed-width.html" />
@@ -20,7 +21,7 @@ from funsite.utils import is_paid_course
 (function() {
     // Configure video teaser player
     $('.video-button').on('click', function() {
-        var teaserHtml = '${get_teaser(get_course_about_section(course, "video"))}';
+        var teaserHtml = '${get_teaser(get_course_about_section(request, course, "video"))}';
         $('#video-modal').modal('show');
         $('#video-modal .inner-wrapper').html(teaserHtml);
     })
@@ -82,7 +83,7 @@ from funsite.utils import is_paid_course
       };
       $("#add_to_cart_post").click(function(event){
         $.ajax({
-          url: "${reverse('add_course_to_cart', args=[course.id.to_deprecated_string()])}",
+          url: "${reverse('add_course_to_cart', args=[course.id.to_deprecated_string()])}"
           type: "POST",
           data: {
               'csrfmiddlewaretoken': '${ csrf_token }'
@@ -96,7 +97,6 @@ from funsite.utils import is_paid_course
 })();
 
 </script>
-
 </%block>
 
 <%block name="meta_extra">
@@ -105,14 +105,14 @@ from funsite.utils import is_paid_course
     %>
     <meta property="og:site_name" content="FUN-MOOC"/>
     <meta property="og:url" content="//www.fun-mooc.fr${reverse('about_course', args=[fun_course.key])}" />
-    <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
-    <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
+    <meta property="og:title" content="${course.display_name_with_default}" />
+    <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:image" content="//www.fun-mooc.fr${ fun_course.get_thumbnail_url('facebook') }" />
 
 </%block>
 
-<%block name="title">${get_course_about_section(course, 'title')}</%block>
+<%block name="title">${course.display_name_with_default}</%block>
 <%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 
 
@@ -131,12 +131,12 @@ from funsite.utils import is_paid_course
     # Translators: This text will be automatically posted to the student's
     # Twitter account. {url} should appear at the end of the text.
     tweet_text = _("I just registered for {title} through {account}: {url}").format(
-        title=get_course_about_section(course, 'title'),
+        title=course.display_name_with_default,
         account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
         url=u"http://{domain}{path}".format(
             domain=site_domain,
             path=reverse('about_course', args=[course.id.to_deprecated_string()])
-        )
+       )
     ).replace(u" ", u"+")
     tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
 
@@ -145,12 +145,12 @@ from funsite.utils import is_paid_course
     email_subject = u"mailto:?subject={subject}&body={body}".format(
         subject=_("Take a course with {platform} online").format(platform=platform_name),
         body=_("I just registered for {title} through {platform} {url}").format(
-            title=get_course_about_section(course, 'title'),
+            title=course.display_name_with_default,
             platform=platform_name,
             url=u"http://{domain}{path}".format(
                 domain=site_domain,
                 path=reverse('about_course', args=[course.id.to_deprecated_string()]),
-            )
+           )
         )
     ).replace(u" ", u"%20")
 %>
@@ -164,9 +164,9 @@ from funsite.utils import is_paid_course
             <div class="right">
 
                 <div class="text-center hidden-sm hidden-md hidden-lg">
-                    ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
+                    ${breadcrumbs.breadcrumbs(course.display_name_with_default)}
                     <h1 class="big-title">
-                        ${get_course_about_section(course, 'title')}
+                        ${course.display_name_with_default}
                     </h1>
                 </div>
 
@@ -292,9 +292,9 @@ from funsite.utils import is_paid_course
                                     <strong>${pgettext("course-about", "Classes End")}</strong>
                                 </li>
                                 <li>
-                                    % if get_course_about_section(course, "end_date") or course.end:
-                                         % if get_course_about_section(course, "end_date"):
-                                            ${get_course_about_section(course, "end_date")}
+                                    % if get_course_about_section(request, course, "end_date") or course.end:
+                                         % if get_course_about_section(request, course, "end_date"):
+                                            ${get_course_about_section(request, course, "end_date")}
                                         % else:
                                             ${course.end_datetime_text()}
                                         % endif
@@ -320,27 +320,27 @@ from funsite.utils import is_paid_course
                             % endif
 
 
-                            % if get_course_about_section(course, "effort"):
+                            % if get_course_about_section(request, course, "effort"):
                             <div class="course-info letter">
                                 <ul>
                                 <li>
                                     <strong>${_("Estimated Effort")}</strong>
                                 </li>
                                 <li>
-                                    ${get_course_about_section(course, "effort")} ${_("h/week")}
+                                    ${get_course_about_section(request, course, "effort")} ${_("h/week")}
                                 </li>
                                 </ul>
                             </div>
                             % endif
 
-                            % if get_course_about_section(course, "prerequisites"):
+                            % if get_course_about_section(request, course, "prerequisites"):
                             <div class="course-info letter">
                                 <ul>
                                 <li>
                                     <strong>${_("Prerequisites")}</strong>
                                 </li>
                                 <li>
-                                    ${get_course_about_section(course, "prerequisites")}
+                                    ${get_course_about_section(request, course, "prerequisites")}
                                 </li>
                                 </ul>
                             </div>
@@ -370,11 +370,11 @@ from funsite.utils import is_paid_course
         <div class="col-lg-21 col-lg-pull-15 col-sm-26 col-sm-pull-10  no-gutter-left no-gutter-right">
             <div class="left">
 
-                ${breadcrumbs.breadcrumbs(get_course_about_section(course, 'title'))}
+                ${breadcrumbs.breadcrumbs(course.display_name_with_default)}
 
                 <div class="text-center hidden-xs">
                     <h1 class="big-title">
-                        ${get_course_about_section(course, 'title')}
+                        ${course.display_name_with_default}
                     </h1>
                 </div>
                 <div class="line text-center hidden-xs">
@@ -416,7 +416,7 @@ from funsite.utils import is_paid_course
 
                 <div class="description">
 
-                    ${get_course_about_section(course, 'overview')}
+                    ${get_course_about_section(request, course, 'overview')}
 
                 </div>
 
