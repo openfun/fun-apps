@@ -186,11 +186,6 @@ PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/header.css'
 PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/footer.css')
 PIPELINE_CSS['style-vendor']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 
-PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
-
 
 # js/lms-application.js
 PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
@@ -231,3 +226,5 @@ OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
 # this setting will create a dummy SoftwareSecurePhotoVerification for user in paybox success callback view
 # I think it's better to create a dummy one than to remove verifying process in edX
 FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = False
+
+ANALYTICS_DASHBOARD_URL = False  # when True this setting add a link in instructor dashbord to analytics insigt service
