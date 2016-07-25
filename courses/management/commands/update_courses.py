@@ -1,15 +1,18 @@
+# -*- coding: utf-8 -*-
+
 import optparse
 import StringIO
 
 from django.core.management.base import BaseCommand
+from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.template.defaultfilters import slugify
+from django.test import RequestFactory
 
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 
-from courseware.courses import get_course_about_section
-from course_modes.models import CourseMode
+from courseware.courses import get_permission_for_course_about, get_course_with_access
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator
@@ -28,6 +31,12 @@ class CourseHandler(object):
     def __init__(self, course_descriptor):
         self.course_descriptor = course_descriptor
         self.key = unicode(course_descriptor.id)
+        self.fake_request = RequestFactory().get('/')
+        # TODO Dogwood: We need a real user to acces courses information
+        self.fake_request.user = User.objects.filter(is_superuser=True)[0]
+        self.permission = get_permission_for_course_about()
+        self.course = get_course_with_access(self.fake_request.user,
+                self.permission, self.course_descriptor.id)
 
     @property
     def memory_image_file(self):
@@ -41,7 +50,7 @@ class CourseHandler(object):
 
     @property
     def title(self):
-        title = get_course_about_section(self.course_descriptor, 'title')
+        title = self.course.display_name_with_default
         return title or ''
 
     @property
