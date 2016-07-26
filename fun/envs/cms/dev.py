@@ -25,3 +25,5 @@ FEATURES['ENABLE_PAYMENT_FAKE'] = True
 FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 
 HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
+
+PIPELINE_ENABLED = False  # set to False this settings will use originals CSS files instead of aggregated one
