@@ -16,8 +16,8 @@ INSTALLED_APPS += ('django_extensions',)
 
 ################################ DEBUG TOOLBAR ################################
 
-INSTALLED_APPS += DEBUG_TOOLBAR_INSTALLED_APPS
-MIDDLEWARE_CLASSES += DEBUG_TOOLBAR_MIDDLEWARE_CLASSES
+#INSTALLED_APPS += DEBUG_TOOLBAR_INSTALLED_APPS
+#MIDDLEWARE_CLASSES += DEBUG_TOOLBAR_MIDDLEWARE_CLASSES
 
 ########################### VERIFIED CERTIFICATES #################################
 
