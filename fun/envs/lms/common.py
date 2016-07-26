@@ -184,7 +184,6 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 PIPELINE_CSS['style-vendor']['source_filenames'].append('fun/css/cookie-banner.css')
 PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/header.css')
 PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/footer.css')
-PIPELINE_CSS['style-vendor']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
 
 
 # DOGWOOD
