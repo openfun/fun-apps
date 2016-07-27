@@ -26,4 +26,4 @@ FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 
 HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
 
-PIPELINE_ENABLED = False  # set to False this settings will use originals CSS files instead of aggregated one
+PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not user aggregated static files
