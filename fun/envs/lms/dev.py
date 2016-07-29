@@ -44,4 +44,6 @@ ECOMMERCE_PUBLIC_URL_ROOT = "http://ecomdev.local"
 ECOMMERCE_NOTIFICATION_URL = 'http://ecomdev.local/payment/paybox/notify/'
 JWT_ISSUER = "http://funbox.local:8000/oauth2"
 
-PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not user aggregated static files
+PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not use aggregated static files
+
+SECRET_KEY = 'lms_dev_secret_key'
