@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -65,3 +67,9 @@ class ViewTests(ModuleStoreTestCase, HelperMethods):
         self.certif.save()
         response = self.client.get(reverse('short-cert-url', args=[self.encoded]))
         self.assertEqual(404, response.status_code)
+
+    def test_works_if_delivery_month_has_accent(self):
+        august = datetime.datetime(2016, 8, 1, 14, 33, 46, 241780) # August the 1st, the month is accentuated in French
+        self.certif.modified_date = august
+        response = self.client.get(reverse('short-cert-url', args=[self.encoded]))
+        self.assertEqual(200, response.status_code)

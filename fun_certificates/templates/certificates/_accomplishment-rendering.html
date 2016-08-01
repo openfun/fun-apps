@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 import django.utils.translation
 with django.utils.translation.override('fr'):
-    fun_certificate_date_issued = "{day} {month} {year}".format(
+    fun_certificate_date_issued = u"{day} {month} {year}".format(
         day=certificate_modified_date.day,
         month=_(certificate_modified_date.strftime("%B")),
         year=certificate_modified_date.year
