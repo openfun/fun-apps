@@ -69,7 +69,8 @@ class ViewTests(ModuleStoreTestCase, HelperMethods):
         self.assertEqual(404, response.status_code)
 
     def test_works_if_delivery_month_has_accent(self):
-        august = datetime.datetime(2016, 8, 1, 14, 33, 46, 241780) # August the 1st, the month is accentuated in French
+        august = datetime.datetime(2015, 8, 3)  # August the 3rd, the month is accentuated in French
         self.certif.modified_date = august
+        self.certif.save()
         response = self.client.get(reverse('short-cert-url', args=[self.encoded]))
         self.assertEqual(200, response.status_code)
