@@ -614,9 +614,6 @@ ul.breadcrumbs li a:hover {
     h3 {
         font-size: 22px;
     }
-    #sandwich-overlay li {
-        font-size: 2em !important;
-    }
 
     ul.faq-categories,
     ul.faq-sections {
