@@ -42,6 +42,8 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 WIKI_ENABLED = True
 
+LMS_SEGMENT_KEY = None   # Dogwood: Probably related to google analytics.
+
 TIME_ZONE = 'Europe/Paris'
 
 # i18n
