@@ -102,20 +102,13 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <script src="${static.url('funsite/jquery/dist/jquery.min.js')}"></script>
     <script src="${static.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
     <script src="${static.url('funsite/owl.carousel/owl.carousel.min.js')}"></script>
-    <script type="text/javascript" src="${static.url('js/vendor/require.js')}"></script>
-    <script type="text/javascript" src="${static.url('lms/js/require-config.js')}"></script>
-    <script>
-        require.config({paths: {
-                underscore: '/static/js/vendor/underscore-min',
-                backbone: '/static/js/vendor/backbone-min',
-            }});
-    </script>
 
     <script type="text/javascript" src="/i18n.js"></script>
     <script type="text/javascript" src="${static.url('js/src/utility.js')}"></script>
     <script type="text/javascript" src="${static.url('funsite/js/fun.js')}"></script>
-    <script type="text/javascript" src="${static.url('fun/js/cookie-banner.js')}"></script>
-    <script type="text/javascript" src="${static.url('funsite/js/header.js')}"></script>
+    <script type="text/javascript" src="/static/funsite/js/header.js"></script>
+    <script type="text/javascript" src="/static/fun/js/cookie-banner.js"></script>
+
     <%block name="js_extra"/>
   </body>
 </html>

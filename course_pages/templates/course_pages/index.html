@@ -10,8 +10,12 @@ from courses_api.routers import CourseAPIRouter
 
 <%block name="title">${_("Courses")}</%block>
 <%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+<%namespace name='static' file='/static_content.html'/>
 
 <%block name="js_extra">
+    <script src="${static.url('funsite/jquery/dist/jquery.min.js')}"></script>
+    <script src="${static.url('js/vendor/underscore-min.js')}"></script>
+    <script src="${static.url('js/vendor/backbone-min.js')}"></script>
 
 <%def name="static_include(path)">
     <%
@@ -30,8 +34,7 @@ from courses_api.routers import CourseAPIRouter
 % endfor
 
 <script>
-require(["jquery", "underscore", "backbone"],
-    function ($, _, Backbone) {
+    (function ($, _, Backbone) {
 
         var loadTemplate = function(name) {
             var templateSelector = '#' + name + '-tpl',
@@ -659,7 +662,7 @@ require(["jquery", "underscore", "backbone"],
         });
         Backbone.history.start();
         App.refreshCourses();
-    });
+    })($, _, Backbone);
 </script>
 </%block>
 
