@@ -1,6 +1,6 @@
-import httplib2
 import mimetypes
 import time
+import httplib2
 
 import googleapiclient.discovery
 from googleapiclient.http import MediaIoBaseUpload
@@ -332,7 +332,8 @@ class Client(BaseClient):
         }
 
     def upload_video(self, file_object):
-        # 1) Upload video
+        # 1) Upload video by chunks
+        chunksize = 1024*1024*5 # 5 Mb
         video = self.auth.videos().insert(
             part="snippet,status",
             body={
@@ -344,7 +345,7 @@ class Client(BaseClient):
                     "privacyStatus": "unlisted"
                 }
             },
-            media_body=media_body(file_object)
+            media_body=media_body(file_object, chunksize=chunksize)
         ).execute()
 
         # 2) Add to playlist (and just pray that the request does not abort
@@ -387,11 +388,15 @@ def iter_page_items(func, *args, **kwargs):
         if page_token is None:
             break
 
-def media_body(file_object):
+def media_body(file_object, chunksize=-1):
     # Guess mimetype
     mimetype, _ = mimetypes.guess_type(file_object.name)
     if mimetype is None:
         # Guess failed, use octet-stream.
         mimetype = 'application/octet-stream'
-    return MediaIoBaseUpload(file_object, mimetype=mimetype)
+    kwargs = {'mimetype': mimetype}
+    if chunksize > 0:
+        kwargs['resumable'] = True
+        kwargs['chunksize'] = chunksize
+    return MediaIoBaseUpload(file_object, **kwargs)
 
