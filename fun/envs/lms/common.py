@@ -186,10 +186,8 @@ PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/header.css'
 PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/footer.css')
 
 
-# DOGWOOD
-# JS files are loaded too early, our JS global file have been added to the footer
-#PIPELINE_JS['main_vendor']['source_filenames'].append('funsite/js/header.js')
-#PIPELINE_JS['main_vendor']['source_filenames'].append('fun/js/cookie-banner.js')
+PIPELINE_JS['main_vendor']['source_filenames'].append('funsite/js/header.js')
+PIPELINE_JS['main_vendor']['source_filenames'].append('fun/js/cookie-banner.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
