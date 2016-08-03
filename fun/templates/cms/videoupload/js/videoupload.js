@@ -12,7 +12,7 @@ def reverse_course(handler_name, kwargs=None):
 <%namespace name='static' file='../../static_content.html'/>
 
 require(["jquery", "underscore", "backbone", "gettext",
-         "js/utils/templates", "js/views/modals/base_modal", "js/views/feedback_notification",
+         "js/utils/templates", "js/views/modals/base_modal", "common/js/components/views/feedback_notification",
          "videojs-fun", "libcast"],
   function ($, _, Backbone, gettext,
     TemplateUtils, BaseModal, NotificationView,
@@ -409,7 +409,7 @@ require(["jquery", "underscore", "backbone", "gettext",
         var video = new Video({
           title: videoFile.name,
           status: "preparing",
-          created_at_timestamp: now.getTime(), 
+          created_at_timestamp: now.getTime(),
         });
         this.collection.add(video);
         var currentUploadRequest = null;
