@@ -28,7 +28,7 @@ ROOT_URLCONF = 'fun.cms.urls'
 # edX base cms settings file appends the git revision of the edx-platform repo
 # git revision to STATIC_ROOT and STATIC_URL.  We remove it as we use
 # PipelineCachedStorage for both apps.
-#STATIC_URL = "/static/"
+STATIC_URL = "/static/"
 
 update_logging_config(LOGGING)
 
