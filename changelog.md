@@ -1,5 +1,12 @@
 # Changelog www.fun-mooc.fr
 
+## 3.19 04/08/2016
+
+- dashboard de cours : meilleure présentation des documents générés (certificats, attestations) selon le mode d'inscription des apprenants
+- page explication ProctorU : rectification du numéro de téléphone proctorU pour faire apparaître le numéro national/international
+- backoffice : résolution d'une erreur 500 sur la page détaillant le statut ProctorU des utilisants vérifiés
+- tableau de bord de téléversement du studio : téléversement des vidéos par morceaux (chunk) pour éviter de consommer trop de RAM
+
 ## 3.18 21/07/2016
 
 - Téléversement de vidéos dans le studio : dans le cadre de la migration des vidéos de libcast à youtube, le tableau de bord de téléversement des vidéos a été rendu compatible avec l'API Youtube.
