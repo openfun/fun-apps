@@ -1,5 +1,9 @@
 # Changelog www.fun-mooc.fr
 
+## 3.18 21/07/2016
+
+- Téléversement de vidéos dans le studio : dans le cadre de la migration des vidéos de libcast à youtube, le tableau de bord de téléversement des vidéos a été rendu compatible avec l'API Youtube.
+
 ## 3.17 12/07/2016
 
 - Upload video
