@@ -37,8 +37,7 @@ class Course(models.Model):
     image_url = models.CharField(_(u'image url'), max_length=255, blank=True)
     universities = models.ManyToManyField('universities.University',
         through='CourseUniversityRelation', related_name='courses')
-    subjects = models.ManyToManyField('CourseSubject', related_name='courses',
-        null=True, blank=True)
+    subjects = models.ManyToManyField('CourseSubject', related_name='courses')
     level = models.CharField(_('level'), max_length=255,
         choices=courses_choices.COURSE_LEVEL_CHOICES, blank=True, db_index=True)
     language = models.CharField(_('language'), max_length=255,
@@ -183,7 +182,7 @@ class CourseSubject(models.Model):
         help_text=_('Displayed where space is rare - on side panel for instance.'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True)
     description = RichTextField(_('description'), blank=True)
-    featured = models.BooleanField(verbose_name=_('featured'), db_index=True)
+    featured = models.BooleanField(verbose_name=_('featured'), db_index=True, default=False)
     image = models.ImageField(_("image"), upload_to="courses",
         null=True, blank=True)
     score = models.PositiveIntegerField(_('score'), default=0, db_index=True)

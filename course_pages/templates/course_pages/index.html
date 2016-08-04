@@ -10,17 +10,22 @@ from courses_api.routers import CourseAPIRouter
 
 <%block name="title">${_("Courses")}</%block>
 <%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
+<%namespace name='static' file='/static_content.html'/>
 
 <%block name="js_extra">
+    <script src="${static.url('funsite/jquery/dist/jquery.min.js')}"></script>
+    <script src="${static.url('js/vendor/underscore-min.js')}"></script>
+    <script src="${static.url('js/vendor/backbone-min.js')}"></script>
 
 <%def name="static_include(path)">
     <%
-    from django.template.loaders.app_directories import _loader
-    source, template_path = _loader.load_template_source(path)
+    from django.template.engine import Engine
+    from django.template.loaders.app_directories import Loader
+    engine = Engine(dirs=settings.DEFAULT_TEMPLATE_ENGINE['DIRS'])
+    source, template_path = Loader(engine).load_template_source(path)
     %>
     ${source}
 </%def>
-
 
 % for template_name in ['small-course-block', 'criterion-value', 'filter']:
 <script type="text/template" id="${template_name}-tpl">
@@ -29,8 +34,7 @@ from courses_api.routers import CourseAPIRouter
 % endfor
 
 <script>
-require(["jquery", "underscore", "backbone"],
-    function ($, _, Backbone) {
+    (function ($, _, Backbone) {
 
         var loadTemplate = function(name) {
             var templateSelector = '#' + name + '-tpl',
@@ -658,7 +662,7 @@ require(["jquery", "underscore", "backbone"],
         });
         Backbone.history.start();
         App.refreshCourses();
-    });
+    })($, _, Backbone);
 </script>
 </%block>
 

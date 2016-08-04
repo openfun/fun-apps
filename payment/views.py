@@ -20,7 +20,7 @@ import slumber.exceptions
 
 from edxmako.shortcuts import render_to_response
 
-from commerce import ecommerce_api_client
+from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
 
 from .models import TermsAndConditions, PAYMENT_TERMS
 from .utils import (get_order, get_course, get_basket, get_order_context,

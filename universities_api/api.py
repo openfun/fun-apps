@@ -12,7 +12,6 @@ class UniversityAPIView(mixins.ListModelMixin,
                     mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
-    model = University
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     paginate_by = 100
     paginate_by_param = 'rpp'
@@ -36,3 +35,6 @@ class UniversityAPIView(mixins.ListModelMixin,
                 return PrivateUniversitySerializer
         if self.action in ('retrieve', 'list'):
             return UniversitySerializer
+
+    def get_queryset(self):
+        return University.objects.all()

@@ -10,7 +10,6 @@ logging.getLogger("edxmako.shortcuts").setLevel(logging.ERROR)
 from .. import test
 from path import path
 
-SOUTH_TESTS_MIGRATE = False  # To disable migrations and use syncdb instead
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = test.nose_args(REPO_ROOT, 'cms')
 
@@ -35,3 +34,8 @@ MIDDLEWARE_CLASSES = tuple([m for m in MIDDLEWARE_CLASSES if m not in DEBUG_TOOL
 
 # Disable costly calls to publish signals
 COURSE_SIGNALS_DISABLED = True
+
+# From Django 1.7 `syndb` do not exists anymore then `migrate` is used to create db
+# it makes test database creation very long.
+# See: https://groups.google.com/d/msg/django-developers/PWPj3etj3-U/QTpjBvD2QMcJ
+MIGRATION_MODULES = dict((app, '%s.fake_migrations' % app) for app in INSTALLED_APPS)

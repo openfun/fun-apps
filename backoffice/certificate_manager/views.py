@@ -61,7 +61,7 @@ def generate_test_certificate(request, course_key_string):
     """
     course_key = get_course_key(course_key_string)
     university = get_university_attached_to_course(course_key)
-    if university is not None:
+    if university:
         certificate = create_test_certificate(course_key)
         return certificate_file_response(certificate)
     else:

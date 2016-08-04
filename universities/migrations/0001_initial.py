@@ -1,42 +1,38 @@
 # -*- coding: utf-8 -*-
-from south.db import db
-from south.v2 import SchemaMigration
+from __future__ import unicode_literals
+
+from django.db import migrations, models
+import ckeditor.fields
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'University'
-        db.create_table('universities_university', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('code', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
-            ('logo', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('banner', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('description', self.gf('ckeditor.fields.RichTextField')(blank=True)),
-            ('order', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-        ))
-        db.send_create_signal('universities', ['University'])
+    dependencies = [
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'University'
-        db.delete_table('universities_university')
-
-
-    models = {
-        'universities.university': {
-            'Meta': {'ordering': "('order', 'id')", 'object_name': 'University'},
-            'banner': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'description': ('ckeditor.fields.RichTextField', [], {'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'logo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'})
-        }
-    }
-
-    complete_apps = ['universities']
+    operations = [
+        migrations.CreateModel(
+            name='University',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255, verbose_name='name', db_index=True)),
+                ('short_name', models.CharField(help_text='Displayed where space is rare - on side panel for instance.', max_length=255, verbose_name='short name', blank=True)),
+                ('code', models.CharField(unique=True, max_length=255, verbose_name='code')),
+                ('certificate_logo', models.ImageField(help_text='Logo to be displayed on the certificate document.', upload_to=b'universities', null=True, verbose_name='certificate logo', blank=True)),
+                ('logo', models.ImageField(upload_to=b'universities', verbose_name='logo')),
+                ('detail_page_enabled', models.BooleanField(default=False, help_text='Enables the university detail page.', db_index=True, verbose_name='detail page enabled')),
+                ('is_obsolete', models.BooleanField(default=False, help_text='Obsolete universities do not have their logo displayed on the site.', db_index=True, verbose_name='is obsolete')),
+                ('slug', models.SlugField(max_length=255, blank=True, help_text='Only used if detail page is enabled', unique=True, verbose_name='slug')),
+                ('banner', models.ImageField(upload_to=b'universities', null=True, verbose_name='banner', blank=True)),
+                ('description', ckeditor.fields.RichTextField(verbose_name='description', blank=True)),
+                ('partnership_level', models.CharField(blank=True, max_length=255, verbose_name='partnership level', db_index=True, choices=[(b'simple-partner', 'Partner'), (b'academic-partner', 'Academic Partner'), (b'level-1', 'Level 1'), (b'level-2', 'Level 2'), (b'level-3', 'Level 3')])),
+                ('score', models.PositiveIntegerField(default=0, verbose_name='score', db_index=True)),
+                ('prevent_auto_update', models.BooleanField(default=False, verbose_name='prevent automatic update')),
+            ],
+            options={
+                'ordering': ('-score', 'id'),
+                'verbose_name': 'University',
+                'verbose_name_plural': 'Universit\xe9s',
+            },
+        ),
+    ]

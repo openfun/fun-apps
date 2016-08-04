@@ -14,7 +14,7 @@ function checkCookie(name) {
     return null;
 }
 
-(function() {
+$(document).ready(function() {
     /* select current page menu item */
     var page = window.location.pathname.split('/')[1];
 
@@ -116,4 +116,4 @@ function checkCookie(name) {
         );
     }
 
- })();
+ });

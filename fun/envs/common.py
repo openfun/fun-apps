@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import imp
 from glob import glob
 import os
 import sys
@@ -40,6 +41,8 @@ SESSION_COOKIE_DOMAIN = None
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 WIKI_ENABLED = True
+
+LMS_SEGMENT_KEY = None   # Dogwood: Probably related to google analytics.
 
 TIME_ZONE = 'Europe/Paris'
 
@@ -347,7 +350,7 @@ PROCTORU_TOKEN = 'f0ef8b49-51e6-4009-8db3-6b87d77f40d1'  # preprod auth token
 
 def get_proctoru_app_if_available():
     try:
-        import proctoru  # pylint: disable=import-error,unused-import,unused-variable
+        imp.find_module('proctoru')
         return ('proctoru',)
     except ImportError:
         return ()

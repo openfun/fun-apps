@@ -2,8 +2,8 @@
 
 from django import template
 
-from courseware.courses import course_image_url
 from courses.utils import get_about_section
+from openedx.core.lib.courses import course_image_url
 
 register = template.Library()
 

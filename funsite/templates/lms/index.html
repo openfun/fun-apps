@@ -4,13 +4,11 @@ from django.core.urlresolvers import reverse
 from django.utils.formats import date_format
 from django.utils.translation import ugettext as _
 
-from staticfiles.storage import staticfiles_storage
-
 from courses.models import CourseSubject, Course
 from newsfeed.views import top_news
 from universities.models import University
 %>
-
+<%namespace name='static' file='/static_content.html'/>
 <%inherit file="funsite/parts/base-fixed-width.html" />
 
 <%block name="title">${_(u"The Freedom to Study")}</%block>
@@ -58,7 +56,7 @@ from universities.models import University
 <%block name="content_fullwidth">
     <div class="homepage-header drop-down">
         <h1>${_("FUN:")} ${_("Higher Education Excellence. Online, Free and Open Courses")}</h1>
-        <img class="logo-fun" src="${staticfiles_storage.url(settings.FUN_BIG_LOGO_RELATIVE_PATH)}"></img>
+        <img class="logo-fun" src="${static.url(settings.FUN_BIG_LOGO_RELATIVE_PATH)}"></img>
     </div>
 </%block>
 

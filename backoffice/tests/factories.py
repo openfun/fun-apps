@@ -8,6 +8,7 @@ from student.tests.factories import UserFactory
 
 
 class MicrositeUserFactory(DjangoModelFactory):
-    FACTORY_FOR = UserSignupSource
-
     user = factory.SubFactory(UserFactory)
+
+    class Meta(object):
+        model = UserSignupSource

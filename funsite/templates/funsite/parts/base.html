@@ -6,12 +6,11 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import get_language_bidi, ugettext as _
 
-from staticfiles.storage import staticfiles_storage
-
 from microsite_configuration import microsite
 
 dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
 %>
+<%namespace name='static' file='/static_content.html'/>
 <!DOCTYPE html>
 <!--[if IEMobile 7]><html class="iem7" lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}"><![endif]-->
 <!--[if lte IE 6]><html class="lte-ie9 lt-ie9 lt-ie8 lt-ie7" lang="${settings.LANGUAGE_CODE}" dir="${dir_rtl}"><![endif]-->
@@ -29,13 +28,13 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
 
     <%block name="meta_extra" />
 
-    <link rel="icon" type="image/x-icon" href="${staticfiles_storage.url(microsite.get_value('favicon_path', settings.FAVICON_PATH))}" />
-    <link href="${staticfiles_storage.url('funsite/bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
-    <link rel="stylesheet" href="${staticfiles_storage.url('funsite/owl.carousel/assets/owl.carousel.css')}">
-    <link href="${staticfiles_storage.url('fun/css/cookie-banner.css')}" rel="stylesheet">
-    <link href="${staticfiles_storage.url('funsite/css/header.css')}" rel="stylesheet">
-    <link href="${staticfiles_storage.url('funsite/css/fun.css')}" rel="stylesheet">
-    <link href="${staticfiles_storage.url('funsite/css/footer.css')}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="${static.url(microsite.get_value('favicon_path', settings.FAVICON_PATH))}" />
+    <link href="${static.url('funsite/bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
+    <link rel="stylesheet" href="${static.url('funsite/owl.carousel/assets/owl.carousel.css')}">
+    <link href="${static.url('fun/css/cookie-banner.css')}" rel="stylesheet">
+    <link href="${static.url('funsite/css/header.css')}" rel="stylesheet">
+    <link href="${static.url('funsite/css/fun.css')}" rel="stylesheet">
+    <link href="${static.url('funsite/css/footer.css')}" rel="stylesheet">
     <link rel="alternate" type="application/rss+xml" title="${_('FUN courses RSS feed')}" href="${reverse('fun-courses:feed')}" />
     <link rel="alternate" type="application/rss+xml" title="${_('FUN news RSS feed')}" href="${reverse('newsfeed-rss')}" />
     <link title="${_('FUN course search')}" rel="search" type="application/opensearchdescription+xml" href="${reverse('searchprovider.xml')}">
@@ -51,7 +50,31 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
       <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <%include file="/google_analytics.html" />
+    % if settings.GOOGLE_ANALYTICS_ACCOUNT:
+        <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '${settings.GOOGLE_ANALYTICS_ACCOUNT}']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            // Check for presence of tracking cookie acceptation
+            var ca = document.cookie.split(';');
+            for (var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') {
+                    c = c.substring(1,c.length);
+                }
+                if (c.indexOf("acceptCookieFun=") === 0) {
+                    // Insert google analytics script
+                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                    return;
+                }
+            }
+        })();
+        </script>
+    % endif
   </head>
 <body>
 
@@ -76,23 +99,19 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
 
 
 <%include file="footer.html" args="base_application='funsite'"/>
-    <script src="${staticfiles_storage.url('funsite/jquery/dist/jquery.min.js')}"></script>
-    <script src="${staticfiles_storage.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
-    <script src="${staticfiles_storage.url('funsite/owl.carousel/owl.carousel.min.js')}"></script>
-    <script type="text/javascript" src="${staticfiles_storage.url('js/vendor/require.js')}"></script>
-    <script type="text/javascript" src="${staticfiles_storage.url('require-config-lms.js')}"></script>
-    <script>
-        require.config({paths: {
-                underscore: '/static/js/vendor/underscore-min',
-                backbone: '/static/js/vendor/backbone-min',
-            }});
-    </script>
+    <script src="${static.url('funsite/jquery/dist/jquery.min.js')}"></script>
+    <script src="${static.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
+    <script src="${static.url('funsite/owl.carousel/owl.carousel.min.js')}"></script>
 
-    <script type="text/javascript" src="/jsi18n/"></script>
-    <script type="text/javascript" src="${staticfiles_storage.url('js/src/utility.js')}"></script>
-    <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/fun.js')}"></script>
-    <script type="text/javascript" src="${staticfiles_storage.url('fun/js/cookie-banner.js')}"></script>
-    <script type="text/javascript" src="${staticfiles_storage.url('funsite/js/header.js')}"></script>
+    <script type="text/javascript" src="/i18n.js"></script>
+    <script type="text/javascript" src="${static.url('js/src/utility.js')}"></script>
+    <script type="text/javascript" src="${static.url('funsite/js/fun.js')}"></script>
+    <script type="text/javascript" src="/static/funsite/js/header.js"></script>
+    <script type="text/javascript" src="/static/fun/js/cookie-banner.js"></script>
+
     <%block name="js_extra"/>
   </body>
 </html>
+
+
+

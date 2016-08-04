@@ -98,7 +98,7 @@ MIDDLEWARE_CLASSES[
     MIDDLEWARE_CLASSES.index('contentserver.middleware.StaticContentServer')
 ] = 'fun.middleware.ThumbnailStaticContentServer'
 
-TEMPLATE_CONTEXT_PROCESSORS += ('fun.context_processor.fun_settings',)
+TEMPLATES[0]['OPTIONS']['context_processors'] += ('fun.context_processor.fun_settings',)
 
 # add application templates directory to MAKO template finder
 MAKO_TEMPLATES['main'] = [
@@ -113,7 +113,7 @@ MAKO_TEMPLATES['main'] = [
 ] + MAKO_TEMPLATES['main']
 
 # Add funsite templates directory to Django templates finder.
-TEMPLATE_DIRS.insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
+TEMPLATES[0]['DIRS'].insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
 
 # Enable legal page
 MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
@@ -174,20 +174,21 @@ NUMBER_DAYS_TOO_LATE = 31
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 
 # easy-thumbnails
-SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
+#SOUTH_MIGRATION_MODULES['easy_thumbnails'] = 'easy_thumbnails.south_migrations'
+
 
 # Add our v3 CSS and JS files to assets compilation pipeline to make them available in courseware.
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded
 # by funsite/templates/funsite/parts/base.html and css/lms-main.css
 
-PIPELINE_CSS['style-main']['source_filenames'].append('fun/css/cookie-banner.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/header.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('funsite/css/footer.css')
-PIPELINE_CSS['style-main']['source_filenames'].append('forum_contributors/highlight/css/highlight.css')
+PIPELINE_CSS['style-vendor']['source_filenames'].append('fun/css/cookie-banner.css')
+PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/header.css')
+PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/footer.css')
 
-# js/lms-application.js
-PIPELINE_JS['application']['source_filenames'].append('funsite/js/header.js')
-PIPELINE_JS['application']['source_filenames'].append('fun/js/cookie-banner.js')
+#  can't find any common group
+for group in ['base_vendor', 'main_vendor']:
+    PIPELINE_JS[group]['source_filenames'].append('funsite/js/header.js')
+    PIPELINE_JS[group]['source_filenames'].append('fun/js/cookie-banner.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
@@ -217,9 +218,12 @@ OAUTH_ENFORCE_SECURE = False
 OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
 
 # Append fun header script to verification pages
-PIPELINE_JS['rwd_header']['source_filenames'].append('funsite/js/header.js')
+# DOGWOOD: probablement plus nécessaire
+# PIPELINE_JS['rwd_header']['source_filenames'].append('funsite/js/header.js')
 
 # A user is verified if he has an approved SoftwareSecurePhotoVerification entry
 # this setting will create a dummy SoftwareSecurePhotoVerification for user in paybox success callback view
 # I think it's better to create a dummy one than to remove verifying process in edX
 FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = False
+
+ANALYTICS_DASHBOARD_URL = False  # when True this setting add a link in instructor dashbord to analytics insigt service

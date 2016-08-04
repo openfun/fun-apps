@@ -1,10 +1,9 @@
 ## mako
 <%!
 from django.core.urlresolvers import reverse
-from staticfiles.storage import staticfiles_storage
 from django.utils.translation import ugettext as _
 %>
-
+<%namespace name='static' file='/static_content.html'/>
 <%inherit file="/funsite/parts/simple-content.html" />
 
 <%block name="title">${_("About FUN")}</%block>
@@ -45,14 +44,14 @@ Lorsque que vous vous inscrivez à un cours certifiant vous pouvez choisir de su
 </p>
 
         <br>
-        <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image001.png')}">
+        <img class="center-block" src="${static.url('funsite/images/proctoru/image001.png')}">
         <br>
 
 <p>
 Vous n’êtes pas obligés de décider tout de suite. Vous pouvez passer ultérieurement au parcours certifiant. Cette option se trouve sur votre tableau de bord dès que le cours devient certifiant !
 </p>
 <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image002.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image002.png')}">
 <br>
 <h3>Tester le matériel et procéder au règlement </h3>
 
@@ -62,7 +61,7 @@ Lorsque vous cliquez sur le bouton <i>« S’inscrire pour passer une certifica
 
 </p>
     <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image003.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image003.png')}">
     <br>
 
 <p>
@@ -72,7 +71,7 @@ En premier lieu testez votre configuration matérielle en cliquant sur le lien p
 
 </p>
         <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image004.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image004.png')}">
         <br>
 
 <p>
@@ -83,7 +82,7 @@ Le paiement est possible jusqu’à 15 jours ouvrés (environ 3 semaines) avant 
 
 </p>
         <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image005.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image005.png')}">
         <br>
 
 <p>
@@ -106,7 +105,7 @@ Vous devez d’abord compléter des informations nécessaires au passage de l’
 
 </p>
     <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image006.jpg')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image006.jpg')}">
 <br>
 <p>
 
@@ -114,7 +113,7 @@ Vous devez d’abord compléter des informations nécessaires au passage de l’
 Vous pouvez alors choisir une plage horaire dans la liste proposée pour cet examen en prenant bien soin de vérifier le fuseau horaire :
 </p>
 <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image007.jpg')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image007.jpg')}">
 <br>
 <p>
 
@@ -171,18 +170,18 @@ Nous vous recommandons de passer un diagnostic complet à l’adresse suivante :
 
 <li>Au jour et à l’heure prévus pour l’examen, connectez-vous sur votre cours, à l’endroit où vous avez fait une réservation pour l’examen.</li>
  <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image008.jpg')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image008.jpg')}">
 <br>
 
 A l’heure de l’examen, l’écran indique que l’examen est disponible. Cliquez sur le bouton « Commencer l’examen » pour rejoindre la salle d’examen virtuelle.<br>
 <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image009.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image009.png')}">
 <br>
 
 Cliquez sur « OK » pour confirmer que vous acceptez d’être enregistré.<br>
 
     <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image010.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image010.png')}">
     <br>
 
 </li>
@@ -191,7 +190,7 @@ Cliquez sur « OK » pour confirmer que vous acceptez d’être enregistré.<b
 <li>Une nouvelle fenêtre de votre navigateur s’ouvre. Cliquez alors sur le bouton « Cliquer pour télécharger ». Il vous permet de télécharger le fichier (« applet ») de partage d’écran. Les instructions sont adaptées à chaque navigateur. Cliquez également sur « Autoriser » dans la fenêtre de vidéo, pour activer le chat vidéo. </li>
 
     <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image011.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image011.png')}">
     <br>
 
 <li>Grâce à ce fichier, ProctorU lance une « applet » ou programme temporaire, qui permet au surveillant de voir votre écran, ainsi que les programmes ouverts pendant la session. Cette « applet » est à usage unique et ne peut être réutilisée après la fermeture de la connexion. Pour plus de facilité, fermez toutes applications et fenêtres qui ne sont pas requises pour l’examen.</li>
@@ -199,7 +198,7 @@ Cliquez sur « OK » pour confirmer que vous acceptez d’être enregistré.<b
 <li>A ce stade « l’applet » est installé et vous n’avez pas d’action supplémentaire à effectuer sur cette page : le bouton « Authentifier » ne vous concerne pas. Une fenêtre de chat en direct avec le surveillant s’ouvre et vous devrez autoriser le contrôle à distance (fenêtre popup qui peut varier selon votre système d’exploitation et navigateur).</li>
  
 <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image012.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image012.png')}">
 <br>
 
 
@@ -213,7 +212,7 @@ Dès que le surveillant a constaté que l’écran et l’environnement ne conti
 <li>Les vérifications étant faites, le surveillant vous donne alors accès à l’examen. L’accès à l’examen est protégé par un mot de passe que seul le surveillant connaît. C’est donc à lui de taper ce mot de passe en prenant le contrôle de votre clavier.<br>
 
 <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image014.jpg')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image014.jpg')}">
 <br>
 
 
@@ -227,7 +226,7 @@ En cas de déconnexion ou de problèmes techniques, vous pouvez appeler ProctorU
 Le bouton « Terminer l’examen » servira à terminer l’examen avec l’accord de votre surveillant.</li>
  
 <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image015.jpg')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image015.jpg')}">
 <br>
 
 <li>Vous n’avez droit qu’à une seule tentative.<br><br>
@@ -237,7 +236,7 @@ N’oubliez pas de sauvegarder fréquemment vos réponses en cliquant sur le bou
 Attention, ce bouton « Enregistrer » sauvegarde un brouillon de vos réponses. Pour soumettre vos réponses, cliquez sur le bouton « Vérification finale » lorsque vous avez fini. Attention, cette action est définitive.<br>
 
 <br>
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image016.jpg')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image016.jpg')}">
 <br>
 
  </li>
@@ -248,7 +247,7 @@ Si le temps est écoulé, l’examen se terminera de lui-même. Attention à bie
 Vous êtres alors informé que votre examen a été soumis avec succès.  Les résultats seront affichés sur votre tableau de bord apprenant.<br><br>
 </li>
 
-          <img class="center-block" src="${staticfiles_storage.url('funsite/images/proctoru/image017.png')}">
+          <img class="center-block" src="${static.url('funsite/images/proctoru/image017.png')}">
 </ol>
 
 <h3>Des questions ?</h3>

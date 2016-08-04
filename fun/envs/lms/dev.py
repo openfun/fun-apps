@@ -10,16 +10,14 @@ SITE_NAME = LMS_BASE
 
 SERVER_EMAIL = '%s-%s@france-universite-numerique-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
 
-
-
 PIPELINE_SASS_ARGUMENTS = PIPELINE_SASS_ARGUMENTS.format(proj_dir=PROJECT_ROOT)
 
 INSTALLED_APPS += ('django_extensions',)
 
 ################################ DEBUG TOOLBAR ################################
 
-INSTALLED_APPS += DEBUG_TOOLBAR_INSTALLED_APPS
-MIDDLEWARE_CLASSES += DEBUG_TOOLBAR_MIDDLEWARE_CLASSES
+#INSTALLED_APPS += DEBUG_TOOLBAR_INSTALLED_APPS
+#MIDDLEWARE_CLASSES += DEBUG_TOOLBAR_MIDDLEWARE_CLASSES
 
 ########################### VERIFIED CERTIFICATES #################################
 
@@ -45,3 +43,7 @@ ECOMMERCE_API_URL = "http://ecomdev.local/api/v2/"
 ECOMMERCE_PUBLIC_URL_ROOT = "http://ecomdev.local"
 ECOMMERCE_NOTIFICATION_URL = 'http://ecomdev.local/payment/paybox/notify/'
 JWT_ISSUER = "http://funbox.local:8000/oauth2"
+
+PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not use aggregated static files
+
+SECRET_KEY = 'lms_dev_secret_key'
