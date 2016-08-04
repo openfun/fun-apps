@@ -28,8 +28,8 @@ ROOT_URLCONF = 'fun.cms.urls'
 # edX base cms settings file appends the git revision of the edx-platform repo
 # git revision to STATIC_ROOT and STATIC_URL.  We remove it as we use
 # PipelineCachedStorage for both apps.
-STATIC_URL = "/static/"
-
+STATIC_URL = "/static/cms/"
+STATIC_ROOT = STATIC_ROOT + '/cms'
 update_logging_config(LOGGING)
 
 # add 'theme/cms/templates' directory to MAKO template finder to override some CMS templates...
