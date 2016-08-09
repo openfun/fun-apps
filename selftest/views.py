@@ -23,7 +23,7 @@ from selftest.tasks import trigger_worker_error
 repositories = [
         'edx-platform', 'fun-config', 'fun-apps',
         '../forum/cs_comments_service',
-        'venvs/edxapp/src/edx-ora2',
+        'venvs/edxapp/src/ora2',
         'venvs/edxapp/src/proctoru-xblock',
         'venvs/edxapp/src/libcast-xblock',
         'venvs/edxapp/src/edx-gea',
