@@ -12,7 +12,6 @@ from django.test import RequestFactory
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 
-from courseware.courses import get_permission_for_course_about, get_course_with_access
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator
@@ -20,6 +19,7 @@ from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
 from xmodule.modulestore.django import modulestore
+from xmodule.course_module import CATALOG_VISIBILITY_CATALOG_AND_ABOUT
 
 from courses import settings as courses_settings
 from courses.models import Course, CourseUniversityRelation
@@ -31,12 +31,7 @@ class CourseHandler(object):
     def __init__(self, course_descriptor):
         self.course_descriptor = course_descriptor
         self.key = unicode(course_descriptor.id)
-        self.fake_request = RequestFactory().get('/')
-        # TODO Dogwood: We need a real user to acces courses information
-        self.fake_request.user = User.objects.filter(is_superuser=True)[0]
-        self.permission = get_permission_for_course_about()
-        self.course = get_course_with_access(self.fake_request.user,
-                self.permission, self.course_descriptor.id)
+        self.course = modulestore().get_course(self.course_descriptor.id)
 
     @property
     def memory_image_file(self):
@@ -143,6 +138,7 @@ class Command(BaseCommand):
         For the given course, we create or update the corresponding
         course in SQL Course table.
         '''
+
         course_handler = CourseHandler(mongo_course)
         key = course_handler.key
         self.stdout.write('Updating data for course {}\n'.format(key))
@@ -156,7 +152,7 @@ class Command(BaseCommand):
                 self.stdout.write('\t No university assigned '
                 'to "{}"\n'.format(key))
         course.is_active = True
-        #course.show_in_catalog = bool(mongo_course.ispublic)
+        course.show_in_catalog = mongo_course.catalog_visibility.lower() == CATALOG_VISIBILITY_CATALOG_AND_ABOUT
         course.university_display_name = course_handler.university_name
         course.title = course_handler.title
         course.image_url = course_handler.image_url
