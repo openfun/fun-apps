@@ -8,7 +8,7 @@ from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from ckeditor.fields import RichTextField
 
-from .managers import UniversityManager
+from .managers import UniversityQuerySet
 from . import choices as universities_choices
 
 
@@ -42,7 +42,7 @@ class University(models.Model):
     prevent_auto_update = models.BooleanField(
         verbose_name=_('prevent automatic update'), default=False)
 
-    objects = UniversityManager()
+    objects = UniversityQuerySet.as_manager()
 
     class Meta:
         ordering = ('-score', 'id',)
