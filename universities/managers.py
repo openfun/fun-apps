@@ -19,10 +19,6 @@ class UniversityQuerySet(models.query.QuerySet):
     def by_score(self):
         return self.order_by('-score', 'name')
 
-
-class UniversityManager(ChainableManager):
-    queryset_class = UniversityQuerySet
-
     def featured(self, limit_to=None):
         """Featured universities have a detail page and are not obsolete"""
         qs = self.not_obsolete().detail_page_enabled().with_related().by_score()
