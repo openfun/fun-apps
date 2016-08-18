@@ -7,6 +7,7 @@ from courses import managers
 from courses import models
 
 from . import factories
+from universities.tests.factories import UniversityFactory
 
 
 class TestCourseSubject(TestCase):
@@ -93,3 +94,43 @@ class TestCourseSubject(TestCase):
         self.assertEqual(True, queryset.get(id=course_enrollment_ended.id).is_enrollment_over)
         self.assertEqual(False, queryset.get(id=course_enrollment_not_ended.id).is_enrollment_over)
         self.assertEqual(False, queryset.get(id=course_open.id).is_enrollment_over)
+
+
+class TestCourseManager(TestCase):
+    def setUp(self):
+        self.u1 = UniversityFactory.create(detail_page_enabled=True, is_obsolete=False, score=1)
+        self.u2 = UniversityFactory.create(detail_page_enabled=True, is_obsolete=False, score=1)
+
+    def test_university_public_courses_should_contain_only_public_courses(self):
+        course_public = factories.CourseFactory.create()
+        course_private = factories.CourseFactory.create(show_in_catalog=False)
+        factories.CourseUniversityRelationFactory(course=course_public, university=self.u1)
+        factories.CourseUniversityRelationFactory(course=course_private, university=self.u1)
+
+        self.assertIn(course_public, self.u1.courses.public())
+        self.assertNotIn(course_private, self.u1.courses.public())
+        self.assertIn(course_public, self.u1.courses.all())
+        self.assertIn(course_private, self.u1.courses.all())
+
+    def test_public_courses_from_one_university_should_only_contain_courses_from_this_university(self):
+        course_u1 = factories.CourseFactory.create()
+        course_u1u2 = factories.CourseFactory.create()
+        course_u2 = factories.CourseFactory.create()
+
+        factories.CourseUniversityRelationFactory(course=course_u1, university=self.u1)
+        factories.CourseUniversityRelationFactory(course=course_u2, university=self.u2)
+        factories.CourseUniversityRelationFactory(course=course_u1u2, university=self.u1)
+        factories.CourseUniversityRelationFactory(course=course_u1u2, university=self.u2)
+
+        self.assertIn(course_u1, self.u1.courses.public())
+        self.assertIn(course_u1u2, self.u1.courses.public())
+
+        self.assertIn(course_u2, self.u2.courses.public())
+        self.assertIn(course_u1u2, self.u2.courses.public())
+
+        self.assertNotIn(course_u2, self.u1.courses.public())
+        self.assertNotIn(course_u1, self.u2.courses.public())
+
+        self.assertEqual(set(self.u1.courses.all()), set(self.u1.courses.public()))
+        self.assertEqual(set(self.u2.courses.all()), set(self.u2.courses.public()))
+
