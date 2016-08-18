@@ -13,7 +13,7 @@ from course_modes.models import CourseMode
 from jsonfield.fields import JSONField
 
 from . import choices as courses_choices
-from .managers import CourseSubjectManager, CourseManager
+from .managers import CourseSubjectManager, CourseQuerySet
 
 
 def localize_date(date_time):
@@ -63,7 +63,7 @@ class Course(models.Model):
     certificate_passing_grade = models.FloatField(_('verified certificate passing grade'),
         null=True, blank=True, help_text=(_('Percentage, between 0 and 1')))
 
-    objects = CourseManager()
+    objects = CourseQuerySet.as_manager()
 
     # Cache the courses that have a verified mode. This allows us to write
     # course.has_verified_mode by running just one additional sql query for all

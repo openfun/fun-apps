@@ -95,10 +95,6 @@ class CourseQuerySet(models.query.QuerySet):
     def by_score(self):
         return self.public().order_by('-score')
 
-
-class CourseManager(ChainableManager):
-    queryset_class = CourseQuerySet
-
     def random_featured(self, limit_to=7):
         courses = self.by_score().prefetch_related("related_universities__university")[:limit_to]
         courses = list(courses)
