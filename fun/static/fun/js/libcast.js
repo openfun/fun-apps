@@ -4,7 +4,7 @@ define(['videojs-fun'], function(videojs) {
 
   /*
    * Resolution switcher plugin, largely inspired by
-   * https://github.com/kmoskwiak/videojs-resolution-switcher
+   * https://github.com/kmoskwiak/videojs-resolution-switcher (licensed under Apache 2.0)
    * Changes were made to make this plugin compatible with videojs 4. We can
    * probably get rid of this once videojs gets upgraded to v5.
    */
@@ -94,17 +94,21 @@ define(['videojs-fun'], function(videojs) {
       this.bigPlayButton.hide();
       var currentTime = this.currentTime();
       var isPaused = this.paused();
-      this.setSrc(src).one('loadedmetadata', function() {
-        this.currentTime(currentTime);
-        if(!isPaused) {
-          this.play();
-        } else {
-          // The control bar is hidden because the player considers this is the
-          // first play. Unfortunately we can't call the hasStarted method
-          // because it is hidden in the obfuscated library.
-          this.addClass("vjs-has-started");
-        }
-      });
+
+      this.setSrc(src);
+
+      // For some reason, we used to have to trigger the following code only
+      // after a 'loadedmetada' event with libcast. Weirdly, this is not the
+      // case anymore with S3.
+      this.currentTime(currentTime);
+      if(!isPaused) {
+        this.play();
+      } else {
+        // The control bar is hidden because the player considers this is the
+        // first play. Unfortunately we can't call the hasStarted method
+        // because it is hidden in the obfuscated library.
+        this.addClass("vjs-has-started");
+      }
     };
 
     videojs.Player.prototype.updateSrc = function(src) {
