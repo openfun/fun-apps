@@ -23,12 +23,21 @@ class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
         fields = CourseSubjectSerializer.Meta.fields + ('score',)
 
 
+class JSONSerializerField(serializers.Field):
+    """ Serializer for JSONField -- required to make field writable"""
+    def to_internal_value(self, data):
+        return data
+
+    def to_representation(self, value):
+        return value
+
+
 class CourseSerializer(serializers.ModelSerializer):
     university_serializer_class = UniversitySerializer
     universities = UniversitySerializer(many=True)
     main_university = serializers.SerializerMethodField()
     subjects = CourseSubjectSerializer(many=True)
-    thumbnails = serializers.CharField(source='thumbnails_info')
+    thumbnails = JSONSerializerField(source='thumbnails_info')
 
     class Meta:
         model = Course
