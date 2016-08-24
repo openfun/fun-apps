@@ -17,7 +17,14 @@ from fun_certificates.utils import get_encoded_cert_id
 from courses.models import Course
 fun_course = Course.objects.get(key=unicode(course_id))
 fun_university = fun_course.get_first_university()
-fun_logo_src = certificate_data['org_logo_path'] or fun_university.certificate_logo.url or fun_university.logo.url
+
+fun_logo_src = None
+if organization_logo:
+    fun_logo_src = organization_logo.url
+elif url in fun_university.certificate_logo:
+    fun_logo_src = fun_university.certificate_logo.url
+elif url in fun_university.logo:
+    fun_logo_src = fun_university.logo.url
 
 accomplishment_course_title =  accomplishment_copy_course_name
 if certificate_data and certificate_data.get('course_title', ''):
@@ -56,8 +63,12 @@ if certificate_data and certificate_data.get('course_title', ''):
                 <p class="centered" style="font-size: 13px; margin-bottom: 5px;">L'identité de la personne<br>a été vérifiée durant<br>l'examen final surveillé</p>
                 <img class="centered" src="${STATIC_URL}fun_certificates/images/tampon-fun.png" alt="Certificat vérifié">
                 <p class="centered" style="font-size: 12px;">
-                Vérifier la validité de ce certificat et les informations associées :<br>
-                ${request.build_absolute_uri(reverse('short-cert-url', args=[get_encoded_cert_id(settings.SECRET_KEY, course_id, accomplishment_user_id)]))}
+                %if request.GET.get("preview", False):
+                    Une URL de vérification apparaîtra içi.
+                %else:
+                    Vérifier la validité de ce certificat et les informations associées :<br>
+                    ${request.build_absolute_uri(reverse('short-cert-url', args=[get_encoded_cert_id(settings.SECRET_KEY, course_id, accomplishment_user_id)]))}
+                % endif
                 </p>
             </div>
         </div>
