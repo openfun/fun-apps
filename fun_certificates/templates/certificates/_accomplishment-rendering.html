@@ -21,9 +21,9 @@ fun_university = fun_course.get_first_university()
 fun_logo_src = None
 if organization_logo:
     fun_logo_src = organization_logo.url
-elif url in fun_university.certificate_logo:
+elif fun_university.certificate_logo:
     fun_logo_src = fun_university.certificate_logo.url
-elif url in fun_university.logo:
+elif fun_university.logo:
     fun_logo_src = fun_university.logo.url
 
 accomplishment_course_title =  accomplishment_copy_course_name
