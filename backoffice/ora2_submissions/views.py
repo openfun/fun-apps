@@ -1,5 +1,6 @@
 import os
 
+from django.db import transaction
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
@@ -19,6 +20,7 @@ def status(request, course_key_string):
         'last_file_date': last_file_date,
     })
 
+@transaction.non_atomic_requests
 @require_POST
 @group_required('fun_backoffice')
 def prepare(request, course_key_string):
