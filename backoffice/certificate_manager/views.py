@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.contrib import messages
+from django.db import transaction
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
@@ -81,6 +82,7 @@ def certificate_file_response(certificate):
         return response
 
 
+@transaction.non_atomic_requests
 @group_required('fun_backoffice')
 def generate_certificate(request, course_key_string):
     """
