@@ -4,7 +4,7 @@ django-contact-form==1.0
 django-solo==1.0.3
 pycaption==0.4.6
 unicodecsv==0.9.4
-raven==5.1.0
+raven==5.25.0
 django-pure-pagination==0.2.1
 easy-thumbnails==2.2
 django-haystack==2.4.1
