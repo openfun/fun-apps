@@ -2,6 +2,7 @@
 
 import os
 
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
@@ -42,6 +43,7 @@ def dashboard(request, course_id):
                    "answers_distribution_reports": answers_distribution_reports,
                    "running_reports_generation": running_reports_generation})
 
+@transaction.non_atomic_requests
 @ensure_valid_course_key
 @staff_required_or_level('staff')
 def generate(request, course_id, problem_id):
