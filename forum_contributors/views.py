@@ -72,7 +72,8 @@ def _check_custom_roles(course_id):
 @require_level('staff')
 def list_special_forum_contributors(request, course_id):
 
-    rolename = request.GET.get('rolename')
+    rolename = request.POST.get('rolename')
+
     try:
         course_key = _check_rights(course_id, request.user, rolename)
     except UnauthorizedAccessError as e:
