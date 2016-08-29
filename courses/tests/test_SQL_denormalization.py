@@ -9,12 +9,14 @@ from django.core.management import call_command
 
 from courses.models import Course
 
+
 class MockModuleStore():
     def __init__(self, course):
         self.course = course
 
     def get_course(self, _):
         return self.course
+
 
 class TestSqlDuplication(TestCase):
     @patch("xmodule.modulestore.django.modulestore")
