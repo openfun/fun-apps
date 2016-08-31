@@ -266,11 +266,11 @@ from funsite.utils import is_paid_course
                                     <strong>${_("End of Registration")}</strong>
                                 </li>
                                 <li>
-                                    % if course.enrollment_end:
-                                        % if course.enrollment_end < timezone.now():
+                                    % if fun_course.enrollment_end_date:
+                                        % if fun_course.enrollment_end_date < timezone.now():
                                             ${_("Registration closed")}
                                         %else:
-                                            ${registration_datetime_text(course, course.enrollment_end)}
+                                            ${fun_course.enrollment_end_date_display}
                                         % endif
                                     % endif
                                 </li>
@@ -282,7 +282,7 @@ from funsite.utils import is_paid_course
                                     <strong>${_("Classes Start")}</strong>
                                 </li>
                                 <li>
-                                    ${course.start_datetime_text()}
+                                    ${fun_course.start_date_display}
                                 </li>
                                 </ul>
                             </div>
@@ -291,14 +291,8 @@ from funsite.utils import is_paid_course
                                 <li>
                                     <strong>${pgettext("course-about", "Classes End")}</strong>
                                 </li>
+                                    ${fun_course.end_date_display}
                                 <li>
-                                    % if get_course_about_section(request, course, "end_date") or course.end:
-                                         % if get_course_about_section(request, course, "end_date"):
-                                            ${get_course_about_section(request, course, "end_date")}
-                                        % else:
-                                            ${course.end_datetime_text()}
-                                        % endif
-                                    % endif
                                 </li>
                                 </ul>
                             </div>
