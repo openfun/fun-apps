@@ -472,3 +472,7 @@ section.terms-and-conditions .display-fun-payment-terms-text {
     font-size: 16px;
     display: inline-block;
 }
+
+.dashboard .my-courses .course .wrapper-messages-primary .message.message-upsell .action-upgrade .copy {
+    margin-left: 20px;
+}

@@ -576,3 +576,9 @@ msgstr "Rechercher une conversation"
 
 msgid "Search all posts"
 msgstr "Rechercher..."
+
+msgid "Challenge Yourself!"
+msgstr "Fixez-vous un défi !"
+
+msgid "Take this course to obtain a certificate."
+msgstr "Ce cours permet l'obtention d'un certificat"
