@@ -565,3 +565,14 @@ msgstr "Fichiers et uploads"
 
 msgid "Schedule &amp; Details"
 msgstr "Dates et Détails"
+
+# Those strings from forum are missing in fr file... No idea why
+#: lms/templates/discussion/_underscore_templates.html:250
+msgid "Focus in on specific topics"
+msgstr "Selectionner une conversation spécifique"
+
+msgid "Search for specific posts"
+msgstr "Rechercher une conversation"
+
+msgid "Search all posts"
+msgstr "Rechercher..."

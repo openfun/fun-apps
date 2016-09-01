@@ -107,3 +107,24 @@ msgstr "J'accepte"
 
 msgid "You are upgrading your enrollment for: %(courseName)s"
 msgstr "Mise à niveau de votre inscription à : %(courseName)s"
+
+msgid "Sort by date, vote, or comments"
+msgstr "Trier pas date, vote ou commentaires"
+
+msgid "Upvote posts and good responses"
+msgstr "Voter pour les sujet interessants et les bonnes réponses"
+
+msgid "Report Forum Misuse"
+msgstr "Signaler une mauvaise utilisation du forum"
+
+msgid "Follow posts for updates"
+msgstr "Suivre une conversation"
+
+msgid "DISCUSSION HOME:"
+msgstr "Page d'accueil de Discussion"
+
+msgid "Focus in on specific topics"
+msgstr "Choisir un sujet spécifique"
+
+msgid "Search for specific posts"
+msgstr "Rechercher un sujet"
