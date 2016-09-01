@@ -139,6 +139,7 @@ LOCALE_PATHS = tuple(
     [
         BASE_ROOT / 'edx-platform/conf/locale',
         BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/django_countries/locale',    # this should not be required
+        BASE_ROOT / 'venvs/edxapp/src/edx-proctoring/locale',
     ]
 )
 
