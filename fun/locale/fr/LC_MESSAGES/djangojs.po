@@ -104,3 +104,6 @@ msgstr "Veuillez lire et accepter les conditions d'utilisation"
 
 msgid "Accept"
 msgstr "J'accepte"
+
+msgid "You are upgrading your enrollment for: %(courseName)s"
+msgstr "Mise à niveau de votre inscription à : %(courseName)s"

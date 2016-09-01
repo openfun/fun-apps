@@ -560,5 +560,8 @@ msgstr "Vous êtes déjà inscrit a ce cours"
 msgid "Course Updates &amp; News"
 msgstr "Infos et actualités"
 
-msgid "You are upgrading your enrollment for: {courseName}"
-msgstr "Mise à niveau de votre inscription à : {courseName}"
+msgid "Files &amp; Uploads"
+msgstr "Fichiers et uploads"
+
+msgid "Schedule &amp; Details"
+msgstr "Dates et Détails"
