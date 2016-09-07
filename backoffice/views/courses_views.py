@@ -146,7 +146,7 @@ def course_detail(request, course_key_string):
 @group_required('fun_backoffice')
 def enrolled_users(request, course_key_string):
     course = get_course(course_key_string)
-    course_info = get_course_infos([course])[0]
+    course_info = get_course_infos_or_404([course])[0]
     User.objects.select_related('profile')
     users = User.objects.filter(courseenrollment__course_id=course.id,
                                 courseenrollment__is_active=True).select_related('profile').order_by('username')
@@ -225,7 +225,7 @@ def users_without_proctoru_reservation(request, course_key_string):
 @group_required('fun_backoffice')
 def verified(request, course_key_string, action=None):
     course = get_course(course_key_string)
-    course_info = get_course_infos([course])[0]
+    course_info = get_course_infos_or_404([course])[0]
 
     mongo_reports = get_mongo_reports(course.id)
     registered_users = mongo_reports["data"]
@@ -269,7 +269,7 @@ def verified(request, course_key_string, action=None):
 @group_required('fun_backoffice')
 def wiki(request, course_key_string, action=None):
     course = get_course(course_key_string)
-    course_info = get_course_infos([course])[0]
+    course_info = get_course_infos_or_404([course])[0]
 
     base_page = wiki_utils.get_base_page(course)
 
@@ -299,7 +299,7 @@ def wiki(request, course_key_string, action=None):
 
 def get_filtered_course_infos(search_pattern=None):
     courses = get_sorted_courses()
-    course_infos = get_course_infos(courses)
+    course_infos = get_course_infos_or_404(courses)
 
     if search_pattern:
         course_infos = [course for course in course_infos
@@ -322,12 +322,17 @@ def get_complete_course_info(course):
     Returns:
         CompleteFunCourse
     """
-    course_infos = get_course_infos([course])[0]
+    course_infos = get_course_infos_or_404([course])[0]
     course_infos.update(get_about_sections(course))
     return CompleteFunCourse(**course_infos)
 
 
-def get_course_infos(course_descriptors):
+def get_course_infos_or_404(course_descriptors):
+    if not course_descriptors:
+        pass
+    elif all([descriptor is None for descriptor in course_descriptors]):
+        raise Http404
+
     course_modes = get_course_modes()
     course_descriptor_ids = [course_descriptor.id for course_descriptor in course_descriptors]
     courses = Course.objects.filter(key__in=course_descriptor_ids)
