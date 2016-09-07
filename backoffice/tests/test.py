@@ -10,6 +10,7 @@ from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.utils.translation import ugettext as _
+from django.http import Http404
 
 from lang_pref import LANGUAGE_KEY
 from openedx.core.djangoapps.user_api.preferences.api import set_user_preference
@@ -137,7 +138,8 @@ class TestDeleteCourse(BaseCourseDetail):
         self.assertEqual(1, courses_views.logger.warning.call_count)
 
     def test_no_university(self):
-        """In a course is not bound to an university, a alert should be shown."""
+        """When a course is not bound to an university, an alert should be shown."""
+        self.university.delete()
         response = self.client.get(self.url)
         self.assertIn(_(u"University with code <strong>%s</strong> does not exist.") % self.course.id.org,
                       response.content.decode('utf-8'))
@@ -173,3 +175,18 @@ class TestExportCoursesList(BaseBackoffice):
         self.assertEqual(2, len(data))
         course = data[1]
         self.assertEqual(self.university.code, course[2])
+
+class TestGetCourseInfos(BaseBackoffice):
+    def query_course_verified(self, course_id):
+        self.login_with_backoffice_group()
+        url = reverse('backoffice:course-verified', args=[course_id])
+        response = self.client.get(url)
+        return response
+
+    def test_is_ok_when_course_exist(self):
+        response = self.query_course_verified(unicode(self.course.id))
+        self.assertEqual(200, response.status_code)
+
+    def test_404_if_course_doesnt_exist(self):
+        response = self.query_course_verified(unicode(self.course.id) + "doesnt_exist_in_fact")
+        self.assertEqual(404, response.status_code)
