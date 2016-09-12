@@ -1,1 +1,0 @@
--e git+ssh://git@github.com/openfun/ProctorU-xBlock.git@fun/dogwood#egg=proctoru-xblock
