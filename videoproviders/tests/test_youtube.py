@@ -129,7 +129,7 @@ class YoutubeTests(BaseYoutubeTestCase):
         self.assertEqual(1, len(videos))
         self.assertEqual("videoid1", videos[0]["id"])
         self.assertEqual("Video title 1", videos[0]["title"])
-        self.assertEqual("4 juillet 2016 13:12:12", videos[0]["created_at"])
+        self.assertEqual("4 juillet 2016 13:12", videos[0]["created_at"])
 
     def test_iter_video_encoding_in_progress(self):
         self.create_course_settings()
