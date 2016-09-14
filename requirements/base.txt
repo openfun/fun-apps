@@ -22,4 +22,4 @@ hashids==1.1.0
 google-api-python-client==1.5.1
 
 # ProctorU
--e git+ssh://git@github.com/perpetualny/proctorU-xblock.git@funmooc#egg=proctoru-xblock
+-e git+https://github.com/perpetualny/proctorU-xblock.git@funmooc#egg=proctoru-xblock
