@@ -255,7 +255,7 @@ class Client(BaseClient):
         # containing an ID, otherwise the following will not work.
         return self.get_video(payload["id"])
 
-    def set_thumbnail(self, video_id, url):
+    def upload_thumbnail(self, video_id, file_object):
         # We do not support that for youtube.
         raise NotImplementedError()
 

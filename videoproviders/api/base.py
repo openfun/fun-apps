@@ -69,10 +69,6 @@ class BaseClient(object):
             subtitles.append(subtitle)
         return subtitles
 
-    def upload_thumbnail(self, video_id, file_object):
-        thumbnail_url = self.upload_file(file_object)
-        return self.set_thumbnail(video_id, thumbnail_url)
-
     def upload_file(self, file_object):
         """Upload a file to the storage service
 
@@ -175,11 +171,12 @@ class BaseClient(object):
         """
         raise NotImplementedError()
 
-    def set_thumbnail(self, video_id, url):
-        """Set the video thumbnail
+    def upload_thumbnail(self, video_id, file_object):
+        """Upload a video thumbnail
 
         Arguments:
-            url (str): url at which the thumbnail file can be found
+            file_object (file): File-like object. Note that at this stage, it
+            has not been converted, yet.
         """
         raise NotImplementedError()
 

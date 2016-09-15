@@ -31,7 +31,6 @@
       </div>
     </div>
 
-    <% if (false) { %>
     <div class="divider-visual"></div>
 
     <div class="thumbnail"></div>
@@ -43,6 +42,5 @@
         <div class="upload-thumbnail"></div>
       </div>
     </div>
-    <% } %>
   </div>
 </div>

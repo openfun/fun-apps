@@ -251,9 +251,13 @@ class Client(BaseClient):
             self.update_video_title(video_id, title)
         return self.get_video(video_id)
 
-    def set_thumbnail(self, video_id, url):
-        # Not supported for now
-        raise NotImplementedError()
+    def upload_thumbnail(self, video_id, file_object):
+        self.post(
+            'videos/{}/thumbnail/'.format(video_id),
+            files={'file': file_object},
+            log_error=False,
+        )
+        return {}
 
     def upload_subtitle(self, video_id, file_object, language):
         subtitle = self.post(
@@ -262,6 +266,7 @@ class Client(BaseClient):
             files={'file': file_object},
             log_error=True,
         ).json()
+
         return {
             'id': subtitle['id'],
             'language': subtitle['language'],
