@@ -34,10 +34,10 @@ class UniversityQuerysetsTests(TestCase):
         self.assertFalse(u4 in featured_universities)
         self.assertEqual(1, len(featured_universities))
 
-    def test_non_obsolete(self):
+    def test_not_obsolete(self):
         u1 = UniversityFactory.create(detail_page_enabled=True, is_obsolete=False)
         u2 = UniversityFactory.create(detail_page_enabled=True, is_obsolete=True)
 
-        non_obsolete = models.University.objects.non_obsolete()
-        self.assertIn(u1, non_obsolete)
-        self.assertNotIn(u2, non_obsolete)
+        not_obsolete = models.University.objects.not_obsolete()
+        self.assertIn(u1, not_obsolete)
+        self.assertNotIn(u2, not_obsolete)
