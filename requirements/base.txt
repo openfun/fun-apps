@@ -15,10 +15,10 @@ hashids==1.1.0
 -e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
 
 # Grade External Activitiy XBlock
--e git+https://github.com/openfun/edx-gea.git@fun/dogwood#egg=edx-gea
+-e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
 
 # Video
--e git+https://github.com/openfun/libcast-xblock.git@0.1.0#egg=libcast-xblock
+-e git+https://github.com/openfun/libcast-xblock.git@0.2.0#egg=libcast-xblock
 google-api-python-client==1.5.1
 
 # ProctorU
