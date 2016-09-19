@@ -18,10 +18,11 @@ def set_is_youtube_video_fields(apps, schema_editor):
         if not hasattr(course_store, "collection"):
             # Course is not stored in mongodb
             continue
-        course_store.collection.update(
-            {"_id.category": 'video', "metadata.is_youtube_video": {"$exists": False}},
-            {"$set": {"metadata.is_youtube_video": False}}
-        )
+        for category in ['video', 'libcast_xblock']:
+            course_store.collection.update(
+                {"_id.category": category, "metadata.is_youtube_video": {"$exists": False}},
+                {"$set": {"metadata.is_youtube_video": False}}
+            )
 
 def unset_is_youtube_video_fields(apps, schema_editor):
     """
