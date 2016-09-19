@@ -1,5 +1,9 @@
 # Changelog www.fun-mooc.fr
 
+## 4.0 19/09/2016
+- Merge de la nouvelle version LTS de edX: Dogwood
+    - http://edx.readthedocs.io/projects/open-edx-release-notes/en/latest/dogwood.html
+
 ## 3.19 04/08/2016
 
 - dashboard de cours : meilleure présentation des documents générés (certificats, attestations) selon le mode d'inscription des apprenants
