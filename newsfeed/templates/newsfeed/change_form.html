@@ -3,8 +3,8 @@
 {% block after_related_objects %}
 {% with slug=adminform.form.slug.value %}
 {% if slug %}
-<p><a href="{% url newsfeed-article-preview slug=slug %}">{% trans "Preview" %}</a></p>
-<p><a href="{% url newsfeed-landing-preview slug=slug %}">{% trans "Preview news page" %}</a></p>
+<p><a href="{% url 'newsfeed-article-preview' slug=slug %}">{% trans "Preview" %}</a></p>
+<p><a href="{% url 'newsfeed-landing-preview' slug=slug %}">{% trans "Preview news page" %}</a></p>
 {% endif %}
 {% endwith %}
 {% endblock %}
