@@ -3,7 +3,7 @@ import importlib
 from .base import MissingCredentials, ClientError
 
 
-VIDEO_CLIENT_MODULE = "videoproviders.api.youtube"
+VIDEO_CLIENT_MODULE = "videoproviders.api.videofront"
 VIDEO_CLIENT_CLASS = "Client"
 
 

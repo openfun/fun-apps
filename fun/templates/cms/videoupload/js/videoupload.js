@@ -74,12 +74,13 @@ require(["jquery", "underscore", "backbone", "gettext",
         created_at: "",
         created_at_timestamp: 0,
         embed_url: "",
-        video_sources: [],
-        external_link: "",
+        encoding_progress: 0,
         error: "",
+        external_link: "",
         subtitles: [],
         title: "",
-        encoding_progress: 0,
+        thumbnail_url: "",
+        video_sources: [],
       },
 
       url: function() {
@@ -423,7 +424,7 @@ require(["jquery", "underscore", "backbone", "gettext",
           video.setStatus("uploading");
           var formData = new FormData();
           formData.append(uploadParams.file_parameter_name, videoFile);
-          ajaxSettings.resetHeaders();// required for csrf token
+          ajaxSettings.unsetHeaders();// required to remove csrf token
           ajaxSettings.unsetNotify();
           currentUploadRequest = $.ajax({
             url: uploadParams.url,
@@ -577,11 +578,9 @@ require(["jquery", "underscore", "backbone", "gettext",
         ParameterView.__super__.renderContents.apply(this);
 
         // thumbnail view
-        if (false) {
-          var thumbnailView = new ThumbnailView({model: this.model});
-          this.$(".thumbnail").html(thumbnailView.render().el);
-          this.$(".upload-thumbnail").html(this.templateThumbnailForm());
-        }// disable thumbnail upload for now
+        var thumbnailView = new ThumbnailView({model: this.model});
+        this.$(".thumbnail").html(thumbnailView.render().el);
+        this.$(".upload-thumbnail").html(this.templateThumbnailForm());
 
         // subtitle upload forms
         this.$(".upload-subtitles").html(this.templateSubtitleForm());
