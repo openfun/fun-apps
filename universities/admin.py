@@ -39,7 +39,6 @@ class UniversityAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [
-        videoproviders.admin.LibcastAuthAdminInline,
         videoproviders.admin.YoutubeAuthAdminInline,
     ]
 

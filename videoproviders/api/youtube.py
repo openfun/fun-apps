@@ -218,13 +218,6 @@ class Client(BaseClient):
             for video in self.iter_selected_videos(video_ids):
                 yield video
 
-    def request(self, endpoint, method='GET', params=None, files=None, headers=None):#pylint: disable=too-many-arguments
-        # This method is not needed for this backend. Note that once the
-        # libcast backend has been removed, we should be able to delete this
-        # method and the get,post,put,delete,safe_* methods from this class and
-        # its base class.
-        raise NotImplementedError()
-
     def get_video(self, video_id):
         videos = self.iter_selected_videos([video_id])
         for video in videos:

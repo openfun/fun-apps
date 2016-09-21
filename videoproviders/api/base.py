@@ -98,43 +98,9 @@ class BaseClient(object):
         except KeyError:
             raise ClientError("Error in uploading file")
 
-    def get(self, endpoint, params=None, headers=None):
-        return self.request(endpoint, params=params, headers=headers)
-
-    def post(self, endpoint, params=None, files=None):
-        return self.request(endpoint, method='POST', params=params, files=files)
-
-    def put(self, endpoint, params=None, files=None):
-        return self.request(endpoint, method='PUT', params=params, files=files)
-
-    def delete(self, endpoint, params=None):
-        return self.request(endpoint, method='DELETE', params=params)
-
-    def safe_get(self, endpoint, params=None, message='', headers=None):
-        return self.safe_request(endpoint, params=params, message=message, headers=headers)
-
-    def safe_post(self, endpoint, params=None, files=None, message=''):
-        return self.safe_request(endpoint, method='POST', params=params, files=files, message=message)
-
-    def safe_put(self, endpoint, params=None, files=None, message=''):
-        return self.safe_request(endpoint, method='PUT', params=params, files=files, message=message)
-
-    def safe_delete(self, endpoint, params=None, message=''):
-        return self.safe_request(endpoint, method='DELETE', params=params, message=message)
-
-    # pylint: disable=too-many-arguments
-    def safe_request(self, endpoint, method='GET', params=None, files=None, message='', headers=None):
-        response = self.request(endpoint, method=method, params=params, files=files, headers=headers)
-        if response.status_code >= 400:
-            raise ClientError(message)
-        return response
-
     #################################
     # Methods to implement start here
     #################################
-
-    def request(self, endpoint, method='GET', params=None, files=None, headers=None):
-        raise NotImplementedError()
 
     def get_auth(self):
         """Return the credentials for the course.

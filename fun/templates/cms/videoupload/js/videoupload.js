@@ -13,10 +13,10 @@ def reverse_course(handler_name, kwargs=None):
 
 require(["jquery", "underscore", "backbone", "gettext",
          "js/utils/templates", "js/views/modals/base_modal", "common/js/components/views/feedback_notification",
-         "videojs-fun", "libcast"],
+         "videojs-fun", "videoplayer-fun"],
   function ($, _, Backbone, gettext,
     TemplateUtils, BaseModal, NotificationView,
-    videojs, libcast) {
+    videojs, videoplayer) {
 
     var ajaxSettings = (function() {
       var headers = {};
@@ -172,9 +172,9 @@ require(["jquery", "underscore", "backbone", "gettext",
         }
         this.$el.html(this.template(values));
         if (!values.embed_url && values.video_sources && values.video_sources.length > 0) {
-          // Time to activate the libcast videojs player
+          // Time to activate the video player
           var video = this.$el.find('video')[0];
-          libcast(video);
+          videoplayer(video);
         }
         return this;
       },
