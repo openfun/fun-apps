@@ -8,6 +8,7 @@ logging.getLogger("audit").setLevel(logging.WARN)
 logging.getLogger("django_comment_client.utils").setLevel(logging.WARN)
 logging.getLogger('edx.celery.task').setLevel(logging.ERROR)
 logging.getLogger("factory").setLevel(logging.WARN)
+logging.getLogger("googleapiclient.discovery").setLevel(logging.ERROR)
 logging.getLogger('instructor_task.api_helper').setLevel(logging.ERROR)
 logging.getLogger('instructor_task.tasks_helper').setLevel(logging.ERROR)
 logging.getLogger("raven.contrib.django.client.DjangoClient").setLevel(logging.WARN)
@@ -72,3 +73,6 @@ caches = {
     },
 
 }
+
+# Disable access to videofront in tests
+VIDEOFRONT_URL = 'http://video'

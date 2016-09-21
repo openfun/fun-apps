@@ -16,5 +16,10 @@ class YoutubeCourseSettingsAdmin(admin.ModelAdmin):
     list_display = ('course_id', 'playlist_id')
 
 
+class VideofrontAuthAdminInline(admin.StackedInline):
+    model = models.VideofrontAuth
+    fields = ("token",)
+
+
 admin.site.register(models.VideoUploaderDeactivationPeriod, VideoUploaderDeactivationPeriodAdmin)
 admin.site.register(models.YoutubeCourseSettings, YoutubeCourseSettingsAdmin)

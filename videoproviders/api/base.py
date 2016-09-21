@@ -34,6 +34,7 @@ class BaseClient(object):
 
     STATUS_PROCESSING = 'processing'
     STATUS_READY = 'ready'
+    STATUS_ERROR = 'error'
 
     def __init__(self, course_key_string):
         self.course_id = CourseKey.from_string(course_key_string)
@@ -127,13 +128,12 @@ class BaseClient(object):
                         {
                             'label': ...,
                             'res': ...,
-                            url: ...
+                            'url': ...
                         },
                         ...
                     ],
                     'external_link': ...,
                 }
-        TODO: document the list of required dictionary keys. In particular: title, external_link, etc.
         """
         raise NotImplementedError()
 
@@ -153,8 +153,12 @@ class BaseClient(object):
         """Change a video title"""
         raise NotImplementedError()
 
-    def get_upload_url(self):
+    def get_upload_url(self, origin=None):
         """Get a URL for uploading a video.
+
+        Args:
+            origin (str): current domain name that may be included in CORS headers
+
         Returns: {
             "url": "http...", # url on which a POST should be made
             "file_parameter_name": "path" # name of the file parameter to be sent to the url
@@ -210,4 +214,3 @@ class BaseClient(object):
             None
         """
         raise NotImplementedError()
-

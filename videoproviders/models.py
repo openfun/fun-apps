@@ -10,6 +10,9 @@ class AuthManager(models.Manager):
     def get_for_course(self, course):
         return self.get(university__code=course.location.org)
 
+    def get_for_course_id(self, course_id):
+        return self.get(university__code=course_id.org)
+
 
 class VideoUploaderDeactivationPeriod(models.Model):
     """
@@ -48,6 +51,29 @@ class YoutubeCourseSettings(models.Model):
     """
     Store the Youtube settings for each course. Normally, these fields should
     be completed automatically by the youtube videoproviders app. Note that in
+    the case of a second course session, you might want to assign to the
+    corresponding course setting the same values as the course setting for the
+    first run.
+    """
+    course_id = CourseKeyField(max_length=255, db_index=True)
+    playlist_id = models.CharField(verbose_name=_("Playlist ID"), max_length=128)
+
+    class Meta:
+        ordering = ('course_id',)
+
+
+class VideofrontAuth(models.Model):
+    university = models.OneToOneField("universities.University",
+                                      blank=True, null=True,
+                                      verbose_name=_("Associated university"))
+    token = models.CharField(verbose_name=_("Access token"), max_length=128)
+
+    objects = AuthManager()
+
+class VideofrontCourseSettings(models.Model):
+    """
+    Store the Videofront settings for each course. Normally, these fields should
+    be completed automatically by the videofront videoproviders app. Note that in
     the case of a second course session, you might want to assign to the
     corresponding course setting the same values as the course setting for the
     first run.

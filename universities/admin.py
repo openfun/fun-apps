@@ -40,6 +40,7 @@ class UniversityAdmin(admin.ModelAdmin):
     )
     inlines = [
         videoproviders.admin.YoutubeAuthAdminInline,
+        videoproviders.admin.VideofrontAuthAdminInline,
     ]
 
     def preview(self, obj):

@@ -1,0 +1,34 @@
+{
+    "id": "videoid",
+    "title": "Dramatic Chipmunk.mp4",
+    "processing": {
+        "status": "success",
+        "progress": 100.0,
+        "started_at": "2016-08-18T07:29:47Z"
+    },
+    "subtitles": [
+        {
+            "id": "subsid",
+            "language": "bg",
+            "url": "https://s3-eu-west-1.amazonaws.com/fun-videofront/videos/videoid/subs/subsid.bg.vtt"
+        }
+    ],
+    "formats": [
+        {
+            "name": "LD",
+            "url": "https://s3-eu-west-1.amazonaws.com/fun-videofront/videos/videoid/LD.mp4",
+            "bitrate": 900.0
+        },
+        {
+            "name": "SD",
+            "url": "https://s3-eu-west-1.amazonaws.com/fun-videofront/videos/videoid/SD.mp4",
+            "bitrate": 2400.0
+        },
+        {
+            "name": "HD",
+            "url": "https://s3-eu-west-1.amazonaws.com/fun-videofront/videos/videoid/HD.mp4",
+            "bitrate": 5400.0
+        }
+    ],
+    "thumbnail": "https://s3-eu-west-1.amazonaws.com/fun-videofront/videos/videoid/thumbs/00001.png"
+}

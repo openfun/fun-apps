@@ -11,11 +11,11 @@ from django.utils import timezone
 from edxmako.shortcuts import render_to_response
 from util.json_request import JsonResponse
 
+from fun.cms.utils.views import has_write_access_to_course
 from fun.utils import get_course
 from videoproviders.api import get_client, MissingCredentials, ClientError
 from videoproviders.forms import SubtitleForm, ThumbnailForm
 from videoproviders.models import VideoUploaderDeactivationPeriod
-from ..utils.views import has_write_access_to_course
 
 
 def catch_missing_credentials_error(view_func):
@@ -120,8 +120,12 @@ def update_video(request, api_client, video_id):
 @catch_missing_credentials_error
 def file_upload_url(request, course_key_string):
     api_client = get_client(course_key_string)
+    origin = '%s://%s' % (
+        request.is_secure() and 'https' or 'http',
+        request.get_host()
+    )
     try:
-        return JsonResponse(api_client.get_upload_url())
+        return JsonResponse(api_client.get_upload_url(origin=origin))
     except ClientError as e:
         return json_error_response(_("Could not fetch upload url:"), e.message)
 

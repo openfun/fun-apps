@@ -310,7 +310,7 @@ class Client(BaseClient):
         """
         return self.auth.captions().download(id=subtitle_id).execute()
 
-    def get_upload_url(self):
+    def get_upload_url(self, origin=None):
         # Note: because the user cannot upload directly to youtube from its
         # browser, it needs to upload to the CMS first. Thus, the reverse()
         # call used here will work only in the CMS.
@@ -392,4 +392,3 @@ def media_body(file_object, chunksize=-1):
         kwargs['resumable'] = True
         kwargs['chunksize'] = chunksize
     return MediaIoBaseUpload(file_object, **kwargs)
-
