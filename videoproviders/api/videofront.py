@@ -66,7 +66,7 @@ class Client(BaseClient):
             'success': self.STATUS_READY,
             'processing': self.STATUS_PROCESSING,
             'failed': self.STATUS_ERROR,
-        }.get(processing['status'], 'processing')
+        }.get(processing['status'], self.STATUS_PROCESSING)
 
         external_link = ''
         if video['formats']:

@@ -81,6 +81,7 @@ require(["jquery", "underscore", "backbone", "gettext",
         title: "",
         thumbnail_url: "",
         video_sources: [],
+        sync_pending: false,
       },
 
       url: function() {
@@ -203,10 +204,12 @@ require(["jquery", "underscore", "backbone", "gettext",
       },
 
       modelSynced: function() {
-        if (this.model.get("status") === "processing") {
+        if (this.model.get("status") === "processing" && !this.model.get("sync_pending")) {
           // Update model after 5s if it is in 'processing' stage
+          this.model.set("sync_pending", true);
           var that = this;
-          setTimeout(function(){
+          setTimeout(function() {
+            that.model.set("sync_pending", false);
             that.model.fetch();
           }, 5000)
         }
