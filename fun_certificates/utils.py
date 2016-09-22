@@ -15,7 +15,11 @@ def cert_id_encode(key, cert_id):
 
 def cert_id_decode(key, hashid):
     hashids = Hashids(salt=key)
-    cert_id = hashids.decode(hashid)[0]
+    try:
+        cert_id = hashids.decode(hashid)[0]
+    except IndexError:
+        # Not encoded with the same key
+        return None
     return cert_id
 
 

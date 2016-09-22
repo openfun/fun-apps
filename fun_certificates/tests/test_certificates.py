@@ -74,3 +74,15 @@ class ViewTests(ModuleStoreTestCase, HelperMethods):
         self.certif.save()
         response = self.client.get(reverse('short-cert-url', args=[self.encoded]))
         self.assertEqual(200, response.status_code)
+
+    def test_old_secret_key(self):
+        user = UserFactory(username='user2')  # user with profile
+        CourseEnrollmentFactory(course_id=self.course.id, user=user)
+        certif = GeneratedCertificate.objects.create(user=user, course_id=self.course.id,
+            status=CertificateStatuses.downloadable,
+            mode=GeneratedCertificate.MODES.verified)
+
+        encoded = get_encoded_cert_id('', unicode(self.course.id), user.id)
+
+        response = self.client.get(reverse('short-cert-url', args=[encoded]))
+        self.assertEqual(200, response.status_code)
