@@ -3,6 +3,7 @@
 from collections import defaultdict
 
 from django.conf import settings
+from django.contrib.auth import load_backend, BACKEND_SESSION_KEY
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Count
 from django.http import Http404
@@ -97,3 +98,9 @@ def get_enrollment_mode_count(course_key):
         mode_count[mode] = enrollments[mode] if mode in enrollments else 0
 
     return mode_count
+
+
+def get_used_backend(request):
+    backend_str = request.session[BACKEND_SESSION_KEY]
+    backend = load_backend(backend_str)
+    return backend
