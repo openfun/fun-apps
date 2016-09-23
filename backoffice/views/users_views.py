@@ -35,7 +35,8 @@ from ..certificate_manager.utils import (
     set_certificate_filename,
 )
 from ..forms import SearchUserForm, UserForm, UserProfileForm
-from ..utils import get_course, group_required, get_course_key, order_and_paginate_queryset
+from ..utils import (get_course, group_required, get_course_key,
+        order_and_paginate_queryset, get_used_backend)
 
 
 logger = logging.getLogger(__name__)
@@ -288,10 +289,8 @@ def user_detail(request, username):
 def impersonate_user(request, username):
     user = get_object_or_404(User, username=username, is_superuser=False, is_active=True)
 
-    # We need to define the backend that was used to authenticate the user.
-    # This is a bit dirty; a possible workaround would be to add an
-    # authentication backend to the platform or to define user.backend as in
-    # the django.contrib.auth.authenticate function.
-    user.backend = None
+    backend = get_used_backend(request)
+    user.backend = "%s.%s" % (backend.__module__, backend.__class__.__name__)
+
     login(request, user)
     return redirect('/')
