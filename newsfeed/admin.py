@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django import forms
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
@@ -16,7 +18,8 @@ class ArticleAdminForm(forms.ModelForm):
         model = models.Article
         exclude = []
         widgets = {
-            "title": forms.TextInput(attrs={"size": 100})
+            "title": forms.TextInput(attrs={"size": 100}),
+            "lead_paragraph": forms.TextInput(attrs={"size": 100}),
         }
 
 
@@ -43,7 +46,7 @@ class ArticleAdmin(admin.ModelAdmin):
                 "category", "courses", "lead_paragraph",
                 "event_date", ("published", "created_at"),
                 "microsite", "text",
-            )
+           )
         }),
     )
 
@@ -53,6 +56,7 @@ class ArticleAdmin(admin.ModelAdmin):
         return template.format(url=url)
     preview.short_description = _('preview')
     preview.allow_tags = True
+
 
 admin.site.register(models.Article, ArticleAdmin)
 admin.site.register(models.ArticleCategory, ArticleCategoryAdmin)
