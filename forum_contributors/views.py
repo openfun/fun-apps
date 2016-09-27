@@ -96,9 +96,9 @@ def list_special_forum_contributors(request, course_id):
 @require_level('staff')
 def modify_special_forum_contributors(request, course_id):
 
-    unique_student_identifier = request.GET.get('unique_student_identifier')
-    rolename = request.GET.get('rolename')
-    action = request.GET.get('action')
+    unique_student_identifier = request.POST.get('unique_student_identifier')
+    rolename = request.POST.get('rolename')
+    action = request.POST.get('action')
 
     try:
         course_id = _check_rights(course_id, request.user, rolename)
