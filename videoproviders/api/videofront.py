@@ -180,8 +180,9 @@ class Client(BaseClient):
                 raise MissingCredentials(self.org)
 
             # Get or create user from API
-            response = self.get('users/' + self.org, token=admin_token)
-            if response.status_code >= 400:
+            try:
+                response = self.get('users/{}/'.format(self.org), token=admin_token)
+            except ClientError:
                 # Create user
                 response = self.post(
                     'users/',
