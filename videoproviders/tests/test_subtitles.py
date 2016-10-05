@@ -51,6 +51,6 @@ class SubtitlesTests(TestCase):
         )
         subtitles.logger.setLevel(logging.FATAL)
 
-        self.assertIsNone(subtitles.get_vtt_content(self.url))
+        self.assertEqual(0, len(subtitles.get_vtt_content(self.url)))
         mock_get.assert_called_once_with(self.url, stream=True)
         self.assertEqual("", subtitles.SUBTITLE_CACHE.get(self.url))
