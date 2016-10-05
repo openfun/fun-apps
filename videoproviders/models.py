@@ -5,14 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from xmodule_django.models import CourseKeyField
 
 
-class AuthManager(models.Manager):
-
-    def get_for_course(self, course):
-        return self.get(university__code=course.location.org)
-
-    def get_for_course_id(self, course_id):
-        return self.get(university__code=course_id.org)
-
 
 class VideoUploaderDeactivationPeriod(models.Model):
     """
@@ -68,7 +60,6 @@ class VideofrontAuth(models.Model):
                                       verbose_name=_("Associated university"))
     token = models.CharField(verbose_name=_("Access token"), max_length=128)
 
-    objects = AuthManager()
 
 class VideofrontCourseSettings(models.Model):
     """

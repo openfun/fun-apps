@@ -39,6 +39,7 @@ class VideofrontGetAuthTests(TestCase):
 
         self.assertEqual('tokenvalue', client.get_auth())
         self.assertEqual('tokenvalue', models.VideofrontAuth.objects.get().token)
+        self.assertEqual('Org', models.VideofrontAuth.objects.get().university.code)
 
     @patch('requests.get')
     def test_request_with_token(self, mock_get):

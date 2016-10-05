@@ -6,6 +6,7 @@ import requests
 from django.conf import settings
 
 from fun.utils.i18n import language_name
+import universities.models
 from videoproviders import models
 from .base import BaseClient, ClientError, MissingCredentials
 
@@ -173,11 +174,17 @@ class Client(BaseClient):
     def get_auth(self):
         """Return the authentication token for the university."""
         try:
-            auth = models.VideofrontAuth.objects.get_for_course_id(self.course_id)
+            university = universities.models.University.objects.get(code=self.course_id.org)
+        except universities.models.University.DoesNotExist:
+            raise MissingCredentials(self.org)
+        try:
+            auth = models.VideofrontAuth.objects.get(university=university)
         except models.VideofrontAuth.DoesNotExist:
             admin_token = getattr(settings, 'VIDEOFRONT_ADMIN_TOKEN', None)
             if not admin_token:
                 raise MissingCredentials(self.org)
+
+            # Get corresponding university
 
             # Get or create user from API
             try:
@@ -193,7 +200,7 @@ class Client(BaseClient):
 
             token = response.json()['token']
             auth, _created = models.VideofrontAuth.objects.get_or_create(
-                university__code=self.course_id.org, token=token
+                university=university, token=token
             )
 
         if not auth.token:
