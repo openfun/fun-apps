@@ -34,7 +34,7 @@ class University(models.Model):
         help_text=_('Only used if detail page is enabled'))
     banner = models.ImageField(_('banner'), upload_to='universities', null=True,
         blank=True)
-    description = RichTextField(_('description'), blank=True)
+    description = RichTextField(_('description'), blank=True, config_name='default')
     partnership_level = models.CharField(_('partnership level'), max_length=255,
         choices=universities_choices.UNIVERSITY_PARTNERSHIP_LEVEL, blank=True,
         db_index=True)
@@ -63,7 +63,7 @@ class University(models.Model):
             thumbnail = get_thumbnailer(self.banner).get_thumbnail(options)
             return thumbnail.url
         except InvalidImageFormatError:
-            return '' # we could return a nice grey image
+            return ''  # we could return a nice grey image
 
     def get_short_name(self):
         return self.short_name or self.name
