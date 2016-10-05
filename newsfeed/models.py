@@ -91,7 +91,7 @@ class Article(models.Model):
     lead_paragraph = models.CharField(verbose_name=_("Lead paragraph"),
             max_length=256, blank=True)
     text = ckeditor.fields.RichTextField(verbose_name=_("text"),
-            config_name='news', blank=True)
+            config_name='default', blank=True)
     event_date = models.DateTimeField(verbose_name=_("event date"),
         null=True, blank=True)
     language = models.CharField(verbose_name=_("language"),

@@ -354,3 +354,29 @@ def get_proctoru_app_if_available():
         return ('proctoru',)
     except ImportError:
         return ()
+
+# Global CKeditor configuration, used for University and Article ModelAdmin
+CKEDITOR_CONFIGS = {
+    'default': {
+       'toolbar': [
+            [      'Undo', 'Redo',
+              '-', 'Bold', 'Italic', 'Underline',
+              '-', 'Link', 'Unlink', 'Anchor',
+              '-', 'Format',
+              '-', 'SpellChecker', 'Scayt',
+              '-', 'Maximize',
+            ],
+            [      'HorizontalRule',
+              '-', 'Table',
+              '-', 'BulletedList', 'NumberedList',
+              '-', 'Cut','Copy','Paste','PasteText','PasteFromWord',
+              '-', 'SpecialChar',
+              '-', 'Source',
+            ]
+        ],
+        'toolbarCanCollapse': False,
+        'entities': False,
+        'width': 955,
+        'uiColor': '#9AB8F3',
+    }
+}
