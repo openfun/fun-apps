@@ -1,10 +1,14 @@
+import logging
 import pycaption
 import requests
 
-from django.core.cache import get_cache
+from django.conf import settings
+from django.core.cache import caches
 
 
-SUBTITLE_CACHE = get_cache("video_subtitles")
+SUBTITLE_CACHE = caches["video_subtitles"]
+
+logger = logging.getLogger(__name__)
 
 
 def get_vtt_content(url):
@@ -18,14 +22,24 @@ def get_vtt_content(url):
 
     Returns:
         caps (unicode): vtt-formatted subtitles content. Returns None if
-            subtitles could not be converted to VTT.
+            subtitles could not be converted to VTT or if the original subtitle
+            file exceeds SUBTITLE_MAX_BYTES.
     """
     caps = SUBTITLE_CACHE.get(url)
-    if not caps:
-        response = requests.get(url)
+    if caps is None:
+        response = requests.get(url, stream=True)
         if response.status_code < 400:
-            caps = convert_to_vtt(response.content)
-            if caps:
+            # Maximum subtitle file size, in bytes
+            subtitle_max_bytes = getattr(settings, "SUBTITLES_MAX_BYTES", 5*1024*1024)
+            content = ""
+            for chunk in response.iter_content(chunk_size=1024):
+                content += chunk
+                if len(content) > subtitle_max_bytes:
+                    logger.error("Trying to load large subtitle file from %s", url)
+                    content = ""
+                    break
+            caps = convert_to_vtt(content) if content else ""
+            if caps is not None:
                 SUBTITLE_CACHE.set(url, caps, 24*60*60)
     return caps
 
