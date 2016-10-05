@@ -31,7 +31,7 @@ class VideofrontGetAuthTests(TestCase):
         client = videofront.Client(self.course_key_string)
         response_404 = requests.Response()
         response_404.status_code = 404
-        client.get = Mock(return_value=response_404)
+        client.get = Mock(side_effect=videofront.ClientError)
         client.post = Mock(return_value=Mock(json=Mock(return_value={
             'username': 'Org',
             'token': 'tokenvalue'
@@ -82,7 +82,7 @@ class VideofrontTests(TestCase):
 
         self.assertEqual('videoid', video['id'])
         self.assertEqual("Dramatic Chipmunk.mp4", video['title'])
-        self.assertEqual(u"18 août 2016 07:29:47", video['created_at'])
+        self.assertEqual(u"18 août 2016 07:29", video['created_at'])
         self.assertEqual(1471498187.0, video['created_at_timestamp'])
         self.assertEqual(3, len(video['video_sources']))
 
