@@ -1,0 +1,24 @@
+<!--
+    edx-platform/cms/static/common/templates/discussion/post-user-display.underscore
+    FUN: This backbone template overrides edx-platform/cms/static/common/templates/discussion/post-user-display.underscore
+    to display ou forum custom roles. It's loaded in DOM and replace edX's one by fun-apps/funsite/templates/lms/discussion/_js_head_dependencies.html
+-->
+
+<% if (username) { %>
+
+<a href="<%- user_url %>" class="username"><%- username %></a>
+    <% if (is_community_ta) { %>
+    <span class="user-label-community-ta"><%- gettext("Community TA") %></span>
+    <% } else if (is_staff) { %>
+    <span class="user-label-staff"><%- gettext("Staff") %></span>
+
+    <% } if (is_active) { %>
+    <span class="fun-forum-role user-label-active"><%- gettext("Active") %></span>
+    <% } if (is_recommended) { %>
+    <span class="fun-forum-role user-label-recommended"><%- gettext("Recommended") %></span>
+    <% } if (is_official) { %>
+    <span class="fun-forum-role user-label-official"><%- gettext("Official") %></span>
+    <% } %>
+<% } else { %>
+    <%- gettext('anonymous') %>
+<% } %>

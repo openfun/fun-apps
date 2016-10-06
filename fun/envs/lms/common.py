@@ -100,14 +100,13 @@ MIDDLEWARE_CLASSES[
 
 TEMPLATES[0]['OPTIONS']['context_processors'] += ('fun.context_processor.fun_settings',)
 
-# add application templates directory to MAKO template finder
+# Add FUN applications templates directories to MAKO template finder before edX's ones
 MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
     FUN_BASE_ROOT / 'funsite/templates',
     FUN_BASE_ROOT / 'course_pages/templates',
     FUN_BASE_ROOT / 'payment/templates',
     FUN_BASE_ROOT / 'course_dashboard/templates',
-    FUN_BASE_ROOT / 'forum_contributors/templates',
     FUN_BASE_ROOT / 'newsfeed/templates',
     FUN_BASE_ROOT / 'fun_certificates/templates',
 ] + MAKO_TEMPLATES['main']
