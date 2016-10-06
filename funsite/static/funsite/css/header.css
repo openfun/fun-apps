@@ -476,3 +476,27 @@ section.terms-and-conditions .display-fun-payment-terms-text {
 .dashboard .my-courses .course .wrapper-messages-primary .message.message-upsell .action-upgrade .copy {
     margin-left: 20px;
 }
+
+/* FUN special forum roles colors */
+body.discussion .fun-forum-role {
+    font-size: 9px;
+    vertical-align: middle;
+    border-radius: 2px;
+    padding: 0;
+    font-style: normal;
+    text-transform: uppercase;
+    color: white;
+    padding: 0 4px;
+}
+
+body.discussion .user-label-active {
+    background: #98b3ff;
+}
+
+body.discussion .user-label-recommended {
+    background: #618aff;
+}
+
+body.discussion .user-label-official {
+    background: #0747ff;
+}
