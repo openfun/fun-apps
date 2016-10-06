@@ -1,5 +1,12 @@
 # Changelog www.fun-mooc.fr
 
+## 4.1 6/10/2016
+- Intégration de l'hébergeur de vidéos Videofront en remplacement de Youtube
+- Ré-intégration des liens vers les certificats dans les tableaux de bord des apprenants
+- Ré-intégration du logo FUN dans le studio
+- Amélioration de l'éditeur WYSIWYG
+- Exorcisme, Le Retour
+
 ## 4.0 19/09/2016
 - Merge de la nouvelle version LTS de edX: Dogwood
     - http://edx.readthedocs.io/projects/open-edx-release-notes/en/latest/dogwood.html
