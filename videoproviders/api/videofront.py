@@ -213,7 +213,11 @@ class Client(BaseClient):
         return self.convert_video_to_dict(video)
 
     def iter_videos(self):
-        for video in self.get('videos/', log_error=True).json():
+        for video in self.get(
+                'videos/',
+                params={"playlist_id": self.playlist_id},
+                log_error=True,
+        ).json():
             yield self.convert_video_to_dict(video)
 
     def delete_video(self, video_id):
