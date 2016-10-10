@@ -168,9 +168,6 @@ msgstr "ACCUEIL DISCUSSION:"
 msgid "Deny all users access to edit this article."
 msgstr "Interdire à tous les utilisateurs de modifier l'article."
 
-# Translated in edx by 'Télécharger votre {cert_name_short} (PDF)'
-msgid "Download Your {cert_name_short} (PDF)"
-msgstr "Télécharger votre attestation (PDF)"
 
 # Translated in edx by 'Changement d'adresse e-mail échoué'
 msgid "E-mail change failed"
@@ -600,3 +597,26 @@ msgstr "Ces contributeurs sont recommandés par l'équipe pédagogique'"
 
 msgid "These forum contributors are very active."
 msgstr "Ces contributeurs sont particulièrement actifs"
+
+msgid "View {cert_name_short}"
+msgstr "Voir votre certificat vérifié"
+
+msgid "This link will open the certificate web view"
+msgstr "Ce lien ouvrira votre certificat vérifié"
+
+
+msgid "Download {cert_name_short} (PDF)"
+msgstr "Télécharger votre attestationt PDF"
+
+msgid "Download Your {cert_name_short} (PDF)"
+msgstr "Télécharger votre attestationt PDF"
+
+msgid "This link will open/download a PDF document"
+msgstr "Ce lien téléchargera votre attestation PDF"
+
+
+msgid "Download Your ID Verified {cert_name_short} (PDF)"
+msgstr "Télécharger votre attestation vérifiée PDF"
+
+msgid "This link will open/download a PDF document of your verified {cert_name_long}."
+msgstr "Ce lien téléchargera votre attestation vérifiée PDF"
