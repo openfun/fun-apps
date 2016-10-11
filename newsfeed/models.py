@@ -84,7 +84,7 @@ class Article(models.Model):
     category = models.ForeignKey('ArticleCategory', verbose_name=_('category'),
         null=True, blank=True, related_name='articles')
     courses = models.ManyToManyField('courses.Course', verbose_name=_('courses'),
-        related_name='articles', limit_choices_to={'is_active': True})
+        related_name='articles', limit_choices_to={'is_active': True}, blank=True)
     thumbnail = models.ImageField(_('thumbnail'),
         upload_to='newsfeed', null=True, blank=True,
         help_text=_('Displayed on the news list page.'))
