@@ -37,7 +37,7 @@ class Course(models.Model):
     image_url = models.CharField(_(u'image url'), max_length=255, blank=True)
     universities = models.ManyToManyField('universities.University',
         through='CourseUniversityRelation', related_name='courses')
-    subjects = models.ManyToManyField('CourseSubject', related_name='courses')
+    subjects = models.ManyToManyField('CourseSubject', related_name='courses', blank=True)
     level = models.CharField(_('level'), max_length=255,
         choices=courses_choices.COURSE_LEVEL_CHOICES, blank=True, db_index=True)
     language = models.CharField(_('language'), max_length=255,
