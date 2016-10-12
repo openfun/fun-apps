@@ -1,5 +1,13 @@
 # Changelog www.fun-mooc.fr
 
+## 4.1.2 13/09/2016
+ - Certificats et attestations :
+   - meilleures traductions dans le dashboard #3205
+   - changement de formulation sur le certificat HTML #3234
+   - les liens des attestations PDF dans le dashboard sont réparés #3251
+ - Le cours n'est plus obligatoire dans la saisie de news dans l'admin #3250
+ - Retour de l'affichage des rôles spécifiques dans les forums #3233
+
 ## 4.1 6/10/2016
 - Intégration de l'hébergeur de vidéos Videofront en remplacement de Youtube
 - Ré-intégration des liens vers les certificats dans les tableaux de bord des apprenants
