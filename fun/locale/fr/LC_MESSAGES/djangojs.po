@@ -128,3 +128,15 @@ msgstr "Choisir un sujet spécifique"
 
 msgid "Search for specific posts"
 msgstr "Rechercher un sujet"
+
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
+msgid "Active"
+msgstr "Actif"
+
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
+msgid "Official"
+msgstr "Officiel"
+
+#: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
+msgid "Recommended"
+msgstr "Recommandé"

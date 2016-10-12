@@ -582,3 +582,21 @@ msgstr "Fixez-vous un défi !"
 
 msgid "Take this course to obtain a certificate."
 msgstr "Ce cours permet l'obtention d'un certificat"
+
+msgid "Official contributors"
+msgstr "Contributeurs officiels"
+
+msgid "Recommended contributors"
+msgstr "Contributeurs recommandés"
+
+msgid "Active contributors"
+msgstr "Contributeurs actifs"
+
+msgid "Official forum contributors."
+msgstr "Contributeurs officiels du forum"
+
+msgid "These forum contributors are recommended by the instructor."
+msgstr "Ces contributeurs sont recommandés par l'équipe pédagogique'"
+
+msgid "These forum contributors are very active."
+msgstr "Ces contributeurs sont particulièrement actifs"

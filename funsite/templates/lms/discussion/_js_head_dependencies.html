@@ -1,0 +1,82 @@
+<%doc>
+    FUN: We override this template to override and extend backbone classes and template
+    to add handling of our custom forum roles
+</%doc>
+
+<%namespace name='static' file='../static_content.html'/>
+
+<script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
+<script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
+
+<%static:js group='discussion_vendor'/>
+
+<link href="${static.url('css/vendor/jquery.autocomplete.css')}" rel="stylesheet" type="text/css">
+
+
+<%doc>
+    FUN: Replace a backbone template in DOM
+</%doc>
+<script aria-hidden="true" type="text/template" id="post-user-display-template">
+    <%static:include path="discussion/post-user-display.underscore" />
+</script>
+
+
+<script>
+
+$(document).ready(function(){
+
+    console.log('overrided');
+
+    // Extends edx-platform/common/static/coffee/src/discussion/utils.js
+    DiscussionUtil.isActive = function(user_id) {
+        var role = _.union(this.roleIds['Active']);
+        return _.include(role, parseInt(user_id));
+    };
+    DiscussionUtil.isRecommended = function(user_id) {
+        var role = _.union(this.roleIds['Recommended']);
+        return _.include(role, parseInt(user_id));
+    };
+    DiscussionUtil.isOfficialContributor = function(user_id) {
+        var role = _.union(this.roleIds['Official Contributor']);
+        return _.include(role, parseInt(user_id));
+    };
+
+
+    // Overrides edx-platform/lms/static/xmodule_js/common_static/coffee/src/discussion/content.js
+    Content.prototype.initialize = function() {
+        var userId;
+        Content.addContent(this.id, this);
+        userId = this.get('user_id');
+        if (userId != null) {
+            this.set('staff_authored', DiscussionUtil.isStaff(userId));
+            this.set('community_ta_authored', DiscussionUtil.isTA(userId));
+
+            this.set('is_active', DiscussionUtil.isActive(userId));
+            this.set('is_recommended', DiscussionUtil.isRecommended(userId));
+            this.set('is_official', DiscussionUtil.isOfficialContributor(userId));
+        } else {
+            this.set('staff_authored', false);
+            this.set('community_ta_authored', false);
+        }
+            if (Content.getInfo(this.id)) {
+            this.updateInfo(Content.getInfo(this.id));
+        }
+        this.set('user_url', DiscussionUtil.urlFor('user_profile', userId));
+        return this.resetComments(this.get('children'));
+    };
+
+    // Overrrides edx-platform/common/static/coffee/src/discussion/views/discussion_content_view.js
+    DiscussionContentShowView.prototype.getAuthorDisplay = function() {
+        return _.template($("#post-user-display-template").html())({
+            username: this.model.get('username') || null,
+            user_url: this.model.get('user_url'),
+            is_community_ta: this.model.get('community_ta_authored'),
+            is_staff: this.model.get('staff_authored'),
+            is_active: this.model.get('is_active'),
+            is_recommended: this.model.get('is_recommended'),
+            is_official: this.model.get('is_official')
+      });
+    };
+})
+</script>
+
