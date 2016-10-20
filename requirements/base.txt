@@ -20,6 +20,3 @@ hashids==1.1.0
 # Video
 -e git+https://github.com/openfun/libcast-xblock.git@0.4.2#egg=libcast-xblock
 google-api-python-client==1.5.1
-
-# ProctorU
--e git+https://github.com/perpetualny/proctorU-xblock.git@funmooc#egg=proctoru-xblock
