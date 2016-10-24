@@ -176,7 +176,7 @@ define(['videojs-fun'], function(videojs) {
 
     // Resolution switching
     player.resolutionSwitcher({
-      defaultRes: "512"
+      defaultRes: "2400,0"  // 720p
     });
 
     // CSS
