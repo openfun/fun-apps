@@ -60,6 +60,9 @@ class VideofrontAuth(models.Model):
                                       verbose_name=_("Associated university"))
     token = models.CharField(verbose_name=_("Access token"), max_length=128)
 
+    def __unicode__(self):
+        return u"VideofrontAuth: %s" % self.universities.name
+
 
 class VideofrontCourseSettings(models.Model):
     """
@@ -74,3 +77,7 @@ class VideofrontCourseSettings(models.Model):
 
     class Meta:
         ordering = ('course_id',)
+
+    def __unicode__(self):
+        return u"VideofrontCourseSettings: course: %s playlist: %s" % (
+                self.course_id, self.playlist_id)
