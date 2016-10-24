@@ -12,8 +12,13 @@ class YoutubeAuthAdminInline(admin.StackedInline):
     fields = ("client_id", "client_secret", "access_token", "refresh_token", "token_expiry",)
 
 
-class YoutubeCourseSettingsAdmin(admin.ModelAdmin):
+class VideofrontCourseSettingsAdmin(admin.ModelAdmin):
     list_display = ('course_id', 'playlist_id')
+    search_fields = ('course_id', 'playlist_id')
+
+
+class YoutubeCourseSettingsAdmin(VideofrontCourseSettingsAdmin):
+    pass
 
 
 class VideofrontCourseSettingsAdmin(admin.ModelAdmin):
@@ -28,4 +33,5 @@ class VideofrontAuthAdminInline(admin.StackedInline):
 
 admin.site.register(models.VideoUploaderDeactivationPeriod, VideoUploaderDeactivationPeriodAdmin)
 admin.site.register(models.YoutubeCourseSettings, YoutubeCourseSettingsAdmin)
+
 admin.site.register(models.VideofrontCourseSettings, VideofrontCourseSettingsAdmin)
