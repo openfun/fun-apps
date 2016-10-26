@@ -174,7 +174,6 @@ define(['videojs-fun'], function(videojs) {
   // Export function
   return function (element) {
     var player = videojs(element);
-
     // Resolution switching
     var defaultRes = $.cookie('defaultRes');
     if (!defaultRes) {
@@ -187,7 +186,7 @@ define(['videojs-fun'], function(videojs) {
     // CSS
     $(player.el()).find(
       ".vjs-resolution-button .vjs-menu-button-value"
-    ).css("font-size", "1.5em").css("line-height", "2");
+    ).css("font-size", "1.4em").css("line-height", "2");
     $(player.el()).find(
       ".vjs-resolution-button .vjs-menu-item"
     ).css("text-transform", "none");
