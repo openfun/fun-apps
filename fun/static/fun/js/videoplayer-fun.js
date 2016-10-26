@@ -85,6 +85,7 @@ define(['videojs-fun'], function(videojs) {
       this.src(src);
       this.currentSrc = src;
       this.trigger('resolutionchange', src);
+      $.cookie('defaultRes', src.res, {expires: 1000, path: '/courses/'});
       return this;
     };
     videojs.Player.prototype.changeSrc = function(src) {
@@ -175,8 +176,12 @@ define(['videojs-fun'], function(videojs) {
     var player = videojs(element);
 
     // Resolution switching
+    var defaultRes = $.cookie('defaultRes');
+    if (!defaultRes) {
+      defaultRes = "2400,0";
+    }
     player.resolutionSwitcher({
-      defaultRes: "2400,0"  // 720p
+        defaultRes: defaultRes
     });
 
     // CSS
