@@ -358,7 +358,9 @@ def get_proctoru_app_if_available():
 # Global CKeditor configuration, used for University and Article ModelAdmin
 CKEDITOR_CONFIGS = {
     'default': {
-       'toolbar': [
+        'filebrowserUploadUrl': '/news/ckeditor/upload/',
+        'filebrowserBrowseUrl': '/news/ckeditor/browse/',
+        'toolbar': [
             [      'Undo', 'Redo',
               '-', 'Bold', 'Italic', 'Underline',
               '-', 'Link', 'Unlink', 'Anchor',
@@ -366,6 +368,7 @@ CKEDITOR_CONFIGS = {
               '-', 'SpellChecker', 'Scayt',
               '-', 'Maximize',
             ],
+            ['Image'],
             [      'HorizontalRule',
               '-', 'Table',
               '-', 'BulletedList', 'NumberedList',
