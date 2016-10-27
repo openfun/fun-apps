@@ -61,7 +61,7 @@ class VideofrontAuth(models.Model):
     token = models.CharField(verbose_name=_("Access token"), max_length=128)
 
     def __unicode__(self):
-        return u"VideofrontAuth: %s" % self.universities.name
+        return u"VideofrontAuth: %s" % self.university.name
 
 
 class VideofrontCourseSettings(models.Model):
