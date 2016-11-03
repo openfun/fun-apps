@@ -25,7 +25,7 @@ from submissions.models import StudentItem
 
 from backoffice.utils import get_course_key
 
-COMMIT_EACH_N = 1000
+COMMIT_EACH_N = 1
 
 # we want to remove logging about "id doesn't match computed id" during the script execution
 log = logging.getLogger("student.models")
@@ -44,7 +44,7 @@ class NoAutocommitContext(object):
         print "Disabling autocommit"
         set_autocommit(False)
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, *args):
         commit()
         print("commited last items")
 
@@ -86,8 +86,9 @@ def _init_csv():
     """Create the first lines of the backup CSVs."""
     with open("/tmp/anon_ids.csv", "a") as f:
         f.write("# AnonymousUserId dump file\n")
-        f.write("# {}\t{}\t{}\n".format("course_key_string",
+        f.write("# {}\t{}\t{}\t{}\n".format("course_key_string",
                                         "user_primary_key",
+                                        "username",
                                         "anonymous_id"))
 
     header = "# {}\t{}\t{}\t{}\n"
@@ -115,9 +116,10 @@ def save_db_anon():
         db_anonymous_user_id = annon_id.anonymous_user_id
 
         with open("/tmp/anon_ids.csv", "a") as f:
-            f.write("{}\t{}\t{}\n".format(unicode(course_id),
-                                          user.pk,
-                                          db_anonymous_user_id))
+            f.write("{}\t{}\t{}\t{}\n".format(unicode(course_id),
+                                        user.pk,
+                                        user.username,
+                                        db_anonymous_user_id))
 
         old_anon, current_anon = old_current_anon_ids(user, course_id)
 
@@ -142,13 +144,13 @@ def restore_db_anon_ids():
     commit manually each COMMIT_EACH_N in order to not block the base.
     """
 
-    with NoAutocommitContext:
+    with NoAutocommitContext():
         with open("/tmp/anon_ids.csv", "r") as f:
             f.next()
             f.next()
             for index, line in enumerate(f):
                 data = line.strip().split("\t")
-                course_key_string, user_pk, saved_anonymous_user_id = data
+                course_key_string, user_pk, _, saved_anonymous_user_id = data
 
                 if course_key_string.lower() == "none":
                     # in dev I have some none in course key string...
@@ -165,7 +167,7 @@ def restore_db_anon_ids():
                 message = "OK Restauring anonymous user id, student_pk {} with anonymous id {}"
                 print(message.format(user_pk, saved_anonymous_user_id))
 
-                if index % COMMIT_EACH_N == 0:
+                if (index + 1) % COMMIT_EACH_N == 0:
                     commit()
                     print("      => commited transactions")
 
@@ -180,7 +182,7 @@ def restore_student_items():
     We need to manipulate the commit configuration and
     commit manually each COMMIT_EACH_N in order to not block the base.
     """
-    with NoAutocommitContext:
+    with NoAutocommitContext():
         with open("/tmp/student_items.csv", "r") as f:
             f.next()
             f.next()
@@ -202,7 +204,7 @@ def restore_student_items():
                     message = "OK Restauring student item, student_id: {} -> {}"
                     print(message.format(updated_anon_id, old_user_anon_id))
 
-                if index % COMMIT_EACH_N == 0:
+                if (index + 1) % COMMIT_EACH_N == 0:
                     commit()
                     print("      => commited transactions")
 
@@ -216,7 +218,7 @@ def restaure_data():
     It doesn't restore the database in the old configuration (some ids will be wrong).
     DO NOT USE IN PRODUCTION
     """
-    with NoAutocommitContext:
+    with NoAutocommitContext():
         annon_ids = AnonymousUserId.objects.all()
         for index, annon_id in enumerate(annon_ids):
             course_id = annon_id.course_id
@@ -237,7 +239,7 @@ def restaure_data():
                 print("Updating anonymous user ID {} -> {}".format(old_anon, current_anon))
                 annon_id.save()
 
-            if index % COMMIT_EACH_N == 0:
+            if (index+1) % COMMIT_EACH_N == 0:
                 commit()
                 print("      => commited transactions")
 
@@ -252,13 +254,14 @@ def primary_keys_ok():
     find the pivot (old / new secret key used) in all the tables.
     """
     annon_ids = AnonymousUserId.objects.all()
+    users_ok_pk = []  # users primary keys
+    items_ok_pk = []  # student_items ok primary_keys
+
     for annon_id in annon_ids:
         course_id = annon_id.course_id
         user = annon_id.user
         db_anonymous_user_id = annon_id.anonymous_user_id
 
-        users_ok_pk = []  # users primary keys
-        items_ok_pk = []  # student_items ok primary_keys
         old_anon, current_anon = old_current_anon_ids(user, course_id)
         if db_anonymous_user_id == current_anon:
             users_ok_pk.append(user.pk)
@@ -275,7 +278,7 @@ def primary_keys_ok():
 
 def migrate_data():
     """ Change the anonyous user id to match the new secret key"""
-    with NoAutocommitContext:
+    with NoAutocommitContext():
         annon_ids = AnonymousUserId.objects.all()
         for index, annon_id in enumerate(annon_ids):
             course_id = annon_id.course_id
@@ -297,7 +300,7 @@ def migrate_data():
                 print("Updating anonymous user ID {} -> {}".format(old_anon, current_anon))
                 annon_id.save()
 
-            if index % COMMIT_EACH_N == 0:
+            if (index + 1) % COMMIT_EACH_N == 0:
                 commit()
                 print("      => commited transactions")
 
@@ -310,7 +313,7 @@ class Command(BaseCommand):
                 Command to update anon ids after the secret key update.
                 -------------------------------------------------------
 
-             Usage : < [--migrate] [--backup] [--restore] [--remove-csv] >
+             Usage : < --migrate >
 
              To use it :
 
@@ -318,6 +321,7 @@ class Command(BaseCommand):
                   1 - migrate: to migrate the data
                   2 - backup: to backup to CSV files
                   3 - restore: to restore databases from CSV files
+                  4 - stats: to dump primary keys in order to find the pivot
 
                 optional :
                   1 - remove_csv: remove already existing CSV before performing backup
@@ -349,6 +353,11 @@ class Command(BaseCommand):
                     dest='remove',
                     default=False,
                     ),
+        make_option('--stats',
+                    action='store_true',
+                    dest='stats',
+                    default=False,
+                    ),
         )
 
     def handle(self, *args, **options):
@@ -371,3 +380,8 @@ class Command(BaseCommand):
             restore_student_items()
             restore_db_anon_ids()
             print("End data restoration")
+
+        if options["stats"]:
+            print("Dumping primary keys")
+            primary_keys_ok()
+            print("End primary keys dump")
