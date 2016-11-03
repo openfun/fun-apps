@@ -1,5 +1,11 @@
 # Changelog www.fun-mooc.fr
 
+## 4.2 27/09/2016
+- Diverses ameliorations :
+    + Résolution par défaut du player video à 720 lignes
+    + Utilisation de la version opensource corrigée du Xblock ProctorU
+    + Amélioration des classes admin de videoprovider
+
 ## 4.1.2 13/09/2016
  - Certificats et attestations :
    - meilleures traductions dans le dashboard #3205
