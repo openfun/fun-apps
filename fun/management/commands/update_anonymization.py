@@ -286,7 +286,7 @@ def primary_keys_ok(course_id):
 def migrate_data():
     """ Change the anonyous user id to match the new secret key"""
     with NoAutocommitContext():
-        annon_ids = AnonymousUserId.objects.all()
+        annon_ids = AnonymousUserId.objects.iterator()
         for index, annon_id in enumerate(annon_ids):
             course_id = annon_id.course_id
             user = annon_id.user
