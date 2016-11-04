@@ -119,6 +119,8 @@ def save_db_anon():
         user = annon_id.user
         db_anonymous_user_id = annon_id.anonymous_user_id
 
+        print(annon_id)
+
         with open("/tmp/anon_ids.csv", "a") as f:
             f.write("{}\t{}\t{}\t{}\n".format(unicode(course_id),
                                         user.pk,
