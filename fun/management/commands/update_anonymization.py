@@ -29,7 +29,7 @@ from backoffice.utils import get_course_key
 from opaque_keys.edx.keys import CourseKey
 
 
-COMMIT_EACH_N = 1
+COMMIT_EACH_N = 1000
 
 # we want to remove logging about "id doesn't match computed id" during the script execution
 log = logging.getLogger("student.models")
@@ -114,16 +114,18 @@ def save_db_anon():
 
     print("getting anon ids")
     annon_ids = AnonymousUserId.objects.iterator()
+    count = AnonymousUserId.objects.count()
     print("anon ids ok")
 
     with open("/tmp/anon_ids.csv", "a") as f:
         with open("/tmp/student_items.csv", "a") as g:
-            for annon_id in annon_ids:
+            for index, annon_id in enumerate(annon_ids):
                 course_id = annon_id.course_id
                 user = annon_id.user
                 db_anonymous_user_id = annon_id.anonymous_user_id
 
-                print(annon_id.user)
+                if (index+1) % COMMIT_EACH_N == 0:
+                    print("Saved {} / {}".format(index, count))
 
                 f.write("{}\t{}\t{}\t{}\n".format(unicode(course_id),
                                             user.pk,
@@ -227,7 +229,7 @@ def restaure_data():
     DO NOT USE IN PRODUCTION
     """
     with NoAutocommitContext():
-        annon_ids = AnonymousUserId.objects.all()
+        annon_ids = AnonymousUserId.objects.iterator()
         for index, annon_id in enumerate(annon_ids):
             course_id = annon_id.course_id
             user = annon_id.user
