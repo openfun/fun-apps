@@ -112,14 +112,16 @@ def save_db_anon():
     """
     _init_csv()
 
-    annon_ids = AnonymousUserId.objects.all()
+    print("getting anon ids")
+    annon_ids = AnonymousUserId.objects.iterator()
+    print("anon ids ok")
 
     for annon_id in annon_ids:
         course_id = annon_id.course_id
         user = annon_id.user
         db_anonymous_user_id = annon_id.anonymous_user_id
 
-        print(annon_id)
+        print(annon_id.user)
 
         with open("/tmp/anon_ids.csv", "a") as f:
             f.write("{}\t{}\t{}\t{}\n".format(unicode(course_id),
