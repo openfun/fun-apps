@@ -25,6 +25,10 @@ from submissions.models import StudentItem
 
 from backoffice.utils import get_course_key
 
+
+from opaque_keys.edx.keys import CourseKey
+
+
 COMMIT_EACH_N = 1
 
 # we want to remove logging about "id doesn't match computed id" during the script execution
@@ -246,34 +250,30 @@ def restaure_data():
     print("End data migration")
 
 
-def primary_keys_ok():
+def primary_keys_ok(course_id):
     """ Show the primary key of the first anonymous_id and first student_item with the correct key
 
     Dump data in the file /tmp/secret_key_primary_keys_ok.json
     With the file we can analyze the primary_keys repartition to
     find the pivot (old / new secret key used) in all the tables.
     """
-    annon_ids = AnonymousUserId.objects.all()
+    ck = CourseKey.from_string(course_id)
+
     users_ok_pk = []  # users primary keys
     items_ok_pk = []  # student_items ok primary_keys
 
-    for annon_id in annon_ids:
-        course_id = annon_id.course_id
-        user = annon_id.user
-        db_anonymous_user_id = annon_id.anonymous_user_id
+    for anon_user_id in AnonymousUserId.objects.filter(user__courseenrollment__course_id=ck):
+        ident = anon_user_id.anonymous_user_id
 
-        old_anon, current_anon = old_current_anon_ids(user, course_id)
-        if db_anonymous_user_id == current_anon:
-            users_ok_pk.append(user.pk)
+        old_ident, current_ident = old_current_anon_ids(anon_user_id.user, anon_user_id.course_id)
+        if current_ident == ident:
+            users_ok_pk.append(anon_user_id.user.pk)
 
-        items_ok_pk.extend(
-            StudentItem.objects.
-            filter(student_id=current_anon).
-            values_list("pk", flat=True)
-        )
+            items_ok_pk.extend(
+                StudentItem.objects.filter(student_id=current_anon).values_list("pk", flat=True))
 
     oks = {"student_items": items_ok_pk, "user_ids": users_ok_pk}
-    json.dump(oks, open("/tmp/secret_key_primary_keys_ok.json", "w"))
+    json.dump(oks, open("/tmp/secret_key_primary_keys_ok-%s.json" % ck.to_deprecated_string(), "w"))
 
 
 def migrate_data():
@@ -358,6 +358,10 @@ class Command(BaseCommand):
                     dest='stats',
                     default=False,
                     ),
+        make_option('--course',
+                    action='store',
+                    dest='course',
+                    ),
         )
 
     def handle(self, *args, **options):
@@ -383,5 +387,5 @@ class Command(BaseCommand):
 
         if options["stats"]:
             print("Dumping primary keys")
-            primary_keys_ok()
+            primary_keys_ok(course_id=options['course'])
             print("End primary keys dump")
