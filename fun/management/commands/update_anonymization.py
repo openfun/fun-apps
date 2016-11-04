@@ -270,10 +270,11 @@ def primary_keys_ok(course_id):
             users_ok_pk.append(anon_user_id.user.pk)
 
             items_ok_pk.extend(
-                StudentItem.objects.filter(student_id=current_anon).values_list("pk", flat=True))
+                StudentItem.objects.filter(student_id=current_ident).values_list("pk", flat=True))
 
     oks = {"student_items": items_ok_pk, "user_ids": users_ok_pk}
-    json.dump(oks, open("/tmp/secret_key_primary_keys_ok-%s.json" % ck.to_deprecated_string(), "w"))
+    filename = ck.to_deprecated_string().replace('/', '-')
+    json.dump(oks, open("/tmp/secret_key_primary_keys_ok-%s.json" % filename, "w"))
 
 
 def migrate_data():
