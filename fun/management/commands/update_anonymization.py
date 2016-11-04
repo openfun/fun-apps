@@ -116,31 +116,31 @@ def save_db_anon():
     annon_ids = AnonymousUserId.objects.iterator()
     print("anon ids ok")
 
-    for annon_id in annon_ids:
-        course_id = annon_id.course_id
-        user = annon_id.user
-        db_anonymous_user_id = annon_id.anonymous_user_id
+    with open("/tmp/anon_ids.csv", "a") as f:
+        with open("/tmp/student_items.csv", "a") as g:
+            for annon_id in annon_ids:
+                course_id = annon_id.course_id
+                user = annon_id.user
+                db_anonymous_user_id = annon_id.anonymous_user_id
 
-        print(annon_id.user)
+                print(annon_id.user)
 
-        with open("/tmp/anon_ids.csv", "a") as f:
-            f.write("{}\t{}\t{}\t{}\n".format(unicode(course_id),
-                                        user.pk,
-                                        user.username,
-                                        db_anonymous_user_id))
+                f.write("{}\t{}\t{}\t{}\n".format(unicode(course_id),
+                                            user.pk,
+                                            user.username,
+                                            db_anonymous_user_id))
 
-        old_anon, current_anon = old_current_anon_ids(user, course_id)
+                old_anon, current_anon = old_current_anon_ids(user, course_id)
 
-        old_anon_student_items = StudentItem.objects.filter(student_id=old_anon)
-        for old_anon_student_item in old_anon_student_items:
-            student_id = old_anon_student_item.student_id
-            course_key_string = old_anon_student_item.course_id
-            item_id = old_anon_student_item.item_id
+                old_anon_student_items = StudentItem.objects.filter(student_id=old_anon)
+                for old_anon_student_item in old_anon_student_items:
+                    student_id = old_anon_student_item.student_id
+                    course_key_string = old_anon_student_item.course_id
+                    item_id = old_anon_student_item.item_id
 
-            with open("/tmp/student_items.csv", "a") as g:
-                g.write("{}\t{}\t{}\t{}\n".format(course_key_string,
-                                                  student_id,
-                                                  item_id, current_anon))
+                    g.write("{}\t{}\t{}\t{}\n".format(course_key_string,
+                                                      student_id,
+                                                      item_id, current_anon))
 
 
 def restore_db_anon_ids():
