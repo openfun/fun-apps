@@ -112,9 +112,12 @@ def save_db_anon():
     """
     _init_csv()
 
+    print("counting elements in anon ids")
+    count = AnonymousUserId.objects.count()
+    print("count ok")
+
     print("getting anon ids")
     annon_ids = AnonymousUserId.objects.iterator()
-    count = AnonymousUserId.objects.count()
     print("anon ids ok")
 
     with open("/tmp/anon_ids.csv", "a") as f:
