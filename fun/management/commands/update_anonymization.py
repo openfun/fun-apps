@@ -22,6 +22,7 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 from django.db.transaction import commit, set_autocommit
 
+from student.models import CourseEnrollment
 from courses.models import Course
 from student.models import AnonymousUserId
 from submissions.models import StudentItem
@@ -299,6 +300,14 @@ def primary_keys_ok(course_id):
     json.dump(oks, open("/tmp/secret_key_primary_keys_ok-%s.json" % filename, "w"))
 
 
+
+def get_AnonymousUserIds(course_id):
+    ck = CourseKey.from_string(course_id)
+    enrollments = CourseEnrollment.objects.filter(course_id=ck).values_list('user__id', flat=True)
+    ids = AnonymousUserId.objects.filter(course_id=ck, user__id__in=enrollments)
+    return ids
+
+
 def migrate_data(course_id):
     """ Change the anonyous user id to match the new secret key"""
     print("migrating %s" % course)
@@ -306,7 +315,7 @@ def migrate_data(course_id):
 
     with NoAutocommitContext():
 
-        annon_ids = AnonymousUserId.objects.filter(user__courseenrollment__course_id=ck)
+        annon_ids = get_AnonymousUserIds(course_id)
         print("%s: %d" % (ck, annon_ids.count()))
         for index, annon_id in enumerate(annon_ids):
             user = annon_id.user
@@ -336,9 +345,9 @@ def migrate_data(course_id):
 
 def create_SQL_restore(course_id):
     """Create SQL statements file to restore AnonymousUserId objects."""
-    ck = CourseKey.from_string(course_id)
-    anon_ids = AnonymousUserId.objects.filter(user__courseenrollment__course_id=ck)
-    with open("/tmp/restore_AnonymousUserId-%s.sql" % ck.to_deprecated_string().replace('/', '-'), "w") as sqlfile:
+    anon_ids = get_AnonymousUserIds(course_id)
+    with open("/tmp/restore_AnonymousUserId-%s.sql" %
+            course_id.replace('/', '-'), "w") as sqlfile:
         sqlfile.write('START TRANSACTION;\n')
         for anon_id in anon_ids:
             sqlfile.write('UPDATE student_anonymoususerid SET anonymous_user_id="%s" where id=%d;\n' % (
@@ -435,11 +444,10 @@ class Command(BaseCommand):
 
         if options["stats"]:
             print("Dumping primary keys")
-            if "course" in options :
+            if "course" in options:
                 primary_keys_ok(course_id=options['course'])
-            else :
+            else:
                 courses = Course.objects.all()
                 for course in courses:
                     primary_keys_ok(course)
-
             print("End primary keys dump")
