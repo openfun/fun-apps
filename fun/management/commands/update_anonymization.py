@@ -10,20 +10,20 @@ Hopfully, this will solve the issues about :
  * "anonymous id doesn't match computed..." spamming error
 """
 
+import hashlib
 from datetime import datetime
 import json
 import os
 from optparse import make_option
 import logging
 
-
-from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 from django.contrib.auth.models import User
-from django.test.utils import override_settings
+from django.core.management.base import BaseCommand, CommandError
 from django.db.transaction import commit, set_autocommit
 
 from courses.models import Course
-from student.models import AnonymousUserId, anonymous_id_for_user
+from student.models import AnonymousUserId
 from submissions.models import StudentItem
 
 from backoffice.utils import get_course_key
@@ -32,11 +32,14 @@ from backoffice.utils import get_course_key
 from opaque_keys.edx.keys import CourseKey
 
 
+OLD_SECRET_KEY = ""
+NEW_SECRET_KEY = settings.SECRET_KEY
+
 COMMIT_EACH_N = 1000
 
 # we want to remove logging about "id doesn't match computed id" during the script execution
-log = logging.getLogger("student.models")
-log.setLevel(logging.CRITICAL)
+#log = logging.getLogger("student.models")
+#log.setLevel(logging.CRITICAL)
 
 
 class NoAutocommitContext(object):
@@ -68,12 +71,19 @@ def old_current_anon_ids(student, course_id):
     anonymous_id_for_user makes poor man's caching in a dictionary, so we
     need to reset the dict before using the function.
     """
-    student._anonymous_id = {}
-    anon_id_current = anonymous_id_for_user(student, course_id)
-    with override_settings(SECRET_KEY="lms_dev_secret_key"):
-        student._anonymous_id = {}
-        anon_id_old = anonymous_id_for_user(student, course_id)
-    return anon_id_old, anon_id_current
+
+    old_hasher = hashlib.md5()
+    new_hasher = hashlib.md5()
+    old_hasher.update(OLD_SECRET_KEY)
+    new_hasher.update(NEW_SECRET_KEY)
+    old_hasher.update(unicode(student.id))
+    new_hasher.update(unicode(student.id))
+    old_hasher.update(course_id.encode('utf-8'))
+    new_hasher.update(course_id.encode('utf-8'))
+    old_digest = old_hasher.hexdigest()
+    new_digest = new_hasher.hexdigest()
+
+    return old_digest, new_digest
 
 
 def remove_already_existing_csv():
@@ -180,7 +190,7 @@ def restore_db_anon_ids():
                 anon_user.anonymous_user_id = saved_anonymous_user_id
                 anon_user.save()
 
-                message = "OK Restauring anonymous user id, student_pk {} with anonymous id {}"
+                message = "OK Restoring anonymous user id, student_pk {} with anonymous id {}"
                 print(message.format(user_pk, saved_anonymous_user_id))
 
                 if (index + 1) % COMMIT_EACH_N == 0:
@@ -217,17 +227,17 @@ def restore_student_items():
                     student_item.student_id = old_user_anon_id
                     student_item.save()
 
-                    message = "OK Restauring student item, student_id: {} -> {}"
+                    message = "OK Restoring student item, student_id: {} -> {}"
                     print(message.format(updated_anon_id, old_user_anon_id))
 
                 if (index + 1) % COMMIT_EACH_N == 0:
                     commit()
                     print("      => commited transactions")
 
-    print("End restaure_student_items")
+    print("End restore_student_items")
 
 
-def restaure_data():
+def restore_data():
     """ Change the anonyous user id to match the new secret key
 
     WARNING : these function only switch anonymous id from one secret key to the other.
@@ -289,12 +299,16 @@ def primary_keys_ok(course_id):
     json.dump(oks, open("/tmp/secret_key_primary_keys_ok-%s.json" % filename, "w"))
 
 
-def migrate_data():
+def migrate_data(course_id):
     """ Change the anonyous user id to match the new secret key"""
+    print("migrating %s" % course)
+    ck = CourseKey.from_string(course_id)
+
     with NoAutocommitContext():
-        annon_ids = AnonymousUserId.objects.iterator()
+
+        annon_ids = AnonymousUserId.objects.filter(user__courseenrollment__course_id=ck)
+        print("%s: %d" % (ck, annon_ids.count()))
         for index, annon_id in enumerate(annon_ids):
-            course_id = annon_id.course_id
             user = annon_id.user
             db_anonymous_user_id = annon_id.anonymous_user_id
 
@@ -403,8 +417,7 @@ class Command(BaseCommand):
             if "course" in options :
                 primary_keys_ok(course_id=options['course'])
             else :
-                pivot = datetime(2016, 9, 19)
-                courses = Course.objects.filter(start_date__lt=pivot, end_date__gt=pivot).values_list('key', flat=True)
+                courses = Course.objects.all()
                 for course in courses:
                     primary_keys_ok(course)
 
