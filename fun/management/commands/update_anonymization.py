@@ -334,6 +334,17 @@ def migrate_data(course_id):
     print("End data migration")
 
 
+def create_SQL_restore(course_id):
+    """Create SQL statements file to restore AnonymousUserId objects."""
+    ck = CourseKey.from_string(course_id)
+    anon_ids = AnonymousUserId.objects.filter(user__courseenrollment__course_id=ck)
+    with open("/tmp/restore_AnonymousUserId-%s.sql" % ck.to_deprecated_string().replace('/', '-'), "w") as sqlfile:
+        sqlfile.write('START TRANSACTION;\n')
+        for anon_id in anon_ids:
+            sqlfile.write('UPDATE student_anonymoususerid SET anonymous_user_id="%s" where id=%d;\n' % (
+                    anon_id.anonymous_user_id, anon_id.id))
+        sqlfile.write('COMMIT;\n')
+
 
 class Command(BaseCommand):
     help = """
@@ -385,6 +396,11 @@ class Command(BaseCommand):
                     dest='stats',
                     default=False,
                     ),
+        make_option('--create-sql-restore',
+                    action='store_true',
+                    dest='create-sql-restore',
+                    default=False,
+                    ),
         make_option('--course',
                     action='store',
                     dest='course',
@@ -411,6 +427,11 @@ class Command(BaseCommand):
             restore_student_items()
             restore_db_anon_ids()
             print("End data restoration")
+
+        if options["create-sql-restore"]:
+            print("Creating SQL restore file")
+            create_SQL_restore(course_id=options['course'])
+            print("End")
 
         if options["stats"]:
             print("Dumping primary keys")
