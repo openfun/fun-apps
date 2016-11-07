@@ -352,7 +352,7 @@ def create_StudentItem_SQL_restore(course_id):
 
             for row in StudentItem.objects.filter(student_id=old_anon):
                 assert old_anon == row.student_id
-                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d' %
+                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d\n' %
                     (old_anon, row.id))
 
         sqlfile.write('COMMIT;\n')
@@ -368,7 +368,7 @@ def create_StudentItem_SQL_update(course_id):
 
             for row in StudentItem.objects.filter(student_id=old_anon):
                 assert old_anon == row.student_id
-                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d' %
+                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d\n' %
                     (current_anon, row.id))
 
         sqlfile.write('COMMIT;\n')
