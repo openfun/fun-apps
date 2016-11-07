@@ -310,13 +310,12 @@ def get_AnonymousUserIds(course_id):
 
 def migrate_data(course_id):
     """ Change the anonyous user id to match the new secret key"""
-    print("migrating %s" % course)
-    ck = CourseKey.from_string(course_id)
+    print("migrating %s" % course_id)
 
     with NoAutocommitContext():
-
         annon_ids = get_AnonymousUserIds(course_id)
-        print("%s: %d" % (ck, annon_ids.count()))
+        print("%s: %d" % (course_id, annon_ids.count()))
+
         for index, annon_id in enumerate(annon_ids):
             user = annon_id.user
             db_anonymous_user_id = annon_id.anonymous_user_id
@@ -343,7 +342,39 @@ def migrate_data(course_id):
     print("End data migration")
 
 
-def create_SQL_restore(course_id):
+def create_StudentItem_SQL_restore(course_id):
+    anon_ids = get_AnonymousUserIds(course_id)
+    with open("/tmp/restore_StudentItem-%s.sql" %
+            course_id.replace('/', '-'), "w") as sqlfile:
+        sqlfile.write('START TRANSACTION;\n')
+        for anon_id in anon_ids:
+            old_anon, current_anon = old_current_anon_ids(anon_id.user, course_id)
+
+            for row in StudentItem.objects.filter(student_id=old_anon):
+                assert old_anon == row.student_id
+                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d' %
+                    (old_anon, row.id))
+
+        sqlfile.write('COMMIT;\n')
+
+
+def create_StudentItem_SQL_update(course_id):
+    anon_ids = get_AnonymousUserIds(course_id)
+    with open("/tmp/update_StudentItem-%s.sql" %
+            course_id.replace('/', '-'), "w") as sqlfile:
+        sqlfile.write('START TRANSACTION;\n')
+        for anon_id in anon_ids:
+            old_anon, current_anon = old_current_anon_ids(anon_id.user, course_id)
+
+            for row in StudentItem.objects.filter(student_id=old_anon):
+                assert old_anon == row.student_id
+                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d' %
+                    (current_anon, row.id))
+
+        sqlfile.write('COMMIT;\n')
+
+
+def create_AnonymousUserId_SQL_restore(course_id):
     """Create SQL statements file to restore AnonymousUserId objects."""
     anon_ids = get_AnonymousUserIds(course_id)
     with open("/tmp/restore_AnonymousUserId-%s.sql" %
@@ -352,6 +383,19 @@ def create_SQL_restore(course_id):
         for anon_id in anon_ids:
             sqlfile.write('UPDATE student_anonymoususerid SET anonymous_user_id="%s" where id=%d;\n' % (
                     anon_id.anonymous_user_id, anon_id.id))
+        sqlfile.write('COMMIT;\n')
+
+
+def create_AnonymousUserId_SQL_update(course_id):
+    anon_ids = get_AnonymousUserIds(course_id)
+    with open("/tmp/update_AnonymousUserId-%s.sql" %
+            course_id.replace('/', '-'), "w") as sqlfile:
+        sqlfile.write('START TRANSACTION;\n')
+        for anon_id in anon_ids:
+            old_anon, current_anon = old_current_anon_ids(anon_id.user, course_id)
+            if anon_id.anonymous_user_id != current_anon:
+                sqlfile.write('UPDATE student_anonymoususerid SET anonymous_user_id="%s" where id=%d;\n' % (
+                        current_anon, anon_id.id))
         sqlfile.write('COMMIT;\n')
 
 
@@ -405,9 +449,24 @@ class Command(BaseCommand):
                     dest='stats',
                     default=False,
                     ),
-        make_option('--create-sql-restore',
+        make_option('--create-sql-update-anonymous',
                     action='store_true',
-                    dest='create-sql-restore',
+                    dest='create-sql-update-anonymous',
+                    default=False,
+                    ),
+        make_option('--create-sql-restore-anonymous',
+                    action='store_true',
+                    dest='create-sql-restore-anonymous',
+                    default=False,
+                    ),
+        make_option('--create-sql-update-student',
+                    action='store_true',
+                    dest='create-sql-update-student',
+                    default=False,
+                    ),
+        make_option('--create-sql-restore-student',
+                    action='store_true',
+                    dest='create-sql-restore-student',
                     default=False,
                     ),
         make_option('--course',
@@ -437,10 +496,27 @@ class Command(BaseCommand):
             restore_db_anon_ids()
             print("End data restoration")
 
-        if options["create-sql-restore"]:
-            print("Creating SQL restore file")
-            create_SQL_restore(course_id=options['course'])
+
+        if options["create-sql-restore-anonymous"]:
+            print("Creating SQL restore file for AnonymousStudentId")
+            create_AnonymousUserId_SQL_restore(course_id=options['course'])
             print("End")
+
+        if options["create-sql-update-anonymous"]:
+            print("Creating SQL update file for AnonymousStudentId")
+            create_AnonymousUserId_SQL_update(course_id=options['course'])
+            print("End")
+
+        if options["create-sql-restore-student"]:
+            print("Creating SQL restore file for StudentItem")
+            create_StudentItem_SQL_restore(course_id=options['course'])
+            print("End")
+
+        if options["create-sql-update-student"]:
+            print("Creating SQL update file for StudentItem")
+            create_StudentItem_SQL_update(course_id=options['course'])
+            print("End")
+
 
         if options["stats"]:
             print("Dumping primary keys")
