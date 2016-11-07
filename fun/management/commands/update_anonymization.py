@@ -10,16 +10,19 @@ Hopfully, this will solve the issues about :
  * "anonymous id doesn't match computed..." spamming error
 """
 
+from datetime import datetime
 import json
 import os
 from optparse import make_option
 import logging
+
 
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 from django.test.utils import override_settings
 from django.db.transaction import commit, set_autocommit
 
+from courses.models import Course
 from student.models import AnonymousUserId, anonymous_id_for_user
 from submissions.models import StudentItem
 
@@ -397,5 +400,12 @@ class Command(BaseCommand):
 
         if options["stats"]:
             print("Dumping primary keys")
-            primary_keys_ok(course_id=options['course'])
+            if "course" in options :
+                primary_keys_ok(course_id=options['course'])
+            else :
+                pivot = datetime(2016, 9, 19)
+                courses = Course.objects.filter(start_date__lt=pivot, end_date__gt=pivot).values_list('key', flat=True)
+                for course in courses:
+                    primary_keys_ok(course)
+
             print("End primary keys dump")
