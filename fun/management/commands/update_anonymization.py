@@ -33,7 +33,7 @@ from backoffice.utils import get_course_key
 from opaque_keys.edx.keys import CourseKey
 
 
-OLD_SECRET_KEY = "lms_dev_secret_key"
+OLD_SECRET_KEY = ""
 NEW_SECRET_KEY = settings.SECRET_KEY
 
 COMMIT_EACH_N = 1000
@@ -505,9 +505,13 @@ class Command(BaseCommand):
 
         if options["create-sql-files"]:
             print("Creating SQL files")
+            print(" * Anon User update")
             create_AnonymousUserId_SQL_update(course_id=options['course'])
+            print(" * Anon User restore")
             create_AnonymousUserId_SQL_restore(course_id=options['course'])
+            print(" * Student Item update")
             create_StudentItem_SQL_restore(course_id=options['course'])
+            print(" * Student Utem restore")
             create_StudentItem_SQL_update(course_id=options['course'])
             print("End")
         if options["create-sql-restore-anonymous"]:
