@@ -33,7 +33,7 @@ from backoffice.utils import get_course_key
 from opaque_keys.edx.keys import CourseKey
 
 
-OLD_SECRET_KEY = ""
+OLD_SECRET_KEY = "lms_dev_secret_key"
 NEW_SECRET_KEY = settings.SECRET_KEY
 
 COMMIT_EACH_N = 1000
@@ -352,7 +352,7 @@ def create_StudentItem_SQL_restore(course_id):
 
             for row in StudentItem.objects.filter(student_id=old_anon):
                 assert old_anon == row.student_id
-                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d\n' %
+                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
                     (old_anon, row.id))
 
         sqlfile.write('COMMIT;\n')
@@ -368,7 +368,7 @@ def create_StudentItem_SQL_update(course_id):
 
             for row in StudentItem.objects.filter(student_id=old_anon):
                 assert old_anon == row.student_id
-                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d\n' %
+                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
                     (current_anon, row.id))
 
         sqlfile.write('COMMIT;\n')
@@ -449,6 +449,13 @@ class Command(BaseCommand):
                     dest='stats',
                     default=False,
                     ),
+
+        make_option('--create-sql-files',
+                    action='store_true',
+                    dest='create-sql-files',
+                    help='Create 2 SQL files to update StudentItem and AnonymousUserId and respective backups',
+                    default=False,
+                    ),
         make_option('--create-sql-update-anonymous',
                     action='store_true',
                     dest='create-sql-update-anonymous',
@@ -496,7 +503,13 @@ class Command(BaseCommand):
             restore_db_anon_ids()
             print("End data restoration")
 
-
+        if options["create-sql-files"]:
+            print("Creating SQL files")
+            create_AnonymousUserId_SQL_update(course_id=options['course'])
+            create_AnonymousUserId_SQL_restore(course_id=options['course'])
+            create_StudentItem_SQL_restore(course_id=options['course'])
+            create_StudentItem_SQL_update(course_id=options['course'])
+            print("End")
         if options["create-sql-restore-anonymous"]:
             print("Creating SQL restore file for AnonymousStudentId")
             create_AnonymousUserId_SQL_restore(course_id=options['course'])
