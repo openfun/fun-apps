@@ -31,6 +31,7 @@ from backoffice.utils import get_course_key
 
 
 from opaque_keys.edx.keys import CourseKey
+from courses.models import Course
 
 
 OLD_SECRET_KEY = ""
@@ -398,6 +399,18 @@ def create_AnonymousUserId_SQL_update(course_id):
                         current_anon, anon_id.id))
         sqlfile.write('COMMIT;\n')
 
+def create_sql_files(course_id):
+    print("Creating SQL files for course {}".format(course_id))
+    print(" * Anon User update")
+    create_AnonymousUserId_SQL_update(course_id=course_id)
+    print(" * Anon User restore")
+    create_AnonymousUserId_SQL_restore(course_id=course_id)
+    print(" * Student Item update")
+    create_StudentItem_SQL_restore(course_id=course_id)
+    print(" * Student Utem restore")
+    create_StudentItem_SQL_update(course_id=course_id)
+    print("End")
+
 
 class Command(BaseCommand):
     help = """
@@ -504,16 +517,15 @@ class Command(BaseCommand):
             print("End data restoration")
 
         if options["create-sql-files"]:
-            print("Creating SQL files")
-            print(" * Anon User update")
-            create_AnonymousUserId_SQL_update(course_id=options['course'])
-            print(" * Anon User restore")
-            create_AnonymousUserId_SQL_restore(course_id=options['course'])
-            print(" * Student Item update")
-            create_StudentItem_SQL_restore(course_id=options['course'])
-            print(" * Student Utem restore")
-            create_StudentItem_SQL_update(course_id=options['course'])
-            print("End")
+            if not options['course']:
+                pivot = datetime(2016, 9, 19)
+                courses = list(Course.objects.filter(start_date__lt=pivot, end_date__gt=pivot).values_list('key', flat=True))
+                [create_sql_files(course) for course in courses]
+            else:
+                create_sql_files(options['course '])
+
+
+
         if options["create-sql-restore-anonymous"]:
             print("Creating SQL restore file for AnonymousStudentId")
             create_AnonymousUserId_SQL_restore(course_id=options['course'])
