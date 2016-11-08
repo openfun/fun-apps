@@ -27,5 +27,3 @@ FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
 
 PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not user aggregated static files
-
-SECRET_KEY = 'cms_dev_secret_key'
