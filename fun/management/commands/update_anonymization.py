@@ -23,6 +23,7 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 
 from courses.models import Course
+import opaque_keys
 from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, AnonymousUserId
 from submissions.models import StudentItem
@@ -213,7 +214,10 @@ class Command(BaseCommand):
         if options["create-sql-files"]:
             if not options['course']:
                 for course in COURSES:
-                    create_sql_files(course)
+                    try:
+                        create_sql_files(course)
+                    except opaque_keys.InvalidKeyError:
+                        print("Course {} not found".format(course))
             else:
                 create_sql_files(options['course'])
 
