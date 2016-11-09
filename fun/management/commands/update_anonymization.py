@@ -37,6 +37,29 @@ SAVE_PATH = '/tmp/'
 COMMIT_EACH_N = 1000
 
 
+COURSES = ['lorraine/30003SP/SPOC_Licence_2016', 'unicaen/48001/session01', 'ENSDeLyon/14005/session01', 'UMONS/88001/session01',
+'essec/46002S02SP/SPOC_hiver2016', 'FUN/FUN103/FUNV3', 'ENSMP/76002/session01', 'MinesTelecom/04014S02/session02',
+'MinesTelecom/04013S02/session02', 'ENSCachan/20008S03/session03', 'UVHC/23001S01/session01', 'Agreenium/66002/session01',
+'CNAM/01007S01SP/SPOC_doctorants', 'AFPIF/79001S03/session03', 'MinesTelecom/04020/session01', 'MinesTelecom/04010S01SP/SPOC_4G1_2016',
+'inria/41013/session01', 'ubordeaux/28001S03/session03', 'uved/34001S02/session02', 'MinesTelecom/04003S11SP/SPOC_Licence_2016',
+'inria/41006S02/session02', 'usousse/74001S02/session02', 'inria/41001S03/session03', 'IFOCA/85001S02/session02', 'inria/41012/session01',
+'umontpellier/08002S02/session02', 'MinesTelecom/04003S06SP/SPOC_FC_Togo', 'MinesTelecom/04019/session01', 'Inalco/52001/session01',
+'parisdescartes/70002S02/session02', 'MinesTelecom/04011S02/session02', 'Paris1/16004/session01', 'UPSUD/42004/session01',
+'CNAM/01014S02/session02', 'MinesTelecom/04003S05/session05', 'EcoleAir/65001S02/session02', 'UBO/63001S02/session02',
+'ensam/022001S04/session04', 'pasteur/96001/session01', 'MinesTelecom/04008S02/session02', 'lorraine/30001S02/session02',
+'inria/41003S02/session02', 'univ-toulouse/101006S02/session02', 'CoR/114001/session01/', 'lorraine/30003/session01',
+'MinesTelecom/04006S05/session05', 'CNAM/01019S02/session02', 'parisdiderot/56003/Trimestre_3_2016', 'CNAM/01018S02/session02',
+'grenoblealpes/92003S03/session03', 'lorraine/30002S02/session02', 'uved/34005S02/session02', 'ENSCachan/20014/session01',
+'AFPIF/79001S02/session02', 'univ-toulouse/101005/session01', 'ENSMP/76001S02/session02', 'animafac-cnous/45001S02/session02',
+'CNFPT/87003/session01', 'Canope/80001S02/session02', 'UPSUD/42001S06/session06', 'CNFPT/87002/session01', 'MinesTelecom/04003S12SP/SPOC_Mastere_2016',
+'cirad/100001/session01', 'grenoblealpes/92001/session01', 'MinesTelecom/04013S01SP/SPOC_FC', 'ubourgogne/82003/session01',
+'univnantes/31001S02/session02', 'ensam/022003S02/session02', 'psl/47001S02/Session2', 'ENSMP/76001/session02',
+'ENSCachan/20001S02/session03', 'essec/46003S02SP/SPOC_hiver2016', 'CNAM/01004S01SP/SPOC_Enjmin', 'FUN/00101/Trimestre_3_2014',
+'univnantes/31004S03/session03', 'parisdiderot/56002S02/session02', 'MinesTelecom/04014S03/session03',
+'CNAM/01005S03/session03', 'MinesTelecom/04021/session01', 'MinesTelecom/04016/session01', 'USPC/37001/session01']
+
+
+
 def old_current_anon_ids(student, course_id):
     """ Compute anonymous id with the old secret key and the current one.
     """
@@ -189,10 +212,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if options["create-sql-files"]:
             if not options['course']:
-                pivot = datetime(2016, 9, 19)
-                courses = list(Course.objects.filter(start_date__lt=pivot, end_date__gt=pivot
-                        ).values_list('key', flat=True))
-                for course in courses:
+                for course in COURSES:
                     create_sql_files(course)
             else:
                 create_sql_files(options['course'])
