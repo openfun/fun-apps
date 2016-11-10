@@ -39,7 +39,7 @@ COMMIT_EACH_N = 1000
 
 
 COURSES = ['lorraine/30003SP/SPOC_Licence_2016', 'unicaen/48001/session01', 'ENSDeLyon/14005/session01', 'UMONS/88001/session01',
-'essec/46002S02SP/SPOC_hiver2016', 'FUN/FUN103/FUNV3', 'ENSMP/76002/session01', 'MinesTelecom/04014S02/session02',
+'essec/46002S02SP/SPOC_hiver2016', 'ENSMP/76002/session01', 'MinesTelecom/04014S02/session02',
 'MinesTelecom/04013S02/session02', 'ENSCachan/20008S03/session03', 'UVHC/23001S01/session01', 'Agreenium/66002/session01',
 'CNAM/01007S01SP/SPOC_doctorants', 'AFPIF/79001S03/session03', 'MinesTelecom/04020/session01', 'MinesTelecom/04010S01SP/SPOC_4G1_2016',
 'inria/41013/session01', 'ubordeaux/28001S03/session03', 'uved/34001S02/session02', 'MinesTelecom/04003S11SP/SPOC_Licence_2016',
@@ -55,9 +55,10 @@ COURSES = ['lorraine/30003SP/SPOC_Licence_2016', 'unicaen/48001/session01', 'ENS
 'CNFPT/87003/session01', 'Canope/80001S02/session02', 'UPSUD/42001S06/session06', 'CNFPT/87002/session01', 'MinesTelecom/04003S12SP/SPOC_Mastere_2016',
 'cirad/100001/session01', 'grenoblealpes/92001/session01', 'MinesTelecom/04013S01SP/SPOC_FC', 'ubourgogne/82003/session01',
 'univnantes/31001S02/session02', 'ensam/022003S02/session02', 'psl/47001S02/Session2', 'ENSMP/76001/session02',
-'ENSCachan/20001S02/session03', 'essec/46003S02SP/SPOC_hiver2016', 'CNAM/01004S01SP/SPOC_Enjmin', 'FUN/00101/Trimestre_3_2014',
+'ENSCachan/20001S02/session03', 'essec/46003S02SP/SPOC_hiver2016', 'CNAM/01004S01SP/SPOC_Enjmin',
 'univnantes/31004S03/session03', 'parisdiderot/56002S02/session02', 'MinesTelecom/04014S03/session03',
-'CNAM/01005S03/session03', 'MinesTelecom/04021/session01', 'MinesTelecom/04016/session01', 'USPC/37001/session01']
+'CNAM/01005S03/session03', 'MinesTelecom/04021/session01', 'MinesTelecom/04016/session01', 'USPC/37001/session01',
+'/univrennes1/110001/session01', 'grenoblealpes/92002/session01']
 
 
 
