@@ -145,7 +145,7 @@ def create_StudentItem_SQL_update(course_id):
                 sql_line = "-- {} \n".format(commentary)
                 sqlfile.write(sql_line)
 
-                print("Duplicate entry for user : {}".format(anon_id.user.username))
+                print("       Duplicate entry for user : {}".format(anon_id.user.username))
                 continue
 
             if new_submissions and not old_submissions:
@@ -154,7 +154,7 @@ def create_StudentItem_SQL_update(course_id):
                 sql_line = "-- {} \n".format(commentary)
                 sqlfile.write(sql_line)
 
-                print("Only submission with new ID for user: {}".format(anon_id.user.username))
+                print("       Only submission with new ID for user: {}".format(anon_id.user.username))
                 continue
 
             # if we don't have a new submission, we update the student_id to the new one
