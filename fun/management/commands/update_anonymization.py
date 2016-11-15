@@ -112,8 +112,9 @@ def create_StudentItem_SQL_restore(course_id):
                 new_items.add(new_submission.item_id)
 
                 if old_submission:
+                    assert len(old_submission) == 1
                     commentary = "2 submissions for user: {}, keeping the one with the new id ; first submission id: {}, second id: {}"
-                    commentary = commentary.format(anon_id.user.username, old_submission.id, new_submission.id)
+                    commentary = commentary.format(anon_id.user.username, old_submission[0].id, new_submission.id)
                 else:
                     commentary = "only one submission with new ID for user: {} ; keeping it"
                     commentary = commentary.format(anon_id.user.username)
@@ -156,8 +157,9 @@ def create_StudentItem_SQL_update(course_id):
                 new_items.add(new_submission.item_id)
 
                 if old_submission:
+                    assert len(old_submission) == 1
                     commentary = "2 submissions for user: {}, keeping the one with the new id ; first submission id: {}, second id: {}"
-                    commentary = commentary.format(anon_id.user.username, old_submission.id, new_submission.id)
+                    commentary = commentary.format(anon_id.user.username, old_submission[0].id, new_submission.id)
                 else:
                     commentary = "only one submission with new ID for user: {} ; keeping it"
                     commentary = commentary.format(anon_id.user.username)
