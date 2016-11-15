@@ -32,7 +32,7 @@ from backoffice.utils import get_course_key
 
 
 OLD_SECRET_KEY = ""
-NEW_SECRET_KEY = settings.SECRET_KEY
+NEW_SECRET_KEY = u"#2#ea0*ai0&fwrnu#@17ao3dp3*6ykuck=1hikhpf@%pktmzb^"
 SAVE_PATH = '/tmp/'
 
 COMMIT_EACH_N = 1000
