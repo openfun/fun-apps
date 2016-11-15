@@ -104,9 +104,11 @@ def create_StudentItem_SQL_restore(course_id):
             if new_submissions:
                 assert len(new_submissions) == 1
                 row = new_submissions[0]
-                ## we need to check this...
-                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
-                    (current_anon, row.id))
+                commentary = "2 submissions for user : {}, restoring the newest".format(anon_id.user.username)
+                sql_line = ('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d; -- %s\n' %
+                            (current_anon, row.id, commentary))
+                sqlfile.write(sql_line)
+                continue
 
             old_submissions = StudentItem.objects.filter(student_id=old_anon)
             for row in old_submissions:
@@ -131,6 +133,10 @@ def create_StudentItem_SQL_update(course_id):
             new_submissions = StudentItem.objects.filter(student_id=current_anon)
             if new_submissions:
                 assert len(new_submissions) == 1
+                commentary = "2 submissions for user : {}, not updating line".format(anon_id.user.username)
+                sql_line = "-- {} \n".format(commentary)
+                sqlfile.write(sql_line)
+
                 print("Duplicate entry for user : {}".format(anon_id.user.username))
                 continue
 
