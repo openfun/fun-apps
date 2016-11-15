@@ -108,7 +108,7 @@ def create_StudentItem_SQL_restore(course_id):
 
             if new_submissions:
                 row = new_submissions[0]
-                commentary = "2 submissions for user : {}, restoring the newest".format(anon_id.user.username)
+                commentary = "Restoring submission with new ID detected for user: {}".format(anon_id.user.username)
                 sql_line = ('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d; -- %s\n' %
                             (current_anon, row.id, commentary))
                 sqlfile.write(sql_line)
@@ -139,7 +139,7 @@ def create_StudentItem_SQL_update(course_id):
             assert len(old_submissions) in (0, 1)
             assert len(new_submissions) in (0, 1)
 
-            if new_submissions:
+            if new_submissions and old_submissions:
                 commentary = "2 submissions for user : {}, not updating, first submission : {}, second : {}"
                 commentary = commentary.format(anon_id.user.username, old_submissions[0].id, new_submissions[0].id)
                 sql_line = "-- {} \n".format(commentary)
@@ -148,6 +148,16 @@ def create_StudentItem_SQL_update(course_id):
                 print("Duplicate entry for user : {}".format(anon_id.user.username))
                 continue
 
+            if new_submissions and not old_submissions:
+                commentary = "No update, only submission with new ID for user: {}"
+                commentary = commentary.format(anon_id.user.username, old_submissions[0].id, new_submissions[0].id)
+                sql_line = "-- {} \n".format(commentary)
+                sqlfile.write(sql_line)
+
+                print("Only submission with new ID for user: {}".format(anon_id.user.username))
+                continue
+
+            # if we don't have a new submission, we update the student_id to the new one
             for row in old_submissions:
                 assert old_anon == row.student_id
                 sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
