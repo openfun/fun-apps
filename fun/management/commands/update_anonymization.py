@@ -103,10 +103,10 @@ def create_StudentItem_SQL_restore(course_id):
             new_submissions = StudentItem.objects.filter(student_id=current_anon)
             if new_submissions:
                 assert len(new_submissions) == 1
+                row = new_submissions[0]
                 ## we need to check this...
                 sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
                     (current_anon, row.id))
-                continue
 
             old_submissions = StudentItem.objects.filter(student_id=old_anon)
             for row in old_submissions:
