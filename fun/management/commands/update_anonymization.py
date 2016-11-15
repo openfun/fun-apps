@@ -100,7 +100,17 @@ def create_StudentItem_SQL_restore(course_id):
         for anon_id in anon_ids:
             old_anon, current_anon = old_current_anon_ids(anon_id.user, course_id)
 
-            for row in StudentItem.objects.filter(student_id=old_anon):
+            new_submissions = StudentItem.objects.filter(student_id=current_anon)
+            if new_submissions:
+                assert len(new_submissions) == 1
+                ## we need to check this...
+                sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
+                    (current_anon, row.id))
+                continue
+
+            old_submissions = StudentItem.objects.filter(student_id=old_anon)
+            for row in old_submissions:
+                assert len(old_submissions) == 1
                 assert old_anon == row.student_id
                 sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
                     (old_anon, row.id))
@@ -118,7 +128,15 @@ def create_StudentItem_SQL_update(course_id):
         for anon_id in anon_ids:
             old_anon, current_anon = old_current_anon_ids(anon_id.user, course_id)
 
-            for row in StudentItem.objects.filter(student_id=old_anon):
+            new_submissions = StudentItem.objects.filter(student_id=current_anon)
+            if new_submissions:
+                assert len(new_submissions) == 1
+                print("Duplicate entry for user : {}".format(anon_id.user.username))
+                continue
+
+            old_submissions = StudentItem.objects.filter(student_id=old_anon)
+            for row in old_submissions:
+                assert len(old_submissions) == 1
                 assert old_anon == row.student_id
                 sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
                     (current_anon, row.id))
@@ -159,9 +177,9 @@ def create_sql_files(course_id):
     create_AnonymousUserId_SQL_update(course_id=course_id)
     print(" * AnonymousUserId restore")
     create_AnonymousUserId_SQL_restore(course_id=course_id)
-    print(" * StudentItem update")
-    create_StudentItem_SQL_restore(course_id=course_id)
     print(" * StudentItem restore")
+    create_StudentItem_SQL_restore(course_id=course_id)
+    print(" * StudentItem update")
     create_StudentItem_SQL_update(course_id=course_id)
     print("End")
 
