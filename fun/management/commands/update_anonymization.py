@@ -150,7 +150,7 @@ def create_StudentItem_SQL_update(course_id):
 
             if new_submissions and not old_submissions:
                 commentary = "No update, only submission with new ID for user: {}"
-                commentary = commentary.format(anon_id.user.username, old_submissions[0].id, new_submissions[0].id)
+                commentary = commentary.format(anon_id.user.username)
                 sql_line = "-- {} \n".format(commentary)
                 sqlfile.write(sql_line)
 
