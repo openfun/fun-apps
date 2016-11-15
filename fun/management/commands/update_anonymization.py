@@ -101,8 +101,12 @@ def create_StudentItem_SQL_restore(course_id):
             old_anon, current_anon = old_current_anon_ids(anon_id.user, course_id)
 
             new_submissions = StudentItem.objects.filter(student_id=current_anon)
+            old_submissions = StudentItem.objects.filter(student_id=old_anon)
+
+            assert len(old_submissions) in (0, 1)
+            assert len(new_submissions) in (0, 1)
+
             if new_submissions:
-                assert len(new_submissions) == 1
                 row = new_submissions[0]
                 commentary = "2 submissions for user : {}, restoring the newest".format(anon_id.user.username)
                 sql_line = ('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d; -- %s\n' %
@@ -110,9 +114,8 @@ def create_StudentItem_SQL_restore(course_id):
                 sqlfile.write(sql_line)
                 continue
 
-            old_submissions = StudentItem.objects.filter(student_id=old_anon)
-            for row in old_submissions:
-                assert len(old_submissions) == 1
+            if old_submissions:
+                row = old_submissions[0]
                 assert old_anon == row.student_id
                 sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
                     (old_anon, row.id))
@@ -131,21 +134,24 @@ def create_StudentItem_SQL_update(course_id):
             old_anon, current_anon = old_current_anon_ids(anon_id.user, course_id)
 
             new_submissions = StudentItem.objects.filter(student_id=current_anon)
+            old_submissions = StudentItem.objects.filter(student_id=old_anon)
+
+            assert len(old_submissions) in (0, 1)
+            assert len(new_submissions) in (0, 1)
+
             if new_submissions:
-                assert len(new_submissions) == 1
-                commentary = "2 submissions for user : {}, not updating line".format(anon_id.user.username)
+                commentary = "2 submissions for user : {}, not updating, first submission : {}, second : {}"
+                commentary = commentary.format(anon_id.user.username, old_submissions[0].id, new_submissions[0].id)
                 sql_line = "-- {} \n".format(commentary)
                 sqlfile.write(sql_line)
 
                 print("Duplicate entry for user : {}".format(anon_id.user.username))
                 continue
 
-            old_submissions = StudentItem.objects.filter(student_id=old_anon)
             for row in old_submissions:
-                assert len(old_submissions) == 1
                 assert old_anon == row.student_id
                 sqlfile.write('UPDATE submissions_studentitem SET student_id="%s" WHERE id=%d;\n' %
-                    (current_anon, row.id))
+                              (current_anon, row.id))
 
         sqlfile.write('COMMIT;\n')
 
