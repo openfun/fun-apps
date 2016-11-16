@@ -196,7 +196,10 @@ def users_without_proctoru_reservation(request, course_key_string):
         return HttpResponse('ProctorU xblock not installed')
 
     course = get_course(course_key_string)
-    reports, last_update = get_mongo_reports(course.id)
+
+    mongo_reports = get_mongo_reports(course.id)
+    reports = mongo_reports["data"]
+
     if "warn" in reports or "error" in reports:
         logger.error(reports)
         return HttpResponse('Something went wrong : {}'.format(reports))
