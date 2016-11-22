@@ -28,6 +28,7 @@ INSTALLED_APPS += (
     'ckeditor',
     'raven.contrib.django.raven_compat',
     'pure_pagination',
+    'chosen',
 
     'payment',
     'payment_api',

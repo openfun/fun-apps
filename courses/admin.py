@@ -3,6 +3,7 @@
 from django.contrib import admin
 from django.forms import ModelForm, ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
+from chosen import forms as chosenforms
 
 from teachers.admin import CourseTeacherInline, CertificateTeacherInline
 from universities.models import University
@@ -12,7 +13,7 @@ from .models import Course, CourseSubject, CourseUniversityRelation
 
 
 class CourseUniversityRelationInlineForm(ModelForm):
-    university = ModelChoiceField(queryset=University.objects.all().order_by("name"))
+    university = chosenforms.ChosenModelChoiceField(queryset=University.objects.all().order_by("name"))
 
 
 class CourseUniversityRelationInline(admin.TabularInline):
