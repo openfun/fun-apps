@@ -169,6 +169,6 @@ class ViewArticlesTest(TestCase):
         upload_url = reverse('news-ckeditor-upload')
         browse_url = reverse('news-ckeditor-browse')
 
-        news_config = settings.CKEDITOR_CONFIGS['news']
+        news_config = settings.CKEDITOR_CONFIGS['default']
         self.assertEqual(upload_url, news_config['filebrowserUploadUrl'])
         self.assertEqual(browse_url, news_config['filebrowserBrowseUrl'])
