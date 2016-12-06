@@ -11,15 +11,15 @@ django-haystack==2.4.1
 hashids==1.1.0
 
 # Password Container XBlock
--e git+https://github.com/openfun/password-container-xblock.git@master#egg=password_container
--e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
+#-e git+https://github.com/openfun/password-container-xblock.git@master#egg=password_container
+#-e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
 
 # Grade External Activitiy XBlock
--e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
+#-e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
 
 # Video
 -e git+https://github.com/openfun/libcast-xblock.git@0.4.2#egg=libcast-xblock
 google-api-python-client==1.5.1
 
 # Proctoru
--e git+https://github.com/openfun/ProctorU-xBlock.git@fun/dogwood#egg=proctoru-xblock
+#-e git+https://github.com/openfun/ProctorU-xBlock.git@fun/dogwood#egg=proctoru-xblock

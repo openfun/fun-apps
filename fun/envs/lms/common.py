@@ -6,38 +6,38 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 INSTALLED_APPS += (
     'rest_framework.authtoken',
 
-    'backoffice',
+#    'backoffice',
     'fun',
-    'funsite',
+#    'funsite',
     'fun_api',
-    'fun_certificates',
-    'fun_instructor',
-    'contact',
-    'course_dashboard',
+#    'fun_certificates',
+#    'fun_instructor',
+#    'contact',
+#    'course_dashboard',
     'courses',
     'courses_api',
     'course_pages',
-    'newsfeed',
+#    'newsfeed',
     'universities',
-    'universities_api',
+#    'universities_api',
     'videoproviders',
 
-    'haystack',
-    'easy_thumbnails',
-    'bootstrapform',
-    'ckeditor',
+#    'haystack',
+#    'easy_thumbnails',
+#    'bootstrapform',
+#    'ckeditor',
     'raven.contrib.django.raven_compat',
-    'pure_pagination',
+#    'pure_pagination',
 
-    'payment',
-    'payment_api',
+#    'payment',
+#    'payment_api',
 
-    'forum_contributors',
+#    'forum_contributors',
     'selftest',
-    'password_container',  # this is an xblock we add to applications to allow syncdb of its models
+#    'password_container',  # this is an xblock we add to applications to allow syncdb of its models
     'teachers',
-    'faq',
-    'edx_gea',
+#    'faq',
+#    'edx_gea',
 )
 INSTALLED_APPS += get_proctoru_app_if_available()
 
@@ -69,9 +69,11 @@ MKTG_URL_LINK_MAP = {
     "LEGAL": "legal",
     "COPYRIGHTS": None,
     "ROOT": 'root',
-    'COURSES': 'fun-courses:index',
+#    'COURSES': 'fun-courses:index',
 }
 FUN_MKTG_URLS = {}
+# Enable legal page
+MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
 FEATURES['ACCESS_REQUIRE_STAFF_FOR_COURSE'] = True  # hide spocs from course list
 FEATURES['ALLOW_COURSE_STAFF_GRADE_DOWNLOADS'] = True
@@ -93,29 +95,27 @@ FEATURES['ENFORCE_PASSWORD_POLICY'] = True
 FEATURES['ENABLE_CONTENT_LIBRARIES'] = False  # Content libraries support requires new coursekey format
 
 # replace edX's StaticContentServer middleware by ours (which generates nice thumbnails)
-MIDDLEWARE_CLASSES = list(MIDDLEWARE_CLASSES)
-MIDDLEWARE_CLASSES[
-    MIDDLEWARE_CLASSES.index('contentserver.middleware.StaticContentServer')
-] = 'fun.middleware.ThumbnailStaticContentServer'
+#MIDDLEWARE_CLASSES = list(MIDDLEWARE_CLASSES)
+#MIDDLEWARE_CLASSES[
+#    MIDDLEWARE_CLASSES.index('contentserver.middleware.StaticContentServer')
+#] = 'fun.middleware.ThumbnailStaticContentServer'
 
 TEMPLATES[0]['OPTIONS']['context_processors'] += ('fun.context_processor.fun_settings',)
 
 # Add FUN applications templates directories to MAKO template finder before edX's ones
-MAKO_TEMPLATES['main'] = [
-    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
-    FUN_BASE_ROOT / 'funsite/templates',
-    FUN_BASE_ROOT / 'course_pages/templates',
-    FUN_BASE_ROOT / 'payment/templates',
-    FUN_BASE_ROOT / 'course_dashboard/templates',
-    FUN_BASE_ROOT / 'newsfeed/templates',
-    FUN_BASE_ROOT / 'fun_certificates/templates',
-] + MAKO_TEMPLATES['main']
+#MAKO_TEMPLATES['main'] = [
+#    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
+#    FUN_BASE_ROOT / 'funsite/templates',
+#    FUN_BASE_ROOT / 'course_pages/templates',
+#    FUN_BASE_ROOT / 'payment/templates',
+#    FUN_BASE_ROOT / 'course_dashboard/templates',
+#    FUN_BASE_ROOT / 'newsfeed/templates',
+#    FUN_BASE_ROOT / 'fun_certificates/templates',
+#] + MAKO_TEMPLATES['main']
 
 # Add funsite templates directory to Django templates finder.
-TEMPLATES[0]['DIRS'].insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
+#TEMPLATES[0]['DIRS'].insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
 
-# Enable legal page
-MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
 
 # Allow sending bulk e-mails for all courses
 FEATURES['REQUIRE_COURSE_EMAIL_AUTH'] = False
@@ -180,14 +180,14 @@ ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
 # On FUN v3 frontend, which do not use edX's templates, those files are loaded
 # by funsite/templates/funsite/parts/base.html and css/lms-main.css
 
-PIPELINE_CSS['style-vendor']['source_filenames'].append('fun/css/cookie-banner.css')
-PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/header.css')
-PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/footer.css')
+#PIPELINE_CSS['style-vendor']['source_filenames'].append('fun/css/cookie-banner.css')
+#PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/header.css')
+#PIPELINE_CSS['style-vendor']['source_filenames'].append('funsite/css/footer.css')
 
 #  can't find any common group
-for group in ['base_vendor', 'main_vendor']:
-    PIPELINE_JS[group]['source_filenames'].append('funsite/js/header.js')
-    PIPELINE_JS[group]['source_filenames'].append('fun/js/cookie-banner.js')
+#for group in ['base_vendor', 'main_vendor']:
+#    PIPELINE_JS[group]['source_filenames'].append('funsite/js/header.js')
+#    PIPELINE_JS[group]['source_filenames'].append('fun/js/cookie-banner.js')
 
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True  # display a search box in student's dashboard to search in courses he is enrolled in.
 FEATURES['ENABLE_COURSE_DISCOVERY'] = False  # display a search box and enable Backbone app on edX's course liste page which we do not use.
@@ -200,7 +200,7 @@ FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
 FEATURES["ENABLE_MOBILE_REST_API"] = True
 FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = False
 
-PAID_COURSE_REGISTRATION_CURRENCY = ["EUR", "€"]
+#PAID_COURSE_REGISTRATION_CURRENCY = ["EUR", "€"]
 
 EDX_API_KEY = 'test'
 

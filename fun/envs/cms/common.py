@@ -10,17 +10,17 @@ from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-impor
 INSTALLED_APPS += (
     'fun',
     'videoproviders',
-    'teachers',
-    'courses',
-    'haystack',
+#    'teachers',
+#    'courses',
+#    'haystack',
     'universities',
 
-    'easy_thumbnails',
-    'ckeditor',
+#    'easy_thumbnails',
+#    'ckeditor',
     'selftest',
-    'password_container',
+#    'password_container',
     'raven.contrib.django.raven_compat',
-    'edx_gea'
+#    'edx_gea'
 )
 INSTALLED_APPS += get_proctoru_app_if_available()
 
