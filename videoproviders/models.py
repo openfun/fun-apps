@@ -2,7 +2,8 @@ from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
-from openedx.core.djangoapps.xmodule_django.models import CourseKeyField
+from xmodule_django.models import CourseKeyField
+
 
 
 class VideoUploaderDeactivationPeriod(models.Model):
