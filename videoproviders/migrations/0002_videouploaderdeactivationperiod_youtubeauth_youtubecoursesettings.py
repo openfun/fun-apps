@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.utils.timezone
-import xmodule_django.models
 
+from openedx.core.djangoapps.xmodule_django.models import CourseKeyField
 
 class Migration(migrations.Migration):
 
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             name='YoutubeCourseSettings',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('course_id', xmodule_django.models.CourseKeyField(max_length=255, db_index=True)),
+                ('course_id', CourseKeyField(max_length=255, db_index=True)),
                 ('playlist_id', models.CharField(max_length=128, verbose_name='Playlist ID')),
             ],
             options={
