@@ -170,8 +170,10 @@ vjs.players = {};
  * still support requirejs and browserify. This also needs to be closure
  * compiler compatible, so string keys are used.
  */
+
 // At FUN we modify this definition because it simply does not work.
-var videojs_fun = videojs;
+var videojs_fun = videojs;  // videojs_fun is the symbol exported by require.js shim, see require-config.js
+
 //if (typeof define === 'function' && define['amd']) {
   //define(function(){ return videojs; });
 
@@ -8716,7 +8718,7 @@ indexOf = function(searchElement, fromIndex) {
  *   readonly attribute unsigned long length;
  *   getter TextTrack (unsigned long index);
  *   TextTrack? getTrackById(DOMString id);
- * 
+ *
  *   attribute EventHandler onchange;
  *   attribute EventHandler onaddtrack;
  *   attribute EventHandler onremovetrack;
