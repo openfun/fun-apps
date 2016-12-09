@@ -177,7 +177,7 @@ define(['videojs-fun'], function(videojs) {
     // Resolution switching
     var defaultRes = $.cookie('defaultRes');
     if (!defaultRes) {
-      defaultRes = "2400,0";
+      defaultRes = "900,0";
     }
     player.resolutionSwitcher({
         defaultRes: defaultRes
