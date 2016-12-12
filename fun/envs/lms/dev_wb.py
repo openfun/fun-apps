@@ -6,7 +6,18 @@ Specific LMS settings for developpement environement
 from .common_wb import *
 from ..dev_wb import *
 
+
+PLATFORM_NAME = u"Marque blacnhe"
+ENVIRONMENT = 'mb'
+LMS_BASE = 'localhost:8000'
+CMS_BASE = 'localhost:8001'
 SITE_NAME = LMS_BASE
+
+LMS_ROOT_URL = "http://{}".format(LMS_BASE)
+SITE_VARIANT = 'lms'
+SERVER_EMAIL = '%s-%s@%s' % (ENVIRONMENT, SITE_VARIANT, SITE_NAME)
+
+
 
 SERVER_EMAIL = '%s-%s@france-universite-numerique-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
 
