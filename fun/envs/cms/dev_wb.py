@@ -43,6 +43,8 @@ FEATURES['AUTOMATIC_VERIFY_STUDENT_IDENTITY_FOR_TESTING'] = True
 FEATURES['ENABLE_PAYMENT_FAKE'] = True
 FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 
+FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = False
+
 ## MAKO_MODULE_DIR = None   # this will prevent Mako to cache generated files
 
 # To totaly deactivate cache we also have de deactivate edx cache on anonymous views
