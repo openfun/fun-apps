@@ -3,8 +3,15 @@
 Specific CMS settings for developpement environement
 """
 
-from .common_wb import *
-from ..dev_wb import *
+import sys
+from path import path
+BASE_ROOT = path('/edx/app/edxapp/')
+FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
+sys.path.append(FUN_BASE_ROOT)
+
+
+from fun.envs.cms.common_wb import *
+from fun.envs.dev_wb import *
 
 
 PLATFORM_NAME = u"Marque blanche"
