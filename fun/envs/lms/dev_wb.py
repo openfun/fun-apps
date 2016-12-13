@@ -12,6 +12,14 @@ sys.path.append(FUN_BASE_ROOT)
 from fun.envs.lms.common_wb import *
 from fun.envs.dev_wb import *
 
+BULK_SMTP_SERVER = 'localhost'
+TRANSACTIONAL_SMTP_SERVER = 'localhost'
+EMAIL_BACKEND = 'fun.smtp.backend.MultipleSMTPEmailBackend'
+EMAIL_HOST = {
+    'bulk': {'host': BULK_SMTP_SERVER, 'port': 25, 'username': 'username', 'password': 'password'},
+    'transactional': {'host': TRANSACTIONAL_SMTP_SERVER, 'port': 25, 'username': None, 'password': None}
+    }
+
 
 PLATFORM_NAME = u"Marque blanche"
 ENVIRONMENT = 'mb'
