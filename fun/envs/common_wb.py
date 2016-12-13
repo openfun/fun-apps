@@ -30,6 +30,7 @@ gettext = lambda s: s
 
 CKEDITOR_UPLOAD_PATH = './'
 
+FAVICON_PATH = "fun/images/favicon.ico"
 
 LOCAL_LOGLEVEL = 'INFO'
 LOGGING_ENV = 'sandbox'
