@@ -7,7 +7,7 @@ from .common_wb import *
 from ..dev_wb import *
 
 
-PLATFORM_NAME = u"Marque blacnhe"
+PLATFORM_NAME = u"Marque blanche"
 ENVIRONMENT = 'mb'
 LMS_BASE = 'localhost:8000'
 CMS_BASE = 'localhost:8001'
