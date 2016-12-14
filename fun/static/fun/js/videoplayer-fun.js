@@ -145,7 +145,8 @@ define(['videojs-fun'], function(videojs) {
      */
     function chooseSrc(sources){
       for (var s = 0; s < sources.length; s += 1) {
-        if (sources[s].res === settings.defaultRes) {
+        // it seems we sometimes get values with dot instead of comma, which make the search fail
+        if (sources[s].res.replace('.', ',') === settings.defaultRes) {
           return sources[s];
         }
       }
