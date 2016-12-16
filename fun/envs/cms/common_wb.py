@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-from datetime import timedelta
 
-from celery.schedules import crontab
-
+from fun.envs.common_wb import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
-from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
-
 
 INSTALLED_APPS += (
     'fun',
