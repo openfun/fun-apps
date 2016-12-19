@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from fun.envs.common_wb import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from fun.envs.common_wb import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 INSTALLED_APPS += (
     'fun',
