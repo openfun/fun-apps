@@ -23,3 +23,6 @@ google-api-python-client==1.5.1
 
 # Proctoru
 -e git+https://github.com/openfun/ProctorU-xBlock.git@fun/dogwood#egg=proctoru-xblock
+
+# Glowbl
+-e git+https://github.com/openfun/xblock-Glowbl.git@master#egg=fun-glowbl-xblock
