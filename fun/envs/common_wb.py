@@ -206,3 +206,6 @@ CKEDITOR_CONFIGS = {
         'uiColor': '#9AB8F3',
     }
 }
+
+# used by Video Upload dashboard
+VIDEOFRONT_ADMIN_TOKEN = "a454b283a7a783b02f0d07aaf4a661b558b1c327"
