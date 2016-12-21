@@ -21,6 +21,7 @@ class UniversityAdmin(admin.ModelAdmin):
                 ('certificate_logo',),
                 'partnership_level',
                 'score',
+                'slug',
             )
         }),
         (_('Advanced'), {
@@ -32,7 +33,6 @@ class UniversityAdmin(admin.ModelAdmin):
             'fields': (
                 ('detail_page_enabled',),
                 ('is_obsolete',),
-                ('slug',),
                 ('banner',),
                 ('description',),
             )
