@@ -43,8 +43,8 @@ urlpatterns = patterns('',
 #    url(r'^courses/fun/dashboard/', include('course_dashboard.urls_global', namespace='course-dashboard-global')),
 
     # Grade downloads
-#    url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN), include('fun_instructor.urls')),
-#    url(r'^get-grades/{}/(?P<filename>.+.csv)'.format(settings.COURSE_ID_PATTERN), 'fun_instructor.views.get_grades'),
+    url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN), include('fun_instructor.urls')),
+    url(r'^get-grades/{}/(?P<filename>.+.csv)'.format(settings.COURSE_ID_PATTERN), 'fun_instructor.views.get_grades'),
 
     # fun certificates
 #    (r'^', include('fun_certificates.urls')),

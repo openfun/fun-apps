@@ -11,7 +11,7 @@ INSTALLED_APPS += (
 #    'funsite',
     'fun_api',
 #    'fun_certificates',
-#    'fun_instructor',
+    'fun_instructor',
 #    'contact',
 #    'course_dashboard',
     'courses',
