@@ -1,5 +1,5 @@
 (function(define) {
-define(['videojs-fun'], function(videojs) {
+define(['jquery', 'videojs-fun', 'jquery.cookie'], function($, videojs) {
   'use strict';
 
   /*
