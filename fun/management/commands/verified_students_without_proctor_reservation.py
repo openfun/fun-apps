@@ -1,6 +1,7 @@
 # pylint: disable=missing-docstring
 
 import csv
+import logging
 from optparse import make_option
 import sys
 
@@ -11,7 +12,14 @@ from student.models import User
 from backoffice.certificate_manager.verified import get_enrolled_verified_students
 from backoffice.utils import get_course
 
-from proctoru.models import ProctoruUser
+logger = logging.getLogger(__name__)
+
+try:
+    INSTALLED_PU = True
+    from proctoru.models import ProctoruUser
+except ImportError:
+    logger.info("ProcotorU XBlock not installed")
+    INSTALLED_PU = False
 
 
 def write_csv(file_handler, header, rows):
@@ -39,7 +47,10 @@ class Command(BaseCommand):
         course = get_course(course_key_string)
 
         verified_students = get_enrolled_verified_students(course.id).select_related("profile")
-        proctoru_registered_user = ProctoruUser.objects.filter(student__in=verified_students)
+        if INSTALLED_PU:
+            proctoru_registered_user = ProctoruUser.objects.filter(student__in=verified_students)
+        else:
+            proctoru_registered_user = []
         students_registered_in_proctoru = User.objects.filter(proctoruuser__in=proctoru_registered_user)
 
         # TODO : not the best way to get students without reservations :

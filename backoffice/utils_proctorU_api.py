@@ -32,8 +32,8 @@ API_URLS = {
     "edit_student": "/api/editStudent",
 }
 
-BASE_URL = "https://" + settings.PROCTORU_API
-HEADER = {"Authorization-Token": settings.PROCTORU_TOKEN}
+BASE_URL = "https://" + getattr(settings, 'PROCTORU_API', 'no-proctoru')
+HEADER = {"Authorization-Token": getattr(settings, 'PROCTORU_TOKEN', 'no-proctoru')}
 
 
 def get_proctoru_api_collection(drop=False):
