@@ -90,7 +90,7 @@ FEATURES['PREVIEW_LMS_BASE'] = ''
 FEATURES['SUBDOMAIN_BRANDING'] = False
 FEATURES['SUBDOMAIN_COURSE_LISTINGS'] = False
 FEATURES['ENFORCE_PASSWORD_POLICY'] = True
-FEATURES['ENABLE_CONTENT_LIBRARIES'] = False  # Content libraries support requires new coursekey format
+FEATURES['ENABLE_CONTENT_LIBRARIES'] = True
 
 # replace edX's StaticContentServer middleware by ours (which generates nice thumbnails)
 MIDDLEWARE_CLASSES = list(MIDDLEWARE_CLASSES)
