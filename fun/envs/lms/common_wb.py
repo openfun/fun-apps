@@ -6,14 +6,15 @@ from fun.envs.common_wb import *  # pylint: disable=wildcard-import, unused-wild
 INSTALLED_APPS += (
     'rest_framework.authtoken',
 
-#    'backoffice',
+    'pure_pagination',
+    'backoffice',
     'fun',
 #    'funsite',
     'fun_api',
 #    'fun_certificates',
     'fun_instructor',
 #    'contact',
-#    'course_dashboard',
+    'course_dashboard',
     'courses',
     'courses_api',
     'course_pages',
@@ -24,10 +25,9 @@ INSTALLED_APPS += (
 
 #    'haystack',
 #    'easy_thumbnails',
-#    'bootstrapform',
+    'bootstrapform',
 #    'ckeditor',
     'raven.contrib.django.raven_compat',
-#    'pure_pagination',
 
 #    'payment',
 #    'payment_api',
@@ -100,15 +100,15 @@ FEATURES['ENABLE_CONTENT_LIBRARIES'] = False  # Content libraries support requir
 TEMPLATES[0]['OPTIONS']['context_processors'] += ('fun.context_processor.fun_settings',)
 
 # Add FUN applications templates directories to MAKO template finder before edX's ones
-#MAKO_TEMPLATES['main'] = [
+MAKO_TEMPLATES['main'] = [
 #    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
 #    FUN_BASE_ROOT / 'funsite/templates',
 #    FUN_BASE_ROOT / 'course_pages/templates',
 #    FUN_BASE_ROOT / 'payment/templates',
-#    FUN_BASE_ROOT / 'course_dashboard/templates',
+    FUN_BASE_ROOT / 'course_dashboard/templates',
 #    FUN_BASE_ROOT / 'newsfeed/templates',
 #    FUN_BASE_ROOT / 'fun_certificates/templates',
-#] + MAKO_TEMPLATES['main']
+] + MAKO_TEMPLATES['main']
 
 # Add funsite templates directory to Django templates finder.
 #TEMPLATES[0]['DIRS'].insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')

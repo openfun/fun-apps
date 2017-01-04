@@ -10,6 +10,7 @@ def fun_settings(request):
     context = {}
     if request.path.startswith('/backoffice/'):
         context['ENVIRONMENT'] = settings.ENVIRONMENT
+        context['IS_WHITEBRAND'] = getattr(settings, 'IS_WHITEBRAND', False)
 
         if settings.FEATURES['USE_MICROSITES']:
             context['USE_MICROSITE'] = settings.FEATURES['USE_MICROSITES']

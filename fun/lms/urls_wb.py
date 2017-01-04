@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 #    (r'^news/', include('newsfeed.urls')),
     # as we override a theme static_page, it has to work whith and without trailing slash
 #    (r'^help/', include('faq.urls', namespace='faq')),
-#    (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
+    (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # fun api
     (r'^fun/api/token/', include('fun_api.urls', namespace='fun-api')),
@@ -38,9 +38,9 @@ urlpatterns = patterns('',
 
 #    url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
 #            include('forum_contributors.urls')),
-#    url(r'^courses/{}/fun/dashboard/'.format(settings.COURSE_ID_PATTERN),
-#        include('course_dashboard.urls', namespace='course-dashboard')),
-#    url(r'^courses/fun/dashboard/', include('course_dashboard.urls_global', namespace='course-dashboard-global')),
+    url(r'^courses/{}/fun/dashboard/'.format(settings.COURSE_ID_PATTERN),
+        include('course_dashboard.urls', namespace='course-dashboard')),
+    url(r'^courses/fun/dashboard/', include('course_dashboard.urls_global', namespace='course-dashboard-global')),
 
     # Grade downloads
     url(r'^courses/{}/instructor/api/'.format(settings.COURSE_ID_PATTERN), include('fun_instructor.urls')),

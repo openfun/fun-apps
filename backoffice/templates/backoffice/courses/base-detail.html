@@ -29,11 +29,15 @@
             {% trans "Wiki" %}
         </a>
     </li>
+
+    {% if not IS_WHITEBRAND %}
     <li role="presentation" class="{% if subtab == 'verified' %}active{% endif %}">
         <a href="{% url 'backoffice:course-verified' course_info.course.id %}">
             {% trans "Verified users" %}
         </a>
     </li>
+    {% endif %}
+
   </ul>
 
 
