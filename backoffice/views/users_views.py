@@ -201,11 +201,16 @@ user_actions = {'ban-user': ban_user,
 
 
 def get_accepted_payment_terms(user):
-    accepted = TermsAndConditions.version_accepted(PAYMENT_TERMS, user)
-    latest = TermsAndConditions.get_latest(PAYMENT_TERMS)
-    ok = False
-    if accepted and latest:
-        ok = accepted.terms.version == latest.version
+    if 'payment' in settings.INSTALLED_APPS:
+        # Terms and Condition may become usefull in whitebrand context, should be decoupled of FUN's payment app
+        accepted = TermsAndConditions.version_accepted(PAYMENT_TERMS, user)
+        latest = TermsAndConditions.get_latest(PAYMENT_TERMS)
+        ok = False
+        if accepted and latest:
+            ok = accepted.terms.version == latest.version
+    else:
+        accepted = latest = ok = '-'
+
     payment_terms = {'accepted': accepted,
             'latest': latest,
             'ok': ok}

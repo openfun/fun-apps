@@ -29,26 +29,40 @@ class Client(BaseClient):
                 course_settings = models.VideofrontCourseSettings.objects.get(course_id=self.course_id)
                 self._playlist_id = course_settings.playlist_id
             except models.VideofrontCourseSettings.DoesNotExist:
+
                 # Search for a playlist with the same name as the course id
-                course_key_string = unicode(self.course_id)
-                playlists = self.get(
-                    'playlists/',
-                    params={'name': course_key_string},
-                    log_error=True
-                ).json()
+                course_id = unicode(self.course_id)
+                if ':' in course_id:  # It's a splitmongo course id
+                    # try to get a playlist with the old key format (xx/xx/xx)
+                    old_course_id = course_id.split(':')[1].replace('+', '/')  # transform to an old fashioned one to retrieve playlist from API
+                    old_playlists = self.get(
+                        'playlists/',
+                        params={'name': old_course_id},
+                        log_error=True
+                    ).json()
+                    if old_playlists:
+                        playlists = old_playlists
+                    else:
+                        # try to get playlist with the new format (course:xxx+xx+xxx)
+                        playlists = self.get(
+                            'playlists/',
+                            params={'name': course_id},
+                            log_error=True
+                        ).json()
+
                 if playlists:
                     self._playlist_id = playlists[0]['id']
                 else:
-                    # Create playlist
+                    # If no playlist exists for this course, create it with real key whatever its format
                     # Note that it's our job to make sure that no two playlists
                     # with the same name exist
                     playlist = self.post(
                         'playlists/',
-                        data={'name': course_key_string},
+                        data={'name': course_id},
                         log_error=True,
                     ).json()
                     self._playlist_id = playlist['id']
-                # In both cases, store the corresponding playlist id
+                # In both cases, store the corresponding playlist id localy for cache
                 course_settings, _created = models.VideofrontCourseSettings.objects.get_or_create(
                     course_id=self.course_id
                 )
