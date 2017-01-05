@@ -226,3 +226,5 @@ OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
 FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = False
 
 ANALYTICS_DASHBOARD_URL = False  # when True this setting add a link in instructor dashbord to analytics insigt service
+
+STATICFILES_STORAGE = 'openedx.core.storage.ProductionStorage'
