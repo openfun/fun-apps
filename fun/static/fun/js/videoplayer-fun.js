@@ -1,5 +1,5 @@
 (function(define) {
-define(['videojs-fun'], function(videojs) {
+define(['jquery', 'videojs-fun', 'jquery.cookie'], function($, videojs) {
   'use strict';
 
   /*
@@ -85,6 +85,7 @@ define(['videojs-fun'], function(videojs) {
       this.src(src);
       this.currentSrc = src;
       this.trigger('resolutionchange', src);
+      $.cookie('defaultRes', src.res, {expires: 1000, path: '/courses/'});
       return this;
     };
     videojs.Player.prototype.changeSrc = function(src) {
@@ -173,16 +174,19 @@ define(['videojs-fun'], function(videojs) {
   // Export function
   return function (element) {
     var player = videojs(element);
-
     // Resolution switching
+    var defaultRes = $.cookie('defaultRes');
+    if (!defaultRes) {
+      defaultRes = "900,0";
+    }
     player.resolutionSwitcher({
-      defaultRes: "2400,0"  // 720p
+        defaultRes: defaultRes
     });
 
     // CSS
     $(player.el()).find(
       ".vjs-resolution-button .vjs-menu-button-value"
-    ).css("font-size", "1.5em").css("line-height", "2");
+    ).css("font-size", "1.4em").css("line-height", "2");
     $(player.el()).find(
       ".vjs-resolution-button .vjs-menu-item"
     ).css("text-transform", "none");

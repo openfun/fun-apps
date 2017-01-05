@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from util.json_request import JsonResponse
-import urllib
+import hashlib
 import os
+
+import urllib
 
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import Http404
@@ -11,6 +12,7 @@ from django.http import HttpResponse
 from django.conf import settings
 
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
+from util.json_request import JsonResponse
 
 from instructor.views.api import require_level
 from instructor_task.models import ReportStore
@@ -23,7 +25,6 @@ def list_report_downloads(_request, course_id):
     List grade CSV files that are available for download for this course.
     Remove  "file:///tmp/edx-s3" from the url to permit download
     """
-
     course_id = SlashSeparatedCourseKey.from_deprecated_string(course_id)
     report_store = ReportStore.from_config(config_name='GRADES_DOWNLOAD')
 
@@ -42,7 +43,11 @@ def list_report_downloads(_request, course_id):
 def path_to(course_id, filename):
     """Return the full path to a given file for a given course."""
 
-    return os.path.join(settings.GRADES_DOWNLOAD['ROOT_PATH'], urllib.quote(course_id, safe=''), filename)
+    # from edx-platform/lms/djangoapps/instructor_task/models.py:DjangoStorageReportStore.path_to()
+    # Eucalyptus: edx now generate a hash from the course_key to build path
+    hashed_course_id = hashlib.sha1(course_id).hexdigest()
+
+    return os.path.join(settings.GRADES_DOWNLOAD['ROOT_PATH'], hashed_course_id, filename)
 
 
 @require_level('staff')
@@ -56,8 +61,6 @@ def get_grades(_request, course_id, filename):
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
 
     # open the file and write its content into the http response
-    # edx path to file are stored using urlib.quote() function on course_id
-    # see store method in class LocalFSReportStore
     try:
         with open(path_to(course_id, filename), 'r') as gradefile:
             response.write(gradefile.read())

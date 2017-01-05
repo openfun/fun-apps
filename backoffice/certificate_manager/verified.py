@@ -1,12 +1,23 @@
+
+import logging
+
 from django.test import RequestFactory
 
 from courseware import grades as courseware_grades
 from student.models import User, CourseMode
 from xmodule.modulestore.django import modulestore
 
-from proctoru.models import ProctoruUser
-
 from courses.models import Course
+
+logger = logging.getLogger(__name__)
+
+try:
+    INSTALLED_PU = True
+    from proctoru.models import ProctoruUser
+except ImportError:
+    logger.info("ProcotorU XBlock not installed")
+    INSTALLED_PU = False
+
 
 ASSIGNMENT_VALID_SHORT_NAMES = ('certificat avg', 'certificat')
 
@@ -65,6 +76,8 @@ def get_verified_student_grades(course_id):
     return student_grades
 
 def enrolled_proctoru_students(course_id):
+    if not INSTALLED_PU:
+        return []
     enrolled = get_enrolled_verified_students(course_id)
     proctoru_students = ProctoruUser.objects.filter(student__in=enrolled)
     return proctoru_students.values_list("student__pk", flat=True)

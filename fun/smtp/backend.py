@@ -27,14 +27,10 @@ python -m smtpd -n -c DebuggingServer localhost:1026
 
 class MultipleSMTPEmailBackend(BaseEmailBackend):
     def __init__(self, host=None, fail_silently=False, **kwargs):
-        super(MultipleSMTPEmailBackend, self).__init__(fail_silently=fail_silently)
-
-        self.bulk = SMTPEmailBackend(host=settings.EMAIL_HOST['bulk']['host'],
-                port=settings.EMAIL_HOST['bulk']['port'],
-                fail_silently=fail_silently, **kwargs)
-        self.transactional = SMTPEmailBackend(host=settings.EMAIL_HOST['transactional']['host'],
-                port=settings.EMAIL_HOST['transactional']['port'],
-                fail_silently=fail_silently, **kwargs)
+        self.bulk = SMTPEmailBackend(fail_silently=fail_silently,
+                **settings.EMAIL_HOST['bulk'])
+        self.transactional = SMTPEmailBackend(fail_silently=fail_silently,
+                **settings.EMAIL_HOST['transactional'])
 
     def open(self):
         return self.bulk.open() and self.transactional.open()

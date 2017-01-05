@@ -47,6 +47,7 @@ FEATURES['ENFORCE_PASSWORD_POLICY'] = True
 FEATURES['IS_EDX_DOMAIN'] = True  # used to display Edx Studio logo, see edx-platform/cms/templates/widgets/header.html
 FEATURES['SUBDOMAIN_BRANDING'] = False
 FEATURES['SUBDOMAIN_COURSE_LISTINGS'] = False
+#FEATURES['USE_CUSTOM_THEME'] = False
 
 # index courseware content in 'courseware_index' and course meta information in
 # 'course_info' after every modification in studio

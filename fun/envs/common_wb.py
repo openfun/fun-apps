@@ -177,36 +177,6 @@ XBLOCK_SELECT_FUNCTION = prefer_fun_xmodules
 #######
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'infrasmtp02.cines.openfun.fr'   # we will use the new smtp for transactional emails on all instances
-
-BULK_SMTP_SERVER = 'smtpmooc.cines.openfun.fr'  # old server will only be used for bulk email on brick lms
-TRANSACTIONAL_SMTP_SERVER = EMAIL_HOST
-
-ANALYTICS_SERVER_URL = ''
-BOOK_URL = ''
-
-COMMENTS_SERVICE_KEY = 'password'
-COMMENTS_SERVICE_URL = 'http://localhost:18080'
-
-CAS_ATTRIBUTE_CALLBACK = ''
-CAS_EXTRA_LOGIN_PARAMS = ''
-CAS_SERVER_URL = ''
-
-BROKER_URL = 'amqp://guest@127.0.0.1:5672'  # may work on devstack, production envs. have own conf.
-
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-
-CERT_QUEUE = 'certificates'
-CMS_BASE = ''
-CODE_JAIL = {
-    "limits": {
-        "REALTIME": 5,
-        "VMEM": 50 * 1000 * 1000,
-    },
-    "python_bin": "",
-    "user": "sandbox"
-}
 
 # easy-thumbnails
 THUMBNAIL_PRESERVE_EXTENSIONS = True
@@ -220,6 +190,10 @@ FUN_THUMBNAIL_OPTIONS = {
     'facebook': {'size': (600, 315), 'crop': 'smart'},  # https://developers.facebook.com/docs/sharing/best-practices
 }
 
+
+SHARED_ROOT = '/edx/var/edxapp/shared'
+MEDIA_ROOT = '/edx/var/edxapp/uploads'
+MEDIA_URL = '/media/'
 
 # ora2 fileupload
 ORA2_FILEUPLOAD_BACKEND = "filesystem"
@@ -237,55 +211,9 @@ PROFILE_IMAGE_BACKEND = {
     },
 }
 
-def ensure_directory_exists(directory):
-    if not os.path.exists(directory):
-        os.mkdir(directory)
-ensure_directory_exists(ORA2_FILEUPLOAD_ROOT)
-ensure_directory_exists(ORA2_FILEUPLOAD_CACHE_ROOT)
-
-# Caches
-def default_cache_configuration(key_prefix):
-    return {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": key_prefix,
-        "LOCATION": [
-            "localhost:11211"
-        ]
-    }
-
-def file_cache_configuration(key_prefix, subfolder_name):
-    cache_path = os.path.join(SHARED_ROOT, subfolder_name)
-    ensure_directory_exists(cache_path)
-    return {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        "KEY_FUNCTION": "util.memcache.safe_key",
-        "KEY_PREFIX": key_prefix,
-        "LOCATION": cache_path
-    }
-
-CACHES = {
-    "celery": default_cache_configuration("integration_celery"),
-    "default": default_cache_configuration("sandbox_default"),
-    "general": default_cache_configuration("sandbox_general"),
-    "video_subtitles": file_cache_configuration(
-        "video_subtitles",
-        "video_subtitles_cache"
-    ),
-    "mongo_metadata_inheritance": default_cache_configuration("integration_mongo_metadata_inheritance"),
-    "staticfiles": default_cache_configuration("integration_static_files"),
-
-    ORA2_FILEUPLOAD_CACHE_NAME: file_cache_configuration(
-        "openassessment_submissions",
-        "openassessment_submissions_cache"
-    )
-}
 
 ANONYMIZATION_KEY = """dummykey"""
 
-RAVEN_CONFIG = {
-    'dsn': '',
-}
 
 def update_logging_config(logging_config):
     """
@@ -308,10 +236,6 @@ def update_logging_config(logging_config):
     }
     if 'sentry' not in logging_config['loggers']['']['handlers']:
         logging_config['loggers']['']['handlers'].append('sentry')
-
-def configure_raven(sentry_dsn, raven_config, logging_config):
-    logging_config['handlers']['sentry']['dsn'] = sentry_dsn
-    raven_config['dsn'] = sentry_dsn
 
 # FUN Mongo database
 # Other settings FUN_MONGO_HOST, FUN_MONGO_USER and FUN_MONGO_PASSWORD will come from lms/cms.auth.env
@@ -348,15 +272,6 @@ def configure_haystack(elasticsearch_conf):
         },
     }
 
-PROCTORU_API = 'x.proctoru.com'  # preprod api
-PROCTORU_TOKEN = 'f0ef8b49-51e6-4009-8db3-6b87d77f40d1'  # preprod auth token
-
-def get_proctoru_app_if_available():
-    try:
-        imp.find_module('proctoru')
-        return ('proctoru',)
-    except ImportError:
-        return ()
 
 # Global CKeditor configuration, used for University and Article ModelAdmin
 CKEDITOR_CONFIGS = {
@@ -383,3 +298,6 @@ CKEDITOR_CONFIGS = {
         'uiColor': '#9AB8F3',
     }
 }
+
+# used by Video Upload dashboard
+VIDEOFRONT_ADMIN_TOKEN = "a454b283a7a783b02f0d07aaf4a661b558b1c327"

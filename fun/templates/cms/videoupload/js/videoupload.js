@@ -13,7 +13,7 @@ def reverse_course(handler_name, kwargs=None):
 
 require(["jquery", "underscore", "backbone", "gettext",
          "js/utils/templates", "js/views/modals/base_modal", "common/js/components/views/feedback_notification",
-         "videojs-fun", "videoplayer-fun"],
+         "videojs-fun", "videoplayer-fun", "jquery.cookie"],
   function ($, _, Backbone, gettext,
     TemplateUtils, BaseModal, NotificationView,
     videojs, videoplayer) {

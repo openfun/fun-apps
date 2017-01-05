@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 
 from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
-from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from fun.envs.common_wb import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 INSTALLED_APPS += (
     'rest_framework.authtoken',
 
 #    'backoffice',
+    'pure_pagination',
+    'backoffice',
     'fun',
 #    'funsite',
     'fun_api',
 #    'fun_certificates',
-#    'fun_instructor',
+    'fun_instructor',
 #    'contact',
-#    'course_dashboard',
+    'course_dashboard',
     'courses',
     'courses_api',
     'course_pages',
@@ -24,10 +26,9 @@ INSTALLED_APPS += (
 
 #    'haystack',
 #    'easy_thumbnails',
-#    'bootstrapform',
+    'bootstrapform',
 #    'ckeditor',
     'raven.contrib.django.raven_compat',
-#    'pure_pagination',
 
 #    'payment',
 #    'payment_api',
@@ -39,41 +40,40 @@ INSTALLED_APPS += (
 #    'faq',
 #    'edx_gea',
 )
-INSTALLED_APPS += get_proctoru_app_if_available()
 
-ROOT_URLCONF = 'fun.lms.urls'
+ROOT_URLCONF = 'fun.lms.urls_wb'
 
-update_logging_config(LOGGING)
 
 # Disable S3 file storage
 del DEFAULT_FILE_STORAGE
 
 # those values also have to be in env.json file,
 # because pavlib.utils.envs reads it to build asset's preprocessing commands
-FEATURES['ENABLE_MKTG_SITE'] = False
 
-SITE_NAME = LMS_BASE
+#FEATURES['ENABLE_MKTG_SITE'] = False
+
 
 # MKTG_URL_LINK_MAP links are named url reverses belonging to Django project
 # (also see MKTG_URLS in cms.py)
-MKTG_URL_LINK_MAP = {
-    "ABOUT": "about",
-    "HONOR": "honor",
-    "HOW-IT-WORKS": "how-it-works",
-    "TOS": "tos",
-    "FAQ": None,
-    "PRIVACY": "privacy",
-    "CONTACT": None,
-    "UNSUPPORTED-BROWSER": "unsupported-browser",
-    "LICENSES": "licenses",
-    "LEGAL": "legal",
-    "COPYRIGHTS": None,
-    "ROOT": 'root',
-#    'COURSES': 'fun-courses:index',
-}
+#MKTG_URL_LINK_MAP = {
+#    "ABOUT": "about",
+#    "HONOR": "honor",
+#    "HOW-IT-WORKS": "how-it-works",
+#    "TOS": "tos",
+#    "FAQ": None,
+#    "PRIVACY": "privacy",
+#    "CONTACT": None,
+#    "UNSUPPORTED-BROWSER": "unsupported-browser",
+#    "LICENSES": "licenses",
+#    "LEGAL": "legal",
+#    "COPYRIGHTS": None,
+#    "ROOT": 'root',
+##    'COURSES': 'fun-courses:index',
+#}
 FUN_MKTG_URLS = {}
 # Enable legal page
-MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
+#MKTG_URL_LINK_MAP['LEGAL'] = 'legal'
+
 
 FEATURES['ACCESS_REQUIRE_STAFF_FOR_COURSE'] = True  # hide spocs from course list
 FEATURES['ALLOW_COURSE_STAFF_GRADE_DOWNLOADS'] = True
@@ -103,15 +103,15 @@ FEATURES['ENABLE_CONTENT_LIBRARIES'] = False  # Content libraries support requir
 TEMPLATES[0]['OPTIONS']['context_processors'] += ('fun.context_processor.fun_settings',)
 
 # Add FUN applications templates directories to MAKO template finder before edX's ones
-#MAKO_TEMPLATES['main'] = [
+MAKO_TEMPLATES['main'] = [
 #    FUN_BASE_ROOT / 'funsite/templates/lms',   # overrides template in edx-platform/lms/templates
 #    FUN_BASE_ROOT / 'funsite/templates',
 #    FUN_BASE_ROOT / 'course_pages/templates',
 #    FUN_BASE_ROOT / 'payment/templates',
-#    FUN_BASE_ROOT / 'course_dashboard/templates',
+    FUN_BASE_ROOT / 'course_dashboard/templates',
 #    FUN_BASE_ROOT / 'newsfeed/templates',
 #    FUN_BASE_ROOT / 'fun_certificates/templates',
-#] + MAKO_TEMPLATES['main']
+] + MAKO_TEMPLATES['main']
 
 # Add funsite templates directory to Django templates finder.
 #TEMPLATES[0]['DIRS'].insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
@@ -124,18 +124,17 @@ FEATURES['REQUIRE_COURSE_EMAIL_AUTH'] = False
 FEATURES['ENABLE_SYSADMIN_DASHBOARD'] = False
 
 # Registration form fields ('required', 'optional', 'hidden')
-REGISTRATION_EXTRA_FIELDS = {
-    'level_of_education': 'optional',
-    'gender': 'optional',
-    'year_of_birth': 'optional',
-    'mailing_address': 'optional',
-    'goals': 'optional',
-    'honor_code': 'required',
-    'city': 'required',
-    'country': 'required',
-}
+#REGISTRATION_EXTRA_FIELDS = {
+#    'level_of_education': 'optional',
+#    'gender': 'optional',
+#    'year_of_birth': 'optional',
+#    'mailing_address': 'optional',
+#    'goals': 'optional',
+#    'honor_code': 'required',
+#    'city': 'required',
+#    'country': 'required',
+#}
 
-SITE_VARIANT = 'lms'
 
 FUN_SMALL_LOGO_RELATIVE_PATH = 'funsite/images/logos/fun61.png'
 FUN_BIG_LOGO_RELATIVE_PATH = 'funsite/images/logos/fun195.png'
@@ -154,8 +153,6 @@ GRADES_DOWNLOAD = {
 }
 GRADES_DOWNLOAD_ROUTING_KEY = None
 
-
-# Our new home page is so shiny and chrome that users must see it more often
 FEATURES['ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER'] = False
 
 # used by pure-pagination app, https://github.com/jamespacileo/django-pure-pagination
@@ -199,22 +196,24 @@ FEATURES["ENABLE_CREDIT_API"] = True
 FEATURES["ENABLE_CREDIT_ELIGIBILITY"] = True
 FEATURES["ENABLE_MOBILE_REST_API"] = True
 FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = True
+FEATURES['REQUIRE_COURSE_EMAIL_AUTH'] = True
 
 #PAID_COURSE_REGISTRATION_CURRENCY = ["EUR", "€"]
 
-EDX_API_KEY = 'test'
-
+EDX_API_KEY = 'test'  # TODO: user real keys
 ECOMMERCE_API_SIGNING_KEY = 'test'
-ECOMMERCE_API_URL = "http://localhost:8080/api/v2/"
-ECOMMERCE_PUBLIC_URL_ROOT = "http://localhost:8080/"
-ECOMMERCE_NOTIFICATION_URL = 'http://localhost:8080/payment/paybox/notify/'
+
 ECOMMERCE_SERVICE_WORKER_USERNAME = 'ecommerce_worker'
 
-JWT_ISSUER = "http://localhost:8000/oauth2"
+ECOMMERCE_API_URL = ""
+ECOMMERCE_PUBLIC_URL_ROOT = ""
+ECOMMERCE_NOTIFICATION_URL = ""
+
+JWT_ISSUER = ""
 JWT_EXPIRATION = 30
 
 OAUTH_ENFORCE_SECURE = False
-OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
+OAUTH_OIDC_ISSUER = ""
 
 # Append fun header script to verification pages
 # DOGWOOD: probablement plus nécessaire

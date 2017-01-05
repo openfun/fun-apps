@@ -46,7 +46,11 @@
           <ul class="nav navbar-nav">
             <li class="{% if tab == 'courses' %}active{% endif %}"><a href="{% url 'backoffice:courses-list' %}">{% trans "Courses" %}</a></li>
             <li class="{% if tab == 'users' %}active{% endif %}"><a href="{% url 'backoffice:user-list' %}">{% trans "Users" %}</a></li>
+
+            {% if not IS_WHITEBRAND %}
             <li class="{% if tab == 'news' %}active{% endif %}"><a href="{% url 'backoffice:news-list' %}">{% trans "News" %}</a></li>
+            {% endif %}
+
             <li class=""><a href="{% url 'course-dashboard-global:home' %}">{% trans "Statistics" %}</a></li>
           </ul>
         </div><!--/.nav-collapse -->

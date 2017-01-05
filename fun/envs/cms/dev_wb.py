@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Specific LMS settings for developpement environement
+Specific CMS settings for developpement environement
 """
+
 import sys
 from path import path
 BASE_ROOT = path('/edx/app/edxapp/')
@@ -9,7 +10,7 @@ FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
 sys.path.append(FUN_BASE_ROOT)
 
 
-from fun.envs.lms.common_wb import *
+from fun.envs.cms.common_wb import *
 from fun.envs.dev_wb import *
 
 BULK_SMTP_SERVER = 'localhost'
@@ -50,7 +51,7 @@ FEATURES['AUTOMATIC_VERIFY_STUDENT_IDENTITY_FOR_TESTING'] = True
 FEATURES['ENABLE_PAYMENT_FAKE'] = True
 FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 
-FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = True
+FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = False
 
 ## MAKO_MODULE_DIR = None   # this will prevent Mako to cache generated files
 
