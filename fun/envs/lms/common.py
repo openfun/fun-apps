@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from xmodule.modulestore.modulestore_settings import update_module_store_settings
 from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
@@ -226,3 +227,8 @@ OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
 FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = False
 
 ANALYTICS_DASHBOARD_URL = False  # when True this setting add a link in instructor dashbord to analytics insigt service
+
+# We move split mongo store at the top of store lists to make it the
+# default one. Note that the 'modulestore' app makes split mongo
+# available even if you have not define it in your settings.
+update_module_store_settings(MODULESTORE, default_store='split')

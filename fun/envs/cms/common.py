@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from celery.schedules import crontab
 
+from xmodule.modulestore.modulestore_settings import update_module_store_settings
 from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
@@ -93,3 +94,8 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(hour=2, minute=30, day_of_week='*'),
     },
 }
+
+# We move split mongo store at the top of store lists to make it the
+# default one. Note that the 'modulestore' app makes split mongo
+# available even if you have not define it in your settings.
+update_module_store_settings(MODULESTORE, default_store='split')
