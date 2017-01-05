@@ -11,6 +11,8 @@ BASE_ROOT = path('/edx/app/edxapp/')  # folder where edx-platform main repositor
 FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
 sys.path.append(FUN_BASE_ROOT)
 
+IS_WHITEBRAND = True
+
 PLATFORM_NAME = "FUN"
 DEFAULT_FROM_EMAIL = "inscription@france-universite-numerique-mooc.fr"
 DEFAULT_FEEDBACK_EMAIL = "contact@france-universite-numerique-mooc.fr"
