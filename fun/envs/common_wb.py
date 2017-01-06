@@ -68,10 +68,9 @@ LANGUAGES = (
 PIPELINE = True  # use djangopipeline aggregated css and js file (in production)
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = "/edx/var/edxapp/uploads"
-
-STATIC_ROOT = "/edx/var/edxapp/staticfiles"
 
 # This is the folder where all file data will be shared between the instances
 # of the same environment.
