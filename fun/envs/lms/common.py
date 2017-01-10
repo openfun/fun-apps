@@ -93,12 +93,6 @@ FEATURES['SUBDOMAIN_COURSE_LISTINGS'] = False
 FEATURES['ENFORCE_PASSWORD_POLICY'] = True
 FEATURES['ENABLE_CONTENT_LIBRARIES'] = True
 
-# replace edX's StaticContentServer middleware by ours (which generates nice thumbnails)
-MIDDLEWARE_CLASSES = list(MIDDLEWARE_CLASSES)
-MIDDLEWARE_CLASSES[
-    MIDDLEWARE_CLASSES.index('contentserver.middleware.StaticContentServer')
-] = 'fun.middleware.ThumbnailStaticContentServer'
-
 TEMPLATES[0]['OPTIONS']['context_processors'] += ('fun.context_processor.fun_settings',)
 
 # Add FUN applications templates directories to MAKO template finder before edX's ones
