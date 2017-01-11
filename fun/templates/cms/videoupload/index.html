@@ -8,6 +8,7 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
 <%block name="title">${_("Video Uploads")}</%block>
 
 <%block name="header_extras">
+
 <link rel="stylesheet" type="text/css" href="${static.url('fun/js/vendor/videojs/video-js.min.css')}" />
 <style>
   .videoupload table, .modal-window.videoupload-parameters .modal-content table {
@@ -114,10 +115,8 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
 
 </%block>
 
-<%block name="jsextra">
-<script type="text/javascript">
+<%block name="requirejs">
   <%include file="js/videoupload.js"/>
-</script>
 </%block>
 
 <%block name="bodyclass">is-signedin course view-videouploads</%block>
