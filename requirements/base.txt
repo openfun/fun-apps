@@ -18,7 +18,7 @@ hashids==1.1.0
 -e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
 
 # Video
--e git+https://github.com/openfun/libcast-xblock.git@0.4.2#egg=libcast-xblock
+-e git+https://github.com/openfun/libcast-xblock.git@0.4.3#egg=libcast-xblock
 google-api-python-client==1.5.1
 
 # Proctoru
