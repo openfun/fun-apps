@@ -12,18 +12,18 @@ FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
 sys.path.append(FUN_BASE_ROOT)
 
 PLATFORM_NAME = "FUN"
-DEFAULT_FROM_EMAIL = "inscription@france-universite-numerique-mooc.fr"
-DEFAULT_FEEDBACK_EMAIL = "contact@france-universite-numerique-mooc.fr"
-DEFAULT_BULK_FROM_EMAIL = "cours@france-universite-numerique-mooc.fr"
-TECH_SUPPORT_EMAIL = "helpdesk@france-universite-numerique-mooc.fr"
-CONTACT_EMAIL = "contact@france-universite-numerique-mooc.fr"
-BUGS_EMAIL = "bugs@france-universite-numerique-mooc.fr"
+DEFAULT_FROM_EMAIL = "inscription@fun-mooc.fr"
+DEFAULT_FEEDBACK_EMAIL = "contact@fun-mooc.fr"
+DEFAULT_BULK_FROM_EMAIL = "cours@fun-mooc.fr"
+TECH_SUPPORT_EMAIL = "helpdesk@fun-mooc.fr"
+CONTACT_EMAIL = "contact@fun-mooc.fr"
+BUGS_EMAIL = "bugs@fun-mooc.fr"
 PAYMENT_SUPPORT_EMAIL = "paiements@fun-mooc.fr"
 PAYMENT_ADMIN = "paybox@fun-mooc.fr"
 # STATS emails are used by fun/management/commands/enrollment_statistics.py
-STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
-STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
-BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
+STATS_EMAIL = "info@fun-mooc.fr"
+STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@fun-mooc.fr', 'funmooc@groupes.renater.fr']
+BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@fun-mooc.fr"
 FAVICON_PATH = "fun/images/favicon.ico"
 
 PLATFORM_FACEBOOK_ACCOUNT = 'https://www.facebook.com/france.universite.numerique'
@@ -33,7 +33,7 @@ PLATFORM_TWITTER_ACCOUNT = '@funmooc'
 CERT_NAME_SHORT = u"Attestation"
 CERT_NAME_LONG = u"Attestation de réussite"
 
-ADMINS = [['funteam', 'dev@france-universite-numerique-mooc.fr']]
+ADMINS = [['funteam', 'dev@fun-mooc.fr']]
 
 SESSION_COOKIE_DOMAIN = None
 

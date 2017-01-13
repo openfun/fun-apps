@@ -8,7 +8,7 @@ from ..dev import *
 
 SITE_NAME = LMS_BASE
 
-SERVER_EMAIL = '%s-%s@france-universite-numerique-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
+SERVER_EMAIL = '%s-%s@fun-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
 
 PIPELINE_SASS_ARGUMENTS = PIPELINE_SASS_ARGUMENTS.format(proj_dir=PROJECT_ROOT)
 

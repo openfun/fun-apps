@@ -33,32 +33,32 @@ class SMTPsTest(TestCase):
         self.connection.transactional._send = self.mock_transactional
 
     def test_simple_transactional(self):
-        EmailMessage('subject', 'message', 'transactional@france-universite-numerique-mooc.fr', ['robert@fun.fr'], connection=self.connection).send()
+        EmailMessage('subject', 'message', 'transactional@fun-mooc.fr', ['robert@fun.fr'], connection=self.connection).send()
         self.assertEqual(False, self.mock_bulk.called)
         self.assertEqual(True, self.mock_transactional.called)
 
     def test_simple_bulk(self):
-        EmailMessage('subject', 'message', 'xxx-no-reply@france-universite-numerique-mooc.fr', ['robert@fun.fr'], connection=self.connection).send()
+        EmailMessage('subject', 'message', 'xxx-no-reply@fun-mooc.fr', ['robert@fun.fr'], connection=self.connection).send()
         self.assertEqual(True, self.mock_bulk.called)
         self.assertEqual(False, self.mock_transactional.called)
 
     def test_multiple1(self):
         messages = [EmailMessage('subject', 'message', sender, ['robert@fun.fr'])
-                for sender in ['transactional@france-universite-numerique-mooc.fr', 'xxx-no-reply@france-universite-numerique-mooc.fr']]
+                for sender in ['transactional@fun-mooc.fr', 'xxx-no-reply@fun-mooc.fr']]
         self.connection.send_messages(messages)
         self.assertEqual(True, self.mock_bulk.called)
         self.assertEqual(True, self.mock_transactional.called)
 
     def test_multiple2(self):
         messages = [EmailMessage('subject', 'message', sender, ['robert@fun.fr'])
-                for sender in ['transactional1@france-universite-numerique-mooc.fr', 'transactional2@france-universite-numerique-mooc.fr']]
+                for sender in ['transactional1@fun-mooc.fr', 'transactional2@fun-mooc.fr']]
         self.connection.send_messages(messages)
         self.assertEqual(False, self.mock_bulk.called)
         self.assertEqual(True, self.mock_transactional.called)
 
     def test_multiple3(self):
         messages = [EmailMessage('subject', 'message', sender, ['robert@fun.fr'])
-                for sender in ['001-no-reply@france-universite-numerique-mooc.fr', '002-no-reply@france-universite-numerique-mooc.fr']]
+                for sender in ['001-no-reply@fun-mooc.fr', '002-no-reply@fun-mooc.fr']]
         self.connection.send_messages(messages)
         self.assertEqual(True, self.mock_bulk.called)
         self.assertEqual(False, self.mock_transactional.called)
