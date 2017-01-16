@@ -380,3 +380,11 @@ CKEDITOR_CONFIGS = {
         'uiColor': '#9AB8F3',
     }
 }
+
+
+# CloudWatt load balancer can not transmit original request IP address over HTTPS (because floating IP and SSL ?),
+# therefore `ratelimitbackend.backends.RateLimitModelBackend` backend does not work properly
+# We replace it with Django default
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    )
