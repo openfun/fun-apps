@@ -194,12 +194,59 @@ SHARED_ROOT = '/edx/var/edxapp/shared'
 MEDIA_ROOT = '/edx/var/edxapp/uploads'
 MEDIA_URL = '/media/'
 
+# Caches
+def default_cache_configuration(key_prefix):
+    return {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "KEY_FUNCTION": "util.memcache.safe_key",
+        "KEY_PREFIX": key_prefix,
+        "LOCATION": [
+            "localhost:11211"
+        ]
+    }
+
+def ensure_directory_exists(directory):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+
+def file_cache_configuration(key_prefix, subfolder_name):
+    cache_path = os.path.join(SHARED_ROOT, subfolder_name)
+    ensure_directory_exists(cache_path)
+    return {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        "KEY_FUNCTION": "util.memcache.safe_key",
+        "KEY_PREFIX": key_prefix,
+        "LOCATION": cache_path
+    }
+
 # ora2 fileupload
 ORA2_FILEUPLOAD_BACKEND = "filesystem"
 ORA2_FILEUPLOAD_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions")
 ORA2_FILEUPLOAD_CACHE_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions_cache")
 ORA2_FILEUPLOAD_CACHE_NAME = "openassessment_submissions"
 FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
+
+ensure_directory_exists(ORA2_FILEUPLOAD_ROOT)
+ensure_directory_exists(ORA2_FILEUPLOAD_CACHE_ROOT)
+
+CACHES = {
+    "celery": default_cache_configuration("integration_celery"),
+    "default": default_cache_configuration("sandbox_default"),
+    "general": default_cache_configuration("sandbox_general"),
+    "video_subtitles": file_cache_configuration(
+        "video_subtitles",
+        "video_subtitles_cache"
+    ),
+    "mongo_metadata_inheritance": default_cache_configuration("integration_mongo_metadata_inheritance"),
+    "staticfiles": default_cache_configuration("integration_static_files"),
+
+    ORA2_FILEUPLOAD_CACHE_NAME: file_cache_configuration(
+        "openassessment_submissions",
+        "openassessment_submissions_cache"
+    )
+}
+
+
 
 # Profile image upload
 PROFILE_IMAGE_BACKEND = {
