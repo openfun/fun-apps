@@ -140,3 +140,21 @@ msgstr "Officiel"
 #: /edx/app/edxapp/fun-apps/forum_contributors/templates/discussion/_underscore_templates.html:0
 msgid "Recommended"
 msgstr "Recommandé"
+
+
+# Translations for Adaptive Learning
+
+msgid "You have (%(num_items)s) pending revision:"
+msgid_plural "You have (%(num_items)s) pending revisions:"
+msgstr[0] "Vous avez (%(num_items)s) révision en attente:"
+msgstr[1] "Vous avez (%(num_items)s) révisions en attente:"
+
+msgid "Loading revisions..."
+msgstr "Chargement des révisions..."
+
+msgid "Error fetching revisions."
+msgstr "Erreur au chargement des révisions"
+
+msgid "since"
+msgstr "depuis"
+
