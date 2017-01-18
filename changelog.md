@@ -1,5 +1,24 @@
 # Changelog www.fun-mooc.fr
 
+## 4.5 - 18 janvier 2017
+
+- Eiffela: Adaptive Learning avec les contributions de OpenCraft et Domoscio
+- Eiffela: Adways
+- Bugfix: Un correctif dans le dashboard d'upload de vidéos - parfois la liste de vidéos était vide.
+- Feature: Le click droit est désactivé sur le lecteur vidéo pour éviter le téléchargement - il y aura quand même les liens sous le lecteur pour télécharger les vidéos quand c'est autorisé.
+
+## 4.4 - 11 janvier 2017
+
+* Changement d'un middleware - Static Server
+* Activation de Split Mongo
+* Activation des content libraries
+
+
+## 4.3 - 14 décembre 2016
+* Résolution par défaut du player video stoké en cookie
+* Changement du backend d'autentification
+
+
 ## 4.2 27/09/2016
 - Diverses ameliorations :
     + Résolution par défaut du player video à 720 lignes
