@@ -77,7 +77,28 @@ SHARED_ROOT = '/edx/var/edxapp/shared'
 
 CKEDITOR_UPLOAD_PATH = './'
 CKEDITOR_CONFIGS = {
+# Global CKeditor configuration, used for University and Article ModelAdmin
     'default': {
+       'toolbar': [
+            [      'Undo', 'Redo',
+              '-', 'Bold', 'Italic', 'Underline',
+              '-', 'Link', 'Unlink', 'Anchor',
+              '-', 'Format',
+              '-', 'SpellChecker', 'Scayt',
+              '-', 'Maximize',
+            ],
+            [      'HorizontalRule',
+              '-', 'Table',
+              '-', 'BulletedList', 'NumberedList',
+              '-', 'Cut','Copy','Paste','PasteText','PasteFromWord',
+              '-', 'SpecialChar',
+              '-', 'Source',
+            ]
+        ],
+        'toolbarCanCollapse': False,
+        'entities': False,
+        'width': 955,
+        'uiColor': '#9AB8F3',
     },
     'news': {
         # Redefine path where the news images/files are uploaded. This would
@@ -355,31 +376,6 @@ def get_proctoru_app_if_available():
     except ImportError:
         return ()
 
-# Global CKeditor configuration, used for University and Article ModelAdmin
-CKEDITOR_CONFIGS = {
-    'default': {
-       'toolbar': [
-            [      'Undo', 'Redo',
-              '-', 'Bold', 'Italic', 'Underline',
-              '-', 'Link', 'Unlink', 'Anchor',
-              '-', 'Format',
-              '-', 'SpellChecker', 'Scayt',
-              '-', 'Maximize',
-            ],
-            [      'HorizontalRule',
-              '-', 'Table',
-              '-', 'BulletedList', 'NumberedList',
-              '-', 'Cut','Copy','Paste','PasteText','PasteFromWord',
-              '-', 'SpecialChar',
-              '-', 'Source',
-            ]
-        ],
-        'toolbarCanCollapse': False,
-        'entities': False,
-        'width': 955,
-        'uiColor': '#9AB8F3',
-    }
-}
 
 ENABLE_ADWAYS_FOR_COURSES = (
     'course-v1:SciencesPo+05008+session01',
