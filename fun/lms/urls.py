@@ -14,7 +14,6 @@ from lms.urls import handler404, handler500  # pylint: disable=unused-import
 
 urlpatterns = patterns('',
     (r'^', include('funsite.urls')),
-    (r'^', include('contact.urls', namespace='contact')),
     (r'^payment/', include('payment.urls', namespace="payment")),
     (r'^universities/', include('universities.urls')),
     (r'^news/', include('newsfeed.urls')),

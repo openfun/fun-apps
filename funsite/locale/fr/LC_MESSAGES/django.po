@@ -368,3 +368,5 @@ msgstr ""
 msgid "h/week"
 msgstr "h/semaine"
 
+msgid "Contact"
+msgstr "Nous contacter"
