@@ -134,9 +134,9 @@ def forum_threads(course_id):
             "page": page,
             "per_page": 200,
         })
-        threads += result[0]
+        threads += result.collection
         # Iterate over all result pages
-        num_pages = result[2]
+        num_pages = result.page
         if page == num_pages:
             break
         page += 1
