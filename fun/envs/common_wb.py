@@ -134,9 +134,12 @@ SEGMENT_IO_LMS = True
 PAID_COURSE_REGISTRATION_CURRENCY = ["usd", "$"]
 SEGMENT_IO_LMS = True
 
+THEME_LOCALE_PATH = os.path.join(BASE_ROOT, 'themes/fun/conf/locale')
+
 # Locale path
 LOCALIZED_APPS = sorted([p.split("/")[-2] for p in glob(FUN_BASE_ROOT / "*/locale")])
 LOCALE_PATHS = tuple(
+    [THEME_LOCALE_PATH] +
     [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_APPS] +
     [
         BASE_ROOT / 'edx-platform/conf/locale',
