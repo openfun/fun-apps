@@ -381,4 +381,7 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-ENABLE_ADWAYS_FOR_COURSES = ('course-v1:SciencesPo+05008+session01',)
+ENABLE_ADWAYS_FOR_COURSES = (
+    'course-v1:SciencesPo+05008+session01',
+    'course-v1:SciencesPo+05008ENG+session01',
+)
