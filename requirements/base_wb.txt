@@ -23,3 +23,6 @@ google-api-python-client==1.5.1
 
 # Proctoru
 #-e git+https://github.com/openfun/ProctorU-xBlock.git@fun/dogwood#egg=proctoru-xblock
+
+# Carousel
+-e git+https://github.com/METIT-BU/xblock-carousel.git@master#egg=xblock-multimedia-carousel
