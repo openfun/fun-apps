@@ -132,8 +132,8 @@ REGISTRATION_EXTRA_FIELDS = {
 
 SITE_VARIANT = 'lms'
 
-FUN_SMALL_LOGO_RELATIVE_PATH = 'funsite/images/logos/fun61.png'
-FUN_BIG_LOGO_RELATIVE_PATH = 'funsite/images/logos/fun195.png'
+FUN_SMALL_LOGO_RELATIVE_PATH = 'funsite/images/logos/funmooc173.png'
+FUN_BIG_LOGO_RELATIVE_PATH = 'funsite/images/logos/funmooc320.png'
 
 # Certificates related settings
 CERTIFICATE_BASE_URL = '/attestations/'
