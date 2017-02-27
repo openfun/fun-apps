@@ -76,7 +76,7 @@ from django.utils.translation import ugettext as _
       <td style="text-align:center; padding:6px; font-family:sans-serif; font-size:13px; line-height:1.2; color:#666666;">
 
         <a href="${'https://{lms_base}/{dashboard}/'.format(lms_base=settings.LMS_BASE, dashboard=reverse('dashboard'))}" style="color:#3b73af;text-decoration:none">${_(u"Dashboard")}</a>&nbsp;|&nbsp;
-        <a href="${'https://{lms_base}/{dashboard}/'.format(lms_base=settings.LMS_BASE, dashboard=reverse('contact:contact'))}" style="color:#3b73af;text-decoration:none">${_(u"Help")}</a>&nbsp;|&nbsp;
+        <a href="${'https://{lms_base}/{dashboard}/'.format(lms_base=settings.LMS_BASE, dashboard=reverse('contact'))}" style="color:#3b73af;text-decoration:none">${_(u"Help")}</a>&nbsp;|&nbsp;
         <a href="${'https://{lms_base}/{dashboard}/'.format(lms_base=settings.LMS_BASE, dashboard=reverse('fun-courses:index'))}" style="color:#3b73af;text-decoration:none">${_(u"Courses")}</a><br>
         ${_(u"This is was automatically generated email, please do not reply.")}
         <br><br>

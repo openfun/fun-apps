@@ -1,5 +1,0 @@
-{% load i18n %}{% load form %}{% blocktrans %}Inquiry{% endblocktrans %}: {{ inquiry|field_label:"inquiry" }}
-{% blocktrans %}From:{% endblocktrans %} {{ name }} <{{ email }}>
-{% blocktrans %}Phone{% endblocktrans %}: {{ phone }}
-
-{{ body }}

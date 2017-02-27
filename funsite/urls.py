@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 
 static_pages = ['about', 'honor', 'legal', 'privacy', 'tos', 'register_info',
-        'proctoru']
+        'proctoru', 'contact']
 
 urls = [
     url(r'^{}/?$'.format(name), TemplateView.as_view(template_name='funsite/static_templates/%s.html' % name), name=name)

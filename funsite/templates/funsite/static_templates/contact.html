@@ -1,23 +1,22 @@
 ## mako
 <%!
 from django.utils.translation import ugettext as _
-from django.template.defaultfilters import striptags
 from django.conf import settings
-from django.core.urlresolvers import reverse
 %>
 
+<%namespace name='static' file='/static_content.html'/>
 <%inherit file="/funsite/parts/simple-content.html" />
 
+<%block name="title">${_("Contact")}</%block>
 <%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 
-<%block name="title">${_("Contact")}</%block>
 
 <%block name="page_content">
 
 
 ${breadcrumbs.breadcrumbs(_("Contact"))}
 <div class="single-column">
-    <h2>${_('Contact us')}</h2>
+    <h2>${_('Contact')}</h2>
     <br><br>
     <p>
     Pour nous contacter, merci de bien vouloir écrire à l'adresse <a href="mailto:${settings.CONTACT_EMAIL}">${settings.CONTACT_EMAIL}</a> en indiquant en plus de votre message, vos <strong>nom, prénom, numéro de téléphone, et fonction</strong>.
