@@ -376,8 +376,9 @@ ul.breadcrumbs li a:hover {
         font-size: 48px;
     }
     .homepage-header img.logo-fun {
-        margin-left: -97px;
-        top: 420px;
+        width: 640px;
+        margin-left: -320px;
+        bottom: -82px;
     }
 
     .main-content .right {
@@ -420,8 +421,9 @@ ul.breadcrumbs li a:hover {
         font-size: 42px;
     }
     .homepage-header img.logo-fun {
-        margin-left: -97px;
-        top: 330px;
+        width: 320px;
+        margin-left: -160px;
+        bottom: -40px;
     }
 
     .main-content .right {
@@ -468,8 +470,8 @@ ul.breadcrumbs li a:hover {
     }
     .homepage-header img.logo-fun {
         width: 256px;
-        margin-left: -78px;
-        top: 308px;
+        margin-left: -128px;
+        bottom: -33px;
     }
 
     .register-page .right {
@@ -535,8 +537,8 @@ ul.breadcrumbs li a:hover {
     }
     .homepage-header img.logo-fun {
         width: 160px;
-        margin-left: -49px;
-        top: 275px;
+        margin-left: -80px;
+        bottom: -20px;
     }
     .course-list-table .right {
         padding-left: 0 !important;
@@ -649,6 +651,7 @@ ul.breadcrumbs li a:hover {
     background-position: center top;
     background-repeat: no-repeat;
     padding: 0 20px;
+    position:relative; /* To make FUN MOOC logo can be positionned at the bottom */
 }
 .homepage-header h1 {
     font-weight: 500;
