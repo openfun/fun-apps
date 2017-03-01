@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 46\n"
+"Project-Id-Version: FUN-MOOC 47\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2017-03-01 14:16+0100\n"
-"PO-Revision-Date: 2017-03-01 14:16+0000\n"
+"POT-Creation-Date: 2017-03-01 14:18+0100\n"
+"PO-Revision-Date: 2017-03-01 14:18+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -16,6 +16,10 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "Controls whether a course is listed in the courses catalog page"
 msgstr "Pour choisir si un cours est affiché dans la page de catalogue"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:0
+msgid "Controls whether the course about page is visible"
+msgstr "Choisir si la page de cours 'about' est affichée"
 
 #: /edx/app/edxapp/fun-apps/courses/admin.py:0
 msgid "Course Info - Automatically Updated"
@@ -190,6 +194,10 @@ msgstr "description courte"
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "short name"
 msgstr "nom court"
+
+#: /edx/app/edxapp/fun-apps/courses/models.py:0
+msgid "show course about page"
+msgstr "afficher la page de cours 'about'"
 
 #: /edx/app/edxapp/fun-apps/courses/models.py:0
 msgid "show in catalog"
