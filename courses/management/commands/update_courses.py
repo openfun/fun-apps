@@ -19,7 +19,10 @@ from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
 from xmodule.modulestore.django import modulestore
-from xmodule.course_module import CATALOG_VISIBILITY_CATALOG_AND_ABOUT
+from xmodule.course_module import (
+    CATALOG_VISIBILITY_CATALOG_AND_ABOUT,
+    CATALOG_VISIBILITY_ABOUT,
+)
 
 from courses import settings as courses_settings
 from courses.models import Course, CourseUniversityRelation
@@ -152,7 +155,14 @@ class Command(BaseCommand):
                 self.stdout.write('\t No university assigned '
                 'to "{}"\n'.format(key))
         course.is_active = True
-        course.show_in_catalog = mongo_course.catalog_visibility.lower() == CATALOG_VISIBILITY_CATALOG_AND_ABOUT
+        show_in_catalog = mongo_course.catalog_visibility.lower() == \
+            CATALOG_VISIBILITY_CATALOG_AND_ABOUT
+        show_about_page = mongo_course.catalog_visibility.lower() in (
+            CATALOG_VISIBILITY_CATALOG_AND_ABOUT,
+            CATALOG_VISIBILITY_ABOUT,
+        )
+        course.show_about_page = show_about_page
+        course.show_in_catalog = show_in_catalog
         course.university_display_name = course_handler.university_name
         course.title = course_handler.title
         course.image_url = course_handler.image_url

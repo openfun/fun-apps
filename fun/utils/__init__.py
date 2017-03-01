@@ -29,7 +29,7 @@ def get_fun_course(course):
     """Return the fun-app.courses.models.Course from edX course key."""
     from courses.models import Course
     try:
-        return Course.objects.get(key=course.id.to_deprecated_string(), show_in_catalog=True)
+        return Course.objects.get(key=course.id.to_deprecated_string(), show_about_page=True)
     except Course.DoesNotExist:
         # We want to reply 404 to attempt to access syllabus of course not yet published (show_in_catalog)
         # But this should be handled by edx view lms/djangoapps/courseware/views.py@course_about
