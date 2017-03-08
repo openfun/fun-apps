@@ -139,6 +139,7 @@ FUN_BIG_LOGO_RELATIVE_PATH = 'funsite/images/logos/funmoocfp.png'
 CERTIFICATE_BASE_URL = '/attestations/'
 CERTIFICATES_DIRECTORY = '/edx/var/edxapp/attestations/'
 FUN_LOGO_PATH = FUN_BASE_ROOT / 'funsite/static' / FUN_BIG_LOGO_RELATIVE_PATH
+FUN_ATTESTATION_LOGO_PATH = FUN_BASE_ROOT / 'funsite/static' / 'funsite/images/logos/funmoocattest.png'
 STUDENT_NAME_FOR_TEST_CERTIFICATE = 'Test User'
 
 # Grades related settings

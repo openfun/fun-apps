@@ -194,7 +194,9 @@ class CertificateInfo(object):
         c.drawText(textobject)
 
     def write_fun_logo(self, c):
-        c.drawImage(settings.FUN_LOGO_PATH, logoX, logoY, width=83, height=77, mask='auto')
+        c.drawImage(
+            settings.FUN_ATTESTATION_LOGO_PATH,
+            logoX, logoY, width=170, height=77, mask='auto')
 
     def write_organization_logo(self, c):
         if self.organization_logo:
