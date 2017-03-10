@@ -15,7 +15,7 @@ SITE_NAME = CMS_BASE
 
 SERVER_EMAIL = '%s-%s@france-universite-numerique-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
 
-FEATURES['PREVIEW_LMS_BASE'] = LMS_BASE
+FEATURES['PREVIEW_LMS_BASE'] = "preview." + LMS_BASE
 
 PIPELINE_SASS_ARGUMENTS = PIPELINE_SASS_ARGUMENTS.format(proj_dir=PROJECT_ROOT)
 
@@ -33,3 +33,10 @@ FEATURES['AUTOMATIC_AUTH_FOR_TESTING'] = True
 HAYSTACK_CONNECTIONS = configure_haystack(ELASTIC_SEARCH_CONFIG)
 
 PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not user aggregated static files
+
+FEATURES['PREVIEW_LMS_BASE'] = PREVIEW_LMS_BASE # Make sure we are going onto preview.localhost:8000
+
+PREVIEW_DOMAIN = FEATURES['PREVIEW_LMS_BASE'].split(':')[0]
+HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
+       PREVIEW_DOMAIN: 'draft-preferred'
+}

@@ -8,7 +8,7 @@ ENVIRONMENT = 'dev'
 CMS_BASE = 'localhost:8001'  # Studio web address
 LMS_BASE = 'localhost:8000'  # LMS web address
 
-PREVIEW_LMS_BASE = LMS_BASE
+PREVIEW_LMS_BASE = "preview." + LMS_BASE
 
 MEDIA_ROOT = "/edx/var/edxapp/uploads"
 

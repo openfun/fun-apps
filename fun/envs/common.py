@@ -108,10 +108,6 @@ GRADES_DOWNLOAD = {
         "STORAGE_TYPE": "localfs"
     }
 
-HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
-        "preview\\.": "draft"
-    }
-
 GITHUB_REPO_ROOT = '/edx/var/edxapp/data'
 
 # This settings may have to be changed when final URL scheme will be decided for production
@@ -119,7 +115,13 @@ LMS_BASE = 'fun-mooc.fr'  # LMS web address
 CMS_BASE = 'studio.fun-mooc.fr'  # Studio web address
 # We do not need to prefix LMS_BASE to access LMS from studio in our configuration,
 # but we may want to use a 'preview' instance of LMS as in v1
-PREVIEW_LMS_BASE = ''  # Sudio will build preview address like this //PREVIEW_LMS_BASE + LMS_BASE to/course...
+PREVIEW_LMS_BASE = 'preview.' + LMS_BASE
+# Sudio will build preview address like this //PREVEVIEW_LMS_BASE to/course... (see get_lms_link_for_item)
+
+# Make sure we see the draft on preview....
+HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
+    PREVIEW_LMS_BASE: 'draft-preferred'
+}
 
 LOCAL_LOGLEVEL = 'INFO'
 LOGGING_ENV = 'sandbox'

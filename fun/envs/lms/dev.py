@@ -45,3 +45,10 @@ ECOMMERCE_NOTIFICATION_URL = 'http://ecomdev.local/payment/paybox/notify/'
 JWT_ISSUER = "http://funbox.local:8000/oauth2"
 
 PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not use aggregated static files
+
+FEATURES['PREVIEW_LMS_BASE'] = PREVIEW_LMS_BASE # Make sure we are going onto preview.localhost:8000
+
+PREVIEW_DOMAIN = FEATURES['PREVIEW_LMS_BASE'].split(':')[0]
+HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
+       PREVIEW_DOMAIN: 'draft-preferred'
+}
