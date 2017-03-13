@@ -2,8 +2,14 @@
 Specific CMS settings for developpement environement
 """
 
-from .common import *
-from ..dev import *
+import sys
+from path import path
+BASE_ROOT = path('/edx/app/edxapp/')
+FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
+sys.path.append(FUN_BASE_ROOT)
+
+from fun.envs.cms.common import *
+from fun.envs.dev import *
 
 SITE_NAME = CMS_BASE
 
