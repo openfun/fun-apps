@@ -16,6 +16,8 @@ SITE_NAME = LMS_BASE
 
 SERVER_EMAIL = '%s-%s@france-universite-numerique-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
 
+FEATURES['PREVIEW_LMS_BASE'] = PREVIEW_LMS_BASE
+
 PIPELINE_SASS_ARGUMENTS = PIPELINE_SASS_ARGUMENTS.format(proj_dir=PROJECT_ROOT)
 
 INSTALLED_APPS += ('django_extensions',)
@@ -51,10 +53,3 @@ ECOMMERCE_NOTIFICATION_URL = 'http://ecomdev.local/payment/paybox/notify/'
 JWT_ISSUER = "http://funbox.local:8000/oauth2"
 
 PIPELINE_ENABLED = False  # We can not activate PIPELINE in dev env. therefore we will not use aggregated static files
-
-FEATURES['PREVIEW_LMS_BASE'] = PREVIEW_LMS_BASE # Make sure we are going onto preview.localhost:8000
-
-PREVIEW_DOMAIN = FEATURES['PREVIEW_LMS_BASE'].split(':')[0]
-HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS = {
-       PREVIEW_DOMAIN: 'draft-preferred'
-}

@@ -115,7 +115,7 @@ LMS_BASE = 'fun-mooc.fr'  # LMS web address
 CMS_BASE = 'studio.fun-mooc.fr'  # Studio web address
 # We do not need to prefix LMS_BASE to access LMS from studio in our configuration,
 # but we may want to use a 'preview' instance of LMS as in v1
-PREVIEW_LMS_BASE = 'preview.' + LMS_BASE
+PREVIEW_LMS_BASE = 'preview.{}'.format(LMS_BASE)
 # Sudio will build preview address like this //PREVEVIEW_LMS_BASE to/course... (see get_lms_link_for_item)
 
 # Make sure we see the draft on preview....
