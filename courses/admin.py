@@ -52,13 +52,17 @@ class CourseAdmin(admin.ModelAdmin):
         (_('Course Info - Automatically Updated'), {
             'fields': (
                 'key',
-                'show_in_catalog',
-                'show_about_page',
                 'title',
                 'university_display_name',
                 'image_url',
                 ('start_date', 'end_date'),
                 ('enrollment_start_date', 'enrollment_end_date'),
+            )
+        }),
+        (_('Visibility'), {
+            'fields': (
+                'show_in_catalog',
+                'show_about_page',
             )
         }),
         (_('Advanced'), {
