@@ -43,7 +43,7 @@ class Course(models.Model):
     language = models.CharField(_('language'), max_length=255,
         choices=courses_choices.COURSE_LANGUAGES, default='fr', db_index=True)
     show_in_catalog = models.BooleanField(verbose_name=_('show in catalog'),
-        default=True, db_index=True, help_text=_('Controls whether a course is '
+        default=False, db_index=True, help_text=_('Controls whether a course is '
         'listed in the courses catalog page'))
     show_about_page = models.BooleanField(verbose_name=_('show course about page'),
         default=True, db_index=True, help_text=_('Controls whether the course '
