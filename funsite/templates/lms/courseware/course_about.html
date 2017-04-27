@@ -1,5 +1,8 @@
 ## mako
 <%!
+
+import urllib
+
 from django.utils import timezone
 from django.utils.translation import pgettext, ugettext as _
 from django.core.urlresolvers import reverse
@@ -137,7 +140,8 @@ from funsite.utils import is_paid_course
             domain=site_domain,
             path=reverse('about_course', args=[course.id.to_deprecated_string()])
        )
-    ).replace(u" ", u"+")
+    )
+    tweet_text = urllib.quote(tweet_text.encode('utf-8'))
     tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
 
     facebook_link = microsite.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
@@ -152,7 +156,8 @@ from funsite.utils import is_paid_course
                 path=reverse('about_course', args=[course.id.to_deprecated_string()]),
            )
         )
-    ).replace(u" ", u"%20")
+    )
+
 %>
 
 <div class="course-about main-content compensate-right-column">
