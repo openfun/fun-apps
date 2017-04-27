@@ -22,7 +22,7 @@ hashids==1.1.0
 google-api-python-client==1.5.1
 
 # Proctoru
--e git+https://github.com/openfun/ProctorU-xBlock.git@fun-1.0#egg=proctoru-xblock
+-e git+https://github.com/openfun/ProctorU-xBlock.git@fun-1.1#egg=proctoru-xblock
 
 # Glowbl
 -e git+https://github.com/openfun/xblock-Glowbl.git@master#egg=fun-glowbl-xblock
