@@ -15,7 +15,6 @@ hashids==1.1.0
 #-e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
 
 # Video
--e git+https://github.com/openfun/libcast-xblock.git@0.4.5#egg=libcast-xblock
 google-api-python-client==1.5.1
 
 # Carousel
@@ -26,6 +25,7 @@ google-api-python-client==1.5.1
 
 # Configurable LTI consumer xblock
 exrex==0.10.5
+libcast-xblock==0.6.0
 xblock-configurable-lti-consumer==1.2.4+eucalyptus
 
 # Proctor Exam xblock
