@@ -1,3 +1,8 @@
+/**
+ * Video upload library
+ **/
+
+/*
 <%!
 from django.utils.translation import ugettext as _
 %>
@@ -10,6 +15,7 @@ def reverse_course(handler_name, kwargs=None):
   return reverse(handler_name, kwargs=kwargs)
 %>
 <%namespace name='static' file='../../static_content.html'/>
+*/
 
 require(["jquery", "underscore", "backbone", "gettext",
          "js/utils/templates", "js/views/modals/base_modal", "common/js/components/views/feedback_notification",
@@ -172,6 +178,8 @@ require(["jquery", "underscore", "backbone", "gettext",
         if (!values.id) {
             values.id = "";
         }
+        values.can_delete =  true;
+        values.can_parametrize =  ( '${context_api_class}' !== 'videoproviders.api.bokecc' );
         this.$el.html(this.template(values));
         if (!values.embed_url && values.video_sources && values.video_sources.length > 0) {
           // Time to activate the video player

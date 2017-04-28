@@ -2,8 +2,9 @@ import importlib
 
 from .base import MissingCredentials, ClientError
 
+from django.conf import settings
 
-VIDEO_CLIENT_MODULE = "videoproviders.api.videofront"
+VIDEO_CLIENT_MODULE = getattr(settings, 'DEFAULT_VIDEO_CLIENT_MODULE', 'videoproviders.api.videofront')
 VIDEO_CLIENT_CLASS = "Client"
 
 

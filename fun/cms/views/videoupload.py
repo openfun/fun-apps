@@ -35,6 +35,7 @@ def catch_missing_credentials_error(view_func):
 @catch_missing_credentials_error
 def home(request, course_key_string):
     course_module = get_course(course_key_string)
+    api_client = get_client(course_key_string)
 
     if not request.user.is_staff and not request.user.is_superuser:
         # Are we in a deactivation period?
@@ -53,6 +54,7 @@ def home(request, course_key_string):
             })
     return render_to_response('videoupload/index.html', {
         "context_course": course_module,
+        "context_api_class": api_client.__class__.__module__
     })
 
 @has_write_access_to_course
