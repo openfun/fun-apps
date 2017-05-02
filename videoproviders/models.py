@@ -81,3 +81,18 @@ class VideofrontCourseSettings(models.Model):
     def __unicode__(self):
         return u"VideofrontCourseSettings: course: %s playlist: %s" % (
                 self.course_id, self.playlist_id)
+
+
+class BokeCCCourseSettings(models.Model):
+    """
+    Store the BokeCC settings for each course. Normally, these fields should
+    be completed automatically by the BokeCC app. Note that in
+    the case of a second course session, you might want to assign to the
+    corresponding course setting the same values as the course setting for the
+    first run.
+    """
+    course_id = CourseKeyField(max_length=255, db_index=True)
+    playlist_id = models.CharField(verbose_name=_("Playlist ID"), max_length=128)
+
+    class Meta:
+        ordering = ('course_id',)
