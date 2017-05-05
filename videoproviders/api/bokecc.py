@@ -51,28 +51,64 @@ class Client(BaseClient):
         USER_ID = getattr(settings, 'BOKECC_USERID', '')
         return {"user_id":USER_ID,"salt_key":API_SALT_KEY }
 
-    def get_video(self, video_id):
+    def get_video(self, video_id,player_width="890px", player_height="375px"):
         video = {}
-        bokecc_video_infos = self.__bkcc_request_get(
+        # Get video info - playcode :
+        # {
+        #     "video": {
+        #         "playcode":"<script src='xxx' ...</script>"
+        #     }
+        # }
+        bokecc_video_playcode = self.__bkcc_request_get(
             self.BOKECC_URL,
             'video/playcode',
             log_error=True,
             params = {'videoid': video_id,
                       'playerid': self.BOKECC_PLAYER_ID,
                       'auto_play': 'false',
-                      'player_width': "890px",
-                      'player_height': "375px",
+                      'player_width': player_width,
+                      'player_height': player_height,
                       }
         )
+        # Get video info - Format :
+        # {
+        #     "video": {
+        #         "id": "XXX",
+        #         "title": "TITLKE",
+        #         "desp": "DESC",
+        #         "tags": " ",
+        #         "duration": 10,
+        #         "category": "YYY",
+        #         "image": "http://img.bokecc.com/comimage/XXXXX",
+        #         "imageindex": 0,
+        #         "image-alternate": [
+        #             {
+        #                 "index": 0,
+        #                 "url": "ZZZZ"
+        #             },
+        #         ]
+        #     }
+        # }
+        bokecc_video_infos = self.__bkcc_request_get(
+            self.BOKECC_URL,
+            'video',
+            log_error=True,
+            params={'videoid': video_id, }
+        )
         js_script_url = ''
-        if "video" in bokecc_video_infos :
+        if "video" in bokecc_video_playcode and "video" in bokecc_video_infos :
             # extract javascript URL so it in in HTTPS
             import re
-            real_url_match = re.search('src="http://([^"]+)" ',bokecc_video_infos["video"]["playcode"])
+            real_url_match = re.search('src="http://([^"]+)" ',bokecc_video_playcode["video"]["playcode"])
             if real_url_match:
                 js_script_url  =  "https://" +  real_url_match.group(1)
             video['js_script_url'] = js_script_url
             video['id'] = video_id
+            video['title'] = bokecc_video_infos['video']["title"]
+            video['prev_image'] = bokecc_video_infos['video']["image"]
+            video['thumbnail_url'] = bokecc_video_infos['video']["image"]
+            video['created_at'] = ''
+            video['status'] = "ready"
             return video
 
         raise MissingVideo()
@@ -92,14 +128,7 @@ class Client(BaseClient):
                 video_id_list = response["playlist"]["video"]
                 for video in video_id_list:
                     # Get full info for this video
-                    response = self.__bkcc_request_get(
-                        self.BOKECC_URL,
-                        'video',
-                        log_error=True,
-                        params={'videoid': video["id"],}
-                    )
-                    if "video" in response:
-                        video_list.append(response["video"])
+                    yield self.get_video(video["id"])
         else:
             response = self.__bkcc_request_get(
                 self.BOKECC_URL,
@@ -107,31 +136,6 @@ class Client(BaseClient):
                 log_error=True,
                 params={}
             )
-            if "videos" in response:
-                video_list = response["videos"]["video"]
-
-        # Format :
-        # {
-        #     "video": {
-        #         "id": "XXX",
-        #         "title": "TITLKE",
-        #         "desp": "DESC",
-        #         "tags": " ",
-        #         "duration": 10,
-        #         "category": "YYY",
-        #         "image": "http://img.bokecc.com/comimage/XXXXX",
-        #         "imageindex": 0,
-        #         "image-alternate": [
-        #             {
-        #                 "index": 0,
-        #                 "url": "ZZZZ"
-        #             },
-        #         ]
-        #     }
-        # }
-
-        for video in video_list:
-                    yield video
 
 
     def get_subtitles(self, video_id):
@@ -150,6 +154,33 @@ class Client(BaseClient):
                     }
         )
         return response
+
+
+    def delete_video(self, video_id):
+        response = self.__bkcc_request_get(
+            self.BOKECC_URL,
+            'video/delete',
+            log_error=True,
+            params={'videoid': video_id,}
+        )
+        if "error" in response:
+            raise ClientError("Impossible to delete video")
+
+    def update_video_title(self, video_id, title):
+        """Change a video title"""
+        response = self.__bkcc_request_get(
+            self.BOKECC_URL,
+            'video/update',
+            log_error=True,
+            params={'videoid': video_id,
+                    'title': title.encode('utf-8'),
+                    }
+        )
+        if "error" in response:
+            raise ClientError("Impossible to change name for video")
+        else:
+            # As per youtube implementation the return value is not used
+            return {}
 
 
     ####################

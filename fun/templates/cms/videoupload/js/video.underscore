@@ -13,6 +13,9 @@
     <% } %>
   </video>
   <% } %>
+  <% if (prev_image.length > 0) {%>
+    <img src="<%= prev_image %>"  width="350" height="197">
+  <% } %>
 </td>
 <td class="title">
   <% if (external_link.length > 0) { %>
