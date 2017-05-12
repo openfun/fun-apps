@@ -128,14 +128,16 @@ from videoproviders.forms import SubtitleForm, ThumbnailForm
       ${_("Video uploads")}
       <small class="subtitle">${_("Add videos to your course")}</small>
     </h1>
-    <nav class="nav-actions" aria-label="${_('Page Actions')}">
-      <div id="upload-video-button">
-        <form id="videoupload-form">
-          <button class="button button-new"><i class="icon fa fa-plus"></i>${_('Upload new videos')}</button>
-          <input type="file" title="${_('Click to upload a new video')}" style="display: none;" multiple>
-        </form>
-      </div>
-    </nav>
+    % if context_api_class != 'videoproviders.api.bokecc':
+        <nav class="nav-actions" aria-label="${_('Page Actions')}">
+        <div id="upload-video-button">
+            <form id="videoupload-form">
+              <button class="button button-new"><i class="icon fa fa-plus"></i>${_('Upload new videos')}</button>
+              <input type="file" title="${_('Click to upload a new video')}" style="display: none;" multiple>
+            </form>
+          </div>
+        </nav>
+    % endif
   </header>
 </div>
 

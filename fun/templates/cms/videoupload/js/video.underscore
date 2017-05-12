@@ -53,14 +53,14 @@
     </li>
     <% } %>
 
-    <% if (status === "created" || status === "ready") { %>
+    <% if (can_parametrize && (status === "created" || status === "ready")) { %>
     <li class="action-item action-parameters">
       <!-- <i class="icon fa fa-cog"></i> -->
       <a class="action-button" href="#" onclick="return false;" data-tooltip="<%= gettext('Parameters') %>"><i class="icon fa fa-cog"></i> <span class="sr"><%= gettext('Parameters') %></span></a>
     </li>
     <% } %>
 
-    <% if (status !== "uploading" && status !== "deleted") { %>
+    <% if (can_delete && (status !== "uploading" && status !== "deleted")) { %>
     <li class="action-item action-delete">
       <a class="action-button" href="#" onclick="return false;" data-tooltip="<%= gettext('Delete this video') %>"><i class="icon fa fa-times-circle"></i> <span class="sr"><%= gettext('Delete this video') %></span></a>
     </li>
