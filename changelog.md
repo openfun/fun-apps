@@ -1,5 +1,15 @@
 # Changelog www.fun-mooc.fr
 
+## 4.8.2 6 juin 2017
+
+- Mise à jour xblock video - bug format tracking logs
+
+
+## 4.8.1, 4.8.2, 4.8.4 mars/avril 2017
+
+- Mise à jour ProctorU
+
+
 ## 4.7.3 29 mars 2017
 
 - Par défaut, désactiver l'affichage du cours dans le catalogue
