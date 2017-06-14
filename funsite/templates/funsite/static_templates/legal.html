@@ -1,7 +1,9 @@
 ## mako
 <%!
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
+from payment.models import TermsAndConditions, PAYMENT_TERMS
+from django.conf import settings
 %>
 <%inherit file="/funsite/parts/simple-content.html" />
 
@@ -13,65 +15,34 @@ from django.utils.translation import ugettext as _
     ${breadcrumbs.breadcrumbs(_("Terms and conditions"))}
 
 <section>
-  <h1>Mentions légales</h1>
-
-    <h2>Description du site</h2>
-
-
-<p>FUN est une plateforme d’hébergement de MOOC (Massive Open Online Courses, en français « cours en ligne ouvert et massif ») mise à disposition des établissements de l’enseignement supérieur français et de leurs partenaires dans le monde entier.</p>
-
-<p>Tous les cours présents sur FUN sont conçus par des enseignants-chercheurs, enseignants et chercheurs d’établissements d’enseignement supérieur, d’organismes de recherche ou d’établissements partenaires.</p>
-
-<p>Le catalogue des cours disponibles s’enrichira continuellement pour proposer une variété de formations répondant aux besoins de tous les publics.</p>
-
-
-    <h2>Éditeur du site</h2>
-
-    <p>
-        <%include file="fun-address.html"/>
-        Contact : <a href="mailto:cm@fun-mooc.fr">Sandrine Delacroix-Morvan</a>
-    </p>
-
-    <h2>Directeur de la publication</h2>
+<div class='hidden-320 hidden-768 cartouche_overlay'>
+	${_("In this page")}
+	<ul>
+		<li>
+			<a class=anchor href=#honor>${_("Usage policy")}</a>
+		</li>
+		<li>
+			<a class=anchor href=#tos>${_("Terms of use")}</a>
+		</li>
+		<li>
+			<a class=anchor href=#privacy>${_("Privacy policy")}</a>
+		</li>
+		<li>
+			<a class=anchor href=#legal>${_("Terms and conditions")}</a>
+		</li>
+	</ul>
+</div>
 
 
-    <p>Catherine Mongenet<br />
-    Directrice du <abbr title="Groupement d'Interêt Public">GIP</abbr> FUN-MOOC
-    </p>
-
-    <h2>Hébergement</h2>
-
-    <p>Orange<br />
-    Cloud for Business<br />
-    75015 Paris</p>
-
-    <h2>Gestionnaire des statistiques</h2>
-
-    <p>Google Analytics</p>
-
-<h2>Protection et traitement de données à caractère personnel</h2>
-
-<p>Conformément à l’article 32 de la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, vous bénéficiez d’un droit d’accès, de rectification des données vous concernant (voir la Politique de confidentialité) : <a href="mailto:cil@fun-mooc.fr">cil@fun-mooc.fr</a></p>
-
-<p>Ce site fait actuellement l’objet d’une nouvelle demande d’avis auprès de la Commission nationale de l’informatique et des libertés.</p>
-<p>La précédente demande d’avis de la CNIL (délibération n° 2014-036 du 23 janvier 2014) a fait l’objet d’un arrêté du ministre de l'Éducation Nationale, de l'Enseignement Supérieur et de la Recherche en date du 24 septembre 2014.</p>
-
-<h2>Crédits</h2>
-
-<p>La plateforme  FUN utilise la technologie Open EdX.</p>
-
-<p>Le projet est sous la <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">licence AGPL</a> et est visible à l’adresse suivante : <a href="https://github.com/openfun" target="_blank">https://github.com/openfun</a></p>
-
-<p>
-Hébergement : Orange, Cloud for Business,75015 Paris,France<br>
-Charte graphique : S.Q.L.I. Group, 268, avenue du Président Wilson - 93210 Saint-Denis<br>
-</p>
+${ TermsAndConditions.get_latest().text |n } 
+	
 
 
-<p><em>Mise à jour : 10 Février 2017</em></p>
 
+<p><em>${ TermsAndConditions.get_latest().datetime} </em></p>
 
 
 </section>
+
 
 </%block>

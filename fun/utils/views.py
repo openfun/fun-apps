@@ -2,6 +2,31 @@ from django.http import HttpResponseForbidden
 
 from instructor.views.api import require_level
 from static_template_view.views import render_404
+from payment.models import legal_acceptance
+from django.conf import settings
+from django.shortcuts import redirect
+
+DEFAULT_AGREEMENT_FORM = "/payment/terms/"
+
+def terms_accepted(func):
+    """
+    force redirect to acceptance of legal condition if
+    latest not accepted
+    redirection landing page SHOULD be set in settings
+    AGREEMENT_FORM else defaults to DEFAULT_AGREEMENT_FORM
+    """
+    def wrapped(request, *args, **kwargs):
+
+        if legal_acceptance(request.user):
+            return func(request, *args, **kwargs)
+        else:
+            return redirect(
+                settings.AGREEMENT_FORM \
+                    if hasattr(settings, "AGREEMENT_FORM") \
+                    else DEFAULT_AGREEMENT_FORM,
+                    *args, **kwargs
+            )
+    return wrapped
 
 
 def staff_required(func):

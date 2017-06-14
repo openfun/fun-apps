@@ -5,7 +5,43 @@ body {
     font-family: 'Raleway', sans-serif;
     -ms-overflow-style: scrollbar;
 }
+.simple-content-page section,
+.simple-content-page article { 
+	max-width:	80em;
+	margin:auto;
+}
 
+.course-about-university-logo img {
+	vertical-align: baseline;
+}
+.cartouche_overlay {
+	color:#eeeeee ;
+	position:fixed;
+	top:5em;
+	right:.5rem;
+	padding:1em;
+	background:rgba(20,20,20,.8);
+	box-shadow: .2em .2em .2em rgba(180,180,220,.9);
+	border-radius:.5em;
+
+}
+.cartouche_overlay ul {
+	margin-top:.5em;
+	font-weight:900 !important;
+	padding:1em;
+}
+.cartouche_overlay li {
+	list-style-type: none; 
+
+}
+.cartouche_overlay a.anchor,.cartouche_overlay a:visited.anchor {
+	color:#eeeeee ;
+    
+}
+.cartouche_overlay a:hover,
+.cartouche_overlay a:focus {
+	border-bottom: 2px dotted #eeeeee;
+}
 .main-width {
     margin-left: auto;
     margin-right: auto;
@@ -75,6 +111,20 @@ body {
     margin-bottom: 30px;
 }
 
+.course-block a {
+       display:block;
+       width:100%;
+ }
+
+ .course-block a:visited {
+       box-shadow: .1em .1em 2px rgba(30,80,80,.9);
+}      
+ .course-block a:focus, .course-block a:hover {
+       border-bottom: 2px solid #EEE;
+       box-shadow: .5em .5em 3px rgba(80,80,80,.9);
+}      
+
+
 .blue-cell {
     display: inline-block;
     background-color: #08223C;
@@ -105,14 +155,15 @@ body {
     padding: 0;
 }
 
-a,
-a:active,
-a:focus {
+a{
     text-decoration: none;
     color: #2579BE;
 }
+a:active,
+a:focus,
 a:hover {
     color: #FE3925;
+	border-bottom: 2px dotted ;
     text-decoration: none;
 }
 
@@ -322,21 +373,25 @@ ul.breadcrumbs {
     left: 10px;
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 100%;
     width: 99%;
+	margin-bottom:2em;
 }
 ul.breadcrumbs li {
     display: inline;
-    color: #D1D2D3;
+	font-weight:600 !important ;
+    color: #3877BC;
 }
 ul.breadcrumbs li:not(:last-child):after {
     content: "   •";
 }
 ul.breadcrumbs li a {
-    color: #D1D2D3;
+    color: #48C;
 }
-ul.breadcrumbs li a:hover {
-    color: #F83336;
+ul.breadcrumbs li a:hover,
+ul.breadcrumbs li a:focus {
+    color: #37B;
+	border-bottom: 2px dotted #37b;
 }
 
 /* Responsive */
@@ -406,6 +461,9 @@ ul.breadcrumbs li a:hover {
     .main-width {
         width: 1280px;
     }
+    .hidden-1280 {
+        display: none !important;
+    }
 
     .criteria-overlay ul {
         -moz-column-count: 3;
@@ -447,6 +505,9 @@ ul.breadcrumbs li a:hover {
 @media (max-width: 1279px) {
     .main-width {
         width: 768px;
+    }
+    .hidden-768 {
+        display: none !important;
     }
 
     /* this class is used to maintain body centering while we force right column width outside */
@@ -561,6 +622,7 @@ ul.breadcrumbs li a:hover {
     }
 
     .simple-content-page {
+		max-width:100rem !important;
         padding: 20px !important;
         margin: 0 !important;
     }
@@ -844,9 +906,11 @@ ul.breadcrumbs li a:hover {
 
 
 .simple-content-page {
+		max-width:100rem !important;
     padding: 20px 40px 20px 40px;
     margin-top: 40px;
     margin-bottom: 40px;
+	margin:auto;
     background-color: white;
 }
 

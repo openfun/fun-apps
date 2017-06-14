@@ -7,30 +7,30 @@ from util.date_utils import strftime_localized
 
 <%page args="course"/>
 <div class="course-block big-course center-block">
-    % if course.has_verified_course_mode:
-    <span class="verified"></span>
-    % endif
-    <div class="top">
-        % if course.session_display:
-            <div class="type">
-                <a class="no-decoration" href="${course.get_absolute_url()}">${ course.session_display }</a>
-            </div>
-        % else:
-            <div class="type transparent"></div>
-        % endif
-        <a href="${course.get_absolute_url()}">
-            <img class="img-responsive" src="${ course.get_thumbnail_url('big') }">
-        </a>
-    </div>
-    <div class="middle">
-        <div class="title">
-            <a class="title no-decoration" href="${course.get_absolute_url()}">${course.title}</a>
-        </div>
-        <div class="universities">
-            <span>
-                <a class="no-decoration" href="${course.get_absolute_url()}">${course.university_name}</a>
-            </span>
-        </div>
-    </div>
-    <%include file="footer.html" args="course=course,type='big'"/>
+	<a  href="${course.get_absolute_url()}">
+		% if course.has_verified_course_mode:
+		<span class="verified"></span>
+		% endif
+		<div class="top">
+			% if course.session_display:
+				<div class="type">
+					${ course.session_display }
+				</div>
+			% else:
+				<div class="type transparent"></div>
+			% endif
+				<img class="img-responsive" src="${ course.get_thumbnail_url('big') }">
+		</div>
+		<div class="middle">
+			<div class="title">
+				${course.title}
+			</div>
+			<div class="universities">
+				<span>
+					${course.university_name}
+				</span>
+			</div>
+		</div>
+		<%include file="footer.html" args="course=course,type='big'"/>
+	</a>
 </div>

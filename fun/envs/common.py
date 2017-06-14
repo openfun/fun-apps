@@ -46,6 +46,7 @@ LMS_SEGMENT_KEY = None   # Dogwood: Probably related to google analytics.
 
 TIME_ZONE = 'Europe/Paris'
 
+LEGAL_ACCEPTANCE_MIDDLEWARE =( 'fun.middleware.LegalAcceptance', )
 # i18n
 USE_I18N = True
 gettext = lambda s: s
