@@ -5,7 +5,6 @@ from django.utils.translation import pgettext
 
 
 <%page args="course,type"/>
-<a class="no-decoration" href="${course.get_absolute_url()}">
     % if course.course_ended:
         ${pgettext('course-block', u"Ended")}
         ${'<br>' if type == 'small' else ''}
@@ -19,4 +18,3 @@ from django.utils.translation import pgettext
         ${'<br>' if type == 'small' else ''}
         ${course.start_date_display}
     % endif
-</a>

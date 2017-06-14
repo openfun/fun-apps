@@ -49,6 +49,8 @@ MKTG_URLS['ROOT'] = 'http://' + LMS_BASE
 MKTG_URLS['TOS'] = '/tos'
 MKTG_URLS['PRIVACY'] = '/privacy'
 
+MIDDLEWARE_CLASSES += LEGAL_ACCEPTANCE_MIDDLEWARE
+
 # Allow all courses to use advanced components
 FEATURES['ALLOW_ALL_ADVANCED_COMPONENTS'] = True
 FEATURES['AUTH_USE_OPENID_PROVIDER'] = True

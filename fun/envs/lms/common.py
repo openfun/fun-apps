@@ -55,6 +55,9 @@ FEATURES['ENABLE_MKTG_SITE'] = False
 
 SITE_NAME = LMS_BASE
 
+
+MIDDLEWARE_CLASSES += LEGAL_ACCEPTANCE_MIDDLEWARE
+
 # MKTG_URL_LINK_MAP links are named url reverses belonging to Django project
 # (also see MKTG_URLS in cms.py)
 MKTG_URL_LINK_MAP = {
@@ -107,6 +110,7 @@ MAKO_TEMPLATES['main'] = [
 ] + MAKO_TEMPLATES['main']
 
 # Add funsite templates directory to Django templates finder.
+
 TEMPLATES[0]['DIRS'].insert(0, FUN_BASE_ROOT / 'funsite/templates/lms')
 
 # Enable legal page
