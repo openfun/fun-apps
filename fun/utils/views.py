@@ -1,7 +1,11 @@
 from django.http import HttpResponseForbidden
 
-from instructor.views.api import require_level
+from django.conf import settings
+from django.shortcuts import redirect
 from static_template_view.views import render_404
+from instructor.views.api import require_level
+
+DEFAULT_AGREEMENT_FORM = "/payment/terms/"
 
 
 def staff_required(func):
