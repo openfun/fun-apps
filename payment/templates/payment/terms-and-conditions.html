@@ -13,12 +13,28 @@ from django.utils.translation import ugettext as _
     ${breadcrumbs.breadcrumbs(_("Verified exam terms and conditions"))}
 
     <section class="terms-and-conditions">
+        <div class='hidden-320 hidden-768 cartouche_overlay'>
+	        ${_("In this page")}
+	        <ul>
+		        <li>
+			        <a class=anchor href=#honor >${_("Usage policy")}</a>
+		        </li>
+		        <li>
+			        <a class=anchor href=#tos >${_("Terms of use")}</a>
+		        </li>
+		        <li>
+			        <a class=anchor href=#privacy >${_("Privacy policy")}</a>
+		        </li>
+		        <li>
+			        <a class=anchor href=#legal >${_("Terms and conditions")}</a>
+		        </li>
+	        </ul>
+        </div>
+
       <article>
 
         % if force:
         <br><br>
-        <p>${_(u"You are redirected to this page because our terms and conditions have changed, please read and accept them before you proceed.")}</p>
-
 
             <div class="display-fun-payment-terms">
               <div class="display-fun-payment-terms-header">
@@ -27,7 +43,7 @@ from django.utils.translation import ugettext as _
 
               <div class="display-fun-payment-terms-text">
 
-                  ${terms.text}
+                  ${terms.text|n}
 
               </div>
 
@@ -40,7 +56,7 @@ from django.utils.translation import ugettext as _
 
             </div>
         % else:
-            ${terms.text}
+            ${terms.text|n}
         % endif
 
         </article>

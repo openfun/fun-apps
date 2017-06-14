@@ -1,54 +1,47 @@
 <div class="course-block small-course center-block">
-    <% if (has_verified_course_mode) { %>
-    <span class="verified"></span>
-    <%} %>
-    <div class="top">
-        <% if (session_display) { %>
-            <div class="type">
-                <a class="no-decoration" href="<%= course_about %>"><%= session_display %></a>
-        <% } else { %>
-            <div class="type empty">
+	<a  href="<%= course_about %>">
+        <% if (has_verified_course_mode) { %>
+        <span class="verified"></span>
         <%} %>
-            </div>
-        <a class="no-decoration color-regal-blue" href="<%= course_about %>">
-            <img class="main img-responsive" src="<%= thumbnails.small %>">
-        </a>
-    </div>
-    <div class="middle">
-        <div class="title">
-            <a class="no-decoration" href="<%= course_about %>"><%= title %></a>
+        <div class="top">
+            <% if (session_display) { %>
+                <div class="type">
+                    <%= session_display %>
+            <% } else { %>
+                <div class="type empty">
+            <%} %>
+                </div>
+                <img class="main img-responsive" src="<%= thumbnails.small %>">
         </div>
-        <div class="universities">
-            <a class="no-decoration" href="<%= course_about %>">
-                <%- university_name %>
-            </a>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="footer row">
-            <div class="date col-xs-20">
-                <a class="no-decoration" href="<%= course_about %>">
-                    <% if (course_ended) { %>
-                        <%- pgettext("course-block", "Ended") %>
-                        <br>
-                        <%- end_date_display %>
-                    <% } else if (course_started) { %>
-                        <%- pgettext("course-block", "Started") %>
-                        <br>
-                        <%- start_date_display %>
-                    <% } else { %>
-                        <%- pgettext("course-block", "Starts") %>
-                        <br>
-                        <%- start_date_display %>
-                    <% } %>
-                </a>
+        <div class="middle">
+            <div class="title">
+                <%= title %>
             </div>
-            <div class="register <% if (enrollment_ended) { %>closed <% } %>col-xs-16">
-                <a class="no-decoration" href="<%= course_about %>">
-                    <%- gettext("Learn more") %>
-                </a>
+            <div class="universities">
+                    <%- university_name %>
             </div>
         </div>
-    </div>
-
+        <div class="bottom">
+            <div class="footer row">
+                <div class="date col-xs-20">
+                        <% if (course_ended) { %>
+                            <%- pgettext("course-block", "Ended") %>
+                            <br>
+                            <%- end_date_display %>
+                        <% } else if (course_started) { %>
+                            <%- pgettext("course-block", "Started") %>
+                            <br>
+                            <%- start_date_display %>
+                        <% } else { %>
+                            <%- pgettext("course-block", "Starts") %>
+                            <br>
+                            <%- start_date_display %>
+                        <% } %>
+                </div>
+                <div class="register <% if (enrollment_ended) { %>closed <% } %>col-xs-16">
+                        <%- gettext("Learn more") %>
+                </div>
+            </div>
+        </div>
+    </a>
 </div>
