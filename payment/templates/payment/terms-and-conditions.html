@@ -17,8 +17,6 @@ from django.utils.translation import ugettext as _
 
         % if force:
         <br><br>
-        <p>${_(u"You are redirected to this page because our terms and conditions have changed, please read and accept them before you proceed.")}</p>
-
 
             <div class="display-fun-payment-terms">
               <div class="display-fun-payment-terms-header">
@@ -27,7 +25,7 @@ from django.utils.translation import ugettext as _
 
               <div class="display-fun-payment-terms-text">
 
-                  ${terms.text}
+                  ${terms.text|n}
 
               </div>
 
@@ -40,7 +38,7 @@ from django.utils.translation import ugettext as _
 
             </div>
         % else:
-            ${terms.text}
+            ${terms.text|n}
         % endif
 
         </article>

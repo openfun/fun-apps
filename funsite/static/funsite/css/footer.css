@@ -63,7 +63,7 @@ ul.top-footer li a:visited {
     display: inline-block;
 }
 .bottom-footer a.logo-edx img {
-    margin-top: 5px;
+	vertical-align:bottom !important;
 }
 .bottom-footer ul.fun-footer-icons {
     margin: 0;
@@ -80,7 +80,6 @@ ul.top-footer li a:visited {
 
 .bottom-footer .fun-footer-icons a {
     display: inline-block;
-    padding-top: 5px;
 }
 
 /* Responsiveness */
