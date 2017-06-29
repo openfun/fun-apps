@@ -110,7 +110,7 @@ class TermsAndConditions(models.Model):
         try:
             return TermsAndConditions.objects.filter(name=name).latest('datetime')
         except TermsAndConditions.DoesNotExist:
-            return True
+            return None
 
     @classmethod
     def user_has_to_accept_new_version(cls, name, user):
@@ -119,7 +119,7 @@ class TermsAndConditions(models.Model):
             return False
         name = name or PAYMENT_TERMS
         latest = TermsAndConditions.get_latest(name=name)
-        if latest is None:
+        if not latest:
             return False  # terms do not exists yet, user is ok
         if latest.version == '0':  # terms of version 0 are considered as accepted
             return False

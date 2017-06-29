@@ -2047,25 +2047,36 @@ Ce traitement est en cours d'instruction auprès de la CNIL.
 
 def add_new_lience(*a):
     last = TermsAndConditions.get_latest()
-    new = TermsAndConditions(name=last.name,
-        version = last.version + ".2",
-    )
-    new.save()
-    print "used %s with id %r as a template" % (last, last.id)
-    print "%s created with id %r" % (new, new.id)
-    new.texts.add(
-        TranslatedTerms(
+    new = None
+    if not last:
+        new = TermsAndConditions( version="0", text="" )
+    else:
+        new = TermsAndConditions(name=last.name,
+            version = last.version + ".2",
+        )
+
+    fr_tr = TranslatedTerms(
             tr_text = LICENCE_FR,
             language = "fr",
         )
-    )
-    new.texts.add(
-        TranslatedTerms(
+    en_tr = TranslatedTerms(
             tr_text = LICENCE_EN,
             language = "en",
         )
+    fr_tr.save()
+    en_tr.save()
+
+    new.texts.add(
+        fr_tr
+    )
+    new.texts.add(
+        en_tr
     )
     new.save()
+
+    print "used %s with id %r as a template" % (last, last.id)
+    print "%s created with id %r" % (new, new.id)
+
 
 class Migration(migrations.Migration):
 
