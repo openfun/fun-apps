@@ -63,6 +63,7 @@ ul.top-footer li a:visited {
     display: inline-block;
 }
 .bottom-footer a.logo-edx img {
+    vertical-align: bottom;
     margin-top: 5px;
 }
 .bottom-footer ul.fun-footer-icons {

@@ -175,11 +175,11 @@ a{
     color: #2579BE;
 }
 a:active,
-/* For a future MEP of accessibility ul.criteria li:hover, */
+ul.criteria li:hover,
 a:focus,
 a:hover
 {
-    color: #FE3925;
+    color: #FFF;
 	border-bottom: 2px dotted !important ;
     text-decoration: none;
 }
