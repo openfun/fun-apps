@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import datetime
-from payment.models import TermsAndConditions, TranslatedTerms
 
 LICENCE_EN="""
 General Terms and Conditions of Use
@@ -2046,37 +2045,28 @@ Ce traitement est en cours d'instruction auprès de la CNIL.
 """
 
 def add_new_lience(*a):
+    from payment.models import TermsAndConditions, TranslatedTerms, PAYMENT_TERMS
     last = TermsAndConditions.get_latest()
-    new = None
-    if not last:
-        new = TermsAndConditions( version="0", text="" )
-    else:
-        new = TermsAndConditions(name=last.name,
-            version = last.version + ".2",
-        )
-
-    fr_tr = TranslatedTerms(
+    
+    new = TermsAndConditions(name=PAYMENT_TERMS,
+        version = last and (last.version + ".2") or "1",
+    )
+    new.save()
+    #print "used %s with id %r as a template" % (last, last.id)
+    #print "%s created with id %r" % (new, new.id)
+    new.texts.add(
+        TranslatedTerms(
             tr_text = LICENCE_FR,
             language = "fr",
         )
-    en_tr = TranslatedTerms(
+    )
+    new.texts.add(
+        TranslatedTerms(
             tr_text = LICENCE_EN,
             language = "en",
         )
-    fr_tr.save()
-    en_tr.save()
-
-    new.texts.add(
-        fr_tr
-    )
-    new.texts.add(
-        en_tr
     )
     new.save()
-
-    print "used %s with id %r as a template" % (last, last.id)
-    print "%s created with id %r" % (new, new.id)
-
 
 class Migration(migrations.Migration):
 
