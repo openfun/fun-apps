@@ -8,14 +8,10 @@ from django.utils.translation import ugettext as _
 <div class="bottom">
     <div class="footer row">
         <div class="date ${'col-xs-20' if type=='small' else 'col-xs-22'}">
-            <a class="no-decoration" href="${course.get_absolute_url()}">
                 <%include file="start-end-date.html" args="course=course,type=type"/>
-            </a>
         </div>
-        <a href="${course.get_absolute_url()}">
             <div class="register ${'col-xs-16' if type=='small' else 'col-xs-14'} ${'closed' if course.enrollment_ended else '' }">
                 ${_(u"Learn more")}
             </div>
-        </a>
     </div>
 </div>
