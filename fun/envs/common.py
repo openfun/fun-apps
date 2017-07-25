@@ -249,7 +249,9 @@ def default_cache_configuration(key_prefix):
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
         "KEY_PREFIX": key_prefix,
         "KEY_FUNCTION": "util.memcache.safe_key",
-        'LOCATION': ['locahost:11211'],
+        'LOCATION': [
+            "localhost:11211"
+        ],
     }
 
 def file_cache_configuration(key_prefix, subfolder_name):
