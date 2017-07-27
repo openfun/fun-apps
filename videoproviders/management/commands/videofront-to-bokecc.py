@@ -32,7 +32,7 @@ class Command(BaseCommand):
         make_option('-s', '--chunksize',
                     metavar='CHUNKSIZE',
                     dest='chunksize',
-                    default=(512 * 1024),
+                    default=(2048 * 1024), # 4Mb max is recommended (http://doc.bokecc.com/vod/dev/uploadAPI/upload02/)
                     help='Chunk size for upload and download'),
     )
 
@@ -111,11 +111,14 @@ def xblock_ancestry(item):
 
 class BokeccVideoUploader:
 
+    MAX_RETRY = 10
+
     def __init__(self, chunksize):
         self.api_salt_key, self.user_id = BokeccUtil.get_auth()
         self.chunksize = chunksize
 
     def create_video(self, title, filesize, filename, desc):
+        videoid =''
         bokecc_video = BokeccUtil.bokecc_request_get(
             'video/create',
             params={
@@ -128,18 +131,34 @@ class BokeccVideoUploader:
             }
         )
         if not 'error' in bokecc_video:
-                if "uploadinfo" in bokecc_video:
-                    return bokecc_video['uploadinfo']
-        return None
+            if "uploadinfo" in bokecc_video:
+                # Upload metadata
+                videoid = bokecc_video['uploadinfo']['videoid']
+                metadata_url = bokecc_video['uploadinfo']['metaurl']
+                data = {
+                    'uid': self.user_id,
+                    'ccvid' : videoid.encode('ascii'),
+                    'first': 1,
+                    'servicetype': bokecc_video['uploadinfo']['servicetype'].encode('ascii'),
+                    'format': 'json'
+                }
+                p = requests.get(metadata_url,  data=data)
+                if p and p.content:
+                    result =  json.loads(p.content,'utf-8')
+                    if result['result'] == 0:
+                        return bokecc_video['uploadinfo']
 
     def upload_video(self, videoid, uploadchunkurl, videofile):
         fsize = videofile.tell()
         videofile.seek(0)
+        self.chunksize = 256*1024
         chunk = videofile.read(self.chunksize)
         chunkstart = 0
+        currentretry = 0
+        error = ''
         while chunk:
             data = {
-                   'ccvid': videoid,
+                   'ccvid': videoid.encode('ascii'),
                    'format': 'json',
             }
             file = { 'file': (videofile.name, chunk, 'application/octet-stream')}
@@ -147,8 +166,33 @@ class BokeccVideoUploader:
             header = {"Content-Range": contentrange}
             p = requests.post(uploadchunkurl, files=file, data=data,headers=header)
             print 'Uplodading file {0} to {1} - at {2} '.format(videofile.name,uploadchunkurl,chunkstart)
-            chunkstart = videofile.tell()
-            chunk = videofile.read(self.chunksize)
+            # Check response
+            if p and p.content:
+                content = json.loads(p.content, 'utf-8')
+                if 'result' in content and content['result'] == 0:
+                    #No error, so carry on
+                    currentretry = 0
+                    chunkstart = videofile.tell()
+                    chunk = videofile.read(self.chunksize)
+                else:
+                    currentretry += 1
+                    message = content['msg'].encode('utf-8')
+                    if currentretry > BokeccVideoUploader.MAX_RETRY:
+                        error = 'Issue while uploading file to bokecc ({0}) - at (chunk{1}) - Not retrying '\
+                            .format(message, chunkstart)
+                        break
+                    else :
+                        print 'Issue while uploading file to bokecc ({0}) - retrying (chunk{1}) '\
+                            .format(message, chunkstart)
+            else:
+                error='General error : no response'
+                break
+
+        if error <> '':
+            print error
+            return False
+        else:
+            return True
 
     def set_video_in_playlist(self,videoid,course_id):
         playlistid = BokeccUtil.get_or_create_playlist(course_id)
