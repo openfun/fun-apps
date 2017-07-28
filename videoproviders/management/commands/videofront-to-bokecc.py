@@ -10,13 +10,8 @@ from videoproviders.api.bokecc import BokeccUtil
 
 import requests
 import json
-import os
 from tempfile import NamedTemporaryFile
 import hashlib
-from time import time
-import urllib
-
-from django.conf import settings
 
 class Command(BaseCommand):
     help = """
@@ -83,17 +78,19 @@ class Command(BaseCommand):
         f = NamedTemporaryFile()
         chunkcount = 0
         filesize = r.headers['Content-length']
+        filemd5 = hashlib.md5()
         for chunk in r.iter_content(chunk_size=cs):
             if chunk: # filter out keep-alive new chunks
                     f.write(chunk)
+                    filemd5.update(chunk)
                     chunkcount += 1
-                    print '(' + str(chunkcount) +'/' + str(int(filesize)/cs) + ')',
+                    print '(' + str(chunkcount) +'/' + str(int(filesize)/cs+1) + ')',
 
         # Use title as videofrontid as it is the only field that is searcheable later
         # Keep the id in description just in case some would rename the files
-        video = bcc.create_video(videofrontid,f.tell(),local_filename,videofrontid)
+        video = bcc.create_video(videofrontid,f.tell(),local_filename, filemd5.hexdigest(),videofrontid)
         if video:
-            bcc.upload_video(video['videoid'],video['chunkurl'],f)
+            bcc.upload_video(video['videoid'],video['chunkurl'],f,local_filename)
             # Make sure we change this video an put in in the course playlist
             bcc.set_video_in_playlist(video['videoid'],course_id)
         f.close()
@@ -117,7 +114,7 @@ class BokeccVideoUploader:
         self.api_salt_key, self.user_id = BokeccUtil.get_auth()
         self.chunksize = chunksize
 
-    def create_video(self, title, filesize, filename, desc):
+    def create_video(self, title, filesize, filename, filemd5, desc):
         videoid =''
         bokecc_video = BokeccUtil.bokecc_request_get(
             'video/create',
@@ -139,19 +136,21 @@ class BokeccVideoUploader:
                     'uid': self.user_id,
                     'ccvid' : videoid.encode('ascii'),
                     'first': 1,
+                    'filename': filename,
+                    'filesize': filesize,
                     'servicetype': bokecc_video['uploadinfo']['servicetype'].encode('ascii'),
+                    'md5': filemd5,
                     'format': 'json'
                 }
-                p = requests.get(metadata_url,  data=data)
+                p = requests.get(metadata_url,  params=data)
                 if p and p.content:
                     result =  json.loads(p.content,'utf-8')
                     if result['result'] == 0:
                         return bokecc_video['uploadinfo']
 
-    def upload_video(self, videoid, uploadchunkurl, videofile):
+    def upload_video(self, videoid, uploadchunkurl, videofile,videofilename):
         fsize = videofile.tell()
         videofile.seek(0)
-        self.chunksize = 256*1024
         chunk = videofile.read(self.chunksize)
         chunkstart = 0
         currentretry = 0
@@ -161,10 +160,10 @@ class BokeccVideoUploader:
                    'ccvid': videoid.encode('ascii'),
                    'format': 'json',
             }
-            file = { 'file': (videofile.name, chunk, 'application/octet-stream')}
+            file = { 'file': (videofilename, bytearray(chunk), 'application/octet-stream')}
             contentrange = "bytes "+ str(chunkstart) + "-" + str(videofile.tell()) + "/" + str(fsize)
-            header = {"Content-Range": contentrange}
-            p = requests.post(uploadchunkurl, files=file, data=data,headers=header)
+            header = {"Content-Range": contentrange, 'Accept': 'text/*', 'Charset': 'UTF-8'}
+            p = requests.post(uploadchunkurl, files=file, params=data,headers=header)
             print 'Uplodading file {0} to {1} - at {2} '.format(videofile.name,uploadchunkurl,chunkstart)
             # Check response
             if p and p.content:
