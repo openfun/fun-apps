@@ -27,7 +27,7 @@ class Command(BaseCommand):
         make_option('-s', '--chunksize',
                     metavar='CHUNKSIZE',
                     dest='chunksize',
-                    default=(2048 * 1024), # 4Mb max is recommended (http://doc.bokecc.com/vod/dev/uploadAPI/upload02/)
+                    default=(4096 * 1024), # 4Mb max is recommended (http://doc.bokecc.com/vod/dev/uploadAPI/upload02/)
                     help='Chunk size for upload and download'),
     )
 
@@ -54,7 +54,8 @@ class Command(BaseCommand):
                     print unicode(course_id), "->", ancestry, provider, video_id
 
                     video = videofront_client.get_video_with_subtitles(xblock.video_id)
-                    hdsource = filter(lambda vs: vs['res'] == 5400 , video['video_sources'])
+                    #hdsource = filter(lambda vs: vs['res'] == 5400 , video['video_sources'])
+                    hdsource = filter(lambda vs: vs['res'] == 900, video['video_sources'])
                     if len(hdsource)>=1 :
                         print 'Video hdsource' , hdsource[0]['url']
                         self.process_video(video['video_sources'][0]['url'], video['title'], video['id'], course_id,chunksize)
@@ -113,6 +114,39 @@ class BokeccVideoUploader:
     def __init__(self, chunksize):
         self.api_salt_key, self.user_id = BokeccUtil.get_auth()
         self.chunksize = chunksize
+        self.videometa = {}
+
+    def set_video_metadata(self, videoid, filename, filesize, servicetype, md5, metadata_url, chunk_url):
+        videoinfo = {
+            'filename': filename,
+            'filesize': filesize,
+            'servicetype': servicetype,
+            'md5': md5,
+            'metadataurl': metadata_url,
+            'chunkurl': chunk_url
+        }
+        self.videometa[videoid] = videoinfo
+
+    def update_metadata(self, videoid,first=1):
+        if (not self.videometa.has_key(videoid)):
+            return None
+        videoinfo =  self.videometa[videoid]
+        data = {
+            'uid': self.user_id,
+            'ccvid': videoid.encode('ascii'),
+            'first': first,
+            'filename': videoinfo['filename'],
+            'filesize': videoinfo['filesize'],
+            'servicetype': videoinfo['servicetype'],
+            'md5': videoinfo['md5'],
+            'format': 'json'
+        }
+        p = requests.get(videoinfo['metadataurl'], params=data)
+        if p and p.content:
+            result = json.loads(p.content, 'utf-8')
+            if result['result'] == 0:
+                return result
+        return None
 
     def create_video(self, title, filesize, filename, filemd5, desc):
         videoid =''
@@ -132,20 +166,18 @@ class BokeccVideoUploader:
                 # Upload metadata
                 videoid = bokecc_video['uploadinfo']['videoid']
                 metadata_url = bokecc_video['uploadinfo']['metaurl']
-                data = {
-                    'uid': self.user_id,
-                    'ccvid' : videoid.encode('ascii'),
-                    'first': 1,
-                    'filename': filename,
-                    'filesize': filesize,
-                    'servicetype': bokecc_video['uploadinfo']['servicetype'].encode('ascii'),
-                    'md5': filemd5,
-                    'format': 'json'
-                }
-                p = requests.get(metadata_url,  params=data)
-                if p and p.content:
-                    result =  json.loads(p.content,'utf-8')
-                    if result['result'] == 0:
+                chunk_url = bokecc_video['uploadinfo']['chunkurl']
+                self.set_video_metadata(videoid,
+                                        filename,
+                                        filesize,
+                                        bokecc_video['uploadinfo']['servicetype'].encode('ascii'),
+                                        filemd5,
+                                        metadata_url,
+                                        chunk_url)
+
+
+                res = self.update_metadata(videoid, 1)
+                if res is not None:
                         return bokecc_video['uploadinfo']
 
     def upload_video(self, videoid, uploadchunkurl, videofile,videofilename):
@@ -155,6 +187,7 @@ class BokeccVideoUploader:
         chunkstart = 0
         currentretry = 0
         error = ''
+        self.update_metadata(videoid, 2)
         while chunk:
             data = {
                    'ccvid': videoid.encode('ascii'),
@@ -162,9 +195,15 @@ class BokeccVideoUploader:
             }
             file = { 'file': (videofilename, bytearray(chunk), 'application/octet-stream')}
             contentrange = "bytes "+ str(chunkstart) + "-" + str(videofile.tell()) + "/" + str(fsize)
-            header = {"Content-Range": contentrange, 'Accept': 'text/*', 'Charset': 'UTF-8'}
-            p = requests.post(uploadchunkurl, files=file, params=data,headers=header)
-            print 'Uplodading file {0} to {1} - at {2} '.format(videofile.name,uploadchunkurl,chunkstart)
+            header = {
+                "User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4)",
+                "Content-Range": contentrange,
+                'Accept': 'text/*',
+                'Charset': 'UTF-8',
+                'Cache-Control': 'no-cache'
+            }
+            print 'Uplodading file {0} to {1} - at {2} '.format(videofilename, uploadchunkurl, chunkstart)
+            p = requests.post(uploadchunkurl, files=file, params=data,headers=header, stream = True)
             # Check response
             if p and p.content:
                 content = json.loads(p.content, 'utf-8')
