@@ -3,6 +3,7 @@ from optparse import make_option
 from opaque_keys.edx.keys import CourseKey
 from libcast_xblock import LibcastXBlock
 from requests import Session, Request
+from xmodule.modulestore import ModuleStoreEnum
 
 import xmodule.modulestore.django
 from videoproviders.api import ClientError
@@ -67,15 +68,18 @@ class Command(BaseCommand):
         for xblock in store.get_items(course_id):
             try:
                 if isinstance(xblock, LibcastXBlock):
-                    video_id = "video_id={}".format(xblock.video_id.encode("utf-8"))
-                    bccvideoid = bcc.check_video_exists(video_id)
-                    if bccvideoid:
+                    video_id = xblock.video_id.encode("utf-8")
+                    ancestry = xblock_ancestry(xblock).encode("utf-8")
+                    print '{0} -> Checking block ({1}: {2})' \
+                        .format(unicode(course_id), video_id, ancestry)
+                    bccvideo = bcc.check_video_exists(video_id)
+                    if bccvideo:
                         xblock.is_bokecc_video = True
-                        xblock.video_id = bccvideoid
-                        ancestry = xblock_ancestry(xblock).encode("utf-8")
+                        xblock.video_id = bccvideo['id']
+
                         print '{0} -> Changing the nature of the xblock ({1}: {2}) to bokecc id:{3} ' \
-                            .format(unicode(course_id), video_id, ancestry, bccvideoid)
-                        xblock.save()
+                            .format(unicode(course_id), video_id, ancestry, bccvideo['id'])
+                        store.update_item(xblock, ModuleStoreEnum.UserID.mgmt_command)
             except ClientError as e:
                 print 'Error fetching video information({0}) Message:({1})'.format(video_id, e.message)
 
@@ -88,8 +92,12 @@ class Command(BaseCommand):
         bcc = BokeccVideoHelper()
         course_id = CourseKey.from_string(course_key_string)
         videos = course_video_xblock_generator(course_key_string)
-        videoidlist = [video.id for video in videos]
-        bcc.set_videos_in_playlist(videoidlist, course_id)
+        videoidlist = []
+        for video in videos:
+            bccvideo = bcc.check_video_exists(video['id'])
+            if bccvideo :
+                videoidlist.append(bccvideo['id'])
+        bcc.set_video_in_playlist(videoidlist, course_id)
 
     def process_upload_videos(self, course_key_string, chunksize):
         """
