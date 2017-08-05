@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from opaque_keys.edx.keys import CourseKey
 from libcast_xblock import LibcastXBlock
-from requests import Session, Request
+from requests import ConnectionError
 from xmodule.modulestore import ModuleStoreEnum
 
 import xmodule.modulestore.django
@@ -15,6 +15,7 @@ import requests
 import json
 from tempfile import NamedTemporaryFile
 import hashlib
+import time
 
 class Command(BaseCommand):
     help = """
@@ -259,52 +260,53 @@ class BokeccVideoHelper:
         currentretry = 0
         error = ''
         self.update_metadata(videoid, 2)
+        throttlingtime = 10
         while chunk:
-            data = {
-                   'ccvid': videoid.encode('ascii'),
-                   'format': 'json',
-            }
-            file = { 'file': (videofilename, bytearray(chunk), 'application/octet-stream')}
-            contentrange = "bytes "+ str(chunkstart) + "-" + str(videofile.tell()-1) + "/" + str(fsize)
-            header = {
-                "Content-Range": contentrange,
-                'Accept': 'text/*',
-                'Charset': 'UTF-8',
-                'Cache-Control': 'no-cache',
-                'Connection': "Keep-Alive"
-            }
-            print 'Uplodading file {0} to {1} - at {2} '.format(videofilename, uploadchunkurl, chunkstart)
+            try:
+                data = {
+                       'ccvid': videoid.encode('ascii'),
+                       'format': 'json',
+                }
+                file = { 'file': (videofilename, bytearray(chunk), 'application/octet-stream')}
+                contentrange = "bytes "+ str(chunkstart) + "-" + str(videofile.tell()-1) + "/" + str(fsize)
+                header = {
+                    "Content-Range": contentrange,
+                    'Accept': 'text/*',
+                    'Charset': 'UTF-8',
+                    'Cache-Control': 'no-cache',
+                    'Connection': "Keep-Alive"
+                }
+                print 'Uplodading file {0} to {1} - at {2} '.format(videofilename, uploadchunkurl, chunkstart)
 
-            s = Session()
-            req =  Request('POST', uploadchunkurl,  files=file, params=data,headers=header)
-
-            prepreq = req.prepare()
-
-            p = s.send(prepreq)
-
-            #p = requests.post(uploadchunkurl, files=file, params=data,headers=header, stream = True)
-            # Check response
-            if p and p.content:
-                content = json.loads(p.content, 'utf-8')
-                if 'result' in content and content['result'] == 0:
-                    #No error, so carry on
-                    currentretry = 0
-                    chunkstart = videofile.tell()
-                    chunk = videofile.read(self.chunksize)
+                p = requests.post(uploadchunkurl, files=file, params=data,headers=header)
+                # Check response
+                if p and p.content:
+                    content = json.loads(p.content, 'utf-8')
+                    if 'result' in content and content['result'] == 0:
+                        #No error, so carry on
+                        currentretry = 0
+                        chunkstart = videofile.tell()
+                        chunk = videofile.read(self.chunksize)
+                    else:
+                        currentretry += 1
+                        message = content['msg'].encode('utf-8')
+                        if currentretry > BokeccVideoHelper.MAX_RETRY:
+                            error = 'Issue while uploading file to bokecc ({0}) - at (chunk{1}) - Not retrying '\
+                                .format(message, chunkstart)
+                            break
+                        else :
+                            print 'Issue while uploading file to bokecc ({0}) - retrying (chunk{1}) '\
+                                .format(message, chunkstart)
                 else:
-                    currentretry += 1
-                    message = content['msg'].encode('utf-8')
-                    if currentretry > BokeccVideoHelper.MAX_RETRY:
-                        error = 'Issue while uploading file to bokecc ({0}) - at (chunk{1}) - Not retrying '\
-                            .format(message, chunkstart)
-                        break
-                    else :
-                        print 'Issue while uploading file to bokecc ({0}) - retrying (chunk{1}) '\
-                            .format(message, chunkstart)
-            else:
-                error='General error : no response'
-                break
-
+                    error='General error : no response'
+                    break
+                throttlingtime = 10
+            except ConnectionError as e:
+                print 'Issue while uploading file to bokecc ({0}) - retrying (chunk{1}) '.format(e.message,chunkstart)
+                print 'Throttling for {0} seconds....'.format(throttlingtime)
+                time.sleep(throttlingtime)
+                print 'Restarting ....'
+                throttlingtime += 10
         if error <> '':
             print error
             return False
