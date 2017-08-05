@@ -2,6 +2,8 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from opaque_keys.edx.keys import CourseKey
 from libcast_xblock import LibcastXBlock
+from requests import Session, Request
+
 import xmodule.modulestore.django
 from videoproviders.api import ClientError
 
@@ -27,8 +29,14 @@ class Command(BaseCommand):
         make_option('-s', '--chunksize',
                     metavar='CHUNKSIZE',
                     dest='chunksize',
-                    default=(4096 * 1024), # 4Mb max is recommended (http://doc.bokecc.com/vod/dev/uploadAPI/upload02/)
+                    default=(1024 * 1024), # 4Mb max is recommended (http://doc.bokecc.com/vod/dev/uploadAPI/upload02/)
                     help='Chunk size for upload and download'),
+        make_option('-a', '--action',
+                    metavar='COURSEID',
+                    dest='action',
+                    default='upload',
+                    help='Action : upload, playlist, xblock'),
+
     )
 
     def handle(self, *args, **options):
@@ -36,65 +44,121 @@ class Command(BaseCommand):
         course_key_string = options['courseid']
         if not course_key_string:
             raise CommandError("You must specify a course id")
-        chunksize = options['chunksize']
+        action = options['action']
+        if action == 'upload':
+            self.process_upload_videos(course_key_string, options['chunksize'])
+        elif action == "playlist":
+            self.process_playlists(course_key_string)
+        elif action == "xblock":
+            self.process_xblock_video_id(course_key_string)
 
+    def process_xblock_video_id(self, course_key_string):
+        """
+        Make sure we change the video in the xblock directly so it plays the right bokecc videoid
+        Note: when uploading we made sure that the id was in the video description, we will use that
+        :param course_key_string:
+        :return:
+        """
+        bcc = BokeccVideoHelper()
         course_id = CourseKey.from_string(course_key_string)
         store = xmodule.modulestore.django.modulestore()
-        store =store._get_modulestore_for_courselike(course_id)
-
-        videofront_client = videofrontclient(course_key_string)
+        store = store._get_modulestore_for_courselike(course_id)
 
         for xblock in store.get_items(course_id):
-            try :
+            try:
                 if isinstance(xblock, LibcastXBlock):
                     video_id = "video_id={}".format(xblock.video_id.encode("utf-8"))
-                    provider = "bokecc" if hasattr(xblock,'is_bokecc_video') and xblock.is_bokecc_video else "videofront"
-                    provider = "youtube" if xblock.is_youtube_video else provider
-                    ancestry = xblock_ancestry(xblock).encode("utf-8")
-                    print unicode(course_id), "->", ancestry, provider, video_id
-
-                    video = videofront_client.get_video_with_subtitles(xblock.video_id)
-                    #hdsource = filter(lambda vs: vs['res'] == 5400 , video['video_sources'])
-                    hdsource = filter(lambda vs: vs['res'] == 900, video['video_sources'])
-                    if len(hdsource)>=1 :
-                        print 'Video hdsource' , hdsource[0]['url']
-                        self.process_video(video['video_sources'][0]['url'], video['title'], video['id'], course_id,chunksize)
-                        #self.process_video(hdsource[0]['url'],video['title'],video['id'],chunksize)
+                    bccvideoid = bcc.check_video_exists(video_id)
+                    if bccvideoid:
+                        xblock.is_bokecc_video = True
+                        xblock.video_id = bccvideoid
+                        ancestry = xblock_ancestry(xblock).encode("utf-8")
+                        print '{0} -> Changing the nature of the xblock ({1}: {2}) to bokecc id:{3} ' \
+                            .format(unicode(course_id), video_id, ancestry, bccvideoid)
+                        xblock.save()
             except ClientError as e:
-                print 'Error fetching video ({0}) Message ({1})'.format(video_id, e.message)
+                print 'Error fetching video information({0}) Message:({1})'.format(video_id, e.message)
+
+    def process_playlists(self, course_key_string):
+        """
+        Process the videos from this course, so we make sure that all videos go in the right playlist
+        :param course_key_string:
+        :return:
+        """
+        bcc = BokeccVideoHelper()
+        course_id = CourseKey.from_string(course_key_string)
+        videos = course_video_xblock_generator(course_key_string)
+        videoidlist = [video.id for video in videos]
+        bcc.set_videos_in_playlist(videoidlist, course_id)
+
+    def process_upload_videos(self, course_key_string, chunksize):
+        """
+        Do the video upload for a given course
+        :param course_key_string:
+        :param chunksize:
+        :return:
+        """
+        videos = course_video_xblock_generator(course_key_string)
+        course_id = CourseKey.from_string(course_key_string)
+        for video in videos:
+                hdsource = filter(lambda vs: vs['res'] == 5400, video['video_sources'])
+                if len(hdsource) >= 1:
+                    print 'Video hdsource', hdsource[0]['url']
+                    self.process_video(video['video_sources'][0]['url'], video['title'], video['id'], course_id,
+                                           chunksize)
 
     def process_video(self,videofronthdurl,videofronttitle,videofrontid,course_id, cs):
         local_filename = videofronthdurl.split('/')[-1]
 
         print 'Processing video at {0} with name:{1} and id:{2} '.format(videofronthdurl, videofronttitle, videofrontid)
 
-        bcc = BokeccVideoUploader(cs)
+        bcc = BokeccVideoHelper(cs)
         # Check first if video exists already on bokeecc
-        videoexists = bcc.check_video_exists(videofrontid)
-        if videoexists is not None:
-            print 'Video with videofront Id:{1} is already on Bokecc with ID {2} '.format(videofrontid,videoexists['id'])
-
-        # If not then download it from videofront
-        r = requests.get(videofronthdurl, stream=True)
-        f = NamedTemporaryFile()
-        chunkcount = 0
-        filesize = r.headers['Content-length']
-        filemd5 = hashlib.md5()
-        for chunk in r.iter_content(chunk_size=cs):
-            if chunk: # filter out keep-alive new chunks
+        existingvideo = bcc.check_video_exists(videofrontid)
+        if existingvideo is not None:
+            print 'Video with videofront Id:{0} is already on Bokecc with ID {1} '.format(videofrontid,existingvideo['id'])
+        else:
+            # If not then download it from videofront
+            r = requests.get(videofronthdurl, stream=True)
+            f = NamedTemporaryFile()
+            chunkcount = 0
+            filesize = r.headers['Content-length']
+            filemd5 = hashlib.md5()
+            for chunk in r.iter_content(chunk_size=cs):
+                if chunk: # filter out keep-alive new chunks
                     f.write(chunk)
                     filemd5.update(chunk)
                     chunkcount += 1
                     print '(' + str(chunkcount) +'/' + str(int(filesize)/cs+1) + ')',
 
-        # Use title as videofrontid as it is the only field that is searcheable later
-        # Keep the id in description just in case some would rename the files
-        video = bcc.create_video(videofrontid,f.tell(),local_filename, filemd5.hexdigest(),videofrontid)
-        if video:
-            bcc.upload_video(video['videoid'],video['chunkurl'],f,local_filename)
-            # Make sure we change this video an put in in the course playlist
-            bcc.set_video_in_playlist(video['videoid'],course_id)
-        f.close()
+            # Use title as videofrontid as it is the only field that is searcheable later
+            # Keep the id in description just in case some would rename the files
+            video = bcc.create_video(videofrontid,f.tell(),local_filename, filemd5.hexdigest(),videofrontid)
+            if video:
+                bcc.upload_video(video['videoid'],video['chunkurl'],f,local_filename)
+                # Make sure we change this video an put in in the course playlist
+            f.close()
+
+
+def course_video_xblock_generator(course_key_string):
+    course_id = CourseKey.from_string(course_key_string)
+    store = xmodule.modulestore.django.modulestore()
+    store = store._get_modulestore_for_courselike(course_id)
+
+    videofront_client = videofrontclient(course_key_string)
+
+    for xblock in store.get_items(course_id):
+        try:
+            if isinstance(xblock, LibcastXBlock):
+                video_id = "video_id={}".format(xblock.video_id.encode("utf-8"))
+                provider = "bokecc" if hasattr(xblock,
+                                               'is_bokecc_video') and xblock.is_bokecc_video else "videofront"
+                provider = "youtube" if xblock.is_youtube_video else provider
+                video = videofront_client.get_video_with_subtitles(xblock.video_id)
+                yield video
+        except ClientError as e:
+            print 'Error fetching video information({0}) Message:({1})'.format(video_id, e.message)
+
 
 def xblock_ancestry(item):
     from xmodule.modulestore.exceptions import ItemNotFoundError
@@ -107,11 +171,10 @@ def xblock_ancestry(item):
         parent_ancestry += u"/"
     return u"{}{}".format(parent_ancestry, item.display_name)
 
-class BokeccVideoUploader:
-
+class BokeccVideoHelper:
     MAX_RETRY = 10
 
-    def __init__(self, chunksize):
+    def __init__(self, chunksize=1024 * 1024):
         self.api_salt_key, self.user_id = BokeccUtil.get_auth()
         self.chunksize = chunksize
         self.videometa = {}
@@ -194,16 +257,24 @@ class BokeccVideoUploader:
                    'format': 'json',
             }
             file = { 'file': (videofilename, bytearray(chunk), 'application/octet-stream')}
-            contentrange = "bytes "+ str(chunkstart) + "-" + str(videofile.tell()) + "/" + str(fsize)
+            contentrange = "bytes "+ str(chunkstart) + "-" + str(videofile.tell()-1) + "/" + str(fsize)
             header = {
-                "User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4)",
                 "Content-Range": contentrange,
                 'Accept': 'text/*',
                 'Charset': 'UTF-8',
-                'Cache-Control': 'no-cache'
+                'Cache-Control': 'no-cache',
+                'Connection': "Keep-Alive"
             }
             print 'Uplodading file {0} to {1} - at {2} '.format(videofilename, uploadchunkurl, chunkstart)
-            p = requests.post(uploadchunkurl, files=file, params=data,headers=header, stream = True)
+
+            s = Session()
+            req =  Request('POST', uploadchunkurl,  files=file, params=data,headers=header)
+
+            prepreq = req.prepare()
+
+            p = s.send(prepreq)
+
+            #p = requests.post(uploadchunkurl, files=file, params=data,headers=header, stream = True)
             # Check response
             if p and p.content:
                 content = json.loads(p.content, 'utf-8')
@@ -215,7 +286,7 @@ class BokeccVideoUploader:
                 else:
                     currentretry += 1
                     message = content['msg'].encode('utf-8')
-                    if currentretry > BokeccVideoUploader.MAX_RETRY:
+                    if currentretry > BokeccVideoHelper.MAX_RETRY:
                         error = 'Issue while uploading file to bokecc ({0}) - at (chunk{1}) - Not retrying '\
                             .format(message, chunkstart)
                         break
@@ -232,7 +303,7 @@ class BokeccVideoUploader:
         else:
             return True
 
-    def set_video_in_playlist(self,videoid,course_id):
+    def set_video_in_playlist(self,videoidlist,course_id):
         playlistid = BokeccUtil.get_or_create_playlist(course_id)
         response = BokeccUtil.bokecc_request_get(
             'playlist/update',
@@ -242,20 +313,29 @@ class BokeccVideoUploader:
                     }
         )
         if not 'error' in response:
-            videos = response['video']
+            videos = response['playlist']['video']
+            currentvideoidsset = frozenset([video['id'] for video in videos])
+            uniquevideosidlist = set(videoidlist).union(currentvideoidsset)
+
             videoliststring = ''
-            for video in videos:
+
+            for videoid in uniquevideosidlist:
                 if not videoliststring == '':
                     videoliststring += ','
-                videoliststring += video['id']
+                videoliststring += videoid
+
             response = BokeccUtil.bokecc_request_get(
                 'playlist/update',
                 params={'playlistid': playlistid,
                         'userid': self.user_id,
-                        'video': videoliststring,
+                        'videoid': videoliststring,
                         'format': json
                        }
                 )
+            if not 'error' in response:
+                print 'Adding video {0} to playlist ({1}):{2} '.format(videoid,
+                                                                     response['playlist']['name'],
+                                                                     response['playlist']['id'] )
             return response
 
     def check_video_exists(self, videofrontid):
@@ -263,10 +343,11 @@ class BokeccVideoUploader:
             'videos/search',
             params={'userid': self.user_id,
                     'q': 'TITLE:'+videofrontid,
+                    'sort': 'CREATION_DATE:DESC',
                     'format': 'json'
                     }
         )
         if not 'error' in response:
             if  response['videos']['total'] > 0:
-                response['videos']['video'][0]
+                return response['videos']['video'][0]
         return None
