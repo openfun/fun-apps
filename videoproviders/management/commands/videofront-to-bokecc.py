@@ -343,7 +343,7 @@ class BokeccVideoHelper:
                        }
                 )
             if not 'error' in response:
-                print 'Adding video {0} to playlist ({1}):{2} '.format(videoid,
+                print 'Adding video {0} to playlist ({1}):{2} '.format(uniquevideosidlist,
                                                                      response['playlist']['name'],
                                                                      response['playlist']['id'] )
             return response
