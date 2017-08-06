@@ -3,6 +3,8 @@ from optparse import make_option
 from opaque_keys.edx.keys import CourseKey
 from libcast_xblock import LibcastXBlock
 from requests import ConnectionError
+from xmodule.modulestore.exceptions import VersionConflictError
+
 from xmodule.modulestore import ModuleStoreEnum
 
 import xmodule.modulestore.django
@@ -66,7 +68,7 @@ class Command(BaseCommand):
         store = xmodule.modulestore.django.modulestore()
         store = store._get_modulestore_for_courselike(course_id)
 
-        for xblock in store.get_items(course_id):
+        for xblock in store.get_items(course_id, ModuleStoreEnum.RevisionOption.published_only):
             try:
                 if isinstance(xblock, LibcastXBlock):
                     video_id = xblock.video_id.encode("utf-8")
@@ -83,6 +85,8 @@ class Command(BaseCommand):
                         store.update_item(xblock, ModuleStoreEnum.UserID.mgmt_command)
             except ClientError as e:
                 print 'Error fetching video information({0}) Message:({1})'.format(video_id, e.message)
+            except VersionConflictError as e:
+                print 'Version Conflict error {0}'.format(e.message)
 
     def process_playlists(self, course_key_string):
         """
@@ -343,7 +347,7 @@ class BokeccVideoHelper:
                        }
                 )
             if not 'error' in response:
-                print 'Adding video {0} to playlist ({1}):{2} '.format(uniquevideosidlist,
+                print 'Adding video {0} to playlist ({1}):{2} '.format(videoliststring,
                                                                      response['playlist']['name'],
                                                                      response['playlist']['id'] )
             return response
