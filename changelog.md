@@ -13,6 +13,39 @@
 - accessibility (CSS)
 - typo in about
 
+## 4.8.2 6 juin 2017
+
+- Mise à jour xblock video - bug format tracking logs
+
+
+## 4.8.1, 4.8.2, 4.8.4 mars/avril 2017
+
+- Mise à jour ProctorU
+
+
+## 4.7.3 29 mars 2017
+
+- Par défaut, désactiver l'affichage du cours dans le catalogue
+
+## 4.7.2 - 15 mars 2017
+
+- Le controle de la visibilité du cours se fait désormais
+  dans l'admin django, plutôt que dans le Studio.
+
+## 4.7.1 13 - mars 2017
+
+- Possibilité de contrôler l'activation d'un cours coté FUN
+- Rendre le cours visible sans qu'il soit publique dans le catalogue
+- Faire fonctionner l'aperçu et l'aperçu réel
+
+## 4.6 - 1 mars 2017 et 8 mars 2017
+
+- Changement de logo
+    - Header/Footer (studio + lms)
+    - Home page
+    - Bulk email
+    - Page Certificate
+
 ## 4.5 - 18 janvier 2017
 
 - Eiffela: Adaptive Learning avec les contributions de OpenCraft et Domoscio

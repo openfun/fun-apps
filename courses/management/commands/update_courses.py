@@ -166,6 +166,7 @@ class Command(BaseCommand):
         course.enrollment_end_date = mongo_course.enrollment_end
         course.end_date = mongo_course.end
         course.save()
+        del course
         self.stdout.write('Updated course {}\n'.format(key))
         return None
 
