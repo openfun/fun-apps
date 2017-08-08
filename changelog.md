@@ -13,20 +13,31 @@
 - accessibility (CSS)
 - typo in about
 
+## 4.8.2 6 juin 2017
+
+- Mise à jour xblock video - bug format tracking logs
+
+
+## 4.8.1, 4.8.2, 4.8.4 mars/avril 2017
+
+- Mise à jour ProctorU
+
+
 ## 4.7.3 29 mars 2017
 
-- Par d<C3><A9>faut, d<C3><A9>sactiver l'affichage du cours dans le catalogue
+- Par défaut, désactiver l'affichage du cours dans le catalogue
 
 ## 4.7.2 - 15 mars 2017
 
-- Le controle de la visibilit<C3><A9> du cours se fait d<C3><A9>sormais
-  dans l'admin django, plut<C3><B4>t que dans le Studio.
+- Le controle de la visibilité du cours se fait désormais
+  dans l'admin django, plutôt que dans le Studio.
 
 ## 4.7.1 13 - mars 2017
 
-- Possibilit<C3><A9> de contr<C3><B4>ler l'activation d'un cours cot<C3><A9> FUN
+- Possibilité de contrôler l'activation d'un cours coté FUN
 - Rendre le cours visible sans qu'il soit publique dans le catalogue
-- Faire fonctionner l'aper<C3><A7>u et l'aper<C3><A7>u r<C3><A9>el
+- Faire fonctionner l'aperçu et l'aperçu réel
+>>>>>>> e2e7634a111c903aff44ce11b3d81323871a2c7e
 
 ## 4.6 - 1 mars 2017 et 8 mars 2017
 
@@ -35,7 +46,6 @@
     - Home page
     - Bulk email
     - Page Certificate
-
 
 ## 4.5 - 18 janvier 2017
 
