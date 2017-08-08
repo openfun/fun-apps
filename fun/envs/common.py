@@ -38,7 +38,7 @@ ADMINS = [['funteam', 'dev@france-universite-numerique-mooc.fr']]
 SESSION_COOKIE_DOMAIN = None
 
 # we use mysql to store mutualize session persistance between Django instances
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 WIKI_ENABLED = True
 
@@ -46,6 +46,7 @@ LMS_SEGMENT_KEY = None   # Dogwood: Probably related to google analytics.
 
 TIME_ZONE = 'Europe/Paris'
 
+LEGAL_ACCEPTANCE_MIDDLEWARE =( 'fun.middleware.LegalAcceptance', )
 # i18n
 USE_I18N = True
 gettext = lambda s: s
@@ -246,11 +247,11 @@ ensure_directory_exists(ORA2_FILEUPLOAD_CACHE_ROOT)
 def default_cache_configuration(key_prefix):
     return {
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "KEY_FUNCTION": "util.memcache.safe_key",
         "KEY_PREFIX": key_prefix,
-        "LOCATION": [
+        "KEY_FUNCTION": "util.memcache.safe_key",
+        'LOCATION': [
             "localhost:11211"
-        ]
+        ],
     }
 
 def file_cache_configuration(key_prefix, subfolder_name):

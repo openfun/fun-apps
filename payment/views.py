@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseBadRequest, Http404, HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 from django.utils.translation import gettext
@@ -23,8 +23,7 @@ from edxmako.shortcuts import render_to_response
 from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
 
 from .models import TermsAndConditions, PAYMENT_TERMS
-from .utils import (get_order, get_course, get_basket, get_order_context,
-        user_is_concerned_by_payment_terms)
+from .utils import get_order, get_course, get_basket, get_order_context
 
 logger = logging.getLogger(__name__)
 
@@ -146,10 +145,16 @@ def list_receipts(request):
 def payment_terms_page(request, force):
     """Page to show newer version of payment terms and conditions
        or force user to accept new version."""
-    force = (force and request.user.is_authenticated() and
-            TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS, request.user))
 
-    terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
+    force = bool(force) \
+        or bool(
+            TermsAndConditions.user_has_to_accept_new_version(
+                PAYMENT_TERMS,
+                request.user)
+            )
+    terms = TermsAndConditions.get_latest()
+    last_modified = terms.datetime.strftime(gettext('%m/%d/%y'))
+
 
     return render_to_response('payment/terms-and-conditions.html', {
             'terms': terms,
@@ -164,17 +169,21 @@ def get_payment_terms(request):
     data = {}
     terms = None
     if 'always' in request.GET:
-        terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
-    elif user_is_concerned_by_payment_terms(request.user):
-        terms = TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS,
-                    request.user)
+        terms = TermsAndConditions.get_latest(
+            PAYMENT_TERMS,
+            request.user.profile.language
+        )
+    else:
+        terms = TermsAndConditions.user_has_to_accept_new_version(
+            PAYMENT_TERMS,
+            request.user
+        )
     if terms:
         if 'no-text' not in request.GET:  # dashboard request do not need the text
             data['text'] = terms.text
         data['datetime'] = terms.datetime.strftime(gettext('%m/%d/%y'))
         data['version'] = terms.version
 
-    from django.shortcuts import render
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
@@ -184,14 +193,17 @@ def accept_payment_terms(request):
     """User accept payment terms and conditions.
     Set a cookie to prevent verification at each request"""
     data = {}
-    if user_is_concerned_by_payment_terms(request.user):
-        terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
-        terms.accept(request.user)
-        data['accepted'] = terms.version
+
+    terms = TermsAndConditions.get_latest(
+        PAYMENT_TERMS,
+        request.user.profile.language
+    )
+    terms.accept(request.user)
+    data['accepted'] = terms.version
+
 
     if request.is_ajax():
         return HttpResponse(json.dumps(data), content_type="application/json")
     else:
-        response = redirect(reverse('dashboard'))
-        response.set_cookie(PAYMENT_TERMS, 'ok', max_age=300)
-        return response
+        return redirect(reverse('dashboard'))
+

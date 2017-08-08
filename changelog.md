@@ -1,5 +1,18 @@
 # Changelog www.fun-mooc.fr
 
+## 4.9 -> 4.9.4 july 2017
+
+- 4.9 up to 4.9.4 have been a quite rock'n roll first time, please forgive 
+  the mess
+- new "release branch" is release-4.9.1 (yes not optimal)
+- adding latex multiple preview ORA2
+- fixing some i18n problems in fun-mooc/edx-platform (with same fix as upstream)
+- courses should have export bug fixed
+- offline correction of truncated logs, waiting its way to prod online
+- Multiple language TOS and user acceptance mechanism
+- accessibility (CSS)
+- typo in about
+
 ## 4.8.2 6 juin 2017
 
 - Mise à jour xblock video - bug format tracking logs

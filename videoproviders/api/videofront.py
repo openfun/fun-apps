@@ -135,13 +135,13 @@ class Client(BaseClient):
         response = func(url, **kwargs)
         if response.status_code >= 400:
             if response.status_code >= 500 or log_error:
-                logger.error("Videofront %d eror: %s %s - %s", response.status_code, method, endpoint, response.content)
+                logger.error("Videofront %d eror: %s %s - %r", response.status_code, method, endpoint, response.content)
             if response.status_code >= 500:
                 raise ClientError('Video provider error')
             else:
                 # Error response is of the form {key: value}
                 message = "\n".join([
-                    key + ": " + value
+                    "%r: %r" % (key, value)
                     for key, value in response.json().items()
                 ])
                 raise ClientError(message)

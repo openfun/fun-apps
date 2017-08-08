@@ -55,6 +55,9 @@ FEATURES['ENABLE_MKTG_SITE'] = False
 
 SITE_NAME = LMS_BASE
 
+
+MIDDLEWARE_CLASSES += LEGAL_ACCEPTANCE_MIDDLEWARE
+
 # MKTG_URL_LINK_MAP links are named url reverses belonging to Django project
 # (also see MKTG_URLS in cms.py)
 MKTG_URL_LINK_MAP = {
