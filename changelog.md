@@ -13,6 +13,30 @@
 - accessibility (CSS)
 - typo in about
 
+## 4.7.3 29 mars 2017
+
+- Par d<C3><A9>faut, d<C3><A9>sactiver l'affichage du cours dans le catalogue
+
+## 4.7.2 - 15 mars 2017
+
+- Le controle de la visibilit<C3><A9> du cours se fait d<C3><A9>sormais
+  dans l'admin django, plut<C3><B4>t que dans le Studio.
+
+## 4.7.1 13 - mars 2017
+
+- Possibilit<C3><A9> de contr<C3><B4>ler l'activation d'un cours cot<C3><A9> FUN
+- Rendre le cours visible sans qu'il soit publique dans le catalogue
+- Faire fonctionner l'aper<C3><A7>u et l'aper<C3><A7>u r<C3><A9>el
+
+## 4.6 - 1 mars 2017 et 8 mars 2017
+
+- Changement de logo
+    - Header/Footer (studio + lms)
+    - Home page
+    - Bulk email
+    - Page Certificate
+
+
 ## 4.5 - 18 janvier 2017
 
 - Eiffela: Adaptive Learning avec les contributions de OpenCraft et Domoscio

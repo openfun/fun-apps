@@ -99,7 +99,7 @@ class TermsAndConditions(models.Model):
     @classmethod
     def version_accepted(cls, name, user):
         try:
-            return UserAcceptance.objects.filter(terms__name=name, user=user).latest('datetime')
+            return UserAcceptance.objects.select_related("terms").filter(terms__name=name, user=user).latest('datetime')
         except UserAcceptance.DoesNotExist:
             return None
 
@@ -121,7 +121,16 @@ class TermsAndConditions(models.Model):
             return False  # terms do not exists yet, user is ok
         if latest.version == '0':  # terms of version 0 are considered as accepted
             return False
-        accepted = TermsAndConditions.version_accepted(name, user)
+        try:
+            accepted = TermsAndConditions.version_accepted(name, user)
+        except TypeError:
+            # TypeError
+            # int() argument must be a string or a number, not 'SimpleLazyObject'
+            # seems to me a bug of lazy loading or session hence the select related
+            # ~ line 102
+            # we are permissive here
+            return False
+
         if accepted and accepted.terms.version == latest.version:
             return False   # user already has accepted latest version
         else:
