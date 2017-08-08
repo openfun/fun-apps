@@ -37,7 +37,6 @@
 - Possibilité de contrôler l'activation d'un cours coté FUN
 - Rendre le cours visible sans qu'il soit publique dans le catalogue
 - Faire fonctionner l'aperçu et l'aperçu réel
->>>>>>> e2e7634a111c903aff44ce11b3d81323871a2c7e
 
 ## 4.6 - 1 mars 2017 et 8 mars 2017
 
