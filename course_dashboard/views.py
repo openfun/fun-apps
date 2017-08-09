@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from collections import defaultdict
-from datetime import datetime
 import time
 
 from django.shortcuts import render
@@ -20,40 +19,6 @@ from fun.utils.countries import get_country_name
 
 from . import stats
 
-
-@ensure_valid_course_key
-@staff_required_or_level('staff')
-def enrollment_stats(request, course_id):
-    enrollments = stats.EnrollmentStats(course_id)
-    return enrollment_stats_response(request, enrollments, 'course_dashboard/enrollment-stats.html')
-
-@staff_required
-def global_enrollment_stats(request):
-    enrollments = stats.EnrollmentStats(None)
-    return enrollment_stats_response(request, enrollments, 'course_dashboard/enrollment-stats-global.html')
-
-def enrollment_stats_response(request, enrollments, template):
-    if request.GET.get("format") == "csv":
-        return csv_response(["date", "enrollments"], enrollments.per_date, "enrollments.csv")
-    context = enrollment_stats_context(enrollments)
-    return render(request, template, context)
-
-def enrollment_stats_context(enrollments):
-    enrollments_per_day, enrollments_per_timestamp = formatted_dates(enrollments.per_date)
-    best_day = None
-    if enrollments_per_day:
-        best_day = max(enrollments_per_day, key=lambda e: e[1])
-
-    return {
-        "active_tab": "enrollment_stats",
-        "course_id": enrollments.course_id,
-        "enrollments_per_day": enrollments_per_day,
-        "enrollments_per_timestamp": enrollments_per_timestamp,
-        "average_enrollments_per_day": enrollments.daily_average(),
-        "best_day": best_day,
-        "total_population": enrollments.total(),
-        "day_span": enrollments.day_span(),
-    }
 
 @ensure_valid_course_key
 @staff_required_or_level('staff')

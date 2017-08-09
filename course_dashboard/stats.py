@@ -175,29 +175,6 @@ def most_active_username(threads):
     # user_activity is of the form {"username": count, ...}
     return max(user_activity.items(), key=lambda i: i[1])[0]
 
-class EnrollmentStats(object):
-    """Provide enrollments stats for a given course."""
-
-    def __init__(self, course_id=None, since=None):
-        self.course_id = course_id
-        self.since = since
-        self.per_date = enrollments_per_day(self.course_id, since=since)
-
-    def day_span(self):
-        """Number of days covered by the stats."""
-        days = 1
-        if self.per_date:
-            days = (self.per_date[-1][0] - self.per_date[0][0]).days + 1
-        return days
-
-    def total(self):
-        """Total number of enrollments"""
-        return sum(e[1] for e in self.per_date)
-
-    def daily_average(self):
-        """Average enrollments per day"""
-        return self.total() * 1. / self.day_span()
-
 
 class CertificateStats(object):
     """Provide certificate stats for a given course."""
