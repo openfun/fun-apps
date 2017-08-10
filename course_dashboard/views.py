@@ -20,13 +20,6 @@ from fun.utils.countries import get_country_name
 from . import stats
 
 
-@ensure_valid_course_key
-@staff_required_or_level('staff')
-def student_map(request, course_id):
-    course_population_by_country_code = stats.population_by_country(course_id)
-    return student_map_response(request, course_population_by_country_code,
-                                'course_dashboard/student-map.html', course_id)
-
 @staff_required
 def global_student_map(request):
     course_population_by_country_code = stats.population_by_country(None)
