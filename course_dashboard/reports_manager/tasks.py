@@ -7,8 +7,8 @@ from student.models import UserProfile, anonymous_id_for_user
 from instructor_task.tasks_helper import TaskProgress
 from xmodule.modulestore.django import modulestore
 
-from course_dashboard.reports_manager.utils import ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY, anonymize_username
-from course_dashboard.problem_stats.utils import fetch_problem, fetch_ancestors_names, get_problem_size
+from course_dashboard.reports_manager.utils import (ANSWERS_DISTRIBUTION_REPORTS_DIRECTORY, anonymize_username,
+                                                    fetch_problem, fetch_ancestors_names, get_problem_size)
 from fun import shared
 
 
