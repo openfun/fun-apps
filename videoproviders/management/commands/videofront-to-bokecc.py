@@ -3,6 +3,8 @@ from optparse import make_option
 from opaque_keys.edx.keys import CourseKey
 from libcast_xblock import LibcastXBlock
 from requests import ConnectionError
+from xmodule.modulestore.split_mongo import BlockKey
+
 from xmodule.modulestore.exceptions import VersionConflictError
 
 from xmodule.modulestore import ModuleStoreEnum
@@ -67,22 +69,36 @@ class Command(BaseCommand):
         course_id = CourseKey.from_string(course_key_string)
         store = xmodule.modulestore.django.modulestore()
         store = store._get_modulestore_for_courselike(course_id)
-
-        for xblock in store.get_items(course_id, ModuleStoreEnum.RevisionOption.published_only):
+        allxblocks = store.get_items(course_id, ModuleStoreEnum.RevisionOption.published_only)
+        newpublishedcoursekey  = None
+        for xblock in allxblocks:
             try:
                 if isinstance(xblock, LibcastXBlock):
                     video_id = xblock.video_id.encode("utf-8")
                     ancestry = xblock_ancestry(xblock).encode("utf-8")
                     print '{0} -> Checking block ({1}: {2})' \
                         .format(unicode(course_id), video_id, ancestry)
+                    if xblock.is_bokecc_video:
+                        print '{0} -> Block already on bokecc ({1}: {2}) ' \
+                            .format(unicode(course_id), video_id, ancestry)
+                        continue
                     bccvideo = bcc.check_video_exists(video_id)
                     if bccvideo:
-                        xblock.is_bokecc_video = True
-                        xblock.video_id = bccvideo['id']
-
                         print '{0} -> Changing the nature of the xblock ({1}: {2}) to bokecc id:{3} ' \
                             .format(unicode(course_id), video_id, ancestry, bccvideo['id'])
-                        store.update_item(xblock, ModuleStoreEnum.UserID.mgmt_command)
+                        # Make sure we have the right version of the xblock as in draft versionning
+                        # mode it all changes every time we update a block
+                        block_key = BlockKey.from_usage_key(xblock.location)
+                        ckey = xblock.location.course_key
+                        if newpublishedcoursekey:
+                            ckey = newpublishedcoursekey
+
+                        newxblock = store.get_item(ckey.make_usage_key(block_key.type, block_key.id),{})
+                        newxblock.is_bokecc_video = True
+                        newxblock.video_id = bccvideo['id']
+                        newitem = store.update_item(newxblock, ModuleStoreEnum.UserID.mgmt_command)
+                        if not newpublishedcoursekey or newpublishedcoursekey != newitem.location.course_key:
+                            newpublishedcoursekey = newitem.location.course_key
             except ClientError as e:
                 print 'Error fetching video information({0}) Message:({1})'.format(video_id, e.message)
             except VersionConflictError as e:
