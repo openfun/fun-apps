@@ -167,8 +167,9 @@ def course_video_xblock_generator(course_key_string):
                 provider = "bokecc" if hasattr(xblock,
                                                'is_bokecc_video') and xblock.is_bokecc_video else "videofront"
                 provider = "youtube" if xblock.is_youtube_video else provider
-                video = videofront_client.get_video_with_subtitles(xblock.video_id)
-                yield video
+                if xblock.video_id :
+                    video = videofront_client.get_video_with_subtitles(xblock.video_id)
+                    yield video
         except ClientError as e:
             print 'Error fetching video information({0}) Message:({1})'.format(video_id, e.message)
 
