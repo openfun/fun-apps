@@ -41,7 +41,7 @@ class Command(BaseCommand):
                     metavar='COURSEID',
                     dest='action',
                     default='upload',
-                    help='Action : upload, playlist, xblock'),
+                    help='Action : upload, playlist, xblock, stats'),
 
     )
 
@@ -57,6 +57,35 @@ class Command(BaseCommand):
             self.process_playlists(course_key_string)
         elif action == "xblock":
             self.process_xblock_video_id(course_key_string)
+        elif action == "stats":
+            self.stats_for_xblock(course_key_string)
+
+
+
+    def stats_for_xblock(self, course_key_string):
+        """
+        Make sure we change the video in the xblock directly so it plays the right bokecc videoid
+        Note: when uploading we made sure that the id was in the video description, we will use that
+        :param course_key_string:
+        :return:
+        """
+        bcc = BokeccVideoHelper()
+        course_id = CourseKey.from_string(course_key_string)
+        store = xmodule.modulestore.django.modulestore()
+        store = store._get_modulestore_for_courselike(course_id)
+        allxblocks = store.get_items(course_id, ModuleStoreEnum.RevisionOption.published_only)
+        print '"Course","VideoID","Path","Bokecc?"'
+        for xblock in store.get_items(course_id, ModuleStoreEnum.RevisionOption.published_only):
+            try:
+                if isinstance(xblock, LibcastXBlock):
+                    video_id = xblock.video_id.encode("utf-8")
+                    ancestry = xblock_ancestry(xblock).encode("utf-8")
+                    print '"{0}","{1}","{2}","{3}"' \
+                        .format(unicode(course_id), video_id, ancestry, "yes" if xblock.is_bokecc_video else "no")
+            except ClientError as e:
+                print 'Error fetching video information({0}) Message:({1})'.format(video_id, e.message)
+
+
 
     def process_xblock_video_id(self, course_key_string):
         """
