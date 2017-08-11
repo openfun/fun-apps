@@ -8,12 +8,13 @@ from mock import patch
 from django.conf import settings
 from django.test.utils import override_settings
 
+from capa.correctmap import CorrectMap
 from student.models import User, UserProfile, anonymous_id_for_user
 from student.tests.factories import UserFactory
 from courseware.tests.factories import StudentModuleFactory
 from instructor_task.tests.test_base import InstructorTaskModuleTestCase, OPTION_1, OPTION_2
 
-from course_dashboard.problem_stats.tests.test_problem_monitor import ProblemMonitorTestCase
+from course_dashboard.tests.base import BaseCourseDashboardTestCase
 from course_dashboard.reports_manager.tasks import generate_answers_distribution_report, get_path
 from course_dashboard.reports_manager.utils import build_answers_distribution_report_name, anonymize_username
 
@@ -21,7 +22,7 @@ from fun.tests.utils import skipUnlessLms
 
 @skipUnlessLms
 @override_settings(SHARED_ROOT='/tmp/shared-test-answers-distribution')
-class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonitorTestCase):
+class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, BaseCourseDashboardTestCase):
     def setUp(self):
         from instructor_task.tests.test_tasks import PROBLEM_URL_NAME
 
@@ -62,6 +63,34 @@ class AnswersDistributionReportsTask(InstructorTaskModuleTestCase, ProblemMonito
             reader = csv.reader(report)
             rows = list(reader)
         return rows
+
+    def _build_question_id(self, index):
+        return "{}_{}_1".format(self.problem_module.location.html_id(),
+                                index + 2)
+
+    def _build_correct_map(self, *args):
+        cmap = CorrectMap()
+        for index, correctness in enumerate(args):
+            cmap.update(CorrectMap(answer_id=self._build_question_id(index),
+                                   correctness=correctness))
+        return cmap.cmap
+
+    def _build_student_answers(self, *args):
+        student_answers = {}
+        for index, response in enumerate(args):
+            student_answers[self._build_question_id(index)] = response
+        return student_answers
+
+    def _build_student_module_state(self, correct_map, student_answers):
+        return {
+            'correct_map': correct_map,
+            'student_answers': student_answers,
+            'input_state': None,
+            'seed': '1',
+            'done': 'True',
+            'attempts': 1,
+            'last_submission_time': "2015-04-01T15:53:28Z"
+        }
 
     def test_generate_answers_distribution_report(self):
         self._create_student_module_entry()

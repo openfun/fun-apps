@@ -20,14 +20,6 @@ class StatsTestCase(BaseCourseDashboardTestCase):
         super(StatsTestCase, self).setUp()
         self.user = UserFactory()
 
-    def test_average_enrollments(self):
-        self.enroll_student_at(self.course, 2015, 2, 2)
-        self.enroll_student_at(self.course, 2015, 2, 3)
-        enrollments = stats.EnrollmentStats(self.get_course_id(self.course))
-
-        self.assertEqual(2, enrollments.day_span())
-        self.assertEqual(1, enrollments.daily_average())
-
     def test_population_by_country_for_empty_course(self):
         course = CourseFactory.create()
         course_population = stats.population_by_country(self.get_course_id(course))

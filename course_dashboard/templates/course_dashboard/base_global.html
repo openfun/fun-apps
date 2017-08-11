@@ -13,7 +13,6 @@
 
 <%block name="navigation">
     <ul id="container-navigation" class="nav nav-pills">
-        <li role="presentation" ${"class='active'" if active_tab == 'enrollment_stats' else '' }><a href="${reverse('course-dashboard-global:enrollment-stats')}">${_("Subscription statistics")}</a></li>
         <li role="presentation" ${"class='active'" if active_tab == 'student_map' else '' }><a href="${reverse('course-dashboard-global:student-map')}">${_("Student map")}</a></li>
     </ul>
 </%block>

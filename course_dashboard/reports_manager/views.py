@@ -17,7 +17,7 @@ from fun_instructor.instructor_task_api.submit_tasks import submit_generate_answ
 from util.views import ensure_valid_course_key
 from fun.utils.views import staff_required_or_level
 from fun import shared
-from course_dashboard.problem_stats.utils import fetch_problem
+from course_dashboard.reports_manager.utils import fetch_problem
 
 from course_dashboard.reports_manager.utils import (build_answers_distribution_report_name,
                                                     get_reports_from_course,
