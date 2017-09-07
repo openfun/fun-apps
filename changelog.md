@@ -1,5 +1,11 @@
 # Changelog www.fun-mooc.fr
 
+## 4.9.5
+
+- simple Lazy object fixed
+- some configuration for an instance inside the global config :(
+- another bug bite the dust on legal.
+
 ## 4.9 -> 4.9.4 july 2017
 
 - 4.9 up to 4.9.4 have been a quite rock'n roll first time, please forgive 
