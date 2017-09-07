@@ -387,4 +387,5 @@ CKEDITOR_CONFIGS = {
 ENABLE_ADWAYS_FOR_COURSES = (
     'course-v1:SciencesPo+05008+session01',
     'course-v1:SciencesPo+05008ENG+session01',
+    'course-v1:Paris1+16007+session01',
 )
