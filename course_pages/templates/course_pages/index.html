@@ -103,12 +103,28 @@ from courses_api.routers import CourseAPIRouter
             initialize: function(options) {
                 this.criterioncollection = options.criterioncollection;
                 this.filter = options.filter;
+            	this.timeout_handle=null;
             },
-            search: function(query, page, rpp, sortBy) {
+        	search: function(query, page, rpp, sortBy) {
+    			/* the smaller the query the more we wait */
+    			var delay = query.length > 4 ? 750 :( query.length > 1 ? 1500 : 3000 );
+    			//console.log("delay " + delay);
+    			if (this.timeout_handle!==null) {
+    				window.clearTimeout(this.timeout_handle);
+    			}
+    			var msearch = this._search;
+    			/** JS trick this is overloaded in Timeout callbacks **/
+    			var that= this;
+    			this.timeout_handle = window.setTimeout(
+    				function () { msearch(query, page, rpp, sortBy, that)
+    			},delay);
+    		},
+            _search: function(query, page, rpp, sortBy, that) {
                 var attributes = {
                     query: query,
                     selected: null,
                 }
+    			var that;
                 if (rpp) {
                     attributes.resultsPerPage = parseInt(rpp);
                 }
@@ -118,7 +134,7 @@ from courses_api.routers import CourseAPIRouter
                 if (sortBy) {
                     attributes.sortBy = sortBy;
                 }
-                this.filter.set(attributes);
+                that.filter.set(attributes);
             },
             sort: function(page, rpp, sortBy) {
                 return this.filterByAvailability(null, null, page, rpp, sortBy);
