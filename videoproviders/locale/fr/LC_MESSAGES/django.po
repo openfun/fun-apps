@@ -54,8 +54,8 @@ msgid "Start time"
 msgstr "Heure de début"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/forms.py:0
-msgid "Subtitle file (SRT files only)"
-msgstr "Fichier de sous-titres (fichiers SRT uniquement)"
+msgid "Subtitle file (VTT or SRT without tag files only)"
+msgstr "fichier de sous-titres (fichiers VTT ou SRT sans balise uniquement)"
 
 #: /edx/app/edxapp/fun-apps/videoproviders/forms.py:0
 msgid "Subtitle language"
