@@ -129,7 +129,7 @@ LOGGING_ENV = 'sandbox'
 LOG_DIR = '/edx/var/logs/edx'
 
 # Max size of asset uploads to GridFS
-MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = 30
+MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = 10
 
 SEGMENT_IO_LMS = True
 PAID_COURSE_REGISTRATION_CURRENCY = ["usd", "$"]
