@@ -1,5 +1,17 @@
 # Changelog www.fun-mooc.fr
 
+## 4.9.8 November 2017
+- change the certification url of proctoru by https://test-it-out.proctoru.com/
+
+## 4.9.7 october 2017
+- cms upload chunks mode seems broken above 10Mb. Setting it at 10Mb while
+  investigating.
+
+## 4.9.6 october 2017
+- async search query less resource consuming (/3)
+- btw you can also upload VTT format for subtitles and it works (xblock_video)
+
+
 ## 4.9.5
 
 - simple Lazy object fixed
