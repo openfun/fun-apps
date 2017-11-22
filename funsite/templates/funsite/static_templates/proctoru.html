@@ -2,6 +2,7 @@
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.conf import settings
 %>
 <%namespace name='static' file='/static_content.html'/>
 <%inherit file="/funsite/parts/simple-content.html" />
@@ -67,7 +68,7 @@ Lorsque vous cliquez sur le bouton <i>« S’inscrire pour passer une certifica
 <p>
 
 
-En premier lieu testez votre configuration matérielle en cliquant sur le lien prévu à cet effet. Vous serez redirigé vers la page <a hre="https://www.proctoru.com/testitout/index_fr.php" target="_blank">proctoru.com/testitout/index_fr.php</a> qui vous permet de vérifier notamment votre bande passante.
+En premier lieu testez votre configuration matérielle en cliquant sur le lien prévu à cet effet. Vous serez redirigé vers la page <a href="${settings.PROCTORU_URL_TEST}" target="_blank">${settings.PROCTORU_URL_TEST}</a> qui vous permet de vérifier notamment votre bande passante.
 
 </p>
         <br>
@@ -126,7 +127,7 @@ Il se peut que seulement certains créneaux soient disponibles. Veuillez faire e
 <h3>Avant l’examen </h3>
 
 <ol>
-<li>Testez de nouveau votre équipement sur <a href="https://www.proctoru.com/testitout/index_fr.php" target="_blank">proctoru.com/testitout/index_fr.php</a> avant de procéder au paiement de votre examen certifiant, pour vous assurer que votre ordinateur est compatible avec le service. Le site fait un diagnostic automatique de votre système, ou vous met en contact avec un assistant en direct, si besoin. Vous trouverez les caractéristiques techniques ci-après.</li>
+<li>Testez de nouveau votre équipement sur <a href="${settings.PROCTORU_URL_TEST}"target="_blank">${settings.PROCTORU_URL_TEST}</a> avant de procéder au paiement de votre examen certifiant, pour vous assurer que votre ordinateur est compatible avec le service. Le site fait un diagnostic automatique de votre système, ou vous met en contact avec un assistant en direct, si besoin. Vous trouverez les caractéristiques techniques ci-après.</li>
 <li>Assurez-vous que votre connexion Internet est assez rapide et fiable. Si votre connexion WiFi est parfois intermittente, nous vous recommandons de vous connecter par câble réseau à votre box, pour éviter les interruptions pendant l’examen.</li>
 <li>Il est fortement recommandé de passer l’examen depuis une pièce fermée à votre domicile. Si vous devez vous connecter depuis votre lieu de travail, assurez-vous que vous vous isolez dans une salle fermée, et que les pare-feu et sécurités informatiques sont compatibles avec le service ProctorU, notamment le logiciel de partage d’écran. En cas de doute, connectez-vous directement à un surveillant ProctorU en utilisant le chat en ligne.</li>
 <li>Certains examens autorisent le papier brouillon. Si c’est le cas, ne prenez que le nombre de pages nécessaires, et soyez prêt à les montrer au surveillant.</li>
@@ -158,7 +159,7 @@ A vous de vérifier que votre équipement remplit les conditions suivantes :
 <p>
 
 Nous vous recommandons de passer un diagnostic complet à l’adresse suivante :
-<a href="https://www.proctoru.com/testitout/index_fr.php" target="_blank">proctoru.com/testitout/index_fr.php</a>
+<a href="${settings.PROCTORU_URL_TEST}"target="_blank">${settings.PROCTORU_URL_TEST}</a>
 </p>
 
 

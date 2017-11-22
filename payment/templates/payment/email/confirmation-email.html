@@ -1,6 +1,7 @@
 ## mako
 <%!
 from django.utils.translation import ugettext as _
+from django.conf import settings
 %>
 <%inherit file="/payment/email/base.html" />
 
@@ -34,7 +35,7 @@ ${_(u"Celebrate your achievement through a certificate. This document will help 
 ${_(u"Here is a brief reminder of the mandatory requirements regarding the proctored exam necessary to obtain the certificate:")}
 <ul>
   <li>${_(u"The proctored exam is organized by the ProctorU provider in a part of the course visible only for students who have selected the certified track")}</li>
-  <li>${_(u"You must verify that your equipment is compatible by <a href='http://www.proctoru.com/testitout/' target='_blank'>clicking here</a>.")}</li>
+  <li>${_(u"You must verify that your equipment is compatible by <a href='{proctoru_url_test}' target='_blank'>clicking here</a>.").format(proctoru_url_test=settings.PROCTORU_URL_TEST)}</li>
   <li>${_(u"You must be able to provide an official identity document (passport, identity card ...) at the time of examination")}</li>
   <li>${_(u"You must comply with the rules of the examination explained in the course.")}</li>
 </ul>
