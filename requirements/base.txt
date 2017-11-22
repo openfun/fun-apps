@@ -18,11 +18,11 @@ hashids==1.1.0
 -e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
 
 # Video
--e git+https://github.com/openfun/libcast-xblock.git@0.4.4#egg=libcast-xblock
+-e git+https://github.com/openfun/libcast-xblock.git@0.4.5#egg=libcast-xblock
 google-api-python-client==1.5.1
 
 # Proctoru
--e git+https://github.com/openfun/ProctorU-xBlock.git@fun-1.1#egg=proctoru-xblock
+-e git+https://github.com/openfun/ProctorU-xBlock.git@fun-1.1.1#egg=proctoru-xblock
 
 # Glowbl
 -e git+https://github.com/openfun/xblock-Glowbl.git@master#egg=fun-glowbl-xblock
