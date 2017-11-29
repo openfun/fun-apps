@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 16\n"
+"Project-Id-Version: FUN-MOOC 18\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-05-02 14:41+0200\n"
-"PO-Revision-Date: 2016-05-02 14:41+0000\n"
+"POT-Creation-Date: 2017-11-28 19:57+0100\n"
+"PO-Revision-Date: 2017-11-28 19:57+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -24,7 +24,6 @@ msgstr "%d/%m/%y"
 msgid "%m/%d/%y %H:%M"
 msgstr "%d/%m/%y %H:%M"
 
-# Translated in edx by 'J'accepte'
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
 msgid "Accept"
 msgstr "J'accepte"
@@ -62,6 +61,13 @@ msgstr ""
 "Pourrez ajouter ce certificat à votre CV, à votre lettre de motivation ou"
 " le partager directement sur les réseaux sociaux."
 
+#: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
+msgid ""
+"Celebrate your achievement through a certificate. This document will help"
+" you to demonstrate the skills you have acquired in this MOOC, boost your"
+" CV and your career or prepare for further professional development."
+msgstr ""
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/bill.html:0
 msgid "Contact:"
 msgstr "Contact :"
@@ -86,6 +92,10 @@ msgstr "Compte Facebook de FUN"
 msgid "FUN&#39;s Twitter account"
 msgstr "Compte Twitter de FUN"
 
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "French"
+msgstr ""
+
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/order.html:0
 msgid "GIP FUN-MOOC"
 msgstr "GIP FUN-MOOC"
@@ -98,6 +108,7 @@ msgstr ""
 "Voici un bref rappel des conditions obligatoires de l'examen surveillé "
 "pour avoir la possibilité d'obtenir le certificat :"
 
+# Translated in edx by 'Accueil'
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/base-abstract.html:0
 msgid "Home"
 msgstr "Accueil"
@@ -136,8 +147,6 @@ msgstr "La procédure de paiement pour le cours a été interrompue."
 msgid "Payment successful"
 msgstr "Paiement réussi"
 
-# Translated in edx by 'Veuillez lire et accepter les conditions
-# d'utilisation'
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
 msgid "Please read and accept terms and conditions"
 msgstr "Veuillez lire et accepter les conditions d'utilisation"
@@ -177,6 +186,10 @@ msgstr "Contenu du règlement en HTML"
 #: /edx/app/edxapp/fun-apps/payment/models.py:0
 msgid "Terms and conditions version (semver)"
 msgstr "Verison du règlement"
+
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "Terms and conditions."
+msgstr "Conditions d'utilisation"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid "Thank you for your continued support, we wish you a good MOOC!"
@@ -224,14 +237,6 @@ msgstr "TVA non applicable, Exonération Art. 261-4-4 du CGI"
 msgid "Verified exam terms and conditions"
 msgstr "Règlement d’examen certifiant"
 
-#: /edx/app/edxapp/fun-apps/payment/templates/payment/terms-and-conditions.html:0
-msgid ""
-"You are redirected to this page because our terms and conditions have "
-"changed, please read and accept them before you proceed."
-msgstr ""
-"Vous êtes redirigés sur cette page car nos conditions d'utilisation ont "
-"changé, veuillez les lire et les accepter avant de continuer."
-
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
 "You have chosen to follow the course <strong>{title}</strong> in order to"
@@ -261,12 +266,10 @@ msgstr ""
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
 "You must verify that your equipment is compatible by <a "
-"href='http://www.proctoru.com/testitout/' target='_blank'>clicking "
-"here</a>."
+"href='{proctoru_url_test}' target='_blank'>clicking here</a>."
 msgstr ""
 "Vous devez vérifier que votre équipement est compatible en <a "
-"href='http://www.proctoru.com/testitout/index_fr.php' "
-"target='_blank'>cliquant ici</a>."
+"href='{proctoru_url_test}' target='_blank'>cliquant ici</a>."
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/cancel.html:0
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/error.html:0
@@ -300,4 +303,8 @@ msgstr "Votre reçu se trouve à la fin de cet email."
 #: /edx/app/edxapp/fun-apps/payment/utils.py:0
 msgid "[FUN-MOOC] Payment confirmation"
 msgstr "[FUN-MOOC] Confirmation de paiement"
+
+#: /edx/app/edxapp/fun-apps/payment/models.py:0
+msgid "french"
+msgstr "français"
 
