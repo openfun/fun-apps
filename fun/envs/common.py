@@ -388,4 +388,8 @@ ENABLE_ADWAYS_FOR_COURSES = (
     'course-v1:SciencesPo+05008+session01',
     'course-v1:SciencesPo+05008ENG+session01',
     'course-v1:Paris1+16007+session01',
+    'course-v1:lorraine+30003+session03',
+    'course-v1:CNAM+01035+session01',
+    'course-v1:unicaen+48002+session01',
+    'course-v1:umontpellier+08005+session03',
 )
