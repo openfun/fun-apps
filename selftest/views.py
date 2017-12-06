@@ -21,7 +21,7 @@ from selftest.tasks import trigger_worker_error
 
 
 repositories = [
-        'edx-platform', 'fun-apps',
+        'edx-platform', 'fun-config', 'fun-apps',
         '../forum/cs_comments_service',
         'venvs/edxapp/src/ora2',
         'venvs/edxapp/src/proctoru-xblock',
