@@ -1,3 +1,3 @@
-from .enforce_legal_acceptance import LegalAcceptance
+# _*_ coding: utf8 _*_
 
-__all__ = ( 'LegalAcceptance', )
+from .enforce_legal_acceptance import LegalAcceptance
