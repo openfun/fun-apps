@@ -50,10 +50,12 @@ def get_teaser(video_id):
         try:
             dm_id = re.compile(r'/([\d\w]+)\?').search(video_id).groups()[0]
         except AttributeError:
-            dm_id = ''
-    else:
+            return None
+    elif video_id:
         # FUN v1 did the stuff right
         dm_id = video_id
+    else:
+        return None
 
     return (
         '<iframe id="course-teaser" '
