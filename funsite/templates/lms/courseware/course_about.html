@@ -182,7 +182,9 @@ from funsite.utils import is_paid_course
                     % if fun_course.has_verified_course_mode:
                     <span class="verified"></span>
                     % endif
+                    % if ${get_course_about_section(request, course, "video")}:
                     <div class="video-button"></div>
+                    % endif
                     <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
 
