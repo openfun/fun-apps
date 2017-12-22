@@ -25,14 +25,20 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.filter(language__in=languages)
         if 'start-soon' in availability:
             queryset = queryset.start_soon()
-        if 'end-soon' in availability:
+        elif 'end-soon' in availability:
             queryset = queryset.end_soon()
-        if 'enrollment-ends-soon' in availability:
+        elif 'enrollment-ends-soon' in availability:
             queryset = queryset.enrollment_ends_soon()
-        if 'new' in availability:
+        elif 'new' in availability:
             queryset = queryset.new()
-        if 'current' in availability:
+        elif 'opened' in availability:
+            queryset = queryset.opened()
+        elif 'archived' in availability:
+            queryset = queryset.archived()
+        else:
+            # If no availability filter is set, hide courses that are archived
             queryset = queryset.current()
+
         if full_text_query:
             results = SearchQuerySet().filter(content=full_text_query)
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])

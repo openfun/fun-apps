@@ -70,7 +70,7 @@ class CourseQuerySet(models.query.QuerySet):
             Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True)
         )
 
-    def current(self):
+    def opened(self):
         """
         A course that is currently opened for enrollment.
         """
@@ -78,6 +78,17 @@ class CourseQuerySet(models.query.QuerySet):
             Q(enrollment_start_date__lte=now()) | Q(enrollment_start_date__isnull=True),
             Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True),
         )
+
+    def current(self):
+        """
+        A course that has currently not archived yet ie either opened for enrollment now
+        or in the future.
+        """
+        return self.public().filter(
+            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True))
+
+    def archived(self):
+        return self.public().filter(end_date__lt=now(), end_date__isnull=False)
 
     def annotate_with_is_enrollment_over(self):
         """
