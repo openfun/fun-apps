@@ -53,7 +53,7 @@ class CourseQuerySet(models.query.QuerySet):
         return self.filter(is_active=True, show_in_catalog=True)
 
     def start_soon(self):
-        return self.public().filter(start_date__range=self.too_late_range())
+        return self.public().filter(start_date__gt=now())
 
     def end_soon(self):
         return self.public().filter(end_date__range=self.too_late_range())
