@@ -814,6 +814,7 @@ ul.breadcrumbs li a:focus {
     background: url('../images/icones/calendar.png') 10px 8px no-repeat;
     font-weight: 500;
     color: #656667;
+    min-height: 44px;
 }
 .small-course .footer .register {
     padding-top: 12px;
