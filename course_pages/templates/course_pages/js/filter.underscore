@@ -46,17 +46,6 @@
             </div>
         <% } %>
         
-        <div class="navigation-block filter-dropdown hidden-xs sort-by"> <%  /**** Sort by ****/  %>
-            <span><%= gettext("Sort by:")%> <%= sortByValues[sortBy] %></span>
-            <span class="glyphicon glyphicon-menu-down"></span>
-
-            <ul class="hide-on-body-click">
-                <% for (var sortBy in sortByValues) { %>
-                <li class="color-iron" value="<%= sortBy %>"><%= sortByValues[sortBy] %></li>
-                <% } %>
-            </ul>
-        </div>
-
         <div class="navigation-block filter-dropdown hidden-xs results-per-page"> <%  /**** N per page ↓ ****/  %>
             <span>
                 <% if (resultsPerPage  <= 0) { %>

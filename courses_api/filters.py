@@ -7,19 +7,6 @@ from haystack.query import SearchQuerySet
 
 class CourseFilter(filters.BaseFilterBackend):
 
-    def order_by_param(self, request):
-        """Get the "sort" parameter from the request
-
-        Returns:
-            str: value that can be fed to a .order_by() directive.
-        """
-        sort_param = request.query_params.get("sort")
-        allowed_sort_params = ('enrollment_start_date', 'score', 'start_date', 'title',)
-        for allowed_param in allowed_sort_params:
-            if sort_param == allowed_param or sort_param == '-' + allowed_param:
-                return sort_param
-        return '-score'
-
     def filter_queryset(self, request, queryset, view):
         university_codes = request.query_params.getlist('university')
         subject_slugs = request.query_params.getlist('subject')
@@ -50,8 +37,10 @@ class CourseFilter(filters.BaseFilterBackend):
             results = SearchQuerySet().filter(content=full_text_query)
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
 
-        # Put courses for which enrollment is over at the end
-        queryset = queryset.annotate_with_is_enrollment_over()
-        queryset = queryset.order_by('is_enrollment_over', self.order_by_param(request))
+        # A sorting that makes sense depends on which filter is applied
+        if {'end-soon', 'enrollment-ends-soon', 'opened', 'archived'}.intersection(set(availability)):
+            queryset = queryset.order_by('end_date')
+        else:
+            queryset = queryset.order_by('start_date')
 
         return queryset
