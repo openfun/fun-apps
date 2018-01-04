@@ -6,15 +6,19 @@ from django.utils.translation import pgettext
 
 <%page args="course,type"/>
     % if course.course_ended:
-        ${pgettext('course-block', u"Ended")}
+        ${pgettext('course-block', u"Archived")}
         ${'<br>' if type == 'small' else ''}
         ${course.end_date_display}
     % elif course.course_started:
-        ${pgettext('course-block', u"Started")}
+        % if course.enrollment_end_date_display:
+        ${pgettext('course-block', u"Open until")}
+        % else:
+        ${pgettext('course-block', u"Open")}
+        % endif
         ${'<br>' if type == 'small' else ''}
-        ${course.start_date_display}
+        ${course.enrollment_end_date_display}
     % else:
-        ${pgettext('course-block', u"Starts")}
+        ${pgettext('course-block', u"Starts on")}
         ${'<br>' if type == 'small' else ''}
         ${course.start_date_display}
     % endif

@@ -58,6 +58,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'end_date',
             'enrollment_start_date',
             'enrollment_end_date',
+            'enrollment_end_date_display',
             'course_started',
             'course_ended',
             'enrollment_ended',
