@@ -809,7 +809,8 @@ ul.breadcrumbs li a:focus {
     width: 270px;
 }
 .small-course .footer .date {
-    padding-left: 46px;
+    padding-left: 42px;
+    padding-right: 2px;
     padding-top: 4px;
     background: url('../images/icones/calendar.png') 10px 8px no-repeat;
     font-weight: 500;
