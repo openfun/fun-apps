@@ -73,7 +73,7 @@ class LazyChoicesSorter(object):
 
 # These are the allowed subtitle languages, we have the same list on Videofront server
 SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter((code, ugettext_lazy(lang)) for code, lang in global_settings.LANGUAGES
-    if code not in ('zh-hans', 'zh-hant')) # Chines has 4 language codes for 2 given languages (Traditional and Simplified Chinese) so we exclude 2 of them
+    if code not in ('zh-cn', 'zh-tw')) # We remove 2 deprecated chinese language codes which do not exist on Django 1.10 VideoFront
 
 # EdX rely on this code to display current language to user, when not yet set in preferences
 # This is probably a bug because user with an english browser, will have the english i18n
