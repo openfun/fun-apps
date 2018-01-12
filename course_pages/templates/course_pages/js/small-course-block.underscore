@@ -26,16 +26,18 @@
                 <div class="date col-xs-20">
                         <% if (course_ended) { %>
                             <%- pgettext("course-block", "Archived") %>
-                            <br>
-                            <%- end_date_display %>
                         <% } else if (course_started) { %>
-                            <% if (enrollment_end_date_display) { %>
-                            <%- pgettext("course-block", "Open until") %>
+                            <% if (enrollment_end_date) { %>
+                                <% if (enrollment_ended) { %>
+                                    <%- pgettext("course-block", "Registration closed") %>
+                                <% } else { %>
+                                    <%- pgettext("course-block", "Open until") %>
+                                    <br>
+                                    <%- enrollment_end_date_display %>
+                                <% } %>
                             <% } else { %>
-                            <%- pgettext("course-block", "Open") %>
+                                <%- pgettext("course-block", "Open") %>
                             <% } %>
-                            <br>
-                            <%- enrollment_end_date_display %>
                         <% } else { %>
                             <%- pgettext("course-block", "Starts on") %>
                             <br>

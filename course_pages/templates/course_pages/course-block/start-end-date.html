@@ -7,8 +7,6 @@ from django.utils.translation import pgettext
 <%page args="course,type"/>
     % if course.course_ended:
         ${pgettext('course-block', u"Archived")}
-        ${'<br>' if type == 'small' else ''}
-        ${course.end_date_display}
     % elif course.course_started:
         % if course.enrollment_end_date_display:
         ${pgettext('course-block', u"Open until")}

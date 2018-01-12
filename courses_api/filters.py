@@ -13,6 +13,7 @@ class CourseFilter(filters.BaseFilterBackend):
         levels = request.query_params.getlist('level')
         languages = request.query_params.getlist('language')
         availability = request.query_params.getlist('availability')
+        status = request.query_params.getlist('status')
         full_text_query = request.query_params.get('query', None)
 
         if university_codes:
@@ -23,30 +24,34 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.filter(level__in=levels)
         if languages:
             queryset = queryset.filter(language__in=languages)
-        if 'start-soon' in availability:
-            queryset = queryset.start_soon()
-        elif 'end-soon' in availability:
-            queryset = queryset.end_soon()
-        elif 'enrollment-ends-soon' in availability:
-            queryset = queryset.enrollment_ends_soon()
-        elif 'new' in availability:
+        # Status
+        if 'new' in status:
             queryset = queryset.new()
+        # Availability
+        if 'starting_soon' in availability:
+            queryset = queryset.starting_soon()
+        elif 'enrollment_ending_soon' in availability:
+            queryset = queryset.enrollment_ends_soon()
         elif 'opened' in availability:
             queryset = queryset.opened()
+        elif 'started' in availability:
+            queryset = queryset.started()
         elif 'archived' in availability:
             queryset = queryset.archived()
-        else:
-            # If no availability filter is set, hide courses that are archived
-            queryset = queryset.current()
 
         if full_text_query:
             results = SearchQuerySet().filter(content=full_text_query)
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
 
         # A sorting that makes sense depends on which filter is applied
-        if {'end-soon', 'enrollment-ends-soon', 'opened', 'archived'}.intersection(set(availability)):
-            queryset = queryset.order_by('end_date')
+        queryset = queryset.annotate_with_status()
+        if 'enrollment_ending_soon' in availability or 'started' in availability:
+            order_param = 'end_date'
+        elif 'archived' in availability:
+            order_param = '-end_date'
         else:
-            queryset = queryset.order_by('start_date')
+            order_param = 'start_date'
+
+        queryset = queryset.order_by('has_ended', 'is_enrollment_over', order_param)
 
         return queryset
