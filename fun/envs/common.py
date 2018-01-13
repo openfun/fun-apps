@@ -17,12 +17,12 @@ DEFAULT_FEEDBACK_EMAIL = "contact@france-universite-numerique-mooc.fr"
 DEFAULT_BULK_FROM_EMAIL = "cours@france-universite-numerique-mooc.fr"
 TECH_SUPPORT_EMAIL = "helpdesk@france-universite-numerique-mooc.fr"
 CONTACT_EMAIL = "contact@france-universite-numerique-mooc.fr"
-BUGS_EMAIL = "bugs@france-universite-numerique-mooc.fr"
+BUGS_EMAIL = "system@fun-mooc.fr"
 PAYMENT_SUPPORT_EMAIL = "paiements@fun-mooc.fr"
 PAYMENT_ADMIN = "paybox@fun-mooc.fr"
 # STATS emails are used by fun/management/commands/enrollment_statistics.py
 STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
-STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
+STATS_RECIPIENTS = ['system@fun-mooc.fr']
 BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
 FAVICON_PATH = "fun/images/favicon.ico"
 

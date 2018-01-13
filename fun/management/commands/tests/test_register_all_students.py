@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.core.management import call_command
 
 from student.tests.factories import UserFactory
