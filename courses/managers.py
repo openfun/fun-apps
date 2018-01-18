@@ -52,10 +52,10 @@ class CourseQuerySet(models.query.QuerySet):
     def public(self):
         return self.filter(is_active=True, show_in_catalog=True)
 
-    def start_soon(self):
-        return self.public().filter(start_date__range=self.too_late_range())
+    def starting_soon(self):
+        return self.public().filter(start_date__gt=now())
 
-    def end_soon(self):
+    def ending_soon(self):
         return self.public().filter(end_date__range=self.too_late_range())
 
     def enrollment_ends_soon(self):
@@ -63,25 +63,37 @@ class CourseQuerySet(models.query.QuerySet):
 
     def new(self):
         """
-        A new course is in its first session and that is not closed.
+        A new course is in its first session and for which enrollment is not closed.
         """
         return self.public().filter(
             Q(session_number=1),
-            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True)
-        )
+            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True))
 
-    def current(self):
+    def opened(self):
         """
         A course that is currently opened for enrollment.
         """
         return self.public().filter(
             Q(enrollment_start_date__lte=now()) | Q(enrollment_start_date__isnull=True),
-            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True),
-        )
+            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True))
 
-    def annotate_with_is_enrollment_over(self):
+    def started(self):
         """
-        Add a 'is_enrollment_over' attribute to all results.
+        A course that is on-going.
+        """
+        return self.public().filter(
+            Q(start_date__lte=now()) | Q(start_date__isnull=True),
+            Q(end_date__gte=now()) | Q(end_date__isnull=True))
+
+    def archived(self):
+        """
+        A course is archived if it has an end date in the past.
+        """
+        return self.public().filter(end_date__lt=now(), end_date__isnull=False)
+
+    def annotate_with_status(self):
+        """
+        Add a 'is_enrollment_over' and 'has_ended' attributes to all results.
         """
         # Note: we are putting raw sql in the extra(...) statement. To do that,
         # we need the proper datetime formatting, which varies for every db.
@@ -89,7 +101,8 @@ class CourseQuerySet(models.query.QuerySet):
         return self.extra(select={
             'is_enrollment_over': (
                 '(enrollment_end_date IS NOT NULL AND enrollment_end_date < "{now}")'
-            ).format(now=formatted_now)
+            ).format(now=formatted_now),
+            'has_ended': '(end_date IS NOT NULL AND end_date < "{now}")'.format(now=formatted_now)
         })
 
     def by_score(self):

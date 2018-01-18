@@ -278,9 +278,11 @@ from funsite.utils import is_paid_course
                                     % if fun_course.enrollment_end_date:
                                         % if fun_course.enrollment_end_date < timezone.now():
                                             ${_("Registration closed")}
-                                        %else:
+                                        % else:
                                             ${fun_course.enrollment_end_date_display}
                                         % endif
+                                    % else:
+                                        -
                                     % endif
                                 </li>
                                 </ul>

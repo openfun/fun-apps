@@ -47,12 +47,19 @@ from courses_api.routers import CourseAPIRouter
 
         var FILTERS = [
             {
+                title: "${_('New courses')}", name: 'status', type: 'select', select: '#status-select',
+                values: [
+                    {value: 'new', title: "${_('First session')}", count: ${courses_count_new}},
+                ]
+            },
+            {
                 title: "${_('Availability')}", name: 'availability', type: 'select', select: '#availability-select',
                 values: [
-                    {value: 'enrollment-ends-soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_enrollment_ends_soon}},
-                    {value: 'start-soon', title: "${_('Starts soon')}", count: ${courses_count_start_soon}},
-                    {value: 'new', title: "${_('New')}", count: ${courses_count_new}},
-                    {value: 'current', title: "${_('Current')}", count: ${courses_count_current}},
+                    {value: 'starting_soon', title: "${_('Starting soon')}", count: ${courses_count_starting_soon}},
+                    {value: 'enrollment_ending_soon', title: "${_('Imminent end of enrollment')}", count: ${courses_count_enrollment_ending_soon}},
+                    {value: 'opened', title: "${_('Open for enrollment')}", count: ${courses_count_opened}},
+                    {value: 'started', title: "${_('Already started')}", count: ${courses_count_started}},
+                    {value: 'archived', title: "${_('Archived')}", count: ${courses_count_archived}},
                 ]
             },
             {
@@ -104,27 +111,29 @@ from courses_api.routers import CourseAPIRouter
                 this.criterioncollection = options.criterioncollection;
                 this.filter = options.filter;
             	this.timeout_handle=null;
+                if (!options.filter.get("selected")) {
+                     window.history.pushState('', '', '#filter/availability/opened');
+                }
             },
-        	search: function(query, page, rpp, sortBy) {
-    			/* the smaller the query the more we wait */
-    			var delay = query.length > 4 ? 750 :( query.length > 1 ? 1500 : 3000 );
-    			//console.log("delay " + delay);
-    			if (this.timeout_handle!==null) {
-    				window.clearTimeout(this.timeout_handle);
-    			}
-    			var msearch = this._search;
-    			/** JS trick this is overloaded in Timeout callbacks **/
-    			var that= this;
-    			this.timeout_handle = window.setTimeout(
-    				function () { msearch(query, page, rpp, sortBy, that)
-    			},delay);
-    		},
+            search: function(query, page, rpp, sortBy) {
+                /* the smaller the query the more we wait */
+                var delay = query.length > 4 ? 750 :( query.length > 1 ? 1500 : 3000 );
+                if (this.timeout_handle!==null) {
+                    window.clearTimeout(this.timeout_handle);
+                }
+                var msearch = this._search;
+                /** JS trick this is overloaded in Timeout callbacks **/
+                var that= this;
+                this.timeout_handle = window.setTimeout(
+                    function () { msearch(query, page, rpp, sortBy, that)
+                },delay);
+            },
             _search: function(query, page, rpp, sortBy, that) {
                 var attributes = {
                     query: query,
                     selected: null,
-                }
-    			var that;
+                };
+    		var that;
                 if (rpp) {
                     attributes.resultsPerPage = parseInt(rpp);
                 }
@@ -165,7 +174,6 @@ from courses_api.routers import CourseAPIRouter
                 this.filter.set(attributes);
             },
         });
-
 
         // Value of a possible filter. E.g: Language=English, Availability=Ends-soon, etc.
         var Value = Backbone.Model.extend({
@@ -715,6 +723,8 @@ from courses_api.routers import CourseAPIRouter
                 <div class="right row">
                     <div class="small-device-filter row visible-xs">
                         <div class="title">${_("Refine search results")}</div>
+                        <select id="status-select">
+                        </select>
                         <select id="availability-select">
                         </select>
                         <select id="university-select">

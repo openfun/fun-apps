@@ -25,10 +25,12 @@ def courses_index(request, subject=None):
         "course_subjects": annotate_with_public_courses(CourseSubject.objects.by_score()),
         "universities": annotate_with_public_courses(University.objects.not_obsolete().by_score()),
         "languages": languages,
-        "courses_count_start_soon": Course.objects.start_soon().count(),
-        "courses_count_enrollment_ends_soon": Course.objects.enrollment_ends_soon().count(),
+        "courses_count_starting_soon": Course.objects.starting_soon().count(),
+        "courses_count_enrollment_ending_soon": Course.objects.enrollment_ends_soon().count(),
         "courses_count_new": Course.objects.new().count(),
-        "courses_count_current": Course.objects.current().count(),
+        "courses_count_opened": Course.objects.opened().count(),
+        "courses_count_started": Course.objects.started().count(),
+        "courses_count_archived": Course.objects.archived().count(),
     })
 
 

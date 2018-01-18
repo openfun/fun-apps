@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 34\n"
+"Project-Id-Version: FUN-MOOC 39\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-14 12:10+0200\n"
-"PO-Revision-Date: 2016-04-14 12:10+0000\n"
+"POT-Creation-Date: 2018-01-13 11:51+0100\n"
+"PO-Revision-Date: 2018-01-13 11:51+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -15,27 +15,33 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
 msgctxt "course-block"
-msgid "Ended"
-msgstr "Terminé"
+msgid "Archived"
+msgstr "Archivé"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
 msgid "Learn more"
 msgstr "En savoir plus"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/filter.underscore:0
-msgid "Sort by:"
-msgstr "Trier par :"
+# Translated in edx by 'Ouvrir'
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
+msgctxt "course-block"
+msgid "Open"
+msgstr "Ouvert"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
 msgctxt "course-block"
-msgid "Started"
-msgstr "En cours"
+msgid "Open until"
+msgstr "Ouvert jusqu'au"
 
-# Translated in edx by ''
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
 msgctxt "course-block"
-msgid "Starts"
-msgstr "Débute"
+msgid "Registration closed"
+msgstr "Inscription close"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
+msgctxt "course-block"
+msgid "Starts on"
+msgstr "Démarre le"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/filter.underscore:0
 msgid "Your search"

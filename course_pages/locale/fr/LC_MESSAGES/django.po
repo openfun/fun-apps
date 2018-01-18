@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 51\n"
+"Project-Id-Version: FUN-MOOC 56\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2016-04-14 12:10+0200\n"
-"PO-Revision-Date: 2016-04-14 12:10+0000\n"
+"POT-Creation-Date: 2018-01-13 11:51+0100\n"
+"PO-Revision-Date: 2018-01-13 11:51+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -20,6 +20,19 @@ msgstr "Tous les thèmes"
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "All universities"
 msgstr "Tous les établissements"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Already started"
+msgstr "Déjà commencé"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Archived"
+msgstr "Archivé"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
+msgctxt "course-block"
+msgid "Archived"
+msgstr "Archivé"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Availability"
@@ -47,17 +60,8 @@ msgid "Courses"
 msgstr "Les cours"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
-msgid "Current"
-msgstr "Ouvert aux inscriptions"
-
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Default"
 msgstr "Défaut"
-
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
-msgctxt "course-block"
-msgid "Ended"
-msgstr "Terminé"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Enrollment date"
@@ -70,6 +74,10 @@ msgstr "Fin des inscriptions: "
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/feed/feed.html:0
 msgid "Enrollment starts : "
 msgstr "Début des inscriptions: "
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "First session"
+msgstr "Première session"
 
 #: /edx/app/edxapp/fun-apps/course_pages/tests/test_feed.py:0
 #: /edx/app/edxapp/fun-apps/course_pages/views.py:0
@@ -89,8 +97,22 @@ msgid "Learn more"
 msgstr "En savoir plus"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
-msgid "New"
+msgid "New courses"
 msgstr "Nouveautés"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
+msgctxt "course-block"
+msgid "Open"
+msgstr "Ouvert"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Open for enrollment"
+msgstr "Ouvert aux inscriptions"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
+msgctxt "course-block"
+msgid "Open until"
+msgstr "Ouvert jusqu'au"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/feed/feed.html:0
 msgid "Proposed by"
@@ -108,20 +130,14 @@ msgstr "Date de début"
 msgid "Start date (decreasing)"
 msgstr "Date de début (décroissante)"
 
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
-msgctxt "course-block"
-msgid "Started"
-msgstr "En cours"
-
-# Translated in edx by 'Commence'
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
-msgctxt "course-block"
-msgid "Starts"
-msgstr "Débute"
-
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
-msgid "Starts soon"
+msgid "Starting soon"
 msgstr "Démarre bientôt"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
+msgctxt "course-block"
+msgid "Starts on"
+msgstr "Démarre le"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Themes"
@@ -138,4 +154,10 @@ msgstr "Voir les <%= count %> thèmes"
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "View <%= count %> universities"
 msgstr "Voir les <%= count %> établissements"
+
+#~ msgid "New"
+#~ msgstr "Nouveautés"
+
+#~ msgid "Open"
+#~ msgstr "Ouvert"
 
