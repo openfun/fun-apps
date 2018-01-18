@@ -7,6 +7,9 @@ import sys
 
 from path import path
 
+from django.utils.translation import ugettext_lazy
+from django.conf import global_settings
+
 BASE_ROOT = path('/edx/app/edxapp/')  # folder where edx-platform main repository and our stuffs are
 FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
 sys.path.append(FUN_BASE_ROOT)
@@ -59,6 +62,19 @@ LANGUAGES = (
     ('en', 'English'),
     ('de-de', 'Deutsch'),  # codes have to match edX's ones (lms.envs.common.LANGUAGES)
 )
+
+class LazyChoicesSorter(object):
+    def __init__(self, choices):
+        self.choices = choices
+
+    def __iter__(self):
+        for choice in sorted(self.choices, key=lambda peer: peer[1]):
+            yield choice
+
+# These are the allowed subtitle languages, we have the same list on Videofront server
+SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter((code, ugettext_lazy(lang)) for code, lang in global_settings.LANGUAGES
+    if code not in ('zh-hans', 'zh-hant')) # Chines has 4 language codes for 2 given languages (Traditional and Simplified Chinese) so we exclude 2 of them
+
 # EdX rely on this code to display current language to user, when not yet set in preferences
 # This is probably a bug because user with an english browser, will have the english i18n
 # still, when not set, the preference page will show 'fr' as default language.

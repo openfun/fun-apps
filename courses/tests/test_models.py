@@ -81,13 +81,13 @@ class TestCourseSubject(TestCase):
                 _first_university = course.get_first_university()
                 _university_name = course.university_name
 
-    def test_annotate_with_is_enrollment_over(self):
+    def test_annotate_with_status(self):
         yesterday = now() - timedelta(days=1)
         tomorrow = now() + timedelta(days=1)
         course_enrollment_ended = factories.CourseFactory.create(enrollment_end_date=yesterday)
         course_enrollment_not_ended = factories.CourseFactory.create(enrollment_end_date=tomorrow)
         course_open = factories.CourseFactory.create(enrollment_end_date=None)
-        queryset = models.Course.objects.annotate_with_is_enrollment_over()
+        queryset = models.Course.objects.annotate_with_status()
 
         # Note: we do not use assertTrue and assertFalse here because we want
         # to make sure is_enrollment_over is not None

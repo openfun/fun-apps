@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 53\n"
+"Project-Id-Version: FUN-MOOC 56\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2018-01-03 17:13+0100\n"
-"PO-Revision-Date: 2018-01-03 17:13+0000\n"
+"POT-Creation-Date: 2018-01-13 11:51+0100\n"
+"PO-Revision-Date: 2018-01-13 11:51+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -20,6 +20,10 @@ msgstr "Tous les thèmes"
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "All universities"
 msgstr "Tous les établissements"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Already started"
+msgstr "Déjà commencé"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Archived"
@@ -71,6 +75,10 @@ msgstr "Fin des inscriptions: "
 msgid "Enrollment starts : "
 msgstr "Début des inscriptions: "
 
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "First session"
+msgstr "Première session"
+
 #: /edx/app/edxapp/fun-apps/course_pages/tests/test_feed.py:0
 #: /edx/app/edxapp/fun-apps/course_pages/views.py:0
 msgid "Fun latest published courses"
@@ -89,17 +97,17 @@ msgid "Learn more"
 msgstr "En savoir plus"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
-msgid "New"
+msgid "New courses"
 msgstr "Nouveautés"
-
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
-msgid "Open"
-msgstr "Ouvert"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
 msgctxt "course-block"
 msgid "Open"
 msgstr "Ouvert"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Open for enrollment"
+msgstr "Ouvert aux inscriptions"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
 msgctxt "course-block"
@@ -122,14 +130,14 @@ msgstr "Date de début"
 msgid "Start date (decreasing)"
 msgstr "Date de début (décroissante)"
 
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
+msgid "Starting soon"
+msgstr "Démarre bientôt"
+
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
 msgctxt "course-block"
 msgid "Starts on"
 msgstr "Démarre le"
-
-#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
-msgid "Starts soon"
-msgstr "Démarre bientôt"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "Themes"
@@ -146,4 +154,10 @@ msgstr "Voir les <%= count %> thèmes"
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/index.html:0
 msgid "View <%= count %> universities"
 msgstr "Voir les <%= count %> établissements"
+
+#~ msgid "New"
+#~ msgstr "Nouveautés"
+
+#~ msgid "Open"
+#~ msgstr "Ouvert"
 
