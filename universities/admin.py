@@ -7,8 +7,9 @@ import videoproviders.admin
 
 
 class UniversityAdmin(admin.ModelAdmin):
-    list_display = ('name', 'short_name', 'preview', 'code', 'slug',
-        'detail_page_enabled', 'is_obsolete', 'partnership_level', 'score')
+    list_display = (
+        'name', 'short_name', 'preview', 'code', 'slug', 'detail_page_enabled',
+        'is_obsolete', 'partnership_level', 'score')
     list_editable = ('score',)
     list_filter = ('detail_page_enabled', 'is_obsolete', 'partnership_level')
     search_fields = ('name', 'code', 'short_name', 'slug', 'description')
