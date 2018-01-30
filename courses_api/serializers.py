@@ -24,7 +24,9 @@ class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
 
 
 class JSONSerializerField(serializers.Field):
-    """ Serializer for JSONField -- required to make field writable"""
+    """
+    Serializer for JSONField -- required to make field writable
+    """
     def to_internal_value(self, data):
         return data
 
@@ -83,9 +85,9 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class PrivateCourseSerializer(CourseSerializer):
-    '''
+    """
     Presents data accessible to authenticated admin users.
-    '''
+    """
     university_serializer_class = UniversityStaffSerializer
     main_university = serializers.SerializerMethodField()
     universities = UniversityStaffSerializer(many=True)
