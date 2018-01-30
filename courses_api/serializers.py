@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from courses.models import Course, CourseSubject
 from fun_api import serializers as fun_serializers
-from universities_api.serializers import UniversitySerializer, PrivateUniversitySerializer
+from universities.serializers import UniversitySerializer, UniversityStaffSerializer
 
 
 class CourseSubjectSerializer(serializers.ModelSerializer):
@@ -81,13 +81,14 @@ class CourseSerializer(serializers.ModelSerializer):
     def get_has_verified_course_mode(self, obj):
         return obj.has_verified_course_mode
 
+
 class PrivateCourseSerializer(CourseSerializer):
     '''
     Presents data accessible to authenticated admin users.
     '''
-    university_serializer_class = PrivateUniversitySerializer
+    university_serializer_class = UniversityStaffSerializer
     main_university = serializers.SerializerMethodField()
-    universities = PrivateUniversitySerializer(many=True)
+    universities = UniversityStaffSerializer(many=True)
     subjects = PrivateCourseSubjectSerializer(many=True)
 
     class Meta(CourseSerializer.Meta):
