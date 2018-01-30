@@ -11,16 +11,9 @@ class CourseSubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseSubject
-        fields = ('id', 'name')
-
-
-class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
-    '''
-    Presents data accessible to authenticated admin users.
-    '''
-
-    class Meta(CourseSubjectSerializer.Meta):
-        fields = CourseSubjectSerializer.Meta.fields + ('score',)
+        fields = ('description', 'featured', 'id', 'image', 'name', 'score', 'short_name')
+        # All fields are readonly except "score"
+        readonly_fields = ('description', 'featured', 'id', 'image', 'name', 'short_name')
 
 
 class JSONSerializerField(serializers.Field):
@@ -91,7 +84,7 @@ class PrivateCourseSerializer(CourseSerializer):
     university_serializer_class = UniversityStaffSerializer
     main_university = serializers.SerializerMethodField()
     universities = UniversityStaffSerializer(many=True)
-    subjects = PrivateCourseSubjectSerializer(many=True)
+    subjects = CourseSubjectSerializer(many=True)
 
     class Meta(CourseSerializer.Meta):
         fields = CourseSerializer.Meta.fields + ('score', 'prevent_auto_update')
