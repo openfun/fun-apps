@@ -91,19 +91,30 @@ class CourseQuerySet(models.query.QuerySet):
         """
         return self.public().filter(end_date__lt=now(), end_date__isnull=False)
 
-    def annotate_with_status(self):
+    def annotate_for_ordering(self):
         """
-        Add a 'is_enrollment_over' and 'has_ended' attributes to all results.
+        Add attributes to all results for ordering purposes:
+          1) has_ended: that have ended will always be at the end.
+          2) is_enrollment_over: courses for which enrollment is over will come
+             after the ones that are still open.
+          3) ordering_date: Lastly, if the course is started we will use its end
+             of enrollment date to rank it, otherwise we will use its start date.
         """
-        # Note: we are putting raw sql in the extra(...) statement. To do that,
+        # We are putting raw sql in the extra(...) statement. To do that,
         # we need the proper datetime formatting, which varies for every db.
         formatted_now = connection.ops.value_to_db_datetime(now())
+
         return self.extra(select={
+            'has_ended': '(end_date IS NOT NULL AND end_date < "{now}")'.format(now=formatted_now),
+
             'is_enrollment_over': (
                 '(enrollment_end_date IS NOT NULL AND enrollment_end_date < "{now}")'
             ).format(now=formatted_now),
-            'has_ended': '(end_date IS NOT NULL AND end_date < "{now}")'.format(now=formatted_now)
-        })
+
+            'ordering_date': (
+                'CASE WHEN start_date < "{now}" OR start_date IS NULL '
+                'THEN enrollment_end_date ELSE start_date END'
+            ).format(now=formatted_now)})
 
     def by_score(self):
         return self.public().order_by('-score')

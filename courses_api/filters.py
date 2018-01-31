@@ -44,13 +44,11 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
 
         # A sorting that makes sense depends on which filter is applied
-        queryset = queryset.annotate_with_status()
-        if 'enrollment_ending_soon' in availability or 'started' in availability:
-            order_param = 'end_date'
-        elif 'archived' in availability:
+        queryset = queryset.annotate_for_ordering()
+        if 'archived' in availability:
             order_param = '-end_date'
         else:
-            order_param = 'start_date'
+            order_param = 'ordering_date'
 
         queryset = queryset.order_by('has_ended', 'is_enrollment_over', order_param)
 
