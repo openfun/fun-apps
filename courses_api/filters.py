@@ -41,7 +41,8 @@ class CourseFilter(filters.BaseFilterBackend):
 
         if full_text_query:
             results = SearchQuerySet().filter(content=full_text_query)
-            queryset = queryset.filter(pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
+            queryset = queryset.filter(
+                pk__in=[item.pk for item in results.filter(django_ct='courses.course')])
 
         # A sorting that makes sense depends on which filter is applied
         queryset = queryset.annotate_for_ordering()

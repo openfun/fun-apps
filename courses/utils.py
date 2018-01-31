@@ -26,7 +26,8 @@ def get_about_section(course_descriptor, field):
 
 
 def sort_courses(courses):
-    """Sort courses in a usefull order for user:
+    """
+    Sort courses in a usefull order for user:
         - courses with enrollement date started should be first
         - then course to start to enroll should be ordered by enrollement start date (asc)
         - then course which started should be sorted by days to go (desc) or by start date asc

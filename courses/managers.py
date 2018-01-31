@@ -5,13 +5,12 @@ from django.db import connection, models
 from django.db.models import Q
 from django.utils.timezone import now, timedelta
 
-from fun.utils.managers import ChainableManager
-
 from . import settings as courses_settings
 
 
 def annotate_with_public_courses(queryset):
-    """Annotate a querysets with a public_courses_count attribute.
+    """
+    Annotate a queryset with a "public_courses_count" attribute.
 
     queryset: refer to a model with a `courses` attribute.
     """
