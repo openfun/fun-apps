@@ -111,8 +111,8 @@ from courses_api.routers import CourseAPIRouter
                 this.criterioncollection = options.criterioncollection;
                 this.filter = options.filter;
             	this.timeout_handle=null;
-                if (!options.filter.get("selected")) {
-                     window.history.pushState('', '', '#filter/availability/opened');
+                if (!window.location.hash) {
+                     window.history.pushState('', '', '#filter/availability/starting_soon');
                 }
             },
             search: function(query, page, rpp, sortBy) {
