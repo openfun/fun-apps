@@ -2,8 +2,6 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-
-from courses_api.routers import CourseAPIRouter
 %>
 
 <%inherit file="/funsite/parts/base-fluid.html" />
@@ -585,7 +583,7 @@ from courses_api.routers import CourseAPIRouter
                         value: this.filter.get("sortBy"),
                     })
                 }
-                return "${reverse('fun-courses-api:%s-list' % CourseAPIRouter.BASENAME)}" + '?' + $.param(parameters);
+                return "${reverse('fun-courses-api:courses-list')}" + '?' + $.param(parameters);
             },
             parse: function (response) {
                this.resultstats.set("totalCount", response.count);
