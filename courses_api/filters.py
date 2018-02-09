@@ -51,6 +51,6 @@ class CourseFilter(filters.BaseFilterBackend):
         else:
             order_param = 'ordering_date'
 
-        queryset = queryset.order_by('has_ended', 'is_enrollment_over', order_param)
+        queryset = queryset.order_by('has_ended', 'is_enrollment_over', '-has_started', order_param)
 
         return queryset

@@ -93,10 +93,12 @@ class CourseQuerySet(models.query.QuerySet):
     def annotate_for_ordering(self):
         """
         Add attributes to all results for ordering purposes:
-          1) has_ended: that have ended will always be at the end.
+          1) has_ended: course that have ended will always be at the end,
           2) is_enrollment_over: courses for which enrollment is over will come
-             after the ones that are still open.
-          3) ordering_date: Lastly, if the course is started we will use its end
+             after the ones that are still open,
+          3) has_started: courses that have started will always be presented
+             before courses that have yet to start,
+          4) ordering_date: Lastly, if the course is started we will use its end
              of enrollment date to rank it, otherwise we will use its start date.
         """
         # We are putting raw sql in the extra(...) statement. To do that,
@@ -109,6 +111,8 @@ class CourseQuerySet(models.query.QuerySet):
             'is_enrollment_over': (
                 '(enrollment_end_date IS NOT NULL AND enrollment_end_date < "{now}")'
             ).format(now=formatted_now),
+
+            'has_started': '(start_date < "{now}" OR start_date IS NULL)'.format(now=formatted_now),
 
             'ordering_date': (
                 'CASE WHEN start_date < "{now}" OR start_date IS NULL '
