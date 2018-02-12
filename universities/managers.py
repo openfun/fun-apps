@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
-from fun.utils.managers import ChainableManager
-
 
 class UniversityQuerySet(models.query.QuerySet):
 

@@ -4,27 +4,22 @@ from rest_framework import serializers
 
 from courses.models import Course, CourseSubject
 from fun_api import serializers as fun_serializers
-from universities_api.serializers import UniversitySerializer, PrivateUniversitySerializer
+from universities.serializers import UniversitySerializer, UniversityStaffSerializer
 
 
 class CourseSubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseSubject
-        fields = ('id', 'name')
-
-
-class PrivateCourseSubjectSerializer(CourseSubjectSerializer):
-    '''
-    Presents data accessible to authenticated admin users.
-    '''
-
-    class Meta(CourseSubjectSerializer.Meta):
-        fields = CourseSubjectSerializer.Meta.fields + ('score',)
+        fields = ('description', 'featured', 'id', 'image', 'name', 'score', 'short_name')
+        # All fields are readonly except "score"
+        readonly_fields = ('description', 'featured', 'id', 'image', 'name', 'short_name')
 
 
 class JSONSerializerField(serializers.Field):
-    """ Serializer for JSONField -- required to make field writable"""
+    """
+    Serializer for JSONField -- required to make field writable
+    """
     def to_internal_value(self, data):
         return data
 
@@ -81,14 +76,15 @@ class CourseSerializer(serializers.ModelSerializer):
     def get_has_verified_course_mode(self, obj):
         return obj.has_verified_course_mode
 
+
 class PrivateCourseSerializer(CourseSerializer):
-    '''
+    """
     Presents data accessible to authenticated admin users.
-    '''
-    university_serializer_class = PrivateUniversitySerializer
+    """
+    university_serializer_class = UniversityStaffSerializer
     main_university = serializers.SerializerMethodField()
-    universities = PrivateUniversitySerializer(many=True)
-    subjects = PrivateCourseSubjectSerializer(many=True)
+    universities = UniversityStaffSerializer(many=True)
+    subjects = CourseSubjectSerializer(many=True)
 
     class Meta(CourseSerializer.Meta):
         fields = CourseSerializer.Meta.fields + ('score', 'prevent_auto_update')

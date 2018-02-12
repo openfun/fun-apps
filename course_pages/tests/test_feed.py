@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import pytz
 
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -19,7 +20,7 @@ from universities.tests.factories import UniversityFactory
 class FeedTest(ModuleStoreTestCase, RSSDeclarationMixin):
     def setUp(self):
         super(FeedTest, self).setUp()
-        date = datetime.datetime(2015, 1, 1, 0, 0, 0)
+        date = datetime.datetime(2015, 1, 1, 0, 0, 0, tzinfo=pytz.utc)
 
         self.url = reverse('fun-courses:feed')
         CourseFactory(org='fun', course='course1', name='item1', display_name=u"unpublished", ispublic=False)

@@ -22,15 +22,16 @@ class CourseUniversityRelationInline(admin.TabularInline):
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('key', 'title', 'level', 'score', 'session_number',
-        'show_in_catalog', 'show_about_page', 'is_active', 'prevent_auto_update',
-        'modification_date', 'certificate_passing_grade')
-    list_filter = ('is_active', 'show_in_catalog', 'show_about_page', 'prevent_auto_update',
-        'level', 'subjects', 'universities')
-    search_fields = ('key', 'title', 'short_description',
-        'university_display_name',
+    list_display = (
+        'certificate_passing_grade', 'key', 'is_active', 'level', 'modification_date', 'title',
+        'score', 'session_number', 'show_about_page', 'show_in_catalog', 'prevent_auto_update')
+    list_filter = (
+        'is_active', 'level', 'show_in_catalog', 'show_about_page', 'prevent_auto_update',
+        'subjects', 'universities')
+    search_fields = (
         'certificateteacher_related__teacher__full_name',
-        'courseteacher_related__teacher__full_name', )
+        'courseteacher_related__teacher__full_name', 'key', 'title', 'short_description',
+        'university_display_name')
     readonly_fields = courses_settings.COURSE_ADMIN_READ_ONLY_FIELDS
     filter_horizontal = ('subjects',)
     inlines = (
@@ -91,6 +92,7 @@ class CourseSubjectAdmin(admin.ModelAdmin):
         return template.format(url=url)
     preview.short_description = _('preview')
     preview.allow_tags = True
+
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(CourseSubject, CourseSubjectAdmin)
