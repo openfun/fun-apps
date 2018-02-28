@@ -4,10 +4,8 @@ import optparse
 import StringIO
 
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.template.defaultfilters import slugify
-from django.test import RequestFactory
 
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
@@ -107,17 +105,21 @@ class CourseHandler(object):
 class Command(BaseCommand):
     help = "Update FUN's course data."
     option_list = BaseCommand.option_list + (
-        optparse.make_option('--force-universities-assignment',
+        optparse.make_option(
+            '--force-universities-assignment',
             action='store_true',
             dest='assign_universities',
             default=False,
-            help='Force university assignment on existing courses.'),
-        optparse.make_option('--course-id',
+            help='Force university assignment on existing courses.',
+        ),
+        optparse.make_option(
+            '--course-id',
             action='store',
             type='string',
             dest='course_id',
             default='',
-            help='Update only the given course.'),
+            help='Update only the given course.',
+        ),
     )
 
     def update_all_courses(self, mongo_courses, assign_universities=False):
@@ -146,11 +148,9 @@ class Command(BaseCommand):
         if was_created or assign_universities:
             university = course_handler.assign_university(course)
             if university:
-                self.stdout.write('\t University assigned '
-                'to "{}"\n'.format(key))
+                self.stdout.write('\t University assigned to "{}"\n'.format(key))
             else:
-                self.stdout.write('\t No university assigned '
-                'to "{}"\n'.format(key))
+                self.stdout.write('\t No university assigned to "{}"\n'.format(key))
         course.is_active = True
         course.university_display_name = course_handler.university_name
         course.title = course_handler.title
