@@ -15,6 +15,7 @@ from easy_thumbnails.files import get_thumbnailer
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator
+from openedx.core.djangoapps.models.course_details import CourseDetails
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
@@ -165,6 +166,13 @@ class Command(BaseCommand):
         course.enrollment_start_date = mongo_course.enrollment_start
         course.enrollment_end_date = mongo_course.enrollment_end
         course.end_date = mongo_course.end
+
+        course_key = CourseKey.from_string(key)
+        course.short_description = CourseDetails.fetch_about_attribute(
+            course_key,
+            'short_description',
+        )
+
         course.save()
         del course
         self.stdout.write('Updated course {}\n'.format(key))
