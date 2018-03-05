@@ -35,6 +35,9 @@
 .color-fun-white {
     color: white;
 }
+.color-black {
+    color:  black !important;
+}
 .clickable {
     cursor: pointer;
 }
@@ -425,9 +428,19 @@ a.no-decoration:visited {
     font-size: 15px;
     color: white;
     background-color: #F83336;
+    margin-top: 12px;
     padding: 10px;
 }
-
+.fun-wrapper-make-payment-step ul,.fun-wrapper-make-payment-step li, .fun-wrapper-make-payment-step p {
+    color: black !important;
+    line-height: 120%;
+    font-size: 0.95em;
+}
+.fun-wrapper-make-payment-step h3 {
+    color: #F83336 !important;
+    font-weight: 600;
+    line-height: 200%;
+}
 .display-fun-payment-terms-text {
     text-align: left;
     padding: 12px 6px 6px;
