@@ -12,7 +12,7 @@
                 <% if (selected || query) { %>
                     <strong><%= gettext("Your search")%></strong>
                     <div class="white blue-cell">
-                        <% if (selected) { %><%= selected.get("title") %><% } else { %>&laquo; <%= query %> &raquo;<% } %>
+                        <% if (selected) { %><%= selected.get("title") %><% } else { %>&laquo; <%= _.escape(query) %> &raquo;<% } %>
                         <span class='glyphicon glyphicon-remove clickable'></span>
                     </div>
                 <% } %>
