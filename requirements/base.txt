@@ -1,28 +1,2 @@
-django-bootstrap-form==3.2
-django-ckeditor-updated==4.4.4
-django-contact-form==1.0
-django-solo==1.0.3
-pycaption==0.4.6
-unicodecsv==0.9.4
-raven==5.25.0
-django-pure-pagination==0.2.1
-easy-thumbnails==2.2
-django-haystack==2.4.1
-hashids==1.1.0
+-e .
 
-# Password Container XBlock
--e git+https://github.com/openfun/password-container-xblock.git@master#egg=password_container
--e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
-
-# Grade External Activitiy XBlock
--e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
-
-# Video
--e git+https://github.com/openfun/libcast-xblock.git@0.4.5#egg=libcast-xblock
-# google-api-python-client do not require oauth2client precisely enough,
-# version higher than 3.0.0 are not compatible
-oauth2client==3.0.0
-google-api-python-client==1.5.1
-
-# Proctoru
--e git+https://github.com/openfun/ProctorU-xBlock.git@fun/dogwood#egg=proctoru-xblock
