@@ -4,6 +4,9 @@ from xmodule.modulestore.modulestore_settings import update_module_store_setting
 from lms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
+STATIC_ROOT = os.environ.get('STATIC_ROOT', '/edx/var/edxapp/staticfiles/lms')
+STATIC_URL = os.environ.get('STATIC_URL', '/static/')
+
 INSTALLED_APPS += (
     'rest_framework.authtoken',
 
