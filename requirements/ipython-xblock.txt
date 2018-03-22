@@ -1,1 +1,1 @@
--e .[ipython]
+-e git+https://github.com/neurolit/xblock-ipython.git@920082ac5015d2c72899b77959e793c1c7ab2d54#egg=ipython-xblock
