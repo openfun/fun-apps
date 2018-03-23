@@ -1,4 +1,4 @@
-git+https://github.com/openfun/fun-cmd.git@master#egg=fun-cmd
+git+https://github.com/openfun/fun-cmd.git@090f63fadb5fd6b2e76273eb4793820c0d0d27bb#egg=fun-cmd
 pylint==1.5.4
 
 # Override Openedx requirement to bump version fixing extraction for underscore template
