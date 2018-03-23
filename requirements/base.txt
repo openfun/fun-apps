@@ -11,11 +11,11 @@ django-haystack==2.4.1
 hashids==1.1.0
 
 # Password Container XBlock
--e git+https://github.com/openfun/password-container-xblock.git@master#egg=password_container
--e git+https://github.com/openfun/xblock-utils2.git@master#egg=xblockutils2
+-e git+https://github.com/openfun/password-container-xblock.git@ff8f09943479c1ceba8362a99c7b484f5f1b94df#egg=password_container
+-e git+https://github.com/openfun/xblock-utils2.git@e412419c2c1189c70fa24911a6dff834dff634cf#egg=xblockutils2
 
 # Grade External Activitiy XBlock
--e git+https://github.com/openfun/edx-gea.git@master#egg=edx-gea
+-e git+https://github.com/openfun/edx-gea.git@6af5bbeffd7f6be045feb91780ccf4026724988c#egg=edx-gea
 
 # Video
 -e git+https://github.com/openfun/libcast-xblock.git@0.4.5#egg=libcast-xblock
@@ -25,4 +25,4 @@ google-api-python-client==1.5.1
 -e git+https://github.com/openfun/ProctorU-xBlock.git@fun-1.1.2#egg=proctoru-xblock
 
 # Glowbl
--e git+https://github.com/openfun/xblock-Glowbl.git@master#egg=fun-glowbl-xblock
+-e git+https://github.com/openfun/xblock-Glowbl.git@743561fb77b1b3c0ba9aaae0fdca86c3204c1ffd#egg=fun-glowbl-xblock
