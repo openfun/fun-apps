@@ -1,4 +1,16 @@
-*.pyc
+# System-specific local files
 .DS_Store
-pylintrc
-components/
+*.pyc
+
+# Editors
+.vscode
+
+# Packaging
+*.egg-info/
+build/
+dist/
+
+# Virtual environments
+venv/
+env/
+.env/

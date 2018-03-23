@@ -1,0 +1,164 @@
+# fun-apps packaging CI
+version: 2
+
+# List fun-apps jobs that will be integrated and executed in a workflow
+jobs:
+
+  # Build fun-apps package
+  build:
+
+    docker:
+      - image: circleci/python:2.7-stretch
+
+    steps:
+      - checkout
+
+      # Restore dependencies cache only if nothing has changed in the
+      # `setup.cfg` file. There is no fall-back to older virtual environments to
+      # ensure a clean environment if some dependencies may have been upgraded
+      # or removed.
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "setup.cfg" }}
+
+      # Install package dependencies in a virtual environment
+      - run:
+          name: Install dependencies
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --extra-index-url https://pypi.fury.io/openfun -e .[dev]
+
+      # Cache virtual environment
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "setup.cfg" }}
+
+      # Build the package (source + wheel binary)
+      - run:
+          name: Build fun-apps package
+          command: python setup.py sdist bdist_wheel
+
+      # List files in built archives
+      - run:
+          name: Check built distributions
+          command: |
+            echo ":::: Available distributions ::::"
+            ls dist/*
+
+            echo ":::: Wheel distribution ::::"
+            unzip -l dist/fun_apps-*-py2.py3-none-any.whl
+
+            echo ":::: Source distribution ::::"
+            tar tvzf dist/fun-apps-*.tar.gz
+
+      # Cache built distributions
+      - save_cache:
+          paths:
+            - ./dist
+          key: v1-distributions-{{ checksum "setup.cfg" }}
+
+  # Check that target git tag refer to a master branch commit
+  validate:
+
+    docker:
+      - image: circleci/python:2.7-stretch
+        environment:
+          # This is the branch that is supposed to contain target commit/tag
+          TARGET_BRANCH: master
+
+    steps:
+      - checkout
+
+      - run:
+          name: Check target tag points to a master branch commit
+          command: |
+            # Get current tag corresponding commit ID
+            tag_commit=$(git rev-list -n 1 $CIRCLE_TAG)
+
+            # Check that the tag refer to a commit in the $TARGET_BRANCH (e.g.
+            # the master branch)
+            git branch -a --contains ${tag_commit} | grep remotes/origin/${TARGET_BRANCH}
+
+            # Check that the current tag (vX.Y.Z) matches the release number in
+            # setup.cfg (X.Y.Z)
+            grep "$(echo $CIRCLE_TAG | sed 's/^v/version = /')" setup.cfg
+
+  # Deploy build package to GemFury
+  deploy:
+
+    # Use GemFury CLI container (automated-build). Redefine entrypoint to none
+    # to freely use curl or any other commands
+    docker:
+      - image: appropriate/curl
+        entrypoint:
+
+    # Work in the same directory as the previous "build" job
+    working_directory: /home/circleci/project
+
+    steps:
+      - checkout
+
+      # Restore built packages
+      - restore_cache:
+          keys:
+          - v1-distributions-{{ checksum "setup.cfg" }}
+
+      # Push distributions to GemFury service
+      #
+      # Nota bene: you'll need to define the following secrets environment vars
+      # in CircleCI interface:
+      #
+      #   - GEMFURY_USER
+      #   - GEMFURY_API_TOKEN
+      - run:
+          name: Publish distributions to GemFury
+          command: |
+            echo ":::: Distributions found ::::"
+            ls dist/*
+
+            echo ":::: Publish distributions ::::"
+            for dist in $(ls dist/*) ; do \
+              echo "Deploy distribution: $dist" ; \
+              curl -F package=@$dist https://${GEMFURY_API_TOKEN}@push.fury.io/${GEMFURY_USER}/ ; \
+            done
+
+
+# CI workflows
+workflows:
+  version: 2
+
+  # We have a single workflow
+  fun-apps:
+
+    jobs:
+
+      # The build job has no required jobs, hence this will be our first job
+      - build:
+          # Filtering rule to run this job: none (we accept all tags; this job
+          # will always run).
+          filters:
+            tags:
+              only: /.*/
+
+      # Validate git tag (should refer to a master branch commit)
+      - validate:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+
+      # Deploy build packages only if the build job succeeds and it has been
+      # tagged with a tag starting with the letter v
+      - deploy:
+          requires:
+            - validate
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

@@ -16,10 +16,17 @@ There are three main components to FUN:
 
 ## Install
 
-The FUN platform is quite complex to install, and we suggest you make use of a
-virtual machine to contribute to FUN. Instructions on how to get started with
-FUN are available in the [fun-boxes](https://github.com/openfun/fun-boxes)
-repository.
+`fun-apps` is supposed to be installed in an Open edX instance. As Open edX is
+quite complex to setup, we invite you to ease your life by using
+[fun-platform](https://github.com/openfun/fun-platform)'s base docker images to
+integrate fun-apps (see `fun-platform` documentation).
+
+Once your Open edX instance is fully functionnal, to install `fun-apps`, you
+will need to use `pip` with FUN's python packages index server:
+
+```bash
+$ pip install --extra-index-url https://pypi.fury.io/openfun fun-apps
+```
 
 ## How to contribute?
 

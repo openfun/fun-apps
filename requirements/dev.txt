@@ -3,4 +3,3 @@ pylint==1.5.4
 
 # Override Openedx requirement to bump version fixing extraction for underscore template
 django-babel-underscore==0.5.2
-
