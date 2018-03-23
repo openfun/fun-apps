@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
+import os
 
 from celery.schedules import crontab
 
 from xmodule.modulestore.modulestore_settings import update_module_store_settings
 from cms.envs.aws import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from ..common import *  # pylint: disable=wildcard-import, unused-wildcard-import
+
+STATIC_ROOT = os.environ.get('STATIC_ROOT', '/edx/var/edxapp/staticfiles/cms')
+STATIC_URL = os.environ.get('STATIC_URL', '/static/cms/')
 
 
 INSTALLED_APPS += (
@@ -27,11 +31,6 @@ INSTALLED_APPS += get_proctoru_app_if_available()
 
 ROOT_URLCONF = 'fun.cms.urls'
 
-# edX base cms settings file appends the git revision of the edx-platform repo
-# git revision to STATIC_ROOT and STATIC_URL.  We remove it as we use
-# PipelineCachedStorage for both apps.
-STATIC_URL = "/static/cms/"
-STATIC_ROOT = STATIC_ROOT + '/cms'
 update_logging_config(LOGGING)
 
 # add 'theme/cms/templates' directory to MAKO template finder to override some CMS templates...

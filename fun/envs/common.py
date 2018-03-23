@@ -83,14 +83,10 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter((code, ugettext_lazy(lang)) for
 PIPELINE = True  # use djangopipeline aggregated css and js file (in production)
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = "/edx/var/edxapp/uploads"
+MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '/edx/var/edxapp/uploads')
 
-STATIC_ROOT = "/edx/var/edxapp/staticfiles"
-
-# This is the folder where all file data will be shared between the instances
-# of the same environment.
-SHARED_ROOT = '/edx/var/edxapp/shared'
+SHARED_ROOT = os.environ.get('SHARED_ROOT', '/edx/var/edxapp/shared')
 
 CKEDITOR_UPLOAD_PATH = './'
 CKEDITOR_CONFIGS = {
