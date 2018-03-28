@@ -20,6 +20,9 @@ django-masquerade==1.3
 
 # Video
 -e git+https://github.com/openfun/libcast-xblock.git@0.4.5#egg=libcast-xblock
+# google-api-python-client do not require oauth2client precisely enough,
+# version higher than 3.0.0 are not compatible
+oauth2client==3.0.0
 google-api-python-client==1.5.1
 
 # Proctoru

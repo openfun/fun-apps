@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import datetime
 from django.test import TestCase
 
 from courses import managers
@@ -53,7 +54,9 @@ class TestCourseSubject(TestCase):
 
     def test_new_courses_filter(self):
         factories.CourseFactory.create(session_number=2)
-        course_new = factories.CourseFactory.create(session_number=1)
+        course_new = factories.CourseFactory.create(
+            session_number=1, is_active=True, show_in_catalog=True,
+            enrollment_end_date=datetime.datetime.now() + datetime.timedelta(days=1))
         new_courses = list(models.Course.objects.new())
         self.assertEqual([course_new], new_courses)
 

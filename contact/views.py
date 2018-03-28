@@ -1,13 +1,7 @@
-from django.core.urlresolvers import reverse
+# -*- coding: utf-8 -*-
 
-import contact_form.views
-
-from contact.forms import ContactForm
+from django.views.generic.base import TemplateView
 
 
-class ContactFormView(contact_form.views.ContactFormView):
-    form_class = ContactForm
-    template_name = 'contact/contact_form.html'
-
-    def get_success_url(self):
-        return reverse('contact:contact_form_sent')
+class ContactView(TemplateView):
+    template_name = 'contact/contact.html'

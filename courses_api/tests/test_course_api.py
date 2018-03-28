@@ -103,78 +103,6 @@ class CourseAPITest(TestCase):
         self.assertContains(response, self.active_2.title)
         self.assertNotContains(response, self.not_in_catalog.title)
 
-    def test_courses_are_sorted_by_title(self):
-        self.active_1.title = "z"
-        self.active_2.title = "a"
-        self.active_1.save()
-        self.active_2.save()
-
-        response = self.client.get(self.api_url, {
-            "sort": "title"
-        })
-        courses = json.loads(response.content)["results"]
-        self.assertLess(courses[0]["title"], courses[1]["title"])
-
-    def test_courses_are_sorted_by_enrollment_date(self):
-        self.active_1.score = 0
-        self.active_2.score = 1
-        yesterday = now() - timedelta(days=1)
-        self.active_1.enrollment_start_date = yesterday + timedelta(hours=1)
-        self.active_2.enrollment_start_date = yesterday
-        self.active_1.save()
-        self.active_2.save()
-
-        response_increasing = self.client.get(self.api_url, {
-            "sort": "enrollment_start_date"
-        })
-        response_decreasing = self.client.get(self.api_url, {
-            "sort": "-enrollment_start_date"
-        })
-        courses_increasing = json.loads(response_increasing.content)["results"]
-        courses_decreasing = json.loads(response_decreasing.content)["results"]
-
-        self.assertLess(courses_increasing[0]["enrollment_start_date"],
-                        courses_increasing[1]["enrollment_start_date"])
-        self.assertGreater(courses_decreasing[0]["enrollment_start_date"],
-                           courses_decreasing[1]["enrollment_start_date"])
-
-    def test_courses_are_sorted_by_start_date(self):
-        self.active_1.score = 0
-        self.active_2.score = 1
-        yesterday = now() - timedelta(days=1)
-        self.active_1.start_date = yesterday + timedelta(hours=1)
-        self.active_2.start_date = yesterday
-        self.active_1.save()
-        self.active_2.save()
-
-        response_increasing = self.client.get(self.api_url, {
-            "sort": "start_date"
-        })
-        response_decreasing = self.client.get(self.api_url, {
-            "sort": "-start_date"
-        })
-        courses_increasing = json.loads(response_increasing.content)["results"]
-        courses_decreasing = json.loads(response_decreasing.content)["results"]
-
-        self.assertLess(courses_increasing[0]["start_date"],
-                        courses_increasing[1]["start_date"])
-        self.assertGreater(courses_decreasing[0]["start_date"],
-                           courses_decreasing[1]["start_date"])
-
-    def test_courses_are_sorted_by_score_with_incorrect_order_by(self):
-        self.active_1.score = 1
-        self.active_2.score = 2
-        self.active_1.title = "1"
-        self.active_2.title = "2"
-        self.active_1.save()
-        self.active_2.save()
-        response = self.client.get(self.api_url, {
-            "sort": "invalidvalue"
-        })
-        courses = json.loads(response.content)["results"]
-        self.assertEqual(self.active_2.title, courses[0]["title"])
-        self.assertEqual(self.active_1.title, courses[1]["title"])
-
     def test_can_update_course_score_as_admin(self):
         self.login_as_admin()
         self.active_1.score = 0
@@ -250,20 +178,6 @@ class CourseAPITest(TestCase):
         self.assertNotContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
 
-    def test_subjet_score_only_available_if_logged_in_as_admin(self):
-        subject = CourseSubjectFactory(slug='test-subject')
-        UniversityFactory(slug='another-subject')
-        self.active_1.subjects.add(subject)
-        filter_data = {'subject': 'test-subject'}
-        self.login_as_admin()
-        response = self.client.get(self.api_url, filter_data)
-        response_data = json.loads(response.content)
-        self.assertIn('score', response_data['results'][0]['subjects'][0])
-        self.client.logout()
-        response = self.client.get(self.api_url, filter_data)
-        response_data = json.loads(response.content)
-        self.assertNotIn('score', response_data['results'][0]['subjects'][0])
-
     def test_only_display_courses_for_a_specific_level(self):
         self.active_1.level = courses_choices.COURSE_LEVEL_INTRODUCTORY
         self.active_1.save()
@@ -279,44 +193,12 @@ class CourseAPITest(TestCase):
     def test_only_display_courses_starting_soon(self):
         self.active_1.start_date = self.soon
         self.active_1.save()
-        self.active_2.start_date = self.too_late
+        self.active_2.start_date = now() - timedelta(days=1)
         self.active_2.save()
-        filter_data = {'availability': 'start-soon'}
+        filter_data = {'availability': 'starting_soon'}
         response = self.client.get(self.api_url, filter_data)
         self.assertContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
-
-    def test_only_display_courses_ending_soon(self):
-        self.active_1.end_date = self.soon
-        self.active_1.save()
-        self.active_2.end_date = self.too_late
-        self.active_2.save()
-        filter_data = {'availability': 'end-soon'}
-        response = self.client.get(self.api_url, filter_data)
-        self.assertContains(response, self.active_1.title)
-        self.assertNotContains(response, self.active_2.title)
-
-    def test_only_display_new_courses(self):
-        self.active_1.session_number = 1
-        self.active_1.save()
-        self.active_2.session_number = 2
-        self.active_2.save()
-        filter_data = {'availability': 'new'}
-        response = self.client.get(self.api_url, filter_data)
-        self.assertContains(response, self.active_1.title)
-        self.assertNotContains(response, self.active_2.title)
-
-    def test_new_courses_exclude_courses_with_finished_enrollent(self):
-        self.active_1.session_number = 1
-        self.active_1.enrollment_end_date = now() - timedelta(days=1)
-        self.active_1.save()
-        self.active_2.session_number = 1
-        self.active_2.enrollment_end_date = now() + timedelta(days=1)
-        self.active_2.save()
-        filter_data = {'availability': 'new'}
-        response = self.client.get(self.api_url, filter_data)
-        self.assertNotContains(response, self.active_1.title)
-        self.assertContains(response, self.active_2.title)
 
     def test_filter_by_current_exclude_upcoming_course(self):
         self.active_1.enrollment_start_date = now() - timedelta(days=1)
@@ -325,7 +207,7 @@ class CourseAPITest(TestCase):
         self.active_2.enrollment_start_date = now() + timedelta(days=1)
         self.active_2.enrollment_end_date = now() + timedelta(days=3)
         self.active_2.save()
-        filter_data = {'availability': 'current'}
+        filter_data = {'availability': 'opened'}
         response = self.client.get(self.api_url, filter_data)
         self.assertContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
@@ -337,7 +219,7 @@ class CourseAPITest(TestCase):
         self.active_2.enrollment_start_date = now() - timedelta(days=3)
         self.active_2.enrollment_end_date = now() - timedelta(days=1)
         self.active_2.save()
-        filter_data = {'availability': 'current'}
+        filter_data = {'availability': 'opened'}
         response = self.client.get(self.api_url, filter_data)
         self.assertContains(response, self.active_1.title)
         self.assertNotContains(response, self.active_2.title)
@@ -346,7 +228,7 @@ class CourseAPITest(TestCase):
         self.active_1.enrollment_start_date = None
         self.active_1.enrollment_end_date = now() + timedelta(days=1)
         self.active_1.save()
-        filter_data = {'availability': 'current'}
+        filter_data = {'availability': 'opened'}
         response = self.client.get(self.api_url, filter_data)
         self.assertContains(response, self.active_1.title)
 
@@ -354,7 +236,7 @@ class CourseAPITest(TestCase):
         self.active_1.enrollment_start_date = now() - timedelta(days=1)
         self.active_1.enrollment_end_date = None
         self.active_1.save()
-        filter_data = {'availability': 'current'}
+        filter_data = {'availability': 'opened'}
         response = self.client.get(self.api_url, filter_data)
         self.assertContains(response, self.active_1.title)
 
@@ -375,7 +257,7 @@ class CourseAPITest(TestCase):
         self.active_1.save()
         self.active_2.enrollment_end_date = self.too_late
         self.active_2.save()
-        filter_data = {'availability': 'enrollment-ends-soon'}
+        filter_data = {'availability': 'enrollment_ending_soon'}
         response = self.client.get(self.api_url, filter_data)
         data = json.loads(response.content)
 
