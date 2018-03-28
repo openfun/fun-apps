@@ -92,26 +92,6 @@ STATIC_ROOT = "/edx/var/edxapp/staticfiles"
 # of the same environment.
 SHARED_ROOT = '/edx/var/edxapp/shared'
 
-CKEDITOR_UPLOAD_PATH = './'
-CKEDITOR_CONFIGS = {
-    'default': {
-    },
-    'news': {
-        # Redefine path where the news images/files are uploaded. This would
-        # better be done at runtime with the 'reverse' function, but
-        # unfortunately there is no way around defining this in the settings
-        # file.
-        'filebrowserUploadUrl': '/news/ckeditor/upload/',
-        'filebrowserBrowseUrl': '/news/ckeditor/browse/',
-        'toolbar_Full': [
-            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
-            ['Image', 'Flash', 'Table', 'HorizontalRule'],
-            ['NumberedList', 'BulletedList', 'Blockquote', 'TextColor', 'BGColor'],
-            ['Smiley', 'SpecialChar'], ['Source'],
-        ],
-    },
-}
-
 SYSLOG_SERVER = ''
 
 SITE_NAME = 'localhost'   # probably not good for production
@@ -374,7 +354,9 @@ def get_proctoru_app_if_available():
     except ImportError:
         return ()
 
-# Global CKeditor configuration, used for University and Article ModelAdmin
+# 'default' is global CKeditor configuration, used for University and Article ModelAdmin
+# 'news' is for (or used to be) Django admin news article
+CKEDITOR_UPLOAD_PATH = './'
 CKEDITOR_CONFIGS = {
     'default': {
        'toolbar': [
@@ -397,7 +379,21 @@ CKEDITOR_CONFIGS = {
         'entities': False,
         'width': 955,
         'uiColor': '#9AB8F3',
-    }
+    },
+    'news': {
+        # Redefine path where the news images/files are uploaded. This would
+        # better be done at runtime with the 'reverse' function, but
+        # unfortunately there is no way around defining this in the settings
+        # file.
+        'filebrowserUploadUrl': '/news/ckeditor/upload/',
+        'filebrowserBrowseUrl': '/news/ckeditor/browse/',
+        'toolbar_Full': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['NumberedList', 'BulletedList', 'Blockquote', 'TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'], ['Source'],
+        ],
+    },
 }
 
 ENABLE_ADWAYS_FOR_COURSES = (
