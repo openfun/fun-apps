@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 PAYMENT_TERMS = 'verified_certificate'
 
 
+
 class TermsAndConditions(models.Model):
     name = models.CharField(max_length=100, verbose_name=_(u"Name"), db_index=True)
     version = models.CharField(max_length=12, verbose_name=_(u"Terms and conditions version (semver)"))
@@ -24,12 +25,15 @@ class TermsAndConditions(models.Model):
     @classmethod
     def version_accepted(cls, name, user):
         try:
-            return UserAcceptance.objects.filter(terms__name=name, user=user).latest('datetime')
+            return UserAcceptance.objects.select_related("terms").filter(
+                terms__name=name, user=user).latest('datetime')
         except UserAcceptance.DoesNotExist:
             return None
 
     @classmethod
-    def get_latest(cls, name):
+    def get_latest(cls, name=MARKER, language=MARKER):
+        if name is MARKER:
+            name = PAYMENT_TERMS
         try:
             return TermsAndConditions.objects.filter(name=name).latest('datetime')
         except TermsAndConditions.DoesNotExist:
@@ -69,3 +73,45 @@ class UserAcceptance(models.Model):
     class Meta:
         verbose_name = _(u"User terms and conditions acceptance")
         unique_together = ['user', 'terms']
+
+def legal_acceptance(user):
+    COMPLIANT, NOT_COMPLIANT = True, False
+    if user.is_anonymous():
+        return COMPLIANT
+    latest = TermsAndConditions.get_latest()
+    if latest is None or latest == TERMS_TEMPLATE:
+        return COMPLIANT
+    try:
+        latest_acceptation = UserAcceptance.objects.get(
+            terms=latest,
+            user=user,
+        )
+    except UserAcceptance.DoesNotExist:
+        return NOT_COMPLIANT
+    return COMPLIANT
+
+class TranslatedTerms(models.Model):
+    """Terms and conditions might have to be made available to
+    any students for whom we support their language.
+    """
+    # XXX: use the same language as Studio
+    tr_text = models.TextField(
+        verbose_name=_(u"Terms and conditions.") + u" (ReStructured Text)",
+        default=TERMS_TEMPLATE,
+    )
+    language = models.CharField(
+        max_length=5,
+        verbose_name=_(u"Language"),
+        choices=settings.LANGUAGES,
+        default={_("french"): "fr"}
+    )
+    term = models.ForeignKey(
+        TermsAndConditions,
+        related_name="texts",
+        on_delete=models.CASCADE
+    )
+    def __repr__(slef):
+        return u"term %d - %s" % (slef.term.id, slef.language)
+
+    class Meta:
+        unique_together = (('term', 'language', ), )

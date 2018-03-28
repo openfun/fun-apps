@@ -7,6 +7,12 @@ ENVIRONMENT = 'test'
 import logging
 logging.getLogger("backoffice.views").setLevel(logging.ERROR)
 logging.getLogger("edxmako.shortcuts").setLevel(logging.ERROR)
+logging.getLogger("openedx.core.djangoapps.content.course_overviews.models").setLevel(logging.ERROR)
+logging.getLogger("py.warnings").setLevel(logging.ERROR)
+logging.getLogger("backoffice.utils_proctorU_api").setLevel(logging.ERROR)
+logging.getLogger("elasticsearch").setLevel(logging.ERROR)
+logging.getLogger("urllib3.connectionpool").setLevel(logging.ERROR)
+logging.getLogger("payment_api.views").setLevel(logging.ERROR)
 
 ################ Microsite test settings
 

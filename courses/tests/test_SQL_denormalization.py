@@ -7,35 +7,35 @@ from xmodule.modulestore.django import modulestore as real_modulestore
 from xmodule.course_module import CATALOG_VISIBILITY_CATALOG_AND_ABOUT, CATALOG_VISIBILITY_NONE
 from django.core.management import call_command
 
-from courses.models import Course
+from openedx.core.djangoapps.models.course_details import CourseDetails
+
+from courses.models import Course as FUNCourse
+
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
 
 
-class MockModuleStore():
-    def __init__(self, course):
-        self.course = course
+class TestSqlDuplication(ModuleStoreTestCase, TestCase):
+    def test_updates_values_in_mongo_should_be_updated_in_sql(self):
+        """ Test that a already existing course is correctly updated
+            by update_course management command.
+        """
+        mongo_course = CourseFactory.create(short_description='test')
+        # short_description field is required by FUN Course model
+        CourseDetails.update_about_item(
+            mongo_course, 'short_description', u"Short description", None)
 
-    def get_course(self, _):
-        return self.course
+        self.assertFalse(FUNCourse.objects.all().exists())
+        call_command('update_courses', course_id=unicode(mongo_course.id))
 
+        self.assertTrue(u"Short description",
+            FUNCourse.objects.get(key=mongo_course.id).short_description)
 
-class TestSqlDuplication(TestCase):
-    @patch("xmodule.modulestore.django.modulestore")
-    def test_updates_values_in_mongo_should_be_updated_in_sql(self, mock_modulestore):
-        mongo_courses = real_modulestore().get_courses()
-        mongo_course = mongo_courses[0] if mongo_courses else None
+        CourseDetails.update_about_item(
+            mongo_course, 'short_description', u"Short description changed",
+            None)
+        call_command('update_courses', course_id=unicode(mongo_course.id))
 
-        date = datetime.fromtimestamp(200000)
-        visibility = {True: CATALOG_VISIBILITY_CATALOG_AND_ABOUT, False: CATALOG_VISIBILITY_NONE}
-
-        if mongo_course:
-            catalog_visibility = not mongo_course.catalog_visibility.lower() == CATALOG_VISIBILITY_CATALOG_AND_ABOUT
-            mongo_course.catalog_visibility = visibility[catalog_visibility]
-            mongo_course.start = date
-            course_id = unicode(mongo_course.id)
-
-            mock_modulestore.return_value = MockModuleStore(mongo_course)
-            call_command('update_courses', course_id=course_id)
-
-            fun_course = Course.objects.get(key=course_id)
-            self.assertEqual(1970, fun_course.start_date.year)
-            self.assertEqual(catalog_visibility, fun_course.show_in_catalog)
+        self.assertEqual(
+            u"Short description changed",
+            FUNCourse.objects.get(key=mongo_course.id).short_description)

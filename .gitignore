@@ -1,4 +1,18 @@
 *.pyc
 .DS_Store
+
+# Editors
+.vscode
+
+# Packaging
+*.egg-info/
+build/
+dist/
+
+# Virtual environments
+venv/
+env/
+.env/
 pylintrc
 components/
+.vscode/
