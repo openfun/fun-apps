@@ -201,7 +201,7 @@ FUN also reserves the right to remove, in whole or in part, contents,
 information and data of any kind, which the user has placed online on
 the `Site <https://www.fun-mooc.fr/>`__.
 
-Use of the User Account 
+Use of the User Account
 ------------------------
 
 To take full advantage of the activities offered by the
@@ -227,7 +227,7 @@ of misleading others.
 FUN agrees to protect the confidentiality, privacy and security of your
 private data, in conformance with the Privacy Policy.
 
-Rules of Use for `Site <https://www.fun-mooc.fr/>`__ Contents 
+Rules of Use for `Site <https://www.fun-mooc.fr/>`__ Contents
 --------------------------------------------------------------
 
 The contents (texts, courses, photographs, videos, etc.) featured on the
@@ -246,7 +246,7 @@ with these mandatory conditions renders you and all other offenders
 liable to the civil and criminal penalties or sanctions imposed by
 French law.
 
-Rules of Use for Content Featured in Online Courses Hosted by FUN 
+Rules of Use for Content Featured in Online Courses Hosted by FUN
 ------------------------------------------------------------------
 
 You agree to abide by the terms of use specific to each online course
@@ -317,7 +317,7 @@ or via the `Site <https://www.fun-mooc.fr/>`__, as well as for any
 breach of these General Terms and Conditions of Use, User’s Charter and
 Privacy Policy.
 
-FUN’s Responsibilities 
+FUN’s Responsibilities
 -----------------------
 
 Under normal circumstances, the `Site <https://www.fun-mooc.fr/>`__ is
@@ -354,7 +354,7 @@ institutions for inclusion in online courses hosted by the
 Also, under no circumstances may FUN be held liable for relationships
 existing between users and online courses hosted by FUN.
 
-Notifications 
+Notifications
 ==============
 
 Unless expressly stipulated otherwise, any notices given pursuant to
@@ -384,7 +384,7 @@ the French court with jurisdiction over the registered office of FUN,
 including in the event of summary judgments, the introduction of third
 parties or multiple defendants.
 
-Terms and Conditions for use of the remote exam proctoring service 
+Terms and Conditions for use of the remote exam proctoring service
 ===================================================================
 
 By participating in the remote exam proctoring service, you acknowledge
@@ -427,7 +427,7 @@ By registering on the `Site <https://www.fun-mooc.fr/>`__, you join a
 worldwide community of learners. FUN ‘s goal is to offer access to
 quality higher education learning, wherever you are in the world.
 
-Recommendations to users 
+Recommendations to users
 -------------------------
 
 Unless your online instructor indicates otherwise, you are encouraged
@@ -446,7 +446,7 @@ to:
    subsequently modified, and—because it will be visible to the other
    participants—you are advised not to use your real name.
 
-Users’ Undertakings 
+Users’ Undertakings
 --------------------
 
 In addition to the rules of conduct set forth in the General Terms and
@@ -468,7 +468,7 @@ Conditions of Use, and the Privacy Policy, you undertake to:
   been issued, it will no longer be possible to modify the full name
   appearing on the document.
 
-Privacy Policy 
+Privacy Policy
 ===============
 
 Privacy and security of personal information
@@ -506,16 +506,16 @@ Libertés*. If you do not agree to abide by these terms, we advise you
 not to access, browse or register on this
 `Site <https://www.fun-mooc.fr/>`__. If you decide not to provide us
 with certain information required to offer you our services, you will
-not be permitted to open a user account. 
+not be permitted to open a user account.
 
 As used in this “Privacy Policy” section, “personal information” means
 any information concerning you that you provide while using the
 `Site <https://www.fun-mooc.fr/>`__, for instance, when you create a
 user account or complete a transaction, which may include, but is not
 limited to, your name, your contact details, your sex, date of birth,
-and occupation. 
+and occupation.
 
-Personal Information  
+Personal Information
 ----------------------
 
 The personal information concerning you (personally identifiable data)
@@ -529,7 +529,7 @@ official documents and certificates, peer-to-peer exchanges, exchanges
 between the teaching staff and learners, the sending of information on a
 proactive basis, etc. We ensure that this information is not
 disseminated to third parties or used for commercial purposes without
-your express prior consent. 
+your express prior consent.
 
 Personal information may also be used to send you updates regarding the
 online courses offered by `www.fun-mooc.fr <http://www.fun-mooc.fr/>`__
@@ -537,11 +537,11 @@ or for other events, to inform you about products or services offered by
 the `Site <https://www.fun-mooc.fr/>`__ or affiliated organizations, in
 order to send e-mail messages regarding the maintenance of the
 `Site <https://www.fun-mooc.fr/>`__ or updates or to send you
-newsletters. 
+newsletters.
 
 We may be led to share the collected information with member
 organizations and partners of FUN. They and we share this data,
-including personal information, with third parties, as follows: 
+including personal information, with third parties, as follows:
 
 -  With service providers or entrepreneurs which carry out certain tasks
    on our behalf or on behalf of the institutions. That includes
@@ -571,7 +571,7 @@ including personal information, with third parties, as follows:
    problems, or to enforce our Terms and Conditions of Use, the User’s
    Charter or this Privacy Policy, to the extent permitted or required
    by law or in order to protect against imminent harm to the rights,
-   property or security of FUN, or those of others;  
+   property or security of FUN, or those of others;
 
 -  With other users, particularly in order to enable you to communicate
    with those who may have interests or educational objectives similar
@@ -585,13 +585,13 @@ including personal information, with third parties, as follows:
 
 -  With outside services, such as a video content hosting site or other
    websites external to FUN, for the purposes of outside content
-   integration. 
+   integration.
 
 Moreover, we may be led to share anonymized, or non-personally
 identifiable data, with the public and third parties, including, for
-example researchers. 
+example researchers.
 
-Usage data  
+Usage data
 ----------
 
 Usage data consists of information gathered by the site
@@ -601,7 +601,7 @@ that is used to produce statistics on traffic volumes and patterns and
 how visitors make use of services offered by the
 `Site <https://www.fun-mooc.fr/>`__, and is analyzed with a view to
 improve the services and features offered on the
-`Site <https://www.fun-mooc.fr/>`__. 
+`Site <https://www.fun-mooc.fr/>`__.
 
 We collect information when you create a user account, participate in
 online courses, send e-mail messages and/or take part in our forums,
@@ -609,14 +609,14 @@ wikis, etc. We gather information on learners’ performances and modes of
 learning. We record information indicating, among other things, our
 most-visited website pages, the order in which they were visited, when
 they were visited and which links and other user interface controls were
-used. 
+used.
 
 We might be led to record the IP address, operating system and the
 browser employed by each `site <https://www.fun-mooc.fr/>`__ user. An
-array of tools is used to collect this data. 
+array of tools is used to collect this data.
 
 We may employ usage data for personalization and pedagogical
-improvements, as follows: 
+improvements, as follows:
 
 -  To allow institutions to provide, administer and improve their
    courses;
@@ -630,7 +630,7 @@ improvements, as follows:
    `www.fun-mooc.fr <http://www.fun-mooc.fr/>`__ on the international
    educational community;
 -  To serve the purposes of scientific research, particularly in the
-   areas of cognitive science and education;  
+   areas of cognitive science and education;
 -  To track individual and aggregate attendance, progress and completion
    of an online courseand to analyze learners’ performance
    statistics and how they learn;
@@ -641,10 +641,10 @@ improvements, as follows:
    `site <https://www.fun-mooc.fr/>`__\ ’s access, use, impact and
    learners’ performance;
 -  To archive this information and/or use it in future communications
-   with you;  
+   with you;
 -  To maintain and improve the functioning and security of the
    `Site <https://www.fun-mooc.fr/>`__ and our software, systems and
-   networks. 
+   networks.
 
 Handling of personal information and usage data
 -----------------------------------------------
@@ -654,13 +654,13 @@ Data Protection and Freedom of Information, a notification regarding the
 automated processing of personal information obtained from Internet
 website https://www.fun-mooc.fr/ has been filed with the French Data
 Protection Authority *Commission Nationale de l'Informatique et des
-Libertés* (CNIL).    
+Libertés* (CNIL).
 
 The Data Controller
 ~~~~~~~~~~~~~~~~~~~
 
 The officer responsible for exercising overall control over the manner
-in which personal data is processed is:  
+in which personal data is processed is:
 
 **GIP FUN-MOOC**
 
@@ -668,25 +668,25 @@ in which personal data is processed is:
 
 **75014 PARIS**
 
- 
 
-Permitted Uses of the Collected Data 
+
+Permitted Uses of the Collected Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The data collected on the https://www.fun-mooc.fr/register website is
 intended to facilitate access to the services offered on the
 `Site <https://www.fun-mooc.fr/>`__, and is processed for the following
-purposes: 
+purposes:
 
 -  To enable access to and registration for courses offered on the
-   `Site <https://www.fun-mooc.fr/>`__; 
+   `Site <https://www.fun-mooc.fr/>`__;
 -  To allow students to take courses and let users participate in
    educational activities, take evaluations and assessments, and
    facilitate the issuance of official documents and/or certificates;
 -  To conduct research aimed at producing statistics, while relying on
-   anonymized data. 
+   anonymized data.
 
-Transmission of Collected Data 
+Transmission of Collected Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Data that has been collected in the manner and for the purposes
@@ -697,11 +697,11 @@ and monitoring your registration.
 FUN personnel and third parties duly designated by it, will have access
 to the collected data and may use it for the purposes of providing the
 services offered on the `Site <https://www.fun-mooc.fr/>`__. Such
-personnel and third parties include: 
+personnel and third parties include:
 
 -  instructors belonging to the teaching staff and official
    representatives of course-providing institutions, with regard to all
-   of the data collected; 
+   of the data collected;
 
 -  research teams, higher education and research institutions, members
    or partners of FUN, or accredited research teams, with regard to
@@ -710,82 +710,82 @@ personnel and third parties include:
 -  FUN teams responsible for carrying out platform usage assessments.
 
 Under no circumstances will the collected data be assigned to third
-parties, whether against payment or free of charge. 
+parties, whether against payment or free of charge.
 
-Data recipients outside the European Union 
+Data recipients outside the European Union
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Certain data recipients are located outside the European Union, notably
-recipients based in the following countries: 
+recipients based in the following countries:
 
 -  Tunisia,
--  The United States   
+-  The United States
 
-The following data may be transferred to such recipients: 
+The following data may be transferred to such recipients:
 
- 
+
 
 With respect to `Site <https://www.fun-mooc.fr/>`__ users
 
 -  The user’s identity: last name, first name, city and country of
-   residence, e-mail address, year of birth (optional); 
--  Sex (optional); 
+   residence, e-mail address, year of birth (optional);
+-  Sex (optional);
 -  Login information: user name for the
-   `Site <https://www.fun-mooc.fr/>`__ and account password; 
+   `Site <https://www.fun-mooc.fr/>`__ and account password;
 -  Highest academic degree achieved (optional): Ph.D., Master’s degree,
    Bachelor’s degree, two-year professional degree or associate’s
    degree, two-year short-cycle university-level degree in
    technology/vocational training certificate or diploma,
    *baccalaurea*\ te (high school diploma), secondary school
-   certificate, none, other; 
+   certificate, none, other;
 -  Motivations for registering on the
-   `Site <https://www.fun-mooc.fr/>`__ (optional); 
--  Course taken: type, name and code of course or module taken; 
+   `Site <https://www.fun-mooc.fr/>`__ (optional);
+-  Course taken: type, name and code of course or module taken;
 -  Results and grades received on online exercises, multiple-choice
-   question exams, or practical work assignments; 
+   question exams, or practical work assignments;
 -  online content posted on the\ `Site <https://www.fun-mooc.fr/>`__:
    comments, information or assignments submitted into a part of the
    `Site <https://www.fun-mooc.fr/>`__ designed to allow users to
-   communicate with each other; 
+   communicate with each other;
 -  Logging data used to track activities engaged in by the learner on
    the `Site <https://www.fun-mooc.fr/>`__: dates and times of access,
    IP address of the user’s work station, Login ID and activity on the
    Site (watching a video, opening a web page, responding to a problem,
-   etc.). 
+   etc.).
 
- 
+
 
 With respect to `Site <https://www.fun-mooc.fr/>`__ users
 taking an exam that is proctored online by an outside service provider,
 towards obtaining a certificate
 
 -  Last Name, first name, address, city, telephone number, time zone,
-   country; 
+   country;
 -  Video and audio recording of the examination session; photo of the
    learner taken at the start of the examination session;
--  Photo of the piece of ID submitted. 
+-  Photo of the piece of ID submitted.
 
 With respect to members of the teaching staff
 
--  instructor’s identity: last name, first name, and e-mail address; 
+-  instructor’s identity: last name, first name, and e-mail address;
 -  login information: user name on the
-   `Site <https://www.fun-mooc.fr/>`__ and account password; 
--  geographical location; 
+   `Site <https://www.fun-mooc.fr/>`__ and account password;
+-  geographical location;
 -  logging data used to track activities engaged in by members of the
    teaching staff on the `Site <https://www.fun-mooc.fr/>`__:
    (information identical to that retrieved for a learner).
 
 This information, which is transmitted to recipients based outside the
-European Union, is intended to: 
+European Union, is intended to:
 
 -  allow courses to be monitored,
 -  allow participation in educational activities and evaluations and
    assessments,
 -  allow the issuance of official documents and/or certificates;
--  conduct research to produce statistics relying on anonymized data. 
+-  conduct research to produce statistics relying on anonymized data.
 
 We have taken the following steps to ensure that the collected data, if
-transferred, receives an adequate level of protection: 
+transferred, receives an adequate level of protection:
 
 -  The fact that information will be transferred to a third country has
    been mentioned in a notification filed with the CNIL, stating that
@@ -794,18 +794,18 @@ transferred, receives an adequate level of protection:
    EC Standard Contractual Clauses entered into between FUN and each
    higher education institution established in a country not ensuring an
    **adequate** level of **data protection** (data controller to data
-   controller model contract - 2001 version). 
+   controller model contract - 2001 version).
 
 -  The fact that data will be transferred to US-based data processors
    proctoring certification exams (ProctorU) has been mentioned in a
    notification filed with the CNIL and has been specified in the EC
    Standard Contractual Clauses entered into between FUN and Proctor U
-   (data controller to data processor model contract). 
+   (data controller to data processor model contract).
 
-Retention Period   
+Retention Period
 -------------------
 
-Data will be retained and used as follows: 
+Data will be retained and used as follows:
 
 1. Personally identifiable data collected through each connection to the
    `Site <https://www.fun-mooc.fr/>`__ will be retained for a five-year
@@ -815,20 +815,20 @@ Data will be retained and used as follows:
    be anonymized, i.e. the User Last Name, First Name, email and user
    name.
 2. Data relating to learners wishing to take the proctored examination
-   will be retained by the data processor vendor as follows:  
+   will be retained by the data processor vendor as follows:
 3. Last Name, first name, address, city, telephone number, time zone,
-   country: one year. 
+   country: one year.
 4. Video and audio recording of the examination session, photo of the
    learner taken at the start of the examination session, photo of the
-   piece of ID: 6 weeks. 
+   piece of ID: 6 weeks.
 
-Use of Cookies  
+Use of Cookies
 ----------------
 
 Certain data is collected by using cookies (small text files saved by
 your web browser onto your computer, in which personal information is
 stored about you and your page activity, which can be consulted by the
-`Site <https://www.fun-mooc.fr/>`__). 
+`Site <https://www.fun-mooc.fr/>`__).
 
 A cookie does not make it possible for us to identify you. Generally
 speaking, it records information about your computer’s browsing activity
@@ -836,7 +836,7 @@ on our `Site <https://www.fun-mooc.fr/>`__ (the pages that you have
 visited, the date and time of your visit, etc.), which we can read
 during subsequent visits. That is, it contains information that you have
 supplied. As a result, during your next visit, there is no need for you
-to fill out the form that is presented at the onset. 
+to fill out the form that is presented at the onset.
 
 Please note that you may block cookies through your browser settings (in
 the Tools->Internet Options' menu item on browsers such as Mozilla
@@ -848,9 +848,9 @@ following website address for full details:
 `www.cnil.fr <http://www.cnil.fr/>`__.) If you disable or refuse
 cookies, you may not be able to access some parts of the
 `Site <https://www.fun-mooc.fr/>`__, and some features may not function
-properly or be available to you. 
+properly or be available to you.
 
-Links to other websites  
+Links to other websites
 -------------------------
 
 This Privacy Policy applies only to our
@@ -863,7 +863,7 @@ those services may collect. We advise you to carefully read the privacy
 statements and policies of such third-party websites prior to the use of
 any third-party website.
 
-User Names and Postings  
+User Names and Postings
 -------------------------
 
 Comments or other information posted by you to our forums, wikis, or
@@ -874,7 +874,7 @@ you to use discretion when deciding whether to post to those forums (or
 to other public or course-wide areas) any information that can be used
 to identify you.
 
-Site Hosting, storage and security  
+Site Hosting, storage and security
 ------------------------------------
 
 The `Site <https://www.fun-mooc.fr/>`__ is hosted on the cloud platform
@@ -883,12 +883,12 @@ The hosting provider agrees that, on matters of data security. it will
 abide by the general security guidelines set forth in the framework
 agreement of the French Network and Information Security Agency
 (`référentiel de
-l'ANSSI <http://www.ssi.gouv.fr/uploads/2016/03/Referentiel_exigences_prestataires_integration_maintenance_V1_0.1.pdf>`__\ `) <http://www.ssi.gouv.fr/uploads/2016/03/Referentiel_exigences_prestataires_integration_maintenance_V1_0.1.pdf>`__. 
+l'ANSSI <http://www.ssi.gouv.fr/uploads/2016/03/Referentiel_exigences_prestataires_integration_maintenance_V1_0.1.pdf>`__\ `) <http://www.ssi.gouv.fr/uploads/2016/03/Referentiel_exigences_prestataires_integration_maintenance_V1_0.1.pdf>`__.
 
 Data archiving is conducted at regular intervals, in accordance with the
 Privacy Policy. At the close of the statutory data-retention period, the
 retained data will be will be anonymized, pursuant to the terms of the
-notification filed with CNIL. 
+notification filed with CNIL.
 
 Computerized records stored on systems in accordance with standard
 security requirements shall be considered to constitute proof of email
@@ -914,7 +914,7 @@ code or programming instruction adversely affecting the
 `site <https://www.fun-mooc.fr/>`__ and/or any comment published on the
 `Site <https://www.fun-mooc.fr/>`__.
 
-Legal notices and disclaimers 
+Legal notices and disclaimers
 ==============================
 
 All courses offered on the `Site <https://www.fun-mooc.fr/>`__ have been
@@ -926,12 +926,12 @@ The course catalog is continually expanding as an array of training
 programs and learning modules are added to meet broadening public
 interest.
 
-Website Editor 
+Website Editor
 ---------------
 
 | **GIP FUN-MOOC **
-| 12 Villa de Lourcine 
-| 75014 Paris 
+| 12 Villa de Lourcine
+| 75014 Paris
 
 Contact: \ communication@fun-mooc.fr
 
@@ -939,20 +939,20 @@ Publishing Director
 -------------------
 
 | Catherine Mongenet
-| Director of GIP FUN-MOOC 
+| Director of GIP FUN-MOOC
 
-Hosting Provider 
+Hosting Provider
 -----------------
 
 | Orange
-| Cloud for Business 
+| Cloud for Business
 
-Statistics Manager 
+Statistics Manager
 -------------------
 
 Google Analytics
 
-Your right to access, modify or delete personal data 
+Your right to access, modify or delete personal data
 -----------------------------------------------------
 
 In accordance with Articles 39 *et seq*. of Law n° 78-17, dated January
@@ -961,9 +961,9 @@ the right to access, or, where appropriate, modify, or delete personal
 data that concerns you. These rights may be exercised upon simple
 written request mailed to the following address:
 
-| GIP-FUN MOOC 
-| Correspondante Informatique et Liberté 
-| 12 Villa de Lourcine 75014 Paris  
+| GIP-FUN MOOC
+| Correspondante Informatique et Liberté
+| 12 Villa de Lourcine 75014 Paris
 
 You can unsubscribe from our general newsletters by clicking the
 unsubscribe link or by sending an unsubscribe request to our e-mail
@@ -973,17 +973,17 @@ For all questions or inquiries regarding our Privacy Policy, please
 e-mail us at the following address: \ cil@fun-mooc.fr.
 
 For all other questions, please visit our contact page.  For all other
-questions, please visit our contact page. 
+questions, please visit our contact page.
 
 A new request for an opinion regarding this website has been filed with
 the French Data Protection Authority, *Commission Nationale de
-l'Informatique et des Libertés* (CNIL).  
+l'Informatique et des Libertés* (CNIL).
 
 The previous request for a CNIL opinion (Decision n° 2014-036, dated 23
 January 2014) was the subject of a decree issued by the French Ministry
 of National Education, dated 24 September 2014.
 
-Credits 
+Credits
 --------
 
 FUN `site <https://www.fun-mooc.fr/>`__ uses Open edX technology.
@@ -994,7 +994,7 @@ which is viewable at the following address: \ https://github.com/openfun
 
 | Hosting provider: Orange, Cloud for Business, 75015 Paris - France
 | Graphic Charter: S.Q.L.I. Group, 268, avenue du Président Wilson -
-  93210 Saint-Denis 
+  93210 Saint-Denis
 
 *Effective Date: October 28*\ :sup:`*th*`\ * 2013*
 
@@ -1423,7 +1423,7 @@ reconnaissez avoir été informé :
 
 
 
-    
+
 .. _honor:
 
 Charte utilisateurs
@@ -1509,7 +1509,7 @@ aux informations que nous pouvons recueillir de votre part par d'autres
 moyens, par exemple à celles que vous nous fournissez par téléphone, par
 fax, par mail ou par courrier conventionnel. En outre, veuillez noter
 que vos données personnelles sont protégées par les règles du droit
-français. 
+français.
 
 En accédant ou en vous inscrivant sur ce site, vous consentez et
 acceptez le fait que les informations collectées vous concernant,
@@ -1526,29 +1526,29 @@ des Libertés. Si vous n'acceptez pas ces termes, alors nous vous
 invitons à ne pas accéder, naviguer ou vous inscrire sur ce site. Si
 vous choisissez de ne pas nous fournir certaines informations
 nécessaires pour vous offrir nos services, vous ne pourrez pas ouvrir un
-compte utilisateur. 
+compte utilisateur.
 
 Tel qu'utilisé dans la présente « politique de confidentialité »,
 « données personnelles » désigne toute information vous concernant que
 vous nous fournissez lors de l'utilisation du site, par exemple lorsque
 vous créez un compte utilisateur ou concluez une transaction, ce qui
 peut inclure de manière non limitative votre nom, vos coordonnées, sexe,
-date de naissance et profession. 
+date de naissance et profession.
 
-Données personnelles 
+Données personnelles
 --------------------
 
 Les données personnelles vous concernant et collectées par le site
 `*www.fun-mooc.fr* <http://www.fun-mooc.fr>`__ vous appartiennent. Ces
 données sont protégées et non diffusées conformément à la loi
-française. 
+française.
 
 Ces données sont utilisées pour assurer la délivrance des services
 offerts par le `*site* <https://www.fun-mooc.fr/>`__ : délivrance de
 certificats et attestations, échanges de pairs à pairs, échanges entre
 l’équipe pédagogique et les apprenants, envoi d’informations de manière
 proactive, etc. Nous nous engageons à ce que ces données ne soient pas
-diffusées à des tiers ni commercialisées sans votre accord explicite. 
+diffusées à des tiers ni commercialisées sans votre accord explicite.
 
 Elles peuvent également être utilisées pour vous envoyer des mises à
 jour sur les cours en ligne offerts par
@@ -1556,12 +1556,12 @@ jour sur les cours en ligne offerts par
 pour communiquer sur les produits ou les services du
 `*site* <https://www.fun-mooc.fr/>`__ ou affiliés, pour vous envoyer des
 messages électroniques à propos de la maintenance du site ou des mises à
-jour ou pour vous envoyer des newsletters. 
+jour ou pour vous envoyer des newsletters.
 
 Nous partagerons l'information recueillie avec les établissements
 membres et partenaires de FUN. Eux et nous pouvons partager cette
 information, y compris les renseignements personnels, avec des tierces
-parties, comme suit : 
+parties, comme suit :
 
 -  Avec les fournisseurs de services ou entrepreneurs qui effectuent
    certaines tâches en notre nom ou au nom des établissements. Ceci
@@ -1591,7 +1591,7 @@ parties, comme suit :
    d'utilisation, la charte utilisateur ou cette politique de
    confidentialité, tel qu'il peut être requis par la loi ou pour
    protéger nos droits, notre propriété ou notre sécurité ou celles des
-   autres ;  
+   autres ;
 
 -  Pour vous permettre de communiquer avec d’autres utilisateurs qui
    pourraient avoir des intérêts
@@ -1605,12 +1605,12 @@ parties, comme suit :
    adresse e-mail sans votre consentement explicite ;
 
 -  Pour l'intégration de services tiers. Par exemple, un site externe
-   d’hébergement de contenus vidéo ou d'autres sites externes à FUN. 
+   d’hébergement de contenus vidéo ou d'autres sites externes à FUN.
    En outre, nous pouvons partager des informations qui ne vous
    identifient pas personnellement (anonymisées), avec le public et
-   avec des tiers, y compris, par exemple, des chercheurs. 
+   avec des tiers, y compris, par exemple, des chercheurs.
 
-Données d’usage 
+Données d’usage
 ---------------
 
 Les données d’usage sont les données collectées par le site
@@ -1619,7 +1619,7 @@ des services du site. Il s’agit de données brutes,
 totalement anonymisées, utilisées pour produire des statistiques sur
 l’utilisation des services du `*site* <https://www.fun-mooc.fr/>`__, et
 dont l’analyse permet d’améliorer les services et les fonctionnalités du
-`*site* <https://www.fun-mooc.fr/>`__. 
+`*site* <https://www.fun-mooc.fr/>`__.
 
 Nous collectons des informations lorsque vous vous créez un compte
 utilisateur, participez à des cours en ligne, envoyez des messages
@@ -1628,13 +1628,13 @@ des informations sur les performances et les modes d'apprentissage des
 apprenants. Nous enregistrons des informations indiquant, entre autres,
 les pages de notre site ayant été visitées, l'ordre dans lequel elles
 ont été visitées, quand elles ont été visitées et quels sont les liens
-et autres contrôles de l'interface utilisateur qui ont été utilisés. 
+et autres contrôles de l'interface utilisateur qui ont été utilisés.
 
 Nous pouvons enregistrer l'adresse IP, le système d'exploitation et le
 navigateur utilisé par chaque utilisateur du site. Divers outils sont
-utilisés pour recueillir ces informations. 
+utilisés pour recueillir ces informations.
 
-Les données d’usage peuvent être utilisées : 
+Les données d’usage peuvent être utilisées :
 
 -  Pour permettre aux établissements de proposer, administrer et
    améliorer leurs cours ;
@@ -1648,7 +1648,7 @@ Les données d’usage peuvent être utilisées :
    éducative internationale ;
 
 -  À des fins de recherche scientifique, en particulier dans les
-   domaines des sciences cognitives et de l'éducation ;  
+   domaines des sciences cognitives et de l'éducation ;
 
 -  Pour suivre la fréquentation, à la fois individuelle et globale, la
    progression et l'achèvement d'un cours en ligne et pour analyser les
@@ -1664,12 +1664,12 @@ Les données d’usage peuvent être utilisées :
    les accès, l'utilisation, l'impact et la performance des apprenants ;
 
 -  Pour archiver ces informations et / ou les utiliser pour des
-   communications futures avec vous ;  
+   communications futures avec vous ;
 
 -  Afin de maintenir et d'améliorer le fonctionnement et la sécurité du
-   site et de nos logiciels, systèmes et réseaux. 
+   site et de nos logiciels, systèmes et réseaux.
 
-Gestion des données personnelles et des données d’usage 
+Gestion des données personnelles et des données d’usage
 -------------------------------------------------------
 
 Conformément aux dispositions de la loi n° 78-17 du 6 janvier 1978
@@ -1677,56 +1677,56 @@ relative à l'informatique, aux fichiers et aux libertés, le traitement
 automatisé des données nominatives réalisées à partir du site Internet
 `*https://www.fun-mooc.fr/* <https://www.fun-mooc.fr/>`__ a fait l'objet
 d'une déclaration auprès de la Commission Nationale de l'Informatique et
-des Libertés (CNIL).  
+des Libertés (CNIL).
 
-     
+
 
 Responsable du traitement des données collectées
-Le Responsable du Traitement des données à caractère personnel est :  
+Le Responsable du Traitement des données à caractère personnel est :
 
-**GIP FUN-MOOC** 
+**GIP FUN-MOOC**
 
-**12, Villa de Lourcine** 
+**12, Villa de Lourcine**
 
-**75014 PARIS** 
+**75014 PARIS**
 
- 
 
-Finalités de la collecte des données  
+
+Finalités de la collecte des données
 ------------------------------------
 
 La collecte des données sur
 le \ `*https://www.fun-mooc.fr/register* <https://www.fun-mooc.fr/register>`__ facilite
 l’accès au service proposé depuis le
-`*site* <https://www.fun-mooc.fr/>`__, et est réalisée afin : 
+`*site* <https://www.fun-mooc.fr/>`__, et est réalisée afin :
 
- 
+
 
 -  de permettre l’accès et l’inscription aux cours diffusés sur le
-   `*site* <https://www.fun-mooc.fr/>`__ ; 
+   `*site* <https://www.fun-mooc.fr/>`__ ;
 
 -  de permettre le suivi des cours, la participation aux activités
    pédagogiques et aux évaluations, la délivrance d’attestations et/ou
    de certificat ;
 
 -  d’effectuer des travaux de recherche pour réaliser des études
-   statistiques après anonymisation. 
+   statistiques après anonymisation.
 
 Diffusion des données collectées
 --------------------------------
 
 Les données ainsi collectées pourront être transmises aux personnels de
 FUN ainsi qu’à tous tiers chargés de participer à la mise en place, à la
-réalisation ou au suivi de votre inscription.  
+réalisation ou au suivi de votre inscription.
 
 Les personnels de FUN ainsi que les tiers désignés par ce dernier,
 auront accès et pourront utiliser les données collectées dans le but de
-fournir les services proposés sur le `*site* <https://www.fun-mooc.fr/>`__. Il s’agit : 
+fournir les services proposés sur le `*site* <https://www.fun-mooc.fr/>`__. Il s’agit :
 
 
 - des enseignants des équipes pédagogiques et les représentants
   officiels des établissements porteurs des cours, pour toutes les
-  données collectées ; 
+  données collectées ;
 
 - Des équipes de recherche, es établissements de l'enseignement
   supérieur et de la recherche, des membres ou partenaires de FUN, ou
@@ -1738,92 +1738,92 @@ fournir les services proposés sur le `*site* <https://www.fun-mooc.fr/>`__. Il 
 
 
 En aucun cas, les données collectées ne seront cédées à des tiers, que
-ce soit à titre gracieux ou onéreux. 
+ce soit à titre gracieux ou onéreux.
 
 Destinataires des données en dehors de l’Union Européenne
 
 Certains de ces destinataires sont situés en dehors de l’Union
 Européenne, et en particulier les destinataires situés dans les pays
-suivants : 
+suivants :
 
 -  Tunisie,
 
--  Etats-Unis   
+-  Etats-Unis
 
-Ces destinataires ont communication des données suivantes : 
+Ces destinataires ont communication des données suivantes :
 
-     
+
 **Pour ce qui concerne les utilisateurs du `*site* <https://www.fun-mooc.fr/>`__**
 
 - Identité de l'utilisateur : nom, prénom, ville et pays de
-  résidence, adresse électronique, année de naissance (facultatif) ; 
+  résidence, adresse électronique, année de naissance (facultatif) ;
 
-- Sexe (facultatif) ; 
+- Sexe (facultatif) ;
 
 - Identifiants de connexion : nom d'utilisateur du
-  `*site* <https://www.fun-mooc.fr/>`__ et mot de passe du compte ; 
+  `*site* <https://www.fun-mooc.fr/>`__ et mot de passe du compte ;
 
 - Plus haut niveau de formation obtenu (facultatif) : doctorat,
   master / diplôme d'ingénieur, licence, licence professionnelle,
   diplôme universitaire de technologie / brevet de technicien
-  supérieur, baccalauréat, brevet des collèges, aucun, autre ; 
+  supérieur, baccalauréat, brevet des collèges, aucun, autre ;
 
-- Motivations concernant l'inscription au `*site* <https://www.fun-mooc.fr/>`__ (facultatif) ; 
+- Motivations concernant l'inscription au `*site* <https://www.fun-mooc.fr/>`__ (facultatif) ;
 
-- Formation suivie : type et identifiant du cours ou du module suivi; 
+- Formation suivie : type et identifiant du cours ou du module suivi;
 
 - Résultats obtenus aux exercices, aux questionnaires à choix
-  multiples ou aux travaux pratiques en ligne ; 
+  multiples ou aux travaux pratiques en ligne ;
 
 - Contenus mis en ligne sur le `*site* <https://www.fun-mooc.fr/>`__
   : commentaires, informations ou devoirs soumis dans une zone du `*site* <https://www.fun-mooc.fr/>`__ conçue pour les communications
-  avec les autres utilisateurs ; 
+  avec les autres utilisateurs ;
 
 - Données de journalisation qui retracent les opérations réalisées
   par l’apprenant sur le `*site* <https://www.fun-mooc.fr/>`__ : les
   dates et heures d'accès, l'adresse IP du poste de travail,
   identifiant et action sur le `*site* <https://www.fun-mooc.fr/>`__
-  (lecture vidéo, ouverture d’une page, réponse à un problème...). 
+  (lecture vidéo, ouverture d’une page, réponse à un problème...).
 
 **Pour les utilisateurs du** `*site* <https://www.fun-mooc.fr/>`__ **qui passent l’examen surveillé en ligne par l’intermédiaire d’un prestataire externe, en vue de l’obtention d’un certificat**
 
 - Nom, prénom, adresse, ville, numéro de téléphone, fuseau horaire,
-  pays ; 
+  pays ;
 
 - Enregistrement vidéo et audio de l’examen ; photo de l’apprenant
   pris au début de l’examen ;
 
-- Photo de la pièce d’identité. 
+- Photo de la pièce d’identité.
 
 
 **Pour ce qui concerne les membres de l'équipe pédagogique**
 
-- identité de l'enseignant : nom, prénom, adresse électronique ; 
+- identité de l'enseignant : nom, prénom, adresse électronique ;
 
 - identifiants de connexion : nom d'utilisateur du
-  `*site* <https://www.fun-mooc.fr/>`__ et mot de passe du compte ; 
+  `*site* <https://www.fun-mooc.fr/>`__ et mot de passe du compte ;
 
-- localisation géographique ; 
+- localisation géographique ;
 
 - données de journalisation qui retracent les opérations réalisées
   par les membres de l’équipe pédagogique sur le
   `*site* <https://www.fun-mooc.fr/>`__ (informations identiques à
-  celles récupérées pour un apprenant). 
+  celles récupérées pour un apprenant).
 
- 
+
 
 La transmission de ces données aux destinataires situés en dehors de
-l’Union Européenne est destinée à : 
+l’Union Européenne est destinée à :
 
 -  Permettre le suivi des cours, la participation aux activités
    pédagogiques et aux évaluations, la délivrance d’attestations et/ou
    de certificat ;
 
 -  Effectuer des travaux de recherche pour réaliser des études
-   statistiques après anonymisation. 
+   statistiques après anonymisation.
 
 Les garanties suivantes ont été prises pour s’assurer d’un niveau de
-protection suffisant des données collectées : 
+protection suffisant des données collectées :
 
 -  Le transfert de données vers un pays tiers a été déclaré à la CNIL et
    est effectué dans des conditions de protection équivalente à celles
@@ -1832,18 +1832,18 @@ protection suffisant des données collectées :
    établissement d’enseignement supérieur situé dans les `*pays non
    adéquats* <https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde>`__
    (contrat de responsable des traitements à responsable des traitements
-   - modèle 2001). 
+   - modèle 2001).
 
 -  Le transfert des données vers le sous-traitant surveillant la
    certification située aux Etats-Unis d’Amérique (ProctorU) a été
    déclaré à la CNIL et est effectué via la signature de Clauses
    Contractuelles Types de la Commission Européenne (contrat de
-   responsable des traitements à sous-traitant). 
+   responsable des traitements à sous-traitant).
 
-Durée de conservation    
+Durée de conservation
 ---------------------
 
-Sont conservées : 
+Sont conservées :
 
 1. Les données à caractère personnel collectées, pendant une durée
    de cinq ans à compter de la dernière activité de l'utilisateur sur
@@ -1854,21 +1854,21 @@ Sont conservées :
 
 2. Les données concernant les apprenants qui souhaitent passer
    l’examen surveillé, le sous-traitant conservera les données pour les
-   durées suivantes :  
+   durées suivantes :
 
 3. Nom, prénom, adresse, ville, numéro de téléphone, fuseau horaire,
-   pays : un an. 
+   pays : un an.
 
 4. Enregistrement vidéo et audio de l’examen, photo de l’apprenant
    pris au début de l’examen, photo de la pièce d’identité : 6
-   semaines 
+   semaines
 
-Utilisations de Cookies 
+Utilisations de Cookies
 -----------------------
 
 Certaines informations sont collectées au moyen de cookies (de petits
 fichiers texte placés sur votre ordinateur qui stockent des informations
-vous concernant et qui peuvent être consultés par le site). 
+vous concernant et qui peuvent être consultés par le site).
 
 Un cookie ne nous permet pas de vous identifier. De manière générale, il
 enregistre des informations relatives à la navigation de votre
@@ -1877,7 +1877,7 @@ que vous avez consultées, la date et l’heure de la consultation, etc.)
 que nous pourrons lire lors de vos visites ultérieures. En l’espèce, il
 contient les informations que vous avez fournies. Ainsi, vous n’aurez
 pas besoin, lors de votre prochaine visite de remplir à nouveau le
-formulaire que nous vous avons proposé. 
+formulaire que nous vous avons proposé.
 
 Nous vous informons que vous pouvez vous opposer à l’enregistrement de
 cookies en configurant votre navigateur (dans le menu « outil options »
@@ -1888,11 +1888,11 @@ d'informer de la présence de cookie(s) et éventuellement de la refuser
 de la manière décrite à l'adresse suivante :
 `*www.cnil.fr* <http://www.cnil.fr>`__. Si vous refusez nos cookies, des
 fonctions et fonctionnalités de ce site pourraient ne pas fonctionner
-correctement. 
+correctement.
 
- 
 
-Services externes 
+
+Services externes
 -----------------
 
 Le site `*https://www.fun-mooc.fr/* <https://www.fun-mooc.fr/>`__ peut
@@ -1901,9 +1901,9 @@ fournisseurs de contenu. Ces autres sites ne sont pas sous notre
 contrôle, et vous reconnaissez et acceptez que nous ne sommes pas
 responsables de la collecte et de l'utilisation de vos informations par
 ces sites. Nous vous encourageons à lire les politiques de
-confidentialité de chaque site que vous visitez et utilisez. 
+confidentialité de chaque site que vous visitez et utilisez.
 
-Noms d'utilisateurs et messages 
+Noms d'utilisateurs et messages
 -------------------------------
 
 Les commentaires et autres informations que vous publiez dans nos
@@ -1912,20 +1912,20 @@ publiques, peuvent être consultés et téléchargés par d'autres visiteurs
 du site. Pour cette raison, nous vous encourageons à faire preuve de
 discrétion avant de publier toute information qui pourrait être utilisée
 pour vous identifier sur ces forums ou d’autres endroits publics ou
-réservés à un cours. 
+réservés à un cours.
 
-Hébergement, stockage et sécurité 
+Hébergement, stockage et sécurité
 ---------------------------------
 
 Le site est hébergé sur le cloud opéré par Orange Cloud for Business. Il
 s'appuie sur la technologie OpenStack. En matière de sécurité
 l'hébergeur s'engage à respecter l'accord cadre du \ `*référentiel de
-l'ANSSI* <http://www.ssi.gouv.fr/uploads/2016/03/Referentiel_exigences_prestataires_integration_maintenance_V1_0.1.pdf>`__. 
+l'ANSSI* <http://www.ssi.gouv.fr/uploads/2016/03/Referentiel_exigences_prestataires_integration_maintenance_V1_0.1.pdf>`__.
 
 Un archivage des données est mis en place à intervalle régulier dans le
 respect de la politique de confidentialité. À l’issue de la durée légale
 de la conservation des données, ces dernières
-sont anonymisées conformément à la déclaration CNIL. 
+sont anonymisées conformément à la déclaration CNIL.
 
 Les registres informatisés conservés dans les systèmes dans le respect
 des règles de l’art en matière de sécurité, seront considérés comme
@@ -1939,7 +1939,7 @@ dispositions légales en vigueur. Il est convenu qu’en cas de divergence
 entre les registres informatisés du
 `*site* <https://www.fun-mooc.fr/>`__ et les documents au format papier
 ou électronique dont dispose l’utilisateur, les registres informatisés
-du `*site* <https://www.fun-mooc.fr/>`__ feront foi. 
+du `*site* <https://www.fun-mooc.fr/>`__ feront foi.
 
 Par ailleurs, vous reconnaissez être parfaitement informé qu’en l’état
 de la technique, il est strictement impossible pour le GIP FUN-MOOC de
@@ -1948,7 +1948,7 @@ garantir l’absence d’intrusion dans le
 l’absence de destructions et/ou modification et notamment d’altération
 malveillante ou non par un autre utilisateur ou toute autre personne,
 des commentaires d’un utilisateur, notamment par virus ou autre code ou
-instruction affectant le site et/ou tout commentaire. 
+instruction affectant le site et/ou tout commentaire.
 
 .. _legal:
 
@@ -1999,11 +1999,11 @@ Conformément aux articles 39 et suivants de la loi n° 78-17 du 6 janvier
 personne peut obtenir communication et, le cas échéant, rectification ou
 suppression des informations la concernant, ou en adressant un courrier
 par la voie postale, accompagné de la copie d’une pièce d'identité au
-service : 
+service :
 
-| GIP-FUN MOOC 
-| Correspondante Informatique et Liberté 
-| 12 Villa de Lourcine 75014 Paris 
+| GIP-FUN MOOC
+| Correspondante Informatique et Liberté
+| 12 Villa de Lourcine 75014 Paris
 
 Vous pouvez vous désinscrire des newsletter générales grâce à un lien de
 désinscription ou en nous adressant une demande par mail ou par courrier
@@ -2011,10 +2011,10 @@ postal.
 
 Pour toute question relative à la politique de confidentialité, veuillez
 nous adresser un mail à l’adresse
-suivante : \ `*cil@fun-mooc.fr* <mailto:cil@fun-mooc.fr>`__ 
+suivante : \ `*cil@fun-mooc.fr* <mailto:cil@fun-mooc.fr>`__
 
 Pour toute autre question, consultez
-notre page \ `*contact * <https://www.fun-mooc.fr/contact>`__. 
+notre page \ `*contact * <https://www.fun-mooc.fr/contact>`__.
 
 Ce site fait actuellement l’objet d’une nouvelle demande d’avis auprès
 de la Commission Nationale de l’Informatique et des Libertés.
@@ -2049,12 +2049,16 @@ Ce traitement est en cours d'instruction auprès de la CNIL.
 
 def add_new_lience(*a):
     last = TermsAndConditions.get_latest()
-    new = TermsAndConditions(name=last.name,
-        version = last.version + ".2",
+    if last:
+          name = last.name
+          version = last.version
+    else:
+          name = 'noone'
+          version = '1.0'
+    new = TermsAndConditions(name=name,
+        version = version + ".2",
     )
     new.save()
-    print "used %s with id %r as a template" % (last, last.id)
-    print "%s created with id %r" % (new, new.id)
     new.texts.add(
         TranslatedTerms(
             tr_text = LICENCE_FR,

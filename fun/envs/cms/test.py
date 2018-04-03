@@ -39,3 +39,7 @@ COURSE_SIGNALS_DISABLED = True
 # it makes test database creation very long.
 # See: https://groups.google.com/d/msg/django-developers/PWPj3etj3-U/QTpjBvD2QMcJ
 MIGRATION_MODULES = dict((app, '%s.fake_migrations' % app) for app in INSTALLED_APPS)
+
+# Remove LEGAL_ACCEPTANCE_MIDDLEWARE
+MIDDLEWARE_CLASSES = [
+    mw for mw in MIDDLEWARE_CLASSES if mw != LEGAL_ACCEPTANCE_MIDDLEWARE[0]]

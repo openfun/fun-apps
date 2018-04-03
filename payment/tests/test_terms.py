@@ -8,17 +8,17 @@ from fun.tests.utils import skipUnlessLms
 
 from ..models import TermsAndConditions, UserAcceptance
 
+from factories import TermsAndConditionsFactory, TranslatedTermsFactory
 
 @skipUnlessLms
 class TermsAndConditionTest(TestCase):
     def setUp(self):
         self.user = UserFactory()
-        self.terms1v10 = TermsAndConditions.objects.create(name='test1', version='1.0',
+        self.terms1v10 = TermsAndConditionsFactory(name='test1', version='1.0',
                 text=u"https://xkcd.com/501/")
-        self.terms1v11 = TermsAndConditions.objects.create(name='test1', version='1.1',
+        self.terms1v11 = TermsAndConditionsFactory(name='test1', version='1.1',
                 text=self.terms1v10.text)
-
-        self.terms2v10 = TermsAndConditions.objects.create(name='test2', version='1.0',
+        self.terms2v10 = TermsAndConditionsFactory(name='test2', version='1.0',
                 text=self.terms1v10.text)
 
     def test_get_latest(self):
