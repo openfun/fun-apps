@@ -9,12 +9,16 @@ from django.utils.translation import pgettext
         ${pgettext('course-block', u"Archived")}
     % elif course.course_started:
         % if course.enrollment_end_date_display:
-        ${pgettext('course-block', u"Open until")}
+            % if course.enrollment_ended:
+                ${pgettext('course-block', u"Registration closed")}
+            % else:
+                ${pgettext('course-block', u"Open until")}
+                ${'<br>' if type == 'small' else ''}
+                ${course.enrollment_end_date_display}
+            % endif
         % else:
         ${pgettext('course-block', u"Open")}
         % endif
-        ${'<br>' if type == 'small' else ''}
-        ${course.enrollment_end_date_display}
     % else:
         ${pgettext('course-block', u"Starts on")}
         ${'<br>' if type == 'small' else ''}
