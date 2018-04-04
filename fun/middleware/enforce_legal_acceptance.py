@@ -57,9 +57,12 @@ class LegalAcceptance(object):
         return any(wl_url.match(url) for wl_url in self.white_list)
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if not self.is_whitelisted(request.path_info) \
-            and hasattr(request, "user") \
-            and request.user.is_authenticated and \
-            not legal_acceptance(request.user):
+        if (
+                not self.is_whitelisted(request.path_info) and \
+                hasattr(request, "user") and \
+                request.user.is_authenticated() and \
+                # don't enforce legal acceptance when impersonating a user
+                not request.user.is_masked and \
+                not legal_acceptance(request.user)):
             return terms_accepted(view_func)(request, *view_args, **view_kwargs)
 
