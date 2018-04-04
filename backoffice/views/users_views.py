@@ -284,13 +284,3 @@ def user_detail(request, username):
         'course_modes': course_modes,
         'payment_terms': get_accepted_payment_terms(user)})
 
-
-@group_required('fun_backoffice')
-def impersonate_user(request, username):
-    user = get_object_or_404(User, username=username, is_superuser=False, is_active=True)
-
-    backend = get_used_backend(request)
-    user.backend = "%s.%s" % (backend.__module__, backend.__class__.__name__)
-
-    login(request, user)
-    return redirect('/')

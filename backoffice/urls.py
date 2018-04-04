@@ -21,7 +21,6 @@ urlpatterns = patterns('backoffice.views.courses_views',
 urlpatterns += patterns('backoffice.views.users_views',
     url(r'^users/$', 'user_list', name='user-list'),
     url(r'^user/(?P<username>[^/]+)/$', 'user_detail', name='user-detail'),
-    url(r'^impersonate/(?P<username>.+)/$', 'impersonate_user', name='impersonate-user'),
 )
 
 urlpatterns += patterns('backoffice.views.news_views',

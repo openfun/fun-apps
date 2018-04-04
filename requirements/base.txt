@@ -9,6 +9,7 @@ django-pure-pagination==0.2.1
 easy-thumbnails==2.2
 django-haystack==2.4.1
 hashids==1.1.0
+django-masquerade==1.3
 
 # Password Container XBlock
 -e git+https://github.com/openfun/password-container-xblock.git@ff8f09943479c1ceba8362a99c7b484f5f1b94df#egg=password_container

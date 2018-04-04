@@ -13,6 +13,10 @@ from lms.urls import handler404, handler500  # pylint: disable=unused-import
 
 
 urlpatterns = patterns('',
+    # Django Masquerade urls
+    (r'^', include('masquerade.urls')),
+
+    # fun-apps urls
     (r'^', include('funsite.urls')),
     (r'^', include('contact.urls', namespace='contact')),
     (r'^payment/', include('payment.urls', namespace="payment")),

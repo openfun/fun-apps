@@ -37,10 +37,19 @@ def get_course_key(course_key_string):
     return CourseKey.from_string(course_key_string)
 
 def group_required(*group_names):
-    """Requires user membership in at least one of the groups passed in."""
+    """
+    Requires user membership in at least one of the groups passed in.
+
+    When a staff user is impersonating a normal user on the LMS, we want him to keep
+    his rights in the backoffice, so we must also check this case and allow access.
+    """
     def in_groups(user):
         if user.is_authenticated():
-            if bool(user.groups.filter(name__in=group_names)) or user.is_superuser:
+            if (
+                    user.is_superuser or
+                    bool(user.groups.filter(name__in=group_names)) or
+                    user.original_user.is_superuser or
+                    bool(user.original_user.groups.filter(name__in=group_names))):
                 if settings.FEATURES['USE_MICROSITES']:
                     return UserSignupSource.objects.filter(user=user,
                             site=microsite.get_value('SITE_NAME')).exists()
