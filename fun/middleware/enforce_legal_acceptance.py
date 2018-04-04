@@ -54,10 +54,12 @@ class LegalAcceptance(object):
     def process_view(self, request, view_func, view_args, view_kwargs):
         # We don't redirect the current user to the legal acceptance page if:
         #   1. the current path is whitelisted,
-        #   2. the latest T&C were already accepted by the current user.
+        #   2. the current user is impersonating another user,
+        #   3. the latest T&C were already accepted by the current user.
         if (
                 not self.is_whitelisted(request.path_info) and
                 hasattr(request, "user") and
                 request.user.is_authenticated() and
+                not request.user.is_masked and
                 not legal_acceptance(request.user)):
             return ensure_terms_accepted(view_func)(request, *view_args, **view_kwargs)
