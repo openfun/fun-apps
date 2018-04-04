@@ -40,7 +40,9 @@ def group_required(*group_names):
     """Requires user membership in at least one of the groups passed in."""
     def in_groups(user):
         if user.is_authenticated():
-            if bool(user.groups.filter(name__in=group_names)) or user.is_superuser:
+            if (
+                    user.is_superuser or
+                    bool(user.groups.filter(name__in=group_names))):
                 if settings.FEATURES['USE_MICROSITES']:
                     return UserSignupSource.objects.filter(user=user,
                             site=microsite.get_value('SITE_NAME')).exists()

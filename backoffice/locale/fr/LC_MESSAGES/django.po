@@ -240,6 +240,10 @@ msgstr "Image"
 msgid "Impersonate"
 msgstr "Exorciser"
 
+#: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/user.html:0
+msgid "Stop impersonation"
+msgstr "Arrêter l'exorcisme"
+
 #: /edx/app/edxapp/fun-apps/backoffice/templates/backoffice/courses/base-detail.html:0
 msgid "Information"
 msgstr "Informations sur le cours"

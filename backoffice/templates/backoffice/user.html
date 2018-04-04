@@ -51,42 +51,35 @@
         {% endif %}
 
         <form action="." method="POST" class="form-horizontal">
-          {% csrf_token %}
+           {% csrf_token %}
             <div class="form-group">
-              <label class="col-sm-5 control-label">{% trans "Account created:" %}</label>
-              <div class="col-sm-7">
-                  <p class="form-control-static">{{ userform.instance.date_joined }}</p>
-              </div>
-              <label class="col-sm-5 control-label">{% trans "Last connection:" %}</label>
-              <div class="col-sm-7">
-                  <p class="form-control-static">{{ userform.instance.last_login }}</p>
-              </div>
-              <label class="col-sm-5 control-label">{% trans "Is active:" %}</label>
-              <div class="col-sm-7">
-                  <p class="form-control-static">
-                  {% if userform.instance.is_active %}
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;&nbsp;<span class="label label-success">{% trans "Email is OK" %}</span>
-                  {% else %}
-                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;<span class="label label-warning">{% trans "User does not validate it email address" %}</span>
-                  {% endif %}</p>
-              </div>
-              <label class="col-sm-5 control-label">{% trans "Accepted terms: " %}</label>
-              <div class="col-sm-7">
-                  <p class="form-control-static">
-                  {% trans "Accepted: " %}{{ payment_terms.accepted.terms.version|default:"--" }} /
-                  {% trans "Latest: " %}{{ payment_terms.latest.version|default:"--" }}
-                  {% if payment_terms.ok %}<span class="label label-success">OK</span>{% endif %}
-                  </p>
-              </div>
-
-              {% if userform.instance.is_active and not userform.instance.is_superuser %}
-                  <div class="col-sm-5"></div>
-                  <div class="col-sm-7">
-                      <p><a href="{% url 'backoffice:impersonate-user' userform.instance.username %}">{% trans "Impersonate" %}</a></p>
-                  </div>
-              {% endif %}
-
+                <label class="col-sm-5 control-label">{% trans "Account created:" %}</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">{{ userform.instance.date_joined }}</p>
+                </div>
+                <label class="col-sm-5 control-label">{% trans "Last connection:" %}</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">{{ userform.instance.last_login }}</p>
+                </div>
+                <label class="col-sm-5 control-label">{% trans "Is active:" %}</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">
+                    {% if userform.instance.is_active %}
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;&nbsp;<span class="label label-success">{% trans "Email is OK" %}</span>
+                    {% else %}
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;<span class="label label-warning">{% trans "User does not validate it email address" %}</span>
+                    {% endif %}</p>
+                </div>
+                <label class="col-sm-5 control-label">{% trans "Accepted terms: " %}</label>
+                <div class="col-sm-7">
+                    <p class="form-control-static">
+                        {% trans "Accepted: " %}{{ payment_terms.accepted.terms.version|default:"--" }} /
+                        {% trans "Latest: " %}{{ payment_terms.latest.version|default:"--" }}
+                        {% if payment_terms.ok %}<span class="label label-success">OK</span>{% endif %}
+                    </p>
+                </div>
             </div>
+ 
             <div class="form-group">
                 {{ userform|bootstrap_horizontal:'col-lg-4' }}
 
@@ -161,6 +154,16 @@
         </div>
 
         <div class="col-md-12">
+
+            {% if userform.instance.is_active and not userform.instance.is_superuser and not userform.instance.is_staff %}
+                <form action="{% url 'masquerade-mask' %}" method="POST" target="_blank" style="display: inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="mask_user" value="{{ userform.instance.username }}">
+                    <button class="btn btn-info" type="submit">{% trans "Impersonate" %}</button>
+                </form>
+
+                <a class="btn btn-warning" onclick="$.get({% url 'masquerade-unmask' %});">{% trans "Stop impersonation" %}</a>
+            {% endif %}
 
             <button class="btn btn-warning" data-toggle="modal" data-target="#change-password">
                 {% trans "Change password" context "change-user-password" %}
