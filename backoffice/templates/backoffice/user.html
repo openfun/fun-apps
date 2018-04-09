@@ -99,6 +99,40 @@
     </div>
     <div class="col-md-6">
         <div class="col-md-12">
+
+            {% if userform.instance.is_active and not userform.instance.is_superuser and not userform.instance.is_staff %}
+                <form action="{% url 'masquerade-mask' %}" method="POST" target="_blank" style="display: inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="mask_user" value="{{ userform.instance.username }}">
+                    <button class="btn btn-info" type="submit">{% trans "Impersonate" %}</button>
+                </form>
+
+                <a class="btn btn-warning" onclick="$.get({% url 'masquerade-unmask' %});">{% trans "Stop impersonation" %}</a>
+            {% endif %}
+
+            <button class="btn btn-warning" data-toggle="modal" data-target="#change-password">
+                {% trans "Change password" context "change-user-password" %}
+            </button>
+
+            {% if request.user != userform.instance %}
+                <button class="btn btn-warning" data-toggle="modal" data-target="#ban-user">
+                {% if disabled %}
+                    {% trans "Unban" %}
+                {% else %}
+                    {% trans "Ban" %}
+                {% endif %}
+                </button>
+            {% endif %}
+
+            {% if not userform.instance.is_active %}
+                <form action="." method="POST" style="display: inline">
+                    <input type="hidden" name="action" value="resend-activation">{% csrf_token %}
+                    <button class="btn btn-info" type="submit">{% trans "Resend activation email" %}</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="col-md-12">
             <h3>{% trans "Enrollments" %}</h3>
             <table class="table table-condensed">
             <tr>
@@ -151,40 +185,6 @@
                 <tr><td colspan="3">{% trans "No course enrollments" %}</td></tr>
             {% endfor %}
             </table>
-        </div>
-
-        <div class="col-md-12">
-
-            {% if userform.instance.is_active and not userform.instance.is_superuser and not userform.instance.is_staff %}
-                <form action="{% url 'masquerade-mask' %}" method="POST" target="_blank" style="display: inline">
-                    {% csrf_token %}
-                    <input type="hidden" name="mask_user" value="{{ userform.instance.username }}">
-                    <button class="btn btn-info" type="submit">{% trans "Impersonate" %}</button>
-                </form>
-
-                <a class="btn btn-warning" onclick="$.get({% url 'masquerade-unmask' %});">{% trans "Stop impersonation" %}</a>
-            {% endif %}
-
-            <button class="btn btn-warning" data-toggle="modal" data-target="#change-password">
-                {% trans "Change password" context "change-user-password" %}
-            </button>
-
-            {% if request.user != userform.instance %}
-                <button class="btn btn-warning" data-toggle="modal" data-target="#ban-user">
-                {% if disabled %}
-                    {% trans "Unban" %}
-                {% else %}
-                    {% trans "Ban" %}
-                {% endif %}
-                </button>
-            {% endif %}
-
-            {% if not userform.instance.is_active %}
-                <form action="." method="POST" style="display: inline">
-                    <input type="hidden" name="action" value="resend-activation">{% csrf_token %}
-                    <button class="btn btn-info" type="submit">{% trans "Resend activation email" %}</button>
-                </form>
-            {% endif %}
         </div>
 
         <div class="col-md-12">
