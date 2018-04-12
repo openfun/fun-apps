@@ -865,10 +865,11 @@ ul.breadcrumbs li a:focus {
 }
 .big-course .footer .date {
     padding-left: 48px;
-    padding-top: 16px;
+    padding-top: 8px;
     background: url('../images/icones/calendar.png') 12px 14px no-repeat;
-    font-weight: 600;
-    line-height: 28px;
+    font-weight: 500;
+    color: #656667;
+    min-height: 44px;
 }
 .big-course .footer .register {
     padding-top: 16px;
