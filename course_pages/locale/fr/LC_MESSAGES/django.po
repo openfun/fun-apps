@@ -114,6 +114,11 @@ msgctxt "course-block"
 msgid "Open until"
 msgstr "Ouvert jusqu'au"
 
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/course-block/start-end-date.html:0
+msgctxt "course-block"
+msgid "Registration closed"
+msgstr "Inscription close"
+
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/feed/feed.html:0
 msgid "Proposed by"
 msgstr "Cours proposé par"
