@@ -64,7 +64,7 @@ if certificate_data and certificate_data.get('course_title', ''):
                 <img class="centered" src="${STATIC_URL}fun_certificates/images/tampon-fun.png" alt="Certificat vérifié">
                 <p class="centered" style="font-size: 12px;">
                 %if request.GET.get("preview", False):
-                    Une URL de vérification apparaîtra içi.
+                    Une URL de vérification apparaîtra ici.
                 %else:
                     Vérifier la validité de ce certificat et les informations associées :<br>
                     ${request.build_absolute_uri(reverse('short-cert-url', args=[get_encoded_cert_id(settings.SECRET_KEY, course_id, accomplishment_user_id)]))}
