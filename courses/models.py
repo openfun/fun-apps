@@ -51,7 +51,7 @@ class Course(models.Model):
     show_about_page = models.BooleanField(
         verbose_name=_('show course about page'), default=True, db_index=True,
         help_text=_('Controls whether the course about page is visible'))
-    is_active = models.BooleanField(verbose_name=_('is active'), default=False)
+    is_active = models.BooleanField(verbose_name=_('active'), default=False)
     prevent_auto_update = models.BooleanField(
         verbose_name=_('No auto update'), default=False,
         help_text=_('prevent score automatic update'))

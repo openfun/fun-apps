@@ -1,0 +1,26 @@
+
+
+#result_list th.sortable.column-show_about_page a,
+#result_list th.sortable.column-show_in_catalog a,
+#result_list th.sortable.column-prevent_auto_update a,
+#result_list th.sortable.column-enrollment_start_date a,
+#result_list th.sortable.column-enrollment_end_date a
+{
+    width: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+#result_list th.sortable.column-show_about_page a:hover,
+#result_list th.sortable.column-show_in_catalog a:hover,
+#result_list th.sortable.column-prevent_auto_update a:hover,
+#result_list th.sortable.column-enrollment_start_date a:hover,
+#result_list th.sortable.column-enrollment_end_date a:hover
+{
+    width: inherit;
+}
+
+input.vIntegerField {
+    width: 30px;
+}

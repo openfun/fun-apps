@@ -23,8 +23,9 @@ class CourseUniversityRelationInline(admin.TabularInline):
 
 class CourseAdmin(admin.ModelAdmin):
     list_display = (
-        'certificate_passing_grade', 'key', 'is_active', 'level', 'modification_date', 'title',
-        'score', 'session_number', 'show_about_page', 'show_in_catalog', 'prevent_auto_update')
+        'key', 'is_active', 'level', 'start_date', 'end_date', 'enrollment_start_date',
+        'enrollment_end_date', 'title', 'score', 'session_number', 'show_about_page',
+        'show_in_catalog', 'prevent_auto_update')
     list_filter = (
         'is_active', 'level', 'show_in_catalog', 'show_about_page', 'prevent_auto_update',
         'subjects', 'universities')
@@ -79,6 +80,10 @@ class CourseAdmin(admin.ModelAdmin):
             )
         }),
     )
+    class Media:
+        css = {'all': ('courses/css/course_list_view.css', )}
+
+
 
 
 class CourseSubjectAdmin(admin.ModelAdmin):
