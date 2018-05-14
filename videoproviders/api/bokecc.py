@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 import time
 import urllib
 
@@ -83,29 +84,30 @@ class Client(BaseClient):
             'video',
             params={'videoid': video_id, }
         )
-        js_script_url = ''
+
         if "video" in bokecc_video_playcode and "video" in bokecc_video_infos:
-            # extract javascript URL so it in in HTTPS
-            import re
-            real_url_match = re.search('src="http://([^"]+)" ',
-                                       bokecc_video_playcode["video"]["playcode"])
-            if real_url_match:
-                js_script_url = "https://" + real_url_match.group(1)
-            video['js_script_url'] = js_script_url
-            video['id'] = video_id
-            video['title'] = bokecc_video_infos['video']["title"]
-            video['prev_image'] = bokecc_video_infos['video']["image"]
-            video['thumbnail_url'] = bokecc_video_infos['video']["image"]
-            video['created_at'] = ''
-            video['status'] = "ready"
-            return video
+            # Extract video URL from HTML player:
+            # Bokecc API returns a HTML fragment like "<script src='https://p..."
+            # from which we extract `src` property to build our own player in libcast_xblock
+
+            match = re.search('src="([^"]+)" ', bokecc_video_playcode["video"]["playcode"])
+            if match:
+                video_url = match.group(1)
+                video['js_script_url'] = video_url
+                video['id'] = video_id
+                video['title'] = bokecc_video_infos['video']["title"]
+                video['prev_image'] = bokecc_video_infos['video']["image"]
+                video['thumbnail_url'] = bokecc_video_infos['video']["image"]
+                video['created_at'] = ''
+                video['status'] = "ready"
+                return video
 
         raise MissingVideo()
 
     def iter_videos(self):
         """
         Iterates through the videos
-        :return: a list of videos  
+        :return: a list of videos
         """
 
         playlist_id = BokeccUtil.get_or_create_playlist(self.course_id)
