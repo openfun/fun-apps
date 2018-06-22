@@ -158,3 +158,9 @@ msgstr "Erreur au chargement des révisions"
 msgid "since"
 msgstr "depuis"
 
+# Override specific dogwood forum strings
+msgid "%(post_type)s posted %(time_ago)s by %(author)s"
+msgstr "%(post_type)s postée %(time_ago)s par %(author)s"
+
+msgid "posted %(time_ago)s by %(author)s"
+msgstr "postée %(time_ago)s par %(author)s"
