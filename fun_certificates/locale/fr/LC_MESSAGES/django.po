@@ -14,12 +14,12 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 
 #: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
-msgid " It does not certify that the learner was registered with {}."
-msgstr " Elle n'atteste pas que le participant était inscrit à/au {}."
+msgid "It does not certify that the learner was registered with {}."
+msgstr "Elle n'atteste pas que le participant était inscrit à/au {}."
 
 #: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
-msgid ". The learner's identity has not been verified."
-msgstr ". L’identité du participant n’a pas été vérifiée."
+msgid "The learner's identity has not been verified."
+msgstr "L’identité du participant n’a pas été vérifiée."
 
 #: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "ATTESTATION OF ACHIEVEMENT"
@@ -45,10 +45,6 @@ msgid ""
 msgstr ""
 "La présente attestation n’est pas un diplôme et ne confère pas de crédits"
 " (ECTS)."
-
-#: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
-msgid "The learner's identity has not been verified."
-msgstr "L’identité du participant n’a pas été vérifiée."
 
 #: /edx/app/edxapp/fun-apps/fun_certificates/generator.py:0
 msgid "and published on the platform "

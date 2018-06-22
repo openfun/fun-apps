@@ -30,7 +30,7 @@ mainContentX, mainContentY = 2.17*cm + 100, 7.04*cm + 100
 
 dateX, dateY = 2.17*cm + 100, 3.74*cm + 100
 
-legalMentionsX, legalMentionsY = 2.17*cm + 100, 0.8*cm + 100
+legalMentionsX, legalMentionsY = 2.17*cm + 100, 0.8*cm + 105
 
 logoX, logoY = 2.17*cm + 100, 11.6*cm + 100
 
@@ -177,20 +177,13 @@ class CertificateInfo(object):
     def write_legal_mentions(self, c):
         textobject = c.beginText()
         textobject.setTextOrigin(legalMentionsX, legalMentionsY)
-        textobject.setFont("Arial", 8.5)
+        textobject.setFont("Arial", 8)
         textobject.setFillColorRGB(0, 0, 0)
-        legalMentions = (
-            self._("The current document is not a degree or diploma and does not award credits (ECTS).") +
-            self._(" It does not certify that the learner was registered with {}.").format(self.organization_name)
-        )
-        if (len(legalMentions) > 169):
-            indexReturnLine = legalMentions.rfind(" ", 0, 169)
-            textobject.textLine(legalMentions[:indexReturnLine])
-            textobject.textOut(legalMentions[indexReturnLine+1:])
-            textobject.textLine(self._(". The learner's identity has not been verified."))
-        else:
-            textobject.textLine(legalMentions)
-            textobject.textLine(self._("The learner's identity has not been verified."))
+
+        textobject.textLine(self._("The current document is not a degree or diploma and does not award credits (ECTS)."))
+        textobject.textLine(self._("It does not certify that the learner was registered with {}.").format(self.organization_name))
+        textobject.textLine(self._("The learner's identity has not been verified."))
+
         c.drawText(textobject)
 
     def write_fun_logo(self, c):
