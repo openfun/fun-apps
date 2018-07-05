@@ -6,6 +6,7 @@ from .models import TermsAndConditions, UserAcceptance
 
 class TermsAndConditionsAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'version', 'datetime',)
+    exclude = []
     list_filter = ('name',)
 
     def has_delete_permission(self, request, obj=None):

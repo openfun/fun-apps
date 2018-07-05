@@ -149,7 +149,13 @@ def payment_terms_page(request, force):
     force = (force and request.user.is_authenticated() and
             TermsAndConditions.user_has_to_accept_new_version(PAYMENT_TERMS, request.user))
 
-    terms = TermsAndConditions.get_latest(PAYMENT_TERMS)
+    force = bool(force) \
+        or bool(
+            TermsAndConditions.user_has_to_accept_new_version(
+                PAYMENT_TERMS,
+                request.user)
+            )
+    terms = TermsAndConditions.get_latest(name=PAYMENT_TERMS)
 
     return render_to_response('payment/terms-and-conditions.html', {
             'terms': terms,

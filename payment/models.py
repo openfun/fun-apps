@@ -1,18 +1,40 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 PAYMENT_TERMS = 'verified_certificate'
-
+MARKER = object()
+DEFAULT_LANGUAGE = "fr"
+DEFAULT_LANGUAGE_NAME = _("French")
+TERMS_TEMPLATE = """
+.. Ce champs est dans un format ReST (comme un wiki)
+.. Ceci est un commentaire
+.. http://deusyss.developpez.com/tutoriels/Python/SphinxDoc/#LIV-G
+.. Les 4 lignes finales (honor, privacy, tos, legal)
+.. permettent la navigation dans le contrat au niveau des ancres
+.. Prière de les insérer avant les titres correspondant
+.. honor = Charte utilisateurs
+.. privacy = Politique de confidentialité
+.. tos = Conditions générales d'utilisation
+.. legal =  Mentions légales
+.. Ces commentaires ci dessus peuvent être retirés
+.. ils sont juste là comme aide mémoire :)
+.. _honor:
+.. _privacy:
+.. _tos:
+.. _legal:
+"""
 
 
 class TermsAndConditions(models.Model):
     name = models.CharField(max_length=100, verbose_name=_(u"Name"), db_index=True)
     version = models.CharField(max_length=12, verbose_name=_(u"Terms and conditions version (semver)"))
-    datetime = models.DateTimeField(auto_now_add=True, verbose_name=_(u"Acceptance date"), db_index=True)
-    text = models.TextField(verbose_name=_(u"Terms and conditions content (HTML allowed)"))
+    datetime = models.DateTimeField(default=datetime.datetime.now, verbose_name=_(u"Acceptance date"), db_index=True)
 
     def __unicode__(self):
         return u"%s v%s" % (self.name, self.version)
@@ -20,7 +42,34 @@ class TermsAndConditions(models.Model):
     class Meta:
         verbose_name = _(u"Terms and conditions")
         verbose_name_plural = _(u"Terms and conditions")
-        ordering = ['name', '-datetime']
+        ordering = ('-datetime',)
+
+    @property
+    def text(self):
+        """
+        use django i18n mechanism to search for the right translation to
+        present to the user. (order = user settings, cookies ...)
+        Defaults to the one of reference for the country of reference if None
+        available
+        """
+        language = get_language()
+        just_in_case = ""
+        to_return = None, None
+        for translated_term in self.texts.all():
+            if translated_term.language == language and len(translated_term.tr_text):
+                to_return = unicode(translated_term.tr_text), translated_term.language
+            if translated_term.language == DEFAULT_LANGUAGE:
+                just_in_case = unicode(translated_term.tr_text),DEFAULT_LANGUAGE
+        ## walking around ReST generating a 4.1 full html doc
+        ## Accessibility
+        text, lang = to_return if to_return[0] else just_in_case
+        res = S(
+            "body",
+            publish_string(text, writer_name='html'),
+            parser='html')
+        res.remove_namespaces()
+        res(".document").attr["lang"] = lang
+        return res.html()
 
     @classmethod
     def version_accepted(cls, name, user):
