@@ -46,7 +46,7 @@ class TranslatedTermsInline(admin.StackedInline):
 
 class TermsAndConditionsAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'version', 'datetime',)
-    exclude = ('text',)
+    exclude = []
     list_filter = ('name',)
     class Meta:
         model = TermsAndConditions

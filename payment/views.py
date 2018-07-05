@@ -152,9 +152,7 @@ def payment_terms_page(request, force):
                 PAYMENT_TERMS,
                 request.user)
             )
-    terms = TermsAndConditions.get_latest()
-    last_modified = terms.datetime.strftime(gettext('%m/%d/%y'))
-
+    terms = TermsAndConditions.get_latest(name=PAYMENT_TERMS)
 
     return render_to_response('payment/terms-and-conditions.html', {
             'terms': terms,

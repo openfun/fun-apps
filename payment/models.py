@@ -51,7 +51,6 @@ class TermsAndConditions(models.Model):
     )
     version = models.CharField(max_length=12, verbose_name=_(u"Terms and conditions version (semver)"))
     datetime = models.DateTimeField(default=datetime.datetime.now, verbose_name=_(u"Acceptance date"), db_index=True)
-    text = models.TextField(verbose_name=_(u"Terms and conditions content (HTML allowed)"))
 
     def __unicode__(self):
         return u"%s v%s" % (self.name, self.version)
@@ -61,7 +60,8 @@ class TermsAndConditions(models.Model):
         verbose_name_plural = _(u"Terms and conditions")
         ordering = ('-datetime',)
 
-    def tr_text(self):
+    @property
+    def text(self):
         """
         use django i18n mechanism to search for the right translation to
         present to the user. (order = user settings, cookies ...)
@@ -69,16 +69,13 @@ class TermsAndConditions(models.Model):
         available
         """
         language = get_language()
-        good_one = language in settings.LANGUAGES \
-            and language \
-            or DEFAULT_LANGUAGE
         just_in_case = ""
         to_return = None, None
         for translated_term in self.texts.all():
             if translated_term.language == language and len(translated_term.tr_text):
                 to_return = unicode(translated_term.tr_text), translated_term.language
             if translated_term.language == DEFAULT_LANGUAGE:
-              just_in_case = unicode(translated_term.tr_text),DEFAULT_LANGUAGE
+                just_in_case = unicode(translated_term.tr_text),DEFAULT_LANGUAGE
         ## walking around ReST generating a 4.1 full html doc
         ## Accessibility
         text, lang = to_return if to_return[0] else just_in_case
@@ -87,11 +84,8 @@ class TermsAndConditions(models.Model):
             publish_string(text, writer_name='html'),
             parser='html')
         res.remove_namespaces()
-        doc = res.find(".document")[0]
         res(".document").attr["lang"] = lang
         return res.html()
-
-    tr_text = property(tr_text)
 
     @classmethod
     def version_accepted(cls, name, user):
