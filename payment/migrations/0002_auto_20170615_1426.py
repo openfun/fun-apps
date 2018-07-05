@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import migrations, models
 import datetime
-from payment.models import TermsAndConditions, TranslatedTerms
+
+from django.db import migrations, models
+from payment.models import TermsAndConditions, TranslatedTerms, PAYMENT_TERMS
 
 
 LICENCE_FR="""
@@ -1056,7 +1057,7 @@ def add_new_lience(*a):
           name = last.name
           version = last.version
     else:
-          name = 'noone'
+          name = PAYMENT_TERMS
           version = '1.0'
     new = TermsAndConditions(name=name,
         version = version + ".2",
