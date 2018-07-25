@@ -37,7 +37,6 @@ INSTALLED_APPS += (
     'selftest',
     'password_container',  # this is an xblock we add to applications to allow syncdb of its models
     'teachers',
-    'faq',
     'edx_gea',
 )
 INSTALLED_APPS += get_proctoru_app_if_available()
