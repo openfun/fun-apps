@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     (r'^universities/', include('universities.urls')),
     (r'^news/', include('newsfeed.urls')),
     # as we override a theme static_page, it has to work whith and without trailing slash
-    (r'^help/', include('faq.urls', namespace='faq')),
+    (r'^help$', RedirectView.as_view(url='//fun-mooc.help')),
     (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # fun api

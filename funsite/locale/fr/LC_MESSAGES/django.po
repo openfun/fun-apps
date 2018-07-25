@@ -149,6 +149,10 @@ msgstr "Mot de passe oublié ?"
 msgid "Get a certificate for {price} €"
 msgstr "Obtenez un certificat pour {price} €"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/footer.html:0
+msgid "Help and Contact"
+msgstr "Aide et Contact"
+
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/base.html:0
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/index.html:0
 msgid "Higher Education Excellence. Online, Free and Open Courses"
