@@ -169,12 +169,13 @@ def prefer_fun_xmodules(identifier, entry_points):
 XBLOCK_SELECT_FUNCTION = prefer_fun_xmodules
 #######
 
-
+# This backend routes emails on different SMTP servers regarding there priority
+# (bulk or transactional)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'infrasmtp02.cines.openfun.fr'   # we will use the new smtp for transactional emails on all instances
-
-BULK_SMTP_SERVER = 'smtpmooc.cines.openfun.fr'  # old server will only be used for bulk email on brick lms
-TRANSACTIONAL_SMTP_SERVER = EMAIL_HOST
+# Set by OL
+EMAIL_HOST = ''
+BULK_SMTP_SERVER = ''
+TRANSACTIONAL_SMTP_SERVER = ''
 
 ANALYTICS_SERVER_URL = ''
 BOOK_URL = ''
