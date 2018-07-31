@@ -13,7 +13,7 @@ from fun.envs.dev import *
 
 SITE_NAME = CMS_BASE
 
-SERVER_EMAIL = '%s-%s@france-universite-numerique-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
+SERVER_EMAIL = '%s-%s@fun-mooc.fr' % (ENVIRONMENT, SITE_VARIANT)
 
 FEATURES['PREVIEW_LMS_BASE'] = PREVIEW_LMS_BASE
 

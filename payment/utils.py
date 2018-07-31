@@ -60,7 +60,7 @@ def send_confirmation_email(user, order_number):
     email = EmailMultiAlternatives(
             subject=subject,
             body=text_content,
-            from_email=settings.PAYMENT_SUPPORT_EMAIL,
+            from_email=settings.DEFAULT_FROM_EMAIL,
             to=[user.email],
             bcc=[settings.PAYMENT_ADMIN],
         )
