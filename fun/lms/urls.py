@@ -22,8 +22,8 @@ urlpatterns = patterns('',
     (r'^payment/', include('payment.urls', namespace="payment")),
     (r'^universities/', include('universities.urls')),
     (r'^news/', include('newsfeed.urls')),
-    # as we override a theme static_page, it has to work whith and without trailing slash
-    (r'^help$', RedirectView.as_view(url='//fun-mooc.help')),
+    # this regexp catch both /help and /help/ urls
+    (r'^help(/)?$', RedirectView.as_view(url='//fun-mooc.help')),
     (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # fun api
