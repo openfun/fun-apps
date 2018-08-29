@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('videoproviders', '0003_explicitely_set_is_youtube_video_xblock_attribute'),
+        ('videoproviders', '0002_videouploaderdeactivationperiod_youtubeauth_youtubecoursesettings'),
     ]
 
     operations = [
