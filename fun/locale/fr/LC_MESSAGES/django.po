@@ -498,7 +498,15 @@ msgstr "Nouveau message"
 #: common/templates/course_modes/choose.html
 #: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Register to take a certification exam"
-msgstr "S'inscrire pour passer une certification"
+msgstr "S'inscrire pour passer un certificat"
+
+#: lms/templates/course_modes/choose.html
+#: themes/edx.org/lms/templates/course_modes/choose.html
+msgid ""
+"Audit this course for free and have complete access to all the course "
+"material, activities, tests, and forums."
+msgstr "Suivez gratuitement ce cours et accedez à toutes les données, activités, tests et forums. Si votre travail est satifaisant"
+" et si vous adhérez à la charte utilisateur, vous recevrez une attestation de suivi avec succès."
 
 #: common/templates/course_modes/choose.html
 #: lms/templates/dashboard/_dashboard_course_listing.html
