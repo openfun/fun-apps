@@ -508,6 +508,21 @@ msgid ""
 msgstr "Suivez gratuitement ce cours et accedez à toutes les données, activités, tests et forums. Si votre travail est satifaisant"
 " et si vous adhérez à la charte utilisateur, vous recevrez une attestation de suivi avec succès."
 
+#: lms/templates/verify_student/pay_and_verify.html
+
+msgid ""
+"Please make sure your browser is updated to the {a_start}most recent version"
+" possible{a_end}. Also, please make sure your <strong>webcam is plugged in, "
+"turned on, and allowed to function in your web browser (commonly adjustable "
+"in your browser settings).</strong>"
+msgstr ""
+"Veuillez vous assurer que votre navigateur est bien sur la version la plus "
+"récente. <strong>{a_start}Suivez ce lien pour obtenir la dernière version de votre navigateur{a_end}</strong>. "
+"Assurez-vous également que votre <strong>webcam est branchée, allumée et qu'elle soit "
+"autorisée à fonctionner sur votre navigateur web (généralement ajustable dans "
+"les paramètres de votre navigateur).</strong>"
+
+
 #: common/templates/course_modes/choose.html
 #: lms/templates/dashboard/_dashboard_course_listing.html
 msgid "Celebrate your achievement through a certificate. This document will help you to demonstrate the skills you have acquired in this MOOC, boost your CV and your career or prepare for further professional development."
