@@ -26,11 +26,14 @@ class CourseListTest(TestCase):
 @skipUnlessLms
 class CourseLanguagesTest(TestCase):
     def setUp(self):
+        # Create courses for each available language and unavailable languages
         Course.objects.create(key='1', language='fr', is_active=True, show_in_catalog=True)
         Course.objects.create(key='2', language='en', is_active=True, show_in_catalog=True)
-        Course.objects.create(key='3', language='', is_active=True, show_in_catalog=True)  # this should no happen but do
-        Course.objects.create(key='4', language='cn', is_active=True, show_in_catalog=True)  # this language is not present in courses.choices.COURSE_LANGUAGES
-        Course.objects.create(key='5', language='de', is_active=True, show_in_catalog=True)
+        Course.objects.create(key='4', language='de', is_active=True, show_in_catalog=True)
+        Course.objects.create(key='5', language='es', is_active=True, show_in_catalog=True)
+        # Create courses for unavailble languages
+        Course.objects.create(key='6', language='', is_active=True, show_in_catalog=True)  # this should no happen but do
+        Course.objects.create(key='7', language='cn', is_active=True, show_in_catalog=True)  # this language is not present in courses.choices.COURSE_LANGUAGES
 
     def test_course_list_page_loads(self):
         """Ensure /cours view do not crash when bad data is present in bdd."""

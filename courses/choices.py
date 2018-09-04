@@ -14,4 +14,4 @@ COURSE_LEVEL_CHOICES = (
 )
 
 # Please maintain alphabetical order for test consistancy
-COURSE_LANGUAGES = (('de', _('German')), ('en', _('English')), ('fr', _('French')))
+COURSE_LANGUAGES = (('de', _('German')), ('en', _('English')), ('es', _('Spanish')), ('fr', _('French')))
