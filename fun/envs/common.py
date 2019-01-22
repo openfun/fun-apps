@@ -403,4 +403,6 @@ ENABLE_ADWAYS_FOR_COURSES = (
     'course-v1:unicaen+48002+session01',
     'course-v1:umontpellier+08005+session03',
     'course-v1:lorraine+30003+SPOC_2018_session_1',
+    'course-v1:AgroParisTech+32002+session04',
+    'course-v1:FUN+1000+session1',
 )
