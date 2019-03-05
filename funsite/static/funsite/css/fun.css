@@ -6,7 +6,7 @@ body {
     -ms-overflow-style: scrollbar;
 }
 .simple-content-page section,
-.simple-content-page article { 
+.simple-content-page article {
 	max-width:	80em;
 	margin-left:auto;
 	margin-right:auto;
@@ -88,11 +88,11 @@ body {
        display:block;
        width:100%;
  }
-       
+
  .course-block a:focus, .course-block a:hover {
        border-bottom: none !important;
        box-shadow: 0px 0px 0 1px #F23238;
-}      
+}
 
 
 .blue-cell {
@@ -1930,7 +1930,7 @@ ul.universities-list {
     margin-right: -70px;
 }
     .course-about .description section.plan h2 {
-        color: black;
+        color: white;
         margin-top: 20px;
         margin-bottom: 40px;
     }
