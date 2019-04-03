@@ -27,7 +27,7 @@ def localize_date(date_time):
 class Course(models.Model):
     modification_date = models.DateTimeField(_('modification date'), auto_now=True)
     key = models.CharField(
-        max_length=200, verbose_name=_(u'Course key'), unique=True)
+        max_length=255, verbose_name=_(u'Course key'), unique=True)
     title = models.CharField(_(u'title'), max_length=255, blank=True)
     university_display_name = models.CharField(
         _(u'university display name'), max_length=255, blank=True,
