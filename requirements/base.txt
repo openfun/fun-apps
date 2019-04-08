@@ -30,3 +30,13 @@ google-api-python-client==1.5.1
 
 # Glowbl
 -e git+https://github.com/openfun/xblock-Glowbl.git@v0.1.1#egg=fun-glowbl-xblock
+
+# From Gemfury repository
+--extra-index-url https://pypi.fury.io/openfun
+
+# Configurable LTI consumer xblock
+exrex==0.10.5
+xblock-configurable-lti-consumer==1.2.3+dogwood
+
+# Proctor Exam xblock
+xblock-proctor-exam==0.8.2b0+dogwood

@@ -407,3 +407,25 @@ ENABLE_ADWAYS_FOR_COURSES = (
     'course-v1:FUN+1000+session1',
     'course-v1:lorraine+30003+SPOC_1819_session_2',
 )
+
+LTI_XBLOCK_CONFIGURATIONS = [
+    {
+        # Configuration for Marsha LTI video service
+        'display_name': 'Marsha Video',
+        'is_launch_url_regex': True,
+        'pattern': '.*marsha\.education/lti.*',
+        'hidden_fields': ['accept_grades_past_due', 'ask_to_send_username', 'ask_to_send_email', 'button_text', 'custom_parameters', 'description', 'has_score', 'hide_launch', 'launch_target', 'modal_height','modal_width', 'weight'],
+        'automatic_resizing': True,
+        'inline_ratio': None,
+        'defaults': {
+            'launch_target': 'iframe',
+            'inline_height': 400,
+            'lti_id': 'marsha',
+            'launch_url': 'https://marsha\.education/lti/videos/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        },
+    },
+    {
+        # Default LTI consumer
+        'display_name': 'LTI consumer'
+    }
+]
