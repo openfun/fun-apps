@@ -128,12 +128,16 @@ SEGMENT_IO_LMS = True
 PAID_COURSE_REGISTRATION_CURRENCY = ["usd", "$"]
 SEGMENT_IO_LMS = True
 
-# Locale path
+# Locale paths
+# Here we rewrite LOCAL_PATHS to give precedence to our applications above edx-platform,
+# also we add xblocks which provide i18n as their are no native mecanism.
+# See Xblock i18n: http://www.libremente.eu/2017/12/06/edx-translation/
 LOCALIZED_APPS = sorted([p.split("/")[-2] for p in glob(FUN_BASE_ROOT / "*/locale")])
 LOCALE_PATHS = tuple(
     [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_APPS] +
     [
         BASE_ROOT / 'edx-platform/conf/locale',
+        BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/proctor_exam/locale/'
         BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/django_countries/locale',    # this should not be required
         BASE_ROOT / 'venvs/edxapp/src/edx-proctoring/locale',
     ]
@@ -409,6 +413,36 @@ ENABLE_ADWAYS_FOR_COURSES = (
 )
 
 LTI_XBLOCK_CONFIGURATIONS = [
+    {
+        # Configuration for Proctor Exam xblock
+        'is_launch_url_regex': False,
+        'hidden_fields': [
+            'display_name',
+            'description',
+            'lti_id',
+            'launch_target',
+            'inline_height',
+            'accept_grades_past_due',
+            'ask_to_send_username',
+            'ask_to_send_email',
+            'custom_parameters',
+            'has_score',
+            'hide_launch',
+            'modal_height',
+            'modal_width',
+            'weight',
+            'button_text'
+        ],
+        'automatic_resizing': None,
+        'inline_ratio': None,
+        'ignore_configuration': True,
+        'show_button': False,
+        'pattern': '.*fun\.proctorexam\.com/lti\?id=(?P<exam_id>[0-9]+)',
+        'defaults': {
+            'launch_target': 'new_window',
+            'lti_id': 'proctor_exam',
+        },
+    },
     {
         # Configuration for Marsha LTI video service
         'display_name': 'Marsha Video',
