@@ -137,7 +137,7 @@ LOCALE_PATHS = tuple(
     [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_APPS] +
     [
         BASE_ROOT / 'edx-platform/conf/locale',
-        BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/proctor_exam/locale/'
+        BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/proctor_exam/locale',
         BASE_ROOT / 'venvs/edxapp/lib/python2.7/site-packages/django_countries/locale',    # this should not be required
         BASE_ROOT / 'venvs/edxapp/src/edx-proctoring/locale',
     ]
@@ -410,6 +410,7 @@ ENABLE_ADWAYS_FOR_COURSES = (
     'course-v1:AgroParisTech+32002+session04',
     'course-v1:FUN+1000+session1',
     'course-v1:lorraine+30003+SPOC_1819_session_2',
+    'course-v1:lorraine+30003+SPOC_1920_session_1',
 )
 
 LTI_XBLOCK_CONFIGURATIONS = [
