@@ -435,7 +435,7 @@ LTI_XBLOCK_CONFIGURATIONS = [
             'button_text'
         ],
         'automatic_resizing': None,
-        'inline_ratio': None,
+        'inline_ratio': 0.5625,
         'ignore_configuration': True,
         'show_button': False,
         'pattern': '.*fun\.proctorexam\.com/lti\?id=(?P<exam_id>[0-9]+)',
@@ -451,7 +451,7 @@ LTI_XBLOCK_CONFIGURATIONS = [
         'pattern': '.*marsha\.education/lti.*',
         'hidden_fields': ['accept_grades_past_due', 'ask_to_send_username', 'ask_to_send_email', 'button_text', 'custom_parameters', 'description', 'has_score', 'hide_launch', 'launch_target', 'modal_height','modal_width', 'weight'],
         'automatic_resizing': True,
-        'inline_ratio': None,
+        'inline_ratio': 0.5625,
         'defaults': {
             'launch_target': 'iframe',
             'inline_height': 400,
