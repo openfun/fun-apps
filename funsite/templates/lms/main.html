@@ -116,17 +116,6 @@ from branding import api as branding_api
 
   <meta name="path_prefix" content="${EDX_ROOT_URL}">
 
-  <script type="text/javascript">
-  % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
-    var tag = new ATInternet.Tracker.Tag({site: 602676});
-  % else:
-    var tag = new ATInternet.Tracker.Tag({site: 602677});
-  % endif
-    tag.page.set({});
-    tag.dispatch();
-  </script>
-
-
   ## Disable google analytics for all inria courses
   % if not "inria" in request.path_info:
     <% ga_acct = microsite.get_value("GOOGLE_ANALYTICS_ACCOUNT", settings.GOOGLE_ANALYTICS_ACCOUNT) %>
@@ -182,6 +171,15 @@ from branding import api as branding_api
 % else:
   <script src="//tag.aticdn.net/602677/smarttag.js"></script>
 % endif
+  <script type="text/javascript">
+    % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
+      var tag = new ATInternet.Tracker.Tag({ site: 602676 });
+    % else:
+      var tag = new ATInternet.Tracker.Tag({ site: 602677 });
+    % endif
+    tag.page.set({});
+    tag.dispatch();
+  </script>
 
   <%static:optional_include_mako file="body-extra.html" with_microsite="True" />
 </body>

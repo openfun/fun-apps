@@ -50,16 +50,6 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
       <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script type="text/javascript">
-% if "fun-mooc.fr" in request.META["HTTP_HOST"]:
-    var tag = new ATInternet.Tracker.Tag({site: 602676});
-% else:
-    var tag = new ATInternet.Tracker.Tag({site: 602677});
-% endif
-      tag.page.set({});
-      tag.dispatch();
-    </script>
-
     % if settings.GOOGLE_ANALYTICS_ACCOUNT:
         <script type="text/javascript">
         var _gaq = _gaq || [];
@@ -125,7 +115,16 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <script src="//tag.aticdn.net/602677/smarttag.js"></script>
 % endif
     <%block name="js_extra"/>
-  </body>
+    <script type="text/javascript">
+    % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
+        var tag = new ATInternet.Tracker.Tag({ site: 602676 });
+    % else:
+        var tag = new ATInternet.Tracker.Tag({ site: 602677 });
+    % endif
+        tag.page.set({});
+        tag.dispatch();
+    </script>
+</body>
 </html>
 
 
