@@ -29,16 +29,8 @@ from fun.utils.export_data import csv_response
 
 from ..certificate_manager.verified import get_verified_student_grades, get_enrolled_verified_students
 from ..utils import get_course, group_required, get_course_modes, get_enrollment_mode_count
-from ..utils_proctorU_api import get_mongo_reports, students_registered_in_pu, users_with_cancelled_reservations
 
 logger = logging.getLogger(__name__)
-
-try:
-    INSTALLED_PU = True
-    from proctoru.models import ProctoruUser
-except ImportError:
-    logger.info("ProcotorU XBlock not installed")
-    INSTALLED_PU = False
 
 
 COURSE_FIELDS = [
@@ -189,86 +181,6 @@ def enrolled_users(request, course_key_string):
         })
 
 
-@require_POST
-@group_required('fun_backoffice')
-def users_without_proctoru_reservation(request, course_key_string):
-    if not INSTALLED_PU:
-        return HttpResponse('ProctorU xblock not installed')
-
-    course = get_course(course_key_string)
-
-    mongo_reports = get_mongo_reports(course.id)
-    reports = mongo_reports["data"]
-
-    if "warn" in reports or "error" in reports:
-        logger.error(reports)
-        return HttpResponse('Something went wrong : {}'.format(reports))
-
-    # étudiants vérifiés - étudiants inscrit à PU (liste des étudiants avec un rapport) + étudiants sans résa
-    # => ça donne : pas inscrit PU + sans résa
-    verified_students = get_enrolled_verified_students(course.id).select_related("profile")
-    students_not_registered_in_pu = set(verified_students) - set(students_registered_in_pu(reports))
-    cancelled_reservations = set(users_with_cancelled_reservations(reports))
-
-    enrolled_students_not_proctoru = set(students_not_registered_in_pu).union(cancelled_reservations)
-
-
-    header = ("Name", "Username", "Email")
-    rows = [(s.profile.name, s.username, s.email) for s in enrolled_students_not_proctoru]
-    course_code = "{}_{}_{}".format(course.id.org, course.id.course, course.id.run)
-    filename = 'export-verified-users-without-PU-reservations-{course}-{date}.csv'.format(
-        date=datetime.datetime.now().strftime('%Y-%m-%d'),
-        course=course_code)
-
-    response = csv_response(header, rows, filename)
-    return response
-
-
-
-@group_required('fun_backoffice')
-def verified(request, course_key_string, action=None):
-    course = get_course(course_key_string)
-    course_info = get_course_infos_or_404([course])[0]
-
-    mongo_reports = get_mongo_reports(course.id)
-    registered_users = mongo_reports["data"]
-    last_update = mongo_reports["last_update"]
-
-    if "error" in registered_users:
-        return render(request, 'backoffice/courses/verified_error.html', {
-            'tab': 'courses',
-            'subtab': 'verified',
-            'course_key_string': course_key_string,
-            'course_info': course_info,
-            'error': registered_users["error"],
-            "warn": False,
-            "last_update": last_update,
-        })
-
-    if "warn" in registered_users:
-        return render(request, 'backoffice/courses/verified_error.html', {
-            'tab': 'courses',
-            'subtab': 'verified',
-            'course_key_string': course_key_string,
-            'course_info': course_info,
-            "error": False,
-            'warn': True,
-            "course_id": registered_users["warn"]["id"],
-            "date_start": registered_users["warn"]["start"],
-            "date_end": registered_users["warn"]["end"],
-            "last_update": last_update,
-        })
-
-    return render(request, 'backoffice/courses/verified.html', {
-            'course_key_string': course_key_string,
-            'course_info': course_info,
-            'students': registered_users,
-            'tab': 'courses',
-            'subtab': 'verified',
-            "last_update": last_update,
-        })
-
-
 @group_required('fun_backoffice')
 def wiki(request, course_key_string, action=None):
     course = get_course(course_key_string)
@@ -300,6 +212,7 @@ def wiki(request, course_key_string, action=None):
             'subtab': 'wiki',
         })
 
+
 def get_filtered_course_infos(search_pattern=None):
     courses = get_sorted_courses()
     course_infos = get_course_infos_or_404(courses)
@@ -311,13 +224,16 @@ def get_filtered_course_infos(search_pattern=None):
 
     return course_infos
 
+
 def get_complete_courses_info():
     return [get_complete_course_info(course) for course in get_sorted_courses()]
+
 
 def get_sorted_courses():
     courses = modulestore().get_courses()
     courses = sorted(courses, key=lambda course: course.number)
     return courses
+
 
 def get_complete_course_info(course):
     """Complete course info for displaying the details of a course.

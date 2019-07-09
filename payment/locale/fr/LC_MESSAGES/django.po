@@ -201,10 +201,10 @@ msgstr "Se former en liberté"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
-"The proctored exam is organized by the ProctorU provider in a part of the"
+"The proctored exam is organized by our provider in a part of the"
 " course visible only for students who have selected the certified track"
 msgstr ""
-"L'examen surveillé est organisé par le prestataire ProctorU dans une "
+"L'examen surveillé est organisé par notre prestataire dans une "
 "partie du cours seulement visible pour les étudiants ayant choisi le "
 "parcours certifiant"
 
@@ -265,11 +265,9 @@ msgstr ""
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/email/confirmation-email.html:0
 msgid ""
-"You must verify that your equipment is compatible by <a "
-"href='{proctoru_url_test}' target='_blank'>clicking here</a>."
+"You must verify that your equipment is compatible"
 msgstr ""
-"Vous devez vérifier que votre équipement est compatible en <a "
-"href='{proctoru_url_test}' target='_blank'>cliquant ici</a>."
+"Vous devez vérifier que votre équipement est compatible"
 
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/cancel.html:0
 #: /edx/app/edxapp/fun-apps/payment/templates/payment/error.html:0

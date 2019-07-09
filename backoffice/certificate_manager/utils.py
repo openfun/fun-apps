@@ -136,7 +136,6 @@ def generate_fun_verified_certificate(student, course, force_grade=False):
     )
     cert.name = student.profile.name
 
-    # TODO : tests avec proctorU + logique certificats / attestation
     if grade is None or grade < passing_grade:
         cert.status = CertificateStatuses.notpassing
         logger.info("verified certificate not created, insuffisant grade, student {} not passing - grade: {} - min grade: {}...".format(student, grade, passing_grade))

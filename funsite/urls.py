@@ -4,7 +4,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView, RedirectView
 
 
-static_pages = ('about', 'register_info', 'proctoru', )
+static_pages = ('about', 'register_info', )
 legal_pages =('honor','legal','privacy','tos', 'charte', )
 
 urls = tuple(

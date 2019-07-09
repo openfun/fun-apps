@@ -23,7 +23,6 @@ INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
     'edx_gea'
 )
-INSTALLED_APPS += get_proctoru_app_if_available()
 
 ROOT_URLCONF = 'fun.cms.urls'
 

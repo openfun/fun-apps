@@ -29,12 +29,6 @@
             <button class="btn btn-info" >{% trans "Enrolled users CSV" %}</button>
         </form>
     </div>
-
-    <div class="col-xs-4">
-        <form method="POST" action="{% url 'backoffice:users-without-proctoru-reservation' course_key_string %}">{% csrf_token %}
-            <button class="btn btn-info" >{% trans "Verified users without proctorU reservation" %}</button>
-        </form>
-    </div>
 </div>
 
 
@@ -49,7 +43,7 @@
                     <th>{% trans "Email" %}</th>
                 </tr>
                 </thead>
-    
+
                 <tbody>
                 {% for user in users.object_list %}
                 <tr>
@@ -66,7 +60,7 @@
             </table>
         </div>
     </div>
-    
+
     {# The following renders the pagination html #}
     <div id="pagination">
         {{ users.render }}

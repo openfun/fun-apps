@@ -39,7 +39,6 @@ INSTALLED_APPS += (
     'teachers',
     'edx_gea',
 )
-INSTALLED_APPS += get_proctoru_app_if_available()
 
 ROOT_URLCONF = 'fun.lms.urls'
 
@@ -229,5 +228,3 @@ ANALYTICS_DASHBOARD_URL = False  # when True this setting add a link in instruct
 # default one. Note that the 'modulestore' app makes split mongo
 # available even if you have not define it in your settings.
 update_module_store_settings(MODULESTORE, default_store='split')
-
-PROCTORU_URL_TEST = "https://test-it-out.proctoru.com"
