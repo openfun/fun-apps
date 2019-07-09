@@ -148,20 +148,22 @@ from branding import api as branding_api
   <script type="text/javascript" src="${static.url('js/vendor/noreferrer.js')}" charset="utf-8"></script>
   <script type="text/javascript" src="${static.url('js/utils/navigation.js')}" charset="utf-8"></script>
 
-% if "fun-mooc.fr" in request.META["HTTP_HOST"]:
-  <script src="//tag.aticdn.net/602676/smarttag.js"></script>
-% else:
-  <script src="//tag.aticdn.net/602677/smarttag.js"></script>
-% endif
-  <script type="text/javascript">
-    % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
-      var tag = new ATInternet.Tracker.Tag({ site: 602676 });
-    % else:
-      var tag = new ATInternet.Tracker.Tag({ site: 602677 });
-    % endif
-    tag.page.set({});
-    tag.dispatch();
-  </script>
+% if request.META and request.META.get("HTTP_HOST"):
+  % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
+    <script src="//tag.aticdn.net/602676/smarttag.js"></script>
+  % else:
+    <script src="//tag.aticdn.net/602677/smarttag.js"></script>
+  % endif
+    <script type="text/javascript">
+      % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
+        var tag = new ATInternet.Tracker.Tag({ site: 602676 });
+      % else:
+        var tag = new ATInternet.Tracker.Tag({ site: 602677 });
+      % endif
+      tag.page.set({});
+      tag.dispatch();
+    </script>
+%endif
 
   <%static:optional_include_mako file="body-extra.html" with_microsite="True" />
 </body>

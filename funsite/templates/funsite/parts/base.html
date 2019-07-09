@@ -84,15 +84,17 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
     <script type="text/javascript" src="/static/funsite/js/header.js"></script>
     <script type="text/javascript" src="/static/fun/js/cookie-banner.js"></script>
 
-% if "fun-mooc.fr" in request.META["HTTP_HOST"]:
-    <script src="//tag.aticdn.net/602676/smarttag.js"></script>
-% else:
-    <script src="//tag.aticdn.net/602677/smarttag.js"></script>
+% if request.META and request.META.get("HTTP_HOST"):
+    %if "fun-mooc.fr" in request.META["HTTP_HOST"]:
+        <script src="//tag.aticdn.net/602676/smarttag.js"></script>
+    % else:
+        <script src="//tag.aticdn.net/602677/smarttag.js"></script>
+    % endif
 % endif
     <%block name="js_extra"/>
 
+% if request.META and request.META.get("HTTP_HOST"):
     <script type="text/javascript">
-
         (function () {
             // Check for presence of tracking cookie acceptation
             var ca = document.cookie.split(';');
@@ -113,7 +115,7 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
             }
         })();
     </script>
-
+% endif
 </body>
 </html>
 
