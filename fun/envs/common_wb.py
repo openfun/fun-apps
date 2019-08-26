@@ -350,3 +350,25 @@ CKEDITOR_CONFIGS = {
 
 # used by Video Upload dashboard
 VIDEOFRONT_ADMIN_TOKEN = "a454b283a7a783b02f0d07aaf4a661b558b1c327"
+
+LTI_XBLOCK_CONFIGURATIONS = [
+    {
+        # Configuration for Marsha LTI video service
+        'display_name': 'Marsha Video',
+        'is_launch_url_regex': True,
+        'pattern': '.*marsha\.education/lti.*',
+        'hidden_fields': ['accept_grades_past_due', 'ask_to_send_username', 'ask_to_send_email', 'button_text', 'custom_parameters', 'description', 'has_score', 'hide_launch', 'launch_target', 'modal_height', 'modal_width', 'weight'],
+        'automatic_resizing': True,
+        'inline_ratio': 0.5625,
+        'defaults': {
+            'launch_target': 'iframe',
+            'inline_height': 400,
+            'lti_id': 'marsha',
+            'launch_url': 'https://marsha\.education/lti/videos/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        },
+    },
+    {
+        # Default LTI consumer
+        'display_name': 'LTI consumer'
+    }
+]

@@ -20,3 +20,10 @@ google-api-python-client==1.5.1
 
 # Carousel
 -e git+https://github.com/METIT-BU/xblock-carousel.git@master#egg=xblock-multimedia-carousel
+
+# From Gemfury repository
+--extra-index-url https://pypi.fury.io/openfun
+
+# Configurable LTI consumer xblock
+exrex==0.10.5
+xblock-configurable-lti-consumer==1.2.4+eucalyptus
