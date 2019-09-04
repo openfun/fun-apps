@@ -4,6 +4,7 @@
 
 <%!
 from django.core.urlresolvers import reverse
+from django.utils.html import escape
 from django.utils.translation import ugettext as _
 %>
 
@@ -57,7 +58,7 @@ from django.utils.translation import ugettext as _
                 <img class="user-icon" src="${static.url('funsite/images/icones/user.png')}" alt="User icon">
             </a>
             <a class="dashboard-user-link header-block no-decoration" href="${reverse('dashboard')}">
-                <span class="username color-fun-white">${request.user.profile.name}</span>
+                <span class="username color-fun-white">${escape(request.user.profile.name)}</span>
             </a>
             <a href="#" class="toggle-dropdown-menu header-block no-decoration" aria-haspopup="true">
                 <span class="vertical-arrow color-fun-white">▾</span>

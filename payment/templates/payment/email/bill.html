@@ -1,5 +1,6 @@
 <%page args="order, course" />
 <%!
+from django.utils.html import escape
 from django.utils.translation import ugettext as _
 
 from payment.utils import format_date_order
@@ -14,7 +15,7 @@ from payment.utils import format_date_order
 <td width="50%" colspan="2" style="font-family: monospace; font-size: 12px; border: 1px solid #555; padding: 8px">
     ${_(u"Date:" )} ${format_date_order(order, _('%m/%d/%y %H:%M'))}<br>
     ${_(u"Order No:")} ${order['number']}<br>
-    ${_(u"Contact:")} <span class="user-full-name">${user.profile.name or user.email}</span><br>
+    ${_(u"Contact:")} <span class="user-full-name">${escape(user.profile.name) or escape(user.email)}</span><br>
 </td>
 </tr>
 
