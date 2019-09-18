@@ -62,13 +62,13 @@ msgstr ""
 "{platform_name}, nous communiquons essentiellement par mail."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
+#: /edx/app/edxapp/fun-apps/funsite/templates/funsite/parts/menu.html:0
 msgid ""
-"By continuing browsing the fun-mooc.fr site, you accept the use of "
-"cookies to enhance your user experience"
+"By clicking on «&nbsp;I Agree&nbsp;», you activate a cookie allowing "
+"audience measurement."
 msgstr ""
-"En poursuivant votre navigation sur le site fun-mooc.fr, vous acceptez "
-"l'utilisation de cookies permettant d'améliorer votre expérience "
-"utilisateur"
+"En cliquant sur «&nbsp;J'accepte&nbsp;», vous activez un cookie "
+"uniquement destiné à la mesure d’audience."
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/courseware/course_about.html:0
 msgid "Certification"
