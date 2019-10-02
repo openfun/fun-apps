@@ -50,14 +50,31 @@ right one.
 
 ## FAQ
 
-* **Is the content of the courses included in this repository?** No, the
+- **Is the content of the courses included in this repository?** No, the
   courses that are run on FUN are "free" as in "free beer" but not "libre".
-* **I love this project! How can I help?** Go [follow a
+- **I love this project! How can I help?** Go [follow a
   course](https://fun-mooc.fr/cours/)! And then come back to us with the issues
   you have found :-) Either open a ticket or create a pull request.
-* **Pourquoi ce document est-il rédigé en anglais, et pas en français ?** Le
+- **Pourquoi ce document est-il rédigé en anglais, et pas en français ?** Le
   code de FUN est ouvert aux contributions des développeurs du monde entier et
   pour ce faire il est nécessaire de documenter ce projet en anglais.
+
+## Packaging
+
+### Updating the `MANIFEST.in`
+
+We've cooked a shell script to automate the `MANIFEST.in` file generation:
+
+```
+$ ./scripts/manifest.sh
+```
+
+Running this script should display an updated version of the `MANIFEST.in` file
+that can be safely updated _via_:
+
+```
+$ ./scripts/manifest.sh > MANIFEST.in
+```
 
 ## License
 
