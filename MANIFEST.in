@@ -1,0 +1,17 @@
+include LICENSE
+include README.md
+recursive-include backoffice *.css *.html *.js *.json *.mo *.po
+recursive-include contact *.html *.mo *.po
+recursive-include course_dashboard *.css *.eot *.gif *.html *.js *.mo *.png *.po *.svg *.ttf *.woff
+recursive-include course_pages *.html *.mo *.po *.underscore
+recursive-include courses *.mo *.po *.txt
+recursive-include faq *.html *.mo *.po
+recursive-include fun_api *.mo *.po
+recursive-include fun_certificates *.html *.jpg *.mo *.png *.po *.ttf
+recursive-include fun *.cfg *.css *.eot *.gif *.html *.ico *.js *.less *.map *.mo *.png *.po *.svg *.swf *.ttf *.underscore *.vtt *.woff
+recursive-include funsite *.css *.eot *.html *.jpg *.js *.json *.map *.md *.mo *.nuspec *.png *.po *.svg *.ttf *.txt *.underscore *.woff *.woff2 *.xml
+recursive-include newsfeed *.html *.mo *.po
+recursive-include payment *.css *.html *.mo *.po *.txt
+recursive-include selftest *.css *.html *.png
+recursive-include universities *.html *.mo *.po
+recursive-include videoproviders *.json *.mo *.po *.srt *.vtt
