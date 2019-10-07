@@ -450,6 +450,31 @@ LTI_XBLOCK_CONFIGURATIONS = [
         },
     },
     {
+        'display_name': 'Glowbl',
+        'is_launch_url_regex': False,
+        'hidden_fields': ['accept_grades_past_due', 'ask_to_send_email', 'custom_parameters', 'has_score', 'hide_launch', 'modal_height', 'modal_width', 'weight'],
+        'automatic_resizing': True,
+        'inline_ratio': 0.5625,
+        'defaults': {
+            'ask_to_send_username': True,
+            'description': """<img src='https://glowbl.com/wp-content/uploads/2017/04/Logo2.png'>
+                        <h1>Accès à la salle de visioconférence Glowbl</h1>
+                        <p>
+                        En cliquant sur ce bouton, vous quittez la plateforme <b>fun-mooc.fr</b>
+                        </p><p>
+                        En accédant à la conférence Glowbl, vous acceptez la transmission de votre nom d’utilisateur à la société Glowbl.
+                        </p><p>
+                        Attention : une intervention de votre part, écrite ou vidéo, peut être enregistrée.
+                        </p>
+                        """,
+            'button_text': "Accéder à la conférence Glowbl et accepter la transmission de mon nom d'utilisateur",
+            'launch_target': 'new_window',
+            'inline_height': 400,
+            'lti_id': 'glowbl',
+            'launch_url': 'https://account.glowbl.com/auth/provider/lti'
+        },
+    },
+    {
         # Default LTI consumer
         'display_name': 'LTI consumer'
     }
