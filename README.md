@@ -76,6 +76,23 @@ that can be safely updated _via_:
 $ ./scripts/manifest.sh > MANIFEST.in
 ```
 
+### Add missing migrations
+
+A shell script using Docker can be used to generate missing migrations for
+`fun-apps`:
+
+```
+$ ./scripts/migrations.sh
+```
+
+By default, migrations will be generated using the `dogwood.3` openedx release
+(using `fundocker/dogwood.3-1.0.0` base Docker image). You can override this
+default by providing a different `EDXAPP_TAG` as a script argument:
+
+```
+$ ./scripts/migrations.sh eucalyptus.3-1.0.0
+```
+
 ## License
 
 The fun-apps code is licensed under the [AGPL
