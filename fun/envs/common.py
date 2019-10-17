@@ -401,6 +401,8 @@ ENABLE_ADWAYS_FOR_COURSES = (
     'course-v1:FUN+1000+session1',
     'course-v1:lorraine+30003+SPOC_1819_session_2',
     'course-v1:lorraine+30003+SPOC_1920_session_1',
+    'course-v1:lorraine+30003+session04',
+    'course-v1:lorraine+30003+SPOC_1920_session_2',
 )
 
 LTI_XBLOCK_CONFIGURATIONS = [
