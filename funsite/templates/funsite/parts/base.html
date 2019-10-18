@@ -74,9 +74,9 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
 
 
 <%include file="footer.html" args="base_application='funsite'"/>
-    <script src="${static.url('funsite/jquery/dist/jquery.min.js')}"></script>
-    <script src="${static.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
-    <script src="${static.url('funsite/owl.carousel/owl.carousel.min.js')}"></script>
+    <script type="text/javascript" src="${static.url('funsite/jquery/dist/jquery.min.js')}"></script>
+    <script type="text/javascript" src="${static.url('funsite/bootstrap/js/bootstrap.min.js')}"></script>
+    <script type="text/javascript" src="${static.url('funsite/owl.carousel/owl.carousel.min.js')}"></script>
 
     <script type="text/javascript" src="/i18n.js"></script>
     <script type="text/javascript" src="${static.url('js/src/utility.js')}"></script>
@@ -86,9 +86,9 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
 
 % if request.META and request.META.get("HTTP_HOST"):
     %if "fun-mooc.fr" in request.META["HTTP_HOST"]:
-        <script src="//tag.aticdn.net/602676/smarttag.js"></script>
+        <script  type="text/javascript" src="//tag.aticdn.net/602676/smarttag.js"></script>
     % else:
-        <script src="//tag.aticdn.net/602677/smarttag.js"></script>
+        <script  type="text/javascript" src="//tag.aticdn.net/602677/smarttag.js"></script>
     % endif
 % endif
     <%block name="js_extra"/>
@@ -96,21 +96,23 @@ dir_rtl = 'rtl' if get_language_bidi() else 'ltr'
 % if request.META and request.META.get("HTTP_HOST"):
     <script type="text/javascript">
         (function () {
-            // Check for presence of tracking cookie acceptation
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1, c.length);
-                }
-                if (c.indexOf("acceptCookieFun=") === 0) {
-                    % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
-                        var tag = new ATInternet.Tracker.Tag({ site: 602676 });
-                    % else:
-                        var tag = new ATInternet.Tracker.Tag({ site: 602677 });
-                    % endif
-                    tag.page.set({});
-                    tag.dispatch();
+            if (window.ATInternet) {
+                // Check for presence of tracking cookie acceptation
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1, c.length);
+                    }
+                    if (c.indexOf("acceptCookieFun=") === 0) {
+                        % if "fun-mooc.fr" in request.META["HTTP_HOST"]:
+                            var tag = new ATInternet.Tracker.Tag({ site: 602676 });
+                        % else:
+                            var tag = new ATInternet.Tracker.Tag({ site: 602677 });
+                        % endif
+                        tag.page.set({});
+                        tag.dispatch();
+                    }
                 }
             }
         })();
