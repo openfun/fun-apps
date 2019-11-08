@@ -136,7 +136,7 @@ workflows:
             - build
           filters:
             tags:
-              only: /^[a-z]*-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
+              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(\+([a-z]*))$/
             branches:
               ignore: /.*/
 
@@ -147,6 +147,6 @@ workflows:
             - validate
           filters:
             tags:
-              only: /^[a-z]*-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
+              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(\+([a-z]*))$/
             branches:
               ignore: /.*/
