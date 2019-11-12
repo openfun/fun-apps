@@ -27,3 +27,6 @@ google-api-python-client==1.5.1
 # Configurable LTI consumer xblock
 exrex==0.10.5
 xblock-configurable-lti-consumer==1.2.4+eucalyptus
+
+# Proctor Exam xblock
+xblock-proctor-exam==0.9.0b0+eucalyptus
