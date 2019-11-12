@@ -6,8 +6,9 @@ import datetime
 from django.db import migrations, models
 from payment.models import TermsAndConditions, TranslatedTerms, PAYMENT_TERMS
 
+LICENCE_EN = ""
 
-LICENCE_FR="""
+LICENCE_FR = """
 .. contents::
    :depth: 1
 ..
@@ -1051,71 +1052,97 @@ Ce traitement est en cours d'instruction auprès de la CNIL.
 
 """
 
+
 def add_new_lience(*a):
     last = TermsAndConditions.get_latest()
     if last:
-          name = last.name
-          version = last.version
+        name = last.name
+        version = last.version
     else:
-          name = PAYMENT_TERMS
-          version = '1.0'
-    new = TermsAndConditions(name=name,
-        version = version + ".2",
-    )
+        name = PAYMENT_TERMS
+        version = "1.0"
+    new = TermsAndConditions(name=name, version=version + ".2")
     new.save()
-    new.texts.add(
-        TranslatedTerms(
-            tr_text = LICENCE_FR,
-            language = "fr",
-        )
-    )
-    new.texts.add(
-        TranslatedTerms(
-            tr_text = LICENCE_EN,
-            language = "en",
-        )
-    )
+    new.texts.add(TranslatedTerms(tr_text=LICENCE_FR, language="fr"))
+    new.texts.add(TranslatedTerms(tr_text=LICENCE_EN, language="en"))
     new.save()
+
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('payment', '0001_initial',),
-    ]
+    dependencies = [("payment", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='TranslatedTerms',
+            name="TranslatedTerms",
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('tr_text', models.TextField(default=b"\n.. Ce champs est dans un format ReST (comme un wiki)\n.. Ceci est un commentaire\n.. http://deusyss.developpez.com/tutoriels/Python/SphinxDoc/#LIV-G\n\n\n.. Les 4 lignes finales (honor, privacy, tos, legal)\n.. permettent la navigation dans le contrat au niveau des ancres\n.. Pri\xc3\xa8re de les ins\xc3\xa9rer avant les titres correspondant\n.. honor = Charte utilisateurs\n.. privacy = Politique de confidentialit\xc3\xa9\n.. tos = Conditions g\xc3\xa9n\xc3\xa9rales d'utilisation\n.. legal =  Mentions l\xc3\xa9gales\n\n.. Ces commentaires ci dessus peuvent \xc3\xaatre retir\xc3\xa9s\n.. ils sont juste l\xc3\xa0 comme aide m\xc3\xa9moire :)\n\n\n.. _honor:\n\n.. _privacy:\n\n.. _tos:\n\n.. _legal:\n\n", verbose_name='Terms and conditions. (ReStructured Text)')),
-                ('language', models.CharField(default={'french': b'fr'}, max_length=5, verbose_name='Language', choices=[(b'fr', b'Fran\xc3\xa7ais'), (b'en', b'English'), (b'de-de', b'Deutsch')])),
+                (
+                    "id",
+                    models.AutoField(
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
+                (
+                    "tr_text",
+                    models.TextField(
+                        default=b"\n.. Ce champs est dans un format ReST (comme un wiki)\n.. Ceci est un commentaire\n.. http://deusyss.developpez.com/tutoriels/Python/SphinxDoc/#LIV-G\n\n\n.. Les 4 lignes finales (honor, privacy, tos, legal)\n.. permettent la navigation dans le contrat au niveau des ancres\n.. Pri\xc3\xa8re de les ins\xc3\xa9rer avant les titres correspondant\n.. honor = Charte utilisateurs\n.. privacy = Politique de confidentialit\xc3\xa9\n.. tos = Conditions g\xc3\xa9n\xc3\xa9rales d'utilisation\n.. legal =  Mentions l\xc3\xa9gales\n\n.. Ces commentaires ci dessus peuvent \xc3\xaatre retir\xc3\xa9s\n.. ils sont juste l\xc3\xa0 comme aide m\xc3\xa9moire :)\n\n\n.. _honor:\n\n.. _privacy:\n\n.. _tos:\n\n.. _legal:\n\n",
+                        verbose_name="Terms and conditions. (ReStructured Text)",
+                    ),
+                ),
+                (
+                    "language",
+                    models.CharField(
+                        default={"french": b"fr"},
+                        max_length=5,
+                        verbose_name="Language",
+                        choices=[
+                            (b"fr", b"Fran\xc3\xa7ais"),
+                            (b"en", b"English"),
+                            (b"de-de", b"Deutsch"),
+                        ],
+                    ),
+                ),
             ],
         ),
         migrations.AlterModelOptions(
-            name='termsandconditions',
-            options={'ordering': ('-datetime',), 'verbose_name': 'Terms and conditions', 'verbose_name_plural': 'Terms and conditions'},
+            name="termsandconditions",
+            options={
+                "ordering": ("-datetime",),
+                "verbose_name": "Terms and conditions",
+                "verbose_name_plural": "Terms and conditions",
+            },
         ),
         migrations.AlterField(
-            model_name='termsandconditions',
-            name='datetime',
-            field=models.DateTimeField(default=datetime.datetime.now, verbose_name='Acceptance date', db_index=True),
+            model_name="termsandconditions",
+            name="datetime",
+            field=models.DateTimeField(
+                default=datetime.datetime.now,
+                verbose_name="Acceptance date",
+                db_index=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='termsandconditions',
-            name='name',
-            field=models.CharField(default=b'verified_certificate', max_length=100, verbose_name='Name', db_index=True),
+            model_name="termsandconditions",
+            name="name",
+            field=models.CharField(
+                default=b"verified_certificate",
+                max_length=100,
+                verbose_name="Name",
+                db_index=True,
+            ),
         ),
         migrations.AddField(
-            model_name='translatedterms',
-            name='term',
-            field=models.ForeignKey(related_name='texts', to='payment.TermsAndConditions'),
+            model_name="translatedterms",
+            name="term",
+            field=models.ForeignKey(
+                related_name="texts", to="payment.TermsAndConditions"
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='translatedterms',
-            unique_together=set([('term', 'language')]),
+            name="translatedterms", unique_together=set([("term", "language")])
         ),
         migrations.RunPython(add_new_lience),
     ]
-
-
