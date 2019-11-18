@@ -428,11 +428,3 @@ LTI_XBLOCK_CONFIGURATIONS = [
         'display_name': 'LTI consumer'
     }
 ]
-
-
-LTI_XBLOCK_SECRETS = {
-    "proctor_exam": {
-        "shared_secret": "Qhy5U7Jfp4qbCy4vAFwSf3uTtj5UkH8lQZtVUP5XUFo",
-        "oauth_consumer_key": "1hBO5uaxCLV-aotQLNuTAg",
-    }
-}
