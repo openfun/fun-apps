@@ -394,7 +394,45 @@ LTI_XBLOCK_CONFIGURATIONS = [
         },
     },
     {
+        # Configuration for Proctor Exam xblock
+        'is_launch_url_regex': False,
+        'hidden_fields': [
+            'display_name',
+            'description',
+            'lti_id',
+            'launch_target',
+            'inline_height',
+            'accept_grades_past_due',
+            'ask_to_send_username',
+            'ask_to_send_email',
+            'custom_parameters',
+            'has_score',
+            'hide_launch',
+            'modal_height',
+            'modal_width',
+            'weight',
+            'button_text'
+        ],
+        'automatic_resizing': None,
+        'inline_ratio': 0.5625,
+        'ignore_configuration': True,
+        'show_button': False,
+        'pattern': '.*fun\.proctorexam\.com/lti\?id=(?P<exam_id>[0-9]+)',
+        'defaults': {
+            'launch_target': 'new_window',
+            'lti_id': 'proctor_exam',
+        },
+    },
+    {
         # Default LTI consumer
         'display_name': 'LTI consumer'
     }
 ]
+
+
+LTI_XBLOCK_SECRETS = {
+    "proctor_exam": {
+        "shared_secret": "Qhy5U7Jfp4qbCy4vAFwSf3uTtj5UkH8lQZtVUP5XUFo",
+        "oauth_consumer_key": "1hBO5uaxCLV-aotQLNuTAg",
+    }
+}
