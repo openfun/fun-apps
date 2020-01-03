@@ -17,7 +17,6 @@ INSTALLED_APPS += (
 
     'easy_thumbnails',
     'ckeditor',
-    'selftest',
     'password_container',
     'raven.contrib.django.raven_compat',
     'edx_gea'

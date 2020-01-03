@@ -12,6 +12,5 @@ recursive-include fun *.cfg *.css *.eot *.gif *.html *.ico *.js *.less *.map *.m
 recursive-include funsite *.css *.eot *.html *.jpg *.js *.json *.map *.md *.mo *.nuspec *.png *.po *.svg *.ttf *.txt *.underscore *.woff *.woff2 *.xml
 recursive-include newsfeed *.html *.mo *.po
 recursive-include payment *.css *.html *.mo *.po *.txt
-recursive-include selftest *.css *.html *.png
 recursive-include universities *.html *.mo *.po
 recursive-include videoproviders *.json *.mo *.po *.srt *.vtt
