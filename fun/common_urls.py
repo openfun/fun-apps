@@ -2,9 +2,7 @@ from django.conf import settings
 from django.conf.urls import url, include, patterns
 
 
-urlpatterns = patterns('',
-    (r'^selftest/', include('selftest.urls')),
-)
+urlpatterns = []
 
 if settings.DEBUG:
     import debug_toolbar
