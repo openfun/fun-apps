@@ -24,23 +24,7 @@
 
     <div class="divider-visual"></div>
 
-    <div class="modal-subsection">
-      <div class="modal-subsection-title"><%= gettext("Add subtitles") %></div>
-      <div class="modal-subsection-content">
-        <div class="upload-subtitles"></div>
-      </div>
-    </div>
-
-    <div class="divider-visual"></div>
-
     <div class="thumbnail"></div>
 
-    <div class="divider-visual"></div>
-    <div class="modal-subsection">
-      <div class="modal-subsection-title"><%= gettext("Change thumbnail") %></div>
-      <div class="modal-subsection-content">
-        <div class="upload-thumbnail"></div>
-      </div>
-    </div>
   </div>
 </div>
