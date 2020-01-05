@@ -6,10 +6,3 @@
     </li>
   </ul>
 </td>
-<td>
-  <ul class="actions-list">
-    <li class="action-item action-delete">
-      <a class="action-button" href="#" data-tooltip="<%= gettext('Delete') %>"><i class="icon fa fa-times-circle"></i> <span class="sr"><%= gettext('Delete') %></span></a>
-    </li>
-  </ul>
-</td>
