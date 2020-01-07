@@ -71,7 +71,7 @@ jobs:
       - run:
           name: Check that the current tag matches the release number in setup.cfg
           command: |
-            grep "$(echo $CIRCLE_TAG | sed 's/^/version = /')" setup.cfg
+            grep "$(echo $CIRCLE_TAG | sed 's/^v/version = /')" setup.cfg
 
   # Deploy build package to GemFury
   deploy:
@@ -136,7 +136,7 @@ workflows:
             - build
           filters:
             tags:
-              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(\+([a-z]*))$/
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(\+([a-z]*))$/
             branches:
               ignore: /.*/
 
@@ -147,6 +147,6 @@ workflows:
             - validate
           filters:
             tags:
-              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(\+([a-z]*))$/
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(\+([a-z]*))$/
             branches:
               ignore: /.*/
