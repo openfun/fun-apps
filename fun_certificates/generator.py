@@ -71,7 +71,7 @@ class CertificateInfo(object):
 
     @property
     def pdf_file_name(self):
-        return os.path.join(settings.CERTIFICATES_DIRECTORY, self.filename)
+        return os.path.join(settings.MEDIA_ROOT, settings.CERTIFICATES_DIRECTORY_NAME, self.filename)
 
     @property
     def organizationNameTooLong(self):

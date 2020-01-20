@@ -45,7 +45,8 @@ class CertificateTests(ModuleStoreTestCase):
         self.configure_course()
         mock_make_certificate_hash_key.return_value = "dummyhash"
         test_certificate_path = os.path.join(
-            settings.CERTIFICATES_DIRECTORY,
+            settings.MEDIA_ROOT,
+            settings.CERTIFICATES_DIRECTORY_NAME,
             "TEST_attestation_suivi_{}_dummyhash.pdf".format(unicode(self.course.id).replace("/", "_"))
         )
         if os.path.exists(test_certificate_path):
