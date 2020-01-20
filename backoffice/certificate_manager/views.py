@@ -50,7 +50,7 @@ def certificate_dashboard(request, course_key_string):
 
     return render(request, 'backoffice/certificate.html', {
         'course': course,
-        'certificate_base_url': settings.CERTIFICATE_BASE_URL,
+        'certificates_directory': settings.CERTIFICATES_DIRECTORY_NAME,
         'instructor_tasks': instructor_tasks,
         'instructor_tasks_history': instructor_tasks_history,
     })

@@ -251,5 +251,5 @@ def make_certificate_hash_key():
 
 def set_certificate_filename(certificate, filename):
     certificate.status = CertificateStatuses.downloadable
-    certificate.download_url = os.path.join(settings.CERTIFICATE_BASE_URL, filename)
+    certificate.download_url = os.path.join(settings.CERTIFICATES_DIRECTORY_NAME, filename)
     return certificate

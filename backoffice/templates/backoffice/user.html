@@ -79,7 +79,7 @@
                     </p>
                 </div>
             </div>
- 
+
             <div class="form-group">
                 {{ userform|bootstrap_horizontal:'col-lg-4' }}
 
@@ -213,7 +213,7 @@
                                 {% if certificate.cert.mode == 'verified' %}
                                     <a href="{% url 'short-cert-url' certificate.hashid %}" target="_blank" title="{% trans 'View verified certificate' %}"><span class='glyphicon glyphicon-bookmark'></span></a>
                                 {% else %}
-                                    <a href="{{ certificate.cert.download_url }}" title="{% trans 'Download PDF' %}"><span class='glyphicon glyphicon-download-alt'></span></a>
+                                    <a href="/media/{{ certificate.cert.download_url }}" title="{% trans 'Download PDF' %}"><span class='glyphicon glyphicon-download-alt'></span></a>
                                 {% endif %}
                             {% endif %}
 
