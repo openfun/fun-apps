@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Use the static.url template tag where it is required
+
 ## [2.2.0+wb] - 2020-01-07
 
 ### Changed
