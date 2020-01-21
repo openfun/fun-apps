@@ -5,7 +5,10 @@
 
 {% block content %}
 
-<h1>{{ course_info.course.display_name_with_default }}</h1>
+<h1>
+    {{ course_info.course.display_name_with_default }}
+    {% if course_info.modes %}<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{% endif %}
+</h1>
 {% if course_info.course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
 {% if course_info.course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
 

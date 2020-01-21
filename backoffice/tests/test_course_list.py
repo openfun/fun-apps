@@ -7,12 +7,13 @@ from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 
 from course_modes.models import CourseMode
+from student.models import UserProfile
 from student.tests.factories import CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, CourseAboutFactory, ABOUT_ATTRIBUTES
 
+from courses.models import Course as FunCourse
 from fun.tests.utils import skipUnlessLms
-from student.models import UserProfile
 from universities.tests.factories import UniversityFactory
 
 from ..utils import get_course_modes
@@ -34,13 +35,41 @@ class BaseCourseList(ModuleStoreTestCase):
         self.university = UniversityFactory.create()
         self.course1 = CourseFactory.create(number='001', display_name=u"unpublished",
                                             ispublic=False, org=self.university.code)
-
+        FunCourse.objects.create(
+            key=self.course1.id,
+            title="unpublished",
+            short_description="unpublished course",
+            show_in_catalog=False,
+        )
         CourseAboutFactory.create(course_id=self.course1.id,
                                   course_runtime=self.course1.runtime)
 
         self.course2 = CourseFactory.create(org=self.university.code, number='002',
                              display_name=u"published", ispublic=True)
+        FunCourse.objects.create(
+            key=self.course2.id,
+            title="published",
+            short_description="published course",
+            show_in_catalog=True,
+        )
+
         self.list_url = reverse('backoffice:courses-list')
+
+
+class TestCourseListView(BaseCourseList):
+    def test_complete_list(self):
+        """
+        Get full course list
+        """
+        response = self.client.get(self.list_url)
+        self.assertEqual(len(response.context["course_infos"]), 2)
+
+    def test_filtered_list(self):
+        """
+        Filter course list
+        """
+        response = self.client.get(self.list_url, {"search": "unpublished"})
+        self.assertEqual(len(response.context["course_infos"]), 1)
 
 
 class VerifiedCourseList(BaseCourseList):

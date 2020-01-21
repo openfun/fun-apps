@@ -24,6 +24,7 @@ from student.models import CourseEnrollment, CourseAccessRole, User
 from universities.models import University
 from xmodule.modulestore.django import modulestore
 
+from courses.models import Course
 from fun.utils import funwiki as wiki_utils
 from fun.utils.export_data import csv_response
 
@@ -48,6 +49,7 @@ COURSE_FIELDS = [
 ABOUT_SECTION_FIELDS = ['effort', 'video']
 FunCourse = namedtuple('FunCourse', COURSE_FIELDS)
 CompleteFunCourse = namedtuple('CompleteFunCourse', COURSE_FIELDS + ABOUT_SECTION_FIELDS)
+
 
 @group_required('fun_backoffice')
 def courses_list(request):
@@ -74,11 +76,18 @@ def courses_list(request):
         return response
     else:
         search_pattern = request.GET.get('search')
-        course_infos = get_filtered_course_infos(search_pattern=search_pattern)
+        course_infos = Course.objects.all()
+        if search_pattern:
+            course_infos = course_infos.filter(
+                Q(title__icontains=search_pattern) |
+                Q(key__icontains=search_pattern) |
+                Q(university_display_name__icontains=search_pattern)
+            )
 
     return render(request, 'backoffice/courses/list.html', {
         'course_infos': course_infos,
         'pattern': search_pattern,
+        'lms_base': settings.LMS_BASE,
         'tab': 'courses',
     })
 

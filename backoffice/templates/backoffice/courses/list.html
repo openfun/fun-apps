@@ -49,8 +49,6 @@
                     <th>{% trans 'End' %}</th>
                     <th>{% trans 'Enrollment start' %}</th>
                     <th>{% trans 'Enrollment end' %}</th>
-                    <th>{% trans 'Enrollments' %}</th>
-                    <th>{% trans 'Mode' %}</th>
                     <th>{% trans 'See' %}</th>
                 </tr>
             </thead>
@@ -58,25 +56,24 @@
                 {% for course_info in course_infos %}
                 <tr>
                     <td>
-                        <a href="{% url 'backoffice:course-detail' course_info.course.id %}">{{ course_info.course.id }}</a>
-                        {% if course_info.course.ispublic %}<span class="label label-success">{% trans "Published" %}</span>{% endif %}
-                        {% if course_info.course.is_draft %}<span class="label label-primary">{% trans "Draft" %}</span>{% endif %}
+                        <a href="{% url 'backoffice:course-detail' course_info.key %}">{{ course_info.key }}</a>
+                        {% if course_info.show_in_catalog %}
+                            <span class="label label-success">{% trans "Visible" %}</span>
+                        {% else %}
+                            <span class="label label-primary">{% trans "Invisible" %}</span>
+                        {% endif %}
                     </td>
 
                     <td>
-                        {% if course_info.fun.university %}{{ course_info.fun.university.name }}{% else %}<span class="no-university">{{ course_info.course.org }}</span>{% endif %}
+                        {{ course_info.university_display_name }}
                     </td>
-                    <td>{{ course_info.course.display_name_with_default }}</td>
-                    <td data-order="{{ course_info.course.start|date:'ymd' }}">{{ course_info.course.start|date:'d/m/y' }}</td>
-                    <td data-order="{{ course_info.course.end|date:'ymd' }}">{{ course_info.course.end|date:'d/m/y' }}</td>
-                    <td data-order="{{ course_info.course.enrollment_start|date:'ymd' }}">{{ course_info.course.enrollment_start|date:'d/m/y' }}</td>
-                    <td data-order="{{ course_info.course.enrollment_end|date:'ymd' }}">{{ course_info.course.enrollment_end|date:'d/m/y' }}</td>
-                    <td>{{ course_info.students_count }}</td>
+                    <td>{{ course_info.title }}</td>
+                    <td data-order="{{ course_info.course.start_date|date:'ymd' }}">{{ course_info.start_date|date:'d/m/y' }}</td>
+                    <td data-order="{{ course_info.end_date|date:'ymd' }}">{{ course_info.end_date|date:'d/m/y' }}</td>
+                    <td data-order="{{ course_info.enrollment_start_date|date:'ymd' }}">{{ course_info.enrollment_start_date|date:'d/m/y' }}</td>
+                    <td data-order="{{ course_info.enrollment_end_date|date:'ymd' }}">{{ course_info.enrollment_end_date|date:'d/m/y' }}</td>
                     <td>
-                        {% if course_info.modes %}<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{% endif %}
-                    </td>
-                    <td>
-                        <a target="_blank" href="{{ course_info.url }}" title="{% trans 'See course' %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                        <a target="_blank" href="//{{ lms_base }}/courses/{{ course_info.key }}/about" title="{% trans 'See course' %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                     </td>
                 </tr>
                 {% empty %}
