@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1+wb] - 2020-01-22
+
 ### Fixed
 
 - Use the static.url template tag where it is required
@@ -21,5 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `selftest` application
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v2.2.0+wb...eucalyptus.3-wb
+[unreleased]: https://github.com/openfun/fun-apps/compare/v2.2.1+wb...eucalyptus.3-wb
+[2.2.1+wb]: https://github.com/openfun/fun-apps/compare/v2.2.0+wb...v2.2.1+wb
 [2.2.0+wb]: https://github.com/openfun/fun-apps/releases/tag/v2.2.0+wb
