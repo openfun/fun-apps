@@ -1,0 +1,21 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [2.2.0+wb] - 2020-01-07
+
+### Changed
+
+- Set Videofront upload dashboard in read only mode
+
+### Removed
+
+- `selftest` application
+
+[unreleased]: https://github.com/openfun/fun-apps/compare/v2.2.0+wb...eucalyptus.3-wb
+[2.2.0+wb]: https://github.com/openfun/fun-apps/releases/tag/v2.2.0+wb
