@@ -66,7 +66,7 @@ jobs:
       - image: circleci/python:2.7-stretch
         environment:
           # This is the branch that is supposed to contain target commit/tag
-          TARGET_BRANCH: master
+          TARGET_BRANCH: dogwood.3-fun
 
     steps:
       - checkout
