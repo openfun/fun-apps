@@ -1,56 +1,269 @@
 ## mako
+<%inherit file="funsite/parts/base-fixed-width.html" />
+<%namespace name='static' file='/static_content.html'/>
+<%namespace name="newsfeed" file="/newsfeed/article/block.html"/>
 <%!
 from django.core.urlresolvers import reverse
 from django.utils.formats import date_format
 from django.utils.translation import ugettext as _
 
 from courses.models import CourseSubject, Course
+from django.core.cache import cache
 from newsfeed.views import top_news
 from universities.models import University
+
+CACHE_KEY = 'fun-apps-funsite-index-content'
+CACHE_EXPIRY = 60*60*24*30
+def django_cache(fn):
+    """A decorator to cache a def for everybody except staff users."""
+    def get_or_set(context, *args, **kw):
+        if context['request'].user.is_staff:
+            content = runtime.capture(context, fn, *args, **kw)
+            # Since we calculated a fresh page, we might as well update the version in cache
+            cache.set(CACHE_KEY, content, CACHE_EXPIRY)
+            return content
+        else:
+            content = cache.get(CACHE_KEY)
+            if not content:
+                content = runtime.capture(context, fn, *args, **kw)
+                cache.set(CACHE_KEY, content, CACHE_EXPIRY)
+            return content
+    return get_or_set
 %>
-<%namespace name='static' file='/static_content.html'/>
-<%inherit file="funsite/parts/base-fixed-width.html" />
+
+<%def name="content_definition()" decorator="django_cache">
+
+    <%
+    course_subjects = CourseSubject.objects.random_featured()
+    featured_courses = Course.objects.random_featured(10)
+    universities = University.objects.featured(18)
+    news = top_news(5)
+    %>
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <h2 class="big-title small-margin">${ _(u"Highlighted courses") }</h2>
+        </div>
+    </div>
+
+    <div class="highlighted-courses">
+
+        <%def name="include_course_block(size, featured_courses, index, classes)">
+            %if len(featured_courses) > index:
+            <div class="${classes}">
+                %if size == 'big':
+                <%include file="/course_pages/course-block/big.html" args="course=featured_courses[index]"/>
+                %else:
+                <%include file="/course_pages/course-block/small.html" args="course=featured_courses[index]"/>
+                %endif
+            </div>
+            %endif
+        </%def>
+        <%def name="include_big_course_block(featured_courses, index, classes)">
+            ${include_course_block("big", featured_courses, index, classes)}
+        </%def>
+        <%def name="include_small_course_block(featured_courses, index, classes)">
+            ${include_course_block("small", featured_courses, index, classes)}
+        </%def>
+
+        <div class="hidden-xs hidden-sm">
+            <div class="row">
+                ${include_big_course_block(featured_courses, 0, "col-lg-9 col-md-12")}
+                ${include_big_course_block(featured_courses, 1, "col-lg-9 col-md-12")}
+                ${include_big_course_block(featured_courses, 2, "col-lg-9 col-md-12")}
+                ${include_big_course_block(featured_courses, 3, "visible-lg col-lg-9")}
+            </div>
+
+            <div class="row">
+                ${include_small_course_block(featured_courses, 3, "hidden-lg col-md-9")}
+
+                ${include_small_course_block(featured_courses, 4, "col-lg-6 col-md-9")}
+                ${include_small_course_block(featured_courses, 5, "col-lg-6 col-md-9")}
+                ${include_small_course_block(featured_courses, 6, "col-lg-6 col-md-9")}
+
+                ${include_small_course_block(featured_courses, 7, "visible-lg col-lg-6")}
+                ${include_small_course_block(featured_courses, 8, "visible-lg col-lg-6")}
+                ${include_small_course_block(featured_courses, 9, "visible-lg col-lg-6")}
+            </div>
+        </div>
+
+        <div class="visible-sm">
+            <div class="row">
+                % for i in range(0, 6):
+                    ${include_small_course_block(featured_courses, i, "col-sm-18")}
+                % endfor
+            </div>
+        </div>
+
+        <div class="visible-xs">
+            % for i in range(0, 3):
+            <div class="row">
+                ${include_small_course_block(featured_courses, i, "col-xs-36")}
+            </div>
+            % endfor
+        </div>
+
+        <div class="row">
+            <div class="col-lg-36 text-center">
+                <a href="${reverse('fun-courses:index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="universities">
+        <div class="row ">
+            <div class="col-lg-36 text-center">
+                <h2 class="big-title big-margin">${_(u"Universities")}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-36">
+                <ul class="universities-list">
+                % for university in universities:
+                    <li>
+                        % if university.detail_page_enabled:
+                            <a href="${university.get_absolute_url()}">
+                            <div class="university-logo center-block">
+                        % else:
+                            <div class="university-logo no-page center-block">
+                        % endif
+                                <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}" class="img-responsive">
+                            </div>
+                        % if university.detail_page_enabled:
+                            </a>
+                        % endif
+                    </li>
+                % endfor
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-36 text-center">
+                <a href="${reverse('universities-landing')}" class="btn btn-default btn-spaced">${_(u"All universities")}</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="fun-news fun-news-background">
+        <div class="row">
+            <div class="col-lg-36 text-center">
+                <h2 class="big-title white big-margin">${_(u"News")}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-18 col-sm-36 text-center hidden-xs">
+                ${newsfeed.news_block(news[0], 'primary', 'home')}
+            </div>
+
+            <div class="col-md-18 col-sm-36 text-center hidden-xs">
+                ${newsfeed.news_block(news[1], 'secondary', 'home')}
+                ${newsfeed.news_block(news[2], 'secondary', 'home')}
+            </div>
+        </div>
+        <div class="col-xs-36 text-center hidden-sm hidden-md hidden-lg">
+            % if all(news[:2]):  ## do we have 2 real elements ?
+            <div class="owl-carousel owl-news-320">
+                % for article in news:
+                    % if article:
+                        <div class="item">
+                            ${newsfeed.news_block(article, 'primary', 'home')}
+                        </div>
+                    % endif
+                % endfor
+            </div>
+            % else:
+                ${newsfeed.news_block(news[0], 'primary', 'home')}
+            % endif
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-36 text-center">
+                <a href="${reverse('newsfeed-landing')}" class="btn btn-default btn-spaced">${_(u"All the news")}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fun-themes">
+        <div class="row ">
+            <div class="col-lg-36 text-center">
+                <h2 class="big-title big-margin">${ _(u"Thematics") }</h2>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-36">
+                <div class="owl-carousel owl-theme">
+
+                    %for subject in course_subjects:
+                    <div class="item">
+                        <a href="${reverse('fun-courses:filter', kwargs={'subject': subject.slug})}">
+                            <div>
+                                <h3>${subject.name}</h3>
+                                <img style="" src="${subject.image.url}" alt="${subject.name}">
+                            </div>
+                        </a>
+
+                    </div>
+                    %endfor
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-36 text-center">
+            <a href="${reverse('fun-courses:index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
+        </div>
+    </div>
+
+</%def>
 
 <%block name="title">${_(u"The Freedom to Study")}</%block>
 
 <%block name="js_extra">
-<script>
-    $('.owl-theme').owlCarousel({
-        loop: true,
-        margin: 10,
-        responsiveClass: true,
-        nav: false,
-        responsive: {
-          0: {
-            items: 1,
-          },
-          768: {
-            items: 3,
-            margin: 20
-          },
-          1280: {
-            items: 5,
-            margin: 20
-          },
-          1900: {
-            items: 8,
-            margin: 20
-          }
-        }
-    });
-    $('.owl-news-320').owlCarousel({
-        loop: true,
-        margin: 10,
-        responsiveClass: true,
-        nav: false,
-        responsive: {
-          0: {
-            items: 1,
-          },
-        }
-    });
-</script>
-
+    <script>
+        $('.owl-theme').owlCarousel({
+            loop: true,
+            margin: 10,
+            responsiveClass: true,
+            nav: false,
+            responsive: {
+            0: {
+                items: 1,
+            },
+            768: {
+                items: 3,
+                margin: 20
+            },
+            1280: {
+                items: 5,
+                margin: 20
+            },
+            1900: {
+                items: 8,
+                margin: 20
+            }
+            }
+        });
+        $('.owl-news-320').owlCarousel({
+            loop: true,
+            margin: 10,
+            responsiveClass: true,
+            nav: false,
+            responsive: {
+            0: {
+                items: 1,
+            },
+            }
+        });
+    </script>
 </%block>
 
 <%block name="content_fullwidth">
@@ -61,197 +274,5 @@ from universities.models import University
 </%block>
 
 <%block name="content">
-
-<%namespace name="newsfeed" file="/newsfeed/article/block.html"/>
-<%
-course_subjects = CourseSubject.objects.random_featured()
-featured_courses = Course.objects.random_featured(10)
-universities = University.objects.featured(18)
-news = top_news(5)
-%>
-
-
-<div class="row">
-    <div class="col-lg-36 text-center">
-        <h2 class="big-title small-margin">${ _(u"Highlighted courses") }</h2>
-    </div>
-</div>
-
-<div class="highlighted-courses">
-
-    <%def name="include_course_block(size, featured_courses, index, classes)">
-        %if len(featured_courses) > index:
-        <div class="${classes}">
-            %if size == 'big':
-            <%include file="/course_pages/course-block/big.html" args="course=featured_courses[index]"/>
-            %else:
-            <%include file="/course_pages/course-block/small.html" args="course=featured_courses[index]"/>
-            %endif
-        </div>
-        %endif
-    </%def>
-    <%def name="include_big_course_block(featured_courses, index, classes)">
-        ${include_course_block("big", featured_courses, index, classes)}
-    </%def>
-    <%def name="include_small_course_block(featured_courses, index, classes)">
-        ${include_course_block("small", featured_courses, index, classes)}
-    </%def>
-
-    <div class="hidden-xs hidden-sm">
-        <div class="row">
-            ${include_big_course_block(featured_courses, 0, "col-lg-9 col-md-12")}
-            ${include_big_course_block(featured_courses, 1, "col-lg-9 col-md-12")}
-            ${include_big_course_block(featured_courses, 2, "col-lg-9 col-md-12")}
-            ${include_big_course_block(featured_courses, 3, "visible-lg col-lg-9")}
-        </div>
-
-        <div class="row">
-            ${include_small_course_block(featured_courses, 3, "hidden-lg col-md-9")}
-
-            ${include_small_course_block(featured_courses, 4, "col-lg-6 col-md-9")}
-            ${include_small_course_block(featured_courses, 5, "col-lg-6 col-md-9")}
-            ${include_small_course_block(featured_courses, 6, "col-lg-6 col-md-9")}
-
-            ${include_small_course_block(featured_courses, 7, "visible-lg col-lg-6")}
-            ${include_small_course_block(featured_courses, 8, "visible-lg col-lg-6")}
-            ${include_small_course_block(featured_courses, 9, "visible-lg col-lg-6")}
-        </div>
-    </div>
-
-    <div class="visible-sm">
-        <div class="row">
-            % for i in range(0, 6):
-                ${include_small_course_block(featured_courses, i, "col-sm-18")}
-            % endfor
-        </div>
-    </div>
-
-    <div class="visible-xs">
-        % for i in range(0, 3):
-        <div class="row">
-            ${include_small_course_block(featured_courses, i, "col-xs-36")}
-        </div>
-        % endfor
-    </div>
-
-    <div class="row">
-        <div class="col-lg-36 text-center">
-            <a href="${reverse('fun-courses:index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
-        </div>
-    </div>
-
-</div>
-
-<div class="universities">
-    <div class="row ">
-        <div class="col-lg-36 text-center">
-            <h2 class="big-title big-margin">${_(u"Universities")}</h2>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-36">
-            <ul class="universities-list">
-            % for university in universities:
-                <li>
-                    % if university.detail_page_enabled:
-                        <a href="${university.get_absolute_url()}">
-                        <div class="university-logo center-block">
-                    % else:
-                        <div class="university-logo no-page center-block">
-                    % endif
-                            <img src="${university.get_logo_thumbnail()}" alt="${university.name}" title="${university.name}" class="img-responsive">
-                        </div>
-                    % if university.detail_page_enabled:
-                        </a>
-                    % endif
-                </li>
-            % endfor
-            </ul>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-36 text-center">
-            <a href="${reverse('universities-landing')}" class="btn btn-default btn-spaced">${_(u"All universities")}</a>
-        </div>
-    </div>
-
-</div>
-
-<div class="fun-news fun-news-background">
-    <div class="row">
-        <div class="col-lg-36 text-center">
-            <h2 class="big-title white big-margin">${_(u"News")}</h2>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-18 col-sm-36 text-center hidden-xs">
-            ${newsfeed.news_block(news[0], 'primary', 'home')}
-        </div>
-
-        <div class="col-md-18 col-sm-36 text-center hidden-xs">
-            ${newsfeed.news_block(news[1], 'secondary', 'home')}
-            ${newsfeed.news_block(news[2], 'secondary', 'home')}
-        </div>
-    </div>
-    <div class="col-xs-36 text-center hidden-sm hidden-md hidden-lg">
-        % if all(news[:2]):  ## do we have 2 real elements ?
-        <div class="owl-carousel owl-news-320">
-            % for article in news:
-                % if article:
-                    <div class="item">
-                        ${newsfeed.news_block(article, 'primary', 'home')}
-                    </div>
-                % endif
-            % endfor
-        </div>
-        % else:
-            ${newsfeed.news_block(news[0], 'primary', 'home')}
-        % endif
-    </div>
-
-
-    <div class="row">
-        <div class="col-lg-36 text-center">
-            <a href="${reverse('newsfeed-landing')}" class="btn btn-default btn-spaced">${_(u"All the news")}</a>
-        </div>
-    </div>
-</div>
-
-<div class="fun-themes">
-    <div class="row ">
-        <div class="col-lg-36 text-center">
-            <h2 class="big-title big-margin">${ _(u"Thematics") }</h2>
-        </div>
-    </div>
-
-    <div class="row ">
-        <div class="col-md-36">
-            <div class="owl-carousel owl-theme">
-
-                %for subject in course_subjects:
-                <div class="item">
-                    <a href="${reverse('fun-courses:filter', kwargs={'subject': subject.slug})}">
-                        <div>
-                            <h3>${subject.name}</h3>
-                            <img style="" src="${subject.image.url}" alt="${subject.name}">
-                        </div>
-                    </a>
-
-                </div>
-                %endfor
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-36 text-center">
-        <a href="${reverse('fun-courses:index')}" class="btn btn-default btn-spaced">${_(u"All courses")}</a>
-    </div>
-</div>
-
+    ${content_definition()}
 </%block>
