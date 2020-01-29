@@ -17,7 +17,7 @@ CACHE_EXPIRY = 60*60*24*30
 def django_cache(fn):
     """A decorator to cache a def for everybody except staff users."""
     def get_or_set(context, *args, **kw):
-        if context['request'].user.is_staff:
+        if context['request'].user and context['request'].user.is_staff:
             content = runtime.capture(context, fn, *args, **kw)
             # Since we calculated a fresh page, we might as well update the version in cache
             cache.set(CACHE_KEY, content, CACHE_EXPIRY)
