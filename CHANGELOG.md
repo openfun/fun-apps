@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.3.1] - 2020-01-29
+
 ### Fixed
 
 - Override edX's view for the home page to further accelerate it
@@ -29,7 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.3.0...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.3.1...HEAD
+[5.3.1]: https://github.com/openfun/fun-apps/compare/v5.3.0...v5.3.1
 [5.3.0]: https://github.com/openfun/fun-apps/compare/v5.2.2...v5.3.0
 [5.2.2]: https://github.com/openfun/fun-apps/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/openfun/fun-apps/releases/tag/v5.2.1
