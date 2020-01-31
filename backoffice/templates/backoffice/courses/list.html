@@ -49,6 +49,7 @@
                     <th>{% trans 'End' %}</th>
                     <th>{% trans 'Enrollment start' %}</th>
                     <th>{% trans 'Enrollment end' %}</th>
+                    <th>{% trans 'Enrollments' %}</th>
                     <th>{% trans 'See' %}</th>
                 </tr>
             </thead>
@@ -72,6 +73,10 @@
                     <td data-order="{{ course_info.end_date|date:'ymd' }}">{{ course_info.end_date|date:'d/m/y' }}</td>
                     <td data-order="{{ course_info.enrollment_start_date|date:'ymd' }}">{{ course_info.enrollment_start_date|date:'d/m/y' }}</td>
                     <td data-order="{{ course_info.enrollment_end_date|date:'ymd' }}">{{ course_info.enrollment_end_date|date:'d/m/y' }}</td>
+
+                    <td data-order="{{ course_info.course_enrollments }}">{{ course_info.course_enrollments }}</td>
+
+
                     <td>
                         <a target="_blank" href="//{{ lms_base }}/courses/{{ course_info.key }}/about" title="{% trans 'See course' %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                     </td>

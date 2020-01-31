@@ -4,6 +4,7 @@ import datetime
 import logging
 import re
 
+from django.core.cache import cache
 from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -76,13 +77,19 @@ def courses_list(request):
         return response
     else:
         search_pattern = request.GET.get('search')
-        course_infos = Course.objects.all()
+        course_infos = Course.objects.values()
+
+
         if search_pattern:
             course_infos = course_infos.filter(
                 Q(title__icontains=search_pattern) |
                 Q(key__icontains=search_pattern) |
                 Q(university_display_name__icontains=search_pattern)
             )
+        enrollments = get_course_enrollment_counts(course_infos)
+
+        for course in course_infos:
+            course["course_enrollments"] = enrollments[course["key"]]
 
     return render(request, 'backoffice/courses/list.html', {
         'course_infos': course_infos,
@@ -263,9 +270,9 @@ def get_course_infos_or_404(course_descriptors):
 
     course_modes = get_course_modes()
     course_descriptor_ids = [course_descriptor.id for course_descriptor in course_descriptors]
-    courses = Course.objects.filter(key__in=course_descriptor_ids)
-    course_enrollment_counts = get_course_enrollment_counts(course_descriptor_ids)
-    course_dict = {course.key: course for course in courses}
+    courses = Course.objects.filter(key__in=course_descriptor_ids).values()
+    course_enrollment_counts = get_course_enrollment_counts(courses)
+    course_dict = {course["key"]: course for course in courses}
     return [
         get_course_info(
             course_descriptor,
@@ -306,17 +313,41 @@ def get_course_info(course_descriptor, course, students_count, course_modes):
         'modes': course_modes[unicode(course_descriptor.id)] if course_modes else [],
     }
 
-def get_course_enrollment_counts(course_descriptors_ids):
+
+def get_course_enrollment_counts(courses):
+    """
+    Count and cache course enrollments for a list of courses.
+
+    courses: list of course keys as strings
+    returns: a dict which keys are course keys and values count of enrollments
+    """
+    timeout = 60
+    result = {}
+    course_descriptors_ids = []
+
+    # retrieve from cache available course enrollment counts
+    for idx, course in enumerate(courses):
+        count = cache.get(course["key"])
+        if count:
+            result[course["key"]] = count
+        else:
+            course_descriptors_ids.append(CourseKey.from_string(course["key"]))
+
+    # get others from bdd
     queryset = (
         CourseEnrollment.objects
         .filter(course_id__in=course_descriptors_ids)
         .values('course_id')
         .annotate(total=Count('course_id'))
         .order_by()
-     )
-    return {
-        result['course_id']: result['total'] for result in queryset
-    }
+    )
+    # cache new results
+    for course in queryset:
+        result[course["course_id"]] = course['total']
+        cache.set(course["course_id"], course['total'], timeout)
+
+    return result
+
 
 def format_datetime(dt):
     FORMAT = '%Y-%m-%d %H:%M'
