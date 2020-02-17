@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0+wb] - 2020-02-17
+
+### Added
+
+- Backport support for the bokecc video provider
+
 ## [2.2.1+wb] - 2020-01-22
 
 ### Fixed
@@ -23,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `selftest` application
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v2.2.1+wb...eucalyptus.3-wb
+[unreleased]: https://github.com/openfun/fun-apps/compare/v2.3.0+wb...eucalyptus.3-wb
+[2.3.0+wb]: https://github.com/openfun/fun-apps/compare/v2.2.1+wb...v2.3.0+wb
 [2.2.1+wb]: https://github.com/openfun/fun-apps/compare/v2.2.0+wb...v2.2.1+wb
 [2.2.0+wb]: https://github.com/openfun/fun-apps/releases/tag/v2.2.0+wb
