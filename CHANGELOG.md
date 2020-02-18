@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Add `videoproviders` missing migration (`0006`)
+
 ## [2.3.0+wb] - 2020-02-17
 
 ### Added
