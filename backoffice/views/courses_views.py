@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.decorators.http import require_POST
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -22,6 +23,7 @@ from courseware.courses import get_cms_course_link
 from opaque_keys.edx.keys import CourseKey
 from openedx.core.lib.courses import course_image_url
 from student.models import CourseEnrollment, CourseAccessRole, User
+
 from universities.models import University
 from xmodule.modulestore.django import modulestore
 
@@ -317,34 +319,58 @@ def get_course_info(course_descriptor, course, students_count, course_modes):
 def get_course_enrollment_counts(courses):
     """
     Count and cache course enrollments for a list of courses.
+    Cache timeout will be set short or long depending on wether
+    course enrollment is in progress or has been completed
+    or not yet begun.
+
 
     courses: list of course keys as strings
-    returns: a dict which keys are course keys and values count of enrollments
+    returns: a dict which keys are course keys and values count
+    of enrollments
     """
-    timeout = 60
+    short_timeout = 60 * 5  # five minutes
+    long_timeout = 60 * 60 * 24  # one day
     result = {}
     course_descriptors_ids = []
 
-    # retrieve from cache available course enrollment counts
+    # Retrieve from cache available course enrollment counts
     for idx, course in enumerate(courses):
         count = cache.get(course["key"])
         if count:
             result[course["key"]] = count
         else:
-            course_descriptors_ids.append(CourseKey.from_string(course["key"]))
+            course_descriptors_ids.append(
+                CourseKey.from_string(course["key"])
+            )
 
-    # get others from bdd
-    queryset = (
-        CourseEnrollment.objects
-        .filter(course_id__in=course_descriptors_ids)
-        .values('course_id')
-        .annotate(total=Count('course_id'))
-        .order_by()
-    )
-    # cache new results
-    for course in queryset:
-        result[course["course_id"]] = course['total']
-        cache.set(course["course_id"], course['total'], timeout)
+    # Get others from bdd
+    if course_descriptors_ids:
+        queryset = (
+            CourseEnrollment.objects
+            .filter(course_id__in=course_descriptors_ids)
+            .values('course_id')
+            .annotate(total=Count('course_id'))
+            .order_by()
+        )
+        # Cache new results
+        now = datetime.datetime.now()
+        for course in queryset:
+            result[course["course_id"]] = course['total']
+            # Find course enrollment end date and set cache timeout
+            for c in courses:
+                if c["key"] == course["course_id"]:
+                    if (c.get("enrollement_end_date") and
+                        c["enrollement_end_date"] > now):
+                        timeout = short_timeout
+                    else:
+                        timeout = long_timeout
+                    break
+
+            cache.set(
+                course["course_id"],
+                course['total'],
+                timeout
+            )
 
     return result
 
