@@ -17,13 +17,14 @@ from fun.tests.utils import skipUnlessLms
 
 @skipUnlessLms
 class AuditToHonorTestCase(ModuleStoreTestCase):
-    """ Tests that the command correctly change
-        audit coursemodes to honor"""
+    """ Tests that the command correctly changes
+        `audit` course modes to `honor`"""
 
     def setUp(self):
         super(AuditToHonorTestCase, self).setUp()
         self.course1 = CourseFactory(key='fun/1/1')
         self.course2 = CourseFactory(key='fun/2/2')
+        # Create 3 `audit` CourseEnrollment
         CourseEnrollmentFactory(course_id=self.course1.key, mode='honor')
         CourseEnrollmentFactory(course_id=self.course1.key, mode='audit')
         CourseEnrollmentFactory(course_id=self.course1.key, mode='verified')
@@ -31,6 +32,10 @@ class AuditToHonorTestCase(ModuleStoreTestCase):
         CourseEnrollmentFactory(course_id=self.course2.key, mode='audit')
 
     def test_audit_to_honor(self):
+        """
+        Ensure, all `audit` enrollments have been changed to `honor` as
+        `verified` ones should be left unchanged
+        """
         call_command('course_mode_audit_to_honor')
         self.assertEqual(5, CourseEnrollment.objects.all().count())
         ck1 = CourseKey.from_string(self.course1.key)
@@ -43,12 +48,12 @@ class AuditToHonorTestCase(ModuleStoreTestCase):
 
     @override_settings(PLATFORM_NAME='TEST')
     def test_report_email(self):
+        """
+        Email report should be sent
+        """
         call_command('course_mode_audit_to_honor')
         self.assertEqual(len(mail.outbox), 1)
+        # Email subject should be prefixed by [PLATFORM_NAME]
         self.assertTrue(mail.outbox[0].subject.startswith('[TEST]'))
-        soup = BeautifulSoup(mail.outbox[0].alternatives[0][0])  # html content
-        trs = soup.findAll('tr', class_='course')
-        self.assertEqual(self.course1.key, str(trs[0].findAll('td')[0].text.strip()))
-        self.assertEqual(u"1", trs[0].findAll('td')[1].text.strip())
-        self.assertEqual(self.course2.key, str(trs[1].findAll('td')[0].text.strip()))
-        self.assertEqual(u"2", trs[1].findAll('td')[1].text.strip())
+        # Email should contain right count of updated objects
+        self.assertIn("3 CourseEnrollment objects updated.", mail.outbox[0].body)
