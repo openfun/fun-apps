@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Rewrite management command to change `audit` course enrollments to `honor`
+
 ## [2.3.1+wb] - 2020-02-18
 
 ### Fixed

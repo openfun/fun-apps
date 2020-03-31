@@ -21,35 +21,30 @@ logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = """This command change users's enrollment mode from audit to honor"""
-    # Since Eucalyptus, edx-platform do not allow honor users to get certification and default enrollment is audit
-    # This code aims to avoid this problem, to allow certification with actual code base,
-    # until we upgrade to newer edX version and rethink our certificat process
-    # It also emails a report of modification done by course as we want to follow course registrations
+    # Since Eucalyptus, edx-platform does not allow default enrollment mode
+    # `audit` to get web certificate.
+    # This script will be run periodically to change all new enrollment modes
+    # from `audit` to `honor`, then emails a report.
     # https://fun.plan.io/issues/4001
 
     def handle(self, *args, **options):
-        
-        context = {}
-        context['report'] = []
-        # select CourseEnrollment which have at least 1 audit mode
-        for course_enrollment in CourseEnrollment.objects.filter(mode='audit').annotate(Count('mode', distinct=True)).order_by('course_id'):
-            changed = CourseEnrollment.objects.filter(course_id=course_enrollment.course_id, mode='audit').update(mode='honor')
-            context['report'].append([course_enrollment.course_id, changed])
 
-        context['subject'] = "[%s] Change audit enrollments to honor" % settings.PLATFORM_NAME
-        
-#        import ipdb; ipdb.set_trace()
+        changed = CourseEnrollment.objects.filter(mode='audit').update(mode='honor')
 
-        html_content = render_to_string('fun/emails/course_mode_audit_to_honor.html', context)
-        text_content = "This is a HTML only email"
+        subject = "[%s] CRONJOB: Change audit enrollments to honor" % settings.PLATFORM_NAME
+
+        text_content = (
+            "CRONJOB: Update course `audit` enrollments to `honor`.\n"
+            "%d CourseEnrollment objects updated."
+        ) % changed
+
         email = EmailMultiAlternatives(
-                subject=context['subject'],
+                subject=subject,
                 body=text_content,
-                from_email=settings.STATS_EMAIL,
-                to=settings.STATS_RECIPIENTS,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=settings.ADMINS,
             )
-        email.attach_alternative(html_content, "text/html")
         try:
             email.send()
         except SMTPRecipientsRefused as e:
-            logger.error(u"Stat email could not be sent(%s): %s.", context['subject'], e.message)
+            logger.error(u"Stat email could not be sent(%s): %s.", subject, e.message)
