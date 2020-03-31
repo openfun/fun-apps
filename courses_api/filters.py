@@ -38,6 +38,8 @@ class CourseFilter(filters.BaseFilterBackend):
             queryset = queryset.started()
         elif 'archived' in availability:
             queryset = queryset.archived()
+        elif 'browsable' in availability:
+            queryset = queryset.browsable()
 
         if full_text_query:
             results = SearchQuerySet().filter(content=full_text_query)

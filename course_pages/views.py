@@ -31,6 +31,7 @@ def courses_index(request, subject=None):
         "courses_count_opened": Course.objects.opened().count(),
         "courses_count_started": Course.objects.started().count(),
         "courses_count_archived": Course.objects.archived().count(),
+        "courses_count_browsable": Course.objects.browsable().count(),
     })
 
 

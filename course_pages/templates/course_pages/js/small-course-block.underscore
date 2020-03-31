@@ -25,7 +25,11 @@
             <div class="footer row">
                 <div class="date col-xs-20">
                         <% if (course_ended) { %>
-                            <%- pgettext("course-block", "Archived") %>
+                            <% if (enrollment_end_date) { %>
+                                <%- pgettext("course-block", "Archived") %>
+                            <% } else { %>
+                                <%- pgettext("course-block", "Browsable") %>
+                            <% } %>
                         <% } else if (course_started) { %>
                             <% if (enrollment_end_date) { %>
                                 <% if (enrollment_ended) { %>

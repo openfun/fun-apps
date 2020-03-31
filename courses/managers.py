@@ -15,25 +15,22 @@ def annotate_with_public_courses(queryset):
     queryset: refer to a model with a `courses` attribute.
     """
     return queryset.filter(
-        courses__is_active=True,
-        courses__show_in_catalog=True
-    ).annotate(public_courses_count=models.Count('courses'))
+        courses__is_active=True, courses__show_in_catalog=True
+    ).annotate(public_courses_count=models.Count("courses"))
 
 
 class CourseSubjectManager(models.Manager):
-
     def by_score(self):
-        return self.order_by('-score', 'name')
+        return self.order_by("-score", "name")
 
     def featured(self):
-        return self.filter(featured=True).exclude(image='')
+        return self.filter(featured=True).exclude(image="")
 
     def random_featured(self):
-        return self.featured().order_by('?')
+        return self.featured().order_by("?")
 
 
 class CourseQuerySet(models.query.QuerySet):
-
     @property
     def too_late(self):
         return now() + timedelta(days=courses_settings.NUMBER_DAYS_TOO_LATE)
@@ -43,8 +40,7 @@ class CourseQuerySet(models.query.QuerySet):
 
     def with_related(self):
         queryset = self.prefetch_related(
-            'subjects', 'universities',
-            'related_universities',
+            "subjects", "universities", "related_universities"
         )
         return queryset
 
@@ -66,15 +62,19 @@ class CourseQuerySet(models.query.QuerySet):
         """
         return self.public().filter(
             Q(session_number=1),
-            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True))
+            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True),
+        )
 
     def opened(self):
         """
         A course that is currently opened for enrollment.
         """
+        _now = now()
         return self.public().filter(
-            Q(enrollment_start_date__lte=now()) | Q(enrollment_start_date__isnull=True),
-            Q(enrollment_end_date__gte=now()) | Q(enrollment_end_date__isnull=True))
+            Q(enrollment_start_date__lte=_now) | Q(enrollment_start_date__isnull=True),
+            Q(enrollment_end_date__gte=_now) | Q(enrollment_end_date__isnull=True),
+            Q(end_date__gte=_now) | Q(end_date__isnull=True),
+        )
 
     def started(self):
         """
@@ -82,13 +82,26 @@ class CourseQuerySet(models.query.QuerySet):
         """
         return self.public().filter(
             Q(start_date__lte=now()) | Q(start_date__isnull=True),
-            Q(end_date__gte=now()) | Q(end_date__isnull=True))
+            Q(end_date__gte=now()) | Q(end_date__isnull=True),
+        )
 
     def archived(self):
         """
-        A course is archived if it has an end date in the past.
+        A course is archived if it has an end date and enrollment end date in the past.
         """
-        return self.public().filter(end_date__lt=now(), end_date__isnull=False)
+        return self.public().filter(
+            end_date__lt=now(),
+            end_date__isnull=False,
+            enrollment_end_date__isnull=False,
+        )
+
+    def browsable(self):
+        """
+        A course is browsable if it has an end date in the past but enrollment is still open.
+        """
+        return self.public().filter(
+            end_date__lt=now(), end_date__isnull=False, enrollment_end_date__isnull=True
+        )
 
     def annotate_for_ordering(self):
         """
@@ -105,25 +118,31 @@ class CourseQuerySet(models.query.QuerySet):
         # we need the proper datetime formatting, which varies for every db.
         formatted_now = connection.ops.value_to_db_datetime(now())
 
-        return self.extra(select={
-            'has_ended': '(end_date IS NOT NULL AND end_date < "{now}")'.format(now=formatted_now),
-
-            'is_enrollment_over': (
-                '(enrollment_end_date IS NOT NULL AND enrollment_end_date < "{now}")'
-            ).format(now=formatted_now),
-
-            'has_started': '(start_date < "{now}" OR start_date IS NULL)'.format(now=formatted_now),
-
-            'ordering_date': (
-                'CASE WHEN start_date < "{now}" OR start_date IS NULL '
-                'THEN enrollment_end_date ELSE start_date END'
-            ).format(now=formatted_now)})
+        return self.extra(
+            select={
+                "has_ended": '(end_date IS NOT NULL AND end_date < "{now}")'.format(
+                    now=formatted_now
+                ),
+                "is_enrollment_over": (
+                    '(enrollment_end_date IS NOT NULL AND enrollment_end_date < "{now}")'
+                ).format(now=formatted_now),
+                "has_started": '(start_date < "{now}" OR start_date IS NULL)'.format(
+                    now=formatted_now
+                ),
+                "ordering_date": (
+                    'CASE WHEN start_date < "{now}" OR start_date IS NULL '
+                    "THEN enrollment_end_date ELSE start_date END"
+                ).format(now=formatted_now),
+            }
+        )
 
     def by_score(self):
-        return self.public().order_by('-score')
+        return self.public().order_by("-score")
 
     def random_featured(self, limit_to=7):
-        courses = self.by_score().prefetch_related("related_universities__university")[:limit_to]
+        courses = self.by_score().prefetch_related("related_universities__university")[
+            :limit_to
+        ]
         courses = list(courses)
         random.shuffle(courses)
         return courses

@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: FUN-MOOC 39\n"
+"Project-Id-Version: FUN-MOOC 40\n"
 "Report-Msgid-Bugs-To: team@openfun.fr\n"
-"POT-Creation-Date: 2018-01-13 11:51+0100\n"
-"PO-Revision-Date: 2018-01-13 11:51+0000\n"
+"POT-Creation-Date: 2020-03-27 17:05+0100\n"
+"PO-Revision-Date: 2020-03-27 17:05+0000\n"
 "Last-Translator: FUN <team@openfun.fr>\n"
 "Language-Team: FUN <team@openfun.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -17,6 +17,11 @@ msgstr ""
 msgctxt "course-block"
 msgid "Archived"
 msgstr "Archivé"
+
+#: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
+msgctxt "course-block"
+msgid "Browsable"
+msgstr "Archivé ouvert"
 
 #: /edx/app/edxapp/fun-apps/course_pages/templates/course_pages/js/small-course-block.underscore:0
 msgid "Learn more"
