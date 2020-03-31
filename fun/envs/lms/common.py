@@ -13,7 +13,6 @@ INSTALLED_APPS += (
     'fun_api',
     'fun_certificates',
     'fun_instructor',
-    'contact',
     'course_dashboard',
     'courses',
     'courses_api',

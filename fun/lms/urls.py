@@ -18,12 +18,11 @@ urlpatterns = patterns('',
 
     # fun-apps urls
     (r'^', include('funsite.urls')),
-    (r'^', include('contact.urls', namespace='contact')),
     (r'^payment/', include('payment.urls', namespace="payment")),
     (r'^universities/', include('universities.urls')),
     (r'^news/', include('newsfeed.urls')),
     # this regexp catch both /help and /help/ urls
-    (r'^help(/)?$', RedirectView.as_view(url='//fun-mooc.help')),
+    (r'^help(/)?$', RedirectView.as_view(url='https://fun-mooc.help')),
     (r'^backoffice/', include('backoffice.urls', namespace='backoffice')),
 
     # fun api
@@ -54,13 +53,16 @@ urlpatterns = patterns('',
     (r'^', include('fun_certificates.urls')),
 
 
-    # Override edx-platform urls
+    # Override edx-platform hard coded marketing urls
+    # See edx-platform/lms/urls.py:165
     url(r'^blog$', handler404),
     url(r'^donate$', handler404),
     url(r'^faq$', handler404),
     url(r'^jobs$', handler404),
     url(r'^press$', handler404),
     url(r'^media-kit$', handler404),
+    url(r'^contact$', RedirectView.as_view(url='https://fun-mooc.help')),
+
 
     # Include edx-platform urls
     (r'^', include('lms.urls')),
