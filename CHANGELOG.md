@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0+wb] - 2020-04-01
+
 ### Changed
 
 - Rewrite management command to change `audit` course enrollments to `honor`
@@ -39,7 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `selftest` application
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v2.3.1+wb...eucalyptus.3-wb
+[unreleased]: https://github.com/openfun/fun-apps/compare/v2.4.0+wb...eucalyptus.3-wb
+[2.4.0+wb]: https://github.com/openfun/fun-apps/compare/v2.3.1+wb...v2.4.0+wb
 [2.3.1+wb]: https://github.com/openfun/fun-apps/compare/v2.3.0+wb...v2.3.1+wb
 [2.3.0+wb]: https://github.com/openfun/fun-apps/compare/v2.2.1+wb...v2.3.0+wb
 [2.2.1+wb]: https://github.com/openfun/fun-apps/compare/v2.2.0+wb...v2.2.1+wb
