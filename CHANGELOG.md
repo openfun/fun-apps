@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.4.0] - 2020-04-01
+
+### Added
+
+- Add a "browsable" status for courses
+
+### Removed
+
+- Remove deprecated `contact` application
+
 ## [5.3.1] - 2020-01-29
 
 ### Fixed
@@ -31,7 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.3.1...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.4.0...HEAD
+[5.4.0]: https://github.com/openfun/fun-apps/compare/v5.3.1...v5.4.0
 [5.3.1]: https://github.com/openfun/fun-apps/compare/v5.3.0...v5.3.1
 [5.3.0]: https://github.com/openfun/fun-apps/compare/v5.2.2...v5.3.0
 [5.2.2]: https://github.com/openfun/fun-apps/compare/v5.2.1...v5.2.2
