@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 subject=subject,
                 body=text_content,
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                to=settings.ADMINS,
+                to=[email for _, email in settings.ADMINS],
             )
         try:
             email.send()
