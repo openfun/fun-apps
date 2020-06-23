@@ -3,26 +3,27 @@
 import json
 
 from bs4 import BeautifulSoup
-
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
-
 from mock import patch
+from opaque_keys.edx.keys import CourseKey
 from requests.exceptions import ConnectionError
-
 from student.models import UserProfile
-from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
-
+from student.tests.factories import UserFactory
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, \
+    TEST_DATA_XML_MODULESTORE
 from courses.models import Course, CourseUniversityRelation
 from fun.tests.utils import skipUnlessLms
+from lms.djangoapps.verify_student.models import \
+    SoftwareSecurePhotoVerification
+from openedx.core.djangoapps.course_groups.models import CourseUserGroup
 from universities.tests.factories import UniversityFactory
-
 from ..utils import (get_course, send_confirmation_email, get_order_context,
-        format_date_order, get_order)
-
+                     format_date_order, get_order,
+                     register_user_verified_cohort)
 
 def ecommerce_order_api_response(course_key_string):
     return {
@@ -43,6 +44,15 @@ def ecommerce_order_api_response(course_key_string):
         ]
     }
 
+
+FAKE_COURSE_ID = {'org': 'FUN', 'number': '0002', 'run': 'session1'}
+
+FAKE_COURSE_ID_STRING = "{}/{}/{}".format(
+    FAKE_COURSE_ID.get('org'),
+    FAKE_COURSE_ID.get('number'),
+    FAKE_COURSE_ID.get('run')
+)
+
 ecommerce_basket_api_response = {
     "id": 130,
     "date_created": "2016-04-01T12:32:34Z",
@@ -52,7 +62,7 @@ ecommerce_basket_api_response = {
                 "attribute_values": [
                     {
                         "name": "course_key",
-                        "value": "FUN/0002/session1"
+                        "value": FAKE_COURSE_ID_STRING
                     },
                 ],
             },
@@ -77,12 +87,11 @@ class AbstractPaymentTest(TestCase):
         self.user.save()
         UserProfile.objects.create(user=self.user, language='fr', name=u"Robert Cash")
         self.client.login(username=self.user.username, password='test')
-        self.course = Course.objects.create(key='FUN/0002/session1', title=u"course title", )
-        self.university = UniversityFactory(name=u"FÛN")
+        self.course = Course.objects.create(key=FAKE_COURSE_ID_STRING, title=u"course title", )
+        self.university = UniversityFactory(name=u"FUN")
         CourseUniversityRelation.objects.create(
             course=self.course, university=self.university)
         self.api_response = ecommerce_order_api_response(self.course.key)
-
 
 class PayboxSystemViewsTest(AbstractPaymentTest):
     def setUp(self):
@@ -212,7 +221,7 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
     @patch('payment.utils.get_order')
     def test_confirmation_email_language(self, get_order_mock):
         get_order_mock.return_value = self.api_response
-        send_confirmation_email(self.user, 'FUN-100056')
+        send_confirmation_email(self.user, ecommerce_order_api_response(self.course.key))
         self.assertEqual(1, len(mail.outbox))
         soup = BeautifulSoup(mail.outbox[0].message().as_string())
         # default user's language is fr
@@ -223,7 +232,7 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
         user_en = User.objects.create(username='user_en', first_name='first_name',
                                       last_name='last_name', email='richard@example.co.uk', is_active=True)
         UserProfile.objects.create(user=user_en, language='en')
-        send_confirmation_email(user_en, 'FUN-100056')
+        send_confirmation_email(user_en, ecommerce_order_api_response(self.course.key))
         soup = BeautifulSoup(mail.outbox[0].message().as_string())
         self.assertEqual(u"Payment confirmation",
                          soup.find('h1', class_='title').text.strip())
@@ -231,7 +240,8 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
     @patch('payment.utils.get_order')
     def test_confirmation_email_bill(self, get_order_mock):
         get_order_mock.return_value = self.api_response
-        send_confirmation_email(self.user, 'FUN-100056')
+        send_confirmation_email(self.user,
+                                ecommerce_order_api_response(self.course.key))
         self.assertEqual(1, len(mail.outbox))
         soup = BeautifulSoup(mail.outbox[0].message().as_string())
         self.assertEqual(self.course.title,
@@ -242,6 +252,48 @@ class PayboxSystemViewsTest(AbstractPaymentTest):
                          soup.find('span', class_='line-1-course-university').text.strip())
         self.assertEqual(self.user.profile.name,
                          soup.find('span', class_='user-full-name').text.strip())
+
+
+@override_settings(FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION=False)
+@skipUnlessLms
+class RegisterUserTest(ModuleStoreTestCase):
+
+    MODULESTORE = TEST_DATA_XML_MODULESTORE
+
+    def setUp(self):
+        super(RegisterUserTest, self).setUp()
+        self.course = Course.objects.create(key='edX/toy/2012_Fall',
+                                            title=u"course title", )  # Fun Course Model
+        self.course_key = CourseKey.from_string(self.course.key)
+        self.user = UserFactory(username="user", first_name='first_name',
+                                        last_name='last_name',
+                                        email='richard@example.com',
+                                        is_active=True)
+        cohort = CourseUserGroup.objects.create(
+            name="Certificat",
+            course_id=self.course_key,
+            group_type=CourseUserGroup.COHORT
+        )
+
+
+    @patch('payment.utils.add_user_to_cohort')
+    def test_register_user_verified_cohort(self, add_user_to_cohort_mock):
+        # We patch as if not if will raise a
+        # TransactionManagementError: Cannot be inside an atomic block exception.
+        add_user_to_cohort_mock.return_value = None
+        register_user_verified_cohort(self.user, ecommerce_order_api_response('edX/toy/2012_Fall'))
+        add_user_to_cohort_mock.assert_called_once()
+
+    @patch('payment.utils.add_user_to_cohort')
+    def test_register_user_verified_cohort_twice(self, add_user_to_cohort_mock):
+        add_user_to_cohort_mock.return_value = None
+        cohort = CourseUserGroup.objects.create(
+            name="Certificat 2",
+            course_id=self.course_key,
+            group_type=CourseUserGroup.COHORT
+        )
+        register_user_verified_cohort(self.user, ecommerce_order_api_response('edX/toy/2012_Fall'))
+        self.assertEqual(add_user_to_cohort_mock.call_count, 2)
 
 
 class PaymentUtilsTest(AbstractPaymentTest):

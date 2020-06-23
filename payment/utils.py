@@ -5,15 +5,18 @@ import logging
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
+from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
+from opaque_keys.edx.keys import CourseKey
+from xmodule.modulestore.django import modulestore
 
 from requests.exceptions import ConnectionError
-
 from edxmako.shortcuts import render_to_string
-from student.models import CourseEnrollment
 
 from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
+from openedx.core.djangoapps.course_groups.cohorts import get_course_cohorts, \
+    add_user_to_cohort
 
 from courses.models import Course
 
@@ -49,8 +52,7 @@ def get_order_context(user, order, course):
     return context
 
 
-def send_confirmation_email(user, order_number):
-    order = get_order(user, order_number)
+def send_confirmation_email(user, order):
     course = get_course(order)
     subject = _(u"[FUN-MOOC] Payment confirmation")
     context = get_order_context(user, order, course)
@@ -66,6 +68,22 @@ def send_confirmation_email(user, order_number):
         )
     email.attach_alternative(html_content, "text/html")
     email.send()
+
+def register_user_verified_cohort(user, order):
+    course = get_course(order)
+    course_key = CourseKey.from_string(course.key)
+    storedcourse = modulestore().get_course(course_key)
+    verified_cohort_name = getattr(settings, 'DEFAULT_VERIFIED_COHORT_NAME',
+                                   "certificat")
+    verified_cohorts = [c for c in get_course_cohorts(storedcourse)
+                        if verified_cohort_name in c.name.strip().lower()]
+
+    for cohort in verified_cohorts:
+        try:
+            add_user_to_cohort(cohort, user.email)  # This will also trigger
+            # the edx.cohort.user_add_requested event.
+        except (ValueError) as e:
+            logger.exception(e)
 
 
 def format_date_order(order, format):

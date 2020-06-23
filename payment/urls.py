@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import url, patterns
+from django.conf import settings
 
 # this url file is namespaced 'payment'
 
@@ -15,3 +16,10 @@ urlpatterns = patterns('payment.views',
     url(r'^terms/get/$', 'get_payment_terms', name="get-terms"),
     url(r'^terms/accept/$', 'accept_payment_terms', name="accept-terms"),
 )
+
+if settings.FEATURES.get('ENABLE_PAYMENT_FAKE'):
+    from tests.fun_fake_payment import PaymentFakeView
+    urlpatterns += patterns(
+        'payment.tests.fun_fake_payment',
+        url(r'^fun_payment_fake', PaymentFakeView.as_view()),
+    )
