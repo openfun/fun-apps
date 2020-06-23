@@ -2,18 +2,24 @@
 
 import dateutil.parser
 import logging
+import re
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
+from opaque_keys.edx.keys import CourseKey
 
 from requests.exceptions import ConnectionError
-
 from edxmako.shortcuts import render_to_string
-from student.models import CourseEnrollment
 
 from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
+from openedx.core.djangoapps.course_groups.models import CourseUserGroup
+from openedx.core.djangoapps.course_groups.cohorts import (
+    get_cohort_by_name,
+    add_user_to_cohort,
+)
+
 
 from courses.models import Course
 
@@ -49,8 +55,7 @@ def get_order_context(user, order, course):
     return context
 
 
-def send_confirmation_email(user, order_number):
-    order = get_order(user, order_number)
+def send_confirmation_email(user, order):
     course = get_course(order)
     subject = _(u"[FUN-MOOC] Payment confirmation")
     context = get_order_context(user, order, course)
@@ -68,6 +73,52 @@ def send_confirmation_email(user, order_number):
     email.send()
 
 
+def register_user_verified_cohort(user, order):
+    """
+    Once a user has been verified, add it to a cohort.
+
+    The cohort to which the user should be added is given by the VERIFIED_COHORTS setting.
+    settings.VERIFIED_COHORTS is a list of (r"<course id regex>", "<cohort name>") tuples. Regular expressions
+    are matched agains the course ID. If at least one regular expression matches, registered users from this
+    course are added to the cohort with the highest priority. Cohorts are sorted by decreasing priority.
+
+    If a course is associated to a cohort that doesn't exist or an empty cohort name, then the user is not
+    added to any cohort. Thus, to disable this feature for a specific course, set:
+
+        VERIFIED_COHORTS = [
+            ...
+            (r"<course id>", None),
+            ...
+        ]
+
+    To enable this feature for a particular course, but not for all others, write:
+
+        VERIFIED_COHORTS = [
+            (r"<course id>", "cohort name"),
+            (r".*", None),
+        ]
+
+    To disable this feature globally, set:
+
+        VERIFIED_COHORTS = []
+    """
+    course = get_course(order)
+    verified_cohort_name = None
+    for course_id_regex, cohort_name in getattr(settings, "VERIFIED_COHORTS", []):
+        if re.match(course_id_regex, course.key):
+            verified_cohort_name = cohort_name
+            break
+    cohort = None
+    if verified_cohort_name:
+        course_key = CourseKey.from_string(course.key)
+        try:
+            cohort = get_cohort_by_name(course_key, verified_cohort_name)
+        except CourseUserGroup.DoesNotExist:
+            pass
+    if cohort:
+        # This will also trigger the edx.cohort.user_add_requested event
+        add_user_to_cohort(cohort, user.email)
+
+
 def format_date_order(order, format):
     return dateutil.parser.parse(order['date_placed']).strftime(format)
-
