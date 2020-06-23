@@ -2,6 +2,7 @@
 
 import logging
 
+from django.conf import settings
 from django.contrib.auth.models import User
 
 from rest_framework import status
@@ -12,7 +13,8 @@ from rest_framework_oauth.authentication import OAuth2Authentication
 
 from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
 
-from payment.utils import send_confirmation_email
+from payment.utils import send_confirmation_email, \
+    register_user_verified_cohort, get_order, get_course
 
 from .serializers import PaymentNotificationSerializer
 
@@ -38,7 +40,11 @@ class PaymentNotificationAPIView(APIView):
                     status='approved',
                     reviewing_service='Automatic Paybox',
                 )
-            send_confirmation_email(user, request.data['order_number'])
+
+            order = get_order(user, request.data['order_number'])
+            send_confirmation_email(user, order)
+            register_user_verified_cohort(user,  order)
+
             logger.info('Created SoftwareSecurePhotoVerification object and sent FUN confirmation email to user %s',
                     user.username)
             return Response()
