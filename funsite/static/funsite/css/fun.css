@@ -1871,6 +1871,7 @@ ul.universities-list {
   width: 120px;
   height: 120px;
   margin-right: 20px;
+  object-fit: cover;
 }
 .course-about
   .description
@@ -1881,6 +1882,7 @@ ul.universities-list {
   width: 120px;
   height: 120px;
   margin-right: 20px;
+  object-fit: cover;
 }
 
 .course-about .description section.faq {
