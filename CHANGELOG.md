@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.2+wb] - 2020-07-20
+
 ### Changed
 
 - Improve teacher image for non-square geometry
@@ -51,7 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `selftest` application
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v2.4.1+wb...eucalyptus.3-wb
+[unreleased]: https://github.com/openfun/fun-apps/compare/v2.4.2+wb...eucalyptus.3-wb
+[2.4.2+wb]: https://github.com/openfun/fun-apps/compare/v2.4.1+wb...v2.4.2+wb
 [2.4.1+wb]: https://github.com/openfun/fun-apps/compare/v2.4.0+wb...v2.4.1+wb
 [2.4.0+wb]: https://github.com/openfun/fun-apps/compare/v2.3.1+wb...v2.4.0+wb
 [2.3.1+wb]: https://github.com/openfun/fun-apps/compare/v2.3.0+wb...v2.3.1+wb
