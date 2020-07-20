@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Improve teacher image for non-square geometry
+
 ## [2.4.1+wb] - 2020-04-17
 
 ### Fixed
