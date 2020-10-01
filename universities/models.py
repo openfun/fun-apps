@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -10,6 +11,8 @@ from ckeditor.fields import RichTextField
 
 from .managers import UniversityQuerySet
 from . import choices as universities_choices
+
+logger = logging.getLogger(__name__)
 
 
 class University(models.Model):
@@ -64,7 +67,8 @@ class University(models.Model):
         try:
             thumbnail = get_thumbnailer(self.banner).get_thumbnail(options)
             return thumbnail.url
-        except InvalidImageFormatError:
+        except (InvalidImageFormatError, OSError) as err:
+            logger.error(err)
             return ''  # we could return a nice grey image
 
     def get_short_name(self):
@@ -75,5 +79,6 @@ class University(models.Model):
         try:
             thumbnail = get_thumbnailer(self.logo).get_thumbnail(options)
             return thumbnail.url
-        except InvalidImageFormatError:
+        except (InvalidImageFormatError, OSError) as err:
+            logger.error(err)
             return ''  # we could return a nice grey image

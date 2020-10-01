@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import optparse
 import StringIO
 
@@ -22,6 +23,8 @@ from xmodule.modulestore.django import modulestore
 from courses import settings as courses_settings
 from courses.models import Course, CourseUniversityRelation
 from universities.models import University
+
+logger = logging.getLogger(__name__)
 
 
 class CourseHandler(object):
@@ -76,7 +79,8 @@ class CourseHandler(object):
                 self.memory_image_file,
                 relative_name='courses-thumbnails/{}'.format(base_filename)
             ).get_thumbnail(options)
-        except InvalidImageFormatError:
+        except (InvalidImageFormatError, OSError) as err:
+            logger.error(err)
             thumbnail = None
         return thumbnail
 

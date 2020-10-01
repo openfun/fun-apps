@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Catch OS errors on thumbnail generation
+
 ## [5.4.1] - 2020-07-20
 
 ### Changed
