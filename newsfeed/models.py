@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import ckeditor.fields
+import logging
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -12,6 +13,8 @@ from django.utils.translation import get_language
 
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
+
+logger = logging.getLogger(__name__)
 
 
 class ArticleManager(models.Manager):
@@ -138,7 +141,8 @@ class Article(models.Model):
             }
             thumbnail_options = {'crop': 'smart', 'size': sizes[size], 'upscale': True}
             return thumbnailer.get_thumbnail(thumbnail_options)
-        except InvalidImageFormatError:
+        except (InvalidImageFormatError, OSError) as err:
+            logger.error(err)
             return ''  ## todo: generic image
 
     def get_absolute_url(self):
