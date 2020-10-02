@@ -1,5 +1,6 @@
 ## mako
 <%!
+    from django.conf import settings
     from django.utils.translation import ugettext as _
 %>
 
@@ -70,7 +71,7 @@
                     </p>
                 </div>
                 <div class="col-sm-13 image">
-                    <img class="img-responsive center-block image-course" src="${ordered_course.get_thumbnail_url('small')}"
+                    <img class="img-responsive center-block image-course" src="${ getattr(settings, 'CDN_BASE_URL', None) or ''}${ordered_course.get_thumbnail_url('small')}"
                          alt="${ordered_course.title} Image"/>
                 </div>
             </div>

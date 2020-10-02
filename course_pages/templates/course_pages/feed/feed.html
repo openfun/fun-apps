@@ -1,12 +1,15 @@
 ## mako
 <%!
+from django.conf import settings
 from django.utils.translation import ugettext as _
+
+media_site = getattr(settings, 'CDN_BASE_URL', None) or site
 %>
 <html>
 <body>
 <p>
     <center>
-        <img src="${protocol}${site}${course.get_thumbnail_url('big')}">
+        <img src="${protocol}${media_site}${course.get_thumbnail_url('big')}">
         <h1><a href="${protocol}${site}${course.get_absolute_url()}">${course.title}</a></h1>
     </center>
 </p>

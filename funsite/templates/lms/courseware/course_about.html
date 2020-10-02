@@ -105,13 +105,14 @@ from funsite.utils import is_paid_course
 <%block name="meta_extra">
     <%
     fun_course = get_fun_course(course)
+    media_site = getattr(settings, 'CDN_BASE_URL', None) or "//www.fun-mooc.fr"
     %>
     <meta property="og:site_name" content="FUN-MOOC"/>
     <meta property="og:url" content="//www.fun-mooc.fr${reverse('about_course', args=[fun_course.key])}" />
     <meta property="og:title" content="${course.display_name_with_default}" />
     <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
     <meta property="og:locale" content="fr_FR" />
-    <meta property="og:image" content="//www.fun-mooc.fr${ fun_course.get_thumbnail_url('facebook') }" />
+    <meta property="og:image" content="${media_site}${ fun_course.get_thumbnail_url('facebook') }" />
 
 </%block>
 
@@ -185,7 +186,7 @@ from funsite.utils import is_paid_course
                     % if get_course_about_section(request, course, "video"):
                     <div class="video-button"></div>
                     % endif
-                    <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
+                    <img src="${ getattr(settings, 'CDN_BASE_URL', None) or '' }${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
 
                 <div class="course-about-university-logo">
@@ -193,10 +194,10 @@ from funsite.utils import is_paid_course
                     % if first_university:
                         % if first_university.detail_page_enabled:
                             <a href="${first_university.get_absolute_url()}">
-                                <img src="${first_university.get_logo_thumbnail()}">
+                                <img src="${ getattr(settings, 'CDN_BASE_URL', None) or ''}${first_university.get_logo_thumbnail()}">
                             </a>
                         % else:
-                            <img src="${first_university.get_logo_thumbnail()}">
+                            <img src="${ getattr(settings, 'CDN_BASE_URL', None) or ''}${first_university.get_logo_thumbnail()}">
                         % endif
                     % endif
                 </div>
@@ -208,7 +209,7 @@ from funsite.utils import is_paid_course
                     % if get_course_about_section(request, course, "video"):
                     <div class="video-button"></div>
                     % endif
-                    <img src="${ fun_course.get_thumbnail_url('about') }">
+                    <img src="${ getattr(settings, 'CDN_BASE_URL', None) or ''}${ fun_course.get_thumbnail_url('about') }">
                 </div>
 
                 %if user.is_authenticated() and registered:
@@ -417,7 +418,7 @@ from funsite.utils import is_paid_course
                     % if get_course_about_section(request, course, "video"):
                     <div class="video-button"></div>
                     % endif
-                    <img src="${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
+                    <img src="${ getattr(settings, 'CDN_BASE_URL', None) or ''}${ fun_course.get_thumbnail_url('about') }" class="img-responsive">
                 </div>
 
 

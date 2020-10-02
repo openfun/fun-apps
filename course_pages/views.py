@@ -87,13 +87,14 @@ class CoursesFeed(Feed):
         Add the 'content' field of the 'Entry' item, to be used by the custom feed generator.
         """
         protocol, site = self.get_site()
+        media_site = getattr(settings, 'CDN_BASE_URL', None) or site
         return {
             'university': course.university_name,
             'language': course.get_language_display(),
             'level': course.get_level_display(),
             'short_description': course.short_description,
             'subjects': ', '.join([s.name for s in course.subjects.all()]),
-            'thumbnail_url': protocol + site + course.get_thumbnail_url('big'),
+            'thumbnail_url': protocol + media_site + course.get_thumbnail_url('big'),
             'start_date': course.start_date.isoformat() if course.start_date else '',
             'end_date': course.end_date.isoformat() if course.end_date else '',
             'enrollment_start_date': course.enrollment_start_date.isoformat() if course.enrollment_start_date else '',
