@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.5.0] - 2020-10-02
+
 ### Added
 
 - Allow placing thumbnails related media files behind a CDN
@@ -57,7 +59,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.4.2...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.5.0...HEAD
+[5.5.0]: https://github.com/openfun/fun-apps/compare/v5.4.2...v5.5.0
 [5.4.2]: https://github.com/openfun/fun-apps/compare/v5.4.0...v5.4.2
 [5.4.1]: https://github.com/openfun/fun-apps/compare/v5.4.0...v5.4.1
 [5.4.0]: https://github.com/openfun/fun-apps/compare/v5.3.1...v5.4.0
