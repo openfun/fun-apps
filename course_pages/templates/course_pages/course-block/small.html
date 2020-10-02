@@ -1,5 +1,6 @@
 ## mako
 <%!
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 %>
@@ -18,7 +19,7 @@ from django.utils.translation import ugettext as _
             % else:
                 <div class="type transparent"></div>
             % endif
-                <img class="img-responsive" src="${ course.get_thumbnail_url('small') }">
+                <img class="img-responsive" src="${ getattr(settings, 'CDN_BASE_URL', None) or '' }${ course.get_thumbnail_url('small') }">
         </div>
         <div class="middle">
             <div class="title">
