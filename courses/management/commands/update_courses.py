@@ -132,10 +132,15 @@ class Command(BaseCommand):
         course in SQL Course table.
         '''
         for mongo_course in mongo_courses:
-            self.update_course(
-                mongo_course=mongo_course,
-                assign_universities=assign_universities
-            )
+            try:
+                self.update_course(
+                    mongo_course=mongo_course,
+                    assign_universities=assign_universities
+                )
+            except InvalidKeyError as err:
+                # Log the error but continue indexing other courses
+                logger.error(err)
+
         self.stdout.write('Number of courses parsed: {}\n'.format(len(mongo_courses)))
         return None
 
