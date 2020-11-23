@@ -5,6 +5,7 @@ from django.conf.urls import url, include, patterns
 from django.conf.urls.static import static
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
+from . import views
 
 import openassessment.fileupload.urls
 
@@ -70,6 +71,9 @@ urlpatterns = patterns('',
 
     # Ora2 file upload
     url(r'^openassessment/storage', include(openassessment.fileupload.urls)),
+
+    # Richie Redirect
+    url(r'^richie/(?P<redirect_to>.*)$', views.richie, name="richie_gateway"),
 )
 
 # Ckeditor - Used by Univerity app

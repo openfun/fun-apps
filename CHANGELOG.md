@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add a `richie` view to redirect user on richie after login/registration
+
 ## [5.5.1] - 2020-10-22
 
 ### Fixed
