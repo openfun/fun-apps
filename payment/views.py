@@ -68,7 +68,8 @@ def paybox_success(request):
 
     if settings.FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION:
         # TODO what should we do with the response?
-        _response = requests.post(settings.ECOMMERCE_NOTIFICATION_URL, request.GET)
+        _response = requests.post(
+            settings.ECOMMERCE_NOTIFICATION_URL, request.GET)
 
     order = get_order_or_404(request.user, request.GET['reference-fun'])
     course = get_course_or_404(order)
@@ -151,13 +152,14 @@ def payment_terms_page(request, force):
             TermsAndConditions.user_has_to_accept_new_version(
                 PAYMENT_TERMS,
                 request.user)
-            )
+    )
     terms = TermsAndConditions.get_latest(name=PAYMENT_TERMS)
 
     return render_to_response('payment/terms-and-conditions.html', {
-            'terms': terms,
-            'force': force,
-            })
+        'force': force,
+        'next': request.GET.get('next', reverse('dashboard')),
+        'terms': terms,
+    })
 
 
 @require_GET
@@ -198,10 +200,12 @@ def accept_payment_terms(request):
     )
     terms.accept(request.user)
     data['accepted'] = terms.version
-
+    try:
+        redirect_to = request.GET['next']
+    except KeyError:
+        redirect_to = reverse('dashboard')
 
     if request.is_ajax():
         return HttpResponse(json.dumps(data), content_type="application/json")
     else:
-        return redirect(reverse('dashboard'))
-
+        return redirect(redirect_to)

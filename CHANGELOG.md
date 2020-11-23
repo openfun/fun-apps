@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Add a `richie` view to redirect user on richie after login/registration
+### Added
+
+- Add a `next` query param on legal acceptance view to redirect user after acceptance to the route
+  provided in this param.
+
+- Add a `richie` view to redirect user to richie after login/registration
 
 ## [5.5.1] - 2020-10-22
 

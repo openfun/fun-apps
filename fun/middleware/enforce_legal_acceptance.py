@@ -21,7 +21,7 @@ AGREEMENT_WHITELIST = map(
         r'.*search.*',
         r'.*revision.*',
         r'^/static/.*',
-        r'^/api/user/.*',
+        r'^/api/.*',
         r'^/c4x.*',
         r'.*logout.*$',
         r'.*asset.*',
@@ -40,7 +40,11 @@ def ensure_terms_accepted(func):
     """
     def wrapped(request, *args, **kwargs):
         if not legal_acceptance(request.user):
-            return redirect(TERMS_AND_CONDITIONS_AGREEMENT, *args, **kwargs)
+            redirect_to = '{path:s}?next={next:s}'.format(
+                path=TERMS_AND_CONDITIONS_AGREEMENT,
+                next=request.path
+            )
+            return redirect(redirect_to, *args, **kwargs)
         else:
             return func(request, *args, **kwargs)
     return wrapped

@@ -31,7 +31,7 @@ from django.utils.translation import ugettext as _
               </div>
 
               <div class="display-fun-payment-terms-footer">
-                <form action="${reverse('payment:accept-terms')}" method="POST">
+                <form action="${reverse('payment:accept-terms')}?next=${next | u}" method="POST">
                     <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
                     <button type="submit" id="validate-terms" class="btn-terms">${_("Accept")}</button>
                 </form>
