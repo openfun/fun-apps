@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.6.0] - 2020-12-04
+
 ### Added
 
-- Add a `next` query param on legal acceptance view to redirect user after acceptance to the route
-  provided in this param.
-
+- Add a `next` query param on legal acceptance view to redirect user after
+  acceptance to the route provided in this param.
 - Add a `richie` view to redirect user to richie after login/registration
 
 ## [5.5.1] - 2020-10-22
@@ -72,7 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.5.1...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.6.0...HEAD
+[5.6.0]: https://github.com/openfun/fun-apps/compare/v5.5.1...v5.6.0
 [5.5.1]: https://github.com/openfun/fun-apps/compare/v5.5.0...v5.5.1
 [5.5.0]: https://github.com/openfun/fun-apps/compare/v5.4.2...v5.5.0
 [5.4.2]: https://github.com/openfun/fun-apps/compare/v5.4.0...v5.4.2
