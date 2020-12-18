@@ -29,10 +29,9 @@ logger = logging.getLogger(__name__)
 
 class CourseHandler(object):
 
-    def __init__(self, course_descriptor):
-        self.course_descriptor = course_descriptor
-        self.key = unicode(course_descriptor.id)
-        self.course = modulestore().get_course(self.course_descriptor.id)
+    def __init__(self, course):
+        self.key = unicode(course.id)
+        self.course = course
 
     @property
     def memory_image_file(self):
@@ -52,15 +51,15 @@ class CourseHandler(object):
     @property
     def university_name(self):
         name = ''
-        if self.course_descriptor.display_organization:
-            name = unicode(self.course_descriptor.display_organization)
+        if self.course.display_organization:
+            name = unicode(self.course.display_organization)
         return name
 
     @property
     def image_location(self):
         course_locator = CourseLocator.from_string(self.key)
         location = StaticContent.compute_location(
-            course_locator, self.course_descriptor.course_image
+            course_locator, self.course.course_image
         )
         return location
 
@@ -86,7 +85,7 @@ class CourseHandler(object):
 
     def get_university(self):
         try:
-            university = University.objects.get(code=self.course_descriptor.org)
+            university = University.objects.get(code=self.course.org)
         except University.DoesNotExist:
             university = None
         return university
@@ -134,7 +133,7 @@ class Command(BaseCommand):
         for mongo_course in mongo_courses:
             try:
                 self.update_course(
-                    mongo_course=mongo_course,
+                    modulestore().get_course(mongo_course.id),
                     assign_universities=assign_universities
                 )
             except InvalidKeyError as err:
