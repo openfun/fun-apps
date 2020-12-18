@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix "update_courses" command used in cron job for mass updates
+
 ## [5.6.0] - 2020-12-04
 
 ### Added
