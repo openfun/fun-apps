@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Allow synchronizing course runs via an external synchronization hook
+
 ### Fixed
 
 - Fix "update_courses" command used in cron job for mass updates
