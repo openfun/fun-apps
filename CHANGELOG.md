@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.7.0] - 2021-01-06
+
 ### Added
 
 - Allow synchronizing course runs via an external synchronization hook
@@ -81,7 +83,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.6.0...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.7.0...HEAD
+[5.7.0]: https://github.com/openfun/fun-apps/compare/v5.6.0...v5.7.0
 [5.6.0]: https://github.com/openfun/fun-apps/compare/v5.5.1...v5.6.0
 [5.5.1]: https://github.com/openfun/fun-apps/compare/v5.5.0...v5.5.1
 [5.5.0]: https://github.com/openfun/fun-apps/compare/v5.4.2...v5.5.0
