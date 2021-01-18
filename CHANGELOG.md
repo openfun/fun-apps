@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix course run sync when one of the dates is not set
+
 ## [5.7.0] - 2021-01-06
 
 ### Added
