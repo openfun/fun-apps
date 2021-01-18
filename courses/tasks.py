@@ -35,9 +35,9 @@ def update_courses_meta_data(*args, **kwargs):
     course_id = kwargs["course_id"]
     course_key = CourseKey.from_string(course_id)
     course = modulestore().get_course(course_key)
-    edxapp_domain = microsite.get_value("site_domain", settings.SITE_NAME)
+    edxapp_domain = microsite.get_value("site_domain", settings.LMS_BASE)
     data = {
-        "resource_link": "https://{:s}/courses/{:s}/info/".format(
+        "resource_link": "https://{:s}/courses/{:s}/info".format(
             edxapp_domain, course_id
         ),
         "start": course.start and course.start.isoformat(),
