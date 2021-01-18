@@ -40,10 +40,10 @@ def update_courses_meta_data(*args, **kwargs):
         "resource_link": "https://{:s}/courses/{:s}/info/".format(
             edxapp_domain, course_id
         ),
-        "start": course.start.isoformat(),
-        "end": course.end.isoformat(),
-        "enrollment_start": course.enrollment_start.isoformat(),
-        "enrollment_end": course.enrollment_end.isoformat(),
+        "start": course.start and course.start.isoformat(),
+        "end": course.end and course.end.isoformat(),
+        "enrollment_start": course.enrollment_start and course.enrollment_start.isoformat(),
+        "enrollment_end": course.enrollment_end and course.enrollment_end.isoformat(),
         "languages": ["fr"],
     }
     json_data = json.dumps(data)
