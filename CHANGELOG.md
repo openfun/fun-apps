@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+### Changed
+
 - Enrich course run synchronization hook with course language
+
+### Fixed
+
+- Pin rsa dependency to 4.3
 
 ## [5.7.2] - 2021-01-18
 
