@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.0] - 2021-02-23
+
+### Added
+
+- Add verified users to a cohort automatically after payment
+
 ## [5.7.3] - 2021-02-23
 
 ### Changed
@@ -105,7 +111,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.7.3...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.8.0...HEAD
+[5.8.0]: https://github.com/openfun/fun-apps/compare/v5.7.3...v5.8.0
 [5.7.3]: https://github.com/openfun/fun-apps/compare/v5.7.2...v5.7.3
 [5.7.2]: https://github.com/openfun/fun-apps/compare/v5.7.1...v5.7.2
 [5.7.1]: https://github.com/openfun/fun-apps/compare/v5.7.0...v5.7.1
