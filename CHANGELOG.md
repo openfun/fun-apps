@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Enrich course run synchronization hook with course language
+
 ## [5.7.2] - 2021-01-18
 
 ### Fixed
