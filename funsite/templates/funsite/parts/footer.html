@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 %>
 <%namespace name='static' file='/static_content.html'/>
-
 <%page args="base_application"/>
 <div class="fun-footer">
     <div class="${'funsite-footer-width' if base_application=='funsite' else 'courseware-width'}">
@@ -13,7 +12,7 @@ from django.utils.translation import ugettext as _
         <ul class="top-footer">
             <div class="left-md-footer">
                 <li>
-                    <a href="${reverse('about')}">
+                    <a href="${settings.PLATFORM_RICHIE_URL}/${LANGUAGE_CODE}/a-propos">
                         ${_("About...")}
                     </a>
                 </li>
@@ -23,23 +22,23 @@ from django.utils.translation import ugettext as _
                     </a>
                 </li>
                 <li>
-                    <a href="${reverse('tos')}">
+                    <a href="${settings.PLATFORM_RICHIE_URL}/${LANGUAGE_CODE}/cgu">
                         ${_("Terms of use")}
                     </a>
                 </li>
             </div><div class="right-md-footer">
                 <li>
-                    <a href="${reverse('honor')}">
+                    <a href="${settings.PLATFORM_RICHIE_URL}/${LANGUAGE_CODE}/charte-utilisateurs">
                         ${_("Usage policy")}
                     </a>
                 </li>
                 <li>
-                    <a href="${reverse('privacy')}">
+                    <a href="${settings.PLATFORM_RICHIE_URL}/${LANGUAGE_CODE}/politique-de-confidentialite">
                         ${_("Privacy policy")}
                     </a>
                 </li>
                 <li>
-                    <a href="${reverse('legal')}">
+                    <a href="${settings.PLATFORM_RICHIE_URL}/${LANGUAGE_CODE}/mentions-legales">
                         ${_("Terms and conditions")}
                     </a>
                 </li>
