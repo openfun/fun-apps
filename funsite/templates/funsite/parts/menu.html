@@ -42,7 +42,7 @@ from django.utils.translation import ugettext as _
     </div>
     <div class="right-header clickable">
         <div class="header-block search-site-block">
-            <input id="search-site" name="query" value="" placeholder="${ _(u'Search courses') }" autocomplete="off">
+            <a href="${reverse('cours')}">${ _(u'Search courses') }</a>
         </div>
         % if not request.user.is_authenticated():
             <a class="signup-link header-block" href="${reverse('register_user')}">

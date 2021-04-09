@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Redirect selected routes to the related Richie CMS View
+- Delegate course search to Richie
 
 ## [5.8.0] - 2021-02-23
 
