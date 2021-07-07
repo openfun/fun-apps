@@ -20,13 +20,10 @@ logger = logging.getLogger(__name__)
 def update_courses_meta_data(*args, **kwargs):
     """
     A task to call when a course is updated in OpenEdX.
-    It calls:
-    - the "update_courses" management command to update the "fun-apps" search index.
-    - each course run hook url defined in the `COURSE_HOOKS` setting with scheduling information
-    """
-    # Update fun-apps course catalog
-    call_command("update_courses", *args, **kwargs)
 
+    It calls each course run hook url defined in the `COURSE_HOOKS` setting with
+    scheduling information.
+    """
     hooks = getattr(settings, "COURSE_HOOKS", [])
     if not hooks:
         return
