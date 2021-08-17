@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Protect ourselves against VideoFront downtimes by trying to load the video
+  object directly from S3 before falling back to querying the VideoFront API
+
 ## [2.4.2+wb] - 2020-07-20
 
 ### Changed

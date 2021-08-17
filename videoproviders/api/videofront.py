@@ -1,4 +1,5 @@
 from datetime import datetime
+from simplejson import JSONDecodeError
 import logging
 from time import mktime
 
@@ -168,6 +169,35 @@ class Client(BaseClient):
         """Return a single video, identified by its id, along with the
         subtitles information. This method is used by the video xblock to fetch
         video + subtitles info in one go."""
+        if getattr(settings, "VIDEOFRONT_CDN_BASE_URL"):
+            # Try getting the video document directly from the S3 bucket metadata file
+            try:
+                response = requests.get(
+                    "{cdn:s}/videos/{id:s}/metadata.json".format(
+                        cdn=settings.VIDEOFRONT_CDN_BASE_URL, id=video_id
+                    )
+                )
+            except requests.exceptions.RequestException:
+                logger.error(
+                    'Unexpected error loading metadata file for video "%s".',
+                    video_id,
+                )
+            else:
+                if response.status_code == 200:
+                    try:
+                        return response.json()
+                    except JSONDecodeError:
+                        logger.error(
+                            'Metadata for VideoFront video "%s" is not valid json.',
+                            video_id,
+                        )
+                else:
+                    logger.error(
+                        'VideoFront video "%s" could not be loaded from metadata file.',
+                        video_id,
+                    )
+
+        # Otherwise, load the video document from VideoFront
         video = self.fetch_video(video_id)
         video_dict = self.convert_video_to_dict(video)
         video_dict['subtitles'] = [
