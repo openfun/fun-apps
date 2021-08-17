@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.11.0] - 2021-08-17
+
 ### Changed
 
 - Protect ourselves against VideoFront downtimes by trying to load the video
@@ -142,7 +144,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.10.1...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.11.0...HEAD
+[5.11.0]: https://github.com/openfun/fun-apps/compare/v5.10.1...v5.11.0
 [5.10.1]: https://github.com/openfun/fun-apps/compare/v5.10.0...v5.10.1
 [5.10.0]: https://github.com/openfun/fun-apps/compare/v5.9.0...v5.10.0
 [5.9.0]: https://github.com/openfun/fun-apps/compare/v5.8.0...v5.9.0
