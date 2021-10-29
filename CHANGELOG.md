@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add enrollment count to the course run synchronization hook payload
+
 ## [5.11.0] - 2021-08-17
 
 ### Changed

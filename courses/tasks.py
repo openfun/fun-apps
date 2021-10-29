@@ -7,10 +7,11 @@ import logging
 from django.conf import settings
 from django.core.management import call_command
 
+import requests
 from celery import shared_task
 from microsite_configuration import microsite
 from opaque_keys.edx.keys import CourseKey
-import requests
+from student.models import CourseEnrollment
 from xmodule.modulestore.django import modulestore
 
 logger = logging.getLogger(__name__)
@@ -43,6 +44,7 @@ def update_courses_meta_data(*args, **kwargs):
         and course.enrollment_start.isoformat(),
         "enrollment_end": course.enrollment_end and course.enrollment_end.isoformat(),
         "languages": [course.language or "fr"],
+        "enrollment_count" : CourseEnrollment.objects.filter(course_id=course_id).count()
     }
     json_data = json.dumps(data)
 
