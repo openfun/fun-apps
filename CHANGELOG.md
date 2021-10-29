@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.12.0] - 2022-01-17
+
 ### Added
 
 - Add enrollment count to the course run synchronization hook payload
@@ -148,7 +150,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.11.0...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.12.0...HEAD
+[5.12.0]: https://github.com/openfun/fun-apps/compare/v5.11.0...v5.12.0
 [5.11.0]: https://github.com/openfun/fun-apps/compare/v5.10.1...v5.11.0
 [5.10.1]: https://github.com/openfun/fun-apps/compare/v5.10.0...v5.10.1
 [5.10.0]: https://github.com/openfun/fun-apps/compare/v5.9.0...v5.10.0
