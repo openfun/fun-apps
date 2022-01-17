@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Allow synchronizing course runs via an external synchronization hook
+
 ## [2.5.0+wb] - 2021-08-17
 
 ### Changed
