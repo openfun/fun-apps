@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0+wb] - 2022-01-21
+
 ### Added
 
 - Allow synchronizing course runs via an external synchronization hook
@@ -68,7 +70,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `selftest` application
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v2.5.0+wb...eucalyptus.3-wb
+[unreleased]: https://github.com/openfun/fun-apps/compare/v2.6.0+wb...eucalyptus.3-wb
+[2.6.0+wb]: https://github.com/openfun/fun-apps/compare/v2.5.0+wb...v2.6.0+wb
 [2.5.0+wb]: https://github.com/openfun/fun-apps/compare/v2.4.2+wb...v2.5.0+wb
 [2.4.2+wb]: https://github.com/openfun/fun-apps/compare/v2.4.1+wb...v2.4.2+wb
 [2.4.1+wb]: https://github.com/openfun/fun-apps/compare/v2.4.0+wb...v2.4.1+wb
