@@ -5,7 +5,6 @@ import json
 import logging
 
 from django.conf import settings
-from django.core.management import call_command
 
 import requests
 from celery import shared_task
@@ -34,6 +33,7 @@ def update_courses_meta_data(*args, **kwargs):
     course_key = CourseKey.from_string(course_id)
     course = modulestore().get_course(course_key)
     edxapp_domain = microsite.get_value("site_domain", settings.LMS_BASE)
+
     data = {
         "resource_link": "https://{:s}/courses/{:s}/info".format(
             edxapp_domain, course_id
@@ -44,7 +44,7 @@ def update_courses_meta_data(*args, **kwargs):
         and course.enrollment_start.isoformat(),
         "enrollment_end": course.enrollment_end and course.enrollment_end.isoformat(),
         "languages": [course.language or "fr"],
-        "enrollment_count" : CourseEnrollment.objects.filter(course_id=course_id).count()
+        "enrollment_count" : CourseEnrollment.objects.filter(course_id=course_key).count()
     }
     json_data = json.dumps(data)
 
