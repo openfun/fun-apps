@@ -1,7 +1,9 @@
 from django.dispatch import receiver
 
-from student.signals import ENROLL_STATUS_CHANGE
-from student.models import EnrollStatusChange
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from student.models import CourseEnrollment
 from xmodule.modulestore.django import SignalHandler
 
 
@@ -19,22 +21,12 @@ def update_course_meta_data_on_studio_publish(sender, course_key, **kwargs):
 
 
 @receiver(
-    ENROLL_STATUS_CHANGE,
-    dispatch_uid='fun.courses.signals.change_enrollment_status')
-def sync_openedx_to_richie_after_enrollment_status_change(
-        sender, event=None, course_id=None, **kwargs
-    ):
-    """
-    Trigger hook when changing a course enrollment and the change if of the type "enroll
-    """
-
-    if event != EnrollStatusChange.enroll:
-        return (
-            'FUN courses meta data update has been skipped, '
-            'because the event status change is not about enroll'
-        )
-
+    post_save,
+    sender=CourseEnrollment,
+    dispatch_uid='fun.courses.signals.sync_to_richie')
+def sync_openedx_to_richie_post_enrollment_save(sender, instance, **kwargs):
+    """Trigger hook when changing a course enrollment."""
     from .tasks import update_courses_meta_data
     # course_key is a CourseKey object and course_id its string representation
-    update_courses_meta_data.delay(course_id=unicode(course_id))
+    update_courses_meta_data.delay(course_id=unicode(instance.course_id))
     return 'FUN courses meta data update has been triggered from enrollment status change.'
