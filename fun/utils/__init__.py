@@ -11,12 +11,12 @@ from xmodule.modulestore.django import modulestore
 
 def is_cms_running():
     """Return True if we are running the cms service variant"""
-    return settings.ROOT_URLCONF == 'fun.cms.urls'
+    return settings.SITE_VARIANT == "cms"
 
 
 def is_lms_running():
     """Return True if we are running the lms service variant"""
-    return settings.ROOT_URLCONF == 'fun.lms.urls'
+    return settings.SITE_VARIANT == "lms"
 
 
 def get_course(course_key_string):
