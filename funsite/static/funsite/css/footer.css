@@ -47,6 +47,7 @@ ul.top-footer li a:visited {
     display: -ms-flex;
     display: -moz-flex;
 
+    align-items: center;
     justify-content: space-between;
     -webkit-justify-content: space-between;
     -ms-justify-content: space-between;
@@ -66,6 +67,8 @@ ul.top-footer li a:visited {
 	vertical-align:bottom !important;
 }
 .bottom-footer ul.fun-footer-icons {
+    align-items: center;
+    display: flex;
     margin: 0;
     padding-left: 0;
     list-style: none;
