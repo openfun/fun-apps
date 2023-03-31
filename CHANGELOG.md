@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.0] - 2023-03-31
+
 ### Changed
 
 - Replace FUN Mooc logo with new FUN logo into menu and footer
@@ -171,7 +173,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.13.1...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.14.0...HEAD
+[5.14.0]: https://github.com/openfun/fun-apps/compare/v5.13.1...v5.14.0
 [5.13.1]: https://github.com/openfun/fun-apps/compare/v5.13.0...v5.13.1
 [5.13.0]: https://github.com/openfun/fun-apps/compare/v5.12.0...v5.13.0
 [5.12.0]: https://github.com/openfun/fun-apps/compare/v5.11.0...v5.12.0
