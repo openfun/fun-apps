@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replace FUN Mooc logo with new FUN logo into menu and footer
+
 ## [5.13.1] - 2022-05-31
 
 ### Fixed

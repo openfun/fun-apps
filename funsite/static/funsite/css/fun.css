@@ -264,15 +264,15 @@ h3.big-title {
   font-weight: 500;
   font-size: 16px;
   border-radius: 0;
-  color: #3877bc;
+  color: #0A51A1;
 }
 .btn.btn-default {
   background-color: white;
-  border: 1px solid #3877bc;
+  border: 1px solid #0A51A1;
 }
 .btn-transparent {
   background-color: transparent;
-  border: 1px solid #3877bc;
+  border: 1px solid #0A51A1;
 }
 .btn.btn-default:hover,
 .btn.btn-transparent:hover {
@@ -284,8 +284,8 @@ h3.big-title {
   color: white;
 }
 .btn.btn-primary {
-  background-color: #3877bc;
-  border: 1px solid #3877bc;
+  background-color: #0A51A1;
+  border: 1px solid #0A51A1;
   color: white;
 }
 .btn.btn-primary:hover {
@@ -351,7 +351,7 @@ ul.breadcrumbs {
 ul.breadcrumbs li {
   display: inline;
   font-weight: 600 !important ;
-  color: #3877bc;
+  color: #0A51A1;
 }
 ul.breadcrumbs li:not(:last-child):after {
   content: '   •';
@@ -751,7 +751,7 @@ ul.breadcrumbs li a:focus {
   color: #656667;
 }
 .course-block .footer .register {
-  background-color: #3877bc;
+  background-color: #0A51A1;
   color: white;
   text-align: center;
   font-weight: 600;
@@ -1551,8 +1551,8 @@ ul.universities-list {
 }
 
 .modal .modal-body button {
-  border: 1px solid #3877bc;
-  background-color: #3877bc;
+  border: 1px solid #0A51A1;
+  background-color: #0A51A1;
   text-align: center;
   font-style: normal;
   font-weight: 500;
@@ -1654,7 +1654,7 @@ ul.universities-list {
 }
 
 .course-about .right .register-course-button {
-  background-color: #3877bc;
+  background-color: #0A51A1;
   color: white;
   font-size: 20px;
   font-weight: 600;
