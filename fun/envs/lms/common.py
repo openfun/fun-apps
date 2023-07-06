@@ -32,6 +32,7 @@ INSTALLED_APPS += (
     'payment',
     'payment_api',
 
+    'mailing_list',
     'forum_contributors',
     'password_container',  # this is an xblock we add to applications to allow syncdb of its models
     'teachers',
@@ -103,6 +104,7 @@ MAKO_TEMPLATES['main'] = [
     FUN_BASE_ROOT / 'course_dashboard/templates',
     FUN_BASE_ROOT / 'newsfeed/templates',
     FUN_BASE_ROOT / 'fun_certificates/templates',
+    FUN_BASE_ROOT / 'mailing_list/templates',
 ] + MAKO_TEMPLATES['main']
 
 # Add funsite templates directory to Django templates finder.

@@ -40,7 +40,7 @@ urlpatterns = patterns('',
         RedirectView.as_view(url=reverse_lazy('fun-courses:index'))
     ),
     url(r'^courses$', RedirectView.as_view(url=reverse_lazy('fun-courses:index'))),
-
+    url(r'^courses/{}/mailing-list/'.format(settings.COURSE_ID_PATTERN), include('mailing_list.urls', namespace='fun_mailing_list')),
     url(r'^courses/{}/instructor/api/forum-contributors/'.format(settings.COURSE_ID_PATTERN),
             include('forum_contributors.urls')),
     url(r'^courses/{}/fun/dashboard/'.format(settings.COURSE_ID_PATTERN),
