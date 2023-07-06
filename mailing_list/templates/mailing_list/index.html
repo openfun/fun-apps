@@ -1,0 +1,33 @@
+## mako
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+%>
+
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%block name="title">${course_title} - ${_(u"Email settings")}</%block>
+<%block name="page_content">
+    <h1>${course_title} - ${_(u"Email settings")}</h1>
+    <p>
+        % if mode == 'subscribe':
+            ${_(u'{email} have been subscribed to the mailing list of the course "{course_title}".').format(email=email, course_title=course_title)}
+        % elif mode == 'unsubscribe':
+            ${_(u'{email} have been unsubscribed to the mailing list of the course "{course_title}".').format(email=email, course_title=course_title)}
+        % endif
+    </p>
+    <p>
+        ${_(u"Isn't that what you wanted to do?")}
+            <a href='${revert_link}'>
+            % if mode == 'subscribe':
+                ${_(u"Cancel your subscription now!")}
+            % elif mode == 'unsubscribe':
+                ${_(u"Subscribe again now!")}
+            % endif
+            </a>
+        </a>
+    </p>
+    <p>
+        <a href="${reverse("root")}">${_(u"Go back to the catalog")}</a>
+    </p>
+</%block>
