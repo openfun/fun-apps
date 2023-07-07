@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.15.0] - 2023-07-07
+
 ### Added
 
 - Create mailing_list routes to un.subscribe users from a course's mailing list
@@ -177,7 +179,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.14.0...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.15.0...HEAD
+[5.15.0]: https://github.com/openfun/fun-apps/compare/v5.14.0...v5.15.0
 [5.14.0]: https://github.com/openfun/fun-apps/compare/v5.13.1...v5.14.0
 [5.13.1]: https://github.com/openfun/fun-apps/compare/v5.13.0...v5.13.1
 [5.13.0]: https://github.com/openfun/fun-apps/compare/v5.12.0...v5.13.0
