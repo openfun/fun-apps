@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.16.0] - 2023-10-10
+
 ### Added
 
 - Add title to course run synchronization data
@@ -189,7 +191,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.15.1...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.16.0...HEAD
+[5.16.0]: https://github.com/openfun/fun-apps/compare/v5.15.1...v5.16.0
 [5.15.1]: https://github.com/openfun/fun-apps/compare/v5.15.0...v5.15.1
 [5.15.0]: https://github.com/openfun/fun-apps/compare/v5.14.0...v5.15.0
 [5.14.0]: https://github.com/openfun/fun-apps/compare/v5.13.1...v5.14.0
