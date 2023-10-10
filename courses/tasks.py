@@ -38,6 +38,7 @@ def update_courses_meta_data(*args, **kwargs):
         "resource_link": "https://{:s}/courses/{:s}/info".format(
             edxapp_domain, course_id
         ),
+        "title": unicode(course.display_name_with_default).encode('utf-8'),
         "start": course.start and course.start.isoformat(),
         "end": course.end and course.end.isoformat(),
         "enrollment_start": course.enrollment_start
