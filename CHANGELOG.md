@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Middleware to inspect oauth2 authorize request
+
 ## [5.16.0] - 2023-10-10
 
 ### Added
