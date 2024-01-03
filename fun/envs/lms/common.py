@@ -53,6 +53,7 @@ FEATURES['ENABLE_MKTG_SITE'] = False
 SITE_NAME = LMS_BASE
 
 MIDDLEWARE_CLASSES += LEGAL_ACCEPTANCE_MIDDLEWARE
+MIDDLEWARE_CLASSES += OAUTH2_STEP_MIDDLEWARE
 MIDDLEWARE_CLASSES += ('backoffice.middleware.PathLimitedMasqueradeMiddleware',)
 
 # MKTG_URL_LINK_MAP links are named url reverses belonging to Django project
