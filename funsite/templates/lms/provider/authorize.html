@@ -1,0 +1,56 @@
+## mako
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from provider.templatetags.scope import scopes
+%>
+
+<%inherit file="/funsite/parts/simple-content.html" />
+
+<%block name="title">${_("")}</%block>
+
+<%block name="page_content">
+
+    <section>
+
+      <article>
+
+        % if not error :
+        <br>
+              <div>
+                ${_("Redirecting you to the targeted resource")}
+              </div>
+
+              <form method="post" id="oauth2_authorize" action="${reverse('oauth2:authorize')}">
+                  <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
+                  <input type="hidden" name="authorize" value="authorize">
+                  <fieldset>
+                      <div style="display: none;" />
+                          <select type="select" name="scope" multiple="multiple">
+                          % for scope in scopes(oauth_data["scope"]):
+                              <option value="${scope}" selected="selected">${scope}</option>
+                          % endfor
+                          </select>
+                      </div>
+                  </fieldset>
+              </form>
+        % else:
+            ${error|n}
+            ${error_description|n}
+        % endif
+
+        </article>
+    </section>
+
+  </%block>
+
+  <%block name="js_extra">
+    % if not error :
+      <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+          document.querySelector('#oauth2_authorize').submit();
+        });
+      </script>
+    % endif
+  </%block>
+

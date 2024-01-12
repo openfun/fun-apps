@@ -372,3 +372,7 @@ msgstr ""
 msgid "h/week"
 msgstr "h/semaine"
 
+#: /edx/app/edxapp/fun-apps/funsite/templates/lms/provider/authorize.html:0
+msgid "Redirecting you to the targeted resource"
+msgstr "Redirection vers la ressource désirée"
+
