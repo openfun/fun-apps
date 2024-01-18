@@ -9,12 +9,13 @@ import requests
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from opaque_keys import InvalidKeyError
-from opaque_keys.edx.keys import CourseKey
-from xmodule.modulestore.django import modulestore
 from microsite_configuration import microsite
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
 from student.models import CourseEnrollment
+
+from courses.models import Course
+
 
 logger = logging.getLogger(__name__)
 
@@ -37,28 +38,21 @@ class Command(BaseCommand):
         For each course, we create or update the corresponding
         course in SQL Course table.
         '''
+        i = 0
         for course in courses:
-            try:
-                self.update_course(
-                    modulestore().get_course(course.id),
-                )
-            except InvalidKeyError as err:
-                # Log the error but continue indexing other courses
-                logger.error(err)
+            i += 1
+            self.stdout.write('Course {}/{}: '.format(i, len(courses)), ending='')
+            self.update_course(course)
 
-        self.stdout.write('Number of courses parsed: {}\n'.format(len(courses)))
-        return None
+        self.stdout.write('\nNumber of courses parsed: {}\n'.format(len(courses)))
 
     def update_course(self, course):
         '''
         For the given course, we create or update the corresponding
         course in SQL Course table.
         '''
-
-        # course_handler = CourseHandler(mongo_course)
         course_id = unicode(course.id)
-        self.stdout.write('\nMigrating data for course {}\n'.format(course_id))
-        # update_courses_meta_data(course_id=unicode(key))
+        self.stdout.write('Migrating data for course {}: '.format(course_id), ending='')
 
         joanie_hooks = getattr(settings, "JOANIE_HOOKS")
         if not joanie_hooks:
@@ -68,14 +62,12 @@ class Command(BaseCommand):
         if not courses_hook:
             return
 
-        # Synchronize with external course hook
-        # course_id = kwargs["course_id"]
-        course_key = CourseKey.from_string(course_id)
-        course = modulestore().get_course(course_key)
         edxapp_domain = microsite.get_value("site_domain", settings.LMS_BASE)
+        real_course = Course.objects.get(key=course.id)
+        university = real_course.get_first_university()
 
         data = {
-            "resource_link": "https://{:s}/courses/{:s}/info".format(
+            "resource_link": "https://{:s}/courses/{:s}/course".format(
                 edxapp_domain, course_id
             ),
             "title": unicode(course.display_name_with_default).encode('utf-8'),
@@ -84,11 +76,11 @@ class Command(BaseCommand):
             "enrollment_start": course.enrollment_start
                                 and course.enrollment_start.isoformat(),
             "enrollment_end": course.enrollment_end and course.enrollment_end.isoformat(),
-            "languages": [course.language or "fr"],
-            "enrollment_count": CourseEnrollment.objects.filter(course_id=course_key).count()
+            "languages": [real_course.language or "fr"],
+            "enrollment_count": CourseEnrollment.objects.filter(course_id=course.id).count(),
+            "organization_code": university.code if university else None,
         }
         json_data = json.dumps(data)
-        print(json_data)
 
         signature = hmac.new(
             joanie_hooks["secret"].encode("utf-8"),
@@ -102,34 +94,28 @@ class Command(BaseCommand):
             headers={"Authorization": "SIG-HMAC-SHA256 {:s}".format(signature)},
             verify=joanie_hooks.get("verify", True),
         )
-        print(response.json())
 
         if response.status_code != requests.codes.ok:
             logger.error(
                 "Call to course hook failed for {:s}".format(course_id),
                 extra={"sent": data, "response": response.content},
             )
-        
-        self.stdout.write('Migrated course {}\n'.format(course_id))
+            self.stdout.write("Error")
+        else:
+            self.stdout.write("Success")
         return None
 
     def handle(self, *args, **options):
-        '''
+        """
         This command can handle the update of a single course if the course ID
         if provided. Otherwise, it will update all courses found in MongoDB.
-        '''
+        """
         course_id = options.get('course_id')
         if course_id:
-            # course_key is a CourseKey object and course_id its sting representation
-            course_key = CourseKey.from_string(course_id)
-            course = modulestore().get_course(course_key)
-            self.update_course(
-                course=course,
-            )
+            course = CourseOverview.objects.get(id=course_id)
+            self.update_course(course=course)
         else:
-            courses = modulestore().get_courses()
-            self.update_all_courses(
-                courses=courses,
-            )
+            courses = CourseOverview.objects.all()[0:10]
+            self.update_all_courses(courses=courses)
 
         print "Done !!!"
