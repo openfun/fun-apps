@@ -34,10 +34,10 @@ class Command(BaseCommand):
     )
 
     def update_all_courses(self, courses):
-        '''
+        """
         For each course, we create or update the corresponding
-        course in SQL Course table.
-        '''
+        course in Joanie through the API.
+        """
         i = 0
         for course in courses:
             i += 1
@@ -47,10 +47,10 @@ class Command(BaseCommand):
         self.stdout.write('\nNumber of courses parsed: {}\n'.format(len(courses)))
 
     def update_course(self, course):
-        '''
+        """
         For the given course, we create or update the corresponding
-        course in SQL Course table.
-        '''
+        course in Joanie through the API.
+        """
         course_id = unicode(course.id)
         self.stdout.write('Migrating data for course {}: '.format(course_id), ending='')
 
@@ -88,12 +88,21 @@ class Command(BaseCommand):
             digestmod=hashlib.sha256,
         ).hexdigest()
 
-        response = requests.post(
-            courses_hook,
-            json=data,
-            headers={"Authorization": "SIG-HMAC-SHA256 {:s}".format(signature)},
-            verify=joanie_hooks.get("verify", True),
-        )
+        try:
+            response = requests.post(
+                courses_hook,
+                json=data,
+                headers={"Authorization": "SIG-HMAC-SHA256 {:s}".format(signature)},
+                verify=joanie_hooks.get("verify", True),
+                timeout=1
+            )
+        except requests.exceptions.ReadTimeout:
+            logger.error(
+                "Call to course hook timed out for {:s}".format(university_id),
+                extra={"sent": data},
+            )
+            self.stdout.write("Error")
+            return None
 
         if response.status_code != requests.codes.ok:
             logger.error(
@@ -115,7 +124,7 @@ class Command(BaseCommand):
             course = CourseOverview.objects.get(id=course_id)
             self.update_course(course=course)
         else:
-            courses = CourseOverview.objects.all()[0:10]
+            courses = CourseOverview.objects.all()
             self.update_all_courses(courses=courses)
 
         print "Done !!!"
