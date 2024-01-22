@@ -79,6 +79,7 @@ class Command(BaseCommand):
             "languages": [real_course.language or "fr"],
             "enrollment_count": CourseEnrollment.objects.filter(course_id=course.id).count(),
             "organization_code": university.code if university else None,
+            "created_on": course.created.isoformat(),
         }
         json_data = json.dumps(data)
 
@@ -98,7 +99,7 @@ class Command(BaseCommand):
             )
         except requests.exceptions.ReadTimeout:
             logger.error(
-                "Call to course hook timed out for {:s}".format(university_id),
+                "Call to course hook timed out for {:s}".format(course_id),
                 extra={"sent": data},
             )
             self.stdout.write("Error")
@@ -124,7 +125,7 @@ class Command(BaseCommand):
             course = CourseOverview.objects.get(id=course_id)
             self.update_course(course=course)
         else:
-            courses = CourseOverview.objects.all()
+            courses = CourseOverview.objects.all().order_by('created')
             self.update_all_courses(courses=courses)
 
         print "Done !!!"
