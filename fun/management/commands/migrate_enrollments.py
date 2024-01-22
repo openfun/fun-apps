@@ -94,12 +94,16 @@ class Command(BaseCommand):
         return None
 
     def handle(self, *args, **options):
-        course_ids = CourseOverview.objects.all().order_by('created').values_list('id', flat=True)
-        print(course_ids)
-        course_keys = [CourseKey.from_string(course_id) for course_id in course_ids]
-        enrollments = CourseEnrollment.objects.filter(
-            is_active=True, course_id__in=course_keys
-        ).order_by('created')
-        # pprint(enrollments)
-        for enrollment in enrollments:
-            self.update_enrollment(enrollment)
+        enrollments_batch_size = 100
+        enrollments_count = CourseEnrollment.objects.all().count()
+        i = 0
+        print(enrollments_count)
+        for current_enrollment_index in range(0, enrollments_count, enrollments_batch_size):
+            enrollments = CourseEnrollment.objects.all()[
+                current_enrollment_index:current_enrollment_index + enrollments_batch_size
+            ]
+            print(current_enrollment_index, current_enrollment_index + enrollments_batch_size)
+            for enrollment in enrollments:
+                i += 1
+                self.stdout.write('Enrollment {}/{}: '.format(i, enrollments_count), ending='')
+                self.update_enrollment(enrollment)
