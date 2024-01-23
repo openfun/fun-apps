@@ -3,6 +3,7 @@ import hashlib
 import hmac
 import json
 import logging
+import time
 from pprint import pprint
 
 import requests
@@ -10,10 +11,8 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from microsite_configuration import microsite
-from opaque_keys.edx.keys import CourseKey
 
 from student.models import CourseEnrollment
-from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
 
 logger = logging.getLogger(__name__)
@@ -22,13 +21,7 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
     help = "Update FUN's course data."
 
-    def update_enrollment(self, enrollment):
-        enrollment_id = unicode(enrollment.id)
-        self.stdout.write('Migrating data for enrollment {}: '.format(enrollment_id), ending='')
-        if not enrollment.course_overview:
-            self.stdout.write("No course overview")
-            return None
-
+    def update_enrollment(self, enrollments, batch):
         joanie_hooks = getattr(settings, "JOANIE_HOOKS")
         if not joanie_hooks:
             return
@@ -38,27 +31,27 @@ class Command(BaseCommand):
             return
 
         edxapp_domain = microsite.get_value("site_domain", settings.LMS_BASE)
+
+        self.stdout.write('Preparing data… ', ending='')
+        start_time = time.time()
         data = {
-            "resource_link": "https://{:s}/courses/{:s}/course".format(
-                edxapp_domain, enrollment.course_id
-            ),
-            "is_active": enrollment.is_active,
-            "created_on": enrollment.created.isoformat(),
-            "user": {
-                "username": enrollment.user.username,
-                "email": enrollment.user.email,
-                "password": enrollment.user.password,
-                "first_name": enrollment.user.first_name,
-                "last_name": enrollment.user.last_name,
-                "is_active": enrollment.user.is_active,
-                "is_staff": enrollment.user.is_staff,
-                "is_superuser": enrollment.user.is_superuser,
-                "date_joined": enrollment.user.date_joined.isoformat(),
-                "last_login": enrollment.user.last_login.isoformat(),
-            },
+            "enrollments": [
+                {
+                    "resource_link": "https://{:s}/courses/{:s}/course".format(
+                        edxapp_domain, enrollment.get("course_id")
+                    ),
+                    "is_active": enrollment.get("is_active"),
+                    "created_on": enrollment.get("created").isoformat(),
+                    "username": enrollment.get("user__username"),
+                }
+                for enrollment in enrollments
+            ]
         }
+        data_time = time.time()
+        self.stdout.write('{:.2f} | '.format(data_time - start_time), ending='')
+
         json_data = json.dumps(data)
-        pprint(data)
+        self.stdout.write('Sending… ', ending='')
 
         signature = hmac.new(
             joanie_hooks["secret"].encode("utf-8"),
@@ -72,38 +65,60 @@ class Command(BaseCommand):
                 json=data,
                 headers={"Authorization": "SIG-HMAC-SHA256 {:s}".format(signature)},
                 verify=joanie_hooks.get("verify", True),
-                timeout=1
+                timeout=5
             )
+            end_time = time.time()
         except requests.exceptions.ReadTimeout:
             logger.error(
-                "Call to enrollment hook timed out for {:s}".format(enrollment_id),
-                extra={"sent": data},
+                "Call to enrollment hook timed out for batch {}/{}".format(*batch),
+                # extra={"sent": data},
             )
-            self.stdout.write("Error")
+            end_time = time.time()
+            self.stdout.write('{:.2f} | '.format(end_time - data_time), ending='')
+            self.stdout.write("Error", ending='')
             return None
+        self.stdout.write('{:.2f} | '.format(end_time - data_time), ending='')
 
         if response.status_code != requests.codes.ok:
             pprint(response.content)
             logger.error(
-                "Call to enrollment hook failed for {:s}".format(enrollment_id),
-                extra={"sent": data, "response": response.content},
+                "Call to enrollment hook failed for batch {}/{}".format(*batch),
+                extra={"response": response.content},
             )
-            self.stdout.write("Error")
+            self.stdout.write("Error", ending='')
         else:
-            self.stdout.write("Success")
+            self.stdout.write("Success", ending='')
+        del data
         return None
 
     def handle(self, *args, **options):
-        enrollments_batch_size = 100
+        enrollments_batch_size = 1000
         enrollments_count = CourseEnrollment.objects.all().count()
-        i = 0
-        print(enrollments_count)
         for current_enrollment_index in range(0, enrollments_count, enrollments_batch_size):
-            enrollments = CourseEnrollment.objects.all()[
+            start_time = time.time()
+            enrollments = CourseEnrollment.objects.all().values(
+                'course_id', 'is_active', 'created', 'user__username'
+            )[
                 current_enrollment_index:current_enrollment_index + enrollments_batch_size
-            ]
-            print(current_enrollment_index, current_enrollment_index + enrollments_batch_size)
-            for enrollment in enrollments:
-                i += 1
-                self.stdout.write('Enrollment {}/{}: '.format(i, enrollments_count), ending='')
-                self.update_enrollment(enrollment)
+            ].iterator()
+            request_time = time.time()
+            self.stdout.write(
+                'Enrollment {}-{}/{} {:.5f} | '.format(
+                    current_enrollment_index,
+                    current_enrollment_index + enrollments_batch_size,
+                    enrollments_count,
+                    request_time - start_time,
+                ),
+                ending=''
+            )
+            self.update_enrollment(
+                enrollments,
+                batch=(
+                    current_enrollment_index,
+                    current_enrollment_index + enrollments_batch_size
+                )
+            )
+            end_time = time.time()
+            self.stdout.write(' {:.2f}'.format(end_time - start_time))
+
+        print("Done !!!")
