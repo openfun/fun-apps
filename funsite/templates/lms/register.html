@@ -24,8 +24,15 @@ from student.models import UserProfile
          });
 
          function onSuccess(json) {
-             var url = json.redirect_url || "${reverse('dashboard')}";
-             location.href = url;
+            var queryParameters = new URLSearchParams(location.search);
+            var next = queryParameters.get('next');
+            if (next) {
+              queryParameters.delete('next');
+              location.href = location.origin + '/' + next + '?' + queryParameters.toString();
+            } else {
+              var url = json.redirect_url || "${reverse('dashboard')}";
+              location.href = url;
+            }
          }
 
          function onError(jqXHR) {
