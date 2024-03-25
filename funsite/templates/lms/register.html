@@ -163,8 +163,8 @@ from student.models import UserProfile
                     </div>
 
                     <div class="form-group" id="field-newsletter">
-                        <input id="newsletter" type="checkbox" value="true" />
-                        <label for="newsletter">${_("I agree to receive your emails on the offer of paid professional training FUN and confirm that I have read the <a href='https://www.fun-mooc.fr/fr/cgu/cgu-newsletter-formapro/' tabindex='-1'>General conditions of the professional training newsletter</a>")}</label>
+                        <input id="newsletter" type="checkbox" />
+                        <label for="newsletter">${_("I agree to receive your emails on the offer of paid professional training FUN and confirm that I have read the <a href='https://www.fun-mooc.fr/en/cgu/cgu-newsletter-formapro/' tabindex='-1'>General conditions of the professional training newsletter</a>")}</label>
                     </div>
                     % if course_id and enrollment_action:
                         <input type="hidden" name="enrollment_action" value="${enrollment_action | h}" />
