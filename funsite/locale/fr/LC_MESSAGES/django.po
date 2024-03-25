@@ -295,7 +295,7 @@ msgid "Sign up to {platform_name}"
 msgstr "Inscription à {platform_name}"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/lms/register.html:0
-msgid "I agree to receive your emails on the offer of paid professional training FUN and confirm that I have read the <a href='https://www.fun-mooc.fr/en/cgu/cgu-newsletter-formapro/' tabindex='-1'>General conditions of the professional training newsletter</a>"
+msgid "I agree to receive your emails on the offer of paid professional training FUN and confirm that I have read the <a href='https://www.fun-mooc.fr/en/cgu/cgu-newsletter-formapro/' tabindex='-1'>General Conditions of the Professional Training Newsletter</a>"
 msgstr "J’accepte de recevoir vos emails sur l’offre de formations professionnelles payantes FUN et confirme avoir pris connaissance des <a href='https://www.fun-mooc.fr/fr/cgu/cgu-newsletter-formapro/' tabindex='-1'>Conditions générales de la newsletter formation professionnelle</a>"
 
 #: /edx/app/edxapp/fun-apps/funsite/templates/funsite/static_templates/register_info.html:0
