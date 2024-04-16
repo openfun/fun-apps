@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.19.0] - 2024-04-16
+
 ### Added
 
 - Add FUN Mooc logo in footer
@@ -207,7 +209,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rewrite constants related to fun's PDF certificates urls
 
-[unreleased]: https://github.com/openfun/fun-apps/compare/v5.18.0...HEAD
+[unreleased]: https://github.com/openfun/fun-apps/compare/v5.19.0...HEAD
+[5.19.0]: https://github.com/openfun/fun-apps/compare/v5.18.0...v5.19.0
 [5.18.0]: https://github.com/openfun/fun-apps/compare/v5.17.0...v5.18.0
 [5.17.0]: https://github.com/openfun/fun-apps/compare/v5.16.0...v5.17.0
 [5.16.0]: https://github.com/openfun/fun-apps/compare/v5.15.1...v5.16.0
