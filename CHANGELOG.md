@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Prevent to index certificate pages
+
 ## [5.20.0] - 2024-05-13
 
 ### Changed
