@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.22.0] - 2026-01-28
+
+- Update overlay - funsite 
+
 ## [5.21.0] - 2025-01-13
 
 ### Changed
