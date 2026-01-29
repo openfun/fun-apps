@@ -8,7 +8,7 @@ jobs:
   build:
 
     docker:
-      - image: circleci/python:2.7-stretch
+      - image:  cimg/python:2.7-stretch
 
     steps:
       - checkout
@@ -63,7 +63,7 @@ jobs:
   validate:
 
     docker:
-      - image: circleci/python:2.7-stretch
+      - image:  cimg/python:2.7-stretch
         environment:
           # This is the branch that is supposed to contain target commit/tag
           TARGET_BRANCH: dogwood.3-fun
