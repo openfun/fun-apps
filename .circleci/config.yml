@@ -8,7 +8,7 @@ jobs:
   build:
 
     docker:
-      - image:  cimg/python:2.7-stretch
+      - image:  cimg/python:2.7.16
 
     steps:
       - checkout
@@ -63,7 +63,7 @@ jobs:
   validate:
 
     docker:
-      - image:  cimg/python:2.7-stretch
+      - image:  cimg/python:2.7.16
         environment:
           # This is the branch that is supposed to contain target commit/tag
           TARGET_BRANCH: dogwood.3-fun
