@@ -14,7 +14,7 @@
      */
     $('#top-menu .right-header .login-link').on('click', function(event) {
         var path = window.location.pathname || '';
-
+        console.log("test log message console path", path);
         // Cas spécifique : page de login LMS
         if (path.indexOf('/login') === 0) {
             event.preventDefault();
