@@ -12,17 +12,20 @@
      *   must redirect directly to /keycloak-login (SSO), without opening the overlay.
      * - on other pages (FUN / marketing site), we keep the existing overlay behaviour.
      */
-    $('#top-menu .right-header .login-link').on('click', function(event) {
+    // Use event delegation to ensure the event is attached even if the element doesn't exist yet
+    $(document).on('click', '#top-menu .right-header .login-link', function(event) {
         var path = window.location.pathname || '';
-
-        // Cas spécifique : page de login LMS
+        console.log('path', path);
+        // Specific case: LMS login page
         if (path.indexOf('/login') === 0) {
             event.preventDefault();
+            event.stopImmediatePropagation(); // Prevent other handlers from executing
+            event.stopPropagation();
             window.location.href = '/keycloak-login';
             return false;
         }
 
-        // Comportement historique : ouverture/fermeture de l'overlay
+        // Historical behavior: open/close overlay
         $('#login-overlay').toggle();
         if ($('#login-overlay').is(':visible')) {
             $('#login-overlay input[name=\"email\"]').focus();
