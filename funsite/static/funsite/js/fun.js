@@ -12,21 +12,54 @@
      *   must redirect directly to /keycloak-login (SSO), without opening the overlay.
      * - on other pages (FUN / marketing site), we keep the existing overlay behaviour.
      */
-    $('#top-menu .right-header .login-link').on('click', function(event) {
+    // Use event delegation to ensure the event is attached even if the element doesn't exist yet
+    $(document).on('click', '#top-menu .right-header .login-link', function(event) {
         var path = window.location.pathname || '';
-        console.log("test log message console path", path);
-        // Cas spécifique : page de login LMS
+        var href = $(this).attr('href') || '';
+        var host = window.location.hostname || '';
+
+        // 1) LMS login pages: /login and /login?next=/account/settings
+        //    → redirect current tab to /keycloak-login (SSO)
         if (path.indexOf('/login') === 0) {
             event.preventDefault();
+            event.stopImmediatePropagation(); // Prevent other handlers from executing
+            event.stopPropagation();
             window.location.href = '/keycloak-login';
             return false;
         }
 
-        // Comportement historique : ouverture/fermeture de l'overlay
-        $('#login-overlay').toggle();
-        if ($('#login-overlay').is(':visible')) {
-            $('#login-overlay input[name=\"email\"]').focus();
+        // 2) Other LMS pages (e.g. /courses/...) with a login link pointing to /login
+        //    → open /keycloak-login in a new tab AND refresh the current page
+        //    We restrict this behaviour to LMS hostnames to avoid touching the marketing site.
+        var isLmsHost = (
+            host.indexOf('lms.') === 0 ||                 // lms.preprod-fun.apps.openfun.fr
+            host === 'localhost'                          // local dev (nginx on 8073)
+        );
+        if (isLmsHost && href && href.indexOf('/login') !== -1) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+
+            // Open Keycloak login in a new tab
+            window.open('/keycloak-login', '_blank');
+            // Refresh current page to keep it in sync (user will still be anonymous here)
+            window.location.reload();
+            return false;
         }
+
+        // 3) Historical behavior: open/close overlay on the FUN marketing site
+        //    This only applies when href is '#' (overlay trigger).
+        if (href === '#' || !href) {
+            event.preventDefault();
+            $('#login-overlay').toggle();
+            if ($('#login-overlay').is(':visible')) {
+                $('#login-overlay input[name=\"email\"]').focus();
+            }
+            return false;
+        }
+
+        // 4) Fallback: let the browser handle the click normally
+        return true;
     });
 
     function getParameterByName(name) {
