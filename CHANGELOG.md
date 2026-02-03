@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Fix login button redirection behavior for Keycloak SSO
+- Redirect login and registration to Keycloak
 
 ## [5.22.0] - 2026-01-28
 

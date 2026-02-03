@@ -41,13 +41,13 @@ from django.utils.translation import ugettext as _
         %else:
 
         <li>
-            <a href="${reverse('register_user')}" data-location="register">
+            <a href="/keycloak-register" data-location="register">
                 ${_("Register")}
             </a>
         </li>
 
         <li>
-            <a href="${reverse('signin_user')}" data-location="login">
+            <a href="/keycloak-login" data-location="login">
                 ${_("Login")}
             </a>
         </li>
