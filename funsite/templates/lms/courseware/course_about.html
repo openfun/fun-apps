@@ -60,7 +60,7 @@ from funsite.utils import is_paid_course
             },
             error: function(response) {
                 if (response.status == 403) {
-                    location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
+                    location.href = "/keycloak-register?course_id=${course.id | u}&enrollment_action=enroll";
                 } else {
                     $('.register-error').html(
                         (response ? response : "${_('An error occurred. Please try again later.')}")
