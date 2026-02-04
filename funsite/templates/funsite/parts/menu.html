@@ -43,10 +43,18 @@ from django.utils.translation import ugettext as _
             <a href="${reverse('cours')}">${ _(u'Search courses') }</a>
         </div>
         % if not request.user.is_authenticated():
-            <a class="signup-link header-block" href="/keycloak-register">
-                <span class="color-fun-red heavy-weight">${_(u"Sign up")}</span>
-            </a>
-            <a class="login-link header-block" href="${'#' if base_application == 'funsite' else '/keycloak-login'}">
+            <%
+                if base_application == 'funsite':
+                    login_href = '/keycloak-login'
+                else:
+                    if course:
+                        course_id = unicode(course.id)
+                        login_next = '/courses/{}/info'.format(course_id)
+                    else:
+                        login_next = '/account/settings'
+                    login_href = '/keycloak-login?next={}'.format(login_next)
+            %>
+            <a class="login-link header-block" href="${login_href}">
                 <img class="user-icon" src="${static.url('funsite/images/icones/user.png')}" alt="User icon">
                 <span class="login-label color-fun-white heavy-weight">${_(u"Login")}</span>
             </a>
