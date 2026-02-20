@@ -22,25 +22,25 @@ from django.utils.translation import ugettext as _
         <div class="error-login-page"></div>
         <div class="form-group">
             <label  for="email">${_('E-mail')}</label>
-            <input class="form-control" id="email"  name="email" type="text" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" >
+            <input class="form-control" id="email" name="email" type="text" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" disabled="">
             <p class="help-block" >${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</p>
         </div>
         <div class="form-group">
             <label  for="password">${_('Password')}</label>
-            <input class="form-control  id="password" name="password" type="password" placeholder="${_(u"Password")}">
+            <input class="form-control" id="password" name="password" type="password" placeholder="${_(u"Password")}" disabled="">
             <div class="forgotten-password clickable"><a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" >${_(u"Forgot password?")}</a></div>
         </div>
         % if course_id and enrollment_action:
             <input type="hidden" name="enrollment_action" value="${enrollment_action | h}" />
             <input type="hidden" name="course_id" value="${course_id | h}" />
         % endif
-        <button name="submit" type="submit" id="submit" class="btn btn-lg btn-primary btn-block" aria-disabled="false">${_('Log In')}</button>
+        <button name="submit" type="submit" id="submit" class="btn btn-lg btn-primary btn-block" aria-disabled="false" disabled="">${_('Log In')}</button>
     </form>
 
     <br>
 
     <p class="text-center">${_("Don't have an account?")}</p>
-    <a href="/keycloak-register" class="btn btn-default btn-lg btn-block" role="button">
+    <a href="/keycloak-login" class="btn btn-default btn-lg btn-block" role="button">
         ${_("Sign up for FUN today!").format(platform_name=settings.PLATFORM_NAME)}
     </a>
 </div>
