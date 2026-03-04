@@ -1,196 +1,32 @@
 <%!
-from django.core.urlresolvers import reverse
-from django_countries import countries
 from django.utils.translation import ugettext as _
-
-from student.models import UserProfile
 %>
 
 <%inherit file="funsite/parts/simple-content.html" />
-<%namespace file='main.html' import="login_query"/>
 
 <%namespace name="breadcrumbs" file="/funsite/parts/breadcrumbs.html"/>
 
-<%block name="js_extra">
-    <script>
-     (function() {
-         $('.register-form').on('submit', function(event) {
-             event.preventDefault();
-             document.cookie = 'newsletter_subscribed=' + $('#newsletter').is(':checked');
-
-             $.ajax({url: '/create_account',
-                     method: 'POST',
-                     data: $(this).serialize(),
-                     success: onSuccess,
-                     error: onError});
-         });
-
-         function onSuccess(json) {
-            var queryParameters = new URLSearchParams(location.search);
-            var next = queryParameters.get('next');
-            if (next) {
-              queryParameters.delete('next');
-              location.href = location.origin + '/' + next + '?' + queryParameters.toString();
-            } else {
-              var url = json.redirect_url || "${reverse('dashboard')}";
-              location.href = url;
-            }
-         }
-
-         function onError(jqXHR) {
-             json = $.parseJSON(jqXHR.responseText);
-             $('.submission-error').addClass('alert-danger').show();
-             $('.submission-error').html(json.value);
-             $(".has-error").removeClass('has-error');
-             $("#field-" + json.field).addClass('has-error');
-             $('body').animate({scrollTop: 0}, 100);
-         }
-     })();
-    </script>
-</%block>
-
 <%block name="title">
-    ${_("Register for {platform_name}").format(platform_name=platform_name)}
+    ${_(u"Register for {platform_name}").format(platform_name=platform_name)}
 </%block>
 
 <%block name="page_content">
-    ${breadcrumbs.breadcrumbs(_("Register"))}
+    ${breadcrumbs.breadcrumbs(_(u"Register"))}
     <div class="register-page ">
         <div class="row">
             <div class="col-xs-36 text-center">
                 <h2 class="color-regal-blue">
-                    ${_("Sign up to {platform_name}").format(platform_name=platform_name)}
+                    ${_(u"Sign up to {platform_name}").format(platform_name=platform_name)}
                 </h2>
             </div>
         </div>
 
         <div class="row row-form">
             <div class="col-md-30 col-md-offset-3  col-lg-18 col-lg-offset-9" >
-                <div class="row" >
-                    <div class="col-xs-offset-2 col-xs-32 ">
-                        <div role="alert" style="display:none" class="alert submission-error" tabindex="-1"></div>
-                    </div>
-                </div>
-                <form role="form" class="register-form" method="post" action="/create_account" novalidate>
-                    <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
-                    <div class="form-group" id="field-email">
-                        <label class="required" for="email">${_('E-mail')}</label>
-                        <input class="form-control" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
-                    </div>
-                    <div class="form-group" id="field-name">
-                        <label class="required" for="name">${_('Full Name')}</label>
-                        <input class="form-control" id="name" type="text" name="name" value="${name}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="name-tip" />
-                        <span class="help-block" id="name-tip">${_("Needed for any certificates you may earn")}</span>
-                    </div>
-                    <div class="form-group" id="field-username">
-                        <label class="required" for="username">${_('Public Username')}</label>
-                        <input class="form-control" id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
-                        <span class="help-block" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
-                    </div>
-                    <div class="form-group" id="field-password">
-                        <label class="required" for="password">${_('Password')}</label>
-                        <input class="form-control" id="password" type="password" name="password" value="" required aria-required="true" />
-                    </div>
-
-                    <div class="form-group" id="field-country">
-                        <label class="required" for="country">${_("Country")}</label>
-                        <select class="form-control" id="country" name="country" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['country'] == 'required' else ''}>
-                            <option value="">--</option>
-                            %for code, country_name in countries:
-                                <option value="${code}">${ unicode(country_name) }</option>
-                            %endfor
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="field-city">
-                        <label class="required" for="city">${_('City')}</label>
-                        <input class="form-control" id="city" type="text" name="city" value="" placeholder="${_('example: New York')}" required aria-required="true"/>
-                    </div>
-                    <div class="row demograhic-form">
-                        <div class="col-sm-18">
-                            <div class="form-group" id="field-gender">
-                                <label for="gender">${_("Gender")}</label>
-                                <select class="form-control" id="gender" name="gender">
-                                    <option value="">--</option>
-                                    %for code, gender in UserProfile.GENDER_CHOICES:
-                                        <option value="${code}">${_(gender)}</option>
-                                    %endfor
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-18">
-                            <div class="form-group" id="field-yob">
-                                <label for="yob">${_("Year of Birth")}</label>
-                                <select class="form-control" id="yob" name="year_of_birth">
-                                    <option value="">--</option>
-                                    %for year in UserProfile.VALID_YEARS:
-                                        <option value="${year}">${year}</option>
-                                    %endfor
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group" id="field-education-level">
-                        <label for="education-level">${_("Highest Level of Education Completed")}</label>
-                        <select  class="form-control" id="education-level" name="level_of_education">
-                            <option value="">--</option>
-                            %for code, ed_level in UserProfile.LEVEL_OF_EDUCATION_CHOICES:
-                                <option value="${code}">${_(ed_level)}</option>
-                            %endfor
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="field-goals">
-                        <label for="goals">${_("Please share with us your reasons for registering with {platform_name}").format(platform_name=platform_name)}</label>
-                        <textarea class="form-control" id="goals" name="goals" value=""></textarea>
-                    </div>
-
-                    <div class="form-group" id="field-tos">
-                        <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
-                        <label class="required" for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
-                            link_start='<a href="{url}"  tabindex="-1">'.format(url=marketing_link('TOS')),
-                            link_end='</a>')}
-                        </label>
-                    </div>
-
-                    <div class="form-group" id="field-honorcode">
-                        <input id="honorcode-yes" type="checkbox" name="honor_code" value="true" required />
-                        <% honor_code_path = marketing_link('HONOR') %>
-                        <label class="required" for="honorcode-yes">${_('I agree to the {link_start}Honor Code{link_end}').format(
-                            link_start='<a href="{url}"  tabindex="-1">'.format(url=honor_code_path),
-                            link_end='</a>')}</label>
-                    </div>
-
-                    <div class="form-group" id="field-newsletter">
-                        <input id="newsletter" type="checkbox" />
-                        <label for="newsletter">${_("I agree to receive your emails on the offer of paid professional training FUN and confirm that I have read the <a href='https://www.fun-mooc.fr/en/cgu/cgu-newsletter-formapro/' tabindex='-1'>General Conditions of the Professional Training Newsletter</a>")}</label>
-                    </div>
-                    % if course_id and enrollment_action:
-                        <input type="hidden" name="enrollment_action" value="${enrollment_action | h}" />
-                        <input type="hidden" name="course_id" value="${course_id | h}" />
-                    % endif
-                    % if email_opt_in:
-                        <input type="hidden" name="email_opt_in" value="${email_opt_in | h }" />
-                    % endif
-                    <button name="submit" type="submit" id="submit" class="btn btn-primary btn-padded wide">${_('Create my {platform_name} account').format(platform_name=platform_name)}</button>
-                    <div class="row">
-                        <div class="col-xs-36">
-                            <label class="pull-right">
-                                <a  href="${reverse('register_info')}">
-                                    ${_("More about registration")}
-                                </a>
-                            </label>
-                    </div>
-                </form>
-
-                <div class="row small-margin">
-                    <div class="col-md-36">
-                        <h4 class="text-center">${_("Do you already have an account?")}</h4>
-                        <a href="/keycloak-login" class="btn btn-default btn-padded btn-block">${_("Sign in")}</a>
-                    </div>
-                </div>
+                <a href="/keycloak-register" class="btn btn-primary btn-lg btn-block" role="button">
+                    ${_(u'Register with SSO')}
+                </a>
             </div>
         </div>
+    </div>
 </%block>
-
