@@ -17,31 +17,8 @@ from django.utils.translation import ugettext as _
 
 <div class="login-row single-column">
     <h2 class="color-regal-blue">${_("Please log in to access your account and courses")}</h2>
-    <form role="form" class="login-form login-form-page" method="post" data-remote="true" action="/login_ajax" novalidate>
-        <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }"/></div>
-        <div class="error-login-page"></div>
-        <div class="form-group">
-            <label  for="email">${_('E-mail')}</label>
-            <input class="form-control" id="email" name="email" type="text" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" disabled>
-            <p class="help-block" >${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</p>
-        </div>
-        <div class="form-group">
-            <label  for="password">${_('Password')}</label>
-            <input class="form-control" id="password" name="password" type="password" placeholder="${_(u"Password")}" disabled>
-            <div class="forgotten-password clickable"><a data-keyboard="true" data-toggle="modal" data-target="#modal-forget-password" >${_(u"Forgot password?")}</a></div>
-        </div>
-        % if course_id and enrollment_action:
-            <input type="hidden" name="enrollment_action" value="${enrollment_action | h}" />
-            <input type="hidden" name="course_id" value="${course_id | h}" />
-        % endif
-        <button name="submit" type="submit" id="submit" class="btn btn-lg btn-primary btn-block" aria-disabled="false" disabled>${_('Log In')}</button>
-    </form>
-
-    <br>
-
-    <p class="text-center">${_("Don't have an account?")}</p>
-    <a href="/keycloak-login" class="btn btn-default btn-lg btn-block" role="button">
-        ${_('Log In')}
+    <a href="/keycloak-login" class="btn btn-primary btn-lg btn-block" role="button">
+        ${_('Login with SSO')}
     </a>
 </div>
 </%block>
