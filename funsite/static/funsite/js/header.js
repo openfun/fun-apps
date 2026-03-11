@@ -49,6 +49,9 @@ $(document).ready(function() {
 
     /* Dropdown menu */
     $('#top-menu .toggle-dropdown-menu').on('click', toggleDropdown);
+    $('#top-menu .fun-dropdown-menu').click(function(e) {
+        e.stopPropagation();
+    });
     $('body').click(function(e) {
         if ($('#top-menu .fun-dropdown-menu').is(":visible")) {
             $('#top-menu .fun-dropdown-menu').slideUp();
