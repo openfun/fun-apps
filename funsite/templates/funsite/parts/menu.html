@@ -73,11 +73,7 @@ from urllib import quote
                 <span class="vertical-arrow color-fun-white">▾</span>
             </a>
             <ul class="fun-dropdown-menu hide-on-escape-key" aria-label="More Options" role="menu">
-                <li>
-                    <a href="https://keycloak.preprod.fun-edu.fr/realms/FUN-Externe/account/" target="_blank" rel="noopener noreferrer">
-                        ${_("Account Settings")}
-                    </a>
-                </li>
+                <li><a href="${reverse('account_settings')}">${_("Account Settings")}</a></li>
                 <li><a href="${reverse('learner_profile', kwargs={'username': request.user.username})}">${_("My Profile")}</a></li>
                 <li><a href="${reverse('keycloak_logout')}">${_("Sign Out")}</a></li>
             </ul>
